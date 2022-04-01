@@ -1,4 +1,6 @@
-from unity import UNITY_VERSION, UNITY_PATH
+import typer
+from unity import UNITY_PATH, UNITY_VERSION
+
 
 # Opening Message
 def greeting():

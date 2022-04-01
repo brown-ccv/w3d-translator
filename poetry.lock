@@ -60,7 +60,7 @@ test = ["pytest-cov (>=2.7,<3.0)", "pytest (>=4.5,<5.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "a0821d4af71c857f2439df1062394e3430a81f8782717e15c5abd9c3b23f26f8"
+content-hash = "990c243b3c98afe8cefc045081d4063f9deb5c7c3537192e378f4a20f54ed9b1"
 
 [metadata.files]
 click = [

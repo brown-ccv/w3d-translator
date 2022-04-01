@@ -1,9 +1,9 @@
-import os
 import concurrent.futures
+import os
 import shutil
 import subprocess
-from glob import glob
 import xml.etree.ElementTree as ET
+from glob import glob
 
 # TODO: Run each project? How to test?
 
