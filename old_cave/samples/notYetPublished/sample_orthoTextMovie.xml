@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jaxfront version=2.1;time=2014-09-05 13:57:40.337;xui=jar:file:/Users/kongqi/CaveWriting/CWEditor.jar!/schema/caveschema.xui;xsd=caveschema.xsd?>
+<Story version="8" last_xpath="/Story/ObjectRoot/Object[17]
+">
+       <ObjectRoot>
+              <Object name="1">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>bitter bond</text>
+                            </Text>
+                     </Content>
+                     <LinkRoot>
+                            <Link>
+                                   <Enabled>true</Enabled>
+                                   <RemainEnabled>false</RemainEnabled>
+                                   <EnabledColor>255,255,255</EnabledColor>
+                                   <SelectedColor>255,255,255</SelectedColor>
+                                   <Actions>
+                                                 <TimerChange name="animate">
+                                                        <start_if_not_started/>
+                                                 </TimerChange>
+                                          <Clicks>
+                                                 <Any/>
+                                          </Clicks>
+                                   </Actions>
+                            </Link>
+                     </LinkRoot>
+              </Object>
+              <Object name="2">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>bitter bend</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="3">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>bitten bend</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="4">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dank bend</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="5">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dank coding</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="6">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dark coding</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="7">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dark ceding</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="8">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dank ceding</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="9">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dank boards</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="10">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dark boards</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="11">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dark hoards</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="12">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dank hoards</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="13">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dark hoards</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="14">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dark binders</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="15">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dark hinders</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="16">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-7.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="left" vert-align="center" font="AndaleMono.ttf" depth="100.0">
+                                   <text>  dark commerce</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="light">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>1.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 48.0, 48.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Light diffuse="true" specular="true" const_atten="1.0" lin_atten="0.0" quad_atten="0.0">
+                                   <Point/>
+                            </Light>
+                     </Content>
+              </Object>
+       </ObjectRoot>
+       <GroupRoot>
+              <Group name="group1">
+                            <Objects name="1"/>
+                            <Objects name="2"/>
+                            <Objects name="3"/>
+                            <Objects name="4"/>
+                            <Objects name="5"/>
+                            <Objects name="6"/>
+                            <Objects name="7"/>
+                            <Objects name="8"/>
+                            <Objects name="9"/>
+                            <Objects name="10"/>
+                            <Objects name="11"/>
+                            <Objects name="12"/>
+                            <Objects name="13"/>
+                            <Objects name="15"/>
+                            <Objects name="14"/>
+                            <Objects name="16"/>
+              </Group>
+       </GroupRoot>
+       <TimelineRoot>
+              <Timeline name="animate" start-immediately="false">
+                     <TimedActions seconds-time="0.0">
+                            <ObjectChange name="1">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <ObjectChange name="2">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="2">
+                            <ObjectChange name="2">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="2">
+                            <ObjectChange name="3">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="4">
+                            <ObjectChange name="3">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="4">
+                            <ObjectChange name="4">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="6">
+                            <ObjectChange name="4">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="6">
+                            <ObjectChange name="5">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="8">
+                            <ObjectChange name="5">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="8">
+                            <ObjectChange name="6">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="10">
+                            <ObjectChange name="6">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="10">
+                            <ObjectChange name="7">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="12">
+                            <ObjectChange name="7">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="12">
+                            <ObjectChange name="8">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="14">
+                            <ObjectChange name="8">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="14">
+                            <ObjectChange name="9">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="16">
+                            <ObjectChange name="9">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="16">
+                            <ObjectChange name="10">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="18">
+                            <ObjectChange name="10">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="18">
+                            <ObjectChange name="11">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20">
+                            <ObjectChange name="11">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20">
+                            <ObjectChange name="12">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="22">
+                            <ObjectChange name="12">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="22">
+                            <ObjectChange name="13">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="24">
+                            <ObjectChange name="13">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="24">
+                            <ObjectChange name="14">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="26">
+                            <ObjectChange name="14">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="26">
+                            <ObjectChange name="15">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="28">
+                            <ObjectChange name="15">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="28">
+                            <ObjectChange name="16">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="30">
+                            <ObjectChange name="16">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="30">
+                            <ObjectChange name="15">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="32">
+                            <ObjectChange name="15">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="32">
+                            <ObjectChange name="14">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="34">
+                            <ObjectChange name="14">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="34">
+                            <ObjectChange name="13">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="36">
+                            <ObjectChange name="13">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="36">
+                            <ObjectChange name="12">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="38">
+                            <ObjectChange name="12">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="38">
+                            <ObjectChange name="11">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="40">
+                            <ObjectChange name="11">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="40">
+                            <ObjectChange name="10">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="42">
+                            <ObjectChange name="10">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="42">
+                            <ObjectChange name="9">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="44">
+                            <ObjectChange name="9">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="44">
+                            <ObjectChange name="8">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="46">
+                            <ObjectChange name="8">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="46">
+                            <ObjectChange name="7">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="48">
+                            <ObjectChange name="7">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="48">
+                            <ObjectChange name="6">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="50">
+                            <ObjectChange name="6">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="50">
+                            <ObjectChange name="5">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="52">
+                            <ObjectChange name="5">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="52">
+                            <ObjectChange name="4">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="54">
+                            <ObjectChange name="4">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="54">
+                            <ObjectChange name="3">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="56">
+                            <ObjectChange name="3">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="56">
+                            <ObjectChange name="2">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="58">
+                            <ObjectChange name="2">
+                                   <Transition duration="0.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="58">
+                            <ObjectChange name="1">
+                                   <Transition duration="0.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="58">
+                            <TimerChange name="animate">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="zmove" start-immediately="false">
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="group1">
+                                   <Transition duration="10.0">
+                                          <MoveRel>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.0, -24.0)</Position>
+                                                 </Placement>
+                                          </MoveRel>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="10.0">
+                            <GroupRef name="group1">
+                                   <Transition duration="10.0">
+                                          <MoveRel>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.0, 24.0)</Position>
+                                                 </Placement>
+                                          </MoveRel>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="20.0">
+                            <TimerChange name="zmove">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+       </TimelineRoot>
+       <PlacementRoot>
+              <Placement name="Center">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, 0.0)</Position>
+                            <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0"/>
+              </Placement>
+              <Placement name="FrontWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, -4.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="LeftWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(-4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="RightWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="FloorWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, -4.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
+              </Placement>
+       </PlacementRoot>
+       <Global>
+              <CameraPos far-clip="100.0">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.5, 6.0)</Position>
+                     </Placement>
+              </CameraPos>
+              <CaveCameraPos far-clip="100.0">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.5, 6.0)</Position>
+                     </Placement>
+              </CaveCameraPos>
+              <Background color="0, 0, 0"/>
+              <WandNavigation allow-rotation="true" allow-movement="true"/>
+       </Global>
+</Story>

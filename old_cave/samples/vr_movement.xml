@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jaxfront version=2.1;time=2017-09-17 11:11:03.723;xui=jar:file:/Users/kongqi/W3D/CWEditor.jar!/schema/caveschema.xui;xsd=caveschema.xsd?>
+<Story version="8" last_xpath="/Story
+">
+       <ObjectRoot>
+              <Object name="floor">
+                     <Visible>true</Visible>
+                     <Color>200,0,180</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2.9585798816568047</Scale>
+                     <Placement>
+                            <RelativeTo>FloorWall</RelativeTo>
+                            <Position>(0.0, 0.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>FLOOR</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="right">
+                     <Visible>true</Visible>
+                     <Color>200,0,180</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2.9585798816568047</Scale>
+                     <Placement>
+                            <RelativeTo>RightWall</RelativeTo>
+                            <Position>(0.0, 4.0, -0.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>RIGHT</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="front">
+                     <Visible>true</Visible>
+                     <Color>200,0,180</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2.9585798816568047</Scale>
+                     <Placement>
+                            <RelativeTo>FrontWall</RelativeTo>
+                            <Position>(0.0, 4.0, -0.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>FRONT</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="left">
+                     <Visible>true</Visible>
+                     <Color>200,0,180</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2.9585798816568047</Scale>
+                     <Placement>
+                            <RelativeTo>LeftWall</RelativeTo>
+                            <Position>(0.0, 4.0, -0.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>LEFT</text>
+                            </Text>
+                     </Content>
+              </Object>
+       </ObjectRoot>
+       <TimelineRoot>
+              <Timeline name="absolute" start-immediately="true">
+                     <TimedActions seconds-time="1">
+                            <MoveCave duration="5">
+                                          <Absolute/>
+                                   <Placement>
+                                          <RelativeTo>Center</RelativeTo>
+                                          <Position>(0.0, 4.921259842519685, 0.0)</Position>
+                                                 <LookAt target="(13.123359580052492, 4.921259842519685, 0.0)" up="(0.0, 1.0, 0.0)"/>
+                                   </Placement>
+                            </MoveCave>
+                     </TimedActions>
+                     <TimedActions seconds-time="6">
+                            <TimerChange name="relative">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="relative" start-immediately="false">
+                     <TimedActions seconds-time="1">
+                            <MoveCave duration="5">
+                                          <Relative/>
+                                   <Placement>
+                                          <RelativeTo>Center</RelativeTo>
+                                          <Position>(0.0, 0.0, -16.404199475065617)</Position>
+                                   </Placement>
+                            </MoveCave>
+                     </TimedActions>
+                     <TimedActions seconds-time="6">
+                            <TimerChange name="absolute">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+       </TimelineRoot>
+       <PlacementRoot>
+              <Placement name="Center">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, -0.0)</Position>
+                            <Axis rotation="(0.0, 1.0, -0.0)" angle="0"/>
+              </Placement>
+              <Placement name="RightWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(4.0, 0.0, -0.0)</Position>
+                            <LookAt target="(0.0, 0.0, -0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="FrontWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, -4.0)</Position>
+                            <LookAt target="(0.0, 0.0, -0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="FloorWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, -4.0, -0.0)</Position>
+                            <LookAt target="(0.0, 0.0, -0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="LeftWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(-4.0, 0.0, -0.0)</Position>
+                            <LookAt target="(0.0, 0.0, -0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+       </PlacementRoot>
+       <Global>
+              <CameraPos far-clip="100">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -0.0)</Position>
+                     </Placement>
+              </CameraPos>
+              <CaveCameraPos far-clip="100">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.25, 8.0)</Position>
+                     </Placement>
+              </CaveCameraPos>
+              <Background color="0, 0, 0"/>
+              <WandNavigation allow-rotation="true" allow-movement="true"/>
+       </Global>
+</Story>

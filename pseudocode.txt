@@ -1,0 +1,26 @@
+TRANSLATE PROJECTS
+
+Open with a message, including path to Unity executable
+Get Settings
+    Multiple projects? Yes (each project is a subfolder of the provided folder) or No (provided folder is a project)
+    INPUT folder
+    OUTPUT folder (always make Unity project a subfolder of the provided folder w/ INPUT as its name)
+Begin translation
+    translate_project()
+    [If multiple, run each project (subfolder of INPUT) on a separate thread]
+
+translate_project(project, output)
+    Create output folder
+    Get xml files
+    For xml file (separate thread)
+        TRANSLATE A SINGLE PROJECT
+        Save as a list of .yaml files? 
+    Create a unity project at output
+    Copy files into unity/assets folder
+    Copy .yaml files into unity/scenes folder
+
+
+
+
+
+TRANSLATE A SINGLE PROJECT

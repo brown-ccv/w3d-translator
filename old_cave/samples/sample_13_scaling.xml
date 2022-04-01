@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jaxfront version=2.1;time=2017-09-17 11:09:01.499;xui=jar:file:/Users/kongqi/CWEditor.jar!/schema/caveschema.xui;xsd=caveschema.xsd?>
+<Story version="8" last_xpath="/Story/ObjectRoot/Object[3]
+">
+       <ObjectRoot>
+              <Object name="grid1">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.5, 0.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/grid.png"/>
+                     </Content>
+              </Object>
+              <Object name="text1">
+                     <Visible>true</Visible>
+                     <Color>255,0,0</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.5, 0.00001)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>E</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="text_depth">
+                     <Visible>true</Visible>
+                     <Color>255,0,0</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>1</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.5, 0.00001)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90.0"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="100.0">
+                                   <text>E</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="frt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, 4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>#</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="frb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, -4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>#</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="flb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, -4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>#</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="flt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, 4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>#</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rlt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, 4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>#</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rlb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, -4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>#</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rrb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, -4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>#</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rrt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, 4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>#</text>
+                            </Text>
+                     </Content>
+              </Object>
+       </ObjectRoot>
+       <PlacementRoot>
+              <Placement name="Center">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, 0.0)</Position>
+                            <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0"/>
+              </Placement>
+              <Placement name="FrontWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, -4.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="LeftWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(-4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="RightWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="FloorWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, -4.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
+              </Placement>
+       </PlacementRoot>
+       <Global>
+              <CameraPos far-clip="100.0">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.5, 5.0)</Position>
+                     </Placement>
+              </CameraPos>
+              <CaveCameraPos far-clip="100.0">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.5, 6.0)</Position>
+                     </Placement>
+              </CaveCameraPos>
+              <Background color="0, 0, 0"/>
+              <WandNavigation allow-rotation="true" allow-movement="true"/>
+       </Global>
+</Story>

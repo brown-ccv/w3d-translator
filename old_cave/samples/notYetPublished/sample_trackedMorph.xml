@@ -1,0 +1,2164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jaxfront version=2.1;time=2017-02-20 18:01:38.765;xui=jar:file:/Users/kongqi/CaveWriting/CWEditor.jar!/schema/caveschema.xui;xsd=caveschema.xsd?>
+<Story version="8" last_xpath="/Story/ObjectRoot/Object[33]
+">
+       <ObjectRoot>
+              <Object name="31">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -62.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph31.png"/>
+                     </Content>
+              </Object>
+              <Object name="30">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -60.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph30.png"/>
+                     </Content>
+              </Object>
+              <Object name="29">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -58.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph29.png"/>
+                     </Content>
+              </Object>
+              <Object name="28">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -56.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph28.png"/>
+                     </Content>
+              </Object>
+              <Object name="27">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -54.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph27.png"/>
+                     </Content>
+              </Object>
+              <Object name="26">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -52.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph26.png"/>
+                     </Content>
+              </Object>
+              <Object name="25">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -50.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph25.png"/>
+                     </Content>
+              </Object>
+              <Object name="24">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -48.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph24.png"/>
+                     </Content>
+              </Object>
+              <Object name="23">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -46.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph23.png"/>
+                     </Content>
+              </Object>
+              <Object name="22">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -44.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph22.png"/>
+                     </Content>
+              </Object>
+              <Object name="21">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -42.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph21.png"/>
+                     </Content>
+              </Object>
+              <Object name="20">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -40.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph20.png"/>
+                     </Content>
+              </Object>
+              <Object name="19">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -38.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph19.png"/>
+                     </Content>
+              </Object>
+              <Object name="18">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -36.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph18.png"/>
+                     </Content>
+              </Object>
+              <Object name="17">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -34.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph17.png"/>
+                     </Content>
+              </Object>
+              <Object name="16">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -32.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph16.png"/>
+                     </Content>
+              </Object>
+              <Object name="15">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -30.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph15.png"/>
+                     </Content>
+              </Object>
+              <Object name="14">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -28.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph14.png"/>
+                     </Content>
+              </Object>
+              <Object name="13">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -26.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph13.png"/>
+                     </Content>
+              </Object>
+              <Object name="12">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -24.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph12.png"/>
+                     </Content>
+              </Object>
+              <Object name="11">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -22.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph11.png"/>
+                     </Content>
+              </Object>
+              <Object name="10">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -20.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph10.png"/>
+                     </Content>
+              </Object>
+              <Object name="9">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -18.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph09.png"/>
+                     </Content>
+              </Object>
+              <Object name="8">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -16.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph08.png"/>
+                     </Content>
+              </Object>
+              <Object name="7">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -14.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph07.png"/>
+                     </Content>
+              </Object>
+              <Object name="6">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -12.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph06.png"/>
+                     </Content>
+              </Object>
+              <Object name="5">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -10.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph05.png"/>
+                     </Content>
+              </Object>
+              <Object name="4">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -8.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph04.png"/>
+                     </Content>
+              </Object>
+              <Object name="3">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -6.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph03.png"/>
+                     </Content>
+              </Object>
+              <Object name="2">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph02.png"/>
+                     </Content>
+              </Object>
+              <Object name="1">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, -2.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/characterMorphPngs/characterMorph01.png"/>
+                     </Content>
+              </Object>
+              <Object name="light">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>1.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 48.0, 48.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Light diffuse="true" specular="true" const_atten="1.0" lin_atten="0.0" quad_atten="0.0">
+                                   <Point/>
+                            </Light>
+                     </Content>
+              </Object>
+              <Object name="beginKey">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>6.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.0, 0.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>begin</text>
+                            </Text>
+                     </Content>
+                     <LinkRoot>
+                            <Link>
+                                   <Enabled>false</Enabled>
+                                   <RemainEnabled>false</RemainEnabled>
+                                   <EnabledColor>255,255,255</EnabledColor>
+                                   <SelectedColor>255,0,0</SelectedColor>
+                                   <Actions>
+                                                 <TimerChange name="fly">
+                                                        <start_if_not_started/>
+                                                 </TimerChange>
+                                          <Clicks>
+                                                 <Any/>
+                                          </Clicks>
+                                   </Actions>
+                            </Link>
+                     </LinkRoot>
+              </Object>
+       </ObjectRoot>
+       <GroupRoot>
+              <Group name="group1">
+                            <Objects name="1"/>
+                            <Objects name="2"/>
+                            <Objects name="3"/>
+                            <Objects name="4"/>
+                            <Objects name="5"/>
+                            <Objects name="6"/>
+                            <Objects name="7"/>
+                            <Objects name="8"/>
+                            <Objects name="9"/>
+                            <Objects name="10"/>
+                            <Objects name="11"/>
+                            <Objects name="12"/>
+                            <Objects name="13"/>
+                            <Objects name="15"/>
+                            <Objects name="14"/>
+                            <Objects name="16"/>
+              </Group>
+       </GroupRoot>
+       <TimelineRoot>
+              <Timeline name="animate" start-immediately="false">
+                     <TimedActions seconds-time="0.0">
+                            <ObjectChange name="1">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <ObjectChange name="2">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.06">
+                            <ObjectChange name="2">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.06">
+                            <ObjectChange name="3">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.12">
+                            <ObjectChange name="3">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.12">
+                            <ObjectChange name="4">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.18">
+                            <ObjectChange name="4">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.18">
+                            <ObjectChange name="5">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.24">
+                            <ObjectChange name="5">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.24">
+                            <ObjectChange name="6">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.30">
+                            <ObjectChange name="6">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.30">
+                            <ObjectChange name="7">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.36">
+                            <ObjectChange name="7">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.36">
+                            <ObjectChange name="8">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.42">
+                            <ObjectChange name="8">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.42">
+                            <ObjectChange name="9">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.48">
+                            <ObjectChange name="9">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.48">
+                            <ObjectChange name="10">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.54">
+                            <ObjectChange name="10">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.54">
+                            <ObjectChange name="11">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.6">
+                            <ObjectChange name="11">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.6">
+                            <ObjectChange name="12">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.66">
+                            <ObjectChange name="12">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.66">
+                            <ObjectChange name="13">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.72">
+                            <ObjectChange name="13">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.72">
+                            <ObjectChange name="14">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.78">
+                            <ObjectChange name="14">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.78">
+                            <ObjectChange name="15">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.84">
+                            <ObjectChange name="15">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.84">
+                            <ObjectChange name="16">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.90">
+                            <ObjectChange name="16">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.90">
+                            <ObjectChange name="1">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.91">
+                            <TimerChange name="animate">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="zmove" start-immediately="false">
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="group1">
+                                   <Transition duration="10.0">
+                                          <MoveRel>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.0, -24.0)</Position>
+                                                 </Placement>
+                                          </MoveRel>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="10.0">
+                            <GroupRef name="group1">
+                                   <Transition duration="10.0">
+                                          <MoveRel>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.0, 24.0)</Position>
+                                                 </Placement>
+                                          </MoveRel>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="20.0">
+                            <TimerChange name="zmove">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="fly" start-immediately="false">
+                     <TimedActions seconds-time="0.0">
+                            <MoveCave duration="15.0">
+                                          <Relative/>
+                                   <Placement>
+                                          <RelativeTo>Center</RelativeTo>
+                                          <Position>(0.0, 0.0, -120.0)</Position>
+                                   </Placement>
+                            </MoveCave>
+                     </TimedActions>
+              </Timeline>
+       </TimelineRoot>
+       <PlacementRoot>
+              <Placement name="Center">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, 0.0)</Position>
+                            <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0"/>
+              </Placement>
+              <Placement name="FrontWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, -4.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="LeftWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(-4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="RightWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="FloorWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, -4.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
+              </Placement>
+       </PlacementRoot>
+       <EventRoot>
+              <EventTrigger enabled="true" name="1fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, 3)" corner2="(4, 4, -3)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="1">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="1vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, 3)" corner2="(4, 4, -3)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="1">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="2fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, 1)" corner2="(4, 4, -5)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="2">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="2vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, 1)" corner2="(4, 4, -5)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="2">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="3fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -1)" corner2="(4, 4, -7)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="3">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="3vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -1)" corner2="(4, 4, -7)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="3">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="4fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -3)" corner2="(4, 4, -9)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="4">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="4vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -3)" corner2="(4, 4, -9)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="4">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="5fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -5)" corner2="(4, 4, -11)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="5">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="5vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -5)" corner2="(4, 4, -11)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="5">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="6fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -7)" corner2="(4, 4, -13)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="6">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="6vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -7)" corner2="(4, 4, -13)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="6">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="7fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -9)" corner2="(4, 4, -15)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="7">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="7vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -9)" corner2="(4, 4, -15)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="7">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="8fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -11)" corner2="(4, 4, -17)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="8">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="8vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -11)" corner2="(4, 4, -17)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="8">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="9fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -13)" corner2="(4, 4, -19)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="9">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="9vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -13)" corner2="(4, 4, -19)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="9">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="10fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -15)" corner2="(4, 4, -21)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="10">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="10vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -15)" corner2="(4, 4, -21)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="10">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="11fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -17)" corner2="(4, 4, -23)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="11">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="11vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -17)" corner2="(4, 4, -23)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="11">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="12fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -19)" corner2="(4, 4, -25)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="12">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="12vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -19)" corner2="(4, 4, -25)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="12">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="13fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -21)" corner2="(4, 4, -27)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="13">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="13vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -21)" corner2="(4, 4, -27)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="13">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="14fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -23)" corner2="(4, 4, -29)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="14">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="14vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -23)" corner2="(4, 4, -29)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="14">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="15fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -25)" corner2="(4, 4, -31)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="15">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="15vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -25)" corner2="(4, 4, -31)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="15">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="16fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -27)" corner2="(4, 4, -33)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="16">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="16vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -27)" corner2="(4, 4, -33)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="16">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="17fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -29)" corner2="(4, 4, -35)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="17">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="17vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -29)" corner2="(4, 4, -35)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="17">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="18fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -31)" corner2="(4, 4, -37)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="18">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="18vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -31)" corner2="(4, 4, -37)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="18">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="19fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -33)" corner2="(4, 4, -39)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="19">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="19vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -33)" corner2="(4, 4, -39)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="18">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="20fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -35)" corner2="(4, 4, -41)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="20">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="20vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -35)" corner2="(4, 4, -41)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="20">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="21fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -37)" corner2="(4, 4, -43)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="21">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="21vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -37)" corner2="(4, 4, -43)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="21">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="22fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -39)" corner2="(4, 4, -45)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="22">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="22vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -39)" corner2="(4, 4, -45)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="22">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="23fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -41)" corner2="(4, 4, -47)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="23">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="23vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -41)" corner2="(4, 4, -47)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="23">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="24fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -43)" corner2="(4, 4, -49)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="24">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="24vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -43)" corner2="(4, 4, -49)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="24">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="25fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -45)" corner2="(4, 4, -51)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="25">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="25vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -45)" corner2="(4, 4, -51)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="25">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="26fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -47)" corner2="(4, 4, -53)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="26">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="26vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -47)" corner2="(4, 4, -53)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="26">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="27fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -49)" corner2="(4, 4, -55)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="27">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="27vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -49)" corner2="(4, 4, -55)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="27">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="28fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -51)" corner2="(4, 4, -57)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="28">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="28vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -51)" corner2="(4, 4, -57)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="28">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="29fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -53)" corner2="(4, 4, -59)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="29">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="29vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -53)" corner2="(4, 4, -59)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="29">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="30fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -55)" corner2="(4, 4, -61)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="30">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="30vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -55)" corner2="(4, 4, -61)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="30">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="31fade" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -57)" corner2="(4, 4, -63)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="31">
+                                   <Transition duration="3">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="31vis" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="false" corner1="(-4, -4, -57)" corner2="(4, 4, -63)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <ObjectChange name="31">
+                                   <Transition duration="3">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </Actions>
+              </EventTrigger>
+       </EventRoot>
+       <Global>
+              <CameraPos far-clip="100.0">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.5, 6.0)</Position>
+                     </Placement>
+              </CameraPos>
+              <CaveCameraPos far-clip="100.0">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.5, 6.0)</Position>
+                     </Placement>
+              </CaveCameraPos>
+              <Background color="0,0,0"/>
+              <WandNavigation allow-rotation="true" allow-movement="true"/>
+       </Global>
+</Story>

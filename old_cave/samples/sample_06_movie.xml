@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jaxfront version=2.1;time=2017-09-17 10:57:21.973;xui=jar:file:/Users/kongqi/CaveWriting/CWEditor.jar!/schema/caveschema.xui;xsd=caveschema.xsd?>
+<Story version="8" last_xpath="/Story/ObjectRoot/Object[1]
+">
+       <ObjectRoot>
+              <Object name="1">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles01.png"/>
+                     </Content>
+                     <LinkRoot>
+                            <Link>
+                                   <Enabled>true</Enabled>
+                                   <RemainEnabled>false</RemainEnabled>
+                                   <EnabledColor>255,255,255</EnabledColor>
+                                   <SelectedColor>255,255,255</SelectedColor>
+                                   <Actions>
+                                                 <TimerChange name="animate">
+                                                        <start_if_not_started/>
+                                                 </TimerChange>
+                                          <Clicks>
+                                                 <Any/>
+                                          </Clicks>
+                                   </Actions>
+                                   <Actions>
+                                                 <TimerChange name="zmove">
+                                                        <start_if_not_started/>
+                                                 </TimerChange>
+                                          <Clicks>
+                                                 <Any/>
+                                          </Clicks>
+                                   </Actions>
+                            </Link>
+                     </LinkRoot>
+              </Object>
+              <Object name="2">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles02.png"/>
+                     </Content>
+              </Object>
+              <Object name="3">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles03.png"/>
+                     </Content>
+              </Object>
+              <Object name="4">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles04.png"/>
+                     </Content>
+              </Object>
+              <Object name="5">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles05.png"/>
+                     </Content>
+              </Object>
+              <Object name="6">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles06.png"/>
+                     </Content>
+              </Object>
+              <Object name="7">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles07.png"/>
+                     </Content>
+              </Object>
+              <Object name="8">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles08.png"/>
+                     </Content>
+              </Object>
+              <Object name="9">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles09.png"/>
+                     </Content>
+              </Object>
+              <Object name="10">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles10.png"/>
+                     </Content>
+              </Object>
+              <Object name="11">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles11.png"/>
+                     </Content>
+              </Object>
+              <Object name="12">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles12.png"/>
+                     </Content>
+              </Object>
+              <Object name="13">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles13.png"/>
+                     </Content>
+              </Object>
+              <Object name="14">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles14.png"/>
+                     </Content>
+              </Object>
+              <Object name="15">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles15.png"/>
+                     </Content>
+              </Object>
+              <Object name="16">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>true</AroundSelfAxis>
+                     <Scale>8.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./imagesequence/bubbles16.png"/>
+                     </Content>
+              </Object>
+              <Object name="light">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>1.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 48.0, 48.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Light diffuse="true" specular="true" const_atten="1.0" lin_atten="0.0" quad_atten="0.0">
+                                   <Point/>
+                            </Light>
+                     </Content>
+              </Object>
+              <Object name="frt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, 4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="frb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, -4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="flb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, -4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="flt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, 4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rlt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, 4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rlb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, -4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rrb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, -4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rrt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, 4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+       </ObjectRoot>
+       <GroupRoot>
+              <Group name="group1">
+                            <Objects name="1"/>
+                            <Objects name="2"/>
+                            <Objects name="3"/>
+                            <Objects name="4"/>
+                            <Objects name="5"/>
+                            <Objects name="6"/>
+                            <Objects name="7"/>
+                            <Objects name="8"/>
+                            <Objects name="9"/>
+                            <Objects name="10"/>
+                            <Objects name="11"/>
+                            <Objects name="12"/>
+                            <Objects name="13"/>
+                            <Objects name="15"/>
+                            <Objects name="14"/>
+                            <Objects name="16"/>
+              </Group>
+       </GroupRoot>
+       <TimelineRoot>
+              <Timeline name="animate" start-immediately="true">
+                     <TimedActions seconds-time="0.0">
+                            <ObjectChange name="1">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <ObjectChange name="2">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.06">
+                            <ObjectChange name="2">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.06">
+                            <ObjectChange name="3">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.12">
+                            <ObjectChange name="3">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.12">
+                            <ObjectChange name="4">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.18">
+                            <ObjectChange name="4">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.18">
+                            <ObjectChange name="5">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.24">
+                            <ObjectChange name="5">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.24">
+                            <ObjectChange name="6">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.30">
+                            <ObjectChange name="6">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.30">
+                            <ObjectChange name="7">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.36">
+                            <ObjectChange name="7">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.36">
+                            <ObjectChange name="8">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.42">
+                            <ObjectChange name="8">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.42">
+                            <ObjectChange name="9">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.48">
+                            <ObjectChange name="9">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.48">
+                            <ObjectChange name="10">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.54">
+                            <ObjectChange name="10">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.54">
+                            <ObjectChange name="11">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.6">
+                            <ObjectChange name="11">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.6">
+                            <ObjectChange name="12">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.66">
+                            <ObjectChange name="12">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.66">
+                            <ObjectChange name="13">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.72">
+                            <ObjectChange name="13">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.72">
+                            <ObjectChange name="14">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.78">
+                            <ObjectChange name="14">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.78">
+                            <ObjectChange name="15">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.84">
+                            <ObjectChange name="15">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.84">
+                            <ObjectChange name="16">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.90">
+                            <ObjectChange name="16">
+                                   <Transition duration="0.06">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.90">
+                            <ObjectChange name="1">
+                                   <Transition duration="0.06">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.91">
+                            <TimerChange name="animate">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="zmove" start-immediately="true">
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="group1">
+                                   <Transition duration="10.0">
+                                          <MoveRel>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.0, -24.0)</Position>
+                                                 </Placement>
+                                          </MoveRel>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="10.0">
+                            <GroupRef name="group1">
+                                   <Transition duration="10.0">
+                                          <MoveRel>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.0, 24.0)</Position>
+                                                 </Placement>
+                                          </MoveRel>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="20.0">
+                            <TimerChange name="zmove">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+       </TimelineRoot>
+       <PlacementRoot>
+              <Placement name="Center">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, 0.0)</Position>
+                            <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0"/>
+              </Placement>
+              <Placement name="FrontWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, -4.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="LeftWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(-4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="RightWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="FloorWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, -4.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
+              </Placement>
+       </PlacementRoot>
+       <Global>
+              <CameraPos far-clip="100.0">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.5, 6.0)</Position>
+                     </Placement>
+              </CameraPos>
+              <CaveCameraPos far-clip="100.0">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, 0.0)</Position>
+                     </Placement>
+              </CaveCameraPos>
+              <Background color="0, 0, 0"/>
+              <WandNavigation allow-rotation="true" allow-movement="true"/>
+       </Global>
+</Story>
