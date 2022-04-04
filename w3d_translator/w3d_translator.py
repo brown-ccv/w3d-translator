@@ -1,9 +1,10 @@
 import typer
 import glob
+import threading
 
 from unity import *
 from validate import *
-from xml_to_unity import *
+from xml_to_unity import projectThread
 
 # TODO: Configure typer character length (100)
 # TODO: Configure color/style for typer.echo
@@ -58,7 +59,6 @@ def main(
         
     else:
         name = os.path.basename(os.path.normpath(in_dir))
-        # translate_project(name, in_dir, out_dir)
         projectThread(0, name, in_dir, out_dir).start()
 
     # Print farewell and exit

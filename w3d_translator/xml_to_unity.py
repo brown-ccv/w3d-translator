@@ -1,10 +1,11 @@
-# Thread class
-# Lock thread whenever writing files/folders in 
+
+import os
 import threading
+from venv import create
 import typer
 from unity import *
 
-# EXAMPLE - Locking threads
+# EXAMPLE - Locking threads (Lock when Unity is creating the subfolder?)
 # Get lock to synchronize threads
 # self.lock.acquire()
 # Free lock to release next thread
@@ -23,9 +24,16 @@ class projectThread (threading.Thread):
     
     def run(self):
         typer.echo(f"Translating Project: {self.name}")
-        self.lock.acquire()
-        self.printSelf()
-        self.lock.release()
+
+        # Translate xml files
+
+
+        # Create Unity project and copy original files
+        unity_dir = os.path.join(self.out_dir, self.name)
+        create_project(unity_dir)
+        copy_files(self.project_dir, unity_dir)
+
+
 
     # Just for development
     def printSelf(self):
