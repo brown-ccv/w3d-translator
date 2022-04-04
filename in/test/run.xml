@@ -118,6 +118,12 @@
                             <Position>(0.0, 1.5, 6.0)</Position>
                      </Placement>
               </CameraPos>
+              <CaveCameraPos far-clip="100.0">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, 0.0)</Position>
+                     </Placement>
+              </CaveCameraPos>
               <Background color="0, 0, 0"/>
               <WandNavigation allow-rotation="false" allow-movement="true"/>
        </Global>

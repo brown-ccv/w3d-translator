@@ -50,26 +50,26 @@ from glob import glob
 #         except FileNotFoundError: print(f'The specified path is invalid: {path} \n')
 #         else: return path
 
-def translate_project(project, output):
-    output = os.path.join(output, os.path.basename(os.path.normpath(project)))
-    assets = os.path.join(output, "Assets", "xml")
-    xml = os.path.join(assets, "run.xml") # TODO: Translate all xml files in the folder
+# def translate_project(project, output):
+#     output = os.path.join(output, os.path.basename(os.path.normpath(project)))
+#     assets = os.path.join(output, "Assets", "xml")
+#     xml = os.path.join(assets, "run.xml") # TODO: Translate all xml files in the folder
 
-    # # # Create unity project
-    # # print(f'Creating new unity project at "{output}"')
-    # # subprocess.run(f'{UNITY} -createProject "{output}" -batchmode -quit')
+#     # Create unity project
+#     print(f'Creating new unity project at "{output}"')
+#     subprocess.run(f'{UNITY} -createProject "{output}" -batchmode -quit')
 
-    # # Copy files into unity project. Unity has issues with .mov files and they aren't used in run.xml
-    # print('Copying', project, 'to', assets)
-    # shutil.copytree(project, assets, ignore=shutil.ignore_patterns("mov_versions"))
+#     # Copy files into unity project. Unity has issues with .mov files and they aren't used in run.xml
+#     print('Copying', project, 'to', assets)
+#     shutil.copytree(project, assets, ignore=shutil.ignore_patterns("mov_versions"))
 
-    # Translate xml for use with the parser
-    translate_xml(xml)
+#     # Translate xml for use with the parser
+#     translate_xml(xml)
 
-    return
+#     return
 
 def translate_xml(file):
-    print("Translating XML at", file)
+    # print("Translating XML at", file)
     xml = ET.parse(file)
     root = xml.getroot()
 
