@@ -16,9 +16,10 @@ def main(
     force: bool = False,     # Overwrite contents out output?
 ):
     """
-    Translate W3D projects from INPUT to Unity projects in OUTPUT
+    Translate W3D projects from xml projects in INPUT to Unity projects in OUTPUT
     
-    If --multiple: individual projects are subfolders of INPUT and OUTPUT
+    --multiple: Translate multiple projects. Each one is a subfolder of INPUT and OUTPUT
+    --force: Overwrite OUTPUT folder if it exists
     """
 
     # Print greeting and validate parameters
