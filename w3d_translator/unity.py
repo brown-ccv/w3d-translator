@@ -23,9 +23,12 @@ def create_project(folder):
         # subprocess.run(f'{UNITY_PATH} -createProject "{folder}" -batchmode -quit')
     except FileNotFoundError:
         sys.exit(f"Error: OUTPUT directory is not valid")
-        
+
 # Copy project into [unity_dir]/Assets/originals
 def copy_files(project_dir, unity_dir):
     destination = os.path.join(unity_dir, "Assets", "originals")
-    shutil.copytree(project_dir, destination)
+    try:
+        shutil.copytree(project_dir, destination)
+    except Exception:
+        sys.exit(f"Error: Failed to copy files from {project_dir} to {destination}")
         

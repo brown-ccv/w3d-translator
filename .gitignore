@@ -60,5 +60,5 @@ crashlytics-build.properties
 
 # CUSTOM EXCLUDES
 .vscode/
-*node_modules
+__pycache__/
 out/
