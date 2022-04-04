@@ -16,12 +16,16 @@ def greeting():
 
 # Info message about translating multiple projects
 def info_multiple(in_dir, out_dir):
-    typer.echo(f"Translating multiple projects from '{in_dir}' to '{out_dir}'")
+    typer.echo("Translating multiple projects")
+    typer.echo(f"IN_DIR:\t\t {in_dir}")
+    typer.echo(f"OUT_DIR:\t {out_dir}")
     return
 
 # Info message about translating a single project
 def info_single(in_dir, out_dir):
-    typer.echo(f"Translating project from '{in_dir}' to '{out_dir}'")
+    typer.echo("Translating project")
+    typer.echo(f"IN_DIR:\t\t {in_dir}")
+    typer.echo(f"OUT_DIR:\t {out_dir}")
     return
 
 def main(         
@@ -45,16 +49,11 @@ def main(
     if multiple:
         info_multiple(in_dir, out_dir)
         
-        # Glob only collects folders 
-        projects = glob(f'{input}/*/')
-        typer.echo("Projects:", projects)
-        
-        # TODO: Add warning if individual files in "in_dir"
-
         # Validate input subfolders
+        # TODO: Add warning if individual files in "in_dir" (glob only collects folders)
+        # Separate validate_project and validate_input functions?
+        projects = glob(f'{input}/*/')
         [validate_input(project) for project in projects]
-
-        
     else:
         info_single(in_dir, out_dir)
         
