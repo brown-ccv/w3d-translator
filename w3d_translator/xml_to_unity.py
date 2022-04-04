@@ -25,39 +25,37 @@ class projectThread (threading.Thread):
     def run(self):
         typer.echo(f"Translating Project: {self.name}")
 
-        # Translate xml files
-
-
         # Create Unity project and copy original files
         unity_dir = os.path.join(self.out_dir, self.name)
+        self.lock.acquire() # TODO: not sure if lock is needed
         create_project(unity_dir)
         copy_files(self.project_dir, unity_dir)
+        self.lock.release()
 
+        # Translate xml files in individual threads
+        threads = []
+        xml_files = [file for file in os.listdir(self.project_dir) if file.endswith(".xml")]
+        for idx, file in enumerate(xml_files):
+            thread = fileThread(idx, file[:-4], file, unity_dir)
+            threads.append(thread)
+            thread.start()
 
-
-    # Just for development
-    def printSelf(self):
-        typer.echo(self)
-        typer.echo(self.id)
-        typer.echo(self.name)
-        typer.echo(self.project_dir)
-        typer.echo(self.out_dir)
-        typer.echo(self.lock)
-        typer.echo()
-
-
+        # Collect threads
+        [t.join() for t in threads]
 
         
 # Thread class for translating an XML file
 class fileThread (threading.Thread):
-    def __init__(self, id, name, file):
+    def __init__(self, id, name, file, unity_dir):
         threading.Thread.__init__(self)
         self.id = id
         self.name = name
         self.file = file
+        self.unity_dir = unity_dir
     
     def run(self):
-        print("Running fileThread")
+        typer.echo(f"Translating file: {self.name}")
 
-    def translate_file(self):
-        typer.echo(f"Translating file: {self.file}")
+        # Translate xml file into unity scene file
+
+        # Copy scene file to unity_dir
