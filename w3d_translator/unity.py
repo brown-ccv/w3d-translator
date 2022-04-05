@@ -41,11 +41,10 @@ def copy_files(project_dir, unity_dir):
 
 # Create Scenes folder and add empty scene
 def add_empty_scene(unity_dir):
-    destination = os.path.join(unity_dir, "Assets", "Scenes")
-    print(destination)
     try:
+        destination = os.path.join(unity_dir, "Assets", "Scenes")
         os.mkdir(destination)
-        shutil.copy2(EMPTY_SCENE, destination)
+        shutil.copy2(EMPTY_SCENE, os.path.join(destination, "Scene.unity"))
     except Exception:
         sys.exit(
             "Error: Unable to copy ExampleScene.unity" +
