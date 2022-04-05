@@ -15,8 +15,12 @@ def create_project(folder):
         subprocess.run(
             f'{UNITY_PATH} -createProject "{folder}" -batchmode -quit'
         )
-    except FileNotFoundError:
-        sys.exit("Error: OUTPUT directory is not valid")
+    except Exception:
+        sys.exit(
+            "Error: Failed to launch Unity. Is your version correct?" +
+            f"Unity version: {UNITY_VERSION}" +
+            f"Unity Path: {UNITY_PATH}"
+        )
 
 
 # Copy project into [unity_dir]/Assets/originals

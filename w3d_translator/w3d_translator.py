@@ -11,6 +11,11 @@ from xml_to_unity import projectThread
 # TODO: Configure color/style for typer.echo
 # TODO: Prompt user for confirmation if --force is used (?)
 
+# TEMPORARY OVERRIDES
+# Skip validate_output
+# Skip create_project and copy_files (xml_to_unity.py)
+# Only translate run.xml (xml_to_unity.py)
+
 
 # Opening message
 def greeting(in_dir, out_dir):
@@ -57,7 +62,7 @@ def main(
     # Print greeting and validate arguments
     greeting(in_dir, out_dir)
     validate_input(in_dir)
-    validate_output(out_dir, force)
+    # validate_output(out_dir, force) # TEMP - Don't delete file
 
     if multiple:
         # Each project is run on a different thread
