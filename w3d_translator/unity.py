@@ -7,13 +7,16 @@ import sys
 UNITY_VERSION = "2020.3.26f1"
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2020.3.26f1\\Editor\\Unity.exe" # noqa (ignore lint)
 
+# TODO: Install MiddleVR package
+# TODO: Working with VR and MiddleVR?
+
 
 # TODO Create a Unity project at the given folder
 # Create Unity project
 def create_project(folder):
     try:
         subprocess.run(
-            f'{UNITY_PATH} -createProject "{folder}" -batchmode -quit'
+            f'{UNITY_PATH} -batchmode -createProject "{folder}" -quit'
         )
     except Exception:
         sys.exit(

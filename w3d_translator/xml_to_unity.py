@@ -27,6 +27,7 @@ class projectThread (threading.Thread):
             self.lock.acquire()  # TODO: not sure if lock is needed
         # TEMP - project already created
         # create_project(unity_dir)
+        # TODO: What files does Unity add by default?
         # copy_files(self.project_dir, unity_dir)
         if self.lock:
             self.lock.release()  # TODO: not sure if lock is needed
