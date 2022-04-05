@@ -1,47 +1,14 @@
 import xml.etree.ElementTree as ET
 
+from classes.Color import Color
 from classes.WandNavigation import WandNavigation
-
-
-def parse_object(xml):
-    pass
-
-
-def parse_group(xml):
-    pass
-
-
-def parse_timeline(xml):
-    pass
-
-
-def parse_placement(xml):
-    pass
-
-
-def parse_sound(xml):
-    pass
-
-
-def parse_particle_action_list(xml):
-    pass
-
-
-def parse_camera_pos(xml):
-    pass
-
-
-def parse_cave_camera_pos(xml):
-    pass
-
-
-def parse_background(xml):
-    pass
 
 
 def xml_to_unity(file):
     xml = ET.parse(file)
     root = xml.getroot()
+
+    story = {}
 
     # object_root = {}
     for tag in root.find("ObjectRoot"):
@@ -70,7 +37,11 @@ def xml_to_unity(file):
 
     # Globals
     g = root.find("Global")
-    # camera_pos = parse_camera_pos(g.find("CameraPos"))
-    # cave_camera_pos = parse_cave_camera_pos(g.find("CaveCameraPos"))
-    # background = parse_background(g.find("Background"))
-    wand_navigation = WandNavigation(g.find("WandNavigation"))
+    # story["camera_pos"] = parse_camera_pos(g.find("CameraPos"))
+    # story["cave_camera_pos"] = parse_cave_camera_pos(g.find("CaveCameraPos"))
+    story["background"] = Color(g.find("Background"))
+    story["wand_navigation"] = WandNavigation(g.find("WandNavigation"))
+
+    print(story)
+
+    return story

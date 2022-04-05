@@ -8,67 +8,6 @@ from glob import glob
 
  #! COMMENTED OUT CODE HAS BEEN COMPLETED IN W3D_TRANSLATOR
 
-# UNITY = "C:\\Program Files\\Unity\\Hub\\Editor\\2020.3.26f1\\Editor\\Unity.exe"
-# DEFAULT_INPUT = "originals"
-# DEFAULT_OUTPUT = "unity_projects"
-
-########## FUNCTIONS ##########
-
-# Get yes or no user input
-# def get_yn(prompt):
-#     while True:
-#         yn = input(prompt + " [y/n]:\t").lower()
-
-#         if yn in ['y', 'yes']: return True
-#         elif yn in ['n', 'no']: return False
-#         else: print('Please enter y for yes or n for no\n')
-
-# Get path to the source project(s)
-# def get_source_directory(translateMultiple):
-#     while True:
-#         if translateMultiple: projectPath = input('Enter path to projects:\t')
-#         else: projectPath = input('Enter root folder of the project:\t')
-        
-#         # TODO: More path validation or just be able to open it?
-#         if os.path.isdir(projectPath): return projectPath
-#         else: print(projectPath + 'is not a valid path. Please enter a valid path\n')
-
-# def get_output_directory(defaultSettings):
-#     while True:
-#         path = DEFAULT_OUTPUT if defaultSettings else input('Enter output folder where unity project(s) will live:\t')
-#         try: os.mkdir(path)
-#         except FileExistsError:
-#             # Ensure user want's to delete contents of path 
-#             proceed = get_yn(f'Would you like to proceed? Contents of "{path}" will be deleted.')
-#             if(proceed): 
-#                 # TODO: rmtree() causes error on read-only files, which Unity creates. 
-#                 try: shutil.rmtree(path, ignore_errors=True)
-#                 except OSError as e: 
-#                     print (f'Error removing directory: "{e.filename}"')
-#                     print(e)
-#                 else: return path
-#             else: defaultSettings = False # Ensures input() will be called on next loop
-#         except FileNotFoundError: print(f'The specified path is invalid: {path} \n')
-#         else: return path
-
-# def translate_project(project, output):
-#     output = os.path.join(output, os.path.basename(os.path.normpath(project)))
-#     assets = os.path.join(output, "Assets", "xml")
-#     xml = os.path.join(assets, "run.xml") # TODO: Translate all xml files in the folder
-
-#     # Create unity project
-#     print(f'Creating new unity project at "{output}"')
-#     subprocess.run(f'{UNITY} -createProject "{output}" -batchmode -quit')
-
-#     # Copy files into unity project. Unity has issues with .mov files and they aren't used in run.xml
-#     print('Copying', project, 'to', assets)
-#     shutil.copytree(project, assets, ignore=shutil.ignore_patterns("mov_versions"))
-
-#     # Translate xml for use with the parser
-#     translate_xml(xml)
-
-#     return
-
 
 def translate_xml(file):
     # print("Translating XML at", file)
