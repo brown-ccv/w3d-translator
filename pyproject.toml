@@ -14,6 +14,8 @@ unityparser = "^2.1.5"
 [tool.poetry.scripts]
 w3d-translator ="w3d_translator.w3d_translator:main"
 
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

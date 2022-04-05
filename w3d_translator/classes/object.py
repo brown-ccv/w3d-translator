@@ -1,8 +1,8 @@
-from msilib.schema import Class
-
-
 class Object:
-    def __init__(self, name, visible, color, lighting, clickthrough, around_self_axis, scale, placement, content, links, text, sound):
+    def __init__(
+        self, name, visible, color, lighting, clickthrough, around_self_axis,
+        scale, placement, content, links, text, sound
+    ):
         self.name = name
         self.visible = visible
         self.color = color
@@ -15,4 +15,3 @@ class Object:
         self.links = links
         self.text = text
         self.sound = sound
-        

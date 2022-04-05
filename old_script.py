@@ -1,3 +1,4 @@
+# flake8: noqa
 import concurrent.futures
 import os
 import shutil
@@ -67,6 +68,7 @@ from glob import glob
 #     translate_xml(xml)
 
 #     return
+
 
 def translate_xml(file):
     # print("Translating XML at", file)
