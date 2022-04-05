@@ -3,10 +3,8 @@ import os
 import threading
 import typer
 
-# from w3d_translator.xml_to_unity import xml_to_unity
-from xml_to_unity import xml_to_unity
-
 # from unity import create_project, copy_files, add_empty_scene
+from xml_to_unity import xml_to_unity
 
 
 # Thread class for translating a single project

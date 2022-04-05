@@ -1,10 +1,10 @@
 import xml.etree.ElementTree as ET
 
+from classes.WandNavigation import WandNavigation
+
 
 def parse_object(xml):
-    # print(xml.tag + "\t" + xml.attrib["name"])
-    print(xml)
-    return xml
+    pass
 
 
 def parse_group(xml):
@@ -39,18 +39,13 @@ def parse_background(xml):
     pass
 
 
-def parse_wand_navigation(xml):
-    pass
-
-
 def xml_to_unity(file):
     xml = ET.parse(file)
     root = xml.getroot()
 
-    object_root = {}
+    # object_root = {}
     for tag in root.find("ObjectRoot"):
-        object = parse_object(tag)
-        object_root[object.attrib["name"]] = object
+        pass
 
     # group_root = {}
     for tag in root.find("GroupRoot"):
@@ -74,9 +69,8 @@ def xml_to_unity(file):
         pass
 
     # Globals
-    # g = root.find("Global")
+    g = root.find("Global")
     # camera_pos = parse_camera_pos(g.find("CameraPos"))
     # cave_camera_pos = parse_cave_camera_pos(g.find("CaveCameraPos"))
     # background = parse_background(g.find("Background"))
-    # wand_navigation = parse_wand_navigation(g.find("WandNavigation"))
-    return xml
+    wand_navigation = WandNavigation(g.find("WandNavigation"))

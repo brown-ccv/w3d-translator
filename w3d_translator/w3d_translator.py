@@ -4,7 +4,7 @@ import threading
 import os
 
 from unity import UNITY_VERSION, UNITY_PATH
-from validate import validate_input, validate_output
+from validate import validate_input  # , validate_output
 from threads import projectThread
 
 # TODO: Configure typer character length (100)
