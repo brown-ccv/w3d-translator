@@ -4,7 +4,7 @@ import threading
 import typer
 import xml.etree.ElementTree as ET
 
-# from unity import create_project, copy_files
+from unity import create_project, copy_files, add_empty_scene
 
 
 # Thread class for translating a single project
@@ -27,8 +27,8 @@ class projectThread (threading.Thread):
             self.lock.acquire()  # TODO: not sure if lock is needed
         # TEMP - project already created
         # create_project(unity_dir)
-        # TODO: What files does Unity add by default?
         # copy_files(self.project_dir, unity_dir)
+        add_empty_scene(unity_dir)
         if self.lock:
             self.lock.release()  # TODO: not sure if lock is needed
 
@@ -70,7 +70,7 @@ class fileThread (threading.Thread):
         for tag in root.find("ObjectRoot"):
             object = self.parse_object(tag)
             object_root[object.attrib["name"]] = object
-        print(object_root)
+        # print(object_root)
 
         # group_root = {}
         for tag in root.find("GroupRoot"):

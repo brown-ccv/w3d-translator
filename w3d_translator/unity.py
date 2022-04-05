@@ -7,6 +7,7 @@ import sys
 UNITY_VERSION = "2020.3.26f1"
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2020.3.26f1\\Editor\\Unity.exe" # noqa (ignore lint)
 
+EMPTY_SCENE = "../EmptyScene.unity"
 # TODO: Install MiddleVR package
 # TODO: Working with VR and MiddleVR?
 
@@ -35,4 +36,18 @@ def copy_files(project_dir, unity_dir):
         sys.exit(
             f"Error: Failed to copy files from {project_dir} " +
             f"to {destination}"
+        )
+
+
+# Create Scenes folder and add empty scene
+def add_empty_scene(unity_dir):
+    destination = os.path.join(unity_dir, "Assets", "Scenes")
+    print(destination)
+    try:
+        os.mkdir(destination)
+        shutil.copy2(EMPTY_SCENE, destination)
+    except Exception:
+        sys.exit(
+            "Error: Unable to copy ExampleScene.unity" +
+            f"({EMPTY_SCENE})"
         )
