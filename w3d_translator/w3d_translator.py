@@ -62,27 +62,24 @@ def main(
     # Print greeting and validate arguments
     greeting(in_dir, out_dir)
     validate_input(in_dir)
-    # validate_output(out_dir, force) # TEMP - Don't delete file
+    # validate_output(out_dir, force) # TEMP - Don't delete folder
 
+    # Each project is run on a different thread
+    lock = threading.Lock()
+    threads = []
     if multiple:
-        # Each project is run on a different thread
-        lock = threading.Lock()
-        threads = []
         for idx, project_dir in enumerate(glob.glob(f'{in_dir}/*/')):
             validate_input(project_dir)
 
-            thread = projectThread(
+            t = projectThread(
                 idx,
                 os.path.basename(os.path.normpath(project_dir)),
                 project_dir,
                 out_dir,
                 lock
             )
-            threads.append(thread)
-            thread.start()
-
-        # Collect threads
-        [t.join() for t in threads]
+            threads.append(t)
+            t.start()
     else:
         t = projectThread(
             0,
@@ -90,8 +87,11 @@ def main(
             in_dir,
             out_dir
         )
+        threads.append(t)
         t.start()
-        t.join()
+
+    # Collect threads
+    [t.join() for t in threads]
 
     # Print farewell and exit
     farewell()
