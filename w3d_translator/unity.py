@@ -21,21 +21,24 @@ def create_project(folder):
         )
     except Exception:
         sys.exit(
-            "Error: Failed to launch Unity. Is your version correct?"
-            + f"Unity version: {UNITY_VERSION}"
-            + f"Unity Path: {UNITY_PATH}"
+            "Error: Failed to launch Unity.\n"
+            + "This script only runs with "
+            + f"Unity version {UNITY_VERSION}.\n"
+            + f"The executable should be found at {UNITY_PATH}"
         )
 
 
 # Copy project into [unity_dir]/Assets/originals
+# TODO: Don't exit program. Bubble error up and only close that thread
 def copy_files(project_dir, unity_dir):
     destination = os.path.join(unity_dir, "Assets", "originals")
     try:
         shutil.copytree(project_dir, destination)
-    except Exception:
+    except Exception as e:
         sys.exit(
             f"Error: Failed to copy files from {project_dir} "
-            + f"to {destination}"
+            + f"to {destination}.\n"
+            + f"{e}"
         )
 
 

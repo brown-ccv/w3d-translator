@@ -5,6 +5,8 @@ import shutil
 
 # Ensure input folder is a directory
 # TODO: More dir validation?
+# TODO: Directory should include an XML file except for in_dir when --multiple
+# TODO: If --multiple don't exit, just cancel that specific thread
 def validate_input(dir):
     if not os.path.isdir(dir):
         sys.exit(f"Error: INPUT is not a directory: {dir}")
