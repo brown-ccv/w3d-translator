@@ -11,7 +11,7 @@ from threads import projectThread
 # TODO: Configure color/style for typer.echo
 # TODO: Prompt user for confirmation if --force is used (?)
 
-# TEMPORARY OVERRIDES
+# TEMPORARY OVERRIDES (for development)
 # Skip validate_output
 # Skip create_project and copy_files (xml_to_unity.py)
 # Only translate run.xml (xml_to_unity.py)

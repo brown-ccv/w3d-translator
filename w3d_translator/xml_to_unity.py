@@ -8,32 +8,31 @@ def xml_to_unity(file):
     xml = ET.parse(file)
     root = xml.getroot()
 
-    story = {}
+    story = {}  # TODO: Make story its own class
 
     # object_root = {}
     for tag in root.find("ObjectRoot"):
-        pass
+        pass  # Dict of objects by name
 
     # group_root = {}
     for tag in root.find("GroupRoot"):
-        # Each group is an array of names
-        pass
+        pass  # Dict of groups by name (group -> array of object names)
 
     # timeline_root = {}
     for tag in root.find("TimelineRoot"):
-        pass
+        pass  # Dict of Timeline by name
 
     # placement_root = {}
     for tag in root.find("PlacementRoot"):
-        pass
+        pass  # Dict of Placement by name
 
     # sound_root = {}
     for tag in root.find("SoundRoot"):
-        pass
+        pass  # Dict of Sound by name
 
     # particle_action_root = {}
     for tag in root.find("ParticleActionRoot"):
-        pass
+        pass  # Dict of ParticleActionList by name
 
     # Globals
     g = root.find("Global")
@@ -43,5 +42,4 @@ def xml_to_unity(file):
     story["wand_navigation"] = WandNavigation(g.find("WandNavigation"))
 
     print(story)
-
     return story

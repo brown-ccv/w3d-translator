@@ -6,7 +6,7 @@ class Object:
         self.xml = xml
         # self.name = name
         # self.visible = visible
-        # self.color = color  # TODO: Custom Unity color type
+        # self.color = color
         # self.lighting = lighting
         # self.clickthrough = clickthrough
         # self.around_self_axis = around_self_axis
