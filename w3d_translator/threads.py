@@ -51,7 +51,7 @@ class ProjectThread (threading.Thread):
 
 
 # Thread class for translating an XML file
-class fileThread (threading.Thread):
+class FileThread (threading.Thread):
     def __init__(self, id, name, file, unity_dir):
         threading.Thread.__init__(self)
         self.id = id
