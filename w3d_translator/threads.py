@@ -8,7 +8,7 @@ from xml_to_unity import xml_to_unity
 
 
 # Thread class for translating a single project
-class projectThread (threading.Thread):
+class ProjectThread (threading.Thread):
     def __init__(self, id, name, project_dir, out_dir, lock=None):
         threading.Thread.__init__(self)
         self.id = id
