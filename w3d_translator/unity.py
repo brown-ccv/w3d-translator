@@ -5,7 +5,7 @@ import sys
 
 # Path to Unity executable
 UNITY_VERSION = "2020.3.26f1"
-UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2020.3.26f1\\Editor\\Unity.exe" # noqa (ignore lint)
+UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2020.3.26f1\\Editor\\Unity.exe"  # noqa (ignore lint)
 
 EMPTY_SCENE = "../EmptyScene.unity"
 # TODO: Install MiddleVR package
@@ -21,9 +21,9 @@ def create_project(folder):
         )
     except Exception:
         sys.exit(
-            "Error: Failed to launch Unity. Is your version correct?" +
-            f"Unity version: {UNITY_VERSION}" +
-            f"Unity Path: {UNITY_PATH}"
+            "Error: Failed to launch Unity. Is your version correct?"
+            + f"Unity version: {UNITY_VERSION}"
+            + f"Unity Path: {UNITY_PATH}"
         )
 
 
@@ -34,8 +34,8 @@ def copy_files(project_dir, unity_dir):
         shutil.copytree(project_dir, destination)
     except Exception:
         sys.exit(
-            f"Error: Failed to copy files from {project_dir} " +
-            f"to {destination}"
+            f"Error: Failed to copy files from {project_dir} "
+            + f"to {destination}"
         )
 
 
@@ -47,6 +47,5 @@ def add_empty_scene(unity_dir):
         shutil.copy2(EMPTY_SCENE, os.path.join(destination, "Scene.unity"))
     except Exception:
         sys.exit(
-            "Error: Unable to copy ExampleScene.unity" +
-            f"({EMPTY_SCENE})"
+            "Error: Unable to copy ExampleScene.unity" + f"({EMPTY_SCENE})"
         )

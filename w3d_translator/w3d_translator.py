@@ -1,11 +1,10 @@
 import typer
 import glob
-import threading
 import os
 
 from unity import UNITY_VERSION, UNITY_PATH
 from validate import validate_input  # , validate_output
-from threads import projectThread
+from threads import ProjectThread
 
 # TODO: Configure typer character length (100)
 # TODO: Configure color/style for typer.echo
@@ -21,7 +20,7 @@ from threads import projectThread
 def greeting(in_dir, out_dir):
     typer.echo("W3D TRANSLATOR")
     typer.echo(f"Unity Version:\t {UNITY_VERSION}")
-    typer.echo(f'Please ensure Unity is installed at {UNITY_PATH}')
+    typer.echo(f"Please ensure Unity is installed at {UNITY_PATH}")
     typer.echo(f"IN_DIR:\t\t {in_dir}")
     typer.echo(f"OUT_DIR:\t {out_dir}")
     typer.echo()
@@ -35,21 +34,13 @@ def farewell():
 
 def main(
     in_dir: str = typer.Argument(
-        ...,
-        help="Input folder containing the xml project"
+        ..., help="Input folder containing the xml project"
     ),
     out_dir: str = typer.Argument(
-        ...,
-        help="Output folder for the translated project"
+        ..., help="Output folder for the translated project"
     ),
-    multiple: bool = typer.Option(
-        False,
-        help="Translate multiple projects?"
-    ),
-    force: bool = typer.Option(
-        False,
-        help="Overwite OUT_DIR?"
-    ),
+    multiple: bool = typer.Option(False, help="Translate multiple projects?"),
+    force: bool = typer.Option(False, help="Overwite OUT_DIR?"),
 ):
     """
     Translate W3D xml projects in IN_DIR to Unity projects in OUT_DIR
@@ -64,28 +55,23 @@ def main(
     validate_input(in_dir)
     # validate_output(out_dir, force) # TEMP - Don't delete folder
 
-    # Each project is run on a different thread
-    lock = threading.Lock()
+    # Each project runs on a different thread
     threads = []
     if multiple:
-        for idx, project_dir in enumerate(glob.glob(f'{in_dir}/*/')):
+        for idx, project_dir in enumerate(glob.glob(f"{in_dir}/*/")):
             validate_input(project_dir)
 
-            t = projectThread(
+            t = ProjectThread(
                 idx,
                 os.path.basename(os.path.normpath(project_dir)),
                 project_dir,
                 out_dir,
-                lock
             )
             threads.append(t)
             t.start()
     else:
-        t = projectThread(
-            0,
-            os.path.basename(os.path.normpath(in_dir)),
-            in_dir,
-            out_dir
+        t = ProjectThread(
+            0, os.path.basename(os.path.normpath(in_dir)), in_dir, out_dir
         )
         threads.append(t)
         t.start()
@@ -97,5 +83,5 @@ def main(
     farewell()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     typer.run(main)

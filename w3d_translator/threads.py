@@ -1,4 +1,3 @@
-
 import os
 import threading
 import typer
@@ -8,7 +7,7 @@ from xml_to_unity import xml_to_unity
 
 
 # Thread class for translating a single project
-class ProjectThread (threading.Thread):
+class ProjectThread(threading.Thread):
     def __init__(self, id, name, project_dir, out_dir, lock=None):
         threading.Thread.__init__(self)
         self.id = id
@@ -23,14 +22,10 @@ class ProjectThread (threading.Thread):
         # Create Unity project and copy original files
         unity_dir = os.path.join(self.out_dir, self.name)
 
-        if self.lock:
-            self.lock.acquire()  # TODO: not sure if lock is needed
         # TEMP - project already created
         # create_project(unity_dir)
         # copy_files(self.project_dir, unity_dir)
         # add_empty_scene(unity_dir)
-        if self.lock:
-            self.lock.release()  # TODO: not sure if lock is needed
 
         # Translate xml files in individual threads
         threads = []
@@ -42,7 +37,7 @@ class ProjectThread (threading.Thread):
             # if file.endswith(".xml")
         ]
         for idx, file in enumerate(xml_files):
-            thread = fileThread(idx, file[:-4], file, unity_dir)
+            thread = FileThread(idx, file[:-4], file, unity_dir)
             threads.append(thread)
             thread.start()
 
@@ -51,7 +46,7 @@ class ProjectThread (threading.Thread):
 
 
 # Thread class for translating an XML file
-class FileThread (threading.Thread):
+class FileThread(threading.Thread):
     def __init__(self, id, name, file, unity_dir):
         threading.Thread.__init__(self)
         self.id = id

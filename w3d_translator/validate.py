@@ -24,8 +24,8 @@ def validate_output(dir, force):
             os.mkdir(dir)
         else:
             sys.exit(
-                f"Error: OUTPUT directory already exists: {dir}.\n" +
-                "Use --force to overwrite"
+                f"Error: OUTPUT directory already exists: {dir}.\n"
+                + "Use --force to overwrite"
             )
     except FileNotFoundError:
         sys.exit("Error: OUTPUT directory is not valid")
