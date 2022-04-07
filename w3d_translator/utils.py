@@ -1,3 +1,6 @@
+from errors import TranslationError
+
+
 # Converts "True" and "False" to their boolean values
 def tf_to_bool(string: str) -> bool:
     if string.lower() == "true":
@@ -5,8 +8,9 @@ def tf_to_bool(string: str) -> bool:
     elif string.lower() == "false":
         return False
     else:
-        print("Error reading attribute", string)
-        return None
+        raise TranslationError(
+            f"Attribute {string} was neither 'true' or 'false'"
+        )
 
 
 # Converts an "[r], [g], [b]" string to an RGBA dict. Alpha is always 255
