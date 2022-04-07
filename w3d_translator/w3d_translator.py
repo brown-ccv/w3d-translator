@@ -5,11 +5,11 @@ import os
 from unity import (
     UNITY_VERSION,
     UNITY_PATH,
-    create_project,
-    copy_files,
-    add_empty_scene,
+    # create_project,
+    # copy_files,
+    # add_empty_scene,
 )
-from validate import validate_input, validate_output
+from validate import validate_project, validate_in_multiple, validate_out
 from xml_to_unity import xml_to_unity
 
 # TODO: Configure typer character length (100)
@@ -17,9 +17,18 @@ from xml_to_unity import xml_to_unity
 # TODO: Prompt user for confirmation if --force is used (?)
 
 # TEMPORARY OVERRIDES (for development)
-# Skip validate_output
+# Skip validate_out
 # Skip create_project and copy_files (xml_to_unity.py)
 # Only translate run.xml (xml_to_unity.py)
+
+""" TODO NEXT
+Don't sys.exit on error (validate.py and unity.py)
+    Current project should "fail" but execution continues
+    Print message with the error
+    Delete the project folder in out_dir
+    Send a different farewell message if any project fails
+Beginning translating Story (separate PRs)
+"""
 
 
 # Opening message
@@ -37,12 +46,12 @@ def translate_project(name: str, project_dir: str, out_dir: str):
     typer.echo(f"Translating Project: {name}")
 
     # Create Unity project and copy original files
-    unity_dir = os.path.join(out_dir, name)
+    # unity_dir = os.path.join(out_dir, name)
 
     # Create Unity project
-    create_project(unity_dir)
-    copy_files(project_dir, unity_dir)
-    add_empty_scene(unity_dir)
+    # create_project(unity_dir)
+    # copy_files(project_dir, unity_dir)
+    # add_empty_scene(unity_dir)
 
     # Translate xml files in individual threads
     xml_files = [
@@ -51,8 +60,8 @@ def translate_project(name: str, project_dir: str, out_dir: str):
         for file in os.listdir(project_dir)
         if file.endswith(".xml")
     ]
-    for idx, file in enumerate(xml_files):
-        typer.echo(f"Translating file: {name}")
+    for file in xml_files:
+        typer.echo(f"Translating file: {os.path.basename(file)}")
 
         # Will return a yaml file
         xml_to_unity(file)
@@ -82,21 +91,23 @@ def main(
     --force: Overwrite OUT_DIR folder if it exists
     """
 
-    # Print greeting and validate arguments
+    # Print greeting and create output folder
     greeting(in_dir, out_dir)
-    validate_input(in_dir)
-    validate_output(out_dir, force)
+    validate_out(out_dir, force)
 
-    # Each project runs on a different thread
+    # Translate project(s)
     if multiple:
+        validate_in_multiple(in_dir)
         for idx, project_dir in enumerate(glob.glob(f"{in_dir}/*/")):
-            validate_input(project_dir)
+            validate_project(project_dir)
+            # PARKING LOT: Optimize with async?
             translate_project(
                 os.path.basename(os.path.normpath(project_dir)),
                 project_dir,
                 out_dir,
             )
     else:
+        validate_project(in_dir)
         translate_project(
             os.path.basename(os.path.normpath(in_dir)), in_dir, out_dir
         )

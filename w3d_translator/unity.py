@@ -6,13 +6,11 @@ import sys
 # Path to Unity executable
 UNITY_VERSION = "2020.3.26f1"
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2020.3.26f1\\Editor\\Unity.exe"  # noqa (ignore lint)
-
 EMPTY_SCENE = "../EmptyScene.unity"
-# TODO: Install MiddleVR package
-# TODO: Working with VR and MiddleVR?
+
+# TODO: Don't sys.exit, return the error
 
 
-# TODO Create a Unity project at the given folder
 # Create Unity project
 def create_project(folder):
     try:
@@ -29,7 +27,6 @@ def create_project(folder):
 
 
 # Copy project into [unity_dir]/Assets/originals
-# TODO: Don't exit program. Bubble error up and only close that thread
 def copy_files(project_dir, unity_dir):
     destination = os.path.join(unity_dir, "Assets", "originals")
     try:

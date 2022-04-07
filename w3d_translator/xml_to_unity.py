@@ -10,6 +10,8 @@ def xml_to_unity(file):
 
     story = {}  # TODO: Make story its own class
 
+    # TODO: These will fail if the root tag isn't present
+
     # TODO: Build each <Object> in <ObjectRoot>
     # object_root = {}
     for tag in root.find("ObjectRoot"):
@@ -47,5 +49,5 @@ def xml_to_unity(file):
     story["background"] = Color(g.find("Background"))
     story["wand_navigation"] = WandNavigation(g.find("WandNavigation"))
 
-    print(story)
+    # print(story)
     return story
