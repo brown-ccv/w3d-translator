@@ -23,11 +23,6 @@ from xml_to_unity import xml_to_unity
 # Only translate run.xml (xml_to_unity.py)
 
 """ TODO NEXT
-Don't sys.exit on error (validate.py and unity.py)
-    Current project should "fail" but execution continues
-    Print message with the error
-    Delete the project folder in out_dir
-    Send a different farewell message if any project fails
 Beginning translating Story (separate PRs)
 """
 
