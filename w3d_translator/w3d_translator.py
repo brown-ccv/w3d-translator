@@ -5,9 +5,9 @@ import os
 from unity import (
     UNITY_VERSION,
     UNITY_PATH,
-    create_project,
-    copy_files,
-    add_empty_scene,
+    # create_project,
+    # copy_files,
+    # add_empty_scene,
 )
 from validate import validate_project, validate_in_multiple, validate_out
 from errors import ValidationError, TranslationError, UnityError
@@ -57,15 +57,13 @@ def farewell_error():
 # Translate a single project
 def translate_project(name: str, project_dir: str, out_dir: str):
     # Create Unity project and copy original files
-    unity_dir = os.path.join(out_dir, name)
-
-    # Create Unity project
-    try:
-        create_project(unity_dir)
-        copy_files(project_dir, unity_dir)
-        add_empty_scene(unity_dir)
-    except UnityError as e:
-        handleError(e)
+    # unity_dir = os.path.join(out_dir, name)
+    # try:
+    # create_project(unity_dir)
+    # copy_files(project_dir, unity_dir)
+    # add_empty_scene(unity_dir)
+    # except UnityError as e:
+    # handleError(e)
 
     # Translate xml files in individual threads
     xml_files = [
@@ -81,7 +79,7 @@ def translate_project(name: str, project_dir: str, out_dir: str):
 
 
 def handleError(e):
-    typer.echo(e.message, err=True)
+    typer.echo(e, err=True)
     global is_error
     is_error = True
 

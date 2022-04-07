@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 
 
-class Object:
+class GameObject:
     def __init__(self, xml: ET.Element):
         self.xml = xml
         # self.name = name
