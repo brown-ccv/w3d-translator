@@ -5,6 +5,7 @@ from errors import ValidationError
 
 
 def validate_project(dir: str):
+
     # Path must be a directory
     if not os.path.isdir(dir):
         raise ValidationError(f"Error: Project is not a directory: {dir}")

@@ -5,11 +5,12 @@ import os
 from unity import (
     UNITY_VERSION,
     UNITY_PATH,
-    # create_project,
-    # copy_files,
-    # add_empty_scene,
+    create_project,
+    copy_files,
+    add_empty_scene,
 )
 from validate import validate_project, validate_in_multiple, validate_out
+from errors import ValidationError, TranslationError, UnityError
 from xml_to_unity import xml_to_unity
 
 # TODO: Configure typer character length (100)
@@ -30,6 +31,8 @@ Don't sys.exit on error (validate.py and unity.py)
 Beginning translating Story (separate PRs)
 """
 
+is_error = False
+
 
 # Opening message
 def greeting(in_dir: str, out_dir: str):
@@ -41,21 +44,36 @@ def greeting(in_dir: str, out_dir: str):
     typer.echo()
 
 
+# Ending message
+def farewell():
+    typer.echo()
+    typer.echo("Translation Complete!")
+    exit(0)
+
+
+# Farewell message on error
+def farewell_error():
+    typer.echo()
+    typer.echo("Tranlsation Completed with errors")
+    typer.echo("Please see the command line for a list of issues")
+    exit(1)
+
+
 # Translate a single project
 def translate_project(name: str, project_dir: str, out_dir: str):
-    typer.echo(f"Translating Project: {name}")
-
     # Create Unity project and copy original files
-    # unity_dir = os.path.join(out_dir, name)
+    unity_dir = os.path.join(out_dir, name)
 
     # Create Unity project
-    # create_project(unity_dir)
-    # copy_files(project_dir, unity_dir)
-    # add_empty_scene(unity_dir)
+    try:
+        create_project(unity_dir)
+        copy_files(project_dir, unity_dir)
+        add_empty_scene(unity_dir)
+    except UnityError as e:
+        handleError(e)
 
     # Translate xml files in individual threads
     xml_files = [
-        # os.path.join(project_dir, "run.xml") # TEMP Just use run.xml
         os.path.join(project_dir, file)
         for file in os.listdir(project_dir)
         if file.endswith(".xml")
@@ -67,10 +85,10 @@ def translate_project(name: str, project_dir: str, out_dir: str):
         xml_to_unity(file)
 
 
-# Ending message
-def farewell():
-    typer.echo()
-    typer.echo("Translation Complete!")
+def handleError(e):
+    typer.echo(e.message, err=True)
+    global is_error
+    is_error = True
 
 
 def main(
@@ -93,27 +111,50 @@ def main(
 
     # Print greeting and create output folder
     greeting(in_dir, out_dir)
-    validate_out(out_dir, force)
+    try:
+        validate_out(out_dir, force)
+    except ValidationError as e:
+        # Exit with error
+        typer.echo(e.message, err=True)
+        exit(1)
 
     # Translate project(s)
     if multiple:
-        validate_in_multiple(in_dir)
+        try:
+            validate_in_multiple(in_dir)
+        except ValidationError as e:
+            handleError(e)
+
         for idx, project_dir in enumerate(glob.glob(f"{in_dir}/*/")):
-            validate_project(project_dir)
+            try:
+                validate_project(project_dir)
+            except ValidationError as e:
+                handleError(e)
+
             # PARKING LOT: Optimize with async?
-            translate_project(
-                os.path.basename(os.path.normpath(project_dir)),
-                project_dir,
-                out_dir,
-            )
+            try:
+                translate_project(
+                    os.path.basename(os.path.normpath(project_dir)),
+                    project_dir,
+                    out_dir,
+                )
+            except TranslationError as e:
+                handleError(e)
     else:
-        validate_project(in_dir)
-        translate_project(
-            os.path.basename(os.path.normpath(in_dir)), in_dir, out_dir
-        )
+        try:
+            validate_project(in_dir)
+        except ValidationError as e:
+            handleError(e)
+
+        try:
+            translate_project(
+                os.path.basename(os.path.normpath(in_dir)), in_dir, out_dir
+            )
+        except TranslationError as e:
+            handleError(e)
 
     # Print farewell and exit
-    farewell()
+    farewell_error() if is_error else farewell()
 
 
 if __name__ == "__main__":

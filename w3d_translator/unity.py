@@ -2,7 +2,7 @@ import subprocess
 import shutil
 import os
 
-from errors import UnityException
+from errors import UnityError
 
 
 UNITY_VERSION = "2020.3.26f1"
@@ -17,7 +17,7 @@ def create_project(folder):
             f'{UNITY_PATH} -batchmode -createProject "{folder}" -quit'
         )
     except Exception:
-        raise UnityException(
+        raise UnityError(
             "Error: Failed to launch Unity.\n"
             + "This script only runs with "
             + f"Unity version {UNITY_VERSION}.\n"
@@ -31,7 +31,7 @@ def copy_files(project_dir, unity_dir):
     try:
         shutil.copytree(project_dir, destination)
     except Exception as e:
-        raise UnityException(
+        raise UnityError(
             f"Error: Failed to copy files from {project_dir} "
             + f"to {destination}.\n"
             + f"{e}"
@@ -45,6 +45,6 @@ def add_empty_scene(unity_dir):
         os.mkdir(destination)
         shutil.copy2(EMPTY_SCENE, os.path.join(destination, "Scene.unity"))
     except Exception:
-        raise UnityException(
+        raise UnityError(
             "Error: Unable to copy ExampleScene.unity" + f"({EMPTY_SCENE})"
         )
