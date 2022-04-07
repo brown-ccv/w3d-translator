@@ -2,15 +2,12 @@ import subprocess
 import shutil
 import os
 
+from errors import UnityException
+
 
 UNITY_VERSION = "2020.3.26f1"
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2020.3.26f1\\Editor\\Unity.exe"  # noqa (ignore lint)
 EMPTY_SCENE = "../EmptyScene.unity"
-
-
-class UnityException(Exception):
-    def __init__(self, message):
-        self.message = message
 
 
 # Create Unity project
