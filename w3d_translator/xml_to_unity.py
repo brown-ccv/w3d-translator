@@ -12,32 +12,32 @@ def xml_to_unity(file):
 
     # TODO: Build each <Object> in <ObjectRoot>
     # object_root = {}
-    for tag in (root.find("ObjectRoot") or []):
+    for tag in root.find("ObjectRoot") or []:
         pass  # Dict of objects by name
 
     # TODO: Build each <Group> in <GroupRoot>
     # group_root = {}
-    for tag in (root.find("GroupRoot") or []):
+    for tag in root.find("GroupRoot") or []:
         pass  # Dict of groups by name (group -> array of object names)
 
     # TODO: Build each <Timeline> in <TimelineRoot>
     # timeline_root = {}
-    for tag in (root.find("TimelineRoot") or []):
+    for tag in root.find("TimelineRoot") or []:
         pass  # Dict of Timeline by name
 
     # TODO: Build each <Placement> in <PlacementRoot>
     # placement_root = {}
-    for tag in (root.find("PlacementRoot") or []):
+    for tag in root.find("PlacementRoot") or []:
         pass  # Dict of Placement by name
 
     # TODO: Build each <Sound> in <SoundRoot>
     # sound_root = {}
-    for tag in (root.find("SoundRoot") or []):
+    for tag in root.find("SoundRoot") or []:
         pass  # Dict of Sound by name
 
     # TODO: Build each <ParticleActionList> in <ParticleActionRoot>
     # particle_action_root = {}
-    for tag in (root.find("ParticleActionRoot") or []):
+    for tag in root.find("ParticleActionRoot") or []:
         pass  # Dict of ParticleActionList by name
 
     # Globals

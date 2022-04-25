@@ -58,7 +58,7 @@ def farewell_error():
 
 # Translate a single project
 def translate_project(name: str, project_dir: str, out_dir: str):
-    #! Don't create a new Unity project while in development
+    # ! Don't create a new Unity project while in development
     # Create Unity project and copy original files
     # unity_dir = os.path.join(out_dir, name)
     # try:
@@ -88,12 +88,8 @@ def handleError(e):
 
 
 def main(
-    in_dir: str = typer.Argument(
-        ..., help="Input folder containing the xml project"
-    ),
-    out_dir: str = typer.Argument(
-        ..., help="Output folder for the translated project"
-    ),
+    in_dir: str = typer.Argument(..., help="Input folder containing the xml project"),
+    out_dir: str = typer.Argument(..., help="Output folder for the translated project"),
     multiple: bool = typer.Option(False, help="Translate multiple projects?"),
     force: bool = typer.Option(False, help="Overwite OUT_DIR?"),
 ):

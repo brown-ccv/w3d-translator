@@ -14,9 +14,7 @@ EMPTY_SCENE = "../EmptyScene.unity"
 # Create Unity project
 def create_project(folder):
     try:
-        subprocess.run(
-            f'{UNITY_PATH} -batchmode -createProject "{folder}" -quit'
-        )
+        subprocess.run(f'{UNITY_PATH} -batchmode -createProject "{folder}" -quit')
     except Exception:
         raise UnityError(
             "Error: Failed to launch Unity.\n"

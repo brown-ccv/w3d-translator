@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 
 from classes.Color import Color
 
+
 @dataclass
 class GameObject:
     xml: ET.Element
@@ -29,7 +30,7 @@ class GameObject:
         # self.clickthrough = clickthrough
         # self.around_self_axis = around_self_axis
         # self.scale = scale
-        # self.placement = placement 
+        # self.placement = placement
         # self.content = content
         # self.links = links
         # self.text = text

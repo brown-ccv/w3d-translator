@@ -8,9 +8,7 @@ def tf_to_bool(string: str) -> bool:
     elif string.lower() == "false":
         return False
     else:
-        raise TranslationError(
-            f"Attribute {string} was neither 'true' or 'false'"
-        )
+        raise TranslationError(f"Attribute {string} was neither 'true' or 'false'")
 
 
 # Converts an "[r], [g], [b]" string to an RGBA dict. Alpha is always 255

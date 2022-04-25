@@ -11,13 +11,9 @@ def validate_project(dir: str):
         raise ValidationError(f"Error: Project is not a directory: {dir}")
 
     # Project must contain an xml file
-    xml_files = list(
-        filter(lambda file: file.endswith(".xml"), os.listdir(dir))
-    )
+    xml_files = list(filter(lambda file: file.endswith(".xml"), os.listdir(dir)))
     if not len(xml_files):
-        raise ValidationError(
-            f"Error: Project does not contain an xml file: {dir}"
-        )
+        raise ValidationError(f"Error: Project does not contain an xml file: {dir}")
 
 
 def validate_in_multiple(dir: str):
@@ -33,9 +29,7 @@ def validate_in_multiple(dir: str):
         )
     )
     if len(non_dirs):
-        raise ValidationError(
-            f"Error: IN_DIR should not contain any files: {non_dirs}"
-        )
+        raise ValidationError(f"Error: IN_DIR should not contain any files: {non_dirs}")
 
 
 # Creates output directory, if valid
