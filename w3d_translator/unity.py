@@ -6,6 +6,7 @@ from errors import UnityError
 
 
 UNITY_VERSION = "2020.3.26f1"
+# TODO: Upgrade to Unity 2021
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2020.3.26f1\\Editor\\Unity.exe"  # noqa (ignore lint)
 EMPTY_SCENE = "../EmptyScene.unity"
 

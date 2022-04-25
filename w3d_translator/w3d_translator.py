@@ -10,7 +10,7 @@ from unity import (
     # add_empty_scene,
 )
 from validate import validate_project, validate_in_multiple, validate_out
-from errors import ValidationError, TranslationError, UnityError
+from errors import ValidationError, TranslationError  # , UnityError
 from xml_to_unity import xml_to_unity
 
 # TODO: Configure typer character length (100)
@@ -23,6 +23,8 @@ from xml_to_unity import xml_to_unity
 # Only translate run.xml (xml_to_unity.py)
 
 """ TODO NEXT
+Use pathlib instead of os
+Abstract UnityClass with to_yaml method
 Beginning translating Story (separate PRs)
 """
 
@@ -56,6 +58,7 @@ def farewell_error():
 
 # Translate a single project
 def translate_project(name: str, project_dir: str, out_dir: str):
+    #! Don't create a new Unity project while in development
     # Create Unity project and copy original files
     # unity_dir = os.path.join(out_dir, name)
     # try:
