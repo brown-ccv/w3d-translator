@@ -44,10 +44,10 @@ def xml_to_unity(file):
 
     # Globals
     g = root.find("Global")
+    # TODO: Build <CameraPos> and <CaveCameraPos>
     # story["camera_pos"] = parse_camera_pos(g.find("CameraPos"))
     # story["cave_camera_pos"] = parse_cave_camera_pos(g.find("CaveCameraPos"))
     story["background"] = Color(g.find("Background"))
     story["wand_navigation"] = WandNavigation(g.find("WandNavigation"))
 
-    # print(story)
     return story

@@ -1,11 +1,12 @@
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 
-from classes.Color import Color
+from .XmlDataClass import XmlDataClass
+from classes import Color
 
 
 @dataclass
-class GameObject:
+class GameObject(XmlDataClass):
     xml: ET.Element
     name: str = field(init=False)
     visible: bool = field(init=False)
@@ -22,4 +23,7 @@ class GameObject:
 
     # TODO: Use self.xml.find to get each sub-object
     def __post_init__(self):
+        pass
+
+    def to_yaml():
         pass

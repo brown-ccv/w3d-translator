@@ -1,11 +1,12 @@
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 
+from .XmlDataClass import XmlDataClass
 from utils import str_to_rgba
 
 
 @dataclass
-class Color:
+class Color(XmlDataClass):
     xml: ET.Element
     rgba: dict = field(init=False)
     r: float = field(init=False)
@@ -19,3 +20,6 @@ class Color:
         self.g = self.rgba["g"]
         self.b = self.rgba["b"]
         self.a = self.rgba["a"]
+
+    def to_yaml():
+        pass

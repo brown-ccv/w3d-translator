@@ -12,7 +12,7 @@ from unity import (
     # add_empty_scene,
 )
 from validate import validate_project, validate_in_multiple, validate_out
-from errors import ValidationError, TranslationError  # , UnityError
+from errors import ValidationError, TranslationError, UnityError
 from xml_to_unity import xml_to_unity
 
 # TODO: Configure typer character length (100)
@@ -56,13 +56,14 @@ def translate_project(project_dir: str, out_dir: str):
     # Create Unity project and copy original files
     # unity_dir = Path(out_dir, Path(project_dir).name)
     # try:
-    # create_project(unity_dir)
-    # copy_files(project_dir, unity_dir)
-    # add_empty_scene(unity_dir)
+    #     create_project(unity_dir)
+    #     copy_files(project_dir, unity_dir)
+    #     add_empty_scene(unity_dir)
     # except UnityError as e:
-    # typer.echo(e, err=True)
+    #     # Skip translation, error handled in main
+    #     raise e
 
-    # Translate xml files in individual threads
+    # Translate .xml files to .unity files
     xml_files = [
         p
         for p in Path(project_dir).iterdir()
@@ -71,8 +72,7 @@ def translate_project(project_dir: str, out_dir: str):
     for file in xml_files:
         typer.echo(f"Translating file: {file.name}")
 
-        # Will return a yaml file
-        xml_to_unity(file)
+        xml_to_unity(file)  # Will return a yaml file
 
 
 def main(
@@ -113,26 +113,17 @@ def main(
         for project_dir in projects:
             try:
                 validate_project(project_dir)
-            except ValidationError as e:
-                typer.echo(e, err=True)
-
-            # PARKING LOT: Optimize with async?
-            try:
                 translate_project(
                     project_dir,
                     out_dir,
                 )
-            except TranslationError as e:
+            except (ValidationError, TranslationError, UnityError) as e:
                 typer.echo(e, err=True)
     else:
         try:
             validate_project(in_dir)
-        except ValidationError as e:
-            typer.echo(e, err=True)
-
-        try:
             translate_project(in_dir, out_dir)
-        except TranslationError as e:
+        except (ValidationError, TranslationError, UnityError) as e:
             typer.echo(e, err=True)
 
     # Print farewell and exit
