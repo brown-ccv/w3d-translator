@@ -1,6 +1,8 @@
 import typer
-import glob
-import os
+from pathlib import Path
+
+# TODO: Always use Path not PurePath
+# TODO: Convert from string to path sooner
 
 from unity import (
     UNITY_VERSION,
@@ -21,14 +23,6 @@ from xml_to_unity import xml_to_unity
 # Skip validate_out
 # Skip create_project and copy_files (xml_to_unity.py)
 # Only translate run.xml (xml_to_unity.py)
-
-""" TODO NEXT
-Use pathlib instead of os
-Abstract UnityClass with to_yaml method
-Beginning translating Story (separate PRs)
-"""
-
-is_error = False
 
 
 # Opening message
@@ -57,39 +51,37 @@ def farewell_error():
 
 
 # Translate a single project
-def translate_project(name: str, project_dir: str, out_dir: str):
+def translate_project(project_dir: str, out_dir: str):
     # ! Don't create a new Unity project while in development
     # Create Unity project and copy original files
-    # unity_dir = os.path.join(out_dir, name)
+    # unity_dir = Path(out_dir, Path(project_dir).name)
     # try:
     # create_project(unity_dir)
     # copy_files(project_dir, unity_dir)
     # add_empty_scene(unity_dir)
     # except UnityError as e:
-    # handleError(e)
+    # typer.echo(e, err=True)
 
     # Translate xml files in individual threads
     xml_files = [
-        os.path.join(project_dir, file)
-        for file in os.listdir(project_dir)
-        if file.endswith(".xml")
+        p
+        for p in Path(project_dir).iterdir()
+        if (p.is_file() and p.suffix == ".xml")
     ]
     for file in xml_files:
-        typer.echo(f"Translating file: {os.path.basename(file)}")
+        typer.echo(f"Translating file: {file.name}")
 
         # Will return a yaml file
         xml_to_unity(file)
 
 
-def handleError(e):
-    typer.echo(e, err=True)
-    global is_error
-    is_error = True
-
-
 def main(
-    in_dir: str = typer.Argument(..., help="Input folder containing the xml project"),
-    out_dir: str = typer.Argument(..., help="Output folder for the translated project"),
+    in_dir: str = typer.Argument(
+        ..., help="Input folder containing the xml project"
+    ),
+    out_dir: str = typer.Argument(
+        ..., help="Output folder for the translated project"
+    ),
     multiple: bool = typer.Option(False, help="Translate multiple projects?"),
     force: bool = typer.Option(False, help="Overwite OUT_DIR?"),
 ):
@@ -115,38 +107,36 @@ def main(
         try:
             validate_in_multiple(in_dir)
         except ValidationError as e:
-            handleError(e)
+            typer.echo(e, err=True)
 
-        for idx, project_dir in enumerate(glob.glob(f"{in_dir}/*/")):
+        projects = [p for p in Path(in_dir).iterdir() if p.is_dir()]
+        for project_dir in projects:
             try:
                 validate_project(project_dir)
             except ValidationError as e:
-                handleError(e)
+                typer.echo(e, err=True)
 
             # PARKING LOT: Optimize with async?
             try:
                 translate_project(
-                    os.path.basename(os.path.normpath(project_dir)),
                     project_dir,
                     out_dir,
                 )
             except TranslationError as e:
-                handleError(e)
+                typer.echo(e, err=True)
     else:
         try:
             validate_project(in_dir)
         except ValidationError as e:
-            handleError(e)
+            typer.echo(e, err=True)
 
         try:
-            translate_project(
-                os.path.basename(os.path.normpath(in_dir)), in_dir, out_dir
-            )
+            translate_project(in_dir, out_dir)
         except TranslationError as e:
-            handleError(e)
+            typer.echo(e, err=True)
 
     # Print farewell and exit
-    farewell_error() if is_error else farewell()
+    farewell()
 
 
 if __name__ == "__main__":

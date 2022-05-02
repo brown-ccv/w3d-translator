@@ -1,6 +1,6 @@
 import subprocess
 import shutil
-import os
+from pathlib import Path
 
 from errors import UnityError
 
@@ -14,7 +14,9 @@ EMPTY_SCENE = "../EmptyScene.unity"
 # Create Unity project
 def create_project(folder):
     try:
-        subprocess.run(f'{UNITY_PATH} -batchmode -createProject "{folder}" -quit')
+        subprocess.run(
+            f'{UNITY_PATH} -batchmode -createProject "{folder}" -quit'
+        )
     except Exception:
         raise UnityError(
             "Error: Failed to launch Unity.\n"
@@ -26,7 +28,7 @@ def create_project(folder):
 
 # Copy project into [unity_dir]/Assets/originals
 def copy_files(project_dir, unity_dir):
-    destination = os.path.join(unity_dir, "Assets", "originals")
+    destination = Path(unity_dir, "Assets", "originals")
     try:
         shutil.copytree(project_dir, destination)
     except Exception as e:
@@ -40,9 +42,9 @@ def copy_files(project_dir, unity_dir):
 # Create Scenes folder and add empty scene
 def add_empty_scene(unity_dir):
     try:
-        destination = os.path.join(unity_dir, "Assets", "Scenes")
-        os.mkdir(destination)
-        shutil.copy2(EMPTY_SCENE, os.path.join(destination, "Scene.unity"))
+        destination = Path(unity_dir, "Assets", "Scenes")
+        destination.mkdir()
+        shutil.copy2(EMPTY_SCENE, Path(destination, "Scene.unity"))
     except Exception:
         raise UnityError(
             "Error: Unable to copy ExampleScene.unity" + f"({EMPTY_SCENE})"

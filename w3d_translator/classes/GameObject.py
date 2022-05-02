@@ -23,15 +23,3 @@ class GameObject:
     # TODO: Use self.xml.find to get each sub-object
     def __post_init__(self):
         pass
-        # self.name = name
-        # self.visible = visible
-        # self.color = color
-        # self.lighting = lighting
-        # self.clickthrough = clickthrough
-        # self.around_self_axis = around_self_axis
-        # self.scale = scale
-        # self.placement = placement
-        # self.content = content
-        # self.links = links
-        # self.text = text
-        # self.sound_ref = sound_ref
