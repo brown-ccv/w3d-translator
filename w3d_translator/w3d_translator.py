@@ -3,7 +3,6 @@ from pathlib import Path
 
 from unity import (
     UNITY_VERSION,
-    UNITY_PATH,
     # create_project,
     # copy_files,
     # add_empty_scene,
@@ -12,23 +11,28 @@ from validate import validate_project, validate_out
 from errors import ValidationError, TranslationError, UnityError
 from xml_to_unity import xml_to_unity
 
-# TODO: Configure typer character length (100)
-# TODO: Configure color/style for typer.echo
-# TODO: Prompt user for confirmation if --force is used (?)
-
 # TEMPORARY OVERRIDES (for development)
 # Skip validate_out
 # Skip create_project and copy_files (xml_to_unity.py)
 # Only translate run.xml (xml_to_unity.py)
 
 
+# Color string as cyan
+def cyan(string: str):
+    return typer.style(string, fg=typer.colors.CYAN, bold=True)
+
+
+# Color string as bright red
+def red(string: str):
+    return typer.style(string, fg=typer.colors.BRIGHT_RED, bold=True)
+
+
 # Opening message
 def greeting(in_dir: Path, out_dir: Path):
     typer.echo("W3D TRANSLATOR")
-    typer.echo(f"Unity Version:\t {UNITY_VERSION}")
-    typer.echo(f"Please ensure Unity is installed at {UNITY_PATH}")
-    typer.echo(f"IN_DIR:\t\t {in_dir}")
-    typer.echo(f"OUT_DIR:\t {out_dir}")
+    typer.echo(f"Unity Version:\t {cyan(UNITY_VERSION)}")
+    typer.echo(f"IN_DIR:\t\t {cyan(in_dir)}")
+    typer.echo(f"OUT_DIR:\t {cyan(out_dir)}")
     typer.echo()
 
 
@@ -50,7 +54,7 @@ def farewell_error():
 # Translate a single project
 def translate_project(project_dir: Path, out_dir: Path):
     try:
-        typer.echo(f"Translating project: {project_dir.name}")
+        typer.echo(f"Translating project:\t {cyan(project_dir.name)}")
         validate_project(project_dir)
 
         # ! Don't create a new Unity project while in development
@@ -67,11 +71,11 @@ def translate_project(project_dir: Path, out_dir: Path):
             if (p.is_file() and p.suffix == ".xml")
         ]
         for file in xml_files:
-            typer.echo(f"Translating file: {file.name}")
+            typer.echo(f"Translating file:\t {cyan(file.name)}")
             xml_to_unity(file)  # Will return a yaml file
 
     except (ValidationError, UnityError, TranslationError) as e:
-        typer.echo(e, err=True)
+        typer.echo(red(e), err=True)
 
 
 def main(
@@ -98,7 +102,7 @@ def main(
         validate_out(out_dir, force)
     except ValidationError as e:
         # Exit with error
-        typer.echo(e.message, err=True)
+        typer.echo(red(e.message), err=True)
         exit(1)
 
     # Translate project(s)

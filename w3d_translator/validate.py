@@ -12,9 +12,7 @@ def validate_project(dir: Path):
         raise ValidationError(f"Error: Project is not a directory: {dir}")
 
     # Project must contain an xml file
-    xml_files = list(
-        filter(lambda file: file.suffix == ".xml", dir.iterdir())
-    )
+    xml_files = list(filter(lambda file: file.suffix == ".xml", dir.iterdir()))
     if not len(xml_files):
         raise ValidationError(
             f"Error: Project does not contain an xml file: {dir}"
