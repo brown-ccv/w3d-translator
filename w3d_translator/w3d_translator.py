@@ -1,9 +1,6 @@
 import typer
 from pathlib import Path
 
-# TODO: Always use Path not PurePath
-# TODO: Convert from string to path sooner
-
 from unity import (
     UNITY_VERSION,
     UNITY_PATH,
@@ -26,7 +23,7 @@ from xml_to_unity import xml_to_unity
 
 
 # Opening message
-def greeting(in_dir: str, out_dir: str):
+def greeting(in_dir: Path, out_dir: Path):
     typer.echo("W3D TRANSLATOR")
     typer.echo(f"Unity Version:\t {UNITY_VERSION}")
     typer.echo(f"Please ensure Unity is installed at {UNITY_PATH}")
@@ -51,14 +48,14 @@ def farewell_error():
 
 
 # Translate a single project
-def translate_project(project_dir: str, out_dir: str):
+def translate_project(project_dir: Path, out_dir: Path):
     try:
         typer.echo(f"Translating project: {project_dir.name}")
         validate_project(project_dir)
 
         # ! Don't create a new Unity project while in development
         # Create Unity project and copy original files
-        # unity_dir = Path(out_dir, Path(project_dir).name)
+        # unity_dir = out_dir / project_dir.name
         #     create_project(unity_dir)
         #     copy_files(project_dir, unity_dir)
         #     add_empty_scene(unity_dir)
@@ -66,7 +63,7 @@ def translate_project(project_dir: str, out_dir: str):
         # Translate .xml files to .unity files
         xml_files = [
             p
-            for p in Path(project_dir).iterdir()
+            for p in project_dir.iterdir()
             if (p.is_file() and p.suffix == ".xml")
         ]
         for file in xml_files:
@@ -78,10 +75,10 @@ def translate_project(project_dir: str, out_dir: str):
 
 
 def main(
-    in_dir: str = typer.Argument(
+    in_dir: Path = typer.Argument(
         ..., help="Input folder containing the xml project"
     ),
-    out_dir: str = typer.Argument(
+    out_dir: Path = typer.Argument(
         ..., help="Output folder for the translated project"
     ),
     multiple: bool = typer.Option(False, help="Translate multiple projects?"),
@@ -106,7 +103,7 @@ def main(
 
     # Translate project(s)
     if multiple:
-        projects = [p for p in Path(in_dir).iterdir() if p.is_dir()]
+        projects = [p for p in in_dir.iterdir() if p.is_dir()]
         for project_dir in projects:
             translate_project(project_dir, out_dir)
     else:

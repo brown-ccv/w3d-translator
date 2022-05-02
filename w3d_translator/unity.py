@@ -27,10 +27,10 @@ def create_project(folder):
 
 
 # Copy project into [unity_dir]/Assets/originals
-def copy_files(project_dir, unity_dir):
+def copy_files(project_dir: Path, unity_dir: Path):
     destination = Path(unity_dir, "Assets", "originals")
     try:
-        shutil.copytree(project_dir, destination)
+        shutil.copytree(str(project_dir), str(destination))
     except Exception as e:
         raise UnityError(
             f"Error: Failed to copy files from {project_dir} "
@@ -40,7 +40,7 @@ def copy_files(project_dir, unity_dir):
 
 
 # Create Scenes folder and add empty scene
-def add_empty_scene(unity_dir):
+def add_empty_scene(unity_dir: Path):
     try:
         destination = Path(unity_dir, "Assets", "Scenes")
         destination.mkdir()

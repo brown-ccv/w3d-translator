@@ -4,15 +4,16 @@ from pathlib import Path
 from errors import ValidationError
 
 
-def validate_project(dir: str):
+# Validate directory
+def validate_project(dir: Path):
 
     # Path must be a directory
-    if not Path(dir).is_dir():
+    if not dir.is_dir():
         raise ValidationError(f"Error: Project is not a directory: {dir}")
 
     # Project must contain an xml file
     xml_files = list(
-        filter(lambda file: file.suffix == ".xml", Path(dir).iterdir())
+        filter(lambda file: file.suffix == ".xml", dir.iterdir())
     )
     if not len(xml_files):
         raise ValidationError(
@@ -21,8 +22,7 @@ def validate_project(dir: str):
 
 
 # Creates output directory, if valid
-def validate_out(dir, force):
-    dir = Path(dir)
+def validate_out(dir: Path, force: bool):
     try:
         dir.mkdir()
     except FileExistsError:
