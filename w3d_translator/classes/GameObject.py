@@ -4,6 +4,8 @@ from dataclasses import dataclass, field
 from .XmlDataClass import XmlDataClass
 from classes import Color
 
+# Each TODO is a part of issue 6
+
 
 @dataclass
 class GameObject(XmlDataClass):
