@@ -11,7 +11,7 @@ from unity import (
     # copy_files,
     # add_empty_scene,
 )
-from validate import validate_project, validate_in_multiple, validate_out
+from validate import validate_project, validate_out
 from errors import ValidationError, TranslationError, UnityError
 from xml_to_unity import xml_to_unity
 
@@ -104,11 +104,6 @@ def main(
 
     # Translate project(s)
     if multiple:
-        try:
-            validate_in_multiple(in_dir)
-        except ValidationError as e:
-            typer.echo(e, err=True)
-
         projects = [p for p in Path(in_dir).iterdir() if p.is_dir()]
         for project_dir in projects:
             try:

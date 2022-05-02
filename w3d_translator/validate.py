@@ -20,24 +20,6 @@ def validate_project(dir: str):
         )
 
 
-def validate_in_multiple(dir: str):
-    # Path must be a directory
-    if not Path(dir).is_dir():
-        raise ValidationError(f"Error: IN_DIR is not a directory: {dir}")
-
-    # Folder should only contain subfolders
-    non_dirs = list(
-        filter(
-            lambda file: not Path(dir, file).is_dir(),
-            Path(dir).iterdir(),
-        )
-    )
-    if len(non_dirs):
-        raise ValidationError(
-            f"Error: IN_DIR should not contain any files: {non_dirs}"
-        )
-
-
 # Creates output directory, if valid
 def validate_out(dir, force):
     dir = Path(dir)
