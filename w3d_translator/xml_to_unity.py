@@ -1,7 +1,9 @@
 import xml.etree.ElementTree as ET
 
-from classes.Color import Color
-from classes.WandNavigation import WandNavigation
+# from classes.Color import Color
+# import classes.Color as Color
+# from classes.WandNavigation import WandNavigation
+from classes import Color, WandNavigation
 
 
 def xml_to_unity(file):
