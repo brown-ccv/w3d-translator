@@ -25,6 +25,7 @@ class GameObject(XmlDataClass):
 
     # TODO: Use self.xml.find to get each sub-object
     def __post_init__(self):
+        super().__init__()
         pass
 
     def to_yaml():

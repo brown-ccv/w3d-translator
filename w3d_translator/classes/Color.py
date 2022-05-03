@@ -15,6 +15,7 @@ class Color(XmlDataClass):
     a: float = field(init=False)
 
     def __post_init__(self):
+        super().__init__()
         self.rgba = str_to_rgba(self.xml.attrib["color"])
         self.r = self.rgba["r"]
         self.g = self.rgba["g"]
