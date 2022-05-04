@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 
-from .XmlDataClass import XmlDataClass
+from classes import XmlDataClass
 from utils import tf_to_bool
 
 

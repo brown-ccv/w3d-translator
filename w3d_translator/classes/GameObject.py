@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 
-from .XmlDataClass import XmlDataClass
+from classes import XmlDataClass
 from classes import Color
 
 # Each TODO is a part of issue 6
