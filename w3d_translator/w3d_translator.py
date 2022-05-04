@@ -3,18 +3,13 @@ from pathlib import Path
 
 from unity import (
     UNITY_VERSION,
-    # create_project,
-    # copy_files,
-    # add_empty_scene,
+    create_project,
+    copy_files,
+    add_empty_scene,
 )
 from validate import validate_project, validate_out
 from errors import ValidationError, TranslationError, UnityError
 from xml_to_unity import xml_to_unity
-
-# TEMPORARY OVERRIDES (for development)
-# Skip validate_out
-# Skip create_project and copy_files (xml_to_unity.py)
-# Only translate run.xml (xml_to_unity.py)
 
 
 # Color string as cyan
@@ -52,17 +47,17 @@ def farewell_error():
 
 
 # Translate a single project
-def translate_project(project_dir: Path, out_dir: Path):
+def translate_project(project_dir: Path, out_dir: Path, dev: bool):
     try:
         typer.echo(f"Translating project:\t {cyan(project_dir.name)}")
         validate_project(project_dir)
 
-        # ! Don't create a new Unity project while in development
         # Create Unity project and copy original files
-        # unity_dir = out_dir / project_dir.name
-        #     create_project(unity_dir)
-        #     copy_files(project_dir, unity_dir)
-        #     add_empty_scene(unity_dir)
+        if not dev:
+            unity_dir = Path(out_dir, project_dir.name)
+            create_project(unity_dir)
+            copy_files(project_dir, unity_dir)
+            add_empty_scene(unity_dir)
 
         # Translate .xml files to .unity files
         xml_files = [
@@ -87,6 +82,9 @@ def main(
     ),
     multiple: bool = typer.Option(False, help="Translate multiple projects?"),
     force: bool = typer.Option(False, help="Overwite OUT_DIR?"),
+    dev: bool = typer.Option(
+        False, help="Don't create Unity projects while in development"
+    ),
 ):
     """
     Translate W3D xml projects in IN_DIR to Unity projects in OUT_DIR
@@ -109,9 +107,9 @@ def main(
     if multiple:
         projects = [p for p in in_dir.iterdir() if p.is_dir()]
         for project_dir in projects:
-            translate_project(project_dir, out_dir)
+            translate_project(project_dir, out_dir, dev)
     else:
-        translate_project(in_dir, out_dir)
+        translate_project(in_dir, out_dir, dev)
 
     # Print farewell and exit
     farewell()
