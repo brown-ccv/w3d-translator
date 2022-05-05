@@ -99,7 +99,7 @@ def main(
         validate_out(out_dir, force)
     except ValidationError as e:
         # Exit with error
-        typer.echo(red(e.message), err=True)
+        typer.echo(red(e), err=True)
         exit(1)
 
     # Translate project(s)

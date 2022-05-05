@@ -4,19 +4,29 @@ from pathlib import Path
 
 from errors import UnityError
 
-
-UNITY_VERSION = "2020.3.26f1"
-# TODO: Upgrade to Unity 2021 (4)
-UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2020.3.26f1\\Editor\\Unity.exe"  # noqa (ignore lint)
+UNITY_VERSION = "2021.3.0f1"
+UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"  # noqa (ignore lint)
 EMPTY_SCENE = "../EmptyScene.unity"
 
 
 # Create Unity project
 def create_project(folder):
     try:
-        subprocess.run(
-            f'{UNITY_PATH} -batchmode -createProject "{folder}" -quit'
+        # subprocess.run(
+        #     f'{UNITY_PATH} -batchmode -createProject "{folder}" -quit'
+        # )
+        sp = subprocess.run(
+            [
+                f"{UNITY_PATH}",
+                "-batchmode",
+                "-createProject",
+                f"{folder}",
+                "-quit",
+            ],
+            check=True,
+            capture_output=True,
         )
+        print("EXIT", sp)
     except Exception:
         raise UnityError(
             "Error: Failed to launch Unity.\n"

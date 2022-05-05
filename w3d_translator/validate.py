@@ -29,7 +29,7 @@ def validate_out(dir: Path, force: bool):
             dir.mkdir(exist_ok=True)
         else:
             raise ValidationError(
-                f"Error: OUTPUT directory already exists: {dir}. "
+                f"Error: OUTPUT directory already exists: {dir}.\n"
                 + "Use --force to overwrite"
             )
     except FileNotFoundError:
