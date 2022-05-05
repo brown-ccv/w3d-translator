@@ -49,3 +49,8 @@ def add_empty_scene(unity_dir: Path):
         raise UnityError(
             "Error: Unable to copy ExampleScene.unity" + f"({EMPTY_SCENE})"
         )
+
+
+# TODO: Load project settings and write scene file (13)
+def build_project(unity_dir: Path, yaml):
+    pass

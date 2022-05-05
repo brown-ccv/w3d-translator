@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 from classes import Color, WandNavigation
 
 
-def xml_to_unity(file):
+def read_xml(file):
     xml = ET.parse(file)
     root = xml.getroot()
 
