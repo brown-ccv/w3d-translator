@@ -12,9 +12,6 @@ EMPTY_SCENE = "../EmptyScene.unity"
 # Create Unity project
 def create_project(folder):
     try:
-        # subprocess.run(
-        #     f'{UNITY_PATH} -batchmode -createProject "{folder}" -quit'
-        # )
         sp = subprocess.run(
             [
                 f"{UNITY_PATH}",
