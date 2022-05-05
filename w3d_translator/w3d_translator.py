@@ -47,7 +47,7 @@ def farewell_error():
 
 
 # Translate a single project
-def translate_project(project_dir: Path, out_dir: Path, dev=False):
+def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
     try:
         typer.echo(f"Translating project:\t {cyan(project_dir.name)}")
         validate_project(project_dir)
@@ -82,13 +82,10 @@ def main(
     ),
     multiple: bool = typer.Option(False, help="Translate multiple projects?"),
     force: bool = typer.Option(False, help="Overwite OUT_DIR?"),
+    dev: bool = typer.Option(False, help="Don't create Unity projects"),
 ):
     """
     Translate W3D xml projects in IN_DIR to Unity projects in OUT_DIR
-
-    --multiple: Translate multiple projects. \
-        Each one is a subfolder of IN_DIR and OUT_DIR
-    --force: Overwrite OUT_DIR folder if it exists
     """
 
     # Print greeting and create output folder
@@ -104,9 +101,9 @@ def main(
     if multiple:
         projects = [p for p in in_dir.iterdir() if p.is_dir()]
         for project_dir in projects:
-            translate_project(project_dir, out_dir, dev=True)
+            translate_project(project_dir, out_dir, dev=dev)
     else:
-        translate_project(in_dir, out_dir, dev=True)
+        translate_project(in_dir, out_dir, dev=dev)
 
     # Print farewell and exit
     farewell()
