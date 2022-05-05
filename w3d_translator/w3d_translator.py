@@ -6,10 +6,11 @@ from unity import (
     create_project,
     copy_files,
     add_empty_scene,
+    build_project,
 )
 from validate import validate_project, validate_out
 from errors import ValidationError, TranslationError, UnityError
-from xml_to_unity import xml_to_unity
+from read_xml import read_xml
 
 
 # Color string as cyan
@@ -58,8 +59,8 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
         validate_project(project_dir)
 
         # Create Unity project and copy original files
+        unity_dir = Path(out_dir, project_dir.name)
         if not dev:
-            unity_dir = Path(out_dir, project_dir.name)
             create_project(unity_dir)
             copy_files(project_dir, unity_dir)
             add_empty_scene(unity_dir)
@@ -71,8 +72,10 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             if (p.is_file() and p.suffix == ".xml")
         ]
         for file in xml_files:
+            # Build Story dataclass and Unity project
             typer.echo(f"Translating file:\t {green(file.name)}")
-            xml_to_unity(file)  # Will return a yaml file
+            story = read_xml(file)
+            build_project(unity_dir, story)
 
     except (ValidationError, UnityError, TranslationError) as e:
         typer.echo(red(e), err=True)

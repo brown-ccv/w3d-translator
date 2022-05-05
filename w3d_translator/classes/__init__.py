@@ -1,7 +1,7 @@
 # flake8: noqa
 
-from .XmlDataClass import XmlDataClass
+from .xml_dataclass import XmlDataClass
 
-from .Color import Color
-from .GameObject import GameObject
-from .WandNavigation import WandNavigation
+from .color import Color
+from .game_object import GameObject
+from .wand_navigation import WandNavigation
