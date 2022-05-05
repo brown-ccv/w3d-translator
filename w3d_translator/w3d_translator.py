@@ -6,7 +6,7 @@ from unity import (
     create_project,
     copy_files,
     add_empty_scene,
-    build_project
+    build_project,
 )
 from validate import validate_project, validate_out
 from errors import ValidationError, TranslationError, UnityError
