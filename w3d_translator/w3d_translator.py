@@ -17,6 +17,11 @@ def cyan(string: str):
     return typer.style(string, fg=typer.colors.CYAN, bold=True)
 
 
+# Color string as green
+def green(string: str):
+    return typer.style(string, fg=typer.colors.GREEN, bold=True)
+
+
 # Color string as bright red
 def red(string: str):
     return typer.style(string, fg=typer.colors.BRIGHT_RED, bold=True)
@@ -66,7 +71,7 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             if (p.is_file() and p.suffix == ".xml")
         ]
         for file in xml_files:
-            typer.echo(f"Translating file:\t {cyan(file.name)}")
+            typer.echo(f"Translating file:\t {green(file.name)}")
             xml_to_unity(file)  # Will return a yaml file
 
     except (ValidationError, UnityError, TranslationError) as e:
