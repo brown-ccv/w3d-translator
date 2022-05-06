@@ -23,10 +23,10 @@ def create_project(folder):
             check=True,
             capture_output=True,
         )
-        print("EXIT", sp)
     except Exception:
         raise UnityError(
             "Error: Failed to launch Unity.\n"
+            + f"{sp.stderr}"
             + "This script only runs with "
             + f"Unity version {UNITY_VERSION}.\n"
             + f"The executable should be found at {UNITY_PATH}"
