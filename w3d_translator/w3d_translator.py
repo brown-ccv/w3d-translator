@@ -83,10 +83,10 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
 
 def main(
     in_dir: Path = typer.Argument(
-        ..., help="Input folder containing the xml project"
+        ..., help="Input folder containing the xml project(s)"
     ),
     out_dir: Path = typer.Argument(
-        ..., help="Output folder for the translated project"
+        ..., help="Output folder for the translated project(s)"
     ),
     multiple: bool = typer.Option(False, help="Translate multiple projects?"),
     force: bool = typer.Option(False, help="Overwite OUT_DIR?"),
@@ -102,7 +102,7 @@ def main(
         validate_out(out_dir, force)
     except ValidationError as e:
         # Exit with error
-        typer.echo(red(e.message), err=True)
+        typer.echo(red(e), err=True)
         exit(1)
 
     # Translate project(s)
