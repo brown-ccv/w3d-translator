@@ -41,7 +41,6 @@ def read_xml(file):
 
     # Globals
     g = root.find("Global")
-    # TODO: Build <CameraPos> and <CaveCameraPos> (12)
     story["camera_pos"] = Camera(g.find("CameraPos"))
     story["cave_camera_pos"] = Camera(g.find("CaveCameraPos"))
     story["background"] = Color(g.find("Background"))
