@@ -47,5 +47,4 @@ def read_xml(file):
     story["background"] = Color(g.find("Background"))
     story["wand_navigation"] = WandNavigation(g.find("WandNavigation"))
 
-    # print(story)
     return story

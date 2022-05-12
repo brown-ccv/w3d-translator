@@ -3,7 +3,7 @@ from errors import TranslationError
 
 def split_str(string: str, parenthesis=True) -> list:
     """Splits a string based on commas, removes parenthesis if in str"""
-    string = string.replace('(', '').replace(')', '')
+    string = string.replace("(", "").replace(")", "")
 
     return string.split(", ")
 
