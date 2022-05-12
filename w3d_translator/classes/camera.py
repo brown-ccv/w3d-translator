@@ -12,8 +12,7 @@ class Camera(XmlDataClass):
 
     def __post_init__(self):
         super().__init__()
-        attributes = self.xml.attrib
-        self.far_clip = float(attributes["far-clip"])
+        self.far_clip = float(self.xml.attrib["far-clip"])
         self.placement = Placement(self.xml.find("Placement"))
 
     def to_yaml():
