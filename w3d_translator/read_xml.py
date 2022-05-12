@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-from classes import Color, WandNavigation
+from classes import Color, WandNavigation, Camera
 
 
 def read_xml(file):
@@ -42,9 +42,10 @@ def read_xml(file):
     # Globals
     g = root.find("Global")
     # TODO: Build <CameraPos> and <CaveCameraPos> (12)
-    # story["camera_pos"] = parse_camera_pos(g.find("CameraPos"))
-    # story["cave_camera_pos"] = parse_cave_camera_pos(g.find("CaveCameraPos"))
+    story["camera_pos"] = Camera(g.find("CameraPos"))
+    story["cave_camera_pos"] = Camera(g.find("CaveCameraPos"))
     story["background"] = Color(g.find("Background"))
     story["wand_navigation"] = WandNavigation(g.find("WandNavigation"))
 
+    # print(story)
     return story
