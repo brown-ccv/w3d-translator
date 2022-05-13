@@ -7,7 +7,7 @@ from utils import tf_to_bool
 
 @dataclass
 class WandNavigation(XmlDataClass):
-    xml: ET.Element
+    xml: ET.Element = field(repr=False)
     allow_rotation: bool = field(init=False)
     allow_movement: bool = field(init=False)
 

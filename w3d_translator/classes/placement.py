@@ -17,7 +17,7 @@ class Reference(Enum):
 
 @dataclass
 class Placement(XmlDataClass):
-    xml: ET.Element
+    xml: ET.Element = field(repr=False)
     relative_to: Reference = field(init=False)
     position: Vec3 = field(init=False)
 

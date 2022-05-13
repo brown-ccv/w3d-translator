@@ -6,7 +6,7 @@ from classes import XmlDataClass, Placement
 
 @dataclass
 class Camera(XmlDataClass):
-    xml: ET.Element
+    xml: ET.Element = field(repr=False)
     far_clip: float = field(init=False)
     placement: Placement = field(init=False)
 

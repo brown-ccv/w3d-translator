@@ -7,8 +7,8 @@ from utils import str_to_rgba
 
 @dataclass
 class Color(XmlDataClass):
-    xml: ET.Element
-    rgba: dict = field(init=False)
+    xml: ET.Element = field(repr=False)
+    rgba: dict = field(init=False, repr=False)
     r: float = field(init=False)
     g: float = field(init=False)
     b: float = field(init=False)

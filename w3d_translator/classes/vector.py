@@ -6,7 +6,7 @@ from utils import str_to_xy, str_to_xyz
 
 @dataclass
 class Vec2(XmlDataClass):
-    xy: dict = field(init=False)
+    xy: dict = field(init=False, repr=False)
     x: float = field(init=False)
     y: float = field(init=False)
 
@@ -22,7 +22,7 @@ class Vec2(XmlDataClass):
 
 @dataclass
 class Vec3(XmlDataClass):
-    xyz: dict = field(init=False)
+    xyz: dict = field(init=False, repr=False)
     x: float = field(init=False)
     y: float = field(init=False)
     z: float = field(init=False)

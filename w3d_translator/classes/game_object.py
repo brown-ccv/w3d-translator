@@ -9,7 +9,7 @@ from classes import Color
 
 @dataclass
 class GameObject(XmlDataClass):
-    xml: ET.Element
+    xml: ET.Element = field(repr=False)
     name: str = field(init=False)
     visible: bool = field(init=False)
     color: Color = field(init=False)
