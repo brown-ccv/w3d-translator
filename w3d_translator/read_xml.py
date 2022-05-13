@@ -63,4 +63,5 @@ def read_xml(file):
         background,
         wand_navigation,
     )
+    print(story)
     return story
