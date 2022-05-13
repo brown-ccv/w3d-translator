@@ -1,7 +1,7 @@
 from errors import TranslationError
 
 
-def split_str(string: str, parenthesis=True) -> list:
+def split_str(string: str) -> list:
     """Splits a string based on commas, removes parenthesis if in str"""
     string = string.replace("(", "").replace(")", "").replace(" ", "")
 
@@ -26,7 +26,7 @@ def str_to_rgba(string: str) -> dict:
     Alpha is always 255.
     """
     # arr = string.split(", ")
-    list = split_str(string, parenthesis=False)
+    list = split_str(string)
     return {"r": int(list[0]), "g": int(list[1]), "b": int(list[2]), "a": 255}
 
 
