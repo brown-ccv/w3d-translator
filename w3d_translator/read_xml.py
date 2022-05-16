@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-from utils import str_to_tuple
+from utils import str_to_tuple, tf_to_bool
 
 
 def read_xml(file):
@@ -12,8 +12,9 @@ def read_xml(file):
     g = root.find("Global")
     # story["camera_pos"] = parse_camera_pos(g.find("CameraPos"))
     # story["cave_camera_pos"] = parse_cave_camera_pos(g.find("CaveCameraPos"))
-    story["background"] = read_background(g.find("Background"))
-    # story["wand_navigation"] = WandNavigation(g.find("WandNavigation"))
+    story["background"] = str_to_tuple(g.find("Background").attrib["color"])
+    story["wand_navigation"] = read_wand_navigation(g.find("WandNavigation"))
+    print(story)
 
     # TODO: Build each <Object> in <ObjectRoot> (6)
     # object_root = {}
@@ -48,6 +49,8 @@ def read_xml(file):
     return story
 
 
-def read_background(xml):
-    print(xml, str_to_tuple(xml.attrib["color"]))
-    return str_to_tuple(xml.attrib["color"])
+def read_wand_navigation(xml: ET.Element):
+    return {
+        "allow_rotation": tf_to_bool(xml.attrib["allow-rotation"]),
+        "allow_movement": tf_to_bool(xml.attrib["allow-movement"]),
+    }
