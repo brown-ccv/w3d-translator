@@ -6,7 +6,7 @@ def str_to_tuple(string: str) -> tuple:
     split = (
         string.replace("(", "").replace(")", "").replace(" ", "").split(",")
     )
-    list = [int(x) for x in split]
+    list = [float(x) for x in split]
     return tuple(list)
 
 
