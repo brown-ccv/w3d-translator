@@ -20,3 +20,8 @@ def str_to_rgba(string: str) -> dict:
     """
     arr = string.split(", ")
     return {"r": int(arr[0]), "g": int(arr[1]), "b": int(arr[2]), "a": 255}
+
+
+def str_to_tuple(string: str) -> tuple:
+    """Converts a comma seperated string into a tuple"""
+    print(string)

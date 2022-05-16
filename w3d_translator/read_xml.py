@@ -1,13 +1,19 @@
 import xml.etree.ElementTree as ET
 
-from classes import Color, WandNavigation
+from utils import str_to_tuple
 
 
 def read_xml(file):
     xml = ET.parse(file)
     root = xml.getroot()
+    story = {}
 
-    story = {}  # TODO: Make story its own class (5)
+    # Globals
+    g = root.find("Global")
+    # story["camera_pos"] = parse_camera_pos(g.find("CameraPos"))
+    # story["cave_camera_pos"] = parse_cave_camera_pos(g.find("CaveCameraPos"))
+    story["background"] = read_background(g.find("Background"))
+    # story["wand_navigation"] = WandNavigation(g.find("WandNavigation"))
 
     # TODO: Build each <Object> in <ObjectRoot> (6)
     # object_root = {}
@@ -39,12 +45,9 @@ def read_xml(file):
     for tag in root.find("ParticleActionRoot") or []:
         pass  # Dict of ParticleActionList by name
 
-    # Globals
-    g = root.find("Global")
-    # TODO: Build <CameraPos> and <CaveCameraPos> (12)
-    # story["camera_pos"] = parse_camera_pos(g.find("CameraPos"))
-    # story["cave_camera_pos"] = parse_cave_camera_pos(g.find("CaveCameraPos"))
-    story["background"] = Color(g.find("Background"))
-    story["wand_navigation"] = WandNavigation(g.find("WandNavigation"))
-
     return story
+
+
+def read_background(xml):
+    print(xml, str_to_tuple(xml.attrib["color"]))
+    return str_to_tuple(xml.attrib["color"])
