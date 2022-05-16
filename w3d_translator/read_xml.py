@@ -10,8 +10,8 @@ def read_xml(file):
 
     # Globals
     g = root.find("Global")
-    # story["camera_pos"] = parse_camera_pos(g.find("CameraPos"))
-    # story["cave_camera_pos"] = parse_cave_camera_pos(g.find("CaveCameraPos"))
+    story["camera_pos"] = read_camera(g.find("CameraPos"))
+    story["cave_camera_pos"] = read_camera(g.find("CaveCameraPos"))
     story["background"] = str_to_tuple(g.find("Background").attrib["color"])
     story["wand_navigation"] = read_wand_navigation(g.find("WandNavigation"))
     print(story)
@@ -49,8 +49,12 @@ def read_xml(file):
     return story
 
 
-def read_wand_navigation(xml: ET.Element):
+def read_wand_navigation(xml: ET.Element) -> dict:
     return {
         "allow_rotation": tf_to_bool(xml.attrib["allow-rotation"]),
         "allow_movement": tf_to_bool(xml.attrib["allow-movement"]),
     }
+
+
+def read_camera(xml: ET.Element) -> dict:
+    print(xml)
