@@ -10,17 +10,13 @@ def read_xml(file):
 
     # Globals
     g = root.find("Global")
-    print(g.findall("*"))
     story["Camera"] = parse_camera(g.find("CameraPos"))
     story["CaveCamera"] = parse_camera(g.find("CaveCameraPos"))
     story["background"] = str_to_tuple(g.find("Background").attrib["color"])
     story["wand_navigation"] = parse_wand_navigation(g.find("WandNavigation"))
 
-    # TODO: Build each <Placement> in <PlacementRoot> (9)
-    # placement_root = {}
-    for tag in root.find("PlacementRoot") or []:
-        pass  # Dict of Placement by name
-    
+    story["walls"] = parse_placements(root.find("PlacementRoot"))
+
     # TODO: Build each <Object> in <ObjectRoot> (6)
     # object_root = {}
     for tag in root.find("ObjectRoot") or []:
@@ -57,15 +53,43 @@ def parse_camera(xml: ET.Element) -> dict:
 
 
 def parse_placement(xml: ET.Element) -> dict:
+    relative_to = xml.find("RelativeTo").text
+    position = str_to_tuple(xml.find("Position").text)
+    axis = None
+    look_at = None
+
+    axis_xml = xml.find("Axis")
+    if axis_xml is not None:
+        axis = {
+            "rotation": str_to_tuple(axis_xml.attrib["rotation"]),
+            "angle": float(axis_xml.attrib["angle"]),
+        }
+
+    look_at_xml = xml.find("LookAt")
+    if look_at_xml is not None:
+        axis = {
+            "target": str_to_tuple(look_at_xml.attrib["target"]),
+            "up": str_to_tuple(look_at_xml.attrib["up"]),
+        }
+
     return {
-        "relative_to": xml.find("RelativeTo").text,
-        "position": str_to_tuple(xml.find("Position").text),
+        "relative_to": relative_to,
+        "position": position,
+        "Axis": axis,
+        "LookAt": look_at,
     }
 
 
 def parse_wand_navigation(xml: ET.Element) -> dict:
-    ET.dump(xml)
     return {
         "allow_rotation": tf_to_bool(xml.attrib["allow-rotation"]),
         "allow_movement": tf_to_bool(xml.attrib["allow-movement"]),
     }
+
+
+def parse_placements(xml: ET.Element) -> dict:
+    walls = {}
+    # TODO: Build each <Placement> in <PlacementRoot> (9)
+    for tag in xml:
+        walls[tag.attrib["name"]] = parse_placement(tag)
+    return walls
