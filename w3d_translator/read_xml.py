@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from pathlib import Path
 
 from utils import str_to_tuple, tf_to_bool
 
@@ -6,7 +7,10 @@ from utils import str_to_tuple, tf_to_bool
 def read_xml(file):
     xml = ET.parse(file)
     root = xml.getroot()
-    story = {}
+    story = {
+        "version": int(root.attrib["version"]),
+        "last_xpath": Path(root.attrib["last_xpath"]),
+    }
 
     # Globals
     g = root.find("Global")
@@ -16,6 +20,7 @@ def read_xml(file):
     story["wand_navigation"] = parse_wand_navigation(g.find("WandNavigation"))
 
     story["walls"] = parse_placements(root.find("PlacementRoot"))
+    print(story)
 
     # TODO: Build each <Object> in <ObjectRoot> (6)
     # object_root = {}
