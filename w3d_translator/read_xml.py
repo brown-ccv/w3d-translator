@@ -1,8 +1,6 @@
-from typing import Union
 import xml.etree.ElementTree as ET
+from typing import Union
 from pathlib import Path
-
-from utils import str_to_tuple, tf_to_bool
 
 
 def read_xml(file):
@@ -16,12 +14,11 @@ def read_xml(file):
     # Globals
     g = root.find("Global")
     story["Camera"] = parse_camera(g.find("CameraPos"))
-    # story["CaveCamera"] = parse_camera(g.find("CaveCameraPos"))
+    story["CaveCamera"] = parse_camera(g.find("CaveCameraPos"))
     # story["background"] = str_to_tuple(g.find("Background").attrib["color"])
     # story["wand_navigation"] = parse_wand_navigation(g.find("WandNavigation"))
 
-    story["walls"] = parse_placements(root.find("PlacementRoot"))
-    # print(story)
+    # story["walls"] = parse_placements(root.find("PlacementRoot"))
 
     # TODO: Build each <Object> in <ObjectRoot> (6)
     # object_root = {}
@@ -51,52 +48,85 @@ def read_xml(file):
     return story
 
 
-def parse_attribs(atrtibutes: dict) -> dict:
-    pass
+def parse_attributes(xml: ET.Element) -> dict:
+    attributes = xml.attrib
+    for key, value in attributes.items():
+        attributes[key] = parse_string(value)
+    return attributes
 
 
-def parse_string(string: str) -> Union[str, float, tuple, dict]:
-    pass
+def parse_text(xml: ET.Element) -> Union[bool, int, float, tuple, str]:
+    return parse_string(xml.text)
+
+
+def parse_string(string: str) -> Union[bool, int, float, tuple, str]:
+    # Check if string is a boolean
+    try:
+        test = string.lower()
+        if test == "true":
+            return True
+        elif test == "false":
+            return False
+    except AttributeError:
+        pass
+
+    # Check if string is an integer
+    try:
+        return int(string)
+    except ValueError:
+        pass
+
+    # Check if string is a float
+    try:
+        return float(string)
+    except ValueError:
+        pass
+
+    # Check if string is a tuple (of integers or floats)
+    test = string.replace("(", "").replace(")", "").split(",")
+    try:
+        return tuple([int(x) for x in test])
+    except ValueError:
+        pass
+    try:
+        return tuple([float(x) for x in test])
+    except ValueError:
+        pass
+
+    # Plain text
+    return string
 
 
 def parse_camera(xml: ET.Element) -> dict:
-    ET.dump(xml)
     return {
-        "far_clip": float(xml.attrib["far-clip"]),
-        "placement": parse_placement(xml.find("Placement")),
+        **parse_attributes(xml),
+        "Placement": parse_placement(xml.find("Placement"))
     }
 
 
 def parse_placement(xml: ET.Element) -> dict:
-    placement = {
-        "relative_to": xml.find("RelativeTo").text,
-        "position": str_to_tuple(xml.find("Position").text),
-        "axis": None,
-        "look_at": None,
+    return {
+        "RelativeTo": parse_text(xml.find("RelativeTo")),
+        "Position": parse_text(xml.find("Position")),
+        "Axis": (
+            parse_attributes(xml.find("Axis"))
+            if xml.find("Axis") is not None
+            else None
+        ),
+        "LookAt": (
+            parse_attributes(xml.find("LookAt"))
+            if xml.find("LookAt") is not None
+            else None
+        ),
     }
-
-    axis_xml = xml.find("Axis")
-    if axis_xml is not None:
-        placement["axis"] = {
-            "rotation": str_to_tuple(axis_xml.attrib["rotation"]),
-            "angle": float(axis_xml.attrib["angle"]),
-        }
-
-    look_at_xml = xml.find("LookAt")
-    if look_at_xml is not None:
-        placement["look_at"] = {
-            "target": str_to_tuple(look_at_xml.attrib["target"]),
-            "up": str_to_tuple(look_at_xml.attrib["up"]),
-        }
-
-    return placement
 
 
 def parse_wand_navigation(xml: ET.Element) -> dict:
-    return {
-        "allow_rotation": tf_to_bool(xml.attrib["allow-rotation"]),
-        "allow_movement": tf_to_bool(xml.attrib["allow-movement"]),
-    }
+    return parse_attributes(xml)
+    # return {
+    #     "allow_rotation": tf_to_bool(xml.attrib["allow-rotation"]),
+    #     "allow_movement": tf_to_bool(xml.attrib["allow-movement"]),
+    # }
 
 
 def parse_placements(xml: ET.Element) -> dict:
