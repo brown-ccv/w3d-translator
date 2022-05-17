@@ -1,5 +1,6 @@
 import re
 import xml.etree.ElementTree as ET
+from pathlib import Path
 from typing import Union
 
 
@@ -85,6 +86,9 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, str]:
         return tuple(float(x) for x in string)
 
     # Check if string is a path
+    if re.match(r"^[.\/]", string):
+        return Path(string)
+
     print(string)
 
     # Plain text
