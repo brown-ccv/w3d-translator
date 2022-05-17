@@ -47,7 +47,6 @@ def read_xml(file):
     for tag in root.find("ParticleActionRoot") or []:
         pass  # Dict of ParticleActionList by name
 
-        print(story)
     return story
 
 
