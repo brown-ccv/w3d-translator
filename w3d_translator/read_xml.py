@@ -1,3 +1,4 @@
+from typing import Union
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -15,12 +16,12 @@ def read_xml(file):
     # Globals
     g = root.find("Global")
     story["Camera"] = parse_camera(g.find("CameraPos"))
-    story["CaveCamera"] = parse_camera(g.find("CaveCameraPos"))
-    story["background"] = str_to_tuple(g.find("Background").attrib["color"])
-    story["wand_navigation"] = parse_wand_navigation(g.find("WandNavigation"))
+    # story["CaveCamera"] = parse_camera(g.find("CaveCameraPos"))
+    # story["background"] = str_to_tuple(g.find("Background").attrib["color"])
+    # story["wand_navigation"] = parse_wand_navigation(g.find("WandNavigation"))
 
     story["walls"] = parse_placements(root.find("PlacementRoot"))
-    print(story)
+    # print(story)
 
     # TODO: Build each <Object> in <ObjectRoot> (6)
     # object_root = {}
@@ -50,7 +51,16 @@ def read_xml(file):
     return story
 
 
+def parse_attribs(atrtibutes: dict) -> dict:
+    pass
+
+
+def parse_string(string: str) -> Union[str, float, tuple, dict]:
+    pass
+
+
 def parse_camera(xml: ET.Element) -> dict:
+    ET.dump(xml)
     return {
         "far_clip": float(xml.attrib["far-clip"]),
         "placement": parse_placement(xml.find("Placement")),
