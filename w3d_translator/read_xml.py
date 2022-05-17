@@ -84,6 +84,8 @@ def parse_attributes(xml: ET.Element) -> dict:
 def parse_recursive(xml: ET.Element) -> dict:
     out = parse_attributes(xml)
     if out or xml.find("*") is not None:
+        # TODO: Switch statement to escape select tags
+        # CameraPos, CaveCameraPos, Background
         out["text"] = parse_string(xml.text) if xml.text is not None else None
         out = out | dict((child.tag, parse_recursive(child)) for child in xml)
     else:
