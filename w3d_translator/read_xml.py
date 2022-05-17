@@ -49,17 +49,6 @@ def read_xml(file):
     return story
 
 
-def parse_attributes(xml: ET.Element) -> dict:
-    attributes = xml.attrib
-    for key, value in attributes.items():
-        attributes[key] = parse_string(value)
-    return attributes
-
-
-def parse_text(xml: ET.Element) -> Union[bool, int, float, tuple, str]:
-    return parse_string(xml.text)
-
-
 def parse_string(string: str) -> Union[bool, int, float, tuple, str]:
     # Check if string is a boolean
     try:
@@ -96,6 +85,17 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, str]:
 
     # Plain text
     return string
+
+
+def parse_attributes(xml: ET.Element) -> dict:
+    attributes = xml.attrib
+    for key, value in attributes.items():
+        attributes[key] = parse_string(value)
+    return attributes
+
+
+def parse_text(xml: ET.Element) -> Union[bool, int, float, tuple, str]:
+    return parse_string(xml.text)
 
 
 def parse_camera(xml: ET.Element) -> dict:
