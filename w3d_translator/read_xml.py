@@ -53,15 +53,10 @@ def read_xml(file):
 
 def parse_string(string: str) -> Union[bool, int, float, tuple, str]:
     # Check if string is a boolean
-    # TODO: regex match boolean
-    # try:
-    #     test = string.lower()
-    #     if test == "true":
-    #         return True
-    #     elif test == "false":
-    #         return False
-    # except AttributeError:
-    #     pass
+    if re.match(r"^\s*(?i)(true)\s*$", string):
+        return True
+    elif re.match(r"^\s*(?i)(false)\s*$", string):
+        return False
 
     # Check if string is an integer
     if re.match(r"^\s*-?(\d+)\s*$", string):
@@ -88,8 +83,6 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, str]:
     # Check if string is a path
     if re.match(r"^[.\/]", string):
         return Path(string)
-
-    print(string)
 
     # Plain text
     return string
