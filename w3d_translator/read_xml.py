@@ -11,47 +11,33 @@ def read_xml(file):
     story = parse_attributes(root)
 
     # Parse <Globals>
-    g = root.find("Global")
-    story["Camera"] = parse_camera(g.find("CameraPos"))
-    story["CaveCamera"] = parse_camera(g.find("CaveCameraPos"))
-    story["background_color"] = parse_attributes(g.find("Background"))["color"]
-    story["WandNavigation"] = parse_attributes(g.find("WandNavigation"))
+    story = story | parse_recursive(root.find("Global"))
 
     # Parse each Placement in PlacementRoot by name
     story["walls"] = dict(
-        (parse_attributes(tag)["name"], parse_placement(tag))
+        (tag.attrib["name"], parse_recursive(tag))
         for tag in root.find("PlacementRoot")
     )
 
     # TODO: Build each <Object> in <ObjectRoot> (6)
-    # object_root = {}
-    for tag in root.find("ObjectRoot") or []:
-        pass  # Dict of objects by name
-
     # TODO: Build each <Group> in <GroupRoot> (7)
-    # group_root = {}
-    for tag in root.find("GroupRoot") or []:
-        pass  # Dict of groups by name (group -> array of object names)
-
     # TODO: Build each <Timeline> in <TimelineRoot> (8)
-    # timeline_root = {}
-    for tag in root.find("TimelineRoot") or []:
-        pass  # Dict of Timeline by name
-
     # TODO: Build each <Sound> in <SoundRoot> (10)
-    # sound_root = {}
-    for tag in root.find("SoundRoot") or []:
-        pass  # Dict of Sound by name
-
     # TODO: Build each <ParticleActionList> in <ParticleActionRoot> (11)
-    # particle_action_root = {}
-    for tag in root.find("ParticleActionRoot") or []:
-        pass  # Dict of ParticleActionList by name
+
+    # Rename and/or re-arrange select properties
+    story["camera"] = story.pop("CameraPos")
+    story["cave_camera"] = story.pop("CaveCameraPos")
+    story["background_color"] = story.pop("Background")["color"]
+
+    # TODO: pop all text keys with value of '' or None
 
     return story
 
 
-def parse_string(string: str) -> Union[bool, int, float, tuple, str]:
+def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
+    string = string.strip()
+
     # Check if string is a boolean
     if re.match(r"^\s*(?i)(true)\s*$", string):
         return True
@@ -95,29 +81,12 @@ def parse_attributes(xml: ET.Element) -> dict:
     return attributes
 
 
-def parse_text(xml: ET.Element) -> Union[bool, int, float, tuple, str]:
-    return parse_string(xml.text)
+def parse_recursive(xml: ET.Element) -> dict:
+    out = parse_attributes(xml)
+    if out or xml.find("*") is not None:
+        out["text"] = parse_string(xml.text) if xml.text is not None else None
+        out = out | dict((child.tag, parse_recursive(child)) for child in xml)
+    else:
+        return parse_string(xml.text)
 
-
-def parse_camera(xml: ET.Element) -> dict:
-    return {
-        **parse_attributes(xml),
-        "Placement": parse_placement(xml.find("Placement")),
-    }
-
-
-def parse_placement(xml: ET.Element) -> dict:
-    return {
-        "RelativeTo": parse_text(xml.find("RelativeTo")),
-        "Position": parse_text(xml.find("Position")),
-        "Axis": (
-            parse_attributes(xml.find("Axis"))
-            if xml.find("Axis") is not None
-            else None
-        ),
-        "LookAt": (
-            parse_attributes(xml.find("LookAt"))
-            if xml.find("LookAt") is not None
-            else None
-        ),
-    }
+    return out
