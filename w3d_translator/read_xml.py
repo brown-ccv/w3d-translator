@@ -17,8 +17,14 @@ def read_xml(file):
 
     # Parse each Placement in PlacementRoot by name
     story["walls"] = dict(
-        (parse_attributes(tag)["name"], parse_placement(tag))
+        (tag.attrib["name"], parse_placement(tag))
         for tag in root.find("PlacementRoot")
+    )
+
+    # TODO: Build each <Sound> in <SoundRoot> (10)
+    story["sounds"] = dict(
+        (tag.attrib["name"], parse_sound(tag))
+        for tag in root.find("SoundRoot")
     )
 
     # TODO: Build each <Object> in <ObjectRoot> (6)
@@ -36,19 +42,16 @@ def read_xml(file):
     for tag in root.find("TimelineRoot") or []:
         pass  # Dict of Timeline by name
 
-    # TODO: Build each <Sound> in <SoundRoot> (10)
-    # sound_root = {}
-    for tag in root.find("SoundRoot") or []:
-        pass  # Dict of Sound by name
-
     # TODO: Build each <ParticleActionList> in <ParticleActionRoot> (11)
     # particle_action_root = {}
     for tag in root.find("ParticleActionRoot") or []:
         pass  # Dict of ParticleActionList by name
 
+        print(story)
     return story
 
 
+# TODO: Add Path() type
 def parse_string(string: str) -> Union[bool, int, float, tuple, str]:
     # Check if string is a boolean
     try:
@@ -98,6 +101,13 @@ def parse_text(xml: ET.Element) -> Union[bool, int, float, tuple, str]:
     return parse_string(xml.text)
 
 
+def parse_child_one_of_type(xml: ET.Element, options: dict):
+    try:
+        return options[xml.find("*").tag]
+    except KeyError:
+        return None
+
+
 def parse_camera(xml: ET.Element) -> dict:
     return {
         **parse_attributes(xml),
@@ -117,6 +127,30 @@ def parse_placement(xml: ET.Element) -> dict:
         "LookAt": (
             parse_attributes(xml.find("LookAt"))
             if xml.find("LookAt") is not None
+            else None
+        ),
+    }
+
+
+def parse_sound(xml: ET.Element) -> dict:
+    return {
+        **parse_attributes(xml),
+        # <Settings> doesn't need a child dict
+        **parse_attributes(xml.find("Settings")),
+        # <Mode> has child <Fixed> or <Positional>
+        "fixed": (
+            parse_child_one_of_type(
+                xml.find("Mode"), {"Fixed": True, "Positional": False}
+            )
+            if xml.find("Mode") is not None
+            else None
+        ),
+        # <Repeat> has child <Repeat> or <Positional>
+        "repeat": (
+            parse_child_one_of_type(
+                xml.find("Repeat"), {"Repeat": True, "NoRepeat": False}
+            )
+            if xml.find("Repeat") is not None
             else None
         ),
     }
