@@ -58,31 +58,28 @@ def parse_camera(xml: ET.Element) -> dict:
 
 
 def parse_placement(xml: ET.Element) -> dict:
-    relative_to = xml.find("RelativeTo").text
-    position = str_to_tuple(xml.find("Position").text)
-    axis = None
-    look_at = None
+    object = {
+        "relative_to": xml.find("RelativeTo").text,
+        "position": str_to_tuple(xml.find("Position").text),
+        "axis": None,
+        "look_at": None,
+    }
 
     axis_xml = xml.find("Axis")
     if axis_xml is not None:
-        axis = {
+        object["axis"] = {
             "rotation": str_to_tuple(axis_xml.attrib["rotation"]),
             "angle": float(axis_xml.attrib["angle"]),
         }
 
     look_at_xml = xml.find("LookAt")
     if look_at_xml is not None:
-        axis = {
+        object["look_at"] = {
             "target": str_to_tuple(look_at_xml.attrib["target"]),
             "up": str_to_tuple(look_at_xml.attrib["up"]),
         }
 
-    return {
-        "relative_to": relative_to,
-        "position": position,
-        "Axis": axis,
-        "LookAt": look_at,
-    }
+    return object
 
 
 def parse_wand_navigation(xml: ET.Element) -> dict:
