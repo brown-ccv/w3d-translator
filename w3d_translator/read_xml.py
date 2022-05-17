@@ -72,7 +72,7 @@ def parse_placement(xml: ET.Element) -> dict:
 
     look_at_xml = xml.find("LookAt")
     if look_at_xml is not None:
-        axis = {
+        look_at = {
             "target": str_to_tuple(look_at_xml.attrib["target"]),
             "up": str_to_tuple(look_at_xml.attrib["up"]),
         }
