@@ -1,3 +1,4 @@
+import re
 import xml.etree.ElementTree as ET
 from typing import Union
 
@@ -51,37 +52,40 @@ def read_xml(file):
 
 def parse_string(string: str) -> Union[bool, int, float, tuple, str]:
     # Check if string is a boolean
-    try:
-        test = string.lower()
-        if test == "true":
-            return True
-        elif test == "false":
-            return False
-    except AttributeError:
-        pass
+    # TODO: regex match boolean
+    # try:
+    #     test = string.lower()
+    #     if test == "true":
+    #         return True
+    #     elif test == "false":
+    #         return False
+    # except AttributeError:
+    #     pass
 
     # Check if string is an integer
-    try:
+    if re.match(r"^\s*-?(\d+)\s*$", string):
         return int(string)
-    except ValueError:
-        pass
 
     # Check if string is a float
-    try:
+    if re.match(r"^\s*-?(\d+(\.\d+))\s*$", string):
         return float(string)
-    except ValueError:
-        pass
 
     # Check if string is a tuple (of integers or floats)
-    test = string.replace("(", "").replace(")", "").split(",")
-    try:
-        return tuple([int(x) for x in test])
-    except ValueError:
-        pass
-    try:
-        return tuple([float(x) for x in test])
-    except ValueError:
-        pass
+    if re.match(
+        r"\(?\s*-?(\d)\s*,\s*-?(\d)\s*,\s*-?(\d)?\)?",
+        string,
+    ):
+        string = string.strip("()").split(",")
+        return tuple(int(x) for x in string)
+    elif re.match(
+        r"\(?\s*-?(\d+(\.\d+))\s*,\s*-?(\d+(\.\d+))\s*,\s*-?(\d+(\.\d+))?\)?",
+        string,
+    ):
+        string = string.strip("()").split(",")
+        return tuple(float(x) for x in string)
+
+    # Check if string is a path
+    print(string)
 
     # Plain text
     return string
