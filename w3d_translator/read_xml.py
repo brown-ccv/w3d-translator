@@ -15,8 +15,9 @@ def read_xml(file):
     g = root.find("Global")
     story["Camera"] = parse_camera(g.find("CameraPos"))
     story["CaveCamera"] = parse_camera(g.find("CaveCameraPos"))
-    # story["background"] = str_to_tuple(g.find("Background").attrib["color"])
-    # story["wand_navigation"] = parse_wand_navigation(g.find("WandNavigation"))
+    story["background_color"] = parse_attributes(g.find("Background"))["color"]
+    story["WandNavigation"] = parse_attributes(g.find("WandNavigation"))
+    print(story["WandNavigation"])
 
     # story["walls"] = parse_placements(root.find("PlacementRoot"))
 
@@ -100,7 +101,7 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, str]:
 def parse_camera(xml: ET.Element) -> dict:
     return {
         **parse_attributes(xml),
-        "Placement": parse_placement(xml.find("Placement"))
+        "Placement": parse_placement(xml.find("Placement")),
     }
 
 
@@ -119,14 +120,6 @@ def parse_placement(xml: ET.Element) -> dict:
             else None
         ),
     }
-
-
-def parse_wand_navigation(xml: ET.Element) -> dict:
-    return parse_attributes(xml)
-    # return {
-    #     "allow_rotation": tf_to_bool(xml.attrib["allow-rotation"]),
-    #     "allow_movement": tf_to_bool(xml.attrib["allow-movement"]),
-    # }
 
 
 def parse_placements(xml: ET.Element) -> dict:
