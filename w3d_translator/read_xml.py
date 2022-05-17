@@ -1,25 +1,25 @@
 import xml.etree.ElementTree as ET
 from typing import Union
-from pathlib import Path
 
 
 def read_xml(file):
     xml = ET.parse(file)
     root = xml.getroot()
-    story = {
-        "version": int(root.attrib["version"]),
-        "last_xpath": Path(root.attrib["last_xpath"]),
-    }
 
-    # Globals
+    story = parse_attributes(root)
+
+    # Parse <Globals>
     g = root.find("Global")
     story["Camera"] = parse_camera(g.find("CameraPos"))
     story["CaveCamera"] = parse_camera(g.find("CaveCameraPos"))
     story["background_color"] = parse_attributes(g.find("Background"))["color"]
     story["WandNavigation"] = parse_attributes(g.find("WandNavigation"))
-    print(story["WandNavigation"])
 
-    # story["walls"] = parse_placements(root.find("PlacementRoot"))
+    # Parse each Placement in PlacementRoot by name
+    story["walls"] = dict(
+        (parse_attributes(tag)["name"], parse_placement(tag))
+        for tag in root.find("PlacementRoot")
+    )
 
     # TODO: Build each <Object> in <ObjectRoot> (6)
     # object_root = {}
@@ -120,11 +120,3 @@ def parse_placement(xml: ET.Element) -> dict:
             else None
         ),
     }
-
-
-def parse_placements(xml: ET.Element) -> dict:
-    walls = {}
-    # TODO: Build each <Placement> in <PlacementRoot> (9)
-    for tag in xml:
-        walls[tag.attrib["name"]] = parse_placement(tag)
-    return walls
