@@ -86,16 +86,6 @@ def parse_attributes(xml: ET.Element) -> dict:
     )
 
 
-def parse_recursive(xml: ET.Element) -> dict:
-    key = xml.tag
-    val = parse_attributes(xml)
-    title_to_snake = re.compile(r"(?<!^)(?=[A-Z])")
-
-    if val or xml.find("*") is not None:
-        for child in xml:
-            val = val | parse_recursive(child)
-
-
 def parse_child_one_of_type(xml: ET.Element, options: dict):
     try:
         return options[xml.find("*").tag]
