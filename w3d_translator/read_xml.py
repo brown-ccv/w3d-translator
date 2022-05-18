@@ -19,12 +19,12 @@ def read_xml(file):
     story["WandNavigation"] = parse_recursive(g.find("WandNavigation"))
 
     # Parse each <PlacementRoot>, each <Placement> is referenced by name
-    # story["walls"] = dict(
-    #     (tag.attrib.pop("name"), parse_recursive(tag))
-    #     for tag in root.find("PlacementRoot")
-    # )
+    story["walls"] = dict(
+        (tag.attrib.pop("name"), parse_recursive(tag))
+        for tag in root.find("PlacementRoot")
+    )
 
-    pprint(story, width=100)
+    pprint(story, width=150)
 
     # TODO: Build each <Sound> in <SoundRoot> (10)
     # TODO: Build each <ParticleActionList> in <ParticleActionRoot> (11)
@@ -74,11 +74,11 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
 
 
 def parse_attributes(xml: ET.Element) -> dict:
-    attributes = xml.attrib
-    for key, value in attributes.items():
-        # TODO: Key should be snake_case
-        attributes[key] = parse_string(value)
-    return attributes
+    return dict(
+        # Use snake_case when val is not a dict
+        (key.replace("-", "_"), parse_string(value))
+        for key, value in xml.attrib.items()
+    )
 
 
 def parse_recursive(xml: ET.Element) -> dict:
