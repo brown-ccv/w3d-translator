@@ -1,103 +1,99 @@
+import re
 import xml.etree.ElementTree as ET
+from pathlib import Path
 from typing import Union
 
 
 def read_xml(file):
     xml = ET.parse(file)
     root = xml.getroot()
-
     story = parse_attributes(root)
 
     # Parse <Globals>
     g = root.find("Global")
-    story["Camera"] = parse_camera(g.find("CameraPos"))
-    story["CaveCamera"] = parse_camera(g.find("CaveCameraPos"))
+    story["Camera"] = parse_recursive(g.find("CameraPos"))
+    story["CaveCamera"] = parse_recursive(g.find("CaveCameraPos"))
     story["background_color"] = parse_attributes(g.find("Background"))["color"]
-    story["WandNavigation"] = parse_attributes(g.find("WandNavigation"))
+    story["WandNavigation"] = parse_recursive(g.find("WandNavigation"))
 
-    # Parse each Placement in PlacementRoot by name
+    # Parse each <PlacementRoot>, each <Placement> is referenced by name
     story["walls"] = dict(
-        (tag.attrib["name"], parse_placement(tag))
+        (tag.attrib.pop("name"), parse_recursive(tag))
         for tag in root.find("PlacementRoot")
     )
 
     # TODO: Build each <Sound> in <SoundRoot> (10)
     story["sounds"] = dict(
-        (tag.attrib["name"], parse_sound(tag))
+        (tag.attrib.pop("name"), parse_sound(tag))
         for tag in root.find("SoundRoot")
     )
+    
+    print(story["sounds"])
 
     # TODO: Build each <Object> in <ObjectRoot> (6)
-    # object_root = {}
-    for tag in root.find("ObjectRoot") or []:
-        pass  # Dict of objects by name
-
     # TODO: Build each <Group> in <GroupRoot> (7)
-    # group_root = {}
-    for tag in root.find("GroupRoot") or []:
-        pass  # Dict of groups by name (group -> array of object names)
 
-    # TODO: Build each <Timeline> in <TimelineRoot> (8)
-    # timeline_root = {}
-    for tag in root.find("TimelineRoot") or []:
-        pass  # Dict of Timeline by name
-
+    # TODO: Build each <Sound> in <SoundRoot> (10)
     # TODO: Build each <ParticleActionList> in <ParticleActionRoot> (11)
-    # particle_action_root = {}
-    for tag in root.find("ParticleActionRoot") or []:
-        pass  # Dict of ParticleActionList by name
-
+    # TODO: Build each <Timeline> in <TimelineRoot> (8)
     return story
 
 
-# TODO: Add Path() type
-def parse_string(string: str) -> Union[bool, int, float, tuple, str]:
+def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
+    string = string.strip()
+
     # Check if string is a boolean
-    try:
-        test = string.lower()
-        if test == "true":
-            return True
-        elif test == "false":
-            return False
-    except AttributeError:
-        pass
+    if re.match(r"^\s*(?i)(true)\s*$", string):
+        return True
+    elif re.match(r"^\s*(?i)(false)\s*$", string):
+        return False
 
     # Check if string is an integer
-    try:
+    if re.match(r"^\s*-?(\d+)\s*$", string):
         return int(string)
-    except ValueError:
-        pass
 
     # Check if string is a float
-    try:
+    if re.match(r"^\s*-?(\d+(\.\d+))\s*$", string):
         return float(string)
-    except ValueError:
-        pass
 
     # Check if string is a tuple (of integers or floats)
-    test = string.replace("(", "").replace(")", "").split(",")
-    try:
-        return tuple([int(x) for x in test])
-    except ValueError:
-        pass
-    try:
-        return tuple([float(x) for x in test])
-    except ValueError:
-        pass
+    if re.match(
+        r"\(?\s*-?(\d)\s*,\s*-?(\d)\s*,\s*-?(\d)?\)?",
+        string,
+    ):
+        string = string.strip("()").split(",")
+        return tuple(int(x) for x in string)
+    elif re.match(
+        r"\(?\s*-?(\d+(\.\d+))\s*,\s*-?(\d+(\.\d+))\s*,\s*-?(\d+(\.\d+))?\)?",
+        string,
+    ):
+        string = string.strip("()").split(",")
+        return tuple(float(x) for x in string)
+
+    # Check if string is a path
+    if re.match(r"^[.\/]", string):
+        return Path(string)
 
     # Plain text
     return string
 
 
 def parse_attributes(xml: ET.Element) -> dict:
-    attributes = xml.attrib
-    for key, value in attributes.items():
-        attributes[key] = parse_string(value)
-    return attributes
+    return dict(
+        # Use snake_case when val is not a dict
+        (key.replace("-", "_"), parse_string(value))
+        for key, value in xml.attrib.items()
+    )
 
 
-def parse_text(xml: ET.Element) -> Union[bool, int, float, tuple, str]:
-    return parse_string(xml.text)
+def parse_recursive(xml: ET.Element) -> dict:
+    key = xml.tag
+    val = parse_attributes(xml)
+    title_to_snake = re.compile(r"(?<!^)(?=[A-Z])")
+
+    if val or xml.find("*") is not None:
+        for child in xml:
+            val = val | parse_recursive(child)
 
 
 def parse_child_one_of_type(xml: ET.Element, options: dict):
@@ -105,30 +101,6 @@ def parse_child_one_of_type(xml: ET.Element, options: dict):
         return options[xml.find("*").tag]
     except KeyError:
         return None
-
-
-def parse_camera(xml: ET.Element) -> dict:
-    return {
-        **parse_attributes(xml),
-        "Placement": parse_placement(xml.find("Placement")),
-    }
-
-
-def parse_placement(xml: ET.Element) -> dict:
-    return {
-        "RelativeTo": parse_text(xml.find("RelativeTo")),
-        "Position": parse_text(xml.find("Position")),
-        "Axis": (
-            parse_attributes(xml.find("Axis"))
-            if xml.find("Axis") is not None
-            else None
-        ),
-        "LookAt": (
-            parse_attributes(xml.find("LookAt"))
-            if xml.find("LookAt") is not None
-            else None
-        ),
-    }
 
 
 def parse_sound(xml: ET.Element) -> dict:
@@ -153,3 +125,22 @@ def parse_sound(xml: ET.Element) -> dict:
             else None
         ),
     }
+
+
+def parse_recursive(xml: ET.Element) -> dict:
+    key = xml.tag
+    val = parse_attributes(xml)
+    title_to_snake = re.compile(r"(?<!^)(?=[A-Z])")
+
+    if val or xml.find("*") is not None:
+        for child in xml:
+            val = val | parse_recursive(child)
+
+        # Only add text property if it isn't empty
+        text = parse_string(xml.text) if xml.text is not None else None
+        if text != "" and text is not None:
+            val["text"] = text
+    else:
+        # Use snake_case when val is not a dict
+        return {title_to_snake.sub("_", key).lower(): parse_string(xml.text)}
+    return {key: val}
