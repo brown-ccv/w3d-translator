@@ -16,24 +16,22 @@ def read_xml(file):
     story["background_color"] = parse_attributes(g.find("Background"))["color"]
     story["WandNavigation"] = parse_recursive(g.find("WandNavigation"))
 
-    # Parse each <PlacementRoot>, each <Placement> is referenced by name
+    # Parse <PlacementRoot>
     story["walls"] = dict(
         (tag.attrib.pop("name"), parse_recursive(tag))
         for tag in root.find("PlacementRoot")
     )
 
     # TODO: Build each <Sound> in <SoundRoot> (10)
+    # Parse <SoundRoot>
     story["sounds"] = dict(
         (tag.attrib.pop("name"), parse_sound(tag))
         for tag in root.find("SoundRoot")
     )
 
-    print(story["sounds"])
-
     # TODO: Build each <Object> in <ObjectRoot> (6)
     # TODO: Build each <Group> in <GroupRoot> (7)
 
-    # TODO: Build each <Sound> in <SoundRoot> (10)
     # TODO: Build each <ParticleActionList> in <ParticleActionRoot> (11)
     # TODO: Build each <Timeline> in <TimelineRoot> (8)
     return story
@@ -113,24 +111,21 @@ def parse_child_one_of_type(xml: ET.Element, options: dict):
 
 
 def parse_sound(xml: ET.Element) -> dict:
-    return {
-        **parse_attributes(xml),
-        # <Settings> doesn't need a child dict
-        **parse_attributes(xml.find("Settings")),
-        # <Mode> has child <Fixed> or <Positional>
-        "fixed": (
-            parse_child_one_of_type(
-                xml.find("Mode"), {"Fixed": True, "Positional": False}
-            )
-            if xml.find("Mode") is not None
-            else None
-        ),
-        # <Repeat> has child <Repeat> or <Positional>
-        "repeat": (
-            parse_child_one_of_type(
-                xml.find("Repeat"), {"Repeat": True, "NoRepeat": False}
-            )
-            if xml.find("Repeat") is not None
-            else None
-        ),
-    }
+    sound = parse_attributes(xml)
+
+    # Bring <Settings> up a level
+    sound = sound | parse_attributes(xml.find("Settings"))
+
+    # Parse <Mode> types
+    modes = {"Fixed": True, "Positional": False}
+    mode = xml.find("Mode")
+    if mode is not None:
+        sound["fixed"] = parse_child_one_of_type(mode, modes)
+
+    # Parse <Repeat> types
+    mapping = {"Repeat": True, "NoRepeat": False}
+    repeat = xml.find("Repeat")
+    if repeat is not None:
+        sound["repeat"] = parse_child_one_of_type(repeat, mapping)
+
+    return sound
