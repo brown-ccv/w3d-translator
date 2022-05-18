@@ -7,7 +7,6 @@ from typing import Union
 def read_xml(file):
     xml = ET.parse(file)
     root = xml.getroot()
-
     story = parse_attributes(root)
 
     # Parse <Globals>
