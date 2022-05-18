@@ -21,7 +21,7 @@ def read_xml(file):
         (tag.attrib.pop("name"), parse_recursive(tag))
         for tag in root.find("PlacementRoot")
     )
-    
+
     # TODO: Build each <Object> in <ObjectRoot> (6)
     # TODO: Build each <Group> in <GroupRoot> (7)
 
