@@ -21,11 +21,12 @@ def read_xml(file):
         (tag.attrib.pop("name"), parse_recursive(tag))
         for tag in root.find("PlacementRoot")
     )
+    
+    # TODO: Build each <Object> in <ObjectRoot> (6)
+    # TODO: Build each <Group> in <GroupRoot> (7)
 
     # TODO: Build each <Sound> in <SoundRoot> (10)
     # TODO: Build each <ParticleActionList> in <ParticleActionRoot> (11)
-    # TODO: Build each <Object> in <ObjectRoot> (6)
-    # TODO: Build each <Group> in <GroupRoot> (7)
     # TODO: Build each <Timeline> in <TimelineRoot> (8)
     return story
 
