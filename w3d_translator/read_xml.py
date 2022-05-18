@@ -2,7 +2,6 @@ import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Union
-from pprint import pprint
 
 
 def read_xml(file):
@@ -23,8 +22,6 @@ def read_xml(file):
         (tag.attrib.pop("name"), parse_recursive(tag))
         for tag in root.find("PlacementRoot")
     )
-
-    pprint(story, width=150)
 
     # TODO: Build each <Sound> in <SoundRoot> (10)
     # TODO: Build each <ParticleActionList> in <ParticleActionRoot> (11)
@@ -90,6 +87,7 @@ def parse_recursive(xml: ET.Element) -> dict:
         for child in xml:
             val = val | parse_recursive(child)
 
+        # Only add text property if it isn't empty
         text = parse_string(xml.text) if xml.text is not None else None
         if text != "" and text is not None:
             val["text"] = text
