@@ -27,7 +27,7 @@ def read_xml(file):
         (tag.attrib.pop("name"), parse_sound(tag))
         for tag in root.find("SoundRoot")
     )
-    
+
     print(story["sounds"])
 
     # TODO: Build each <Object> in <ObjectRoot> (6)
@@ -86,6 +86,25 @@ def parse_attributes(xml: ET.Element) -> dict:
     )
 
 
+def parse_recursive(xml: ET.Element) -> dict:
+    key = xml.tag
+    val = parse_attributes(xml)
+    title_to_snake = re.compile(r"(?<!^)(?=[A-Z])")
+
+    if val or xml.find("*") is not None:
+        for child in xml:
+            val = val | parse_recursive(child)
+
+        # Only add text property if it isn't empty
+        text = parse_string(xml.text) if xml.text is not None else None
+        if text != "" and text is not None:
+            val["text"] = text
+    else:
+        # Use snake_case when val is not a dict
+        return {title_to_snake.sub("_", key).lower(): parse_string(xml.text)}
+    return {key: val}
+
+
 def parse_child_one_of_type(xml: ET.Element, options: dict):
     try:
         return options[xml.find("*").tag]
@@ -115,22 +134,3 @@ def parse_sound(xml: ET.Element) -> dict:
             else None
         ),
     }
-
-
-def parse_recursive(xml: ET.Element) -> dict:
-    key = xml.tag
-    val = parse_attributes(xml)
-    title_to_snake = re.compile(r"(?<!^)(?=[A-Z])")
-
-    if val or xml.find("*") is not None:
-        for child in xml:
-            val = val | parse_recursive(child)
-
-        # Only add text property if it isn't empty
-        text = parse_string(xml.text) if xml.text is not None else None
-        if text != "" and text is not None:
-            val["text"] = text
-    else:
-        # Use snake_case when val is not a dict
-        return {title_to_snake.sub("_", key).lower(): parse_string(xml.text)}
-    return {key: val}
