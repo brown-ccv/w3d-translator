@@ -2,6 +2,7 @@ import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Union
+from pprint import pprint
 
 
 def read_xml(file):
@@ -11,27 +12,25 @@ def read_xml(file):
     story = parse_attributes(root)
 
     # Parse <Globals>
-    story = story | parse_recursive(root.find("Global"))
+    g = root.find("Global")
+    story["Camera"] = parse_recursive(g.find("CameraPos"))
+    story["CaveCamera"] = parse_recursive(g.find("CaveCameraPos"))
+    story["background_color"] = parse_attributes(g.find("Background"))["color"]
+    story["WandNavigation"] = parse_recursive(g.find("WandNavigation"))
 
-    # Parse each Placement in PlacementRoot by name
-    story["walls"] = dict(
-        (tag.attrib["name"], parse_recursive(tag))
-        for tag in root.find("PlacementRoot")
-    )
+    # Parse each <PlacementRoot>, each <Placement> is referenced by name
+    # story["walls"] = dict(
+    #     (tag.attrib.pop("name"), parse_recursive(tag))
+    #     for tag in root.find("PlacementRoot")
+    # )
 
+    pprint(story, width=100)
+
+    # TODO: Build each <Sound> in <SoundRoot> (10)
+    # TODO: Build each <ParticleActionList> in <ParticleActionRoot> (11)
     # TODO: Build each <Object> in <ObjectRoot> (6)
     # TODO: Build each <Group> in <GroupRoot> (7)
     # TODO: Build each <Timeline> in <TimelineRoot> (8)
-    # TODO: Build each <Sound> in <SoundRoot> (10)
-    # TODO: Build each <ParticleActionList> in <ParticleActionRoot> (11)
-
-    # Rename and/or re-arrange select properties
-    story["camera"] = story.pop("CameraPos")
-    story["cave_camera"] = story.pop("CaveCameraPos")
-    story["background_color"] = story.pop("Background")["color"]
-
-    # TODO: pop all text keys with value of '' or None
-
     return story
 
 
@@ -77,18 +76,24 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
 def parse_attributes(xml: ET.Element) -> dict:
     attributes = xml.attrib
     for key, value in attributes.items():
+        # TODO: Key should be snake_case
         attributes[key] = parse_string(value)
     return attributes
 
 
 def parse_recursive(xml: ET.Element) -> dict:
-    out = parse_attributes(xml)
-    if out or xml.find("*") is not None:
-        # TODO: Switch statement to escape select tags
-        # CameraPos, CaveCameraPos, Background
-        out["text"] = parse_string(xml.text) if xml.text is not None else None
-        out = out | dict((child.tag, parse_recursive(child)) for child in xml)
-    else:
-        return parse_string(xml.text)
+    key = xml.tag
+    val = parse_attributes(xml)
+    title_to_snake = re.compile(r"(?<!^)(?=[A-Z])")
 
-    return out
+    if val or xml.find("*") is not None:
+        for child in xml:
+            val = val | parse_recursive(child)
+
+        text = parse_string(xml.text) if xml.text is not None else None
+        if text != "" and text is not None:
+            val["text"] = text
+    else:
+        # Use snake_case when val is not a dict
+        return {title_to_snake.sub("_", key).lower(): parse_string(xml.text)}
+    return {key: val}
