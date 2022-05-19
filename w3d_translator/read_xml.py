@@ -89,7 +89,7 @@ def parse_recursive(xml: ET.Element) -> dict:
 
         # Only add text property if it isn't empty
         text = parse_string(xml.text) if xml.text is not None else None
-        if text != "" and text is not None:
+        if text:
             val["text"] = text
     else:
         # Use snake_case when val is not a dict
