@@ -41,35 +41,43 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
     string = string.strip()
 
     # Check if string is a boolean
-    if re.match(r"^\s*(?i)(true)\s*$", string):
+    if string in ["True", "TRUE", "true"]:
         return True
-    elif re.match(r"^\s*(?i)(false)\s*$", string):
+    elif string in ["False", "FALSE", "false"]:
         return False
 
     # Check if string is an integer
-    if re.match(r"^\s*-?(\d+)\s*$", string):
+    try:
         return int(string)
+    except Exception:
+        pass
 
     # Check if string is a float
-    if re.match(r"^\s*-?(\d+(\.\d+))\s*$", string):
+    try:
         return float(string)
+    except Exception:
+        pass
 
     # Check if string is a tuple (of integers or floats)
     if re.match(
-        r"\(?\s*-?(\d)\s*,\s*-?(\d)\s*,\s*-?(\d)?\)?",
+        r"\(?\s*-?(\d+)\s*,\s*-?(\d+)\s*,\s*-?(\d+)?\)?",
         string,
     ):
+        # String matches "[int], [int], [int],"
+        # or "([int], [int], [int])"
         string = string.strip("()").split(",")
         return tuple(int(x) for x in string)
     elif re.match(
         r"\(?\s*-?(\d+(\.\d+))\s*,\s*-?(\d+(\.\d+))\s*,\s*-?(\d+(\.\d+))?\)?",
         string,
     ):
+        # String matches "[float], [float], [float],"
+        # or "([float], [float], [float])"
         string = string.strip("()").split(",")
         return tuple(float(x) for x in string)
 
     # Check if string is a path
-    if re.match(r"^[.\/]", string):
+    if re.match(r"^(.+)?\/([^\/]+)$", string):
         return Path(string)
 
     # Plain text
@@ -95,7 +103,7 @@ def parse_recursive(xml: ET.Element) -> dict:
 
         # Only add text property if it isn't empty
         text = parse_string(xml.text) if xml.text is not None else None
-        if text != "" and text is not None:
+        if text:
             val["text"] = text
     else:
         # Use snake_case when val is not a dict
