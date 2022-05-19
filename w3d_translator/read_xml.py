@@ -1,4 +1,3 @@
-from pprint import pprint
 import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -22,8 +21,6 @@ def read_xml(file):
         (tag.attrib.pop("name"), parse_recursive(tag))
         for tag in root.find("PlacementRoot")
     )
-
-    pprint(story, width=200)
 
     # TODO: Build each <Object> in <ObjectRoot> (6)
     # TODO: Build each <Group> in <GroupRoot> (7)
@@ -60,17 +57,21 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
         r"\(?\s*-?(\d+)\s*,\s*-?(\d+)\s*,\s*-?(\d+)?\)?",
         string,
     ):
+        # String matches "[int], [int], [int],"
+        # or "([int], [int], [int])"
         string = string.strip("()").split(",")
         return tuple(int(x) for x in string)
     elif re.match(
         r"\(?\s*-?(\d+(\.\d+))\s*,\s*-?(\d+(\.\d+))\s*,\s*-?(\d+(\.\d+))?\)?",
         string,
     ):
+        # String matches "[float], [float], [float],"
+        # or "([float], [float], [float])"
         string = string.strip("()").split(",")
         return tuple(float(x) for x in string)
 
     # Check if string is a path
-    if re.match(r"^[.\/]", string):
+    if re.match(r"^(.+)?\/([^\/]+)$", string):
         return Path(string)
 
     # Plain text
