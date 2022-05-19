@@ -1,4 +1,5 @@
 import typer
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from unity import (
@@ -108,8 +109,20 @@ def main(
     # Translate project(s)
     if multiple:
         projects = [p for p in in_dir.iterdir() if p.is_dir()]
-        for project_dir in projects:
-            translate_project(project_dir, out_dir, dev=dev)
+        # for project_dir in projects:
+        #     translate_project(project_dir, out_dir, dev=dev)
+
+        tags = set()
+        for project in projects:
+            print(projects)
+            for file in project.iterdir():
+                if file.is_file() and file.suffix == ".xml":
+                    for elem in ET.parse(file).getroot().iter():
+                        tags.add(elem.tag)
+        tags = list(tags)
+        tags.sort()
+        print(tags)
+
     else:
         translate_project(in_dir, out_dir, dev=dev)
 
