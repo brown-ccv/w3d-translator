@@ -57,21 +57,22 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
         r"\(?\s*-?(\d+)\s*,\s*-?(\d+)\s*,\s*-?(\d+)?\)?",
         string,
     ):
-        # String matches "[int], [int], [int],"
-        # or "([int], [int], [int])"
+        # Match "[int], [int], [int]" or "[int],[int],[int]"
+        # or "([int], [int], [int])"  or "([int],[int],[int])"
         string = string.strip("()").split(",")
         return tuple(int(x) for x in string)
     elif re.match(
         r"\(?\s*-?(\d+(\.\d+))\s*,\s*-?(\d+(\.\d+))\s*,\s*-?(\d+(\.\d+))?\)?",
         string,
     ):
-        # String matches "[float], [float], [float],"
-        # or "([float], [float], [float])"
+        # Match "[float], [float], [float]" or "[float],[float],[float]"
+        # or "([float], [float], [float])" or "([float],[float],[float])"
         string = string.strip("()").split(",")
         return tuple(float(x) for x in string)
 
     # Check if string is a path
     if re.match(r"^(.+)?\/([^\/]+)$", string):
+        # Match "/" or "./" or "../" at the beginning of the string
         return Path(string)
 
     # Plain text
