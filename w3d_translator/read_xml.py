@@ -85,7 +85,7 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
     WindowsPath('../folder/file.xml')
     >>> parse_string('/folder/.')
     WindowsPath('/folder')
-    >>> parse_string('/folder/') # TODO: This is failing
+    >>> parse_string('/folder/')
     WindowsPath('/folder')
     >>> parse_string('/folder')
     WindowsPath('/folder')
