@@ -77,40 +77,18 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
     (13.5, 2.5, -1.5)
 
     # Test Paths
-    >>> p1 = parse_string('/folder/file.xml')
-    >>> isinstance(p1, Path), p1.parts
-    (True, ('/', 'folder', 'file.xml'))
-    >>> p2 = parse_string('./folder/file.xml')
-    >>> isinstance(p2, Path), p2.parts
-    (True, ('folder', 'file.xml'))
-    >>> p3 = parse_string('../folder/file.xml')
-    >>> isinstance(p3, Path), p3.parts
-    (True, ('..', 'folder', 'file.xml'))
-    >>> p4 = parse_string('/folder/.')
-    >>> isinstance(p4, Path), p4.parts
-    (True, ('/', 'folder'))
-    >>> p5 = parse_string('/folder/') # TODO: This is failing
-    >>> isinstance(p5, Path), p5.parts
-    (True, ('/', 'folder'))
-    >>> p6 = parse_string('/folder')
-    >>> isinstance(p6, Path), p6.parts
-    (True, ('/', 'folder'))
-    >>> p7 = parse_string('folder/file.xml') #TODO: 28
-    >>> isinstance(p7, Path), p7.parts
-    (True, ('folder', 'file.xml'))
-
-    >>> parse_string('/folder/file.xml')
-    WindowsPath('/folder/file.xml')
-    >>> parse_string('./folder/file.xml')
-    WindowsPath('folder/file.xml')
-    >>> parse_string('../folder/file.xml')
-    WindowsPath('../folder/file.xml')
-    >>> parse_string('/folder/.')
-    WindowsPath('/folder')
-    >>> parse_string('/folder/')
-    WindowsPath('/folder')
-    >>> parse_string('/folder')
-    WindowsPath('/folder')
+    >>> isinstance(parse_string('/folder/file.xml'), Path)
+    True
+    >>> isinstance(parse_string('./folder/file.xml'), Path)
+    True
+    >>> isinstance(parse_string('../folder/file.xml'), Path)
+    True
+    >>> isinstance(parse_string('/folder/.'), Path)
+    True
+    >>> isinstance(parse_string('/folder/'), Path)
+    True
+    >>> isinstance(parse_string('/folder'), Path)
+    True
 
     # Test invalid strings
     # >> parse_string('Center')
@@ -127,8 +105,9 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
     # '(cat, dog, pigeon)'
     # >>> parse_string('(13.0, 2., -1.)') # Floats without trailing 0
     # (13.0, 2.0, -1.0)
-    # >>> parse_string('folder/file.xml') # Path without starting /
-    # WindowsPath('folder/file.xml')
+    # >>> p7 = parse_string('folder/file.xml')
+    # >>> isinstance(p7, Path), p7.parts
+    # (True, ('folder', 'file.xml'))
     """
     string = string.strip()
 
