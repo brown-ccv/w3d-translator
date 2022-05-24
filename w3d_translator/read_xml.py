@@ -32,12 +32,88 @@ def read_xml(file):
 
 
 def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
+    """Parses the variable type of a given string
+
+    Args:
+        string (str): Input string
+
+    Returns:
+        Union[bool, int, float, tuple, Path, str]: Data parsed as correct type
+
+    # Test boolean
+    >>> parse_string('True')
+    True
+    >>> parse_string('TRUE')
+    True
+    >>> parse_string('false')
+    False
+    >>> parse_string('FaLSe') # Bad capitalization passes
+    False
+
+    # Test integer
+    >>> parse_string('123')
+    123
+    >>> parse_string('-123')
+    -123
+
+    # Test float
+    >>> parse_string('123.4')
+    123.4
+    >>> parse_string('-123.4')
+    -123.4
+    >>> parse_string('b123.4') # Invalid, return string
+    'b123.4'
+
+    # Test tuple of integers
+    >>> parse_string('(1, 2, 3)')
+    (1, 2, 3)
+    >>> parse_string('(12, 2, -1)')
+    (12, 2, -1)
+
+    # Test tuple of floats
+    >>> parse_string('(1.1, 2.2, 3.3)')
+    (1.1, 2.2, 3.3)
+    >>> parse_string('(13.5, 2.5, -1.5)')
+    (13.5, 2.5, -1.5)
+
+    # Test paths
+    >>> parse_string('/folder/file.xml')
+    WindowsPath('/folder/file.xml')
+    >>> parse_string('./folder/file.xml')
+    WindowsPath('folder/file.xml')
+    >>> parse_string('../folder/file.xml')
+    WindowsPath('../folder/file.xml')
+    >>> parse_string('/folder/.')
+    WindowsPath('/folder')
+    >>> parse_string('/folder/') # TODO: This is failing
+    WindowsPath('/folder')
+    >>> parse_string('/folder')
+    WindowsPath('/folder')
+
+    # Test invalid strings
+    # >> parse_string('Center')
+    # 'Center'
+    # >>> parse_string('12a3')
+    # '12a3'
+    # >>> parse_string('(12, 2.0, 1)') # Tuple of mixed types
+    # '(12, 2.0, 1)'
+    # >>> parse_string('(1,)') # Tuple with one element
+    # '(1,)'
+
+    # TODO 27, 28
+    # >>> parse_string('(cat, dog, pigeon)') # Tuple of strings
+    # '(cat, dog, pigeon)'
+    # >>> parse_string('(13.0, 2., -1.)') # Floats without trailing 0
+    # (13.0, 2.0, -1.0)
+    # >>> parse_string('folder/file.xml') # Path without starting /
+    # WindowsPath('folder/file.xml')
+    """
     string = string.strip()
 
     # Check if string is a boolean
-    if string in ["True", "TRUE", "true"]:
+    if string.lower() == "true":
         return True
-    elif string in ["False", "FALSE", "false"]:
+    elif string.lower() == "false":
         return False
 
     # Check if string is an integer
@@ -71,7 +147,7 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
         return tuple(float(x) for x in string)
 
     # Check if string is a path
-    if re.match(r"^(.+)?\/([^\/]+)$", string):
+    if re.match(r"^(.+)?\/([^\/]+)", string):
         # Match "/" or "./" or "../" at the beginning of the string
         return Path(string)
 
