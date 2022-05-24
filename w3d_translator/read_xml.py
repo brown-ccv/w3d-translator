@@ -90,10 +90,10 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
     >>> isinstance(parse_string('/folder'), Path)
     True
 
-    # Test invalid strings
-    # >> parse_string('Center')
+    # Test strings
+    # >> parse_string('Center') # String
     # 'Center'
-    # >>> parse_string('12a3')
+    # >>> parse_string('12a3') # String with numbers
     # '12a3'
     # >>> parse_string('(12, 2.0, 1)') # Tuple of mixed types
     # '(12, 2.0, 1)'
