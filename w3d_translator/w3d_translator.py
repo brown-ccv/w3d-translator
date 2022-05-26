@@ -1,4 +1,6 @@
+from pprint import pprint
 import typer
+import xmlschema
 from lxml import etree
 from pathlib import Path
 
@@ -72,21 +74,36 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             for p in project_dir.iterdir()
             if (p.is_file() and p.suffix == ".xml")
         ]
+        schema = etree.XMLSchema(file="schema/caveschema.xsd")
+        schema_new = xmlschema.XMLSchema("schema/caveschema.xsd")
         for file in xml_files:
             typer.echo(f"Translating file:\t {green(file.name)}")
 
+            # # Validate schema with xmlschema
+            # pprint(schema_new.to_dict(file), width=150)
+            # try:
+            #     valid = schema_new.validate(file)
+            #     print("NEW", valid)
+            # except Exception as e:
+            #     print("error")
+            #     print(type(e))
+            #     print(e)
+
             # Validate xml file against schema file
-            schema = etree.XMLSchema(file="schema/caveschema.xsd")
             try:
                 schema.assertValid(etree.parse(file))
             except etree.DocumentInvalid as e:
                 typer.echo(
                     red(f"{file.name} does not match schema:"), err=True
                 )
-                typer.echo(red(e), err=True)
+                # typer.echo(red(e), err=True)
+                for error in e.error_log:
+                    typer.echo(red(error), err=True)
                 typer.echo(red(f"Skipping {file.name}"), err=True)
             except Exception as e:
-                print("Exception", e, type(e))
+                typer.echo(red(f"Error validating {file.name}"), err=True)
+                typer.echo(red(e), err=True)
+                typer.echo(red(f"Skipping {file.name}"), err=True)
             else:
                 # Build Story dataclass and Unity project
                 story = read_xml(file)
