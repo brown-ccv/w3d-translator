@@ -73,18 +73,24 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             if (p.is_file() and p.suffix == ".xml")
         ]
         for file in xml_files:
-            # Build Story dataclass and Unity project
             typer.echo(f"Translating file:\t {green(file.name)}")
 
-            # # TODO: Validate xml file against schema file
-            schema_file = "schema/caveschema.xsd"
-            lxml_schema = etree.XMLSchema(file=schema_file)
-            xml_file = etree.parse(file)
-            print("lxml validation", lxml_schema, lxml_schema.validate(xml_file))
-            lxml_schema.assertValid(xml_file)
-
-            # story = read_xml(file)
-            # build_project(unity_dir, story)
+            # Validate xml file against schema file
+            schema = etree.XMLSchema(file="schema/caveschema.xsd")
+            try:
+                schema.assertValid(etree.parse(file))
+            except etree.DocumentInvalid as e:
+                typer.echo(
+                    red(f"{file.name} does not match schema:"), err=True
+                )
+                typer.echo(red(e), err=True)
+                typer.echo(red(f"Skipping {file.name}"), err=True)
+            except Exception as e:
+                print("Exception", e, type(e))
+            else:
+                # Build Story dataclass and Unity project
+                story = read_xml(file)
+                build_project(unity_dir, story)
 
     except (ValidationError, UnityError, TranslationError) as e:
         typer.echo(red(e), err=True)

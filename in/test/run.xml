@@ -54,15 +54,12 @@
                      </Content>
               </Object>
        </ObjectRoot>
-
-
        <GroupRoot>
               <Group name="title">
                      <Objects name="start_button"/>
                      <Objects name="A Completed Portrait of Picasso"/>
               </Group>
        </GroupRoot>
-
        <TimelineRoot>
               <Timeline name="intro" start-immediately="false">
                     <TimedActions seconds-time="0.001">
@@ -89,15 +86,33 @@
                      </TimedActions>
               </Timeline>
        </TimelineRoot>
-
        <PlacementRoot>
-              <Placement name="Center">
-                     <RelativeTo>Center</RelativeTo>
-                     <Position>(0.0, 0.0, 0.0)</Position>
-                            <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0"/>
-              </Placement>
-       </PlacementRoot>
-
+        <Placement name="Center">
+               <RelativeTo>Center</RelativeTo>
+               <Position>(0.0, 0.0, 0.0)</Position>
+                      <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0"/>
+        </Placement>
+        <Placement name="FrontWall">
+               <RelativeTo>Center</RelativeTo>
+               <Position>(0.0, 0.0, -4.0)</Position>
+                      <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+        </Placement>
+        <Placement name="LeftWall">
+               <RelativeTo>Center</RelativeTo>
+               <Position>(-4.0, 0.0, 0.0)</Position>
+                      <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+        </Placement>
+        <Placement name="RightWall">
+               <RelativeTo>Center</RelativeTo>
+               <Position>(4.0, 0.0, 0.0)</Position>
+                      <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+        </Placement>
+        <Placement name="FloorWall">
+               <RelativeTo>Center</RelativeTo>
+               <Position>(0.0, -4.0, 0.0)</Position>
+                      <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
+        </Placement>
+ </PlacementRoot>
        <SoundRoot>
               <Sound name="title_audio" filename="./audio/title.mp3" autostart="false">
                      <Mode>
@@ -110,7 +125,6 @@
               </Sound>
               
        </SoundRoot>
-
        <Global>
               <CameraPos far-clip="100.0">
                      <Placement>
