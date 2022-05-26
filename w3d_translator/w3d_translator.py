@@ -75,6 +75,8 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
         for file in xml_files:
             # Build Story dataclass and Unity project
             typer.echo(f"Translating file:\t {green(file.name)}")
+            
+            # TODO: Validate xml file against schema file
             story = read_xml(file)
             build_project(unity_dir, story)
 
@@ -112,6 +114,8 @@ def main(
         # for project_dir in projects:
         #     translate_project(project_dir, out_dir, dev=dev)
 
+        # Check all tags
+        # TODO: Remove
         tags = set()
         for project in projects:
             print(projects)
