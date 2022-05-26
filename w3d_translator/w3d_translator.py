@@ -1,5 +1,5 @@
 import typer
-import xml.etree.ElementTree as ET
+from lxml import etree
 from pathlib import Path
 
 from unity import (
@@ -48,7 +48,7 @@ def farewell():
 # Farewell message on error
 def farewell_error():
     typer.echo()
-    typer.echo("Tranlsation Completed with errors")
+    typer.echo("Translation Completed with errors")
     typer.echo("Please see the command line for a list of issues")
     exit(1)
 
@@ -75,10 +75,16 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
         for file in xml_files:
             # Build Story dataclass and Unity project
             typer.echo(f"Translating file:\t {green(file.name)}")
-            
-            # TODO: Validate xml file against schema file
-            story = read_xml(file)
-            build_project(unity_dir, story)
+
+            # # TODO: Validate xml file against schema file
+            schema_file = "schema/caveschema.xsd"
+            lxml_schema = etree.XMLSchema(file=schema_file)
+            xml_file = etree.parse(file)
+            print("lxml validation", lxml_schema, lxml_schema.validate(xml_file))
+            lxml_schema.assertValid(xml_file)
+
+            # story = read_xml(file)
+            # build_project(unity_dir, story)
 
     except (ValidationError, UnityError, TranslationError) as e:
         typer.echo(red(e), err=True)
@@ -111,21 +117,21 @@ def main(
     # Translate project(s)
     if multiple:
         projects = [p for p in in_dir.iterdir() if p.is_dir()]
-        # for project_dir in projects:
-        #     translate_project(project_dir, out_dir, dev=dev)
+        for project_dir in projects:
+            translate_project(project_dir, out_dir, dev=dev)
 
-        # Check all tags
-        # TODO: Remove
-        tags = set()
-        for project in projects:
-            print(projects)
-            for file in project.iterdir():
-                if file.is_file() and file.suffix == ".xml":
-                    for elem in ET.parse(file).getroot().iter():
-                        tags.add(elem.tag)
-        tags = list(tags)
-        tags.sort()
-        print(tags)
+        # # Check all tags
+        # # TODO: Remove
+        # tags = set()
+        # for project in projects:
+        #     print(projects)
+        #     for file in project.iterdir():
+        #         if file.is_file() and file.suffix == ".xml":
+        #             for elem in ET.parse(file).getroot().iter():
+        #                 tags.add(elem.tag)
+        # tags = list(tags)
+        # tags.sort()
+        # print(tags)
 
     else:
         translate_project(in_dir, out_dir, dev=dev)
