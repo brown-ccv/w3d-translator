@@ -83,7 +83,7 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 typer.echo(
                     red(f"{file.name} does not match schema:"), err=True
                 )
-                # typer.echo(red(e), err=True)
+                # TODO: Shorten up error message, just line and error (30)
                 for error in e.error_log:
                     typer.echo(red(error), err=True)
                 typer.echo(red(f"Skipping {file.name}"), err=True)
