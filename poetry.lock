@@ -39,17 +39,6 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
-name = "elementpath"
-version = "2.5.2"
-description = "XPath 1.0/2.0/3.0 parsers and selectors for ElementTree and lxml"
-category = "main"
-optional = false
-python-versions = ">=3.7"
-
-[package.extras]
-dev = ["tox", "coverage", "lxml", "xmlschema (>=1.9.0)", "sphinx", "memory-profiler", "flake8", "mypy (==0.950)"]
-
-[[package]]
 name = "flake8"
 version = "4.0.1"
 description = "the modular source code checker: pep8 pyflakes and co"
@@ -184,26 +173,10 @@ PyYAML = "5.4"
 ci = ["tox (>=3.24,<4.0)"]
 test = ["pytest-cov (>=2.7,<3.0)", "pytest (>=4.5,<5.0)"]
 
-[[package]]
-name = "xmlschema"
-version = "1.11.1"
-description = "An XML Schema validator and decoder"
-category = "main"
-optional = false
-python-versions = ">=3.7"
-
-[package.dependencies]
-elementpath = ">=2.5.0,<3.0.0"
-
-[package.extras]
-codegen = ["elementpath (>=2.5.0,<3.0.0)", "jinja2"]
-dev = ["tox", "coverage", "lxml", "elementpath (>=2.5.0,<3.0.0)", "memory-profiler", "sphinx", "sphinx-rtd-theme", "jinja2", "flake8", "mypy", "lxml-stubs"]
-docs = ["elementpath (>=2.5.0,<3.0.0)", "sphinx", "sphinx-rtd-theme", "jinja2"]
-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "a551d284736f4fb09400d4ec3542dbec4d055373f5fe1a7ff7ad28adc3d6ed42"
+content-hash = "a6362ca9b27b7bc88cf88ebb399904374a8a21d1212d9d5cb8a8ac0c335f1db8"
 
 [metadata.files]
 black = [
@@ -238,10 +211,6 @@ click = [
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
-]
-elementpath = [
-    {file = "elementpath-2.5.2-py3-none-any.whl", hash = "sha256:25368810a76a5d9e464c0e721a12645409fc8c113ffde9e01d88557b4a7663d3"},
-    {file = "elementpath-2.5.2.tar.gz", hash = "sha256:07f2a34bac7a2a909d745da1cb3c7b8cd43ca1d7d1134546db41ffb997bcb11c"},
 ]
 flake8 = [
     {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
@@ -372,8 +341,4 @@ typing-extensions = [
 unityparser = [
     {file = "unityparser-2.1.5-py3-none-any.whl", hash = "sha256:f726822cdbcdf28308842a31dabdf60d362b36337dd9bb363d7305a7e244cbcb"},
     {file = "unityparser-2.1.5.tar.gz", hash = "sha256:dd35ef0236fd1d7b87a84c4ee76ea771ad8c479144f9e57fba55e30762b599a0"},
-]
-xmlschema = [
-    {file = "xmlschema-1.11.1-py3-none-any.whl", hash = "sha256:ff0b2a575c78a4b1e426f7d037be3a6db1278fada108f93da44038f5e5dad45b"},
-    {file = "xmlschema-1.11.1.tar.gz", hash = "sha256:9232b3e3d967b956c5f96f3dcd82f1157f88aad18939d1b8f26c870bc15c5938"},
 ]
