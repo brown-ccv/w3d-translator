@@ -8,6 +8,8 @@ def read_xml(file):
     xml = ET.parse(file)
     root = xml.getroot()
     story = parse_attributes(root)
+    
+    # TODO: Each root may not be present
 
     # Parse <Globals>
     g = root.find("Global")

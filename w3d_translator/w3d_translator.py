@@ -78,6 +78,7 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             typer.echo(f"Translating file:\t {green(file.name)}")
 
             # Validate xml file against schema file
+            # TODO: Move to validate.py
             try:
                 schema.assertValid(etree.parse(file))
             except etree.DocumentInvalid as e:
