@@ -6,29 +6,22 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="ObjectRoot" maxOccurs="1">
+        <xs:element name="ObjectRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Object" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
-          <xs:key name="objectKey">
-            <xs:selector xpath="Object" />
-            <xs:field xpath="@name" />
-          </xs:key>
+
         </xs:element>
-        <xs:element name="GroupRoot" maxOccurs="1">
+        <xs:element name="GroupRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Group" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
-          <xs:key name="groupKey">
-            <xs:selector xpath="Group" />
-            <xs:field xpath="@name" />
-          </xs:key>
         </xs:element>
-        <xs:element name="TimelineRoot" maxOccurs="1">
+        <xs:element name="TimelineRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Timeline" minOccurs="0" maxOccurs="unbounded" />
@@ -39,28 +32,19 @@
             <xs:field xpath="@name" />
           </xs:key>
         </xs:element>
-        <xs:element name="PlacementRoot" maxOccurs="1">
+        <xs:element name="PlacementRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Placement" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
-          <!-- Each <Placement name=""> is a key in frameKey -->
-          <xs:key name="placementKey">
-            <xs:selector xpath="Placement"/>
-            <xs:field xpath="@name" />
-          </xs:key>
         </xs:element>
-        <xs:element name="SoundRoot" maxOccurs="1">
+        <xs:element name="SoundRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Sound" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
-          <xs:key name="soundKey">
-            <xs:selector xpath="Sound" />
-            <xs:field xpath="@name" />
-          </xs:key>
         </xs:element>
         <xs:element name="EventRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
@@ -73,7 +57,7 @@
             <xs:field xpath="@name" />
           </xs:key>
         </xs:element>
-        <xs:element name="ParticleActionRoot">
+        <xs:element name="ParticleActionRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="ParticleActionList" minOccurs="0" maxOccurs="unbounded" />
@@ -84,8 +68,8 @@
             <xs:field xpath="@name" />
           </xs:key>
         </xs:element>
-        <xs:element ref="Global" maxOccurs="1"/>
-        <xs:element name="About" minOccurs="0">
+        <xs:element ref="Global" minOccurs="0" maxOccurs="1" />
+        <xs:element name="About" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:attribute name="news" type="xs:string" use="optional" />
           </xs:complexType>
@@ -94,8 +78,88 @@
       <xs:attribute name="version" type="xs:unsignedInt" use="required" fixed="8" />
       <xs:attribute name="last_xpath" type="xs:string" use="optional" />
     </xs:complexType>
+
+    <!-- Each <Object name=""> in <ObjectRoot> is a key -->
+    <xs:key name="objectKey">
+      <xs:selector xpath="./ObjectRoot/Object" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <!-- Each <ObjectChange name=""> is an <Object> reference -->
+    <xs:keyref name="ObjectChange_objectKeyRef" refer="objectKey">
+      <xs:selector xpath=".//ObjectChange" />
+      <xs:field xpath="@name" />
+    </xs:keyref>
+    <!-- Each <Objects name=""> is an <Object> reference -->
+    <xs:keyref name="Group_ObjectRef" refer="objectKey">
+      <xs:selector xpath=".//Objects" />
+      <xs:field xpath="@name" />
+    </xs:keyref>
+    <!-- Each <ObjectTarget name=""> is an <Object> reference-->
+    <xs:keyref name="ObjectTarget_objectKeyRef" refer="objectKey">
+      <xs:selector xpath=".//ObjectTarget" />
+      <xs:field xpath="@name" />
+    </xs:keyref>
+    <!-- Each <ObjectRef name=""> is an <Object> reference -->
+    <xs:keyref name="ObjectRef_objectKeyRef" refer="objectKey">
+      <xs:selector xpath=".//ObjectRef" />
+      <xs:field xpath="@name" />
+    </xs:keyref>
+
+    <!-- Each <Placement name=""> in <PlacementRoot> is a key -->
+    <xs:key name="placementKey">
+      <xs:selector xpath="./PlacementRoot/Placement" />
+      <xs:field xpath="@name" />
+    </xs:key>
+
+    <!-- Each <Placement><RelativeTo></Placement> is a <Placement> reference -->
+    <xs:keyref name="placementKeyRef" refer="placementKey">
+      <xs:selector xpath=".//Placement" />
+      <xs:field xpath="RelativeTo" />
+    </xs:keyref>
+
+    <!-- Each <Sound name=""> in <SoundRoot> is a key -->
+    <xs:key name="soundKey">
+      <xs:selector xpath="./SoundRoot/Sound" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <!--  Each <Object><SoundRef></Object> is a <Sound> reference-->
+    <xs:keyref name="Object_soundKeyRef" refer="soundKey">
+      <xs:selector xpath="./ObjectRoot/Object/SoundRef" />
+      <xs:field xpath="." />
+    </xs:keyref>
+    <!-- Each <TimedActions><SoundRef name=""></TimedActions> is a <Sound> reference -->
+    <xs:keyref name="SoundRef_soundKeyRef" refer="soundKey">
+      <xs:selector xpath="./TimelineRoot/Timeline/TimedAction" />
+      <xs:field xpath="@name" />
+    </xs:keyref>
+
+    <!-- Each <Group name=""> in <GroupRoot> is a key -->
+    <xs:key name="groupKey">
+      <xs:selector xpath="./GroupRoot/Group" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <!-- Each <ParticleSystem particle-group=""> is a <Group> reference -->
+    <xs:keyref name="particleSystem_GroupsRef" refer="groupKey">
+      <xs:selector xpath=".//ParticleSystem" />
+      <xs:field xpath="@particle-group" />
+    </xs:keyref>
+    <!-- Each <GroupRoot><Groups name=""></GroupRoot> is a <Group> reference -->
+    <xs:keyref name="groups_groupKeyRef" refer="groupKey">
+      <xs:selector xpath="./GroupRoot/Groups" />
+      <xs:field xpath="@name" />
+    </xs:keyref>
+    <!-- Each <GroupObj name=""> is a <Group> reference -->
+    <xs:keyref name="groupKeyRef3" refer="groupKey">
+      <xs:selector xpath=".//GroupObj" />
+      <xs:field xpath="@name" />
+    </xs:keyref>
+    <!-- Each <GroupRef name=""> is a <Group> reference -->
+    <xs:keyref name="groupKeyRef" refer="groupKey">
+      <xs:selector xpath=".//GroupRef" />
+      <xs:field xpath="@name" />
+    </xs:keyref>
   </xs:element>
-  
+
   <!-- <Object /> -->
   <xs:element name="Object">
     <xs:annotation>
@@ -109,12 +173,7 @@
         <xs:element name="ClickThrough" type="xs:boolean" default="false" />
         <xs:element name="AroundSelfAxis" type="xs:boolean" default="false" />
         <xs:element name="Scale" type="xs:double" default="1.0" />
-        <xs:element name="SoundRef" type="xs:string" minOccurs="0">
-          <xs:keyref name="Object_soundKeyRef" refer="soundKey">
-            <xs:selector xpath="." />
-            <xs:field xpath="." />
-          </xs:keyref>
-        </xs:element>
+        <xs:element name="SoundRef" type="xs:string" minOccurs="0"></xs:element>
         <xs:element ref="Placement" />
         <xs:element ref="Content" />
         <xs:element name="LinkRoot" minOccurs="0">
@@ -216,10 +275,6 @@
             <xs:selector xpath="." />
             <xs:field xpath="@actions-name" />
           </xs:keyref>
-          <xs:keyref name="particleGroupsRef" refer="groupKey">
-            <xs:selector xpath="." />
-            <xs:field xpath="@particle-group" />
-          </xs:keyref>
         </xs:element>
       </xs:choice>
     </xs:complexType>
@@ -265,7 +320,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  
+
   <!-- <Group /> -->
   <xs:element name="Group">
     <xs:annotation>
@@ -288,21 +343,13 @@
     <xs:complexType>
       <xs:attribute name="name" type="xs:string" use="required" />
     </xs:complexType>
-    <xs:keyref name="Group_ObjectRef" refer="objectKey">
-      <xs:selector xpath="." />
-      <xs:field xpath="@name" />
-    </xs:keyref>
   </xs:element>
   <xs:element name="Groups">
     <xs:complexType>
       <xs:attribute name="name" type="xs:string" use="required" />
     </xs:complexType>
-    <xs:keyref name="groupKeyRef2" refer="groupKey">
-      <xs:selector xpath="." />
-      <xs:field xpath="@name" />
-    </xs:keyref>
   </xs:element>
-  
+
   <!-- <Timeline /> -->
   <xs:element name="Timeline">
     <xs:annotation>
@@ -341,10 +388,6 @@
         </xs:simpleType>
       </xs:attribute>
     </xs:complexType>
-    <xs:keyref name="groupKeyRef" refer="groupKey">
-      <xs:selector xpath="." />
-      <xs:field xpath="@name" />
-    </xs:keyref>
   </xs:element>
   <xs:complexType name="ActionsType">
     <xs:choice>
@@ -404,19 +447,11 @@
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required" />
     </xs:complexType>
-    <xs:keyref name="ObjectChange_objectKeyRef" refer="objectKey">
-      <xs:selector xpath="." />
-      <xs:field xpath="@name" />
-    </xs:keyref>
   </xs:element>
   <xs:element name="SoundRef">
     <xs:complexType>
       <xs:attribute name="name" type="xs:string" use="required" />
     </xs:complexType>
-    <xs:keyref name="SoundRef_soundKeyRef" refer="soundKey">
-      <xs:selector xpath="." />
-      <xs:field xpath="@name" />
-    </xs:keyref>
   </xs:element>
 
   <!-- <Sound /> -->
@@ -525,10 +560,6 @@
                         <xs:complexType>
                           <xs:attribute name="name" type="xs:string" use="required" />
                         </xs:complexType>
-                        <xs:keyref name="ObjectTarget_objectKeyRef" refer="objectKey">
-                          <xs:selector xpath="." />
-                          <xs:field xpath="@name" />
-                        </xs:keyref>
                       </xs:element>
                       <xs:element name="None">
                         <xs:complexType />
@@ -549,10 +580,6 @@
                         <xs:complexType>
                           <xs:attribute name="name" type="xs:string" use="required" />
                         </xs:complexType>
-                        <xs:keyref name="ObjectRef_objectKeyRef" refer="objectKey">
-                          <xs:selector xpath="." />
-                          <xs:field xpath="@name" />
-                        </xs:keyref>
                       </xs:element>
                       <xs:element name="GroupObj">
                         <xs:complexType>
@@ -566,10 +593,6 @@
                             </xs:simpleType>
                           </xs:attribute>
                         </xs:complexType>
-                        <xs:keyref name="groupKeyRef3" refer="groupKey">
-                          <xs:selector xpath="." />
-                          <xs:field xpath="@name" />
-                        </xs:keyref>
                       </xs:element>
                     </xs:choice>
                   </xs:complexType>
@@ -837,7 +860,7 @@
       </xs:element>
     </xs:choice>
   </xs:complexType>
-  
+
   <!-- Global -->
   <xs:element name="Global">
     <xs:complexType>
@@ -872,7 +895,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  
+
   <!-- Multiple References -->
   <xs:element name="Placement">
     <xs:annotation>
@@ -905,10 +928,6 @@
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="optional" />
     </xs:complexType>
-    <xs:keyref name="placementKeyRef" refer="placementKey">
-      <xs:selector xpath="." />
-      <xs:field xpath="RelativeTo" />
-    </xs:keyref>
   </xs:element>
   <xs:element name="Transition">
     <xs:complexType>
@@ -965,7 +984,6 @@
     </xs:complexType>
   </xs:element>
 
-  
 
   <!-- Simple Types (string validation) -->
   <xs:simpleType name="file">

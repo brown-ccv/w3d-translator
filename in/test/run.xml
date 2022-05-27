@@ -11,7 +11,7 @@
             <AroundSelfAxis>false</AroundSelfAxis>
             <Scale>2.5</Scale>
             <Placement>
-                <RelativeTo>Center BAD</RelativeTo>
+                <RelativeTo>Center</RelativeTo>
                 <Position>(0.0, 1.5, -3.25)</Position>
             </Placement>
             <Content>
@@ -123,7 +123,6 @@
             </Repeat>
             <Settings freq="1.0" volume="1.0" pan="0.0" />
         </Sound>
-
     </SoundRoot>
     <ParticleActionRoot>
         <ParticleActionList name="1">
