@@ -1,4 +1,5 @@
 import typer
+import doctest
 from pathlib import Path
 
 from unity import (
@@ -95,6 +96,15 @@ def main(
     """
     Translate W3D xml projects in IN_DIR to Unity projects in OUT_DIR
     """
+
+    # Run tests
+    if dev:
+        import read_xml
+
+        typer.echo()
+        typer.echo("Running Tests")
+        doctest.testmod(read_xml)
+        typer.echo()
 
     # Print greeting and create output folder
     greeting(in_dir, out_dir)
