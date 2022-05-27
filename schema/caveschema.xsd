@@ -27,10 +27,6 @@
               <xs:element ref="Timeline" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
-          <xs:key name="timerKey">
-            <xs:selector xpath="Timeline" />
-            <xs:field xpath="@name" />
-          </xs:key>
         </xs:element>
         <xs:element name="PlacementRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
@@ -52,10 +48,6 @@
               <xs:element ref="EventTrigger" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
-          <xs:key name="eventKey">
-            <xs:selector xpath="EventTrigger" />
-            <xs:field xpath="@name" />
-          </xs:key>
         </xs:element>
         <xs:element name="ParticleActionRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
@@ -63,10 +55,6 @@
               <xs:element ref="ParticleActionList" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
-          <xs:key name="particleActionKey">
-            <xs:selector xpath="ParticleActionList" />
-            <xs:field xpath="@name" />
-          </xs:key>
         </xs:element>
         <xs:element ref="Global" minOccurs="0" maxOccurs="1" />
         <xs:element name="About" minOccurs="0" maxOccurs="1">
@@ -102,6 +90,17 @@
     <!-- Each <ObjectRef name=""> is an <Object> reference -->
     <xs:keyref name="ObjectRef_objectKeyRef" refer="objectKey">
       <xs:selector xpath=".//ObjectRef" />
+      <xs:field xpath="@name" />
+    </xs:keyref>
+
+    <!-- Each <Timeline name=""> in <TimelineRoot> is a key -->
+    <xs:key name="timerKey">
+      <xs:selector xpath="Timeline" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <!-- Each <TimerChange name="" is a <Timeline> reference -->
+    <xs:keyref name="timerKeyRef" refer="timerKey">
+      <xs:selector xpath="TimerChange" />
       <xs:field xpath="@name" />
     </xs:keyref>
 
@@ -157,6 +156,28 @@
     <xs:keyref name="groupKeyRef" refer="groupKey">
       <xs:selector xpath=".//GroupRef" />
       <xs:field xpath="@name" />
+    </xs:keyref>
+
+    <!-- Each <EventTrigger name="" in <EventRoot> is a key -->
+    <xs:key name="eventKey">
+      <xs:selector xpath="./EventRoot/EventTrigger" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <!-- Each  <Event name=""> is a <EventTrigger> reference-->
+    <xs:keyref name="eventKeyRef" refer="eventKey">
+      <xs:selector xpath=".//Event" />
+      <xs:field xpath="@name" />
+    </xs:keyref>
+
+    <!-- Each <ParticleActionList name=""> in <ParticleActionRoot> is a key -->
+    <xs:key name="particleActionKey">
+      <xs:selector xpath="./ParticleActionRoot/ParticleActionList" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <!-- Each <ParticleSystem actions-name="" is a <ParticleActionList> reference -->
+    <xs:keyref name="particleActionsRef" refer="particleActionKey">
+      <xs:selector xpath=".//ParticleSystem" />
+      <xs:field xpath="@actions-name" />
     </xs:keyref>
   </xs:element>
 
@@ -271,10 +292,6 @@
             <xs:attribute name="sequential" type="xs:boolean" use="optional" default="false" />
             <xs:attribute name="speed" type="xs:float" use="optional" default="1.0" />
           </xs:complexType>
-          <xs:keyref name="particleActionsRef" refer="particleActionKey">
-            <xs:selector xpath="." />
-            <xs:field xpath="@actions-name" />
-          </xs:keyref>
         </xs:element>
       </xs:choice>
     </xs:complexType>
@@ -435,10 +452,6 @@
       </xs:choice>
       <xs:attribute name="name" type="xs:string" use="required" />
     </xs:complexType>
-    <xs:keyref name="timerKeyRef" refer="timerKey">
-      <xs:selector xpath="TimerChange" />
-      <xs:field xpath="@name" />
-    </xs:keyref>
   </xs:element>
   <xs:element name="ObjectChange">
     <xs:complexType>
@@ -636,10 +649,6 @@
       <xs:attribute name="enable" type="xs:boolean" use="required" />
       <xs:attribute name="name" type="xs:string" use="required" />
     </xs:complexType>
-    <xs:keyref name="eventKeyRef" refer="eventKey">
-      <xs:selector xpath="." />
-      <xs:field xpath="@name" />
-    </xs:keyref>
   </xs:element>
 
   <!-- ParticleActionList -->

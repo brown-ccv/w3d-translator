@@ -1,6 +1,4 @@
-from pprint import pprint
 import typer
-import xmlschema
 from lxml import etree
 from pathlib import Path
 
@@ -75,19 +73,8 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             if (p.is_file() and p.suffix == ".xml")
         ]
         schema = etree.XMLSchema(file="schema/caveschema.xsd")
-        schema_new = xmlschema.XMLSchema("schema/caveschema.xsd")
         for file in xml_files:
             typer.echo(f"Translating file:\t {green(file.name)}")
-
-            # # Validate schema with xmlschema
-            # pprint(schema_new.to_dict(file), width=150)
-            # try:
-            #     valid = schema_new.validate(file)
-            #     print("NEW", valid)
-            # except Exception as e:
-            #     print("error")
-            #     print(type(e))
-            #     print(e)
 
             # Validate xml file against schema file
             try:
