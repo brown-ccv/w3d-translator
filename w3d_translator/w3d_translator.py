@@ -139,20 +139,6 @@ def main(
         projects = [p for p in in_dir.iterdir() if p.is_dir()]
         for project_dir in projects:
             translate_project(project_dir, out_dir, dev=dev)
-
-        # # Check all tags
-        # # TODO: Remove
-        # tags = set()
-        # for project in projects:
-        #     print(projects)
-        #     for file in project.iterdir():
-        #         if file.is_file() and file.suffix == ".xml":
-        #             for elem in ET.parse(file).getroot().iter():
-        #                 tags.add(elem.tag)
-        # tags = list(tags)
-        # tags.sort()
-        # print(tags)
-
     else:
         translate_project(in_dir, out_dir, dev=dev)
 
