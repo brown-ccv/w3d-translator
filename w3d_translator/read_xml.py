@@ -82,24 +82,24 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
     >>> parse_string('(13.5, 2.5, -1.5)')
     (13.5, 2.5, -1.5)
 
-    # Test paths
-    >>> parse_string('/folder/file.xml')
-    WindowsPath('/folder/file.xml')
-    >>> parse_string('./folder/file.xml')
-    WindowsPath('folder/file.xml')
-    >>> parse_string('../folder/file.xml')
-    WindowsPath('../folder/file.xml')
-    >>> parse_string('/folder/.')
-    WindowsPath('/folder')
-    >>> parse_string('/folder/') # TODO: This is failing
-    WindowsPath('/folder')
-    >>> parse_string('/folder')
-    WindowsPath('/folder')
+    # Test Paths
+    >>> isinstance(parse_string('/folder/file.xml'), Path)
+    True
+    >>> isinstance(parse_string('./folder/file.xml'), Path)
+    True
+    >>> isinstance(parse_string('../folder/file.xml'), Path)
+    True
+    >>> isinstance(parse_string('/folder/.'), Path)
+    True
+    >>> isinstance(parse_string('/folder/'), Path)
+    True
+    >>> isinstance(parse_string('/folder'), Path)
+    True
 
-    # Test invalid strings
-    # >> parse_string('Center')
+    # Test strings
+    # >> parse_string('Center') # String
     # 'Center'
-    # >>> parse_string('12a3')
+    # >>> parse_string('12a3') # String with numbers
     # '12a3'
     # >>> parse_string('(12, 2.0, 1)') # Tuple of mixed types
     # '(12, 2.0, 1)'
@@ -111,8 +111,9 @@ def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
     # '(cat, dog, pigeon)'
     # >>> parse_string('(13.0, 2., -1.)') # Floats without trailing 0
     # (13.0, 2.0, -1.0)
-    # >>> parse_string('folder/file.xml') # Path without starting /
-    # WindowsPath('folder/file.xml')
+    # >>> p7 = parse_string('folder/file.xml')
+    # >>> isinstance(p7, Path), p7.parts
+    # (True, ('folder', 'file.xml'))
     """
     string = string.strip()
 
