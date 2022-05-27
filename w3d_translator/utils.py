@@ -18,5 +18,5 @@ def str_to_rgba(string: str) -> dict:
     Converts an "[r], [g], [b]" string to an RGBA dict.
     Alpha is always 255.
     """
-    arr = string.split(", ")
+    arr = string.split(",")
     return {"r": int(arr[0]), "g": int(arr[1]), "b": int(arr[2]), "a": 255}
