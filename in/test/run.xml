@@ -154,6 +154,24 @@
                 </Position>
             </RemoveCondition>
         </ParticleActionList>
+        <ParticleActionList name="loose_orbit">
+            <Source rate="4">
+                <ParticleDomain>
+                    <Sphere center="(0, 0, -10)" radius="4" radius-inner="2.0" />
+                </ParticleDomain>
+            </Source>
+            <Vel>
+                <ParticleDomain>
+                    <Cylinder p1="(0, 0.25, -0.001)" p2="(0, 0.27, -0.001)" radius="4.11" radius-inner="1.07" />
+                </ParticleDomain>
+            </Vel>
+            <ParticleAction>
+                <OrbitPoint center="(0, 0, -10)" magnitude="5.0" epsilon="0.001" max_radius="4.0" />
+            </ParticleAction>
+            <RemoveCondition>
+                <Age age="90" younger-than="false" />
+            </RemoveCondition>
+        </ParticleActionList>
     </ParticleActionRoot>
     <Global>
         <CameraPos far-clip="100.0">

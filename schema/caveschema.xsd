@@ -1023,6 +1023,7 @@
   </xs:complexType>
 
   <!-- Simple Types (string validation) -->
+  <!-- TODO: better validation here so regex isn't overly complicated in read_xml (31) -->
   <xs:simpleType name="file">
     <xs:annotation>
       <xs:documentation>A filename type</xs:documentation>
