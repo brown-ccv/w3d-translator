@@ -1,20 +1,22 @@
 #!/usr/bin/env python
 
 #
-# Generated Wed Jun  1 13:58:44 2022 by generateDS.py version 2.40.13.
+# Generated Wed Jun  1 18:26:00 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
 #   ('-o', 'w3d_translator/generateDS/classes.py')
 #   ('-s', 'w3d_translator/generateDS/subclasses.py')
 #   ('--super', 'generateDS.classes')
-#   ('--no-namespace-defs', '')
+#   ('--use-getter-setter', 'none')
+#   ('--member-specs', 'dict')
+#   ('--cleanup-name-list', "[('[-:.]', '_'), ('Root$', 's'), ('Pos$', '')]")
 #
 # Command line arguments:
 #   .\schema\caveschema.xsd
 #
 # Command line:
-#   ..\..\Apps\generateDS\generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --no-namespace-defs .\schema\caveschema.xsd
+#   ..\..\Apps\generateDS\generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('[-:.]', '_'), ('Root$', 's'), ('Pos$', '')]" .\schema\caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
@@ -64,15 +66,15 @@ SaveElementTreeNode = True
 
 
 class StorySub(supermod.Story):
-    def __init__(self, version=8, last_xpath=None, ObjectRoot=None, GroupRoot=None, TimelineRoot=None, PlacementRoot=None, SoundRoot=None, EventRoot=None, ParticleActionRoot=None, Global=None, About=None, **kwargs_):
-        super(StorySub, self).__init__(version, last_xpath, ObjectRoot, GroupRoot, TimelineRoot, PlacementRoot, SoundRoot, EventRoot, ParticleActionRoot, Global, About,  **kwargs_)
+    def __init__(self, version=8, last_xpath=None, Objects=None, Groups=None, Timelines=None, Placements=None, Sounds=None, Events=None, ParticleActions=None, Global=None, About=None, **kwargs_):
+        super(StorySub, self).__init__(version, last_xpath, Objects, Groups, Timelines, Placements, Sounds, Events, ParticleActions, Global, About,  **kwargs_)
 supermod.Story.subclass = StorySub
 # end class StorySub
 
 
 class ObjectSub(supermod.Object):
-    def __init__(self, name=None, Visible=True, Color='255,255,255', Lighting=False, ClickThrough=False, AroundSelfAxis=False, Scale=1.0, SoundRef=None, Placement=None, Content=None, LinkRoot=None, **kwargs_):
-        super(ObjectSub, self).__init__(name, Visible, Color, Lighting, ClickThrough, AroundSelfAxis, Scale, SoundRef, Placement, Content, LinkRoot,  **kwargs_)
+    def __init__(self, name=None, Visible=True, Color='255,255,255', Lighting=False, ClickThrough=False, AroundSelfAxis=False, Scale=1.0, SoundRef=None, Placement=None, Content=None, Links=None, **kwargs_):
+        super(ObjectSub, self).__init__(name, Visible, Color, Lighting, ClickThrough, AroundSelfAxis, Scale, SoundRef, Placement, Content, Links,  **kwargs_)
 supermod.Object.subclass = ObjectSub
 # end class ObjectSub
 
@@ -196,6 +198,27 @@ supermod.ParticleAction.subclass = ParticleActionSub
 # end class ParticleActionSub
 
 
+class ParticleDomainTypeSub(supermod.ParticleDomainType):
+    def __init__(self, Point=None, Line=None, Triangle=None, Plane=None, Rect=None, Box=None, Sphere=None, Cylinder=None, Cone=None, Blob=None, Disc=None, **kwargs_):
+        super(ParticleDomainTypeSub, self).__init__(Point, Line, Triangle, Plane, Rect, Box, Sphere, Cylinder, Cone, Blob, Disc,  **kwargs_)
+supermod.ParticleDomainType.subclass = ParticleDomainTypeSub
+# end class ParticleDomainTypeSub
+
+
+class GlobalSub(supermod.Global):
+    def __init__(self, Camera=None, CaveCamera=None, Background=None, WandNavigation=None, **kwargs_):
+        super(GlobalSub, self).__init__(Camera, CaveCamera, Background, WandNavigation,  **kwargs_)
+supermod.Global.subclass = GlobalSub
+# end class GlobalSub
+
+
+class CameraSub(supermod.Camera):
+    def __init__(self, far_clip=100, Placement=None, **kwargs_):
+        super(CameraSub, self).__init__(far_clip, Placement,  **kwargs_)
+supermod.Camera.subclass = CameraSub
+# end class CameraSub
+
+
 class PlacementSub(supermod.Placement):
     def __init__(self, name=None, RelativeTo='Center', Position='(0.0, 0.0, 0.0)', Axis=None, LookAt=None, Normal=None, **kwargs_):
         super(PlacementSub, self).__init__(name, RelativeTo, Position, Axis, LookAt, Normal,  **kwargs_)
@@ -208,13 +231,6 @@ class TransitionSub(supermod.Transition):
         super(TransitionSub, self).__init__(duration, Visible, Movement, MoveRel, Color, Scale, Sound, LinkChange,  **kwargs_)
 supermod.Transition.subclass = TransitionSub
 # end class TransitionSub
-
-
-class ParticleDomainTypeSub(supermod.ParticleDomainType):
-    def __init__(self, Point=None, Line=None, Triangle=None, Plane=None, Rect=None, Box=None, Sphere=None, Cylinder=None, Cone=None, Blob=None, Disc=None, **kwargs_):
-        super(ParticleDomainTypeSub, self).__init__(Point, Line, Triangle, Plane, Rect, Box, Sphere, Cylinder, Cone, Blob, Disc,  **kwargs_)
-supermod.ParticleDomainType.subclass = ParticleDomainTypeSub
-# end class ParticleDomainTypeSub
 
 
 class ObjectRootTypeSub(supermod.ObjectRootType):
@@ -264,41 +280,6 @@ class ParticleActionRootTypeSub(supermod.ParticleActionRootType):
         super(ParticleActionRootTypeSub, self).__init__(ParticleActionList,  **kwargs_)
 supermod.ParticleActionRootType.subclass = ParticleActionRootTypeSub
 # end class ParticleActionRootTypeSub
-
-
-class GlobalTypeSub(supermod.GlobalType):
-    def __init__(self, CameraPos=None, CaveCameraPos=None, Background=None, WandNavigation=None, **kwargs_):
-        super(GlobalTypeSub, self).__init__(CameraPos, CaveCameraPos, Background, WandNavigation,  **kwargs_)
-supermod.GlobalType.subclass = GlobalTypeSub
-# end class GlobalTypeSub
-
-
-class CameraPosTypeSub(supermod.CameraPosType):
-    def __init__(self, far_clip=100, Placement=None, **kwargs_):
-        super(CameraPosTypeSub, self).__init__(far_clip, Placement,  **kwargs_)
-supermod.CameraPosType.subclass = CameraPosTypeSub
-# end class CameraPosTypeSub
-
-
-class CaveCameraPosTypeSub(supermod.CaveCameraPosType):
-    def __init__(self, far_clip=100, Placement=None, **kwargs_):
-        super(CaveCameraPosTypeSub, self).__init__(far_clip, Placement,  **kwargs_)
-supermod.CaveCameraPosType.subclass = CaveCameraPosTypeSub
-# end class CaveCameraPosTypeSub
-
-
-class BackgroundTypeSub(supermod.BackgroundType):
-    def __init__(self, color='0, 0, 0', **kwargs_):
-        super(BackgroundTypeSub, self).__init__(color,  **kwargs_)
-supermod.BackgroundType.subclass = BackgroundTypeSub
-# end class BackgroundTypeSub
-
-
-class WandNavigationTypeSub(supermod.WandNavigationType):
-    def __init__(self, allow_rotation=False, allow_movement=False, **kwargs_):
-        super(WandNavigationTypeSub, self).__init__(allow_rotation, allow_movement,  **kwargs_)
-supermod.WandNavigationType.subclass = WandNavigationTypeSub
-# end class WandNavigationTypeSub
 
 
 class AboutTypeSub(supermod.AboutType):
@@ -742,88 +723,11 @@ supermod.TargetColorType.subclass = TargetColorTypeSub
 # end class TargetColorTypeSub
 
 
-class AxisTypeSub(supermod.AxisType):
-    def __init__(self, rotation='(0.0, 1.0, 0.0)', angle=0.0, **kwargs_):
-        super(AxisTypeSub, self).__init__(rotation, angle,  **kwargs_)
-supermod.AxisType.subclass = AxisTypeSub
-# end class AxisTypeSub
-
-
-class LookAtTypeSub(supermod.LookAtType):
-    def __init__(self, target='(0.0, 0.0, 0.0)', up='(0.0, 1.0, 0.0)', **kwargs_):
-        super(LookAtTypeSub, self).__init__(target, up,  **kwargs_)
-supermod.LookAtType.subclass = LookAtTypeSub
-# end class LookAtTypeSub
-
-
-class NormalTypeSub(supermod.NormalType):
-    def __init__(self, normal='(0.0, 0.0, 1.0)', angle=0.0, **kwargs_):
-        super(NormalTypeSub, self).__init__(normal, angle,  **kwargs_)
-supermod.NormalType.subclass = NormalTypeSub
-# end class NormalTypeSub
-
-
-class MovementType5Sub(supermod.MovementType5):
-    def __init__(self, Placement=None, **kwargs_):
-        super(MovementType5Sub, self).__init__(Placement,  **kwargs_)
-supermod.MovementType5.subclass = MovementType5Sub
-# end class MovementType5Sub
-
-
-class MoveRelTypeSub(supermod.MoveRelType):
-    def __init__(self, Placement=None, **kwargs_):
-        super(MoveRelTypeSub, self).__init__(Placement,  **kwargs_)
-supermod.MoveRelType.subclass = MoveRelTypeSub
-# end class MoveRelTypeSub
-
-
-class SoundTypeSub(supermod.SoundType):
-    def __init__(self, action=None, **kwargs_):
-        super(SoundTypeSub, self).__init__(action,  **kwargs_)
-supermod.SoundType.subclass = SoundTypeSub
-# end class SoundTypeSub
-
-
-class LinkChangeTypeSub(supermod.LinkChangeType):
-    def __init__(self, link_on=None, link_off=None, activate=None, activate_if_on=None, **kwargs_):
-        super(LinkChangeTypeSub, self).__init__(link_on, link_off, activate, activate_if_on,  **kwargs_)
-supermod.LinkChangeType.subclass = LinkChangeTypeSub
-# end class LinkChangeTypeSub
-
-
-class link_onTypeSub(supermod.link_onType):
-    def __init__(self, **kwargs_):
-        super(link_onTypeSub, self).__init__( **kwargs_)
-supermod.link_onType.subclass = link_onTypeSub
-# end class link_onTypeSub
-
-
-class link_offTypeSub(supermod.link_offType):
-    def __init__(self, **kwargs_):
-        super(link_offTypeSub, self).__init__( **kwargs_)
-supermod.link_offType.subclass = link_offTypeSub
-# end class link_offTypeSub
-
-
-class activateTypeSub(supermod.activateType):
-    def __init__(self, **kwargs_):
-        super(activateTypeSub, self).__init__( **kwargs_)
-supermod.activateType.subclass = activateTypeSub
-# end class activateTypeSub
-
-
-class activate_if_onTypeSub(supermod.activate_if_onType):
-    def __init__(self, **kwargs_):
-        super(activate_if_onTypeSub, self).__init__( **kwargs_)
-supermod.activate_if_onType.subclass = activate_if_onTypeSub
-# end class activate_if_onTypeSub
-
-
-class PointType6Sub(supermod.PointType6):
+class PointType5Sub(supermod.PointType5):
     def __init__(self, point=None, **kwargs_):
-        super(PointType6Sub, self).__init__(point,  **kwargs_)
-supermod.PointType6.subclass = PointType6Sub
-# end class PointType6Sub
+        super(PointType5Sub, self).__init__(point,  **kwargs_)
+supermod.PointType5.subclass = PointType5Sub
+# end class PointType5Sub
 
 
 class LineTypeSub(supermod.LineType):
@@ -894,6 +798,97 @@ class DiscTypeSub(supermod.DiscType):
         super(DiscTypeSub, self).__init__(center, normal, radius, radius_inner,  **kwargs_)
 supermod.DiscType.subclass = DiscTypeSub
 # end class DiscTypeSub
+
+
+class BackgroundTypeSub(supermod.BackgroundType):
+    def __init__(self, color='0, 0, 0', **kwargs_):
+        super(BackgroundTypeSub, self).__init__(color,  **kwargs_)
+supermod.BackgroundType.subclass = BackgroundTypeSub
+# end class BackgroundTypeSub
+
+
+class WandNavigationTypeSub(supermod.WandNavigationType):
+    def __init__(self, allow_rotation=False, allow_movement=False, **kwargs_):
+        super(WandNavigationTypeSub, self).__init__(allow_rotation, allow_movement,  **kwargs_)
+supermod.WandNavigationType.subclass = WandNavigationTypeSub
+# end class WandNavigationTypeSub
+
+
+class AxisTypeSub(supermod.AxisType):
+    def __init__(self, rotation='(0.0, 1.0, 0.0)', angle=0.0, **kwargs_):
+        super(AxisTypeSub, self).__init__(rotation, angle,  **kwargs_)
+supermod.AxisType.subclass = AxisTypeSub
+# end class AxisTypeSub
+
+
+class LookAtTypeSub(supermod.LookAtType):
+    def __init__(self, target='(0.0, 0.0, 0.0)', up='(0.0, 1.0, 0.0)', **kwargs_):
+        super(LookAtTypeSub, self).__init__(target, up,  **kwargs_)
+supermod.LookAtType.subclass = LookAtTypeSub
+# end class LookAtTypeSub
+
+
+class NormalTypeSub(supermod.NormalType):
+    def __init__(self, normal='(0.0, 0.0, 1.0)', angle=0.0, **kwargs_):
+        super(NormalTypeSub, self).__init__(normal, angle,  **kwargs_)
+supermod.NormalType.subclass = NormalTypeSub
+# end class NormalTypeSub
+
+
+class MovementType6Sub(supermod.MovementType6):
+    def __init__(self, Placement=None, **kwargs_):
+        super(MovementType6Sub, self).__init__(Placement,  **kwargs_)
+supermod.MovementType6.subclass = MovementType6Sub
+# end class MovementType6Sub
+
+
+class MoveRelTypeSub(supermod.MoveRelType):
+    def __init__(self, Placement=None, **kwargs_):
+        super(MoveRelTypeSub, self).__init__(Placement,  **kwargs_)
+supermod.MoveRelType.subclass = MoveRelTypeSub
+# end class MoveRelTypeSub
+
+
+class SoundTypeSub(supermod.SoundType):
+    def __init__(self, action=None, **kwargs_):
+        super(SoundTypeSub, self).__init__(action,  **kwargs_)
+supermod.SoundType.subclass = SoundTypeSub
+# end class SoundTypeSub
+
+
+class LinkChangeTypeSub(supermod.LinkChangeType):
+    def __init__(self, link_on=None, link_off=None, activate=None, activate_if_on=None, **kwargs_):
+        super(LinkChangeTypeSub, self).__init__(link_on, link_off, activate, activate_if_on,  **kwargs_)
+supermod.LinkChangeType.subclass = LinkChangeTypeSub
+# end class LinkChangeTypeSub
+
+
+class link_onTypeSub(supermod.link_onType):
+    def __init__(self, **kwargs_):
+        super(link_onTypeSub, self).__init__( **kwargs_)
+supermod.link_onType.subclass = link_onTypeSub
+# end class link_onTypeSub
+
+
+class link_offTypeSub(supermod.link_offType):
+    def __init__(self, **kwargs_):
+        super(link_offTypeSub, self).__init__( **kwargs_)
+supermod.link_offType.subclass = link_offTypeSub
+# end class link_offTypeSub
+
+
+class activateTypeSub(supermod.activateType):
+    def __init__(self, **kwargs_):
+        super(activateTypeSub, self).__init__( **kwargs_)
+supermod.activateType.subclass = activateTypeSub
+# end class activateTypeSub
+
+
+class activate_if_onTypeSub(supermod.activate_if_onType):
+    def __init__(self, **kwargs_):
+        super(activate_if_onTypeSub, self).__init__( **kwargs_)
+supermod.activate_if_onType.subclass = activate_if_onTypeSub
+# end class activate_if_onTypeSub
 
 
 def get_root_tag(node):

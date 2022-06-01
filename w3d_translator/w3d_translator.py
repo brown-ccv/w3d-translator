@@ -3,10 +3,6 @@ from lxml import etree
 import doctest
 from pathlib import Path
 
-
-import generateDS.classes as supermod
-import generateDS.subclasses as subclasses
-
 from unity import (
     UNITY_VERSION,
     create_project,
@@ -98,19 +94,9 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 typer.echo(red(f"Skipping {file.name}"), err=True)
             else:
                 # Build Story dataclass and Unity project
-                # story = read_xml(file)
-                # build_project(unity_dir, story)
-                pass
+                story = read_xml(file)
+                build_project(unity_dir, story)
 
-            #! generateDS
-            doc = supermod.parsexml_(file)
-            rootNode = doc.getroot()
-            rootClass = subclasses.StorySub
-            rootObj = rootClass.factory()
-            rootObj.build(rootNode)
-
-            print(type(rootObj.ObjectRoot), vars(rootObj.ObjectRoot))
-            print(rootObj.ObjectRoot.Object)
     except (ValidationError, UnityError, TranslationError) as e:
         typer.echo(red(e), err=True)
 

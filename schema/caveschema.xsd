@@ -11,7 +11,7 @@
         <xs:element name="ObjectRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
-              <xs:element ref="Object" maxOccurs="unbounded" />
+              <xs:element ref="Object" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -57,39 +57,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Global" minOccurs="0" maxOccurs="1">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="CameraPos">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element ref="Placement" />
-                  </xs:sequence>
-                  <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
-                </xs:complexType>
-              </xs:element>
-              <xs:element name="CaveCameraPos">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element ref="Placement" />
-                  </xs:sequence>
-                  <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
-                </xs:complexType>
-              </xs:element>
-              <xs:element name="Background">
-                <xs:complexType>
-                  <xs:attribute name="color" type="color" use="optional" default="0, 0, 0" />
-                </xs:complexType>
-              </xs:element>
-              <xs:element name="WandNavigation">
-                <xs:complexType>
-                  <xs:attribute name="allow-rotation" type="xs:boolean" use="optional" default="false" />
-                  <xs:attribute name="allow-movement" type="xs:boolean" use="optional" default="false" />
-                </xs:complexType>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element ref="Global" minOccurs="0" maxOccurs="1" />
         <xs:element name="About" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:attribute name="news" type="xs:string" use="optional" />
@@ -254,7 +222,7 @@
         <xs:element name="ClickThrough" type="xs:boolean" default="false" />
         <xs:element name="AroundSelfAxis" type="xs:boolean" default="false" />
         <xs:element name="Scale" type="xs:double" default="1.0" />
-        <xs:element name="SoundRef" type="xs:string" minOccurs="0"></xs:element>
+        <xs:element name="SoundRef" type="xs:string" minOccurs="0" />
         <xs:element ref="Placement" />
         <xs:element ref="Content" />
         <xs:element name="LinkRoot" minOccurs="0">
@@ -851,6 +819,114 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="ParticleDomain" type="ParticleDomainType" />
+  <xs:complexType name="ParticleDomainType">
+    <xs:choice>
+      <xs:element name="Point">
+        <xs:complexType>
+          <xs:attribute name="point" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Line">
+        <xs:complexType>
+          <xs:attribute name="p1" type="vector" use="required" />
+          <xs:attribute name="p2" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Triangle">
+        <xs:complexType>
+          <xs:attribute name="p1" type="vector" use="required" />
+          <xs:attribute name="p2" type="vector" use="required" />
+          <xs:attribute name="p3" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Plane">
+        <xs:complexType>
+          <xs:attribute name="point" type="vector" use="required" />
+          <xs:attribute name="normal" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Rect">
+        <xs:complexType>
+          <xs:attribute name="point" type="vector" use="required" />
+          <xs:attribute name="u-dir" type="vector" use="required" />
+          <xs:attribute name="v-dir" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Box">
+        <xs:complexType>
+          <xs:attribute name="p1" type="vector" use="required" />
+          <xs:attribute name="p2" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Sphere">
+        <xs:complexType>
+          <xs:attribute name="center" type="vector" use="required" />
+          <xs:attribute name="radius" type="xs:float" use="required" />
+          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Cylinder">
+        <xs:complexType>
+          <xs:attribute name="p1" type="vector" use="required" />
+          <xs:attribute name="p2" type="vector" use="required" />
+          <xs:attribute name="radius" type="xs:float" use="required" />
+          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Cone">
+        <xs:complexType>
+          <xs:attribute name="base-center" type="vector" use="required" />
+          <xs:attribute name="apex" type="vector" use="required" />
+          <xs:attribute name="radius" type="xs:float" use="required" />
+          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Blob">
+        <xs:complexType>
+          <xs:attribute name="center" type="vector" use="required" />
+          <xs:attribute name="stdev" type="xs:float" use="optional" default="1.0" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Disc">
+        <xs:complexType>
+          <xs:attribute name="center" type="vector" use="required" />
+          <xs:attribute name="normal" type="vector" use="required" />
+          <xs:attribute name="radius" type="xs:float" use="required" />
+          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- Global -->
+  <xs:element name="Global">
+    <xs:annotation>
+      <xs:documentation>Placement Obj</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="CameraPos" type="Camera" />
+        <xs:element name="CaveCameraPos" type="Camera" />
+        <xs:element name="Background">
+          <xs:complexType>
+            <xs:attribute name="color" type="color" use="optional" default="0, 0, 0" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="WandNavigation">
+          <xs:complexType>
+            <xs:attribute name="allow-rotation" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="allow-movement" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Camera">
+    <xs:sequence>
+      <xs:element ref="Placement" />
+    </xs:sequence>
+    <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
+  </xs:complexType>
 
   <!-- Multi-use elements -->
   <xs:element name="Placement">
@@ -939,84 +1015,6 @@
       <xs:attribute name="duration" type="xs:double" use="optional" default="1.0" />
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="ParticleDomainType">
-    <xs:choice>
-      <xs:element name="Point">
-        <xs:complexType>
-          <xs:attribute name="point" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Line">
-        <xs:complexType>
-          <xs:attribute name="p1" type="vector" use="required" />
-          <xs:attribute name="p2" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Triangle">
-        <xs:complexType>
-          <xs:attribute name="p1" type="vector" use="required" />
-          <xs:attribute name="p2" type="vector" use="required" />
-          <xs:attribute name="p3" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Plane">
-        <xs:complexType>
-          <xs:attribute name="point" type="vector" use="required" />
-          <xs:attribute name="normal" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Rect">
-        <xs:complexType>
-          <xs:attribute name="point" type="vector" use="required" />
-          <xs:attribute name="u-dir" type="vector" use="required" />
-          <xs:attribute name="v-dir" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Box">
-        <xs:complexType>
-          <xs:attribute name="p1" type="vector" use="required" />
-          <xs:attribute name="p2" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Sphere">
-        <xs:complexType>
-          <xs:attribute name="center" type="vector" use="required" />
-          <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Cylinder">
-        <xs:complexType>
-          <xs:attribute name="p1" type="vector" use="required" />
-          <xs:attribute name="p2" type="vector" use="required" />
-          <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Cone">
-        <xs:complexType>
-          <xs:attribute name="base-center" type="vector" use="required" />
-          <xs:attribute name="apex" type="vector" use="required" />
-          <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Blob">
-        <xs:complexType>
-          <xs:attribute name="center" type="vector" use="required" />
-          <xs:attribute name="stdev" type="xs:float" use="optional" default="1.0" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Disc">
-        <xs:complexType>
-          <xs:attribute name="center" type="vector" use="required" />
-          <xs:attribute name="normal" type="vector" use="required" />
-          <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
-        </xs:complexType>
-      </xs:element>
-    </xs:choice>
-  </xs:complexType>
 
   <!-- Simple Types (string validation) -->
   <!-- TODO: better validation here so regex isn't overly complicated in read_xml (31) -->

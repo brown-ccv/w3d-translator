@@ -3,32 +3,37 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Union
 
+import generateDS.classes as generateDS
+
 
 def read_xml(file):
-    xml = ET.parse(file)
-    root = xml.getroot()
-    story = parse_attributes(root)
+    Story = generateDS.parse(file, silence=True)
 
-    # Parse <Globals>
-    g = root.find("Global")
-    story["Camera"] = parse_recursive(g.find("CameraPos"))
-    story["CaveCamera"] = parse_recursive(g.find("CaveCameraPos"))
-    story["background_color"] = parse_attributes(g.find("Background"))["color"]
-    story["WandNavigation"] = parse_recursive(g.find("WandNavigation"))
+    # Bring each list child up a level in the class
+    # TODO: Dictionary of class referenced by name, not list
+    if Story.Objects is not None:
+        Story.Objects = Story.Objects.Object
+    if Story.Groups is not None:
+        Story.Groups = Story.Groups.Group
+    if Story.Timelines is not None:
+        Story.Timelines = Story.Timelines.Timeline
+    if Story.Placements is not None:
+        Story.Placements = Story.Placements.Placement
+    if Story.Sounds is not None:
+        Story.Sounds = Story.Sounds.Sound
 
-    # Parse each <PlacementRoot>, each <Placement> is referenced by name
-    story["walls"] = dict(
-        (tag.attrib.pop("name"), parse_recursive(tag))
-        for tag in root.find("PlacementRoot")
-    )
+    if Story.Events is not None:
+        Story.Events = Story.Events.Event
+    if Story.ParticleActions is not None:
+        Story.ParticleActions = Story.ParticleActions.ParticleActionList
 
-    # TODO: Build each <Object> in <ObjectRoot> (6)
-    # TODO: Build each <Group> in <GroupRoot> (7)
-
-    # TODO: Build each <Sound> in <SoundRoot> (10)
-    # TODO: Build each <ParticleActionList> in <ParticleActionRoot> (11)
-    # TODO: Build each <Timeline> in <TimelineRoot> (8)
-    return story
+    #! OLD
+    # # Parse each <PlacementRoot>, each <Placement> is referenced by name
+    # story["walls"] = dict(
+    #     (tag.attrib.pop("name"), parse_recursive(tag))
+    #     for tag in root.find("PlacementRoot")
+    # )
+    return Story
 
 
 def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
