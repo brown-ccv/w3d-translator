@@ -2,6 +2,7 @@ import typer
 from lxml import etree
 import doctest
 from pathlib import Path
+from generateDS import classes as Story
 
 from unity import (
     UNITY_VERSION,
@@ -94,8 +95,12 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 typer.echo(red(f"Skipping {file.name}"), err=True)
             else:
                 # Build Story dataclass and Unity project
-                story = read_xml(file)
-                build_project(unity_dir, story)
+                # story = read_xml(file)
+                # build_project(unity_dir, story)
+                story = Story.parse(file, silence=True)
+                # print(rootObj.GroupRoot)
+                # print(story.GroupRoot.Group)
+                print(story)
 
     except (ValidationError, UnityError, TranslationError) as e:
         typer.echo(red(e), err=True)
@@ -109,7 +114,7 @@ def main(
         ..., help="Output folder for the translated project(s)"
     ),
     multiple: bool = typer.Option(False, help="Translate multiple projects?"),
-    force: bool = typer.Option(False, help="Overwite OUT_DIR?"),
+    force: bool = typer.Option(False, help="Overwrite OUT_DIR?"),
     dev: bool = typer.Option(False, help="Don't create Unity projects"),
 ):
     """
