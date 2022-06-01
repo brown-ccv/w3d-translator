@@ -14,7 +14,6 @@
               <xs:element ref="Object" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
-
         </xs:element>
         <xs:element name="GroupRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
@@ -58,7 +57,39 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element ref="Global" minOccurs="0" maxOccurs="1" />
+        <xs:element name="Global" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CameraPos">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="Placement" />
+                  </xs:sequence>
+                  <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CaveCameraPos">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="Placement" />
+                  </xs:sequence>
+                  <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Background">
+                <xs:complexType>
+                  <xs:attribute name="color" type="color" use="optional" default="0, 0, 0" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="WandNavigation">
+                <xs:complexType>
+                  <xs:attribute name="allow-rotation" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="allow-movement" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="About" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:attribute name="news" type="xs:string" use="optional" />
@@ -200,7 +231,7 @@
       References:
         <ParticleSystem actions-name="">
     -->
-      <xs:key name="particleActionKey">
+    <xs:key name="particleActionKey">
       <xs:selector xpath="./ParticleActionRoot/ParticleActionList" />
       <xs:field xpath="@name" />
     </xs:key>
@@ -821,41 +852,6 @@
   </xs:element>
   <xs:element name="ParticleDomain" type="ParticleDomainType" />
 
-  <!-- <Global> -->
-  <xs:element name="Global">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="CameraPos">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element ref="Placement" />
-            </xs:sequence>
-            <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="CaveCameraPos">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element ref="Placement" />
-            </xs:sequence>
-            <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="Background">
-          <xs:complexType>
-            <xs:attribute name="color" type="color" use="optional" default="0, 0, 0" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="WandNavigation">
-          <xs:complexType>
-            <xs:attribute name="allow-rotation" type="xs:boolean" use="optional" default="false" />
-            <xs:attribute name="allow-movement" type="xs:boolean" use="optional" default="false" />
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
   <!-- Multi-use elements -->
   <xs:element name="Placement">
     <xs:annotation>
@@ -1035,7 +1031,7 @@
       <xs:documentation>vector attrib</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:whiteSpace value="collapse"/>
+      <xs:whiteSpace value="collapse" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="color">
@@ -1043,7 +1039,7 @@
       <xs:documentation>color attrib</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:whiteSpace value="collapse"/>
+      <xs:whiteSpace value="collapse" />
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

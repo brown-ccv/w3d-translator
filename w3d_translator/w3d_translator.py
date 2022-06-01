@@ -2,7 +2,10 @@ import typer
 from lxml import etree
 import doctest
 from pathlib import Path
-from generateDS import classes as Story
+
+
+import generateDS.classes as supermod
+import generateDS.subclasses as subclasses
 
 from unity import (
     UNITY_VERSION,
@@ -97,11 +100,17 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 # Build Story dataclass and Unity project
                 # story = read_xml(file)
                 # build_project(unity_dir, story)
-                story = Story.parse(file, silence=True)
-                # print(rootObj.GroupRoot)
-                # print(story.GroupRoot.Group)
-                print(story)
+                pass
 
+            #! generateDS
+            doc = supermod.parsexml_(file)
+            rootNode = doc.getroot()
+            rootClass = subclasses.StorySub
+            rootObj = rootClass.factory()
+            rootObj.build(rootNode)
+
+            print(type(rootObj.ObjectRoot), vars(rootObj.ObjectRoot))
+            print(rootObj.ObjectRoot.Object)
     except (ValidationError, UnityError, TranslationError) as e:
         typer.echo(red(e), err=True)
 
@@ -123,11 +132,11 @@ def main(
 
     # Run tests
     if dev:
-        import read_xml
+        import read_xml as module
 
         typer.echo()
         typer.echo("Running Tests")
-        doctest.testmod(read_xml)
+        doctest.testmod(module)
         typer.echo()
 
     # Print greeting and create output folder

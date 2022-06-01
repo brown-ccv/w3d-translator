@@ -24,3 +24,5 @@ The translator uses Unity version 2021.3.0f1. Please ensure the `Unity.exe` file
 * `in`: Input folder for translating multiple projects at the same time
 * `out`: Output folder (Should be in .gitignore)
 * `EmptyScene.unity`: Unity Yaml file for an entirely empty scene.
+
+<!-- TODO: Add generateDS instructions to README -->
