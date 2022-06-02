@@ -3,16 +3,16 @@ from lxml import etree
 import doctest
 from pathlib import Path
 
+import generateDS.classes as generateDS
 from unity import (
-    UNITY_VERSION,
     create_project,
     copy_files,
     add_empty_scene,
     build_project,
+    UNITY_VERSION,
 )
 from validate import validate_project, validate_out
 from errors import ValidationError, TranslationError, UnityError
-from read_xml import read_xml
 
 
 # Color string as cyan
@@ -94,7 +94,8 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 typer.echo(red(f"Skipping {file.name}"), err=True)
             else:
                 # Build Story dataclass and Unity project
-                story = read_xml(file)
+                story = generateDS.parse(file, silence=True)
+                print(story.member_data_items_.keys())
                 build_project(unity_dir, story)
 
     except (ValidationError, UnityError, TranslationError) as e:
@@ -118,7 +119,7 @@ def main(
 
     # Run tests
     if dev:
-        import read_xml as module
+        import translate as module
 
         typer.echo()
         typer.echo("Running Tests")

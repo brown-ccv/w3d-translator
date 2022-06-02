@@ -3,12 +3,8 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Union
 
-import generateDS.classes as generateDS
 
-
-def read_xml(file):
-    Story = generateDS.parse(file, silence=True)
-
+def clean_xml(Story):
     # Bring each list child up a level in the class
     # TODO: Dictionary of class referenced by name, not list
     if Story.Objects is not None:

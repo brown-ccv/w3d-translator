@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Wed Jun  1 18:26:00 2022 by generateDS.py version 2.40.13.
+# Generated Thu Jun  2 10:23:57 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
@@ -17,7 +17,7 @@
 #   .\schema\caveschema.xsd
 #
 # Command line:
-#   ..\..\Apps\generateDS\generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('[-:.]', '_'), ('Root$', 's'), ('Pos$', '')]" .\schema\caveschema.xsd
+#   .\generateDS\generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('[-:.]', '_'), ('Root$', 's'), ('Pos$', '')]" .\schema\caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
