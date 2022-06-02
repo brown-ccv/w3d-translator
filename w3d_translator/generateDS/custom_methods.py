@@ -146,7 +146,8 @@ method2 = MethodSpec(
                     s4 = '%%s' %% obj1
                 else:
                     s4 = '<instance>'
-            s5 = '%%s%%s%%s  %%s' %% (s1.ljust(16), s2.ljust(16), s3.rjust(4), s4, )
+            s5 = '%%s%%s%%s  %%s' %% (s1.ljust(16), s2.ljust(16), s3.rjust(4),
+                s4)
             print('   ', s5)
         for member in members:
             if member.get_container():
