@@ -4,9 +4,9 @@ from pathlib import Path
 from typing import Union
 
 
+# TODO: Move to .clean() method of appropriate classes
+# TODO: Should be Dictionary (name is key), not a list 
 def clean_xml(Story):
-    # Bring each list child up a level in the class
-    # TODO: Dictionary of class referenced by name, not list
     if Story.Objects is not None:
         Story.Objects = Story.Objects.Object
     if Story.Groups is not None:
@@ -23,7 +23,7 @@ def clean_xml(Story):
     if Story.ParticleActions is not None:
         Story.ParticleActions = Story.ParticleActions.ParticleActionList
 
-    #! OLD
+    # OLD
     # # Parse each <PlacementRoot>, each <Placement> is referenced by name
     # story["walls"] = dict(
     #     (tag.attrib.pop("name"), parse_recursive(tag))
@@ -32,6 +32,7 @@ def clean_xml(Story):
     return Story
 
 
+# TODO: Regex validation should be done in the schema directly
 def parse_string(string: str) -> Union[bool, int, float, tuple, Path, str]:
     """Parses the variable type of a given string
 
