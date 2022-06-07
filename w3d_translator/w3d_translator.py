@@ -45,14 +45,6 @@ def farewell():
     exit(0)
 
 
-# Farewell message on error
-def farewell_error():
-    typer.echo()
-    typer.echo("Translation Completed with errors")
-    typer.echo("Please see the command line for a list of issues")
-    exit(1)
-
-
 # Run doctests
 def run_tests():
     typer.echo("Running Tests")
@@ -119,7 +111,6 @@ def main(
     try:
         validate_out(out_dir, force)
     except ValidationError as e:
-        # Exit with error
         typer.echo(red(e), err=True)
         exit(1)
 
