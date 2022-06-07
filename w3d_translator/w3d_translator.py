@@ -59,7 +59,7 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
         if not dev:
             create_project(project_dir, unity_dir)
 
-        # Translate .xml files to .unity files
+        # Translate .xml files to .unity files (skip invalid)
         xml_files = [
             p
             for p in project_dir.iterdir()
@@ -67,8 +67,6 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
         ]
         for file in xml_files:
             typer.echo(f"Translating file:\t {green(file.name)}")
-
-            # Build Story dataclass and Unity project (skip invalid)
             try:
                 validate_xml(file)
             except XmlError as e:
