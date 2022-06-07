@@ -1,5 +1,4 @@
 import typer
-from lxml import etree
 import doctest
 from pathlib import Path
 
@@ -11,8 +10,8 @@ from unity import (
     build_project,
     UNITY_VERSION,
 )
-from validate import validate_project, validate_out
-from errors import ValidationError, TranslationError, UnityError
+from validate import validate_project, validate_out, validate_xml
+from errors import ValidationError, UnityError, XmlError
 
 
 # Color string as cyan
@@ -54,6 +53,14 @@ def farewell_error():
     exit(1)
 
 
+# Run doctests
+def run_tests():
+    typer.echo("Running Tests")
+    import translate as module
+    doctest.testmod(module)
+    typer.echo()
+
+
 # Translate a single project
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
     try:
@@ -73,32 +80,18 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             for p in project_dir.iterdir()
             if (p.is_file() and p.suffix == ".xml")
         ]
-        schema = etree.XMLSchema(file="schema/caveschema.xsd")
         for file in xml_files:
             typer.echo(f"Translating file:\t {green(file.name)}")
 
-            # Validate xml file against schema file
+            # Build Story dataclass and Unity project (skip invalid)
             try:
-                schema.assertValid(etree.parse(file))
-            except etree.DocumentInvalid as e:
-                typer.echo(
-                    red(f"{file.name} does not match schema:"), err=True
-                )
-                # TODO: Shorten up error message, just line and error (30)
-                for error in e.error_log:
-                    typer.echo(red(error), err=True)
-                typer.echo(red(f"Skipping {file.name}"), err=True)
-            except Exception as e:
-                typer.echo(red(f"Error validating {file.name}"), err=True)
+                validate_xml(file)
+            except XmlError as e:
                 typer.echo(red(e), err=True)
-                typer.echo(red(f"Skipping {file.name}"), err=True)
             else:
-                # Build Story dataclass and Unity project
                 story = generateDS.parse(file, silence=True)
-                print(story.member_data_items_.keys())
                 build_project(unity_dir, story)
-
-    except (ValidationError, UnityError, TranslationError) as e:
+    except (ValidationError, UnityError) as e:
         typer.echo(red(e), err=True)
 
 
@@ -114,20 +107,15 @@ def main(
     dev: bool = typer.Option(False, help="Don't create Unity projects"),
 ):
     """
-    Translate W3D xml projects in IN_DIR to Unity projects in OUT_DIR
+    Translate W3D xml projects in in_dir to Unity projects in out_dir
     """
+    greeting(in_dir, out_dir)
 
     # Run tests
     if dev:
-        import translate as module
+        run_tests()
 
-        typer.echo()
-        typer.echo("Running Tests")
-        doctest.testmod(module)
-        typer.echo()
-
-    # Print greeting and create output folder
-    greeting(in_dir, out_dir)
+    # Create output folder
     try:
         validate_out(out_dir, force)
     except ValidationError as e:

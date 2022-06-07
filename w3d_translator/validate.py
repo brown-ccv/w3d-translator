@@ -1,7 +1,10 @@
 import shutil
+from lxml import etree
 from pathlib import Path
 
-from errors import ValidationError
+from errors import ValidationError, XmlError
+
+schema = etree.XMLSchema(file="schema/caveschema.xsd")
 
 
 # Validate directory
@@ -34,3 +37,21 @@ def validate_out(dir: Path, force: bool):
             )
     except FileNotFoundError:
         raise ValidationError("Error: OUTPUT directory is not valid")
+
+
+# Validate xml file against caveschema.xsd
+def validate_xml(file: Path):
+    try:
+        schema.assertValid(etree.parse(file))
+    except etree.DocumentInvalid as error:
+        # Display Validation errors
+        error_list = "\n".join(
+            [
+                f"{e.filename}:{e.line}:{e.column}:  {e.message}"
+                for e in error.error_log
+            ]
+        )
+        raise XmlError(file.name, error_list)
+
+    except Exception as e:
+        raise XmlError(file.name, e)
