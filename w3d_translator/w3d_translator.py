@@ -3,13 +3,7 @@ import doctest
 from pathlib import Path
 
 import generateDS.classes as generateDS
-from unity import (
-    create_project,
-    copy_files,
-    add_empty_scene,
-    build_project,
-    UNITY_VERSION,
-)
+from unity import create_project, build_project, UNITY_VERSION
 from validate import validate_project, validate_out, validate_xml
 from errors import ValidationError, UnityError, XmlError
 
@@ -49,6 +43,7 @@ def farewell():
 def run_tests():
     typer.echo("Running Tests")
     import translate as module
+
     doctest.testmod(module)
     typer.echo()
 
@@ -58,13 +53,11 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
     try:
         typer.echo(f"Translating project:\t {cyan(project_dir.name)}")
         validate_project(project_dir)
-
-        # Create Unity project and copy original files
         unity_dir = Path(out_dir, project_dir.name)
+
+        # Create Unity project
         if not dev:
-            create_project(unity_dir)
-            copy_files(project_dir, unity_dir)
-            add_empty_scene(unity_dir)
+            create_project(project_dir, unity_dir)
 
         # Translate .xml files to .unity files
         xml_files = [

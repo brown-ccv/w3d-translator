@@ -1,10 +1,12 @@
 class ValidationError(Exception):
-    """Raised on invalid folder structure - in_dir and out_dir """
+    """Raised on invalid folder structure - in_dir and out_dir"""
+
     pass
 
 
 class UnityError(Exception):
     """Raised when the Unity subprocess fails to execute"""
+
     pass
 
 

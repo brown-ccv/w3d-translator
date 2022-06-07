@@ -9,20 +9,22 @@ UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.e
 EMPTY_SCENE = "../EmptyScene.unity"
 
 
-# Create Unity project
-def create_project(folder):
+# Create Unity project and copy original files
+def create_project(project_dir: Path, unity_dir: Path):
     try:
         sp = subprocess.run(
             [
                 f"{UNITY_PATH}",
                 "-batchmode",
                 "-createProject",
-                f"{folder}",
+                f"{unity_dir}",
                 "-quit",
             ],
             check=True,
             capture_output=True,
         )
+        copy_files(project_dir, unity_dir)
+        Path(unity_dir, "Assets", "Scenes").mkdir()
     except Exception:
         raise UnityError(
             "Error: Failed to launch Unity.\n"
@@ -43,18 +45,6 @@ def copy_files(project_dir: Path, unity_dir: Path):
             f"Error: Failed to copy files from {project_dir} "
             + f"to {destination}.\n"
             + f"{e}"
-        )
-
-
-# Create Scenes folder and add empty scene
-def add_empty_scene(unity_dir: Path):
-    try:
-        destination = Path(unity_dir, "Assets", "Scenes")
-        destination.mkdir()
-        shutil.copy2(EMPTY_SCENE, Path(destination, "Scene.unity"))
-    except Exception:
-        raise UnityError(
-            "Error: Unable to copy ExampleScene.unity" + f"({EMPTY_SCENE})"
         )
 
 
