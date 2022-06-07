@@ -1,4 +1,5 @@
 import typer
+from lxml import etree
 import doctest
 from pathlib import Path
 
@@ -48,7 +49,7 @@ def farewell():
 # Farewell message on error
 def farewell_error():
     typer.echo()
-    typer.echo("Tranlsation Completed with errors")
+    typer.echo("Translation Completed with errors")
     typer.echo("Please see the command line for a list of issues")
     exit(1)
 
@@ -72,11 +73,29 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             for p in project_dir.iterdir()
             if (p.is_file() and p.suffix == ".xml")
         ]
+        schema = etree.XMLSchema(file="schema/caveschema.xsd")
         for file in xml_files:
-            # Build Story dataclass and Unity project
             typer.echo(f"Translating file:\t {green(file.name)}")
-            story = read_xml(file)
-            build_project(unity_dir, story)
+
+            # Validate xml file against schema file
+            try:
+                schema.assertValid(etree.parse(file))
+            except etree.DocumentInvalid as e:
+                typer.echo(
+                    red(f"{file.name} does not match schema:"), err=True
+                )
+                # TODO: Shorten up error message, just line and error (30)
+                for error in e.error_log:
+                    typer.echo(red(error), err=True)
+                typer.echo(red(f"Skipping {file.name}"), err=True)
+            except Exception as e:
+                typer.echo(red(f"Error validating {file.name}"), err=True)
+                typer.echo(red(e), err=True)
+                typer.echo(red(f"Skipping {file.name}"), err=True)
+            else:
+                # Build Story dataclass and Unity project
+                story = read_xml(file)
+                build_project(unity_dir, story)
 
     except (ValidationError, UnityError, TranslationError) as e:
         typer.echo(red(e), err=True)
