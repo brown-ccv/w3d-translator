@@ -3,16 +3,16 @@ from lxml import etree
 import doctest
 from pathlib import Path
 
+import generateDS.classes as generateDS
 from unity import (
-    UNITY_VERSION,
     create_project,
     copy_files,
     add_empty_scene,
     build_project,
+    UNITY_VERSION,
 )
 from validate import validate_project, validate_out
 from errors import ValidationError, TranslationError, UnityError
-from read_xml import read_xml
 
 
 # Color string as cyan
@@ -94,7 +94,8 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 typer.echo(red(f"Skipping {file.name}"), err=True)
             else:
                 # Build Story dataclass and Unity project
-                story = read_xml(file)
+                story = generateDS.parse(file, silence=True)
+                print(story.member_data_items_.keys())
                 build_project(unity_dir, story)
 
     except (ValidationError, UnityError, TranslationError) as e:
@@ -109,7 +110,7 @@ def main(
         ..., help="Output folder for the translated project(s)"
     ),
     multiple: bool = typer.Option(False, help="Translate multiple projects?"),
-    force: bool = typer.Option(False, help="Overwite OUT_DIR?"),
+    force: bool = typer.Option(False, help="Overwrite OUT_DIR?"),
     dev: bool = typer.Option(False, help="Don't create Unity projects"),
 ):
     """
@@ -118,11 +119,11 @@ def main(
 
     # Run tests
     if dev:
-        import read_xml
+        import translate as module
 
         typer.echo()
         typer.echo("Running Tests")
-        doctest.testmod(read_xml)
+        doctest.testmod(module)
         typer.echo()
 
     # Print greeting and create output folder
