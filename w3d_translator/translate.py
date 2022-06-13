@@ -30,9 +30,9 @@ def clean_xml(Story: Story):
 
 
 def name_dictionary(container: list) -> dict:
-    """ Converts a list of classes into a dictionary
-        key: class.name
-        val: class
+    """Converts a list of classes into a dictionary
+    key: class.name
+    val: class
     """
     if container is not None:
         return dict((item.name, item) for item in container)

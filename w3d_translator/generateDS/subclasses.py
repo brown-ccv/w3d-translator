@@ -22,6 +22,8 @@
 #   W3D Translator
 #
 
+# flake8: noqa
+
 import os
 import sys
 from lxml import etree as etree_
@@ -557,6 +559,7 @@ class TransitionSub(supermod.Transition):
 
 supermod.Transition.subclass = TransitionSub
 # end class TransitionSub
+
 
 class ObjectRootTypeSub(supermod.ObjectRootType):
     def __init__(self, Object=None, **kwargs_):
