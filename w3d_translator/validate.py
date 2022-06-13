@@ -4,7 +4,7 @@ from pathlib import Path
 
 from errors import ValidationError, XmlError
 
-schema = etree.XMLSchema(file="schema/caveschema.xsd")
+SCHEMA = etree.XMLSchema(file="schema/caveschema.xsd")
 
 
 # Validate directory
@@ -41,8 +41,9 @@ def validate_out(dir: Path, force: bool):
 
 # Validate xml file against caveschema.xsd
 def validate_xml(file: Path):
+    """ Validate an xml file against caveschema.xsd"""
     try:
-        schema.assertValid(etree.parse(file))
+        SCHEMA.assertValid(etree.parse(file))
     except etree.DocumentInvalid as error:
         # Display Validation errors
         error_list = "\n".join(
