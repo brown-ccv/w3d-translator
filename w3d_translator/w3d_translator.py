@@ -5,8 +5,6 @@ from pathlib import Path
 from generateDS.subclasses import parse
 from unity import (
     create_project,
-    copy_files,
-    add_empty_scene,
     build_project,
     UNITY_VERSION,
 )
