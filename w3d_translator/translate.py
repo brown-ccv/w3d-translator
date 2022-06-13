@@ -3,33 +3,40 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Union
 
+from generateDS.classes import Story
 
-# TODO: Move to .clean() method of appropriate classes
-# TODO: Should be Dictionary (name is key), not a list
-def clean_xml(Story):
-    if Story.Objects is not None:
-        Story.Objects = Story.Objects.Object
-    if Story.Groups is not None:
-        Story.Groups = Story.Groups.Group
-    if Story.Timelines is not None:
-        Story.Timelines = Story.Timelines.Timeline
-    if Story.Placements is not None:
-        Story.Placements = Story.Placements.Placement
-    if Story.Sounds is not None:
-        Story.Sounds = Story.Sounds.Sound
 
-    if Story.Events is not None:
-        Story.Events = Story.Events.Event
-    if Story.ParticleActions is not None:
-        Story.ParticleActions = Story.ParticleActions.ParticleActionList
+def clean_xml(Story: Story):
+    # Convert each _Root property to a dictionary of that type
+    if Story.ObjectRoot is not None:
+        Story.ObjectRoot = name_dictionary(Story.ObjectRoot.Object)
+    if Story.GroupRoot is not None:
+        Story.GroupRoot = name_dictionary(Story.GroupRoot.Group)
+    if Story.TimelineRoot is not None:
+        Story.TimelineRoot = name_dictionary(Story.TimelineRoot.Timeline)
+    if Story.PlacementRoot is not None:
+        Story.PlacementRoot = name_dictionary(Story.PlacementRoot.Placement)
+    if Story.SoundRoot is not None:
+        Story.SoundRoot = name_dictionary(Story.SoundRoot.Sound)
 
-    # OLD
-    # # Parse each <PlacementRoot>, each <Placement> is referenced by name
-    # story["walls"] = dict(
-    #     (tag.attrib.pop("name"), parse_recursive(tag))
-    #     for tag in root.find("PlacementRoot")
-    # )
+    if Story.EventRoot is not None:
+        Story.EventRoot = name_dictionary(Story.EventRoot.EventTrigger)
+    if Story.ParticleActionRoot is not None:
+        Story.ParticleActionRoot = name_dictionary(
+            Story.ParticleActionRoot.ParticleActionList
+        )
+    print(Story.TimelineRoot)
+
     return Story
+
+
+def name_dictionary(container: list) -> dict:
+    """ Converts a list of classes into a dictionary
+        key: class.name
+        val: class
+    """
+    if container is not None:
+        return dict((item.name, item) for item in container)
 
 
 # TODO: Regex validation should be done in the schema directly

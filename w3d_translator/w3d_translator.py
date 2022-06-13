@@ -3,7 +3,7 @@ from lxml import etree
 import doctest
 from pathlib import Path
 
-import generateDS.classes as generateDS
+from generateDS.subclasses import parse
 from unity import (
     create_project,
     copy_files,
@@ -13,6 +13,7 @@ from unity import (
 )
 from validate import validate_project, validate_out
 from errors import ValidationError, TranslationError, UnityError
+from translate import clean_xml
 
 
 # Color string as cyan
@@ -94,8 +95,9 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 typer.echo(red(f"Skipping {file.name}"), err=True)
             else:
                 # Build Story dataclass and Unity project
-                story = generateDS.parse(file, silence=True)
-                print(story.member_data_items_.keys())
+                story = parse(file, silence=True)
+                clean_xml(story)
+
                 build_project(unity_dir, story)
 
     except (ValidationError, UnityError, TranslationError) as e:

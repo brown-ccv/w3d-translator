@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Thu Jun  2 10:23:57 2022 by generateDS.py version 2.40.13.
+# Generated Mon Jun 13 14:09:31 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
@@ -11,19 +11,17 @@
 #   ('--super', 'generateDS.classes')
 #   ('--use-getter-setter', 'none')
 #   ('--member-specs', 'dict')
-#   ('--cleanup-name-list', "[('[-:.]', '_'), ('Root$', 's'), ('Pos$', '')]")
+#   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('Groups', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
 #
 # Command line arguments:
-#   .\schema\caveschema.xsd
+#   ./schema/caveschema.xsd
 #
 # Command line:
-#   .\generateDS\generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('[-:.]', '_'), ('Root$', 's'), ('Pos$', '')]" .\schema\caveschema.xsd
+#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('Groups', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
 #
-
-# flake8: noqa
 
 import sys
 
@@ -1266,9 +1264,9 @@ class Story(GeneratedsSuper):
             1,
             {"use": "optional", "name": "last_xpath"},
         ),
-        "Objects": MemberSpec_(
-            "Objects",
-            "Objects",
+        "ObjectRoot": MemberSpec_(
+            "ObjectRoot",
+            "ObjectRootType",
             0,
             1,
             {
@@ -1279,9 +1277,9 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Groups": MemberSpec_(
-            "Groups",
-            "Groups",
+        "GroupRoot": MemberSpec_(
+            "GroupRoot",
+            "GroupRootType",
             0,
             1,
             {
@@ -1292,8 +1290,8 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Timelines": MemberSpec_(
-            "Timelines",
+        "TimelineRoot": MemberSpec_(
+            "TimelineRoot",
             "TimelineRootType",
             0,
             1,
@@ -1305,8 +1303,8 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Placements": MemberSpec_(
-            "Placements",
+        "PlacementRoot": MemberSpec_(
+            "PlacementRoot",
             "PlacementRootType",
             0,
             1,
@@ -1318,8 +1316,8 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Sounds": MemberSpec_(
-            "Sounds",
+        "SoundRoot": MemberSpec_(
+            "SoundRoot",
             "SoundRootType",
             0,
             1,
@@ -1331,8 +1329,8 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Events": MemberSpec_(
-            "Events",
+        "EventRoot": MemberSpec_(
+            "EventRoot",
             "EventRootType",
             0,
             1,
@@ -1344,8 +1342,8 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "ParticleActions": MemberSpec_(
-            "ParticleActions",
+        "ParticleActionRoot": MemberSpec_(
+            "ParticleActionRoot",
             "ParticleActionRootType",
             0,
             1,
@@ -1392,13 +1390,13 @@ class Story(GeneratedsSuper):
         self,
         version=8,
         last_xpath=None,
-        Objects=None,
-        Groups=None,
-        Timelines=None,
-        Placements=None,
-        Sounds=None,
-        Events=None,
-        ParticleActions=None,
+        ObjectRoot=None,
+        GroupRoot=None,
+        TimelineRoot=None,
+        PlacementRoot=None,
+        SoundRoot=None,
+        EventRoot=None,
+        ParticleActionRoot=None,
         Global=None,
         About=None,
         gds_collector_=None,
@@ -1413,20 +1411,20 @@ class Story(GeneratedsSuper):
         self.version_nsprefix_ = None
         self.last_xpath = _cast(None, last_xpath)
         self.last_xpath_nsprefix_ = None
-        self.Objects = Objects
-        self.Objects_nsprefix_ = None
-        self.Groups = Groups
-        self.Groups_nsprefix_ = None
-        self.Timelines = Timelines
-        self.Timelines_nsprefix_ = None
-        self.Placements = Placements
-        self.Placements_nsprefix_ = None
-        self.Sounds = Sounds
-        self.Sounds_nsprefix_ = None
-        self.Events = Events
-        self.Events_nsprefix_ = None
-        self.ParticleActions = ParticleActions
-        self.ParticleActions_nsprefix_ = None
+        self.ObjectRoot = ObjectRoot
+        self.ObjectRoot_nsprefix_ = None
+        self.GroupRoot = GroupRoot
+        self.GroupRoot_nsprefix_ = None
+        self.TimelineRoot = TimelineRoot
+        self.TimelineRoot_nsprefix_ = None
+        self.PlacementRoot = PlacementRoot
+        self.PlacementRoot_nsprefix_ = None
+        self.SoundRoot = SoundRoot
+        self.SoundRoot_nsprefix_ = None
+        self.EventRoot = EventRoot
+        self.EventRoot_nsprefix_ = None
+        self.ParticleActionRoot = ParticleActionRoot
+        self.ParticleActionRoot_nsprefix_ = None
         self.Global = Global
         self.Global_nsprefix_ = None
         self.About = About
@@ -1446,13 +1444,13 @@ class Story(GeneratedsSuper):
 
     def _hasContent(self):
         if (
-            self.Objects is not None
-            or self.Groups is not None
-            or self.Timelines is not None
-            or self.Placements is not None
-            or self.Sounds is not None
-            or self.Events is not None
-            or self.ParticleActions is not None
+            self.ObjectRoot is not None
+            or self.GroupRoot is not None
+            or self.TimelineRoot is not None
+            or self.PlacementRoot is not None
+            or self.SoundRoot is not None
+            or self.EventRoot is not None
+            or self.ParticleActionRoot is not None
             or self.Global is not None
             or self.About is not None
         ):
@@ -1553,13 +1551,13 @@ class Story(GeneratedsSuper):
             eol_ = "\n"
         else:
             eol_ = ""
-        if self.Objects is not None:
+        if self.ObjectRoot is not None:
             namespaceprefix_ = (
-                self.Objects_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Objects_nsprefix_)
+                self.ObjectRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.ObjectRoot_nsprefix_)
                 else ""
             )
-            self.Objects.export(
+            self.ObjectRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1567,13 +1565,13 @@ class Story(GeneratedsSuper):
                 name_="ObjectRoot",
                 pretty_print=pretty_print,
             )
-        if self.Groups is not None:
+        if self.GroupRoot is not None:
             namespaceprefix_ = (
-                self.Groups_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Groups_nsprefix_)
+                self.GroupRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.GroupRoot_nsprefix_)
                 else ""
             )
-            self.Groups.export(
+            self.GroupRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1581,13 +1579,13 @@ class Story(GeneratedsSuper):
                 name_="GroupRoot",
                 pretty_print=pretty_print,
             )
-        if self.Timelines is not None:
+        if self.TimelineRoot is not None:
             namespaceprefix_ = (
-                self.Timelines_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Timelines_nsprefix_)
+                self.TimelineRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.TimelineRoot_nsprefix_)
                 else ""
             )
-            self.Timelines.export(
+            self.TimelineRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1595,13 +1593,13 @@ class Story(GeneratedsSuper):
                 name_="TimelineRoot",
                 pretty_print=pretty_print,
             )
-        if self.Placements is not None:
+        if self.PlacementRoot is not None:
             namespaceprefix_ = (
-                self.Placements_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Placements_nsprefix_)
+                self.PlacementRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.PlacementRoot_nsprefix_)
                 else ""
             )
-            self.Placements.export(
+            self.PlacementRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1609,13 +1607,13 @@ class Story(GeneratedsSuper):
                 name_="PlacementRoot",
                 pretty_print=pretty_print,
             )
-        if self.Sounds is not None:
+        if self.SoundRoot is not None:
             namespaceprefix_ = (
-                self.Sounds_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Sounds_nsprefix_)
+                self.SoundRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.SoundRoot_nsprefix_)
                 else ""
             )
-            self.Sounds.export(
+            self.SoundRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1623,13 +1621,13 @@ class Story(GeneratedsSuper):
                 name_="SoundRoot",
                 pretty_print=pretty_print,
             )
-        if self.Events is not None:
+        if self.EventRoot is not None:
             namespaceprefix_ = (
-                self.Events_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Events_nsprefix_)
+                self.EventRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.EventRoot_nsprefix_)
                 else ""
             )
-            self.Events.export(
+            self.EventRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1637,13 +1635,13 @@ class Story(GeneratedsSuper):
                 name_="EventRoot",
                 pretty_print=pretty_print,
             )
-        if self.ParticleActions is not None:
+        if self.ParticleActionRoot is not None:
             namespaceprefix_ = (
-                self.ParticleActions_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.ParticleActions_nsprefix_)
+                self.ParticleActionRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.ParticleActionRoot_nsprefix_)
                 else ""
             )
-            self.ParticleActions.export(
+            self.ParticleActionRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1710,37 +1708,37 @@ class Story(GeneratedsSuper):
         if nodeName_ == "ObjectRoot":
             obj_ = ObjectRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Objects = obj_
+            self.ObjectRoot = obj_
             obj_.original_tagname_ = "ObjectRoot"
         elif nodeName_ == "GroupRoot":
             obj_ = GroupRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Groups = obj_
+            self.GroupRoot = obj_
             obj_.original_tagname_ = "GroupRoot"
         elif nodeName_ == "TimelineRoot":
             obj_ = TimelineRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Timelines = obj_
+            self.TimelineRoot = obj_
             obj_.original_tagname_ = "TimelineRoot"
         elif nodeName_ == "PlacementRoot":
             obj_ = PlacementRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Placements = obj_
+            self.PlacementRoot = obj_
             obj_.original_tagname_ = "PlacementRoot"
         elif nodeName_ == "SoundRoot":
             obj_ = SoundRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Sounds = obj_
+            self.SoundRoot = obj_
             obj_.original_tagname_ = "SoundRoot"
         elif nodeName_ == "EventRoot":
             obj_ = EventRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Events = obj_
+            self.EventRoot = obj_
             obj_.original_tagname_ = "EventRoot"
         elif nodeName_ == "ParticleActionRoot":
             obj_ = ParticleActionRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.ParticleActions = obj_
+            self.ParticleActionRoot = obj_
             obj_.original_tagname_ = "ParticleActionRoot"
         elif nodeName_ == "Global":
             obj_ = Global.factory(parent_object_=self)
@@ -1841,8 +1839,8 @@ class Object(GeneratedsSuper):
             {"name": "Content", "ref": "Content", "type": "Content"},
             None,
         ),
-        "Links": MemberSpec_(
-            "Links",
+        "LinkRoot": MemberSpec_(
+            "LinkRoot",
             "LinkRootType",
             0,
             1,
@@ -1865,7 +1863,7 @@ class Object(GeneratedsSuper):
         SoundRef=None,
         Placement=None,
         Content=None,
-        Links=None,
+        LinkRoot=None,
         gds_collector_=None,
         **kwargs_
     ):
@@ -1895,8 +1893,8 @@ class Object(GeneratedsSuper):
         self.Placement_nsprefix_ = None
         self.Content = Content
         self.Content_nsprefix_ = None
-        self.Links = Links
-        self.Links_nsprefix_ = None
+        self.LinkRoot = LinkRoot
+        self.LinkRoot_nsprefix_ = None
 
     def factory(*args_, **kwargs_):
         if CurrentSubclassModule_ is not None:
@@ -1942,7 +1940,7 @@ class Object(GeneratedsSuper):
             or self.SoundRef is not None
             or self.Placement is not None
             or self.Content is not None
-            or self.Links is not None
+            or self.LinkRoot is not None
         ):
             return True
         else:
@@ -2253,13 +2251,13 @@ class Object(GeneratedsSuper):
                 name_="Content",
                 pretty_print=pretty_print,
             )
-        if self.Links is not None:
+        if self.LinkRoot is not None:
             namespaceprefix_ = (
-                self.Links_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Links_nsprefix_)
+                self.LinkRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.LinkRoot_nsprefix_)
                 else ""
             )
-            self.Links.export(
+            self.LinkRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -2348,7 +2346,7 @@ class Object(GeneratedsSuper):
         elif nodeName_ == "LinkRoot":
             obj_ = LinkRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Links = obj_
+            self.LinkRoot = obj_
             obj_.original_tagname_ = "LinkRoot"
 
 
@@ -3119,8 +3117,8 @@ class Group(GeneratedsSuper):
         "name": MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "Objects": MemberSpec_(
-            "Objects",
+        "ObjectName": MemberSpec_(
+            "ObjectName",
             "Objects",
             1,
             0,
@@ -3132,8 +3130,8 @@ class Group(GeneratedsSuper):
             },
             2,
         ),
-        "Groups": MemberSpec_(
-            "Groups",
+        "GroupName": MemberSpec_(
+            "GroupName",
             "Groups",
             1,
             0,
@@ -3152,8 +3150,8 @@ class Group(GeneratedsSuper):
     def __init__(
         self,
         name=None,
-        Objects=None,
-        Groups=None,
+        ObjectName=None,
+        GroupName=None,
         gds_collector_=None,
         **kwargs_
     ):
@@ -3164,16 +3162,16 @@ class Group(GeneratedsSuper):
         self.ns_prefix_ = None
         self.name = _cast(None, name)
         self.name_nsprefix_ = None
-        if Objects is None:
-            self.Objects = []
+        if ObjectName is None:
+            self.ObjectName = []
         else:
-            self.Objects = Objects
-        self.Objects_nsprefix_ = None
-        if Groups is None:
-            self.Groups = []
+            self.ObjectName = ObjectName
+        self.ObjectName_nsprefix_ = None
+        if GroupName is None:
+            self.GroupName = []
         else:
-            self.Groups = Groups
-        self.Groups_nsprefix_ = None
+            self.GroupName = GroupName
+        self.GroupName_nsprefix_ = None
 
     def factory(*args_, **kwargs_):
         if CurrentSubclassModule_ is not None:
@@ -3188,7 +3186,7 @@ class Group(GeneratedsSuper):
     factory = staticmethod(factory)
 
     def _hasContent(self):
-        if self.Objects or self.Groups:
+        if self.ObjectName or self.GroupName:
             return True
         else:
             return False
@@ -3276,13 +3274,13 @@ class Group(GeneratedsSuper):
             eol_ = "\n"
         else:
             eol_ = ""
-        for Objects_ in self.Objects:
+        for ObjectName_ in self.ObjectName:
             namespaceprefix_ = (
-                self.Objects_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Objects_nsprefix_)
+                self.ObjectName_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.ObjectName_nsprefix_)
                 else ""
             )
-            Objects_.export(
+            ObjectName_.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -3290,13 +3288,13 @@ class Group(GeneratedsSuper):
                 name_="Objects",
                 pretty_print=pretty_print,
             )
-        for Groups_ in self.Groups:
+        for GroupName_ in self.GroupName:
             namespaceprefix_ = (
-                self.Groups_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Groups_nsprefix_)
+                self.GroupName_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.GroupName_nsprefix_)
                 else ""
             )
-            Groups_.export(
+            GroupName_.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -3329,21 +3327,21 @@ class Group(GeneratedsSuper):
         self, child_, node, nodeName_, fromsubclass_=False, gds_collector_=None
     ):
         if nodeName_ == "Objects":
-            obj_ = Objects.factory(parent_object_=self)
+            obj_ = ObjectName.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Objects.append(obj_)
+            self.ObjectName.append(obj_)
             obj_.original_tagname_ = "Objects"
         elif nodeName_ == "Groups":
-            obj_ = Groups.factory(parent_object_=self)
+            obj_ = GroupName.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Groups.append(obj_)
+            self.GroupName.append(obj_)
             obj_.original_tagname_ = "Groups"
 
 
 # end class Group
 
 
-class Objects(GeneratedsSuper):
+class ObjectName(GeneratedsSuper):
     """Objects -- Reference group objects"""
 
     __hash__ = GeneratedsSuper.__hash__
@@ -3366,13 +3364,15 @@ class Objects(GeneratedsSuper):
 
     def factory(*args_, **kwargs_):
         if CurrentSubclassModule_ is not None:
-            subclass = getSubclassFromModule_(CurrentSubclassModule_, Objects)
+            subclass = getSubclassFromModule_(
+                CurrentSubclassModule_, ObjectName
+            )
             if subclass is not None:
                 return subclass(*args_, **kwargs_)
-        if Objects.subclass:
-            return Objects.subclass(*args_, **kwargs_)
+        if ObjectName.subclass:
+            return ObjectName.subclass(*args_, **kwargs_)
         else:
-            return Objects(*args_, **kwargs_)
+            return ObjectName(*args_, **kwargs_)
 
     factory = staticmethod(factory)
 
@@ -3492,10 +3492,10 @@ class Objects(GeneratedsSuper):
         pass
 
 
-# end class Objects
+# end class ObjectName
 
 
-class Groups(GeneratedsSuper):
+class GroupName(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
     member_data_items_ = {
         "name": MemberSpec_(
@@ -3516,13 +3516,15 @@ class Groups(GeneratedsSuper):
 
     def factory(*args_, **kwargs_):
         if CurrentSubclassModule_ is not None:
-            subclass = getSubclassFromModule_(CurrentSubclassModule_, Groups)
+            subclass = getSubclassFromModule_(
+                CurrentSubclassModule_, GroupName
+            )
             if subclass is not None:
                 return subclass(*args_, **kwargs_)
-        if Groups.subclass:
-            return Groups.subclass(*args_, **kwargs_)
+        if GroupName.subclass:
+            return GroupName.subclass(*args_, **kwargs_)
         else:
-            return Groups(*args_, **kwargs_)
+            return GroupName(*args_, **kwargs_)
 
     factory = staticmethod(factory)
 
@@ -3638,7 +3640,7 @@ class Groups(GeneratedsSuper):
         pass
 
 
-# end class Groups
+# end class GroupName
 
 
 class Timeline(GeneratedsSuper):
@@ -27238,10 +27240,10 @@ __all__ = [
     "GravitateType",
     "GravityType",
     "Group",
+    "GroupName",
     "GroupObjType",
     "GroupRef",
     "GroupRootType",
-    "Groups",
     "HeadTrackType",
     "ImageType",
     "InsideType",
@@ -27267,10 +27269,10 @@ __all__ = [
     "NumClicksType",
     "Object",
     "ObjectChange",
+    "ObjectName",
     "ObjectRefType",
     "ObjectRootType",
     "ObjectTargetType",
-    "Objects",
     "OrbitPointType",
     "OutsideType",
     "ParticleAction",

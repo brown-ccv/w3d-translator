@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #
-# Generated Thu Jun  2 10:23:57 2022 by generateDS.py version 2.40.13.
+# Generated Mon Jun 13 14:09:32 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
@@ -10,19 +10,17 @@
 #   ('--super', 'generateDS.classes')
 #   ('--use-getter-setter', 'none')
 #   ('--member-specs', 'dict')
-#   ('--cleanup-name-list', "[('[-:.]', '_'), ('Root$', 's'), ('Pos$', '')]")
+#   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('Groups', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
 #
 # Command line arguments:
-#   .\schema\caveschema.xsd
+#   ./schema/caveschema.xsd
 #
 # Command line:
-#   .\generateDS\generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('[-:.]', '_'), ('Root$', 's'), ('Pos$', '')]" .\schema\caveschema.xsd
+#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('Groups', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
 #
-
-# flake8: noqa
 
 import os
 import sys
@@ -75,13 +73,13 @@ class StorySub(supermod.Story):
         self,
         version=8,
         last_xpath=None,
-        Objects=None,
-        Groups=None,
-        Timelines=None,
-        Placements=None,
-        Sounds=None,
-        Events=None,
-        ParticleActions=None,
+        ObjectRoot=None,
+        GroupRoot=None,
+        TimelineRoot=None,
+        PlacementRoot=None,
+        SoundRoot=None,
+        EventRoot=None,
+        ParticleActionRoot=None,
         Global=None,
         About=None,
         **kwargs_
@@ -89,13 +87,13 @@ class StorySub(supermod.Story):
         super(StorySub, self).__init__(
             version,
             last_xpath,
-            Objects,
-            Groups,
-            Timelines,
-            Placements,
-            Sounds,
-            Events,
-            ParticleActions,
+            ObjectRoot,
+            GroupRoot,
+            TimelineRoot,
+            PlacementRoot,
+            SoundRoot,
+            EventRoot,
+            ParticleActionRoot,
             Global,
             About,
             **kwargs_
@@ -119,7 +117,7 @@ class ObjectSub(supermod.Object):
         SoundRef=None,
         Placement=None,
         Content=None,
-        Links=None,
+        LinkRoot=None,
         **kwargs_
     ):
         super(ObjectSub, self).__init__(
@@ -133,7 +131,7 @@ class ObjectSub(supermod.Object):
             SoundRef,
             Placement,
             Content,
-            Links,
+            LinkRoot,
             **kwargs_
         )
 
@@ -195,30 +193,30 @@ supermod.Link.subclass = LinkSub
 
 
 class GroupSub(supermod.Group):
-    def __init__(self, name=None, Objects=None, Groups=None, **kwargs_):
-        super(GroupSub, self).__init__(name, Objects, Groups, **kwargs_)
+    def __init__(self, name=None, ObjectName=None, GroupName=None, **kwargs_):
+        super(GroupSub, self).__init__(name, ObjectName, GroupName, **kwargs_)
 
 
 supermod.Group.subclass = GroupSub
 # end class GroupSub
 
 
-class ObjectsSub(supermod.Objects):
+class ObjectNameSub(supermod.ObjectName):
     def __init__(self, name=None, **kwargs_):
-        super(ObjectsSub, self).__init__(name, **kwargs_)
+        super(ObjectNameSub, self).__init__(name, **kwargs_)
 
 
-supermod.Objects.subclass = ObjectsSub
-# end class ObjectsSub
+supermod.ObjectName.subclass = ObjectNameSub
+# end class ObjectNameSub
 
 
-class GroupsSub(supermod.Groups):
+class GroupNameSub(supermod.GroupName):
     def __init__(self, name=None, **kwargs_):
-        super(GroupsSub, self).__init__(name, **kwargs_)
+        super(GroupNameSub, self).__init__(name, **kwargs_)
 
 
-supermod.Groups.subclass = GroupsSub
-# end class GroupsSub
+supermod.GroupName.subclass = GroupNameSub
+# end class GroupNameSub
 
 
 class TimelineSub(supermod.Timeline):
@@ -560,10 +558,23 @@ class TransitionSub(supermod.Transition):
 supermod.Transition.subclass = TransitionSub
 # end class TransitionSub
 
-
 class ObjectRootTypeSub(supermod.ObjectRootType):
     def __init__(self, Object=None, **kwargs_):
         super(ObjectRootTypeSub, self).__init__(Object, **kwargs_)
+
+    def list_to_dict(self):
+        """Convert property from list to dict, referenced by name"""
+
+        print(self.member_data_items_.keys())
+        print(self.member_data_items_.keys())
+        # assert self.member_data_items_.keys() is len 1
+
+        property = "Object"
+        setattr(
+            self,
+            property,
+            dict((object.name, object) for object in self.Object),
+        )
 
 
 supermod.ObjectRootType.subclass = ObjectRootTypeSub
