@@ -17,14 +17,12 @@ def clean_xml(Story: Story):
         Story.PlacementRoot = name_dictionary(Story.PlacementRoot.Placement)
     if Story.SoundRoot is not None:
         Story.SoundRoot = name_dictionary(Story.SoundRoot.Sound)
-
     if Story.EventRoot is not None:
         Story.EventRoot = name_dictionary(Story.EventRoot.EventTrigger)
     if Story.ParticleActionRoot is not None:
         Story.ParticleActionRoot = name_dictionary(
             Story.ParticleActionRoot.ParticleActionList
         )
-    print(Story.TimelineRoot)
 
     return Story
 
