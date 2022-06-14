@@ -1,9 +1,3 @@
-import re
-import xml.etree.ElementTree as ET
-from pathlib import Path
-from typing import Union
-
-
 # TODO: Move to .clean() method of appropriate classes
 # TODO: Should be Dictionary (name is key), not a list
 def clean_xml(Story):
