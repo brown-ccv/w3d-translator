@@ -1,7 +1,1 @@
-poetry run python ./.venv/Scripts/generateDS.py \
--o w3d_translator/generateDS/classes.py \
--s w3d_translator/generateDS/subclasses.py \
---super=generateDS.classes --use-getter-setter=none --member-specs=dict \
---cleanup-name-list="[('^Objects$', 'ObjectName'), ('Groups', 'GroupName'), \
-('[-:.]', '_'), ('Pos$', '')]" \
-./schema/caveschema.xsd
+poetry run python ./.venv/Scripts/generateDS.py -o w3d_translator/generateDS/classes.py -s w3d_translator/generateDS/subclasses.py --super=generateDS.classes --use-getter-setter=none --member-specs=dict --cleanup-name-list="[('^Objects$', 'ObjectName'), ('Groups', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
