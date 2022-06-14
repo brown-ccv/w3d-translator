@@ -1,5 +1,4 @@
 import typer
-import doctest
 from pathlib import Path
 
 from generateDS.subclasses import parse
@@ -71,8 +70,6 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 # Build Story dataclass and Unity project
                 story = parse(file, silence=True)
                 clean_xml(story)
-
-                print(story.GroupRoot)
 
                 build_project(unity_dir, story)
     except (ValidationError, UnityError) as e:

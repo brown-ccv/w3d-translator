@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #
-# Generated Mon Jun 13 14:09:32 2022 by generateDS.py version 2.40.13.
+# Generated Tue Jun 14 17:25:44 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
@@ -10,13 +10,13 @@
 #   ('--super', 'generateDS.classes')
 #   ('--use-getter-setter', 'none')
 #   ('--member-specs', 'dict')
-#   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('Groups', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
+#   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
 #
 # Command line arguments:
 #   ./schema/caveschema.xsd
 #
 # Command line:
-#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('Groups', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
+#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
@@ -564,20 +564,6 @@ supermod.Transition.subclass = TransitionSub
 class ObjectRootTypeSub(supermod.ObjectRootType):
     def __init__(self, Object=None, **kwargs_):
         super(ObjectRootTypeSub, self).__init__(Object, **kwargs_)
-
-    def list_to_dict(self):
-        """Convert property from list to dict, referenced by name"""
-
-        print(self.member_data_items_.keys())
-        print(self.member_data_items_.keys())
-        # assert self.member_data_items_.keys() is len 1
-
-        property = "Object"
-        setattr(
-            self,
-            property,
-            dict((object.name, object) for object in self.Object),
-        )
 
 
 supermod.ObjectRootType.subclass = ObjectRootTypeSub

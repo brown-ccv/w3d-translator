@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Mon Jun 13 14:09:31 2022 by generateDS.py version 2.40.13.
+# Generated Tue Jun 14 17:25:43 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
@@ -11,13 +11,13 @@
 #   ('--super', 'generateDS.classes')
 #   ('--use-getter-setter', 'none')
 #   ('--member-specs', 'dict')
-#   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('Groups', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
+#   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
 #
 # Command line arguments:
 #   ./schema/caveschema.xsd
 #
 # Command line:
-#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('Groups', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
+#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
@@ -1928,8 +1928,22 @@ class Object(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_color_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_color_patterns_,
+                    )
+                )
+                result = False
         return result
+
+    validate_color_patterns_ = [
+        ["^(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\s*(\\d+)\\s*)$"]
+    ]
 
     def _hasContent(self):
         if (
@@ -2829,8 +2843,22 @@ class Link(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_color_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_color_patterns_,
+                    )
+                )
+                result = False
         return result
+
+    validate_color_patterns_ = [
+        ["^(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\s*(\\d+)\\s*)$"]
+    ]
 
     def _hasContent(self):
         if (
@@ -5858,7 +5886,22 @@ class Box(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if self.Movement is not None:
@@ -8793,8 +8836,24 @@ class Placement(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+                result = False
         return result
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if (
@@ -9190,8 +9249,22 @@ class Transition(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_color_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_color_patterns_,
+                    )
+                )
+                result = False
         return result
+
+    validate_color_patterns_ = [
+        ["^(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\s*(\\d+)\\s*)$"]
+    ]
 
     def _hasContent(self):
         if (
@@ -17331,7 +17404,22 @@ class PointTargetType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -17525,7 +17613,22 @@ class DirectionTargetType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -20812,7 +20915,22 @@ class GravityType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -21010,7 +21128,22 @@ class DampingType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -21824,7 +21957,22 @@ class OrbitPointType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -22245,7 +22393,20 @@ class TargetColorType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_color_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_color_patterns_,
+                    )
+                )
+
+    validate_color_patterns_ = [
+        ["^(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\s*(\\d+)\\s*)$"]
+    ]
 
     def _hasContent(self):
         if ():
@@ -22439,7 +22600,22 @@ class PointType5(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -22614,7 +22790,22 @@ class LineType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -22815,7 +23006,22 @@ class TriangleType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -23028,7 +23234,22 @@ class PlaneType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -23232,7 +23453,22 @@ class RectType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -23441,7 +23677,22 @@ class BoxType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -23651,7 +23902,22 @@ class SphereType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -23877,7 +24143,22 @@ class CylinderType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -24122,7 +24403,22 @@ class ConeType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -24345,7 +24641,22 @@ class BlobType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -24553,7 +24864,22 @@ class DiscType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -24769,7 +25095,20 @@ class BackgroundType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_color_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_color_patterns_,
+                    )
+                )
+
+    validate_color_patterns_ = [
+        ["^(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\s*(\\d+)\\s*)$"]
+    ]
 
     def _hasContent(self):
         if ():
@@ -25142,7 +25481,22 @@ class AxisType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -25339,7 +25693,22 @@ class LookAtType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -25542,7 +25911,22 @@ class NormalType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():

@@ -1,26 +1,30 @@
 from generateDS.classes import Story
 
 
-def clean_xml(Story: Story) -> Story:
+def clean_xml(story: Story) -> Story:
     # Convert each _Root property to a dictionary of that type
-    if Story.ObjectRoot is not None:
-        Story.ObjectRoot = name_dictionary(Story.ObjectRoot.Object)
-    if Story.GroupRoot is not None:
-        Story.GroupRoot = name_dictionary(Story.GroupRoot.Group)
-    if Story.TimelineRoot is not None:
-        Story.TimelineRoot = name_dictionary(Story.TimelineRoot.Timeline)
-    if Story.PlacementRoot is not None:
-        Story.PlacementRoot = name_dictionary(Story.PlacementRoot.Placement)
-    if Story.SoundRoot is not None:
-        Story.SoundRoot = name_dictionary(Story.SoundRoot.Sound)
-    if Story.EventRoot is not None:
-        Story.EventRoot = name_dictionary(Story.EventRoot.EventTrigger)
-    if Story.ParticleActionRoot is not None:
-        Story.ParticleActionRoot = name_dictionary(
-            Story.ParticleActionRoot.ParticleActionList
+    if story.ObjectRoot is not None:
+        story.ObjectRoot = name_dictionary(story.ObjectRoot.Object)
+    if story.GroupRoot is not None:
+        story.GroupRoot = name_dictionary(story.GroupRoot.Group)
+    if story.TimelineRoot is not None:
+        story.TimelineRoot = name_dictionary(story.TimelineRoot.Timeline)
+    if story.PlacementRoot is not None:
+        story.PlacementRoot = name_dictionary(story.PlacementRoot.Placement)
+    if story.SoundRoot is not None:
+        story.SoundRoot = name_dictionary(story.SoundRoot.Sound)
+    if story.EventRoot is not None:
+        story.EventRoot = name_dictionary(story.EventRoot.EventTrigger)
+    if story.ParticleActionRoot is not None:
+        story.ParticleActionRoot = name_dictionary(
+            story.ParticleActionRoot.ParticleActionList
         )
 
-    return Story
+    # Convert each color type to a tuple of integers and assert 0 <= [int] <= 255
+    # TODO:
+    # Convert each vector type to a tuple of floats
+
+    # Convert each path type to a Path
 
 
 def name_dictionary(container: list) -> dict:
