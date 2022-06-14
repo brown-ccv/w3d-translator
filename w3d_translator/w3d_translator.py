@@ -42,9 +42,12 @@ def farewell():
 # Run doctests
 def run_tests():
     typer.echo("Running Tests")
-    import translate as module
+    import errors
+    import translate
+    import unity
+    import validate
 
-    doctest.testmod(module)
+    doctest.testmod(errors, translate, unity, validate)
     typer.echo()
 
 
