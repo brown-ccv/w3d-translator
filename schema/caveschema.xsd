@@ -1016,29 +1016,47 @@
     </xs:complexType>
   </xs:element>
 
-  <!-- Simple Types (string validation) -->
-  <!-- TODO: better validation here so regex isn't overly complicated in read_xml (31) -->
+
+  <!-- file (xs:string)
+    No validation done
+  -->
   <xs:simpleType name="file">
     <xs:annotation>
       <xs:documentation>A filename type</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string" />
   </xs:simpleType>
+
+  <!-- vector (xs:string)
+    Match "([float], [float], [float],)"
+    Ignore whitespace
+    Positive or negative floats are accepted
+    Each [float] matches one of two cases:
+      Starts with a number, eg: 5 or 5. or 5.0
+      Is a decimal, eg: .5
+  -->
   <xs:simpleType name="vector">
     <xs:annotation>
       <xs:documentation>vector attrib</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:whiteSpace value="collapse" />
+      <xs:pattern value="\s*\(\s*-?(\d+\.?(\d+)?|(\d+)?\.\d+)\s*,\s*-?(\d+\.?(\d+)?|(\d+)?\.\d+)\s*,\s*\s*-?(\d+\.?(\d+)?|(\d+)?\.\d+)\s*\)\s*" />
     </xs:restriction>
   </xs:simpleType>
+
+  <!-- color (xs:string)
+    Match "[int], [int], [int]"
+    Ignore whitespace
+    Only positive integers are accepted 
+  -->
   <xs:simpleType name="color">
     <xs:annotation>
       <xs:documentation>color attrib</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:whiteSpace value="collapse" />
-      <xs:pattern value="\s*(\d+)\s*,\s*(\d+)\s*,\s*\s*(\d+)\s*"/>
+      <xs:pattern value="\s*(\d+)\s*,\s*(\d+)\s*,\s*\s*(\d+)\s*" />
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
