@@ -1038,6 +1038,7 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:whiteSpace value="collapse" />
+      <xs:pattern value="\s*(\d+)\s*,\s*(\d+)\s*,\s*\s*(\d+)\s*"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
