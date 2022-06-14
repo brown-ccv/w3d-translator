@@ -44,18 +44,6 @@ def farewell():
     exit(0)
 
 
-# Run doctests
-def run_tests():
-    typer.echo("Running Tests")
-    import errors
-    import translate
-    import unity
-    import validate
-
-    doctest.testmod(errors, translate, unity, validate)
-    typer.echo()
-
-
 # Translate a single project
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
     try:
@@ -84,6 +72,8 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 story = parse(file, silence=True)
                 clean_xml(story)
 
+                print(story.GroupRoot)
+
                 build_project(unity_dir, story)
     except (ValidationError, UnityError) as e:
         typer.echo(red(e), err=True)
@@ -104,10 +94,6 @@ def main(
     Translate W3D xml projects in in_dir to Unity projects in out_dir
     """
     greeting(in_dir, out_dir)
-
-    # Run tests
-    if dev:
-        run_tests()
 
     # Create output folder
     try:
