@@ -1,22 +1,22 @@
 #!/usr/bin/env python
 
 #
-# Generated Tue Jun 14 17:25:44 2022 by generateDS.py version 2.40.13.
+# Generated Wed Jun 15 16:56:16 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
 #   ('-o', 'w3d_translator/generateDS/classes.py')
 #   ('-s', 'w3d_translator/generateDS/subclasses.py')
 #   ('--super', 'generateDS.classes')
-#   ('--use-getter-setter', 'none')
-#   ('--member-specs', 'dict')
+#   ('-u', '.\\w3d_translator\\generateDS\\user_methods.py')
+#   ('--member-specs', 'list')
 #   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
 #
 # Command line arguments:
 #   ./schema/caveschema.xsd
 #
 # Command line:
-#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
+#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" -u ".\w3d_translator\generateDS\user_methods.py" --member-specs="list" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
@@ -164,27 +164,6 @@ class ContentSub(supermod.Content):
             ParticleSystem,
             **kwargs_
         )
-    def get_choice(self):
-        # print(self.member_data_items_.get_name())
-        for member in self.member_data_items_:
-            print(member)
-            # temp = getattr(self, member.get_name())
-        
-        if(self.None_ is not None):
-            return "NONE"
-        elif(self.Text is not None):
-            return "TEXT"
-        elif(self.Image is not None):
-            return "IMAGE"
-        elif(self.StereoImage is not None):
-            return "STEREO IMAGE"
-        elif(self.Model is not None):
-            return "MODEL"
-        elif(self.Light is not None):
-            return "LIGHT"
-        elif(self.ParticleSystem is not None):
-            return "PARTICLE SYSTEM"
-        
 
 
 supermod.Content.subclass = ContentSub
@@ -255,22 +234,13 @@ supermod.Timeline.subclass = TimelineSub
 # end class TimelineSub
 
 
-class GroupRefSub(supermod.GroupRef):
-    def __init__(self, name=None, random=None, Transition=None, **kwargs_):
-        super(GroupRefSub, self).__init__(name, random, Transition, **kwargs_)
-
-
-supermod.GroupRef.subclass = GroupRefSub
-# end class GroupRefSub
-
-
 class ActionsTypeSub(supermod.ActionsType):
     def __init__(
         self,
-        ObjectChange=None,
-        GroupRef=None,
         TimerChange=None,
+        ObjectChange=None,
         SoundRef=None,
+        GroupRef=None,
         Event=None,
         MoveCave=None,
         Restart=None,
@@ -278,10 +248,10 @@ class ActionsTypeSub(supermod.ActionsType):
         **kwargs_
     ):
         super(ActionsTypeSub, self).__init__(
-            ObjectChange,
-            GroupRef,
             TimerChange,
+            ObjectChange,
             SoundRef,
+            GroupRef,
             Event,
             MoveCave,
             Restart,
@@ -329,6 +299,15 @@ class SoundRefSub(supermod.SoundRef):
 
 supermod.SoundRef.subclass = SoundRefSub
 # end class SoundRefSub
+
+
+class GroupRefSub(supermod.GroupRef):
+    def __init__(self, name=None, random=None, Transition=None, **kwargs_):
+        super(GroupRefSub, self).__init__(name, random, Transition, **kwargs_)
+
+
+supermod.GroupRef.subclass = GroupRefSub
+# end class GroupRefSub
 
 
 class SoundSub(supermod.Sound):
@@ -810,10 +789,10 @@ supermod.ParticleSystemType.subclass = ParticleSystemTypeSub
 class ActionsType1Sub(supermod.ActionsType1):
     def __init__(
         self,
-        ObjectChange=None,
-        GroupRef=None,
         TimerChange=None,
+        ObjectChange=None,
         SoundRef=None,
+        GroupRef=None,
         Event=None,
         MoveCave=None,
         Restart=None,
@@ -821,10 +800,10 @@ class ActionsType1Sub(supermod.ActionsType1):
         **kwargs_
     ):
         super(ActionsType1Sub, self).__init__(
-            ObjectChange,
-            GroupRef,
             TimerChange,
+            ObjectChange,
             SoundRef,
+            GroupRef,
             Event,
             MoveCave,
             Restart,
@@ -867,10 +846,10 @@ supermod.NumClicksType.subclass = NumClicksTypeSub
 class TimedActionsTypeSub(supermod.TimedActionsType):
     def __init__(
         self,
-        ObjectChange=None,
-        GroupRef=None,
         TimerChange=None,
+        ObjectChange=None,
         SoundRef=None,
+        GroupRef=None,
         Event=None,
         MoveCave=None,
         Restart=None,
@@ -878,10 +857,10 @@ class TimedActionsTypeSub(supermod.TimedActionsType):
         **kwargs_
     ):
         super(TimedActionsTypeSub, self).__init__(
-            ObjectChange,
-            GroupRef,
             TimerChange,
+            ObjectChange,
             SoundRef,
+            GroupRef,
             Event,
             MoveCave,
             Restart,
