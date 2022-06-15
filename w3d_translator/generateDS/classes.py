@@ -22,6 +22,8 @@
 #   W3D Translator
 #
 
+# flake8: noqa
+
 import sys
 
 try:
