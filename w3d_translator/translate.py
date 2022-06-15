@@ -1,41 +1,16 @@
-from fileinput import filename
 from pathlib import Path
+from typing import Union
 
 import generateDS.classes as classes
+import generateDS.subclasses as sub
 
 
 def clean_xml(story: classes.Story) -> classes.Story:
     # TODO: Loop over all over story instead of path then color then vector
     # TODO: Manage choice first? Utility function
 
-    # Convert each path type to a Path
-    for i in range(len(story.ObjectRoot.Object)):
-        choice = story.ObjectRoot.Object[i].Content.get_choice()
-        match type(choice):
-            case classes.TextType:
-                print("TEXT")
-            case classes.ImageType:
-                # TODO: Object.Content.Image.filename
-                choice.filename = Path(choice.filename)
-                story.ObjectRoot.Object[i].Content.set_choice(choice)
-            case classes.StereoImageType:
-                # TODO: Object.Content.StereoImage.left_image
-                # TODO: Object.Content.StereoImage.right_image
-                choice.left_image = Path(choice.left_image)
-                choice.right_image = Path(choice.right_image)
-                story.ObjectRoot.Object[i].Content.set_choice(choice)
-            case classes.ModelType:
-                # TODO: Object.Content.Model.filename
-                choice.filename = Path(choice.filename)
-                story.ObjectRoot.Object[i].Content.set_choice(choice)
-            case _:
-                pass
-    
-    # TODO: Sound.filename
-    for i in range(len(story.SoundRoot.Sound)):
-        filename = story.SoundRoot.Sound[i].get_filename()
-        filename = Path(filename)
-        story.SoundRoot.Sound[i].set_filename(filename)
+    # story = convert_paths(story)
+    convert_paths(story)
 
     # Convert each color type to a tuple of integers, assert 0 <= [int] <= 255
     # TODO: Object.Color
@@ -115,8 +90,44 @@ def clean_xml(story: classes.Story) -> classes.Story:
         )
 
 
+def convert_paths(story: classes.Story) -> classes.Story:
+    """Type convert each <xs:simpleType name="path"> type to a Path
+
+    Object.Content.Image.filename
+    Object.Content.StereoImage.left_image
+    Object.Content.StereoImage.right_image
+    Object.Content.Model.filename
+    Sound.filename
+    """
+
+    object: classes.Object
+    choice: Union[sub.ImageTypeSub, sub.StereoImageTypeSub, sub.ModelTypeSub]
+    for object in story.ObjectRoot.Object:
+        choice = object.Content.get_choice()
+        match type(choice):
+            case sub.ImageTypeSub:
+                choice.set_filename(Path(choice.get_filename()))
+                object.Content.set_choice(choice)
+            case sub.StereoImageTypeSub:
+                choice.set_left_image(Path(choice.get_left_image()))
+                choice.set_right_image(Path(choice.get_right_image()))
+                object.Content.set_choice(choice)
+            case sub.ModelTypeSub:
+                choice.set_filename(Path(choice.get_filename()))
+                object.Content.set_choice(choice)
+            case _:
+                pass
+
+    sound: classes.Sound
+    for sound in story.SoundRoot.Sound:
+        sound.set_filename(Path(sound.get_filename()))
+
+    return story
+
+
 def name_dictionary(container: list) -> dict:
     """Converts a list of classes into a dictionary
+
     { key: [class.name], val: [class] }
     """
     if container is not None:
