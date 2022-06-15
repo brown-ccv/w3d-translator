@@ -2,28 +2,25 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Tue Jun 14 17:25:43 2022 by generateDS.py version 2.40.13.
+# Generated Wed Jun 15 13:02:16 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
 #   ('-o', 'w3d_translator/generateDS/classes.py')
 #   ('-s', 'w3d_translator/generateDS/subclasses.py')
 #   ('--super', 'generateDS.classes')
-#   ('--use-getter-setter', 'none')
-#   ('--member-specs', 'dict')
+#   ('--member-specs', 'list')
 #   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
 #
 # Command line arguments:
 #   ./schema/caveschema.xsd
 #
 # Command line:
-#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
+#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --member-specs="list" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
 #
-
-# flake8: noqa
 
 import sys
 
@@ -1251,22 +1248,22 @@ class Story(GeneratedsSuper):
     """Story -- The root story element"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "version": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "version",
             "xs:unsignedInt",
             0,
             0,
             {"use": "required", "name": "version"},
         ),
-        "last_xpath": MemberSpec_(
+        MemberSpec_(
             "last_xpath",
             "xs:string",
             0,
             1,
             {"use": "optional", "name": "last_xpath"},
         ),
-        "ObjectRoot": MemberSpec_(
+        MemberSpec_(
             "ObjectRoot",
             "ObjectRootType",
             0,
@@ -1279,7 +1276,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "GroupRoot": MemberSpec_(
+        MemberSpec_(
             "GroupRoot",
             "GroupRootType",
             0,
@@ -1292,7 +1289,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "TimelineRoot": MemberSpec_(
+        MemberSpec_(
             "TimelineRoot",
             "TimelineRootType",
             0,
@@ -1305,7 +1302,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "PlacementRoot": MemberSpec_(
+        MemberSpec_(
             "PlacementRoot",
             "PlacementRootType",
             0,
@@ -1318,7 +1315,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "SoundRoot": MemberSpec_(
+        MemberSpec_(
             "SoundRoot",
             "SoundRootType",
             0,
@@ -1331,7 +1328,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "EventRoot": MemberSpec_(
+        MemberSpec_(
             "EventRoot",
             "EventRootType",
             0,
@@ -1344,7 +1341,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "ParticleActionRoot": MemberSpec_(
+        MemberSpec_(
             "ParticleActionRoot",
             "ParticleActionRootType",
             0,
@@ -1357,7 +1354,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Global": MemberSpec_(
+        MemberSpec_(
             "Global",
             "Global",
             0,
@@ -1371,7 +1368,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "About": MemberSpec_(
+        MemberSpec_(
             "About",
             "AboutType",
             0,
@@ -1384,7 +1381,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -1443,6 +1440,78 @@ class Story(GeneratedsSuper):
             return Story(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_ObjectRoot(self):
+        return self.ObjectRoot
+
+    def set_ObjectRoot(self, ObjectRoot):
+        self.ObjectRoot = ObjectRoot
+
+    def get_GroupRoot(self):
+        return self.GroupRoot
+
+    def set_GroupRoot(self, GroupRoot):
+        self.GroupRoot = GroupRoot
+
+    def get_TimelineRoot(self):
+        return self.TimelineRoot
+
+    def set_TimelineRoot(self, TimelineRoot):
+        self.TimelineRoot = TimelineRoot
+
+    def get_PlacementRoot(self):
+        return self.PlacementRoot
+
+    def set_PlacementRoot(self, PlacementRoot):
+        self.PlacementRoot = PlacementRoot
+
+    def get_SoundRoot(self):
+        return self.SoundRoot
+
+    def set_SoundRoot(self, SoundRoot):
+        self.SoundRoot = SoundRoot
+
+    def get_EventRoot(self):
+        return self.EventRoot
+
+    def set_EventRoot(self, EventRoot):
+        self.EventRoot = EventRoot
+
+    def get_ParticleActionRoot(self):
+        return self.ParticleActionRoot
+
+    def set_ParticleActionRoot(self, ParticleActionRoot):
+        self.ParticleActionRoot = ParticleActionRoot
+
+    def get_Global(self):
+        return self.Global
+
+    def set_Global(self, Global):
+        self.Global = Global
+
+    def get_About(self):
+        return self.About
+
+    def set_About(self, About):
+        self.About = About
+
+    def get_version(self):
+        return self.version
+
+    def set_version(self, version):
+        self.version = version
+
+    def get_last_xpath(self):
+        return self.last_xpath
+
+    def set_last_xpath(self, last_xpath):
+        self.last_xpath = last_xpath
 
     def _hasContent(self):
         if (
@@ -1761,11 +1830,11 @@ class Object(GeneratedsSuper):
     """Object -- Entire Content obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "Visible": MemberSpec_(
+        MemberSpec_(
             "Visible",
             "xs:boolean",
             0,
@@ -1773,7 +1842,7 @@ class Object(GeneratedsSuper):
             {"default": "true", "name": "Visible", "type": "xs:boolean"},
             None,
         ),
-        "Color": MemberSpec_(
+        MemberSpec_(
             "Color",
             ["color", "xs:string"],
             0,
@@ -1781,7 +1850,7 @@ class Object(GeneratedsSuper):
             {"default": "255,255,255", "name": "Color", "type": "xs:string"},
             None,
         ),
-        "Lighting": MemberSpec_(
+        MemberSpec_(
             "Lighting",
             "xs:boolean",
             0,
@@ -1789,7 +1858,7 @@ class Object(GeneratedsSuper):
             {"default": "false", "name": "Lighting", "type": "xs:boolean"},
             None,
         ),
-        "ClickThrough": MemberSpec_(
+        MemberSpec_(
             "ClickThrough",
             "xs:boolean",
             0,
@@ -1797,7 +1866,7 @@ class Object(GeneratedsSuper):
             {"default": "false", "name": "ClickThrough", "type": "xs:boolean"},
             None,
         ),
-        "AroundSelfAxis": MemberSpec_(
+        MemberSpec_(
             "AroundSelfAxis",
             "xs:boolean",
             0,
@@ -1809,7 +1878,7 @@ class Object(GeneratedsSuper):
             },
             None,
         ),
-        "Scale": MemberSpec_(
+        MemberSpec_(
             "Scale",
             "xs:double",
             0,
@@ -1817,7 +1886,7 @@ class Object(GeneratedsSuper):
             {"default": "1.0", "name": "Scale", "type": "xs:double"},
             None,
         ),
-        "SoundRef": MemberSpec_(
+        MemberSpec_(
             "SoundRef",
             "SoundRef",
             0,
@@ -1825,7 +1894,7 @@ class Object(GeneratedsSuper):
             {"minOccurs": "0", "name": "SoundRef", "type": "xs:string"},
             None,
         ),
-        "Placement": MemberSpec_(
+        MemberSpec_(
             "Placement",
             "Placement",
             0,
@@ -1833,7 +1902,7 @@ class Object(GeneratedsSuper):
             {"name": "Placement", "ref": "Placement", "type": "Placement"},
             None,
         ),
-        "Content": MemberSpec_(
+        MemberSpec_(
             "Content",
             "Content",
             0,
@@ -1841,7 +1910,7 @@ class Object(GeneratedsSuper):
             {"name": "Content", "ref": "Content", "type": "Content"},
             None,
         ),
-        "LinkRoot": MemberSpec_(
+        MemberSpec_(
             "LinkRoot",
             "LinkRootType",
             0,
@@ -1849,7 +1918,7 @@ class Object(GeneratedsSuper):
             {"minOccurs": "0", "name": "LinkRoot", "type": "LinkRootType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -1909,6 +1978,78 @@ class Object(GeneratedsSuper):
             return Object(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Visible(self):
+        return self.Visible
+
+    def set_Visible(self, Visible):
+        self.Visible = Visible
+
+    def get_Color(self):
+        return self.Color
+
+    def set_Color(self, Color):
+        self.Color = Color
+
+    def get_Lighting(self):
+        return self.Lighting
+
+    def set_Lighting(self, Lighting):
+        self.Lighting = Lighting
+
+    def get_ClickThrough(self):
+        return self.ClickThrough
+
+    def set_ClickThrough(self, ClickThrough):
+        self.ClickThrough = ClickThrough
+
+    def get_AroundSelfAxis(self):
+        return self.AroundSelfAxis
+
+    def set_AroundSelfAxis(self, AroundSelfAxis):
+        self.AroundSelfAxis = AroundSelfAxis
+
+    def get_Scale(self):
+        return self.Scale
+
+    def set_Scale(self, Scale):
+        self.Scale = Scale
+
+    def get_SoundRef(self):
+        return self.SoundRef
+
+    def set_SoundRef(self, SoundRef):
+        self.SoundRef = SoundRef
+
+    def get_Placement(self):
+        return self.Placement
+
+    def set_Placement(self, Placement):
+        self.Placement = Placement
+
+    def get_Content(self):
+        return self.Content
+
+    def set_Content(self, Content):
+        self.Content = Content
+
+    def get_LinkRoot(self):
+        return self.LinkRoot
+
+    def set_LinkRoot(self, LinkRoot):
+        self.LinkRoot = LinkRoot
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def validate_color(self, value):
         result = True
@@ -2373,14 +2514,14 @@ class Content(GeneratedsSuper):
     """Content -- Content node"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "None_": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "None_", "None", 0, 0, {"name": "None", "type": "NoneType"}, 1
         ),
-        "Text": MemberSpec_(
+        MemberSpec_(
             "Text", "TextType", 0, 0, {"name": "Text", "type": "TextType"}, 1
         ),
-        "Image": MemberSpec_(
+        MemberSpec_(
             "Image",
             "ImageType",
             0,
@@ -2388,7 +2529,7 @@ class Content(GeneratedsSuper):
             {"name": "Image", "type": "ImageType"},
             1,
         ),
-        "StereoImage": MemberSpec_(
+        MemberSpec_(
             "StereoImage",
             "StereoImageType",
             0,
@@ -2396,7 +2537,7 @@ class Content(GeneratedsSuper):
             {"name": "StereoImage", "type": "StereoImageType"},
             1,
         ),
-        "Model": MemberSpec_(
+        MemberSpec_(
             "Model",
             "ModelType",
             0,
@@ -2404,7 +2545,7 @@ class Content(GeneratedsSuper):
             {"name": "Model", "type": "ModelType"},
             1,
         ),
-        "Light": MemberSpec_(
+        MemberSpec_(
             "Light",
             "LightType",
             0,
@@ -2412,7 +2553,7 @@ class Content(GeneratedsSuper):
             {"name": "Light", "type": "LightType"},
             1,
         ),
-        "ParticleSystem": MemberSpec_(
+        MemberSpec_(
             "ParticleSystem",
             "ParticleSystemType",
             0,
@@ -2420,7 +2561,7 @@ class Content(GeneratedsSuper):
             {"name": "ParticleSystem", "type": "ParticleSystemType"},
             1,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -2467,6 +2608,54 @@ class Content(GeneratedsSuper):
             return Content(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_None(self):
+        return self.None_
+
+    def set_None(self, None_):
+        self.None_ = None_
+
+    def get_Text(self):
+        return self.Text
+
+    def set_Text(self, Text):
+        self.Text = Text
+
+    def get_Image(self):
+        return self.Image
+
+    def set_Image(self, Image):
+        self.Image = Image
+
+    def get_StereoImage(self):
+        return self.StereoImage
+
+    def set_StereoImage(self, StereoImage):
+        self.StereoImage = StereoImage
+
+    def get_Model(self):
+        return self.Model
+
+    def set_Model(self, Model):
+        self.Model = Model
+
+    def get_Light(self):
+        return self.Light
+
+    def set_Light(self, Light):
+        self.Light = Light
+
+    def get_ParticleSystem(self):
+        return self.ParticleSystem
+
+    def set_ParticleSystem(self, ParticleSystem):
+        self.ParticleSystem = ParticleSystem
 
     def _hasContent(self):
         if (
@@ -2724,8 +2913,8 @@ class Link(GeneratedsSuper):
     """
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Enabled": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Enabled",
             "xs:boolean",
             0,
@@ -2733,7 +2922,7 @@ class Link(GeneratedsSuper):
             {"default": "true", "name": "Enabled", "type": "xs:boolean"},
             None,
         ),
-        "RemainEnabled": MemberSpec_(
+        MemberSpec_(
             "RemainEnabled",
             "xs:boolean",
             0,
@@ -2741,7 +2930,7 @@ class Link(GeneratedsSuper):
             {"default": "true", "name": "RemainEnabled", "type": "xs:boolean"},
             None,
         ),
-        "EnabledColor": MemberSpec_(
+        MemberSpec_(
             "EnabledColor",
             ["color", "xs:string"],
             0,
@@ -2753,7 +2942,7 @@ class Link(GeneratedsSuper):
             },
             None,
         ),
-        "SelectedColor": MemberSpec_(
+        MemberSpec_(
             "SelectedColor",
             ["color", "xs:string"],
             0,
@@ -2765,7 +2954,7 @@ class Link(GeneratedsSuper):
             },
             None,
         ),
-        "Actions": MemberSpec_(
+        MemberSpec_(
             "Actions",
             "ActionsType1",
             1,
@@ -2778,7 +2967,7 @@ class Link(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -2824,6 +3013,51 @@ class Link(GeneratedsSuper):
             return Link(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Enabled(self):
+        return self.Enabled
+
+    def set_Enabled(self, Enabled):
+        self.Enabled = Enabled
+
+    def get_RemainEnabled(self):
+        return self.RemainEnabled
+
+    def set_RemainEnabled(self, RemainEnabled):
+        self.RemainEnabled = RemainEnabled
+
+    def get_EnabledColor(self):
+        return self.EnabledColor
+
+    def set_EnabledColor(self, EnabledColor):
+        self.EnabledColor = EnabledColor
+
+    def get_SelectedColor(self):
+        return self.SelectedColor
+
+    def set_SelectedColor(self, SelectedColor):
+        self.SelectedColor = SelectedColor
+
+    def get_Actions(self):
+        return self.Actions
+
+    def set_Actions(self, Actions):
+        self.Actions = Actions
+
+    def add_Actions(self, value):
+        self.Actions.append(value)
+
+    def insert_Actions_at(self, index, value):
+        self.Actions.insert(index, value)
+
+    def replace_Actions_at(self, index, value):
+        self.Actions[index] = value
 
     def validate_color(self, value):
         result = True
@@ -3143,11 +3377,11 @@ class Group(GeneratedsSuper):
     """Group -- Group obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "ObjectName": MemberSpec_(
+        MemberSpec_(
             "ObjectName",
             "Objects",
             1,
@@ -3160,7 +3394,7 @@ class Group(GeneratedsSuper):
             },
             2,
         ),
-        "GroupName": MemberSpec_(
+        MemberSpec_(
             "GroupName",
             "Groups",
             1,
@@ -3173,7 +3407,7 @@ class Group(GeneratedsSuper):
             },
             2,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -3214,6 +3448,48 @@ class Group(GeneratedsSuper):
             return Group(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_ObjectName(self):
+        return self.ObjectName
+
+    def set_ObjectName(self, ObjectName):
+        self.ObjectName = ObjectName
+
+    def add_ObjectName(self, value):
+        self.ObjectName.append(value)
+
+    def insert_ObjectName_at(self, index, value):
+        self.ObjectName.insert(index, value)
+
+    def replace_ObjectName_at(self, index, value):
+        self.ObjectName[index] = value
+
+    def get_GroupName(self):
+        return self.GroupName
+
+    def set_GroupName(self, GroupName):
+        self.GroupName = GroupName
+
+    def add_GroupName(self, value):
+        self.GroupName.append(value)
+
+    def insert_GroupName_at(self, index, value):
+        self.GroupName.insert(index, value)
+
+    def replace_GroupName_at(self, index, value):
+        self.GroupName[index] = value
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def _hasContent(self):
         if self.ObjectName or self.GroupName:
@@ -3375,11 +3651,11 @@ class ObjectName(GeneratedsSuper):
     """Objects -- Reference group objects"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -3405,6 +3681,18 @@ class ObjectName(GeneratedsSuper):
             return ObjectName(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def _hasContent(self):
         if ():
@@ -3527,11 +3815,11 @@ class ObjectName(GeneratedsSuper):
 
 class GroupName(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -3557,6 +3845,18 @@ class GroupName(GeneratedsSuper):
             return GroupName(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def _hasContent(self):
         if ():
@@ -3677,18 +3977,18 @@ class Timeline(GeneratedsSuper):
     """Timeline -- Timer obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "start_immediately": MemberSpec_(
+        MemberSpec_(
             "start_immediately",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "start-immediately"},
         ),
-        "TimedActions": MemberSpec_(
+        MemberSpec_(
             "TimedActions",
             "TimedActionsType",
             1,
@@ -3701,7 +4001,7 @@ class Timeline(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -3739,6 +4039,39 @@ class Timeline(GeneratedsSuper):
             return Timeline(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_TimedActions(self):
+        return self.TimedActions
+
+    def set_TimedActions(self, TimedActions):
+        self.TimedActions = TimedActions
+
+    def add_TimedActions(self, value):
+        self.TimedActions.append(value)
+
+    def insert_TimedActions_at(self, index, value):
+        self.TimedActions.insert(index, value)
+
+    def replace_TimedActions_at(self, index, value):
+        self.TimedActions[index] = value
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
+
+    def get_start_immediately(self):
+        return self.start_immediately
+
+    def set_start_immediately(self, start_immediately):
+        self.start_immediately = start_immediately
 
     def _hasContent(self):
         if self.TimedActions:
@@ -3901,270 +4234,10 @@ class Timeline(GeneratedsSuper):
 # end class Timeline
 
 
-class GroupRef(GeneratedsSuper):
-    """GroupRef --  Reference Group"""
-
-    __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
-            "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
-        ),
-        "random": MemberSpec_(
-            "random", "randomType", 0, 1, {"use": "optional", "name": "random"}
-        ),
-        "Transition": MemberSpec_(
-            "Transition",
-            "Transition",
-            0,
-            0,
-            {"name": "Transition", "ref": "Transition", "type": "Transition"},
-            None,
-        ),
-    }
-    subclass = None
-    superclass = None
-
-    def __init__(
-        self,
-        name=None,
-        random=None,
-        Transition=None,
-        gds_collector_=None,
-        **kwargs_
-    ):
-        self.gds_collector_ = gds_collector_
-        self.gds_elementtree_node_ = None
-        self.original_tagname_ = None
-        self.parent_object_ = kwargs_.get("parent_object_")
-        self.ns_prefix_ = None
-        self.name = _cast(None, name)
-        self.name_nsprefix_ = None
-        self.random = _cast(None, random)
-        self.random_nsprefix_ = None
-        self.Transition = Transition
-        self.Transition_nsprefix_ = None
-
-    def factory(*args_, **kwargs_):
-        if CurrentSubclassModule_ is not None:
-            subclass = getSubclassFromModule_(CurrentSubclassModule_, GroupRef)
-            if subclass is not None:
-                return subclass(*args_, **kwargs_)
-        if GroupRef.subclass:
-            return GroupRef.subclass(*args_, **kwargs_)
-        else:
-            return GroupRef(*args_, **kwargs_)
-
-    factory = staticmethod(factory)
-
-    def validate_randomType(self, value):
-        # Validate type randomType, a restriction on xs:string.
-        if (
-            value is not None
-            and Validate_simpletypes_
-            and self.gds_collector_ is not None
-        ):
-            if not isinstance(value, str):
-                lineno = self.gds_get_node_lineno_()
-                self.gds_collector_.add_message(
-                    'Value "%(value)s"%(lineno)s is not of the correct base simple type (str)'
-                    % {
-                        "value": value,
-                        "lineno": lineno,
-                    }
-                )
-                return False
-            value = value
-            enumerations = ["Select One Randomly"]
-            if value not in enumerations:
-                lineno = self.gds_get_node_lineno_()
-                self.gds_collector_.add_message(
-                    'Value "%(value)s"%(lineno)s does not match xsd enumeration restriction on randomType'
-                    % {"value": encode_str_2_3(value), "lineno": lineno}
-                )
-                result = False
-
-    def _hasContent(self):
-        if self.Transition is not None:
-            return True
-        else:
-            return False
-
-    def export(
-        self,
-        outfile,
-        level,
-        namespaceprefix_="",
-        namespacedef_="",
-        name_="GroupRef",
-        pretty_print=True,
-    ):
-        imported_ns_def_ = GenerateDSNamespaceDefs_.get("GroupRef")
-        if imported_ns_def_ is not None:
-            namespacedef_ = imported_ns_def_
-        if pretty_print:
-            eol_ = "\n"
-        else:
-            eol_ = ""
-        if self.original_tagname_ is not None and name_ == "GroupRef":
-            name_ = self.original_tagname_
-        if UseCapturedNS_ and self.ns_prefix_:
-            namespaceprefix_ = self.ns_prefix_ + ":"
-        showIndent(outfile, level, pretty_print)
-        outfile.write(
-            "<%s%s%s"
-            % (
-                namespaceprefix_,
-                name_,
-                namespacedef_ and " " + namespacedef_ or "",
-            )
-        )
-        already_processed = set()
-        self._exportAttributes(
-            outfile,
-            level,
-            already_processed,
-            namespaceprefix_,
-            name_="GroupRef",
-        )
-        if self._hasContent():
-            outfile.write(">%s" % (eol_,))
-            self._exportChildren(
-                outfile,
-                level + 1,
-                namespaceprefix_,
-                namespacedef_,
-                name_="GroupRef",
-                pretty_print=pretty_print,
-            )
-            showIndent(outfile, level, pretty_print)
-            outfile.write("</%s%s>%s" % (namespaceprefix_, name_, eol_))
-        else:
-            outfile.write("/>%s" % (eol_,))
-
-    def _exportAttributes(
-        self,
-        outfile,
-        level,
-        already_processed,
-        namespaceprefix_="",
-        name_="GroupRef",
-    ):
-        if self.name is not None and "name" not in already_processed:
-            already_processed.add("name")
-            outfile.write(
-                " name=%s"
-                % (
-                    self.gds_encode(
-                        self.gds_format_string(
-                            quote_attrib(self.name), input_name="name"
-                        )
-                    ),
-                )
-            )
-        if self.random is not None and "random" not in already_processed:
-            already_processed.add("random")
-            outfile.write(
-                " random=%s"
-                % (
-                    self.gds_encode(
-                        self.gds_format_string(
-                            quote_attrib(self.random), input_name="random"
-                        )
-                    ),
-                )
-            )
-
-    def _exportChildren(
-        self,
-        outfile,
-        level,
-        namespaceprefix_="",
-        namespacedef_="",
-        name_="GroupRef",
-        fromsubclass_=False,
-        pretty_print=True,
-    ):
-        if pretty_print:
-            eol_ = "\n"
-        else:
-            eol_ = ""
-        if self.Transition is not None:
-            namespaceprefix_ = (
-                self.Transition_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Transition_nsprefix_)
-                else ""
-            )
-            self.Transition.export(
-                outfile,
-                level,
-                namespaceprefix_,
-                namespacedef_="",
-                name_="Transition",
-                pretty_print=pretty_print,
-            )
-
-    def build(self, node, gds_collector_=None):
-        self.gds_collector_ = gds_collector_
-        if SaveElementTreeNode:
-            self.gds_elementtree_node_ = node
-        already_processed = set()
-        self.ns_prefix_ = node.prefix
-        self._buildAttributes(node, node.attrib, already_processed)
-        for child in node:
-            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
-            self._buildChildren(
-                child, node, nodeName_, gds_collector_=gds_collector_
-            )
-        return self
-
-    def _buildAttributes(self, node, attrs, already_processed):
-        value = find_attr_value_("name", node)
-        if value is not None and "name" not in already_processed:
-            already_processed.add("name")
-            self.name = value
-        value = find_attr_value_("random", node)
-        if value is not None and "random" not in already_processed:
-            already_processed.add("random")
-            self.random = value
-            self.validate_randomType(self.random)  # validate type randomType
-
-    def _buildChildren(
-        self, child_, node, nodeName_, fromsubclass_=False, gds_collector_=None
-    ):
-        if nodeName_ == "Transition":
-            obj_ = Transition.factory(parent_object_=self)
-            obj_.build(child_, gds_collector_=gds_collector_)
-            self.Transition = obj_
-            obj_.original_tagname_ = "Transition"
-
-
-# end class GroupRef
-
-
 class ActionsType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ObjectChange": MemberSpec_(
-            "ObjectChange",
-            "ObjectChange",
-            0,
-            0,
-            {
-                "name": "ObjectChange",
-                "ref": "ObjectChange",
-                "type": "ObjectChange",
-            },
-            3,
-        ),
-        "GroupRef": MemberSpec_(
-            "GroupRef",
-            "GroupRef",
-            0,
-            0,
-            {"name": "GroupRef", "ref": "GroupRef", "type": "GroupRef"},
-            3,
-        ),
-        "TimerChange": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "TimerChange",
             "TimerChange",
             0,
@@ -4176,7 +4249,19 @@ class ActionsType(GeneratedsSuper):
             },
             3,
         ),
-        "SoundRef": MemberSpec_(
+        MemberSpec_(
+            "ObjectChange",
+            "ObjectChange",
+            0,
+            0,
+            {
+                "name": "ObjectChange",
+                "ref": "ObjectChange",
+                "type": "ObjectChange",
+            },
+            3,
+        ),
+        MemberSpec_(
             "SoundRef",
             "SoundRef",
             0,
@@ -4184,7 +4269,15 @@ class ActionsType(GeneratedsSuper):
             {"name": "SoundRef", "ref": "SoundRef", "type": "SoundRef"},
             3,
         ),
-        "Event": MemberSpec_(
+        MemberSpec_(
+            "GroupRef",
+            "GroupRef",
+            0,
+            0,
+            {"name": "GroupRef", "ref": "GroupRef", "type": "GroupRef"},
+            3,
+        ),
+        MemberSpec_(
             "Event",
             "Event",
             0,
@@ -4192,7 +4285,7 @@ class ActionsType(GeneratedsSuper):
             {"name": "Event", "ref": "Event", "type": "Event"},
             3,
         ),
-        "MoveCave": MemberSpec_(
+        MemberSpec_(
             "MoveCave",
             "MoveCaveType",
             0,
@@ -4200,7 +4293,7 @@ class ActionsType(GeneratedsSuper):
             {"name": "MoveCave", "type": "MoveCaveType"},
             3,
         ),
-        "Restart": MemberSpec_(
+        MemberSpec_(
             "Restart",
             "RestartType",
             0,
@@ -4208,16 +4301,16 @@ class ActionsType(GeneratedsSuper):
             {"name": "Restart", "type": "RestartType"},
             3,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
     def __init__(
         self,
-        ObjectChange=None,
-        GroupRef=None,
         TimerChange=None,
+        ObjectChange=None,
         SoundRef=None,
+        GroupRef=None,
         Event=None,
         MoveCave=None,
         Restart=None,
@@ -4230,14 +4323,14 @@ class ActionsType(GeneratedsSuper):
         self.original_tagname_ = None
         self.parent_object_ = kwargs_.get("parent_object_")
         self.ns_prefix_ = None
-        self.ObjectChange = ObjectChange
-        self.ObjectChange_nsprefix_ = None
-        self.GroupRef = GroupRef
-        self.GroupRef_nsprefix_ = None
         self.TimerChange = TimerChange
         self.TimerChange_nsprefix_ = None
+        self.ObjectChange = ObjectChange
+        self.ObjectChange_nsprefix_ = None
         self.SoundRef = SoundRef
         self.SoundRef_nsprefix_ = None
+        self.GroupRef = GroupRef
+        self.GroupRef_nsprefix_ = None
         self.Event = Event
         self.Event_nsprefix_ = None
         self.MoveCave = MoveCave
@@ -4260,12 +4353,66 @@ class ActionsType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_TimerChange(self):
+        return self.TimerChange
+
+    def set_TimerChange(self, TimerChange):
+        self.TimerChange = TimerChange
+
+    def get_ObjectChange(self):
+        return self.ObjectChange
+
+    def set_ObjectChange(self, ObjectChange):
+        self.ObjectChange = ObjectChange
+
+    def get_SoundRef(self):
+        return self.SoundRef
+
+    def set_SoundRef(self, SoundRef):
+        self.SoundRef = SoundRef
+
+    def get_GroupRef(self):
+        return self.GroupRef
+
+    def set_GroupRef(self, GroupRef):
+        self.GroupRef = GroupRef
+
+    def get_Event(self):
+        return self.Event
+
+    def set_Event(self, Event):
+        self.Event = Event
+
+    def get_MoveCave(self):
+        return self.MoveCave
+
+    def set_MoveCave(self, MoveCave):
+        self.MoveCave = MoveCave
+
+    def get_Restart(self):
+        return self.Restart
+
+    def set_Restart(self, Restart):
+        self.Restart = Restart
+
+    def get_extensiontype_(self):
+        return self.extensiontype_
+
+    def set_extensiontype_(self, extensiontype_):
+        self.extensiontype_ = extensiontype_
+
     def _hasContent(self):
         if (
-            self.ObjectChange is not None
-            or self.GroupRef is not None
-            or self.TimerChange is not None
+            self.TimerChange is not None
+            or self.ObjectChange is not None
             or self.SoundRef is not None
+            or self.GroupRef is not None
             or self.Event is not None
             or self.MoveCave is not None
             or self.Restart is not None
@@ -4370,34 +4517,6 @@ class ActionsType(GeneratedsSuper):
             eol_ = "\n"
         else:
             eol_ = ""
-        if self.ObjectChange is not None:
-            namespaceprefix_ = (
-                self.ObjectChange_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.ObjectChange_nsprefix_)
-                else ""
-            )
-            self.ObjectChange.export(
-                outfile,
-                level,
-                namespaceprefix_,
-                namespacedef_="",
-                name_="ObjectChange",
-                pretty_print=pretty_print,
-            )
-        if self.GroupRef is not None:
-            namespaceprefix_ = (
-                self.GroupRef_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.GroupRef_nsprefix_)
-                else ""
-            )
-            self.GroupRef.export(
-                outfile,
-                level,
-                namespaceprefix_,
-                namespacedef_="",
-                name_="GroupRef",
-                pretty_print=pretty_print,
-            )
         if self.TimerChange is not None:
             namespaceprefix_ = (
                 self.TimerChange_nsprefix_ + ":"
@@ -4412,6 +4531,20 @@ class ActionsType(GeneratedsSuper):
                 name_="TimerChange",
                 pretty_print=pretty_print,
             )
+        if self.ObjectChange is not None:
+            namespaceprefix_ = (
+                self.ObjectChange_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.ObjectChange_nsprefix_)
+                else ""
+            )
+            self.ObjectChange.export(
+                outfile,
+                level,
+                namespaceprefix_,
+                namespacedef_="",
+                name_="ObjectChange",
+                pretty_print=pretty_print,
+            )
         if self.SoundRef is not None:
             namespaceprefix_ = (
                 self.SoundRef_nsprefix_ + ":"
@@ -4424,6 +4557,20 @@ class ActionsType(GeneratedsSuper):
                 namespaceprefix_,
                 namespacedef_="",
                 name_="SoundRef",
+                pretty_print=pretty_print,
+            )
+        if self.GroupRef is not None:
+            namespaceprefix_ = (
+                self.GroupRef_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.GroupRef_nsprefix_)
+                else ""
+            )
+            self.GroupRef.export(
+                outfile,
+                level,
+                namespaceprefix_,
+                namespacedef_="",
+                name_="GroupRef",
                 pretty_print=pretty_print,
             )
         if self.Event is not None:
@@ -4492,26 +4639,26 @@ class ActionsType(GeneratedsSuper):
     def _buildChildren(
         self, child_, node, nodeName_, fromsubclass_=False, gds_collector_=None
     ):
-        if nodeName_ == "ObjectChange":
-            obj_ = ObjectChange.factory(parent_object_=self)
-            obj_.build(child_, gds_collector_=gds_collector_)
-            self.ObjectChange = obj_
-            obj_.original_tagname_ = "ObjectChange"
-        elif nodeName_ == "GroupRef":
-            obj_ = GroupRef.factory(parent_object_=self)
-            obj_.build(child_, gds_collector_=gds_collector_)
-            self.GroupRef = obj_
-            obj_.original_tagname_ = "GroupRef"
-        elif nodeName_ == "TimerChange":
+        if nodeName_ == "TimerChange":
             obj_ = TimerChange.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
             self.TimerChange = obj_
             obj_.original_tagname_ = "TimerChange"
+        elif nodeName_ == "ObjectChange":
+            obj_ = ObjectChange.factory(parent_object_=self)
+            obj_.build(child_, gds_collector_=gds_collector_)
+            self.ObjectChange = obj_
+            obj_.original_tagname_ = "ObjectChange"
         elif nodeName_ == "SoundRef":
             obj_ = SoundRef.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
             self.SoundRef = obj_
             obj_.original_tagname_ = "SoundRef"
+        elif nodeName_ == "GroupRef":
+            obj_ = GroupRef.factory(parent_object_=self)
+            obj_.build(child_, gds_collector_=gds_collector_)
+            self.GroupRef = obj_
+            obj_.original_tagname_ = "GroupRef"
         elif nodeName_ == "Event":
             obj_ = Event.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
@@ -4534,11 +4681,11 @@ class ActionsType(GeneratedsSuper):
 
 class TimerChange(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "start": MemberSpec_(
+        MemberSpec_(
             "start",
             "startType",
             0,
@@ -4546,10 +4693,10 @@ class TimerChange(GeneratedsSuper):
             {"name": "start", "type": "startType"},
             4,
         ),
-        "stop": MemberSpec_(
+        MemberSpec_(
             "stop", "stopType", 0, 0, {"name": "stop", "type": "stopType"}, 4
         ),
-        "continue_": MemberSpec_(
+        MemberSpec_(
             "continue_",
             "continueType",
             0,
@@ -4557,7 +4704,7 @@ class TimerChange(GeneratedsSuper):
             {"name": "continue", "type": "continueType"},
             4,
         ),
-        "start_if_not_started": MemberSpec_(
+        MemberSpec_(
             "start_if_not_started",
             "start_if_not_startedType",
             0,
@@ -4568,7 +4715,7 @@ class TimerChange(GeneratedsSuper):
             },
             4,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -4611,6 +4758,42 @@ class TimerChange(GeneratedsSuper):
             return TimerChange(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_start(self):
+        return self.start
+
+    def set_start(self, start):
+        self.start = start
+
+    def get_stop(self):
+        return self.stop
+
+    def set_stop(self, stop):
+        self.stop = stop
+
+    def get_continue(self):
+        return self.continue_
+
+    def set_continue(self, continue_):
+        self.continue_ = continue_
+
+    def get_start_if_not_started(self):
+        return self.start_if_not_started
+
+    def set_start_if_not_started(self, start_if_not_started):
+        self.start_if_not_started = start_if_not_started
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def _hasContent(self):
         if (
@@ -4817,11 +5000,11 @@ class TimerChange(GeneratedsSuper):
 
 class ObjectChange(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "Transition": MemberSpec_(
+        MemberSpec_(
             "Transition",
             "Transition",
             0,
@@ -4829,7 +5012,7 @@ class ObjectChange(GeneratedsSuper):
             {"name": "Transition", "ref": "Transition", "type": "Transition"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -4859,6 +5042,24 @@ class ObjectChange(GeneratedsSuper):
             return ObjectChange(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Transition(self):
+        return self.Transition
+
+    def set_Transition(self, Transition):
+        self.Transition = Transition
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def _hasContent(self):
         if self.Transition is not None:
@@ -5003,11 +5204,11 @@ class ObjectChange(GeneratedsSuper):
 
 class SoundRef(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -5031,6 +5232,18 @@ class SoundRef(GeneratedsSuper):
             return SoundRef(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def _hasContent(self):
         if ():
@@ -5151,23 +5364,287 @@ class SoundRef(GeneratedsSuper):
 # end class SoundRef
 
 
-class Sound(GeneratedsSuper):
+class GroupRef(GeneratedsSuper):
+    """GroupRef --  Reference Group"""
+
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "filename": MemberSpec_(
+        MemberSpec_(
+            "random", "randomType", 0, 1, {"use": "optional", "name": "random"}
+        ),
+        MemberSpec_(
+            "Transition",
+            "Transition",
+            0,
+            0,
+            {"name": "Transition", "ref": "Transition", "type": "Transition"},
+            None,
+        ),
+    ]
+    subclass = None
+    superclass = None
+
+    def __init__(
+        self,
+        name=None,
+        random=None,
+        Transition=None,
+        gds_collector_=None,
+        **kwargs_
+    ):
+        self.gds_collector_ = gds_collector_
+        self.gds_elementtree_node_ = None
+        self.original_tagname_ = None
+        self.parent_object_ = kwargs_.get("parent_object_")
+        self.ns_prefix_ = None
+        self.name = _cast(None, name)
+        self.name_nsprefix_ = None
+        self.random = _cast(None, random)
+        self.random_nsprefix_ = None
+        self.Transition = Transition
+        self.Transition_nsprefix_ = None
+
+    def factory(*args_, **kwargs_):
+        if CurrentSubclassModule_ is not None:
+            subclass = getSubclassFromModule_(CurrentSubclassModule_, GroupRef)
+            if subclass is not None:
+                return subclass(*args_, **kwargs_)
+        if GroupRef.subclass:
+            return GroupRef.subclass(*args_, **kwargs_)
+        else:
+            return GroupRef(*args_, **kwargs_)
+
+    factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Transition(self):
+        return self.Transition
+
+    def set_Transition(self, Transition):
+        self.Transition = Transition
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
+
+    def get_random(self):
+        return self.random
+
+    def set_random(self, random):
+        self.random = random
+
+    def validate_randomType(self, value):
+        # Validate type randomType, a restriction on xs:string.
+        if (
+            value is not None
+            and Validate_simpletypes_
+            and self.gds_collector_ is not None
+        ):
+            if not isinstance(value, str):
+                lineno = self.gds_get_node_lineno_()
+                self.gds_collector_.add_message(
+                    'Value "%(value)s"%(lineno)s is not of the correct base simple type (str)'
+                    % {
+                        "value": value,
+                        "lineno": lineno,
+                    }
+                )
+                return False
+            value = value
+            enumerations = ["Select One Randomly"]
+            if value not in enumerations:
+                lineno = self.gds_get_node_lineno_()
+                self.gds_collector_.add_message(
+                    'Value "%(value)s"%(lineno)s does not match xsd enumeration restriction on randomType'
+                    % {"value": encode_str_2_3(value), "lineno": lineno}
+                )
+                result = False
+
+    def _hasContent(self):
+        if self.Transition is not None:
+            return True
+        else:
+            return False
+
+    def export(
+        self,
+        outfile,
+        level,
+        namespaceprefix_="",
+        namespacedef_="",
+        name_="GroupRef",
+        pretty_print=True,
+    ):
+        imported_ns_def_ = GenerateDSNamespaceDefs_.get("GroupRef")
+        if imported_ns_def_ is not None:
+            namespacedef_ = imported_ns_def_
+        if pretty_print:
+            eol_ = "\n"
+        else:
+            eol_ = ""
+        if self.original_tagname_ is not None and name_ == "GroupRef":
+            name_ = self.original_tagname_
+        if UseCapturedNS_ and self.ns_prefix_:
+            namespaceprefix_ = self.ns_prefix_ + ":"
+        showIndent(outfile, level, pretty_print)
+        outfile.write(
+            "<%s%s%s"
+            % (
+                namespaceprefix_,
+                name_,
+                namespacedef_ and " " + namespacedef_ or "",
+            )
+        )
+        already_processed = set()
+        self._exportAttributes(
+            outfile,
+            level,
+            already_processed,
+            namespaceprefix_,
+            name_="GroupRef",
+        )
+        if self._hasContent():
+            outfile.write(">%s" % (eol_,))
+            self._exportChildren(
+                outfile,
+                level + 1,
+                namespaceprefix_,
+                namespacedef_,
+                name_="GroupRef",
+                pretty_print=pretty_print,
+            )
+            showIndent(outfile, level, pretty_print)
+            outfile.write("</%s%s>%s" % (namespaceprefix_, name_, eol_))
+        else:
+            outfile.write("/>%s" % (eol_,))
+
+    def _exportAttributes(
+        self,
+        outfile,
+        level,
+        already_processed,
+        namespaceprefix_="",
+        name_="GroupRef",
+    ):
+        if self.name is not None and "name" not in already_processed:
+            already_processed.add("name")
+            outfile.write(
+                " name=%s"
+                % (
+                    self.gds_encode(
+                        self.gds_format_string(
+                            quote_attrib(self.name), input_name="name"
+                        )
+                    ),
+                )
+            )
+        if self.random is not None and "random" not in already_processed:
+            already_processed.add("random")
+            outfile.write(
+                " random=%s"
+                % (
+                    self.gds_encode(
+                        self.gds_format_string(
+                            quote_attrib(self.random), input_name="random"
+                        )
+                    ),
+                )
+            )
+
+    def _exportChildren(
+        self,
+        outfile,
+        level,
+        namespaceprefix_="",
+        namespacedef_="",
+        name_="GroupRef",
+        fromsubclass_=False,
+        pretty_print=True,
+    ):
+        if pretty_print:
+            eol_ = "\n"
+        else:
+            eol_ = ""
+        if self.Transition is not None:
+            namespaceprefix_ = (
+                self.Transition_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.Transition_nsprefix_)
+                else ""
+            )
+            self.Transition.export(
+                outfile,
+                level,
+                namespaceprefix_,
+                namespacedef_="",
+                name_="Transition",
+                pretty_print=pretty_print,
+            )
+
+    def build(self, node, gds_collector_=None):
+        self.gds_collector_ = gds_collector_
+        if SaveElementTreeNode:
+            self.gds_elementtree_node_ = node
+        already_processed = set()
+        self.ns_prefix_ = node.prefix
+        self._buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self._buildChildren(
+                child, node, nodeName_, gds_collector_=gds_collector_
+            )
+        return self
+
+    def _buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_("name", node)
+        if value is not None and "name" not in already_processed:
+            already_processed.add("name")
+            self.name = value
+        value = find_attr_value_("random", node)
+        if value is not None and "random" not in already_processed:
+            already_processed.add("random")
+            self.random = value
+            self.validate_randomType(self.random)  # validate type randomType
+
+    def _buildChildren(
+        self, child_, node, nodeName_, fromsubclass_=False, gds_collector_=None
+    ):
+        if nodeName_ == "Transition":
+            obj_ = Transition.factory(parent_object_=self)
+            obj_.build(child_, gds_collector_=gds_collector_)
+            self.Transition = obj_
+            obj_.original_tagname_ = "Transition"
+
+
+# end class GroupRef
+
+
+class Sound(GeneratedsSuper):
+    __hash__ = GeneratedsSuper.__hash__
+    member_data_items_ = [
+        MemberSpec_(
+            "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
+        ),
+        MemberSpec_(
             "filename", "file", 0, 0, {"use": "required", "name": "filename"}
         ),
-        "autostart": MemberSpec_(
+        MemberSpec_(
             "autostart",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "autostart"},
         ),
-        "Mode": MemberSpec_(
+        MemberSpec_(
             "Mode",
             "ModeType",
             0,
@@ -5175,7 +5652,7 @@ class Sound(GeneratedsSuper):
             {"minOccurs": "0", "name": "Mode", "type": "ModeType"},
             None,
         ),
-        "Repeat": MemberSpec_(
+        MemberSpec_(
             "Repeat",
             "RepeatType",
             0,
@@ -5183,7 +5660,7 @@ class Sound(GeneratedsSuper):
             {"name": "Repeat", "type": "RepeatType"},
             None,
         ),
-        "Settings": MemberSpec_(
+        MemberSpec_(
             "Settings",
             "SettingsType",
             0,
@@ -5191,7 +5668,7 @@ class Sound(GeneratedsSuper):
             {"name": "Settings", "type": "SettingsType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -5235,6 +5712,48 @@ class Sound(GeneratedsSuper):
             return Sound(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Mode(self):
+        return self.Mode
+
+    def set_Mode(self, Mode):
+        self.Mode = Mode
+
+    def get_Repeat(self):
+        return self.Repeat
+
+    def set_Repeat(self, Repeat):
+        self.Repeat = Repeat
+
+    def get_Settings(self):
+        return self.Settings
+
+    def set_Settings(self, Settings):
+        self.Settings = Settings
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
+
+    def get_filename(self):
+        return self.filename
+
+    def set_filename(self, filename):
+        self.filename = filename
+
+    def get_autostart(self):
+        return self.autostart
+
+    def set_autostart(self, autostart):
+        self.autostart = autostart
 
     def validate_file(self, value):
         # Validate type file, a restriction on xs:string.
@@ -5470,32 +5989,32 @@ class Sound(GeneratedsSuper):
 
 class EventTrigger(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "enabled": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "enabled",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "enabled"},
         ),
-        "name": MemberSpec_(
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "duration": MemberSpec_(
+        MemberSpec_(
             "duration",
             "xs:double",
             0,
             1,
             {"use": "optional", "name": "duration"},
         ),
-        "remain_enabled": MemberSpec_(
+        MemberSpec_(
             "remain_enabled",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "remain-enabled"},
         ),
-        "HeadTrack": MemberSpec_(
+        MemberSpec_(
             "HeadTrack",
             "HeadTrackType",
             0,
@@ -5503,7 +6022,7 @@ class EventTrigger(GeneratedsSuper):
             {"name": "HeadTrack", "type": "HeadTrackType"},
             5,
         ),
-        "MoveTrack": MemberSpec_(
+        MemberSpec_(
             "MoveTrack",
             "MoveTrackType",
             0,
@@ -5511,7 +6030,7 @@ class EventTrigger(GeneratedsSuper):
             {"name": "MoveTrack", "type": "MoveTrackType"},
             5,
         ),
-        "Actions": MemberSpec_(
+        MemberSpec_(
             "Actions",
             "ActionsType",
             1,
@@ -5523,7 +6042,7 @@ class EventTrigger(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -5575,6 +6094,63 @@ class EventTrigger(GeneratedsSuper):
             return EventTrigger(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_HeadTrack(self):
+        return self.HeadTrack
+
+    def set_HeadTrack(self, HeadTrack):
+        self.HeadTrack = HeadTrack
+
+    def get_MoveTrack(self):
+        return self.MoveTrack
+
+    def set_MoveTrack(self, MoveTrack):
+        self.MoveTrack = MoveTrack
+
+    def get_Actions(self):
+        return self.Actions
+
+    def set_Actions(self, Actions):
+        self.Actions = Actions
+
+    def add_Actions(self, value):
+        self.Actions.append(value)
+
+    def insert_Actions_at(self, index, value):
+        self.Actions.insert(index, value)
+
+    def replace_Actions_at(self, index, value):
+        self.Actions[index] = value
+
+    def get_enabled(self):
+        return self.enabled
+
+    def set_enabled(self, enabled):
+        self.enabled = enabled
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
+
+    def get_duration(self):
+        return self.duration
+
+    def set_duration(self, duration):
+        self.duration = duration
+
+    def get_remain_enabled(self):
+        return self.remain_enabled
+
+    def set_remain_enabled(self, remain_enabled):
+        self.remain_enabled = remain_enabled
 
     def _hasContent(self):
         if (
@@ -5808,21 +6384,21 @@ class EventTrigger(GeneratedsSuper):
 
 class Box(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ignore_Y": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "ignore_Y",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "ignore-Y"},
         ),
-        "corner1": MemberSpec_(
+        MemberSpec_(
             "corner1", "vector", 0, 0, {"use": "required", "name": "corner1"}
         ),
-        "corner2": MemberSpec_(
+        MemberSpec_(
             "corner2", "vector", 0, 0, {"use": "required", "name": "corner2"}
         ),
-        "Movement": MemberSpec_(
+        MemberSpec_(
             "Movement",
             "MovementType",
             0,
@@ -5830,7 +6406,7 @@ class Box(GeneratedsSuper):
             {"name": "Movement", "type": "MovementType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -5868,6 +6444,36 @@ class Box(GeneratedsSuper):
             return Box(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Movement(self):
+        return self.Movement
+
+    def set_Movement(self, Movement):
+        self.Movement = Movement
+
+    def get_ignore_Y(self):
+        return self.ignore_Y
+
+    def set_ignore_Y(self, ignore_Y):
+        self.ignore_Y = ignore_Y
+
+    def get_corner1(self):
+        return self.corner1
+
+    def set_corner1(self, corner1):
+        self.corner1 = corner1
+
+    def get_corner2(self):
+        return self.corner2
+
+    def set_corner2(self, corner2):
+        self.corner2 = corner2
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -6075,14 +6681,14 @@ class Box(GeneratedsSuper):
 
 class Event(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "enable": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "enable", "xs:boolean", 0, 0, {"use": "required", "name": "enable"}
         ),
-        "name": MemberSpec_(
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -6108,6 +6714,24 @@ class Event(GeneratedsSuper):
             return Event(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_enable(self):
+        return self.enable
+
+    def set_enable(self, enable):
+        self.enable = enable
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def _hasContent(self):
         if ():
@@ -6241,11 +6865,11 @@ class Event(GeneratedsSuper):
 
 class ParticleActionList(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "Source": MemberSpec_(
+        MemberSpec_(
             "Source",
             "SourceType3",
             0,
@@ -6253,10 +6877,10 @@ class ParticleActionList(GeneratedsSuper):
             {"name": "Source", "type": "SourceType3"},
             None,
         ),
-        "Vel": MemberSpec_(
+        MemberSpec_(
             "Vel", "VelType", 0, 0, {"name": "Vel", "type": "VelType"}, None
         ),
-        "ParticleAction": MemberSpec_(
+        MemberSpec_(
             "ParticleAction",
             "ParticleAction",
             1,
@@ -6269,7 +6893,7 @@ class ParticleActionList(GeneratedsSuper):
             },
             None,
         ),
-        "RemoveCondition": MemberSpec_(
+        MemberSpec_(
             "RemoveCondition",
             "RemoveConditionType",
             0,
@@ -6277,7 +6901,7 @@ class ParticleActionList(GeneratedsSuper):
             {"name": "RemoveCondition", "type": "RemoveConditionType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -6323,6 +6947,51 @@ class ParticleActionList(GeneratedsSuper):
             return ParticleActionList(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Source(self):
+        return self.Source
+
+    def set_Source(self, Source):
+        self.Source = Source
+
+    def get_Vel(self):
+        return self.Vel
+
+    def set_Vel(self, Vel):
+        self.Vel = Vel
+
+    def get_ParticleAction(self):
+        return self.ParticleAction
+
+    def set_ParticleAction(self, ParticleAction):
+        self.ParticleAction = ParticleAction
+
+    def add_ParticleAction(self, value):
+        self.ParticleAction.append(value)
+
+    def insert_ParticleAction_at(self, index, value):
+        self.ParticleAction.insert(index, value)
+
+    def replace_ParticleAction_at(self, index, value):
+        self.ParticleAction[index] = value
+
+    def get_RemoveCondition(self):
+        return self.RemoveCondition
+
+    def set_RemoveCondition(self, RemoveCondition):
+        self.RemoveCondition = RemoveCondition
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def _hasContent(self):
         if (
@@ -6532,8 +7201,8 @@ class ParticleActionList(GeneratedsSuper):
 
 class ParticleAction(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Avoid": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Avoid",
             "AvoidType",
             0,
@@ -6541,7 +7210,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Avoid", "type": "AvoidType"},
             6,
         ),
-        "Bounce": MemberSpec_(
+        MemberSpec_(
             "Bounce",
             "BounceType",
             0,
@@ -6549,7 +7218,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Bounce", "type": "BounceType"},
             6,
         ),
-        "Gravity": MemberSpec_(
+        MemberSpec_(
             "Gravity",
             "GravityType",
             0,
@@ -6557,7 +7226,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Gravity", "type": "GravityType"},
             6,
         ),
-        "Damping": MemberSpec_(
+        MemberSpec_(
             "Damping",
             "DampingType",
             0,
@@ -6565,7 +7234,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Damping", "type": "DampingType"},
             6,
         ),
-        "Gravitate": MemberSpec_(
+        MemberSpec_(
             "Gravitate",
             "GravitateType",
             0,
@@ -6573,7 +7242,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Gravitate", "type": "GravitateType"},
             6,
         ),
-        "Follow": MemberSpec_(
+        MemberSpec_(
             "Follow",
             "FollowType",
             0,
@@ -6581,7 +7250,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Follow", "type": "FollowType"},
             6,
         ),
-        "MatchVel": MemberSpec_(
+        MemberSpec_(
             "MatchVel",
             "MatchVelType",
             0,
@@ -6589,7 +7258,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "MatchVel", "type": "MatchVelType"},
             6,
         ),
-        "OrbitPoint": MemberSpec_(
+        MemberSpec_(
             "OrbitPoint",
             "OrbitPointType",
             0,
@@ -6597,10 +7266,10 @@ class ParticleAction(GeneratedsSuper):
             {"name": "OrbitPoint", "type": "OrbitPointType"},
             6,
         ),
-        "Jet": MemberSpec_(
+        MemberSpec_(
             "Jet", "JetType", 0, 0, {"name": "Jet", "type": "JetType"}, 6
         ),
-        "RandomVel": MemberSpec_(
+        MemberSpec_(
             "RandomVel",
             "xs:string",
             0,
@@ -6608,7 +7277,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "RandomVel", "type": "xs:string"},
             6,
         ),
-        "RandomAccel": MemberSpec_(
+        MemberSpec_(
             "RandomAccel",
             "xs:string",
             0,
@@ -6616,7 +7285,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "RandomAccel", "type": "xs:string"},
             6,
         ),
-        "RandomDisplace": MemberSpec_(
+        MemberSpec_(
             "RandomDisplace",
             "xs:string",
             0,
@@ -6624,7 +7293,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "RandomDisplace", "type": "xs:string"},
             6,
         ),
-        "TargetColor": MemberSpec_(
+        MemberSpec_(
             "TargetColor",
             "TargetColorType",
             0,
@@ -6632,7 +7301,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "TargetColor", "type": "TargetColorType"},
             6,
         ),
-        "TargetSize": MemberSpec_(
+        MemberSpec_(
             "TargetSize",
             "xs:string",
             0,
@@ -6640,7 +7309,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "TargetSize", "type": "xs:string"},
             6,
         ),
-        "TargetVel": MemberSpec_(
+        MemberSpec_(
             "TargetVel",
             "xs:string",
             0,
@@ -6648,7 +7317,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "TargetVel", "type": "xs:string"},
             6,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -6721,6 +7390,102 @@ class ParticleAction(GeneratedsSuper):
             return ParticleAction(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Avoid(self):
+        return self.Avoid
+
+    def set_Avoid(self, Avoid):
+        self.Avoid = Avoid
+
+    def get_Bounce(self):
+        return self.Bounce
+
+    def set_Bounce(self, Bounce):
+        self.Bounce = Bounce
+
+    def get_Gravity(self):
+        return self.Gravity
+
+    def set_Gravity(self, Gravity):
+        self.Gravity = Gravity
+
+    def get_Damping(self):
+        return self.Damping
+
+    def set_Damping(self, Damping):
+        self.Damping = Damping
+
+    def get_Gravitate(self):
+        return self.Gravitate
+
+    def set_Gravitate(self, Gravitate):
+        self.Gravitate = Gravitate
+
+    def get_Follow(self):
+        return self.Follow
+
+    def set_Follow(self, Follow):
+        self.Follow = Follow
+
+    def get_MatchVel(self):
+        return self.MatchVel
+
+    def set_MatchVel(self, MatchVel):
+        self.MatchVel = MatchVel
+
+    def get_OrbitPoint(self):
+        return self.OrbitPoint
+
+    def set_OrbitPoint(self, OrbitPoint):
+        self.OrbitPoint = OrbitPoint
+
+    def get_Jet(self):
+        return self.Jet
+
+    def set_Jet(self, Jet):
+        self.Jet = Jet
+
+    def get_RandomVel(self):
+        return self.RandomVel
+
+    def set_RandomVel(self, RandomVel):
+        self.RandomVel = RandomVel
+
+    def get_RandomAccel(self):
+        return self.RandomAccel
+
+    def set_RandomAccel(self, RandomAccel):
+        self.RandomAccel = RandomAccel
+
+    def get_RandomDisplace(self):
+        return self.RandomDisplace
+
+    def set_RandomDisplace(self, RandomDisplace):
+        self.RandomDisplace = RandomDisplace
+
+    def get_TargetColor(self):
+        return self.TargetColor
+
+    def set_TargetColor(self, TargetColor):
+        self.TargetColor = TargetColor
+
+    def get_TargetSize(self):
+        return self.TargetSize
+
+    def set_TargetSize(self, TargetSize):
+        self.TargetSize = TargetSize
+
+    def get_TargetVel(self):
+        return self.TargetVel
+
+    def set_TargetVel(self, TargetVel):
+        self.TargetVel = TargetVel
 
     def _hasContent(self):
         if (
@@ -7170,7 +7935,7 @@ class ParticleAction(GeneratedsSuper):
 
 class RandomVel(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -7194,6 +7959,12 @@ class RandomVel(GeneratedsSuper):
             return RandomVel(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -7302,7 +8073,7 @@ class RandomVel(GeneratedsSuper):
 
 class RandomAccel(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -7326,6 +8097,12 @@ class RandomAccel(GeneratedsSuper):
             return RandomAccel(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -7434,7 +8211,7 @@ class RandomAccel(GeneratedsSuper):
 
 class RandomDisplace(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -7458,6 +8235,12 @@ class RandomDisplace(GeneratedsSuper):
             return RandomDisplace(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -7566,7 +8349,7 @@ class RandomDisplace(GeneratedsSuper):
 
 class TargetSize(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -7590,6 +8373,12 @@ class TargetSize(GeneratedsSuper):
             return TargetSize(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -7698,7 +8487,7 @@ class TargetSize(GeneratedsSuper):
 
 class TargetVel(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -7722,6 +8511,12 @@ class TargetVel(GeneratedsSuper):
             return TargetVel(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -7830,8 +8625,8 @@ class TargetVel(GeneratedsSuper):
 
 class ParticleDomainType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Point": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Point",
             "PointType5",
             0,
@@ -7839,10 +8634,10 @@ class ParticleDomainType(GeneratedsSuper):
             {"name": "Point", "type": "PointType5"},
             7,
         ),
-        "Line": MemberSpec_(
+        MemberSpec_(
             "Line", "LineType", 0, 0, {"name": "Line", "type": "LineType"}, 7
         ),
-        "Triangle": MemberSpec_(
+        MemberSpec_(
             "Triangle",
             "TriangleType",
             0,
@@ -7850,7 +8645,7 @@ class ParticleDomainType(GeneratedsSuper):
             {"name": "Triangle", "type": "TriangleType"},
             7,
         ),
-        "Plane": MemberSpec_(
+        MemberSpec_(
             "Plane",
             "PlaneType",
             0,
@@ -7858,13 +8653,11 @@ class ParticleDomainType(GeneratedsSuper):
             {"name": "Plane", "type": "PlaneType"},
             7,
         ),
-        "Rect": MemberSpec_(
+        MemberSpec_(
             "Rect", "RectType", 0, 0, {"name": "Rect", "type": "RectType"}, 7
         ),
-        "Box": MemberSpec_(
-            "Box", "Box", 0, 0, {"name": "Box", "type": "BoxType"}, 7
-        ),
-        "Sphere": MemberSpec_(
+        MemberSpec_("Box", "Box", 0, 0, {"name": "Box", "type": "BoxType"}, 7),
+        MemberSpec_(
             "Sphere",
             "SphereType",
             0,
@@ -7872,7 +8665,7 @@ class ParticleDomainType(GeneratedsSuper):
             {"name": "Sphere", "type": "SphereType"},
             7,
         ),
-        "Cylinder": MemberSpec_(
+        MemberSpec_(
             "Cylinder",
             "CylinderType",
             0,
@@ -7880,16 +8673,16 @@ class ParticleDomainType(GeneratedsSuper):
             {"name": "Cylinder", "type": "CylinderType"},
             7,
         ),
-        "Cone": MemberSpec_(
+        MemberSpec_(
             "Cone", "ConeType", 0, 0, {"name": "Cone", "type": "ConeType"}, 7
         ),
-        "Blob": MemberSpec_(
+        MemberSpec_(
             "Blob", "BlobType", 0, 0, {"name": "Blob", "type": "BlobType"}, 7
         ),
-        "Disc": MemberSpec_(
+        MemberSpec_(
             "Disc", "DiscType", 0, 0, {"name": "Disc", "type": "DiscType"}, 7
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -7950,6 +8743,78 @@ class ParticleDomainType(GeneratedsSuper):
             return ParticleDomainType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Point(self):
+        return self.Point
+
+    def set_Point(self, Point):
+        self.Point = Point
+
+    def get_Line(self):
+        return self.Line
+
+    def set_Line(self, Line):
+        self.Line = Line
+
+    def get_Triangle(self):
+        return self.Triangle
+
+    def set_Triangle(self, Triangle):
+        self.Triangle = Triangle
+
+    def get_Plane(self):
+        return self.Plane
+
+    def set_Plane(self, Plane):
+        self.Plane = Plane
+
+    def get_Rect(self):
+        return self.Rect
+
+    def set_Rect(self, Rect):
+        self.Rect = Rect
+
+    def get_Box(self):
+        return self.Box
+
+    def set_Box(self, Box):
+        self.Box = Box
+
+    def get_Sphere(self):
+        return self.Sphere
+
+    def set_Sphere(self, Sphere):
+        self.Sphere = Sphere
+
+    def get_Cylinder(self):
+        return self.Cylinder
+
+    def set_Cylinder(self, Cylinder):
+        self.Cylinder = Cylinder
+
+    def get_Cone(self):
+        return self.Cone
+
+    def set_Cone(self, Cone):
+        self.Cone = Cone
+
+    def get_Blob(self):
+        return self.Blob
+
+    def set_Blob(self, Blob):
+        self.Blob = Blob
+
+    def get_Disc(self):
+        return self.Disc
+
+    def set_Disc(self, Disc):
+        self.Disc = Disc
 
     def _hasContent(self):
         if (
@@ -8287,8 +9152,8 @@ class Global(GeneratedsSuper):
     """Global -- Placement Obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Camera": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Camera",
             "Camera",
             0,
@@ -8296,7 +9161,7 @@ class Global(GeneratedsSuper):
             {"name": "CameraPos", "type": "Camera"},
             None,
         ),
-        "CaveCamera": MemberSpec_(
+        MemberSpec_(
             "CaveCamera",
             "Camera",
             0,
@@ -8304,7 +9169,7 @@ class Global(GeneratedsSuper):
             {"name": "CaveCameraPos", "type": "Camera"},
             None,
         ),
-        "Background": MemberSpec_(
+        MemberSpec_(
             "Background",
             "BackgroundType",
             0,
@@ -8312,7 +9177,7 @@ class Global(GeneratedsSuper):
             {"name": "Background", "type": "BackgroundType"},
             None,
         ),
-        "WandNavigation": MemberSpec_(
+        MemberSpec_(
             "WandNavigation",
             "WandNavigationType",
             0,
@@ -8320,7 +9185,7 @@ class Global(GeneratedsSuper):
             {"name": "WandNavigation", "type": "WandNavigationType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -8358,6 +9223,36 @@ class Global(GeneratedsSuper):
             return Global(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Camera(self):
+        return self.Camera
+
+    def set_Camera(self, Camera):
+        self.Camera = Camera
+
+    def get_CaveCamera(self):
+        return self.CaveCamera
+
+    def set_CaveCamera(self, CaveCamera):
+        self.CaveCamera = CaveCamera
+
+    def get_Background(self):
+        return self.Background
+
+    def set_Background(self, Background):
+        self.Background = Background
+
+    def get_WandNavigation(self):
+        return self.WandNavigation
+
+    def set_WandNavigation(self, WandNavigation):
+        self.WandNavigation = WandNavigation
 
     def _hasContent(self):
         if (
@@ -8546,15 +9441,15 @@ class Global(GeneratedsSuper):
 
 class Camera(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "far_clip": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "far_clip",
             "xs:double",
             0,
             1,
             {"use": "optional", "name": "far-clip"},
         ),
-        "Placement": MemberSpec_(
+        MemberSpec_(
             "Placement",
             "Placement",
             0,
@@ -8562,7 +9457,7 @@ class Camera(GeneratedsSuper):
             {"name": "Placement", "ref": "Placement", "type": "Placement"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -8590,6 +9485,24 @@ class Camera(GeneratedsSuper):
             return Camera(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Placement(self):
+        return self.Placement
+
+    def set_Placement(self, Placement):
+        self.Placement = Placement
+
+    def get_far_clip(self):
+        return self.far_clip
+
+    def set_far_clip(self, far_clip):
+        self.far_clip = far_clip
 
     def _hasContent(self):
         if self.Placement is not None:
@@ -8727,11 +9640,11 @@ class Placement(GeneratedsSuper):
     """Placement -- Placement Obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 1, {"use": "optional", "name": "name"}
         ),
-        "RelativeTo": MemberSpec_(
+        MemberSpec_(
             "RelativeTo",
             "xs:string",
             0,
@@ -8739,7 +9652,7 @@ class Placement(GeneratedsSuper):
             {"default": "Center", "name": "RelativeTo", "type": "xs:string"},
             None,
         ),
-        "Position": MemberSpec_(
+        MemberSpec_(
             "Position",
             ["vector", "xs:string"],
             0,
@@ -8751,10 +9664,10 @@ class Placement(GeneratedsSuper):
             },
             None,
         ),
-        "Axis": MemberSpec_(
+        MemberSpec_(
             "Axis", "AxisType", 0, 1, {"name": "Axis", "type": "AxisType"}, 8
         ),
-        "LookAt": MemberSpec_(
+        MemberSpec_(
             "LookAt",
             "LookAtType",
             0,
@@ -8762,7 +9675,7 @@ class Placement(GeneratedsSuper):
             {"name": "LookAt", "type": "LookAtType"},
             8,
         ),
-        "Normal": MemberSpec_(
+        MemberSpec_(
             "Normal",
             "NormalType",
             0,
@@ -8770,7 +9683,7 @@ class Placement(GeneratedsSuper):
             {"name": "Normal", "type": "NormalType"},
             8,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -8817,6 +9730,48 @@ class Placement(GeneratedsSuper):
             return Placement(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_RelativeTo(self):
+        return self.RelativeTo
+
+    def set_RelativeTo(self, RelativeTo):
+        self.RelativeTo = RelativeTo
+
+    def get_Position(self):
+        return self.Position
+
+    def set_Position(self, Position):
+        self.Position = Position
+
+    def get_Axis(self):
+        return self.Axis
+
+    def set_Axis(self, Axis):
+        self.Axis = Axis
+
+    def get_LookAt(self):
+        return self.LookAt
+
+    def set_LookAt(self, LookAt):
+        self.LookAt = LookAt
+
+    def get_Normal(self):
+        return self.Normal
+
+    def set_Normal(self, Normal):
+        self.Normal = Normal
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def validate_vector(self, value):
         result = True
@@ -9118,15 +10073,15 @@ class Placement(GeneratedsSuper):
 
 class Transition(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "duration": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "duration",
             "xs:double",
             0,
             1,
             {"use": "optional", "name": "duration"},
         ),
-        "Visible": MemberSpec_(
+        MemberSpec_(
             "Visible",
             "xs:boolean",
             0,
@@ -9134,7 +10089,7 @@ class Transition(GeneratedsSuper):
             {"name": "Visible", "type": "xs:boolean"},
             9,
         ),
-        "Movement": MemberSpec_(
+        MemberSpec_(
             "Movement",
             "MovementType6",
             0,
@@ -9142,7 +10097,7 @@ class Transition(GeneratedsSuper):
             {"name": "Movement", "type": "MovementType6"},
             9,
         ),
-        "MoveRel": MemberSpec_(
+        MemberSpec_(
             "MoveRel",
             "MoveRelType",
             0,
@@ -9150,7 +10105,7 @@ class Transition(GeneratedsSuper):
             {"name": "MoveRel", "type": "MoveRelType"},
             9,
         ),
-        "Color": MemberSpec_(
+        MemberSpec_(
             "Color",
             ["color", "xs:string"],
             0,
@@ -9158,7 +10113,7 @@ class Transition(GeneratedsSuper):
             {"default": "255,255,255", "name": "Color", "type": "xs:string"},
             9,
         ),
-        "Scale": MemberSpec_(
+        MemberSpec_(
             "Scale",
             "xs:double",
             0,
@@ -9166,10 +10121,10 @@ class Transition(GeneratedsSuper):
             {"default": "1.0", "name": "Scale", "type": "xs:double"},
             9,
         ),
-        "Sound": MemberSpec_(
+        MemberSpec_(
             "Sound", "Sound", 0, 0, {"name": "Sound", "type": "SoundType"}, 9
         ),
-        "LinkChange": MemberSpec_(
+        MemberSpec_(
             "LinkChange",
             "LinkChangeType",
             0,
@@ -9177,7 +10132,7 @@ class Transition(GeneratedsSuper):
             {"name": "LinkChange", "type": "LinkChangeType"},
             9,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -9230,6 +10185,60 @@ class Transition(GeneratedsSuper):
             return Transition(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Visible(self):
+        return self.Visible
+
+    def set_Visible(self, Visible):
+        self.Visible = Visible
+
+    def get_Movement(self):
+        return self.Movement
+
+    def set_Movement(self, Movement):
+        self.Movement = Movement
+
+    def get_MoveRel(self):
+        return self.MoveRel
+
+    def set_MoveRel(self, MoveRel):
+        self.MoveRel = MoveRel
+
+    def get_Color(self):
+        return self.Color
+
+    def set_Color(self, Color):
+        self.Color = Color
+
+    def get_Scale(self):
+        return self.Scale
+
+    def set_Scale(self, Scale):
+        self.Scale = Scale
+
+    def get_Sound(self):
+        return self.Sound
+
+    def set_Sound(self, Sound):
+        self.Sound = Sound
+
+    def get_LinkChange(self):
+        return self.LinkChange
+
+    def set_LinkChange(self, LinkChange):
+        self.LinkChange = LinkChange
+
+    def get_duration(self):
+        return self.duration
+
+    def set_duration(self, duration):
+        self.duration = duration
 
     def validate_color(self, value):
         result = True
@@ -9565,8 +10574,8 @@ class Transition(GeneratedsSuper):
 
 class ObjectRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Object": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Object",
             "Object",
             1,
@@ -9580,7 +10589,7 @@ class ObjectRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -9609,6 +10618,27 @@ class ObjectRootType(GeneratedsSuper):
             return ObjectRootType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Object(self):
+        return self.Object
+
+    def set_Object(self, Object):
+        self.Object = Object
+
+    def add_Object(self, value):
+        self.Object.append(value)
+
+    def insert_Object_at(self, index, value):
+        self.Object.insert(index, value)
+
+    def replace_Object_at(self, index, value):
+        self.Object[index] = value
 
     def _hasContent(self):
         if self.Object:
@@ -9739,8 +10769,8 @@ class ObjectRootType(GeneratedsSuper):
 
 class GroupRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Group": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Group",
             "Group",
             1,
@@ -9754,7 +10784,7 @@ class GroupRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -9783,6 +10813,27 @@ class GroupRootType(GeneratedsSuper):
             return GroupRootType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Group(self):
+        return self.Group
+
+    def set_Group(self, Group):
+        self.Group = Group
+
+    def add_Group(self, value):
+        self.Group.append(value)
+
+    def insert_Group_at(self, index, value):
+        self.Group.insert(index, value)
+
+    def replace_Group_at(self, index, value):
+        self.Group[index] = value
 
     def _hasContent(self):
         if self.Group:
@@ -9913,8 +10964,8 @@ class GroupRootType(GeneratedsSuper):
 
 class TimelineRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Timeline": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Timeline",
             "Timeline",
             1,
@@ -9928,7 +10979,7 @@ class TimelineRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -9957,6 +11008,27 @@ class TimelineRootType(GeneratedsSuper):
             return TimelineRootType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Timeline(self):
+        return self.Timeline
+
+    def set_Timeline(self, Timeline):
+        self.Timeline = Timeline
+
+    def add_Timeline(self, value):
+        self.Timeline.append(value)
+
+    def insert_Timeline_at(self, index, value):
+        self.Timeline.insert(index, value)
+
+    def replace_Timeline_at(self, index, value):
+        self.Timeline[index] = value
 
     def _hasContent(self):
         if self.Timeline:
@@ -10087,8 +11159,8 @@ class TimelineRootType(GeneratedsSuper):
 
 class PlacementRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Placement": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Placement",
             "Placement",
             1,
@@ -10101,7 +11173,7 @@ class PlacementRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10130,6 +11202,27 @@ class PlacementRootType(GeneratedsSuper):
             return PlacementRootType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Placement(self):
+        return self.Placement
+
+    def set_Placement(self, Placement):
+        self.Placement = Placement
+
+    def add_Placement(self, value):
+        self.Placement.append(value)
+
+    def insert_Placement_at(self, index, value):
+        self.Placement.insert(index, value)
+
+    def replace_Placement_at(self, index, value):
+        self.Placement[index] = value
 
     def _hasContent(self):
         if self.Placement:
@@ -10260,8 +11353,8 @@ class PlacementRootType(GeneratedsSuper):
 
 class SoundRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Sound": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Sound",
             "Sound",
             1,
@@ -10275,7 +11368,7 @@ class SoundRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10304,6 +11397,27 @@ class SoundRootType(GeneratedsSuper):
             return SoundRootType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Sound(self):
+        return self.Sound
+
+    def set_Sound(self, Sound):
+        self.Sound = Sound
+
+    def add_Sound(self, value):
+        self.Sound.append(value)
+
+    def insert_Sound_at(self, index, value):
+        self.Sound.insert(index, value)
+
+    def replace_Sound_at(self, index, value):
+        self.Sound[index] = value
 
     def _hasContent(self):
         if self.Sound:
@@ -10434,8 +11548,8 @@ class SoundRootType(GeneratedsSuper):
 
 class EventRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "EventTrigger": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "EventTrigger",
             "EventTrigger",
             1,
@@ -10449,7 +11563,7 @@ class EventRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10478,6 +11592,27 @@ class EventRootType(GeneratedsSuper):
             return EventRootType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_EventTrigger(self):
+        return self.EventTrigger
+
+    def set_EventTrigger(self, EventTrigger):
+        self.EventTrigger = EventTrigger
+
+    def add_EventTrigger(self, value):
+        self.EventTrigger.append(value)
+
+    def insert_EventTrigger_at(self, index, value):
+        self.EventTrigger.insert(index, value)
+
+    def replace_EventTrigger_at(self, index, value):
+        self.EventTrigger[index] = value
 
     def _hasContent(self):
         if self.EventTrigger:
@@ -10608,8 +11743,8 @@ class EventRootType(GeneratedsSuper):
 
 class ParticleActionRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ParticleActionList": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "ParticleActionList",
             "ParticleActionList",
             1,
@@ -10623,7 +11758,7 @@ class ParticleActionRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10654,6 +11789,27 @@ class ParticleActionRootType(GeneratedsSuper):
             return ParticleActionRootType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_ParticleActionList(self):
+        return self.ParticleActionList
+
+    def set_ParticleActionList(self, ParticleActionList):
+        self.ParticleActionList = ParticleActionList
+
+    def add_ParticleActionList(self, value):
+        self.ParticleActionList.append(value)
+
+    def insert_ParticleActionList_at(self, index, value):
+        self.ParticleActionList.insert(index, value)
+
+    def replace_ParticleActionList_at(self, index, value):
+        self.ParticleActionList[index] = value
 
     def _hasContent(self):
         if self.ParticleActionList:
@@ -10789,11 +11945,11 @@ class ParticleActionRootType(GeneratedsSuper):
 
 class AboutType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "news": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "news", "xs:string", 0, 1, {"use": "optional", "name": "news"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10819,6 +11975,18 @@ class AboutType(GeneratedsSuper):
             return AboutType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_news(self):
+        return self.news
+
+    def set_news(self, news):
+        self.news = news
 
     def _hasContent(self):
         if ():
@@ -10941,8 +12109,8 @@ class AboutType(GeneratedsSuper):
 
 class LinkRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Link": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Link",
             "Link",
             0,
@@ -10950,7 +12118,7 @@ class LinkRootType(GeneratedsSuper):
             {"minOccurs": "0", "name": "Link", "ref": "Link", "type": "Link"},
             10,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10976,6 +12144,18 @@ class LinkRootType(GeneratedsSuper):
             return LinkRootType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Link(self):
+        return self.Link
+
+    def set_Link(self, Link):
+        self.Link = Link
 
     def _hasContent(self):
         if self.Link is not None:
@@ -11106,7 +12286,7 @@ class LinkRootType(GeneratedsSuper):
 
 class NoneType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -11128,6 +12308,12 @@ class NoneType(GeneratedsSuper):
             return NoneType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -11236,28 +12422,28 @@ class NoneType(GeneratedsSuper):
 
 class TextType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "horiz_align": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "horiz_align",
             "horiz-alignType",
             0,
             1,
             {"use": "optional", "name": "horiz-align"},
         ),
-        "vert_align": MemberSpec_(
+        MemberSpec_(
             "vert_align",
             "vert-alignType",
             0,
             1,
             {"use": "optional", "name": "vert-align"},
         ),
-        "font": MemberSpec_(
+        MemberSpec_(
             "font", "xs:string", 0, 1, {"use": "optional", "name": "font"}
         ),
-        "depth": MemberSpec_(
+        MemberSpec_(
             "depth", "xs:float", 0, 1, {"use": "optional", "name": "depth"}
         ),
-        "text": MemberSpec_(
+        MemberSpec_(
             "text",
             "xs:string",
             0,
@@ -11265,7 +12451,7 @@ class TextType(GeneratedsSuper):
             {"name": "text", "type": "xs:string"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -11306,6 +12492,42 @@ class TextType(GeneratedsSuper):
             return TextType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_text(self):
+        return self.text
+
+    def set_text(self, text):
+        self.text = text
+
+    def get_horiz_align(self):
+        return self.horiz_align
+
+    def set_horiz_align(self, horiz_align):
+        self.horiz_align = horiz_align
+
+    def get_vert_align(self):
+        return self.vert_align
+
+    def set_vert_align(self, vert_align):
+        self.vert_align = vert_align
+
+    def get_font(self):
+        return self.font
+
+    def set_font(self, font):
+        self.font = font
+
+    def get_depth(self):
+        return self.depth
+
+    def set_depth(self, depth):
+        self.depth = depth
 
     def validate_horiz_alignType(self, value):
         # Validate type horiz-alignType, a restriction on xs:string.
@@ -11568,11 +12790,11 @@ class TextType(GeneratedsSuper):
 
 class ImageType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "filename": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "filename", "file", 0, 0, {"use": "required", "name": "filename"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -11598,6 +12820,18 @@ class ImageType(GeneratedsSuper):
             return ImageType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_filename(self):
+        return self.filename
+
+    def set_filename(self, filename):
+        self.filename = filename
 
     def validate_file(self, value):
         # Validate type file, a restriction on xs:string.
@@ -11740,22 +12974,22 @@ class ImageType(GeneratedsSuper):
 
 class StereoImageType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "left_image": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "left_image",
             "file",
             0,
             0,
             {"use": "required", "name": "left-image"},
         ),
-        "right_image": MemberSpec_(
+        MemberSpec_(
             "right_image",
             "file",
             0,
             0,
             {"use": "required", "name": "right-image"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -11785,6 +13019,24 @@ class StereoImageType(GeneratedsSuper):
             return StereoImageType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_left_image(self):
+        return self.left_image
+
+    def set_left_image(self, left_image):
+        self.left_image = left_image
+
+    def get_right_image(self):
+        return self.right_image
+
+    def set_right_image(self, right_image):
+        self.right_image = right_image
 
     def validate_file(self, value):
         # Validate type file, a restriction on xs:string.
@@ -11952,18 +13204,18 @@ class StereoImageType(GeneratedsSuper):
 
 class ModelType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "filename": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "filename", "file", 0, 0, {"use": "required", "name": "filename"}
         ),
-        "check_collisions": MemberSpec_(
+        MemberSpec_(
             "check_collisions",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "check-collisions"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -11997,6 +13249,24 @@ class ModelType(GeneratedsSuper):
             return ModelType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_filename(self):
+        return self.filename
+
+    def set_filename(self, filename):
+        self.filename = filename
+
+    def get_check_collisions(self):
+        return self.check_collisions
+
+    def set_check_collisions(self, check_collisions):
+        self.check_collisions = check_collisions
 
     def validate_file(self, value):
         # Validate type file, a restriction on xs:string.
@@ -12159,43 +13429,43 @@ class ModelType(GeneratedsSuper):
 
 class LightType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "diffuse": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "diffuse",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "diffuse"},
         ),
-        "specular": MemberSpec_(
+        MemberSpec_(
             "specular",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "specular"},
         ),
-        "const_atten": MemberSpec_(
+        MemberSpec_(
             "const_atten",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "const_atten"},
         ),
-        "lin_atten": MemberSpec_(
+        MemberSpec_(
             "lin_atten",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "lin_atten"},
         ),
-        "quad_atten": MemberSpec_(
+        MemberSpec_(
             "quad_atten",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "quad_atten"},
         ),
-        "Point": MemberSpec_(
+        MemberSpec_(
             "Point",
             "PointType",
             0,
@@ -12203,7 +13473,7 @@ class LightType(GeneratedsSuper):
             {"name": "Point", "type": "PointType"},
             11,
         ),
-        "Directional": MemberSpec_(
+        MemberSpec_(
             "Directional",
             "DirectionalType",
             0,
@@ -12211,10 +13481,10 @@ class LightType(GeneratedsSuper):
             {"name": "Directional", "type": "DirectionalType"},
             11,
         ),
-        "Spot": MemberSpec_(
+        MemberSpec_(
             "Spot", "SpotType", 0, 0, {"name": "Spot", "type": "SpotType"}, 11
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -12266,6 +13536,60 @@ class LightType(GeneratedsSuper):
             return LightType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Point(self):
+        return self.Point
+
+    def set_Point(self, Point):
+        self.Point = Point
+
+    def get_Directional(self):
+        return self.Directional
+
+    def set_Directional(self, Directional):
+        self.Directional = Directional
+
+    def get_Spot(self):
+        return self.Spot
+
+    def set_Spot(self, Spot):
+        self.Spot = Spot
+
+    def get_diffuse(self):
+        return self.diffuse
+
+    def set_diffuse(self, diffuse):
+        self.diffuse = diffuse
+
+    def get_specular(self):
+        return self.specular
+
+    def set_specular(self, specular):
+        self.specular = specular
+
+    def get_const_atten(self):
+        return self.const_atten
+
+    def set_const_atten(self, const_atten):
+        self.const_atten = const_atten
+
+    def get_lin_atten(self):
+        return self.lin_atten
+
+    def set_lin_atten(self, lin_atten):
+        self.lin_atten = lin_atten
+
+    def get_quad_atten(self):
+        return self.quad_atten
+
+    def set_quad_atten(self, quad_atten):
+        self.quad_atten = quad_atten
 
     def _hasContent(self):
         if (
@@ -12503,7 +13827,7 @@ class LightType(GeneratedsSuper):
 
 class PointType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -12527,6 +13851,12 @@ class PointType(GeneratedsSuper):
             return PointType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -12635,7 +13965,7 @@ class PointType(GeneratedsSuper):
 
 class DirectionalType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -12659,6 +13989,12 @@ class DirectionalType(GeneratedsSuper):
             return DirectionalType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -12767,11 +14103,11 @@ class DirectionalType(GeneratedsSuper):
 
 class SpotType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "angle": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "angle", "xs:float", 0, 1, {"use": "optional", "name": "angle"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -12795,6 +14131,18 @@ class SpotType(GeneratedsSuper):
             return SpotType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_angle(self):
+        return self.angle
+
+    def set_angle(self, angle):
+        self.angle = angle
 
     def _hasContent(self):
         if ():
@@ -12912,46 +14260,46 @@ class SpotType(GeneratedsSuper):
 
 class ParticleSystemType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "max_particles": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "max_particles",
             "xs:unsignedInt",
             0,
             1,
             {"use": "optional", "name": "max-particles"},
         ),
-        "actions_name": MemberSpec_(
+        MemberSpec_(
             "actions_name",
             "xs:string",
             0,
             0,
             {"use": "required", "name": "actions-name"},
         ),
-        "particle_group": MemberSpec_(
+        MemberSpec_(
             "particle_group",
             "xs:string",
             0,
             0,
             {"use": "required", "name": "particle-group"},
         ),
-        "look_at_camera": MemberSpec_(
+        MemberSpec_(
             "look_at_camera",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "look-at-camera"},
         ),
-        "sequential": MemberSpec_(
+        MemberSpec_(
             "sequential",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "sequential"},
         ),
-        "speed": MemberSpec_(
+        MemberSpec_(
             "speed", "xs:float", 0, 1, {"use": "optional", "name": "speed"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -12997,6 +14345,48 @@ class ParticleSystemType(GeneratedsSuper):
             return ParticleSystemType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_max_particles(self):
+        return self.max_particles
+
+    def set_max_particles(self, max_particles):
+        self.max_particles = max_particles
+
+    def get_actions_name(self):
+        return self.actions_name
+
+    def set_actions_name(self, actions_name):
+        self.actions_name = actions_name
+
+    def get_particle_group(self):
+        return self.particle_group
+
+    def set_particle_group(self, particle_group):
+        self.particle_group = particle_group
+
+    def get_look_at_camera(self):
+        return self.look_at_camera
+
+    def set_look_at_camera(self, look_at_camera):
+        self.look_at_camera = look_at_camera
+
+    def get_sequential(self):
+        return self.sequential
+
+    def set_sequential(self, sequential):
+        self.sequential = sequential
+
+    def get_speed(self):
+        return self.speed
+
+    def set_speed(self, speed):
+        self.speed = speed
 
     def _hasContent(self):
         if ():
@@ -13210,8 +14600,8 @@ class ActionsType1(ActionsType):
     """ActionsType1 -- Link Actions Obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Clicks": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Clicks",
             "ClicksType",
             0,
@@ -13219,16 +14609,16 @@ class ActionsType1(ActionsType):
             {"minOccurs": "0", "name": "Clicks", "type": "ClicksType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = ActionsType
 
     def __init__(
         self,
-        ObjectChange=None,
-        GroupRef=None,
         TimerChange=None,
+        ObjectChange=None,
         SoundRef=None,
+        GroupRef=None,
         Event=None,
         MoveCave=None,
         Restart=None,
@@ -13242,10 +14632,10 @@ class ActionsType1(ActionsType):
         self.parent_object_ = kwargs_.get("parent_object_")
         self.ns_prefix_ = None
         super(globals().get("ActionsType1"), self).__init__(
-            ObjectChange,
-            GroupRef,
             TimerChange,
+            ObjectChange,
             SoundRef,
+            GroupRef,
             Event,
             MoveCave,
             Restart,
@@ -13267,6 +14657,18 @@ class ActionsType1(ActionsType):
             return ActionsType1(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Clicks(self):
+        return self.Clicks
+
+    def set_Clicks(self, Clicks):
+        self.Clicks = Clicks
 
     def _hasContent(self):
         if self.Clicks is not None or super(ActionsType1, self)._hasContent():
@@ -13415,11 +14817,11 @@ class ActionsType1(ActionsType):
 
 class ClicksType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Any": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Any", "AnyType", 0, 0, {"name": "Any", "type": "AnyType"}, 12
         ),
-        "NumClicks": MemberSpec_(
+        MemberSpec_(
             "NumClicks",
             "NumClicksType",
             0,
@@ -13427,7 +14829,7 @@ class ClicksType(GeneratedsSuper):
             {"name": "NumClicks", "type": "NumClicksType"},
             12,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -13457,6 +14859,24 @@ class ClicksType(GeneratedsSuper):
             return ClicksType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Any(self):
+        return self.Any
+
+    def set_Any(self, Any):
+        self.Any = Any
+
+    def get_NumClicks(self):
+        return self.NumClicks
+
+    def set_NumClicks(self, NumClicks):
+        self.NumClicks = NumClicks
 
     def _hasContent(self):
         if self.Any is not None or self.NumClicks is not None:
@@ -13606,7 +15026,7 @@ class ClicksType(GeneratedsSuper):
 
 class AnyType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -13628,6 +15048,12 @@ class AnyType(GeneratedsSuper):
             return AnyType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -13736,18 +15162,18 @@ class AnyType(GeneratedsSuper):
 
 class NumClicksType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "num_clicks": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "num_clicks",
             "xs:unsignedInt",
             0,
             1,
             {"use": "optional", "name": "num_clicks"},
         ),
-        "reset": MemberSpec_(
+        MemberSpec_(
             "reset", "xs:boolean", 0, 1, {"use": "optional", "name": "reset"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -13777,6 +15203,24 @@ class NumClicksType(GeneratedsSuper):
             return NumClicksType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_num_clicks(self):
+        return self.num_clicks
+
+    def set_num_clicks(self, num_clicks):
+        self.num_clicks = num_clicks
+
+    def get_reset(self):
+        return self.reset
+
+    def set_reset(self, reset):
+        self.reset = reset
 
     def _hasContent(self):
         if ():
@@ -13910,24 +15354,24 @@ class NumClicksType(GeneratedsSuper):
 
 class TimedActionsType(ActionsType):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "seconds_time": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "seconds_time",
             "xs:string",
             0,
             0,
             {"use": "required", "name": "seconds-time"},
         ),
-    }
+    ]
     subclass = None
     superclass = ActionsType
 
     def __init__(
         self,
-        ObjectChange=None,
-        GroupRef=None,
         TimerChange=None,
+        ObjectChange=None,
         SoundRef=None,
+        GroupRef=None,
         Event=None,
         MoveCave=None,
         Restart=None,
@@ -13941,10 +15385,10 @@ class TimedActionsType(ActionsType):
         self.parent_object_ = kwargs_.get("parent_object_")
         self.ns_prefix_ = None
         super(globals().get("TimedActionsType"), self).__init__(
-            ObjectChange,
-            GroupRef,
             TimerChange,
+            ObjectChange,
             SoundRef,
+            GroupRef,
             Event,
             MoveCave,
             Restart,
@@ -13966,6 +15410,18 @@ class TimedActionsType(ActionsType):
             return TimedActionsType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_seconds_time(self):
+        return self.seconds_time
+
+    def set_seconds_time(self, seconds_time):
+        self.seconds_time = seconds_time
 
     def _hasContent(self):
         if super(TimedActionsType, self)._hasContent():
@@ -14114,15 +15570,15 @@ class TimedActionsType(ActionsType):
 
 class MoveCaveType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "duration": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "duration",
             "xs:double",
             0,
             1,
             {"use": "optional", "name": "duration"},
         ),
-        "Relative": MemberSpec_(
+        MemberSpec_(
             "Relative",
             "RelativeType",
             0,
@@ -14130,7 +15586,7 @@ class MoveCaveType(GeneratedsSuper):
             {"name": "Relative", "type": "RelativeType"},
             13,
         ),
-        "Absolute": MemberSpec_(
+        MemberSpec_(
             "Absolute",
             "AbsoluteType",
             0,
@@ -14138,7 +15594,7 @@ class MoveCaveType(GeneratedsSuper):
             {"name": "Absolute", "type": "AbsoluteType"},
             13,
         ),
-        "Placement": MemberSpec_(
+        MemberSpec_(
             "Placement",
             "Placement",
             0,
@@ -14146,7 +15602,7 @@ class MoveCaveType(GeneratedsSuper):
             {"name": "Placement", "ref": "Placement", "type": "Placement"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -14186,6 +15642,36 @@ class MoveCaveType(GeneratedsSuper):
             return MoveCaveType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Relative(self):
+        return self.Relative
+
+    def set_Relative(self, Relative):
+        self.Relative = Relative
+
+    def get_Absolute(self):
+        return self.Absolute
+
+    def set_Absolute(self, Absolute):
+        self.Absolute = Absolute
+
+    def get_Placement(self):
+        return self.Placement
+
+    def set_Placement(self, Placement):
+        self.Placement = Placement
+
+    def get_duration(self):
+        return self.duration
+
+    def set_duration(self, duration):
+        self.duration = duration
 
     def _hasContent(self):
         if (
@@ -14367,7 +15853,7 @@ class MoveCaveType(GeneratedsSuper):
 
 class RelativeType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -14391,6 +15877,12 @@ class RelativeType(GeneratedsSuper):
             return RelativeType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -14499,7 +15991,7 @@ class RelativeType(GeneratedsSuper):
 
 class AbsoluteType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -14523,6 +16015,12 @@ class AbsoluteType(GeneratedsSuper):
             return AbsoluteType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -14631,7 +16129,7 @@ class AbsoluteType(GeneratedsSuper):
 
 class RestartType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -14655,6 +16153,12 @@ class RestartType(GeneratedsSuper):
             return RestartType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -14763,7 +16267,7 @@ class RestartType(GeneratedsSuper):
 
 class startType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -14787,6 +16291,12 @@ class startType(GeneratedsSuper):
             return startType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -14895,7 +16405,7 @@ class startType(GeneratedsSuper):
 
 class stopType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -14917,6 +16427,12 @@ class stopType(GeneratedsSuper):
             return stopType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -15025,7 +16541,7 @@ class stopType(GeneratedsSuper):
 
 class continueType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -15049,6 +16565,12 @@ class continueType(GeneratedsSuper):
             return continueType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -15157,7 +16679,7 @@ class continueType(GeneratedsSuper):
 
 class start_if_not_startedType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -15181,6 +16703,12 @@ class start_if_not_startedType(GeneratedsSuper):
             return start_if_not_startedType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -15294,8 +16822,8 @@ class start_if_not_startedType(GeneratedsSuper):
 
 class ModeType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Positional": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Positional",
             "PositionalType",
             0,
@@ -15303,7 +16831,7 @@ class ModeType(GeneratedsSuper):
             {"name": "Positional", "type": "PositionalType"},
             14,
         ),
-        "Fixed": MemberSpec_(
+        MemberSpec_(
             "Fixed",
             "FixedType",
             0,
@@ -15311,7 +16839,7 @@ class ModeType(GeneratedsSuper):
             {"name": "Fixed", "type": "FixedType"},
             14,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -15339,6 +16867,24 @@ class ModeType(GeneratedsSuper):
             return ModeType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Positional(self):
+        return self.Positional
+
+    def set_Positional(self, Positional):
+        self.Positional = Positional
+
+    def get_Fixed(self):
+        return self.Fixed
+
+    def set_Fixed(self, Fixed):
+        self.Fixed = Fixed
 
     def _hasContent(self):
         if self.Positional is not None or self.Fixed is not None:
@@ -15488,7 +17034,7 @@ class ModeType(GeneratedsSuper):
 
 class PositionalType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -15512,6 +17058,12 @@ class PositionalType(GeneratedsSuper):
             return PositionalType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -15620,7 +17172,7 @@ class PositionalType(GeneratedsSuper):
 
 class FixedType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -15644,6 +17196,12 @@ class FixedType(GeneratedsSuper):
             return FixedType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -15752,8 +17310,8 @@ class FixedType(GeneratedsSuper):
 
 class RepeatType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "NoRepeat": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "NoRepeat",
             "NoRepeatType",
             0,
@@ -15761,7 +17319,7 @@ class RepeatType(GeneratedsSuper):
             {"name": "NoRepeat", "type": "NoRepeatType"},
             15,
         ),
-        "RepeatForever": MemberSpec_(
+        MemberSpec_(
             "RepeatForever",
             "RepeatForeverType",
             0,
@@ -15769,7 +17327,7 @@ class RepeatType(GeneratedsSuper):
             {"name": "RepeatForever", "type": "RepeatForeverType"},
             15,
         ),
-        "RepeatNum": MemberSpec_(
+        MemberSpec_(
             "RepeatNum",
             ["RepeatNumType", "xs:unsignedInt"],
             0,
@@ -15777,7 +17335,7 @@ class RepeatType(GeneratedsSuper):
             {"name": "RepeatNum", "type": "xs:unsignedInt"},
             15,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -15815,6 +17373,30 @@ class RepeatType(GeneratedsSuper):
             return RepeatType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_NoRepeat(self):
+        return self.NoRepeat
+
+    def set_NoRepeat(self, NoRepeat):
+        self.NoRepeat = NoRepeat
+
+    def get_RepeatForever(self):
+        return self.RepeatForever
+
+    def set_RepeatForever(self, RepeatForever):
+        self.RepeatForever = RepeatForever
+
+    def get_RepeatNum(self):
+        return self.RepeatNum
+
+    def set_RepeatNum(self, RepeatNum):
+        self.RepeatNum = RepeatNum
 
     def validate_RepeatNumType(self, value):
         result = True
@@ -16021,7 +17603,7 @@ class RepeatType(GeneratedsSuper):
 
 class NoRepeatType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -16045,6 +17627,12 @@ class NoRepeatType(GeneratedsSuper):
             return NoRepeatType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -16153,7 +17741,7 @@ class NoRepeatType(GeneratedsSuper):
 
 class RepeatForeverType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -16177,6 +17765,12 @@ class RepeatForeverType(GeneratedsSuper):
             return RepeatForeverType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -16285,17 +17879,17 @@ class RepeatForeverType(GeneratedsSuper):
 
 class SettingsType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "freq": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "freq", "freqType", 0, 1, {"use": "optional", "name": "freq"}
         ),
-        "volume": MemberSpec_(
+        MemberSpec_(
             "volume", "volumeType", 0, 1, {"use": "optional", "name": "volume"}
         ),
-        "pan": MemberSpec_(
+        MemberSpec_(
             "pan", "panType", 0, 1, {"use": "optional", "name": "pan"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -16332,6 +17926,30 @@ class SettingsType(GeneratedsSuper):
             return SettingsType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_freq(self):
+        return self.freq
+
+    def set_freq(self, freq):
+        self.freq = freq
+
+    def get_volume(self):
+        return self.volume
+
+    def set_volume(self, volume):
+        self.volume = volume
+
+    def get_pan(self):
+        return self.pan
+
+    def set_pan(self, pan):
+        self.pan = pan
 
     def validate_freqType(self, value):
         # Validate type freqType, a restriction on xs:float.
@@ -16562,8 +18180,8 @@ class SettingsType(GeneratedsSuper):
 
 class HeadTrackType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Position": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Position",
             "PositionType",
             0,
@@ -16571,7 +18189,7 @@ class HeadTrackType(GeneratedsSuper):
             {"name": "Position", "type": "PositionType"},
             None,
         ),
-        "Direction": MemberSpec_(
+        MemberSpec_(
             "Direction",
             "DirectionType",
             0,
@@ -16579,7 +18197,7 @@ class HeadTrackType(GeneratedsSuper):
             {"name": "Direction", "type": "DirectionType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -16609,6 +18227,24 @@ class HeadTrackType(GeneratedsSuper):
             return HeadTrackType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Position(self):
+        return self.Position
+
+    def set_Position(self, Position):
+        self.Position = Position
+
+    def get_Direction(self):
+        return self.Direction
+
+    def set_Direction(self, Direction):
+        self.Direction = Direction
 
     def _hasContent(self):
         if self.Position is not None or self.Direction is not None:
@@ -16758,8 +18394,8 @@ class HeadTrackType(GeneratedsSuper):
 
 class PositionType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Anywhere": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Anywhere",
             "AnywhereType",
             0,
@@ -16767,7 +18403,7 @@ class PositionType(GeneratedsSuper):
             {"name": "Anywhere", "type": "AnywhereType"},
             16,
         ),
-        "Box": MemberSpec_(
+        MemberSpec_(
             "Box",
             "Box",
             0,
@@ -16775,7 +18411,7 @@ class PositionType(GeneratedsSuper):
             {"name": "Box", "ref": "Box", "type": "Box"},
             16,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -16805,6 +18441,24 @@ class PositionType(GeneratedsSuper):
             return PositionType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Anywhere(self):
+        return self.Anywhere
+
+    def set_Anywhere(self, Anywhere):
+        self.Anywhere = Anywhere
+
+    def get_Box(self):
+        return self.Box
+
+    def set_Box(self, Box):
+        self.Box = Box
 
     def _hasContent(self):
         if self.Anywhere is not None or self.Box is not None:
@@ -16954,7 +18608,7 @@ class PositionType(GeneratedsSuper):
 
 class AnywhereType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -16978,6 +18632,12 @@ class AnywhereType(GeneratedsSuper):
             return AnywhereType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -17086,8 +18746,8 @@ class AnywhereType(GeneratedsSuper):
 
 class DirectionType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "PointTarget": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "PointTarget",
             "PointTargetType",
             0,
@@ -17095,7 +18755,7 @@ class DirectionType(GeneratedsSuper):
             {"name": "PointTarget", "type": "PointTargetType"},
             17,
         ),
-        "DirectionTarget": MemberSpec_(
+        MemberSpec_(
             "DirectionTarget",
             "DirectionTargetType",
             0,
@@ -17103,7 +18763,7 @@ class DirectionType(GeneratedsSuper):
             {"name": "DirectionTarget", "type": "DirectionTargetType"},
             17,
         ),
-        "ObjectTarget": MemberSpec_(
+        MemberSpec_(
             "ObjectTarget",
             "ObjectTargetType",
             0,
@@ -17111,7 +18771,7 @@ class DirectionType(GeneratedsSuper):
             {"name": "ObjectTarget", "type": "ObjectTargetType"},
             17,
         ),
-        "None_": MemberSpec_(
+        MemberSpec_(
             "None_",
             "NoneType2",
             0,
@@ -17119,7 +18779,7 @@ class DirectionType(GeneratedsSuper):
             {"name": "None", "type": "NoneType2"},
             17,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -17159,6 +18819,36 @@ class DirectionType(GeneratedsSuper):
             return DirectionType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_PointTarget(self):
+        return self.PointTarget
+
+    def set_PointTarget(self, PointTarget):
+        self.PointTarget = PointTarget
+
+    def get_DirectionTarget(self):
+        return self.DirectionTarget
+
+    def set_DirectionTarget(self, DirectionTarget):
+        self.DirectionTarget = DirectionTarget
+
+    def get_ObjectTarget(self):
+        return self.ObjectTarget
+
+    def set_ObjectTarget(self, ObjectTarget):
+        self.ObjectTarget = ObjectTarget
+
+    def get_None(self):
+        return self.None_
+
+    def set_None(self, None_):
+        self.None_ = None_
 
     def _hasContent(self):
         if (
@@ -17351,14 +19041,14 @@ class DirectionType(GeneratedsSuper):
 
 class PointTargetType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "point": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "point", "vector", 0, 0, {"use": "required", "name": "point"}
         ),
-        "angle": MemberSpec_(
+        MemberSpec_(
             "angle", "xs:double", 0, 1, {"use": "optional", "name": "angle"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -17386,6 +19076,24 @@ class PointTargetType(GeneratedsSuper):
             return PointTargetType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_point(self):
+        return self.point
+
+    def set_point(self, point):
+        self.point = point
+
+    def get_angle(self):
+        return self.angle
+
+    def set_angle(self, angle):
+        self.angle = angle
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -17554,18 +19262,18 @@ class PointTargetType(GeneratedsSuper):
 
 class DirectionTargetType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "direction": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "direction",
             "vector",
             0,
             0,
             {"use": "required", "name": "direction"},
         ),
-        "angle": MemberSpec_(
+        MemberSpec_(
             "angle", "xs:double", 0, 1, {"use": "optional", "name": "angle"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -17595,6 +19303,24 @@ class DirectionTargetType(GeneratedsSuper):
             return DirectionTargetType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_direction(self):
+        return self.direction
+
+    def set_direction(self, direction):
+        self.direction = direction
+
+    def get_angle(self):
+        return self.angle
+
+    def set_angle(self, angle):
+        self.angle = angle
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -17767,11 +19493,11 @@ class DirectionTargetType(GeneratedsSuper):
 
 class ObjectTargetType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -17797,6 +19523,18 @@ class ObjectTargetType(GeneratedsSuper):
             return ObjectTargetType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def _hasContent(self):
         if ():
@@ -17919,7 +19657,7 @@ class ObjectTargetType(GeneratedsSuper):
 
 class NoneType2(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -17943,6 +19681,12 @@ class NoneType2(GeneratedsSuper):
             return NoneType2(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -18051,8 +19795,8 @@ class NoneType2(GeneratedsSuper):
 
 class MoveTrackType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Source": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Source",
             "SourceType",
             0,
@@ -18060,7 +19804,7 @@ class MoveTrackType(GeneratedsSuper):
             {"name": "Source", "type": "SourceType"},
             None,
         ),
-        "Box": MemberSpec_(
+        MemberSpec_(
             "Box",
             "Box",
             0,
@@ -18068,7 +19812,7 @@ class MoveTrackType(GeneratedsSuper):
             {"name": "Box", "ref": "Box", "type": "Box"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -18096,6 +19840,24 @@ class MoveTrackType(GeneratedsSuper):
             return MoveTrackType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Source(self):
+        return self.Source
+
+    def set_Source(self, Source):
+        self.Source = Source
+
+    def get_Box(self):
+        return self.Box
+
+    def set_Box(self, Box):
+        self.Box = Box
 
     def _hasContent(self):
         if self.Source is not None or self.Box is not None:
@@ -18245,8 +20007,8 @@ class MoveTrackType(GeneratedsSuper):
 
 class SourceType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ObjectRef": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "ObjectRef",
             "ObjectRefType",
             0,
@@ -18254,7 +20016,7 @@ class SourceType(GeneratedsSuper):
             {"name": "ObjectRef", "type": "ObjectRefType"},
             18,
         ),
-        "GroupObj": MemberSpec_(
+        MemberSpec_(
             "GroupObj",
             "GroupObjType",
             0,
@@ -18262,7 +20024,7 @@ class SourceType(GeneratedsSuper):
             {"name": "GroupObj", "type": "GroupObjType"},
             18,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -18292,6 +20054,24 @@ class SourceType(GeneratedsSuper):
             return SourceType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_ObjectRef(self):
+        return self.ObjectRef
+
+    def set_ObjectRef(self, ObjectRef):
+        self.ObjectRef = ObjectRef
+
+    def get_GroupObj(self):
+        return self.GroupObj
+
+    def set_GroupObj(self, GroupObj):
+        self.GroupObj = GroupObj
 
     def _hasContent(self):
         if self.ObjectRef is not None or self.GroupObj is not None:
@@ -18441,11 +20221,11 @@ class SourceType(GeneratedsSuper):
 
 class ObjectRefType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -18471,6 +20251,18 @@ class ObjectRefType(GeneratedsSuper):
             return ObjectRefType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def _hasContent(self):
         if ():
@@ -18593,18 +20385,18 @@ class ObjectRefType(GeneratedsSuper):
 
 class GroupObjType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "objects": MemberSpec_(
+        MemberSpec_(
             "objects",
             "objectsType",
             0,
             1,
             {"use": "optional", "name": "objects"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -18634,6 +20426,24 @@ class GroupObjType(GeneratedsSuper):
             return GroupObjType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
+
+    def get_objects(self):
+        return self.objects
+
+    def set_objects(self, objects):
+        self.objects = objects
 
     def validate_objectsType(self, value):
         # Validate type objectsType, a restriction on xs:string.
@@ -18802,8 +20612,8 @@ class GroupObjType(GeneratedsSuper):
 
 class MovementType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Inside": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Inside",
             "InsideType",
             0,
@@ -18811,7 +20621,7 @@ class MovementType(GeneratedsSuper):
             {"name": "Inside", "type": "InsideType"},
             19,
         ),
-        "Outside": MemberSpec_(
+        MemberSpec_(
             "Outside",
             "OutsideType",
             0,
@@ -18819,7 +20629,7 @@ class MovementType(GeneratedsSuper):
             {"name": "Outside", "type": "OutsideType"},
             19,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -18849,6 +20659,24 @@ class MovementType(GeneratedsSuper):
             return MovementType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Inside(self):
+        return self.Inside
+
+    def set_Inside(self, Inside):
+        self.Inside = Inside
+
+    def get_Outside(self):
+        return self.Outside
+
+    def set_Outside(self, Outside):
+        self.Outside = Outside
 
     def _hasContent(self):
         if self.Inside is not None or self.Outside is not None:
@@ -18998,7 +20826,7 @@ class MovementType(GeneratedsSuper):
 
 class InsideType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -19022,6 +20850,12 @@ class InsideType(GeneratedsSuper):
             return InsideType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -19130,7 +20964,7 @@ class InsideType(GeneratedsSuper):
 
 class OutsideType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -19154,6 +20988,12 @@ class OutsideType(GeneratedsSuper):
             return OutsideType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -19262,11 +21102,11 @@ class OutsideType(GeneratedsSuper):
 
 class SourceType3(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "rate": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "rate", "xs:double", 0, 0, {"use": "required", "name": "rate"}
         ),
-        "ParticleDomain": MemberSpec_(
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -19278,7 +21118,7 @@ class SourceType3(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -19308,6 +21148,24 @@ class SourceType3(GeneratedsSuper):
             return SourceType3(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_ParticleDomain(self):
+        return self.ParticleDomain
+
+    def set_ParticleDomain(self, ParticleDomain):
+        self.ParticleDomain = ParticleDomain
+
+    def get_rate(self):
+        return self.rate
+
+    def set_rate(self, rate):
+        self.rate = rate
 
     def _hasContent(self):
         if self.ParticleDomain is not None:
@@ -19447,8 +21305,8 @@ class SourceType3(GeneratedsSuper):
 
 class VelType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ParticleDomain": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -19460,7 +21318,7 @@ class VelType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -19484,6 +21342,18 @@ class VelType(GeneratedsSuper):
             return VelType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_ParticleDomain(self):
+        return self.ParticleDomain
+
+    def set_ParticleDomain(self, ParticleDomain):
+        self.ParticleDomain = ParticleDomain
 
     def _hasContent(self):
         if self.ParticleDomain is not None:
@@ -19614,11 +21484,11 @@ class VelType(GeneratedsSuper):
 
 class RemoveConditionType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Age": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Age", "AgeType", 0, 0, {"name": "Age", "type": "AgeType"}, 20
         ),
-        "Position": MemberSpec_(
+        MemberSpec_(
             "Position",
             "PositionType4",
             0,
@@ -19626,7 +21496,7 @@ class RemoveConditionType(GeneratedsSuper):
             {"name": "Position", "type": "PositionType4"},
             20,
         ),
-        "Velocity": MemberSpec_(
+        MemberSpec_(
             "Velocity",
             "VelocityType",
             0,
@@ -19634,7 +21504,7 @@ class RemoveConditionType(GeneratedsSuper):
             {"name": "Velocity", "type": "VelocityType"},
             20,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -19671,6 +21541,30 @@ class RemoveConditionType(GeneratedsSuper):
             return RemoveConditionType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Age(self):
+        return self.Age
+
+    def set_Age(self, Age):
+        self.Age = Age
+
+    def get_Position(self):
+        return self.Position
+
+    def set_Position(self, Position):
+        self.Position = Position
+
+    def get_Velocity(self):
+        return self.Velocity
+
+    def set_Velocity(self, Velocity):
+        self.Velocity = Velocity
 
     def _hasContent(self):
         if (
@@ -19846,18 +21740,18 @@ class RemoveConditionType(GeneratedsSuper):
 
 class AgeType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "age": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "age", "xs:float", 0, 0, {"use": "required", "name": "age"}
         ),
-        "younger_than": MemberSpec_(
+        MemberSpec_(
             "younger_than",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "younger-than"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -19885,6 +21779,24 @@ class AgeType(GeneratedsSuper):
             return AgeType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_age(self):
+        return self.age
+
+    def set_age(self, age):
+        self.age = age
+
+    def get_younger_than(self):
+        return self.younger_than
+
+    def set_younger_than(self, younger_than):
+        self.younger_than = younger_than
 
     def _hasContent(self):
         if ():
@@ -20018,11 +21930,11 @@ class AgeType(GeneratedsSuper):
 
 class PositionType4(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "inside": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "inside", "xs:boolean", 0, 1, {"use": "optional", "name": "inside"}
         ),
-        "ParticleDomain": MemberSpec_(
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -20034,7 +21946,7 @@ class PositionType4(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -20064,6 +21976,24 @@ class PositionType4(GeneratedsSuper):
             return PositionType4(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_ParticleDomain(self):
+        return self.ParticleDomain
+
+    def set_ParticleDomain(self, ParticleDomain):
+        self.ParticleDomain = ParticleDomain
+
+    def get_inside(self):
+        return self.inside
+
+    def set_inside(self, inside):
+        self.inside = inside
 
     def _hasContent(self):
         if self.ParticleDomain is not None:
@@ -20207,11 +22137,11 @@ class PositionType4(GeneratedsSuper):
 
 class VelocityType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "inside": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "inside", "xs:boolean", 0, 1, {"use": "optional", "name": "inside"}
         ),
-        "ParticleDomain": MemberSpec_(
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -20223,7 +22153,7 @@ class VelocityType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -20253,6 +22183,24 @@ class VelocityType(GeneratedsSuper):
             return VelocityType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_ParticleDomain(self):
+        return self.ParticleDomain
+
+    def set_ParticleDomain(self, ParticleDomain):
+        self.ParticleDomain = ParticleDomain
+
+    def get_inside(self):
+        return self.inside
+
+    def set_inside(self, inside):
+        self.inside = inside
 
     def _hasContent(self):
         if self.ParticleDomain is not None:
@@ -20396,25 +22344,25 @@ class VelocityType(GeneratedsSuper):
 
 class AvoidType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "magnitude": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "magnitude",
             "xs:float",
             0,
             0,
             {"use": "required", "name": "magnitude"},
         ),
-        "epsilon": MemberSpec_(
+        MemberSpec_(
             "epsilon", "xs:float", 0, 1, {"use": "optional", "name": "epsilon"}
         ),
-        "lookahead": MemberSpec_(
+        MemberSpec_(
             "lookahead",
             "xs:float",
             0,
             0,
             {"use": "required", "name": "lookahead"},
         ),
-        "ParticleDomain": MemberSpec_(
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -20426,7 +22374,7 @@ class AvoidType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -20466,6 +22414,36 @@ class AvoidType(GeneratedsSuper):
             return AvoidType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_ParticleDomain(self):
+        return self.ParticleDomain
+
+    def set_ParticleDomain(self, ParticleDomain):
+        self.ParticleDomain = ParticleDomain
+
+    def get_magnitude(self):
+        return self.magnitude
+
+    def set_magnitude(self, magnitude):
+        self.magnitude = magnitude
+
+    def get_epsilon(self):
+        return self.epsilon
+
+    def set_epsilon(self, epsilon):
+        self.epsilon = epsilon
+
+    def get_lookahead(self):
+        return self.lookahead
+
+    def set_lookahead(self, lookahead):
+        self.lookahead = lookahead
 
     def _hasContent(self):
         if self.ParticleDomain is not None:
@@ -20627,25 +22605,25 @@ class AvoidType(GeneratedsSuper):
 
 class BounceType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "friction": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "friction",
             "xs:float",
             0,
             0,
             {"use": "required", "name": "friction"},
         ),
-        "resilience": MemberSpec_(
+        MemberSpec_(
             "resilience",
             "xs:float",
             0,
             0,
             {"use": "required", "name": "resilience"},
         ),
-        "cutoff": MemberSpec_(
+        MemberSpec_(
             "cutoff", "xs:float", 0, 0, {"use": "required", "name": "cutoff"}
         ),
-        "ParticleDomain": MemberSpec_(
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -20657,7 +22635,7 @@ class BounceType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -20697,6 +22675,36 @@ class BounceType(GeneratedsSuper):
             return BounceType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_ParticleDomain(self):
+        return self.ParticleDomain
+
+    def set_ParticleDomain(self, ParticleDomain):
+        self.ParticleDomain = ParticleDomain
+
+    def get_friction(self):
+        return self.friction
+
+    def set_friction(self, friction):
+        self.friction = friction
+
+    def get_resilience(self):
+        return self.resilience
+
+    def set_resilience(self, resilience):
+        self.resilience = resilience
+
+    def get_cutoff(self):
+        return self.cutoff
+
+    def set_cutoff(self, cutoff):
+        self.cutoff = cutoff
 
     def _hasContent(self):
         if self.ParticleDomain is not None:
@@ -20863,15 +22871,15 @@ class BounceType(GeneratedsSuper):
 
 class GravityType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "direction": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "direction",
             "vector",
             0,
             0,
             {"use": "required", "name": "direction"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -20897,6 +22905,18 @@ class GravityType(GeneratedsSuper):
             return GravityType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_direction(self):
+        return self.direction
+
+    def set_direction(self, direction):
+        self.direction = direction
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -21055,25 +23075,25 @@ class GravityType(GeneratedsSuper):
 
 class DampingType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "direction": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "direction",
             "vector",
             0,
             0,
             {"use": "required", "name": "direction"},
         ),
-        "vel_low": MemberSpec_(
+        MemberSpec_(
             "vel_low", "xs:float", 0, 1, {"use": "optional", "name": "vel_low"}
         ),
-        "vel_high": MemberSpec_(
+        MemberSpec_(
             "vel_high",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "vel_high"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -21110,6 +23130,30 @@ class DampingType(GeneratedsSuper):
             return DampingType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_direction(self):
+        return self.direction
+
+    def set_direction(self, direction):
+        self.direction = direction
+
+    def get_vel_low(self):
+        return self.vel_low
+
+    def set_vel_low(self, vel_low):
+        self.vel_low = vel_low
+
+    def get_vel_high(self):
+        return self.vel_high
+
+    def set_vel_high(self, vel_high):
+        self.vel_high = vel_high
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -21290,25 +23334,25 @@ class DampingType(GeneratedsSuper):
 
 class GravitateType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "magnitude": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "magnitude",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "magnitude"},
         ),
-        "epsilon": MemberSpec_(
+        MemberSpec_(
             "epsilon", "xs:float", 0, 1, {"use": "optional", "name": "epsilon"}
         ),
-        "max_radius": MemberSpec_(
+        MemberSpec_(
             "max_radius",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "max_radius"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -21345,6 +23389,30 @@ class GravitateType(GeneratedsSuper):
             return GravitateType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_magnitude(self):
+        return self.magnitude
+
+    def set_magnitude(self, magnitude):
+        self.magnitude = magnitude
+
+    def get_epsilon(self):
+        return self.epsilon
+
+    def set_epsilon(self, epsilon):
+        self.epsilon = epsilon
+
+    def get_max_radius(self):
+        return self.max_radius
+
+    def set_max_radius(self, max_radius):
+        self.max_radius = max_radius
 
     def _hasContent(self):
         if ():
@@ -21486,25 +23554,25 @@ class GravitateType(GeneratedsSuper):
 
 class FollowType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "magnitude": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "magnitude",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "magnitude"},
         ),
-        "epsilon": MemberSpec_(
+        MemberSpec_(
             "epsilon", "xs:float", 0, 1, {"use": "optional", "name": "epsilon"}
         ),
-        "max_radius": MemberSpec_(
+        MemberSpec_(
             "max_radius",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "max_radius"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -21541,6 +23609,30 @@ class FollowType(GeneratedsSuper):
             return FollowType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_magnitude(self):
+        return self.magnitude
+
+    def set_magnitude(self, magnitude):
+        self.magnitude = magnitude
+
+    def get_epsilon(self):
+        return self.epsilon
+
+    def set_epsilon(self, epsilon):
+        self.epsilon = epsilon
+
+    def get_max_radius(self):
+        return self.max_radius
+
+    def set_max_radius(self, max_radius):
+        self.max_radius = max_radius
 
     def _hasContent(self):
         if ():
@@ -21682,25 +23774,25 @@ class FollowType(GeneratedsSuper):
 
 class MatchVelType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "magnitude": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "magnitude",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "magnitude"},
         ),
-        "epsilon": MemberSpec_(
+        MemberSpec_(
             "epsilon", "xs:float", 0, 1, {"use": "optional", "name": "epsilon"}
         ),
-        "max_radius": MemberSpec_(
+        MemberSpec_(
             "max_radius",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "max_radius"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -21737,6 +23829,30 @@ class MatchVelType(GeneratedsSuper):
             return MatchVelType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_magnitude(self):
+        return self.magnitude
+
+    def set_magnitude(self, magnitude):
+        self.magnitude = magnitude
+
+    def get_epsilon(self):
+        return self.epsilon
+
+    def set_epsilon(self, epsilon):
+        self.epsilon = epsilon
+
+    def get_max_radius(self):
+        return self.max_radius
+
+    def set_max_radius(self, max_radius):
+        self.max_radius = max_radius
 
     def _hasContent(self):
         if ():
@@ -21878,28 +23994,28 @@ class MatchVelType(GeneratedsSuper):
 
 class OrbitPointType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "center": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "center", "vector", 0, 0, {"use": "required", "name": "center"}
         ),
-        "magnitude": MemberSpec_(
+        MemberSpec_(
             "magnitude",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "magnitude"},
         ),
-        "epsilon": MemberSpec_(
+        MemberSpec_(
             "epsilon", "xs:float", 0, 1, {"use": "optional", "name": "epsilon"}
         ),
-        "max_radius": MemberSpec_(
+        MemberSpec_(
             "max_radius",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "max_radius"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -21939,6 +24055,36 @@ class OrbitPointType(GeneratedsSuper):
             return OrbitPointType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_center(self):
+        return self.center
+
+    def set_center(self, center):
+        self.center = center
+
+    def get_magnitude(self):
+        return self.magnitude
+
+    def set_magnitude(self, magnitude):
+        self.magnitude = magnitude
+
+    def get_epsilon(self):
+        return self.epsilon
+
+    def set_epsilon(self, epsilon):
+        self.epsilon = epsilon
+
+    def get_max_radius(self):
+        return self.max_radius
+
+    def set_max_radius(self, max_radius):
+        self.max_radius = max_radius
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -22131,8 +24277,8 @@ class OrbitPointType(GeneratedsSuper):
 
 class JetType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ParticleDomain": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -22144,7 +24290,7 @@ class JetType(GeneratedsSuper):
             },
             None,
         ),
-        "AccelDomain": MemberSpec_(
+        MemberSpec_(
             "AccelDomain",
             "ParticleDomainType",
             0,
@@ -22152,7 +24298,7 @@ class JetType(GeneratedsSuper):
             {"name": "AccelDomain", "type": "ParticleDomainType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -22184,6 +24330,24 @@ class JetType(GeneratedsSuper):
             return JetType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_ParticleDomain(self):
+        return self.ParticleDomain
+
+    def set_ParticleDomain(self, ParticleDomain):
+        self.ParticleDomain = ParticleDomain
+
+    def get_AccelDomain(self):
+        return self.AccelDomain
+
+    def set_AccelDomain(self, AccelDomain):
+        self.AccelDomain = AccelDomain
 
     def _hasContent(self):
         if self.ParticleDomain is not None or self.AccelDomain is not None:
@@ -22333,17 +24497,17 @@ class JetType(GeneratedsSuper):
 
 class TargetColorType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "color": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "color", "color", 0, 0, {"use": "required", "name": "color"}
         ),
-        "alpha": MemberSpec_(
+        MemberSpec_(
             "alpha", "xs:float", 0, 1, {"use": "optional", "name": "alpha"}
         ),
-        "scale": MemberSpec_(
+        MemberSpec_(
             "scale", "xs:float", 0, 0, {"use": "required", "name": "scale"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -22375,6 +24539,30 @@ class TargetColorType(GeneratedsSuper):
             return TargetColorType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_color(self):
+        return self.color
+
+    def set_color(self, color):
+        self.color = color
+
+    def get_alpha(self):
+        return self.alpha
+
+    def set_alpha(self, alpha):
+        self.alpha = alpha
+
+    def get_scale(self):
+        return self.scale
+
+    def set_scale(self, scale):
+        self.scale = scale
 
     def validate_color(self, value):
         # Validate type color, a restriction on xs:string.
@@ -22552,11 +24740,11 @@ class TargetColorType(GeneratedsSuper):
 
 class PointType5(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "point": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "point", "vector", 0, 0, {"use": "required", "name": "point"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -22582,6 +24770,18 @@ class PointType5(GeneratedsSuper):
             return PointType5(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_point(self):
+        return self.point
+
+    def set_point(self, point):
+        self.point = point
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -22739,14 +24939,10 @@ class PointType5(GeneratedsSuper):
 
 class LineType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "p1": MemberSpec_(
-            "p1", "vector", 0, 0, {"use": "required", "name": "p1"}
-        ),
-        "p2": MemberSpec_(
-            "p2", "vector", 0, 0, {"use": "required", "name": "p2"}
-        ),
-    }
+    member_data_items_ = [
+        MemberSpec_("p1", "vector", 0, 0, {"use": "required", "name": "p1"}),
+        MemberSpec_("p2", "vector", 0, 0, {"use": "required", "name": "p2"}),
+    ]
     subclass = None
     superclass = None
 
@@ -22772,6 +24968,24 @@ class LineType(GeneratedsSuper):
             return LineType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_p1(self):
+        return self.p1
+
+    def set_p1(self, p1):
+        self.p1 = p1
+
+    def get_p2(self):
+        return self.p2
+
+    def set_p2(self, p2):
+        self.p2 = p2
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -22946,17 +25160,11 @@ class LineType(GeneratedsSuper):
 
 class TriangleType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "p1": MemberSpec_(
-            "p1", "vector", 0, 0, {"use": "required", "name": "p1"}
-        ),
-        "p2": MemberSpec_(
-            "p2", "vector", 0, 0, {"use": "required", "name": "p2"}
-        ),
-        "p3": MemberSpec_(
-            "p3", "vector", 0, 0, {"use": "required", "name": "p3"}
-        ),
-    }
+    member_data_items_ = [
+        MemberSpec_("p1", "vector", 0, 0, {"use": "required", "name": "p1"}),
+        MemberSpec_("p2", "vector", 0, 0, {"use": "required", "name": "p2"}),
+        MemberSpec_("p3", "vector", 0, 0, {"use": "required", "name": "p3"}),
+    ]
     subclass = None
     superclass = None
 
@@ -22988,6 +25196,30 @@ class TriangleType(GeneratedsSuper):
             return TriangleType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_p1(self):
+        return self.p1
+
+    def set_p1(self, p1):
+        self.p1 = p1
+
+    def get_p2(self):
+        return self.p2
+
+    def set_p2(self, p2):
+        self.p2 = p2
+
+    def get_p3(self):
+        return self.p3
+
+    def set_p3(self, p3):
+        self.p3 = p3
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -23179,14 +25411,14 @@ class TriangleType(GeneratedsSuper):
 
 class PlaneType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "point": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "point", "vector", 0, 0, {"use": "required", "name": "point"}
         ),
-        "normal": MemberSpec_(
+        MemberSpec_(
             "normal", "vector", 0, 0, {"use": "required", "name": "normal"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -23216,6 +25448,24 @@ class PlaneType(GeneratedsSuper):
             return PlaneType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_point(self):
+        return self.point
+
+    def set_point(self, point):
+        self.point = point
+
+    def get_normal(self):
+        return self.normal
+
+    def set_normal(self, normal):
+        self.normal = normal
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -23390,17 +25640,17 @@ class PlaneType(GeneratedsSuper):
 
 class RectType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "point": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "point", "vector", 0, 0, {"use": "required", "name": "point"}
         ),
-        "u_dir": MemberSpec_(
+        MemberSpec_(
             "u_dir", "vector", 0, 0, {"use": "required", "name": "u-dir"}
         ),
-        "v_dir": MemberSpec_(
+        MemberSpec_(
             "v_dir", "vector", 0, 0, {"use": "required", "name": "v-dir"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -23435,6 +25685,30 @@ class RectType(GeneratedsSuper):
             return RectType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_point(self):
+        return self.point
+
+    def set_point(self, point):
+        self.point = point
+
+    def get_u_dir(self):
+        return self.u_dir
+
+    def set_u_dir(self, u_dir):
+        self.u_dir = u_dir
+
+    def get_v_dir(self):
+        return self.v_dir
+
+    def set_v_dir(self, v_dir):
+        self.v_dir = v_dir
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -23626,14 +25900,10 @@ class RectType(GeneratedsSuper):
 
 class BoxType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "p1": MemberSpec_(
-            "p1", "vector", 0, 0, {"use": "required", "name": "p1"}
-        ),
-        "p2": MemberSpec_(
-            "p2", "vector", 0, 0, {"use": "required", "name": "p2"}
-        ),
-    }
+    member_data_items_ = [
+        MemberSpec_("p1", "vector", 0, 0, {"use": "required", "name": "p1"}),
+        MemberSpec_("p2", "vector", 0, 0, {"use": "required", "name": "p2"}),
+    ]
     subclass = None
     superclass = None
 
@@ -23659,6 +25929,24 @@ class BoxType(GeneratedsSuper):
             return BoxType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_p1(self):
+        return self.p1
+
+    def set_p1(self, p1):
+        self.p1 = p1
+
+    def get_p2(self):
+        return self.p2
+
+    def set_p2(self, p2):
+        self.p2 = p2
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -23833,21 +26121,21 @@ class BoxType(GeneratedsSuper):
 
 class SphereType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "center": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "center", "vector", 0, 0, {"use": "required", "name": "center"}
         ),
-        "radius": MemberSpec_(
+        MemberSpec_(
             "radius", "xs:float", 0, 0, {"use": "required", "name": "radius"}
         ),
-        "radius_inner": MemberSpec_(
+        MemberSpec_(
             "radius_inner",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "radius-inner"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -23884,6 +26172,30 @@ class SphereType(GeneratedsSuper):
             return SphereType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_center(self):
+        return self.center
+
+    def set_center(self, center):
+        self.center = center
+
+    def get_radius(self):
+        return self.radius
+
+    def set_radius(self, radius):
+        self.radius = radius
+
+    def get_radius_inner(self):
+        return self.radius_inner
+
+    def set_radius_inner(self, radius_inner):
+        self.radius_inner = radius_inner
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -24068,24 +26380,20 @@ class SphereType(GeneratedsSuper):
 
 class CylinderType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "p1": MemberSpec_(
-            "p1", "vector", 0, 0, {"use": "required", "name": "p1"}
-        ),
-        "p2": MemberSpec_(
-            "p2", "vector", 0, 0, {"use": "required", "name": "p2"}
-        ),
-        "radius": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_("p1", "vector", 0, 0, {"use": "required", "name": "p1"}),
+        MemberSpec_("p2", "vector", 0, 0, {"use": "required", "name": "p2"}),
+        MemberSpec_(
             "radius", "xs:float", 0, 0, {"use": "required", "name": "radius"}
         ),
-        "radius_inner": MemberSpec_(
+        MemberSpec_(
             "radius_inner",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "radius-inner"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -24125,6 +26433,36 @@ class CylinderType(GeneratedsSuper):
             return CylinderType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_p1(self):
+        return self.p1
+
+    def set_p1(self, p1):
+        self.p1 = p1
+
+    def get_p2(self):
+        return self.p2
+
+    def set_p2(self, p2):
+        self.p2 = p2
+
+    def get_radius(self):
+        return self.radius
+
+    def set_radius(self, radius):
+        self.radius = radius
+
+    def get_radius_inner(self):
+        return self.radius_inner
+
+    def set_radius_inner(self, radius_inner):
+        self.radius_inner = radius_inner
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -24326,28 +26664,28 @@ class CylinderType(GeneratedsSuper):
 
 class ConeType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "base_center": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "base_center",
             "vector",
             0,
             0,
             {"use": "required", "name": "base-center"},
         ),
-        "apex": MemberSpec_(
+        MemberSpec_(
             "apex", "vector", 0, 0, {"use": "required", "name": "apex"}
         ),
-        "radius": MemberSpec_(
+        MemberSpec_(
             "radius", "xs:float", 0, 0, {"use": "required", "name": "radius"}
         ),
-        "radius_inner": MemberSpec_(
+        MemberSpec_(
             "radius_inner",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "radius-inner"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -24385,6 +26723,36 @@ class ConeType(GeneratedsSuper):
             return ConeType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_base_center(self):
+        return self.base_center
+
+    def set_base_center(self, base_center):
+        self.base_center = base_center
+
+    def get_apex(self):
+        return self.apex
+
+    def set_apex(self, apex):
+        self.apex = apex
+
+    def get_radius(self):
+        return self.radius
+
+    def set_radius(self, radius):
+        self.radius = radius
+
+    def get_radius_inner(self):
+        return self.radius_inner
+
+    def set_radius_inner(self, radius_inner):
+        self.radius_inner = radius_inner
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -24590,14 +26958,14 @@ class ConeType(GeneratedsSuper):
 
 class BlobType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "center": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "center", "vector", 0, 0, {"use": "required", "name": "center"}
         ),
-        "stdev": MemberSpec_(
+        MemberSpec_(
             "stdev", "xs:float", 0, 1, {"use": "optional", "name": "stdev"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -24623,6 +26991,24 @@ class BlobType(GeneratedsSuper):
             return BlobType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_center(self):
+        return self.center
+
+    def set_center(self, center):
+        self.center = center
+
+    def get_stdev(self):
+        return self.stdev
+
+    def set_stdev(self, stdev):
+        self.stdev = stdev
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -24791,24 +27177,24 @@ class BlobType(GeneratedsSuper):
 
 class DiscType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "center": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "center", "vector", 0, 0, {"use": "required", "name": "center"}
         ),
-        "normal": MemberSpec_(
+        MemberSpec_(
             "normal", "vector", 0, 0, {"use": "required", "name": "normal"}
         ),
-        "radius": MemberSpec_(
+        MemberSpec_(
             "radius", "xs:float", 0, 0, {"use": "required", "name": "radius"}
         ),
-        "radius_inner": MemberSpec_(
+        MemberSpec_(
             "radius_inner",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "radius-inner"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -24846,6 +27232,36 @@ class DiscType(GeneratedsSuper):
             return DiscType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_center(self):
+        return self.center
+
+    def set_center(self, center):
+        self.center = center
+
+    def get_normal(self):
+        return self.normal
+
+    def set_normal(self, normal):
+        self.normal = normal
+
+    def get_radius(self):
+        return self.radius
+
+    def set_radius(self, radius):
+        self.radius = radius
+
+    def get_radius_inner(self):
+        return self.radius_inner
+
+    def set_radius_inner(self, radius_inner):
+        self.radius_inner = radius_inner
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -25047,11 +27463,11 @@ class DiscType(GeneratedsSuper):
 
 class BackgroundType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "color": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "color", "color", 0, 1, {"use": "optional", "name": "color"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -25077,6 +27493,18 @@ class BackgroundType(GeneratedsSuper):
             return BackgroundType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_color(self):
+        return self.color
+
+    def set_color(self, color):
+        self.color = color
 
     def validate_color(self, value):
         # Validate type color, a restriction on xs:string.
@@ -25232,22 +27660,22 @@ class BackgroundType(GeneratedsSuper):
 
 class WandNavigationType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "allow_rotation": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "allow_rotation",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "allow-rotation"},
         ),
-        "allow_movement": MemberSpec_(
+        MemberSpec_(
             "allow_movement",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "allow-movement"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -25281,6 +27709,24 @@ class WandNavigationType(GeneratedsSuper):
             return WandNavigationType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_allow_rotation(self):
+        return self.allow_rotation
+
+    def set_allow_rotation(self, allow_rotation):
+        self.allow_rotation = allow_rotation
+
+    def get_allow_movement(self):
+        return self.allow_movement
+
+    def set_allow_movement(self, allow_movement):
+        self.allow_movement = allow_movement
 
     def _hasContent(self):
         if ():
@@ -25424,14 +27870,14 @@ class WandNavigationType(GeneratedsSuper):
 
 class AxisType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "rotation": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "rotation", "vector", 0, 1, {"use": "optional", "name": "rotation"}
         ),
-        "angle": MemberSpec_(
+        MemberSpec_(
             "angle", "xs:double", 0, 1, {"use": "optional", "name": "angle"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -25463,6 +27909,24 @@ class AxisType(GeneratedsSuper):
             return AxisType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_rotation(self):
+        return self.rotation
+
+    def set_rotation(self, rotation):
+        self.rotation = rotation
+
+    def get_angle(self):
+        return self.angle
+
+    def set_angle(self, angle):
+        self.angle = angle
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -25634,14 +28098,12 @@ class AxisType(GeneratedsSuper):
 
 class LookAtType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "target": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "target", "vector", 0, 1, {"use": "optional", "name": "target"}
         ),
-        "up": MemberSpec_(
-            "up", "vector", 0, 1, {"use": "optional", "name": "up"}
-        ),
-    }
+        MemberSpec_("up", "vector", 0, 1, {"use": "optional", "name": "up"}),
+    ]
     subclass = None
     superclass = None
 
@@ -25675,6 +28137,24 @@ class LookAtType(GeneratedsSuper):
             return LookAtType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_target(self):
+        return self.target
+
+    def set_target(self, target):
+        self.target = target
+
+    def get_up(self):
+        return self.up
+
+    def set_up(self, up):
+        self.up = up
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -25852,14 +28332,14 @@ class LookAtType(GeneratedsSuper):
 
 class NormalType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "normal": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "normal", "vector", 0, 1, {"use": "optional", "name": "normal"}
         ),
-        "angle": MemberSpec_(
+        MemberSpec_(
             "angle", "xs:double", 0, 1, {"use": "optional", "name": "angle"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -25893,6 +28373,24 @@ class NormalType(GeneratedsSuper):
             return NormalType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_normal(self):
+        return self.normal
+
+    def set_normal(self, normal):
+        self.normal = normal
+
+    def get_angle(self):
+        return self.angle
+
+    def set_angle(self, angle):
+        self.angle = angle
 
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
@@ -26064,8 +28562,8 @@ class NormalType(GeneratedsSuper):
 
 class MovementType6(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Placement": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Placement",
             "Placement",
             0,
@@ -26073,7 +28571,7 @@ class MovementType6(GeneratedsSuper):
             {"name": "Placement", "ref": "Placement", "type": "Placement"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -26099,6 +28597,18 @@ class MovementType6(GeneratedsSuper):
             return MovementType6(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Placement(self):
+        return self.Placement
+
+    def set_Placement(self, Placement):
+        self.Placement = Placement
 
     def _hasContent(self):
         if self.Placement is not None:
@@ -26229,8 +28739,8 @@ class MovementType6(GeneratedsSuper):
 
 class MoveRelType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Placement": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Placement",
             "Placement",
             0,
@@ -26238,7 +28748,7 @@ class MoveRelType(GeneratedsSuper):
             {"name": "Placement", "ref": "Placement", "type": "Placement"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -26264,6 +28774,18 @@ class MoveRelType(GeneratedsSuper):
             return MoveRelType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_Placement(self):
+        return self.Placement
+
+    def set_Placement(self, Placement):
+        self.Placement = Placement
 
     def _hasContent(self):
         if self.Placement is not None:
@@ -26394,11 +28916,11 @@ class MoveRelType(GeneratedsSuper):
 
 class SoundType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "action": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "action", "actionType", 0, 1, {"use": "optional", "name": "action"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -26424,6 +28946,18 @@ class SoundType(GeneratedsSuper):
             return SoundType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_action(self):
+        return self.action
+
+    def set_action(self, action):
+        self.action = action
 
     def validate_actionType(self, value):
         # Validate type actionType, a restriction on xs:string.
@@ -26574,8 +29108,8 @@ class SoundType(GeneratedsSuper):
 
 class LinkChangeType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "link_on": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "link_on",
             "link_onType",
             0,
@@ -26583,7 +29117,7 @@ class LinkChangeType(GeneratedsSuper):
             {"name": "link_on", "type": "link_onType"},
             21,
         ),
-        "link_off": MemberSpec_(
+        MemberSpec_(
             "link_off",
             "link_offType",
             0,
@@ -26591,7 +29125,7 @@ class LinkChangeType(GeneratedsSuper):
             {"name": "link_off", "type": "link_offType"},
             21,
         ),
-        "activate": MemberSpec_(
+        MemberSpec_(
             "activate",
             "activateType",
             0,
@@ -26599,7 +29133,7 @@ class LinkChangeType(GeneratedsSuper):
             {"name": "activate", "type": "activateType"},
             21,
         ),
-        "activate_if_on": MemberSpec_(
+        MemberSpec_(
             "activate_if_on",
             "activate_if_onType",
             0,
@@ -26607,7 +29141,7 @@ class LinkChangeType(GeneratedsSuper):
             {"name": "activate_if_on", "type": "activate_if_onType"},
             21,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -26647,6 +29181,36 @@ class LinkChangeType(GeneratedsSuper):
             return LinkChangeType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
+
+    def get_link_on(self):
+        return self.link_on
+
+    def set_link_on(self, link_on):
+        self.link_on = link_on
+
+    def get_link_off(self):
+        return self.link_off
+
+    def set_link_off(self, link_off):
+        self.link_off = link_off
+
+    def get_activate(self):
+        return self.activate
+
+    def set_activate(self, activate):
+        self.activate = activate
+
+    def get_activate_if_on(self):
+        return self.activate_if_on
+
+    def set_activate_if_on(self, activate_if_on):
+        self.activate_if_on = activate_if_on
 
     def _hasContent(self):
         if (
@@ -26839,7 +29403,7 @@ class LinkChangeType(GeneratedsSuper):
 
 class link_onType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -26863,6 +29427,12 @@ class link_onType(GeneratedsSuper):
             return link_onType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -26971,7 +29541,7 @@ class link_onType(GeneratedsSuper):
 
 class link_offType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -26995,6 +29565,12 @@ class link_offType(GeneratedsSuper):
             return link_offType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -27103,7 +29679,7 @@ class link_offType(GeneratedsSuper):
 
 class activateType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -27127,6 +29703,12 @@ class activateType(GeneratedsSuper):
             return activateType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -27235,7 +29817,7 @@ class activateType(GeneratedsSuper):
 
 class activate_if_onType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -27259,6 +29841,12 @@ class activate_if_onType(GeneratedsSuper):
             return activate_if_onType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
+
+    def get_ns_prefix_(self):
+        return self.ns_prefix_
+
+    def set_ns_prefix_(self, ns_prefix):
+        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():

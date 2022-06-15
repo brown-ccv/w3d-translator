@@ -1,19 +1,41 @@
-from generateDS.classes import Story
+from fileinput import filename
+from pathlib import Path
+
+import generateDS.classes as classes
 
 
-def clean_xml(story: Story) -> Story:
+def clean_xml(story: classes.Story) -> classes.Story:
     # TODO: Loop over all over story instead of path then color then vector
     # TODO: Manage choice first? Utility function
 
     # Convert each path type to a Path
-    print(story.ObjectRoot.Object)
     for i in range(len(story.ObjectRoot.Object)):
-        print(i, story.ObjectRoot.Object[i].Content.get_choice())
-        # TODO: Object.Content.Image.filename
-        # TODO: Object.Content.StereoImage.left_image
-        # TODO: Object.Content.StereoImage.right_image
-        # TODO: Object.Content.Model
+        choice = story.ObjectRoot.Object[i].Content.get_choice()
+        match type(choice):
+            case classes.TextType:
+                print("TEXT")
+            case classes.ImageType:
+                # TODO: Object.Content.Image.filename
+                choice.filename = Path(choice.filename)
+                story.ObjectRoot.Object[i].Content.set_choice(choice)
+            case classes.StereoImageType:
+                # TODO: Object.Content.StereoImage.left_image
+                # TODO: Object.Content.StereoImage.right_image
+                choice.left_image = Path(choice.left_image)
+                choice.right_image = Path(choice.right_image)
+                story.ObjectRoot.Object[i].Content.set_choice(choice)
+            case classes.ModelType:
+                # TODO: Object.Content.Model.filename
+                choice.filename = Path(choice.filename)
+                story.ObjectRoot.Object[i].Content.set_choice(choice)
+            case _:
+                pass
+    
     # TODO: Sound.filename
+    for i in range(len(story.SoundRoot.Sound)):
+        filename = story.SoundRoot.Sound[i].get_filename()
+        filename = Path(filename)
+        story.SoundRoot.Sound[i].set_filename(filename)
 
     # Convert each color type to a tuple of integers, assert 0 <= [int] <= 255
     # TODO: Object.Color
