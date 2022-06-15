@@ -106,7 +106,7 @@ choice_classes = (
 
 choice_names = "|".join(choice_classes)
 
-getchoice = MethodSpec(
+get_choice = MethodSpec(
     name="get_choice",
     source="""
     # Loop over the members, returning the class property that is not None
@@ -119,7 +119,7 @@ getchoice = MethodSpec(
     class_names=choice_names,
 )
 
-setchoice = MethodSpec(
+set_choice = MethodSpec(
     name="set_choice",
     source="""
     # Loop over members, updating the property that is not None
@@ -132,40 +132,11 @@ setchoice = MethodSpec(
 )
 
 # TODO Custom get_choice and set_choice (new name)
-# EventTrigger (includes either HeadTrack or MoveTrack)
-# Placement (includes either Axis, LookAt, or Normal)
-
-#
-# Sample method specification #3
-#
-method3 = MethodSpec(
-    name="set_up",
-    source="""\
-    def set_up(self):
-        global types, counter
-        import types as types_module
-        types = types_module
-        counter = 0
-""",
-    # Attach only to the root class: people.
-    class_names=r"^people$",
-)
+# EventTrigger (includes either HeadTrack or MoveTrack) (43)
+# Placement (includes either Axis, LookAt, or Normal) (44)
 
 
-method4 = MethodSpec(
-    name="method4",
-    source="""\
-        def method2(self, max):
-            if self.max > max:
-                return False
-            else:
-                return True
-    """,
-    class_names=r"^Truck$|^Boat$",
-)
-
-
-METHOD_SPECS = (getchoice, setchoice)
+METHOD_SPECS = (get_choice, set_choice)
 
 
 def test():

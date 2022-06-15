@@ -6,24 +6,18 @@ import generateDS.subclasses as sub
 
 
 def clean_xml(story: classes.Story) -> classes.Story:
+    # TODO: Convert <xs:simpleType>s (45)
 
-    # ! ADDITIONAL FUNCTIONS
-    # EventTrigger (includes either HeadTrack or MoveTrack)
-    # Placement (includes either Axis, LookAt, or Normal)
-
+    # Convert each <xs:simpleType name="file" type to a Path
     convert_paths(story)
 
-    # for object in story.ObjectRoot.Object:
-    # print(type(object.Content.get_choice()))
-
-    """Type convert each <xs:simpleType name="color"> type to a vector of integers
+    """Convert each <xs:simpleType name="color"> type to a vector of integers
 
     Object.color
     Object.Link.EnabledColor
     Object.Link.SelectedColor
     """
-
-    # Convert each color type to a tuple of integers, assert 0 <= [int] <= 255
+    # TODO: Convert 
     object: classes.Object
     for object in story.ObjectRoot.Object:
         color = str_to_color(object.Color)
