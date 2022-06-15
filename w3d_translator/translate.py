@@ -6,23 +6,15 @@ import generateDS.subclasses as sub
 
 
 def clean_xml(story: classes.Story) -> classes.Story:
-    # TODO: Manage choice method (get_choice and set_choice)
-    """
-        # Loop over the members, returning the class property that is not None
-        def get_choice(self):
-            for member in self.member_data_items_:
-                temp = getattr(self, member.get_name())
-                if temp is not None:
-                    return temp
 
-        # Loop over members, updating the property that is not None
-        def set_choice(self, value):
-            for member in self.member_data_items_:
-                if getattr(self, member.get_name()) is not None:
-                    setattr(self, member.get_name(), value)
-    """
+    #! ADDITIONAL FUNCTIONS
+    # EventTrigger (includes either HeadTrack or MoveTrack)
+    # Placement (includes either Axis, LookAt, or Normal)
 
     convert_paths(story)
+
+    # for object in story.ObjectRoot.Object:
+    # print(type(object.Content.get_choice()))
 
     """Type convert each <xs:simpleType name="color"> type to a vector of integers
 

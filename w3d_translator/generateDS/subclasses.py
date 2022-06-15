@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
 #
-# Generated Wed Jun 15 13:02:17 2022 by generateDS.py version 2.40.13.
+# Generated Wed Jun 15 16:56:16 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
 #   ('-o', 'w3d_translator/generateDS/classes.py')
 #   ('-s', 'w3d_translator/generateDS/subclasses.py')
 #   ('--super', 'generateDS.classes')
+#   ('-u', '.\\w3d_translator\\generateDS\\user_methods.py')
 #   ('--member-specs', 'list')
 #   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
 #
@@ -15,7 +16,7 @@
 #   ./schema/caveschema.xsd
 #
 # Command line:
-#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --member-specs="list" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
+#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" -u ".\w3d_translator\generateDS\user_methods.py" --member-specs="list" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
@@ -163,19 +164,6 @@ class ContentSub(supermod.Content):
             ParticleSystem,
             **kwargs_
         )
-
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
-
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
 
 
 supermod.Content.subclass = ContentSub
