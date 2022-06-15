@@ -6,10 +6,22 @@ import generateDS.subclasses as sub
 
 
 def clean_xml(story: classes.Story) -> classes.Story:
-    # TODO: Loop over all over story instead of path then color then vector
-    # TODO: Manage choice first? Utility function
+    # TODO: Manage choice method (get_choice and set_choice)
+    """
+        # Loop over the members, returning the class property that is not None
+        def get_choice(self):
+            for member in self.member_data_items_:
+                temp = getattr(self, member.get_name())
+                if temp is not None:
+                    return temp
 
-    # story = convert_paths(story)
+        # Loop over members, updating the property that is not None
+        def set_choice(self, value):
+            for member in self.member_data_items_:
+                if getattr(self, member.get_name()) is not None:
+                    setattr(self, member.get_name(), value)
+    """
+
     convert_paths(story)
 
     """Type convert each <xs:simpleType name="color"> type to a vector of integers
@@ -33,13 +45,14 @@ def clean_xml(story: classes.Story) -> classes.Story:
             selected_color = str_to_color(link.SelectedColor)
             link.set_SelectedColor(selected_color)
 
+    # TODO: Object.LinkRoot.Link.Actions.ObjectChange.Transition.Color
     # TODO: ParticleAction.TargetColor.color
     # TODO: Global.Background.color
     # TODO: Timeline.TimedActions.GroupRef.Transition.Color
     # TODO: Timeline.TimedActions.ObjectChange.Transition.Color
     # TODO: EventTrigger.Actions.GroupRef.Transition.Color
     # TODO: EventTrigger.Actions.ObjectChange.Transition.Color
-    # TODO: Object.LinkRoot.Link.Actions.ObjectChange.Transition.Color
+
     # I think LinkRoot will be an array?
 
     # Convert each vector type to a tuple of floats
