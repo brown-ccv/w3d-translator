@@ -7,7 +7,7 @@ import generateDS.subclasses as sub
 
 def clean_xml(story: classes.Story) -> classes.Story:
 
-    #! ADDITIONAL FUNCTIONS
+    # ! ADDITIONAL FUNCTIONS
     # EventTrigger (includes either HeadTrack or MoveTrack)
     # Placement (includes either Axis, LookAt, or Normal)
 
@@ -45,8 +45,6 @@ def clean_xml(story: classes.Story) -> classes.Story:
     # TODO: EventTrigger.Actions.GroupRef.Transition.Color
     # TODO: EventTrigger.Actions.ObjectChange.Transition.Color
 
-    # I think LinkRoot will be an array?
-
     # Convert each vector type to a tuple of floats
     # TODO: EventTrigger.HeadTrack.Direction.PointTarget.point
     # TODO: EventTrigger.HeadTrack.Direction.DirectionTarget.direction
@@ -79,6 +77,7 @@ def clean_xml(story: classes.Story) -> classes.Story:
     # TODO: ParticleDomain.Disc.center
     # TODO: ParticleDomain.Disc.normal
 
+    # ! Repeat everywhere Placement is used
     # Placement is used in PlacementRoot
     # Placement is used in Object
     # Placement is used in ActionsType.MoveCave (Note: multiple ActionsType)
