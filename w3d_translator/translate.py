@@ -12,10 +12,27 @@ def clean_xml(story: classes.Story) -> classes.Story:
     # story = convert_paths(story)
     convert_paths(story)
 
+    """Type convert each <xs:simpleType name="color"> type to a vector of integers
+
+    Object.color
+    Object.Link.EnabledColor
+    Object.Link.SelectedColor
+    """
+
     # Convert each color type to a tuple of integers, assert 0 <= [int] <= 255
-    # TODO: Object.Color
-    # TODO: Object.Link.EnabledColor
-    # TODO: Object.Link.SelectedColor
+    object: classes.Object
+    for object in story.ObjectRoot.Object:
+        color = str_to_color(object.Color)
+        object.set_Color(color)
+
+        if object.LinkRoot is not None:
+            link: classes.Link = object.LinkRoot.Link
+            enabled_color = str_to_color(link.EnabledColor)
+            link.set_EnabledColor(enabled_color)
+
+            selected_color = str_to_color(link.SelectedColor)
+            link.set_SelectedColor(selected_color)
+
     # TODO: ParticleAction.TargetColor.color
     # TODO: Global.Background.color
     # TODO: Timeline.TimedActions.GroupRef.Transition.Color
@@ -132,3 +149,9 @@ def name_dictionary(container: list) -> dict:
     """
     if container is not None:
         return dict((item.name, item) for item in container)
+
+
+# TODO: Add to each color tag?
+def str_to_color(string: str) -> tuple:
+    string = string.split(",")
+    return tuple(int(x) for x in string)
