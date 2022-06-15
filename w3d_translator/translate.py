@@ -6,10 +6,13 @@ def clean_xml(story: Story) -> Story:
     # TODO: Manage choice first? Utility function
 
     # Convert each path type to a Path
-    # TODO: Object.Content.Image
-    # TODO: Object.Content.StereoImage.left_image
-    # TODO: Object.Content.StereoImage.right_image
-    # TODO: Object.Content.Model
+    print(story.ObjectRoot.Object)
+    for i in range(len(story.ObjectRoot.Object)):
+        print(i, story.ObjectRoot.Object[i].Content.get_choice())
+        # TODO: Object.Content.Image.filename
+        # TODO: Object.Content.StereoImage.left_image
+        # TODO: Object.Content.StereoImage.right_image
+        # TODO: Object.Content.Model
     # TODO: Sound.filename
 
     # Convert each color type to a tuple of integers, assert 0 <= [int] <= 255
@@ -23,7 +26,7 @@ def clean_xml(story: Story) -> Story:
     # TODO: EventTrigger.Actions.GroupRef.Transition.Color
     # TODO: EventTrigger.Actions.ObjectChange.Transition.Color
     # TODO: Object.LinkRoot.Link.Actions.ObjectChange.Transition.Color
-        # I think LinkRoot will be an array?
+    # I think LinkRoot will be an array?
 
     # Convert each vector type to a tuple of floats
     # TODO: EventTrigger.HeadTrack.Direction.PointTarget.point
@@ -62,8 +65,8 @@ def clean_xml(story: Story) -> Story:
     # Placement is used in ActionsType.MoveCave (Note: multiple ActionsType)
     # Placement is used in Camera
     # Placement is used in Transition.Movement (note: multiple Transition)
-        # ActionsType.ObjectChange
-        # ActionsType.GroupRef
+    # ActionsType.ObjectChange
+    # ActionsType.GroupRef
     # Placement is used in Transition.MoveRel (note: multiple Transition)
     # TODO: Placement.Position
     # TODO: Placement.Axis.rotation

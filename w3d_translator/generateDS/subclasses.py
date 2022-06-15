@@ -164,6 +164,27 @@ class ContentSub(supermod.Content):
             ParticleSystem,
             **kwargs_
         )
+    def get_choice(self):
+        # print(self.member_data_items_.get_name())
+        for member in self.member_data_items_:
+            print(member)
+            # temp = getattr(self, member.get_name())
+        
+        if(self.None_ is not None):
+            return "NONE"
+        elif(self.Text is not None):
+            return "TEXT"
+        elif(self.Image is not None):
+            return "IMAGE"
+        elif(self.StereoImage is not None):
+            return "STEREO IMAGE"
+        elif(self.Model is not None):
+            return "MODEL"
+        elif(self.Light is not None):
+            return "LIGHT"
+        elif(self.ParticleSystem is not None):
+            return "PARTICLE SYSTEM"
+        
 
 
 supermod.Content.subclass = ContentSub

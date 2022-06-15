@@ -53,6 +53,21 @@
                 </Text>
             </Content>
         </Object>
+        <Object name="kings4_right">
+            <Visible>false</Visible>
+            <Color>255,255,255</Color>
+            <Lighting>false</Lighting>
+            <ClickThrough>false</ClickThrough>
+            <AroundSelfAxis>false</AroundSelfAxis>
+            <Scale>4</Scale>
+            <Placement>
+                   <RelativeTo>RightWall</RelativeTo>
+                   <Position>(8, -0.5, 0)</Position>
+            </Placement>
+            <Content>
+                   <Image filename="./images/kings_white.png"/>
+            </Content>
+     </Object>
     </ObjectRoot>
     <GroupRoot>
         <Group name="title">
