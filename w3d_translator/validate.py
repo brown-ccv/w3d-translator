@@ -41,7 +41,7 @@ def validate_out(dir: Path, force: bool):
 
 # Validate xml file against caveschema.xsd
 def validate_xml(file: Path):
-    """ Validate an xml file against caveschema.xsd"""
+    """Validate an xml file against caveschema.xsd"""
     try:
         SCHEMA.assertValid(etree.parse(file))
     except etree.DocumentInvalid as error:

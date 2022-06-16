@@ -1,5 +1,4 @@
 import typer
-import doctest
 from pathlib import Path
 
 import generateDS.classes as generateDS
@@ -37,15 +36,6 @@ def farewell():
     typer.echo()
     typer.echo("Translation Complete!")
     exit(0)
-
-
-# Run doctests
-def run_tests():
-    typer.echo("Running Tests")
-    import translate as module
-
-    doctest.testmod(module)
-    typer.echo()
 
 
 # Translate a single project
@@ -93,10 +83,6 @@ def main(
     Translate W3D xml projects in in_dir to Unity projects in out_dir
     """
     greeting(in_dir, out_dir)
-
-    # Run tests
-    if dev:
-        run_tests()
 
     # Create output folder
     try:
