@@ -2,14 +2,13 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Thu Jun 16 09:39:52 2022 by generateDS.py version 2.40.13.
+# Generated Thu Jun 16 13:46:59 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
 #   ('-o', 'w3d_translator/generateDS/classes.py')
 #   ('-s', 'w3d_translator/generateDS/subclasses.py')
 #   ('--super', 'generateDS.classes')
-#   ('-u', '.\\w3d_translator\\generateDS\\user_methods.py')
 #   ('--use-getter-setter', 'none')
 #   ('--member-specs', 'list')
 #   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
@@ -18,7 +17,7 @@
 #   ./schema/caveschema.xsd
 #
 # Command line:
-#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" -u ".\w3d_translator\generateDS\user_methods.py" --use-getter-setter="none" --member-specs="list" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
+#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="list" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
@@ -2712,20 +2711,8 @@ class Content(GeneratedsSuper):
             self.ParticleSystem = obj_
             obj_.original_tagname_ = "ParticleSystem"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class Content
+# end class Content
 
 
 class Link(GeneratedsSuper):
@@ -3376,20 +3363,8 @@ class Group(GeneratedsSuper):
             self.GroupName.append(obj_)
             obj_.original_tagname_ = "Groups"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class Group
+# end class Group
 
 
 class ObjectName(GeneratedsSuper):
@@ -4309,20 +4284,8 @@ class ActionsType(GeneratedsSuper):
             self.Restart = obj_
             obj_.original_tagname_ = "Restart"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class ActionsType
+# end class ActionsType
 
 
 class TimerChange(GeneratedsSuper):
@@ -4604,20 +4567,8 @@ class TimerChange(GeneratedsSuper):
             self.start_if_not_started = obj_
             obj_.original_tagname_ = "start_if_not_started"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class TimerChange
+# end class TimerChange
 
 
 class ObjectChange(GeneratedsSuper):
@@ -7209,20 +7160,8 @@ class ParticleAction(GeneratedsSuper):
             self.TargetVel = value_
             self.TargetVel_nsprefix_ = child_.prefix
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class ParticleAction
+# end class ParticleAction
 
 
 class RandomVel(GeneratedsSuper):
@@ -8334,20 +8273,8 @@ class ParticleDomainType(GeneratedsSuper):
             self.Disc = obj_
             obj_.original_tagname_ = "Disc"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class ParticleDomainType
+# end class ParticleDomainType
 
 
 class Global(GeneratedsSuper):
@@ -9624,20 +9551,8 @@ class Transition(GeneratedsSuper):
             self.LinkChange = obj_
             obj_.original_tagname_ = "LinkChange"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class Transition
+# end class Transition
 
 
 class ObjectRootType(GeneratedsSuper):
@@ -12574,20 +12489,8 @@ class LightType(GeneratedsSuper):
             self.Spot = obj_
             obj_.original_tagname_ = "Spot"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class LightType
+# end class LightType
 
 
 class PointType(GeneratedsSuper):
@@ -14450,20 +14353,8 @@ class MoveCaveType(GeneratedsSuper):
             self.Placement = obj_
             obj_.original_tagname_ = "Placement"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class MoveCaveType
+# end class MoveCaveType
 
 
 class RelativeType(GeneratedsSuper):
@@ -15583,20 +15474,8 @@ class ModeType(GeneratedsSuper):
             self.Fixed = obj_
             obj_.original_tagname_ = "Fixed"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class ModeType
+# end class ModeType
 
 
 class PositionalType(GeneratedsSuper):
@@ -16128,20 +16007,8 @@ class RepeatType(GeneratedsSuper):
             # validate type RepeatNumType
             self.validate_RepeatNumType(self.RepeatNum)
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class RepeatType
+# end class RepeatType
 
 
 class NoRepeatType(GeneratedsSuper):
@@ -17073,20 +16940,8 @@ class PositionType(GeneratedsSuper):
             self.Box = obj_
             obj_.original_tagname_ = "Box"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class PositionType
+# end class PositionType
 
 
 class AnywhereType(GeneratedsSuper):
@@ -17482,20 +17337,8 @@ class DirectionType(GeneratedsSuper):
             self.None_ = obj_
             obj_.original_tagname_ = "None"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class DirectionType
+# end class DirectionType
 
 
 class PointTargetType(GeneratedsSuper):
@@ -18584,20 +18427,8 @@ class SourceType(GeneratedsSuper):
             self.GroupObj = obj_
             obj_.original_tagname_ = "GroupObj"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class SourceType
+# end class SourceType
 
 
 class ObjectRefType(GeneratedsSuper):
@@ -19153,20 +18984,8 @@ class MovementType(GeneratedsSuper):
             self.Outside = obj_
             obj_.original_tagname_ = "Outside"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class MovementType
+# end class MovementType
 
 
 class InsideType(GeneratedsSuper):
@@ -20013,20 +19832,8 @@ class RemoveConditionType(GeneratedsSuper):
             self.Velocity = obj_
             obj_.original_tagname_ = "Velocity"
 
-    # Loop over the members, returning the class property that is not None
-    def get_choice(self):
-        for member in self.member_data_items_:
-            temp = getattr(self, member.get_name())
-            if temp is not None:
-                return temp
 
-    # Loop over members, updating the property that is not None
-    def set_choice(self, value):
-        for member in self.member_data_items_:
-            if getattr(self, member.get_name()) is not None:
-                setattr(self, member.get_name(), value)
-
-    # end class RemoveConditionType
+# end class RemoveConditionType
 
 
 class AgeType(GeneratedsSuper):
