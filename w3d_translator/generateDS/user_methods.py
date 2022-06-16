@@ -131,10 +131,6 @@ set_choice = MethodSpec(
     class_names=choice_names,
 )
 
-# TODO Custom get_choice and set_choice (new name)
-# EventTrigger (includes either HeadTrack or MoveTrack) (43)
-# Placement (includes either Axis, LookAt, or Normal) (44)
-
 
 METHOD_SPECS = (get_choice, set_choice)
 
