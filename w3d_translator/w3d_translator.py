@@ -9,7 +9,7 @@ from unity import (
 )
 from validate import validate_project, validate_out, validate_xml
 from errors import ValidationError, XmlError, UnityError
-from translate import clean_xml
+from translate import translate_objects
 
 
 # Color string as cyan
@@ -67,9 +67,11 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             except XmlError as e:
                 typer.echo(red(e), err=True)
             else:
-                # Build Story dataclass and Unity project
+                # Build and clean Story
                 story = parse(file, silence=True)
-                clean_xml(story)
+
+                objects = translate_objects(story.ObjectRoot.Object)
+                print(objects)
 
                 build_project(unity_dir, story)
     except (ValidationError, UnityError) as e:

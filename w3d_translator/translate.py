@@ -1,33 +1,35 @@
+from typing import Tuple
+from uuid import uuid4 as uuid
+
 import generateDS.classes as classes
 
 
-def clean_xml(story: classes.Story) -> classes.Story:
-    # Convert each _Root property to a dictionary of that type
-    if story.ObjectRoot is not None:
-        story.ObjectRoot = name_dictionary(story.ObjectRoot.Object)
-    if story.GroupRoot is not None:
-        story.GroupRoot = name_dictionary(story.GroupRoot.Group)
-    if story.TimelineRoot is not None:
-        story.TimelineRoot = name_dictionary(story.TimelineRoot.Timeline)
-    if story.PlacementRoot is not None:
-        story.PlacementRoot = name_dictionary(story.PlacementRoot.Placement)
-    if story.SoundRoot is not None:
-        story.SoundRoot = name_dictionary(story.SoundRoot.Sound)
-    if story.EventRoot is not None:
-        story.EventRoot = name_dictionary(story.EventRoot.EventTrigger)
-    if story.ParticleActionRoot is not None:
-        story.ParticleActionRoot = name_dictionary(
-            story.ParticleActionRoot.ParticleActionList
-        )
+def translate_objects(objects: list):
+    game_objects = {}
+
+    object: classes.Object
+    for object in objects:
+        id = uuid()
+        name = object.name
+
+        game_objects[name] = object
+
+    return game_objects
 
 
-def name_dictionary(container: list) -> dict:
-    """Converts a list of classes into a dictionary
+def translate_path(string: str):
+    """Translate a <xs:simpleType name="path> type"""
+    pass
 
-    { key: [class.name], val: [class] }
-    """
-    if container is not None:
-        return dict((item.name, item) for item in container)
+
+def translate_color(string: str):
+    """Translate a <xs:simpleType name="color> type"""
+    pass
+
+
+def translate_vector(string: str):
+    """Translate a <xs:simpleType name="vector> type"""
+    pass
 
 
 def get_choice(obj, options=None):
