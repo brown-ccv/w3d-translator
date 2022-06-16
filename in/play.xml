@@ -14,7 +14,7 @@
                      <Placement>
                             <RelativeTo>Center</RelativeTo>
                             <Position>(0.0, 0.0, 0.0)</Position>
-                                   <LookAt target="(0.0, 0.0, -1.0)" up="(0.0, 1.0, 0.0)"/>
+                            <LookAt target="(0.0, 0.0, -1.0)" up="(0.0, 1.0, 0.0)" />
                      </Placement>
                      <Content>
                             <Text horiz-align="center" vert-align="center" depth="0.0">
@@ -28,11 +28,11 @@
                                    <EnabledColor>0,128,255</EnabledColor>
                                    <SelectedColor>255,0,0</SelectedColor>
                                    <Actions>
-                                                 <ObjectChange name="1">
-                                                        <Transition duration="1.0">
-                                                               <Sound action="Play Sound"/>
-                                                        </Transition>
-                                                 </ObjectChange>
+                                          <ObjectChange name="1">
+                                                 <Transition duration="1.0">
+                                                        <Sound action="Play Sound" />
+                                                 </Transition>
+                                          </ObjectChange>
                                    </Actions>
                             </Link>
                      </LinkRoot>
@@ -42,35 +42,35 @@
               <Placement name="Center">
                      <RelativeTo>Center</RelativeTo>
                      <Position>(0.0, 0.0, 0.0)</Position>
-                            <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0"/>
+                     <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0" />
               </Placement>
               <Placement name="FrontWall">
                      <RelativeTo>Center</RelativeTo>
                      <Position>(0.0, 0.0, -4.0)</Position>
-                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+                     <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)" />
               </Placement>
               <Placement name="LeftWall">
                      <RelativeTo>Center</RelativeTo>
                      <Position>(-4.0, 0.0, 0.0)</Position>
-                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+                     <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)" />
               </Placement>
               <Placement name="RightWall">
                      <RelativeTo>Center</RelativeTo>
                      <Position>(4.0, 0.0, 0.0)</Position>
-                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+                     <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)" />
               </Placement>
               <Placement name="FloorWall">
                      <RelativeTo>Center</RelativeTo>
                      <Position>(0.0, -4.0, 0.0)</Position>
-                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
+                     <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)" />
               </Placement>
        </PlacementRoot>
        <SoundRoot>
               <Sound name="./ding.wav" filename="./ding.wav" autostart="false">
                      <Repeat>
-                            <NoRepeat/>
+                            <NoRepeat />
                      </Repeat>
-                     <Settings freq="1.0" volume="1.0" pan="0.0"/>
+                     <Settings freq="1.0" volume="1.0" pan="0.0" />
               </Sound>
        </SoundRoot>
        <Global>
@@ -86,7 +86,7 @@
                             <Position>(0.0, 0.0, 0.0)</Position>
                      </Placement>
               </CaveCameraPos>
-              <Background color="0, 0, 0"/>
-              <WandNavigation allow-rotation="false" allow-movement="false"/>
+              <Background color="0, 0, 0" />
+              <WandNavigation allow-rotation="false" allow-movement="false" />
        </Global>
 </Story>
