@@ -1,5 +1,6 @@
 import generateDS.classes as classes
 
+
 def clean_xml(story: classes.Story) -> classes.Story:
     # Convert each _Root property to a dictionary of that type
     if story.ObjectRoot is not None:
@@ -27,6 +28,30 @@ def name_dictionary(container: list) -> dict:
     """
     if container is not None:
         return dict((item.name, item) for item in container)
+
+
+def get_choice(obj, options=None):
+    """Loop over options, returning the class property that is not None"""
+
+    # Use all members if custom list isn't given
+    if options is None:
+        options = obj.member_data_items_
+    for member in options:
+        temp = getattr(obj, member.get_name())
+        if temp is not None:
+            return temp
+
+
+def set_choice(obj, value, options=None):
+    """Loop over options, updating the property that is not None"""
+
+    # Use all members if custom list isn't given
+    if options is None:
+        options = obj.member_data_items_
+    for member in options:
+        if getattr(obj, member.get_name()) is not None:
+            setattr(obj, member.get_name(), value)
+
 
 def print_member_names(obj):
     """Helper function to print xml class properties"""
