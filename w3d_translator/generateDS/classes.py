@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Wed Jun 15 16:56:16 2022 by generateDS.py version 2.40.13.
+# Generated Thu Jun 16 09:39:52 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
@@ -10,6 +10,7 @@
 #   ('-s', 'w3d_translator/generateDS/subclasses.py')
 #   ('--super', 'generateDS.classes')
 #   ('-u', '.\\w3d_translator\\generateDS\\user_methods.py')
+#   ('--use-getter-setter', 'none')
 #   ('--member-specs', 'list')
 #   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
 #
@@ -17,7 +18,7 @@
 #   ./schema/caveschema.xsd
 #
 # Command line:
-#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" -u ".\w3d_translator\generateDS\user_methods.py" --member-specs="list" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
+#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" -u ".\w3d_translator\generateDS\user_methods.py" --use-getter-setter="none" --member-specs="list" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
@@ -1444,78 +1445,6 @@ class Story(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_ObjectRoot(self):
-        return self.ObjectRoot
-
-    def set_ObjectRoot(self, ObjectRoot):
-        self.ObjectRoot = ObjectRoot
-
-    def get_GroupRoot(self):
-        return self.GroupRoot
-
-    def set_GroupRoot(self, GroupRoot):
-        self.GroupRoot = GroupRoot
-
-    def get_TimelineRoot(self):
-        return self.TimelineRoot
-
-    def set_TimelineRoot(self, TimelineRoot):
-        self.TimelineRoot = TimelineRoot
-
-    def get_PlacementRoot(self):
-        return self.PlacementRoot
-
-    def set_PlacementRoot(self, PlacementRoot):
-        self.PlacementRoot = PlacementRoot
-
-    def get_SoundRoot(self):
-        return self.SoundRoot
-
-    def set_SoundRoot(self, SoundRoot):
-        self.SoundRoot = SoundRoot
-
-    def get_EventRoot(self):
-        return self.EventRoot
-
-    def set_EventRoot(self, EventRoot):
-        self.EventRoot = EventRoot
-
-    def get_ParticleActionRoot(self):
-        return self.ParticleActionRoot
-
-    def set_ParticleActionRoot(self, ParticleActionRoot):
-        self.ParticleActionRoot = ParticleActionRoot
-
-    def get_Global(self):
-        return self.Global
-
-    def set_Global(self, Global):
-        self.Global = Global
-
-    def get_About(self):
-        return self.About
-
-    def set_About(self, About):
-        self.About = About
-
-    def get_version(self):
-        return self.version
-
-    def set_version(self, version):
-        self.version = version
-
-    def get_last_xpath(self):
-        return self.last_xpath
-
-    def set_last_xpath(self, last_xpath):
-        self.last_xpath = last_xpath
-
     def _hasContent(self):
         if (
             self.ObjectRoot is not None
@@ -1982,78 +1911,6 @@ class Object(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Visible(self):
-        return self.Visible
-
-    def set_Visible(self, Visible):
-        self.Visible = Visible
-
-    def get_Color(self):
-        return self.Color
-
-    def set_Color(self, Color):
-        self.Color = Color
-
-    def get_Lighting(self):
-        return self.Lighting
-
-    def set_Lighting(self, Lighting):
-        self.Lighting = Lighting
-
-    def get_ClickThrough(self):
-        return self.ClickThrough
-
-    def set_ClickThrough(self, ClickThrough):
-        self.ClickThrough = ClickThrough
-
-    def get_AroundSelfAxis(self):
-        return self.AroundSelfAxis
-
-    def set_AroundSelfAxis(self, AroundSelfAxis):
-        self.AroundSelfAxis = AroundSelfAxis
-
-    def get_Scale(self):
-        return self.Scale
-
-    def set_Scale(self, Scale):
-        self.Scale = Scale
-
-    def get_SoundRef(self):
-        return self.SoundRef
-
-    def set_SoundRef(self, SoundRef):
-        self.SoundRef = SoundRef
-
-    def get_Placement(self):
-        return self.Placement
-
-    def set_Placement(self, Placement):
-        self.Placement = Placement
-
-    def get_Content(self):
-        return self.Content
-
-    def set_Content(self, Content):
-        self.Content = Content
-
-    def get_LinkRoot(self):
-        return self.LinkRoot
-
-    def set_LinkRoot(self, LinkRoot):
-        self.LinkRoot = LinkRoot
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
     def validate_color(self, value):
         result = True
         # Validate type color, a restriction on xs:string.
@@ -2085,9 +1942,7 @@ class Object(GeneratedsSuper):
                 result = False
         return result
 
-    validate_color_patterns_ = [
-        ["^(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\s*(\\d+)\\s*)$"]
-    ]
+    validate_color_patterns_ = [["^((\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+),?)$"]]
 
     def _hasContent(self):
         if (
@@ -2612,54 +2467,6 @@ class Content(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_None(self):
-        return self.None_
-
-    def set_None(self, None_):
-        self.None_ = None_
-
-    def get_Text(self):
-        return self.Text
-
-    def set_Text(self, Text):
-        self.Text = Text
-
-    def get_Image(self):
-        return self.Image
-
-    def set_Image(self, Image):
-        self.Image = Image
-
-    def get_StereoImage(self):
-        return self.StereoImage
-
-    def set_StereoImage(self, StereoImage):
-        self.StereoImage = StereoImage
-
-    def get_Model(self):
-        return self.Model
-
-    def set_Model(self, Model):
-        self.Model = Model
-
-    def get_Light(self):
-        return self.Light
-
-    def set_Light(self, Light):
-        self.Light = Light
-
-    def get_ParticleSystem(self):
-        return self.ParticleSystem
-
-    def set_ParticleSystem(self, ParticleSystem):
-        self.ParticleSystem = ParticleSystem
-
     def _hasContent(self):
         if (
             self.None_ is not None
@@ -3029,51 +2836,6 @@ class Link(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Enabled(self):
-        return self.Enabled
-
-    def set_Enabled(self, Enabled):
-        self.Enabled = Enabled
-
-    def get_RemainEnabled(self):
-        return self.RemainEnabled
-
-    def set_RemainEnabled(self, RemainEnabled):
-        self.RemainEnabled = RemainEnabled
-
-    def get_EnabledColor(self):
-        return self.EnabledColor
-
-    def set_EnabledColor(self, EnabledColor):
-        self.EnabledColor = EnabledColor
-
-    def get_SelectedColor(self):
-        return self.SelectedColor
-
-    def set_SelectedColor(self, SelectedColor):
-        self.SelectedColor = SelectedColor
-
-    def get_Actions(self):
-        return self.Actions
-
-    def set_Actions(self, Actions):
-        self.Actions = Actions
-
-    def add_Actions(self, value):
-        self.Actions.append(value)
-
-    def insert_Actions_at(self, index, value):
-        self.Actions.insert(index, value)
-
-    def replace_Actions_at(self, index, value):
-        self.Actions[index] = value
-
     def validate_color(self, value):
         result = True
         # Validate type color, a restriction on xs:string.
@@ -3105,9 +2867,7 @@ class Link(GeneratedsSuper):
                 result = False
         return result
 
-    validate_color_patterns_ = [
-        ["^(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\s*(\\d+)\\s*)$"]
-    ]
+    validate_color_patterns_ = [["^((\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+),?)$"]]
 
     def _hasContent(self):
         if (
@@ -3464,48 +3224,6 @@ class Group(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_ObjectName(self):
-        return self.ObjectName
-
-    def set_ObjectName(self, ObjectName):
-        self.ObjectName = ObjectName
-
-    def add_ObjectName(self, value):
-        self.ObjectName.append(value)
-
-    def insert_ObjectName_at(self, index, value):
-        self.ObjectName.insert(index, value)
-
-    def replace_ObjectName_at(self, index, value):
-        self.ObjectName[index] = value
-
-    def get_GroupName(self):
-        return self.GroupName
-
-    def set_GroupName(self, GroupName):
-        self.GroupName = GroupName
-
-    def add_GroupName(self, value):
-        self.GroupName.append(value)
-
-    def insert_GroupName_at(self, index, value):
-        self.GroupName.insert(index, value)
-
-    def replace_GroupName_at(self, index, value):
-        self.GroupName[index] = value
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
     def _hasContent(self):
         if self.ObjectName or self.GroupName:
             return True
@@ -3709,18 +3427,6 @@ class ObjectName(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
     def _hasContent(self):
         if ():
             return True
@@ -3872,18 +3578,6 @@ class GroupName(GeneratedsSuper):
             return GroupName(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
 
     def _hasContent(self):
         if ():
@@ -4066,39 +3760,6 @@ class Timeline(GeneratedsSuper):
             return Timeline(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_TimedActions(self):
-        return self.TimedActions
-
-    def set_TimedActions(self, TimedActions):
-        self.TimedActions = TimedActions
-
-    def add_TimedActions(self, value):
-        self.TimedActions.append(value)
-
-    def insert_TimedActions_at(self, index, value):
-        self.TimedActions.insert(index, value)
-
-    def replace_TimedActions_at(self, index, value):
-        self.TimedActions[index] = value
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
-    def get_start_immediately(self):
-        return self.start_immediately
-
-    def set_start_immediately(self, start_immediately):
-        self.start_immediately = start_immediately
 
     def _hasContent(self):
         if self.TimedActions:
@@ -4379,60 +4040,6 @@ class ActionsType(GeneratedsSuper):
             return ActionsType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_TimerChange(self):
-        return self.TimerChange
-
-    def set_TimerChange(self, TimerChange):
-        self.TimerChange = TimerChange
-
-    def get_ObjectChange(self):
-        return self.ObjectChange
-
-    def set_ObjectChange(self, ObjectChange):
-        self.ObjectChange = ObjectChange
-
-    def get_SoundRef(self):
-        return self.SoundRef
-
-    def set_SoundRef(self, SoundRef):
-        self.SoundRef = SoundRef
-
-    def get_GroupRef(self):
-        return self.GroupRef
-
-    def set_GroupRef(self, GroupRef):
-        self.GroupRef = GroupRef
-
-    def get_Event(self):
-        return self.Event
-
-    def set_Event(self, Event):
-        self.Event = Event
-
-    def get_MoveCave(self):
-        return self.MoveCave
-
-    def set_MoveCave(self, MoveCave):
-        self.MoveCave = MoveCave
-
-    def get_Restart(self):
-        return self.Restart
-
-    def set_Restart(self, Restart):
-        self.Restart = Restart
-
-    def get_extensiontype_(self):
-        return self.extensiontype_
-
-    def set_extensiontype_(self, extensiontype_):
-        self.extensiontype_ = extensiontype_
 
     def _hasContent(self):
         if (
@@ -4798,42 +4405,6 @@ class TimerChange(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_start(self):
-        return self.start
-
-    def set_start(self, start):
-        self.start = start
-
-    def get_stop(self):
-        return self.stop
-
-    def set_stop(self, stop):
-        self.stop = stop
-
-    def get_continue(self):
-        return self.continue_
-
-    def set_continue(self, continue_):
-        self.continue_ = continue_
-
-    def get_start_if_not_started(self):
-        return self.start_if_not_started
-
-    def set_start_if_not_started(self, start_if_not_started):
-        self.start_if_not_started = start_if_not_started
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
     def _hasContent(self):
         if (
             self.start is not None
@@ -5094,24 +4665,6 @@ class ObjectChange(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Transition(self):
-        return self.Transition
-
-    def set_Transition(self, Transition):
-        self.Transition = Transition
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
     def _hasContent(self):
         if self.Transition is not None:
             return True
@@ -5283,18 +4836,6 @@ class SoundRef(GeneratedsSuper):
             return SoundRef(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
 
     def _hasContent(self):
         if ():
@@ -5469,30 +5010,6 @@ class GroupRef(GeneratedsSuper):
             return GroupRef(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Transition(self):
-        return self.Transition
-
-    def set_Transition(self, Transition):
-        self.Transition = Transition
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
-    def get_random(self):
-        return self.random
-
-    def set_random(self, random):
-        self.random = random
 
     def validate_randomType(self, value):
         # Validate type randomType, a restriction on xs:string.
@@ -5763,48 +5280,6 @@ class Sound(GeneratedsSuper):
             return Sound(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Mode(self):
-        return self.Mode
-
-    def set_Mode(self, Mode):
-        self.Mode = Mode
-
-    def get_Repeat(self):
-        return self.Repeat
-
-    def set_Repeat(self, Repeat):
-        self.Repeat = Repeat
-
-    def get_Settings(self):
-        return self.Settings
-
-    def set_Settings(self, Settings):
-        self.Settings = Settings
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
-    def get_filename(self):
-        return self.filename
-
-    def set_filename(self, filename):
-        self.filename = filename
-
-    def get_autostart(self):
-        return self.autostart
-
-    def set_autostart(self, autostart):
-        self.autostart = autostart
 
     def validate_file(self, value):
         # Validate type file, a restriction on xs:string.
@@ -6146,63 +5621,6 @@ class EventTrigger(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_HeadTrack(self):
-        return self.HeadTrack
-
-    def set_HeadTrack(self, HeadTrack):
-        self.HeadTrack = HeadTrack
-
-    def get_MoveTrack(self):
-        return self.MoveTrack
-
-    def set_MoveTrack(self, MoveTrack):
-        self.MoveTrack = MoveTrack
-
-    def get_Actions(self):
-        return self.Actions
-
-    def set_Actions(self, Actions):
-        self.Actions = Actions
-
-    def add_Actions(self, value):
-        self.Actions.append(value)
-
-    def insert_Actions_at(self, index, value):
-        self.Actions.insert(index, value)
-
-    def replace_Actions_at(self, index, value):
-        self.Actions[index] = value
-
-    def get_enabled(self):
-        return self.enabled
-
-    def set_enabled(self, enabled):
-        self.enabled = enabled
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
-    def get_duration(self):
-        return self.duration
-
-    def set_duration(self, duration):
-        self.duration = duration
-
-    def get_remain_enabled(self):
-        return self.remain_enabled
-
-    def set_remain_enabled(self, remain_enabled):
-        self.remain_enabled = remain_enabled
-
     def _hasContent(self):
         if (
             self.HeadTrack is not None
@@ -6496,36 +5914,6 @@ class Box(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Movement(self):
-        return self.Movement
-
-    def set_Movement(self, Movement):
-        self.Movement = Movement
-
-    def get_ignore_Y(self):
-        return self.ignore_Y
-
-    def set_ignore_Y(self, ignore_Y):
-        self.ignore_Y = ignore_Y
-
-    def get_corner1(self):
-        return self.corner1
-
-    def set_corner1(self, corner1):
-        self.corner1 = corner1
-
-    def get_corner2(self):
-        return self.corner2
-
-    def set_corner2(self, corner2):
-        self.corner2 = corner2
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -6556,7 +5944,7 @@ class Box(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -6765,24 +6153,6 @@ class Event(GeneratedsSuper):
             return Event(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_enable(self):
-        return self.enable
-
-    def set_enable(self, enable):
-        self.enable = enable
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
 
     def _hasContent(self):
         if ():
@@ -6998,51 +6368,6 @@ class ParticleActionList(GeneratedsSuper):
             return ParticleActionList(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Source(self):
-        return self.Source
-
-    def set_Source(self, Source):
-        self.Source = Source
-
-    def get_Vel(self):
-        return self.Vel
-
-    def set_Vel(self, Vel):
-        self.Vel = Vel
-
-    def get_ParticleAction(self):
-        return self.ParticleAction
-
-    def set_ParticleAction(self, ParticleAction):
-        self.ParticleAction = ParticleAction
-
-    def add_ParticleAction(self, value):
-        self.ParticleAction.append(value)
-
-    def insert_ParticleAction_at(self, index, value):
-        self.ParticleAction.insert(index, value)
-
-    def replace_ParticleAction_at(self, index, value):
-        self.ParticleAction[index] = value
-
-    def get_RemoveCondition(self):
-        return self.RemoveCondition
-
-    def set_RemoveCondition(self, RemoveCondition):
-        self.RemoveCondition = RemoveCondition
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
 
     def _hasContent(self):
         if (
@@ -7441,102 +6766,6 @@ class ParticleAction(GeneratedsSuper):
             return ParticleAction(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Avoid(self):
-        return self.Avoid
-
-    def set_Avoid(self, Avoid):
-        self.Avoid = Avoid
-
-    def get_Bounce(self):
-        return self.Bounce
-
-    def set_Bounce(self, Bounce):
-        self.Bounce = Bounce
-
-    def get_Gravity(self):
-        return self.Gravity
-
-    def set_Gravity(self, Gravity):
-        self.Gravity = Gravity
-
-    def get_Damping(self):
-        return self.Damping
-
-    def set_Damping(self, Damping):
-        self.Damping = Damping
-
-    def get_Gravitate(self):
-        return self.Gravitate
-
-    def set_Gravitate(self, Gravitate):
-        self.Gravitate = Gravitate
-
-    def get_Follow(self):
-        return self.Follow
-
-    def set_Follow(self, Follow):
-        self.Follow = Follow
-
-    def get_MatchVel(self):
-        return self.MatchVel
-
-    def set_MatchVel(self, MatchVel):
-        self.MatchVel = MatchVel
-
-    def get_OrbitPoint(self):
-        return self.OrbitPoint
-
-    def set_OrbitPoint(self, OrbitPoint):
-        self.OrbitPoint = OrbitPoint
-
-    def get_Jet(self):
-        return self.Jet
-
-    def set_Jet(self, Jet):
-        self.Jet = Jet
-
-    def get_RandomVel(self):
-        return self.RandomVel
-
-    def set_RandomVel(self, RandomVel):
-        self.RandomVel = RandomVel
-
-    def get_RandomAccel(self):
-        return self.RandomAccel
-
-    def set_RandomAccel(self, RandomAccel):
-        self.RandomAccel = RandomAccel
-
-    def get_RandomDisplace(self):
-        return self.RandomDisplace
-
-    def set_RandomDisplace(self, RandomDisplace):
-        self.RandomDisplace = RandomDisplace
-
-    def get_TargetColor(self):
-        return self.TargetColor
-
-    def set_TargetColor(self, TargetColor):
-        self.TargetColor = TargetColor
-
-    def get_TargetSize(self):
-        return self.TargetSize
-
-    def set_TargetSize(self, TargetSize):
-        self.TargetSize = TargetSize
-
-    def get_TargetVel(self):
-        return self.TargetVel
-
-    def set_TargetVel(self, TargetVel):
-        self.TargetVel = TargetVel
 
     def _hasContent(self):
         if (
@@ -8023,12 +7252,6 @@ class RandomVel(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -8160,12 +7383,6 @@ class RandomAccel(GeneratedsSuper):
             return RandomAccel(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -8299,12 +7516,6 @@ class RandomDisplace(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -8437,12 +7648,6 @@ class TargetSize(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -8574,12 +7779,6 @@ class TargetVel(GeneratedsSuper):
             return TargetVel(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -8806,78 +8005,6 @@ class ParticleDomainType(GeneratedsSuper):
             return ParticleDomainType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Point(self):
-        return self.Point
-
-    def set_Point(self, Point):
-        self.Point = Point
-
-    def get_Line(self):
-        return self.Line
-
-    def set_Line(self, Line):
-        self.Line = Line
-
-    def get_Triangle(self):
-        return self.Triangle
-
-    def set_Triangle(self, Triangle):
-        self.Triangle = Triangle
-
-    def get_Plane(self):
-        return self.Plane
-
-    def set_Plane(self, Plane):
-        self.Plane = Plane
-
-    def get_Rect(self):
-        return self.Rect
-
-    def set_Rect(self, Rect):
-        self.Rect = Rect
-
-    def get_Box(self):
-        return self.Box
-
-    def set_Box(self, Box):
-        self.Box = Box
-
-    def get_Sphere(self):
-        return self.Sphere
-
-    def set_Sphere(self, Sphere):
-        self.Sphere = Sphere
-
-    def get_Cylinder(self):
-        return self.Cylinder
-
-    def set_Cylinder(self, Cylinder):
-        self.Cylinder = Cylinder
-
-    def get_Cone(self):
-        return self.Cone
-
-    def set_Cone(self, Cone):
-        self.Cone = Cone
-
-    def get_Blob(self):
-        return self.Blob
-
-    def set_Blob(self, Blob):
-        self.Blob = Blob
-
-    def get_Disc(self):
-        return self.Disc
-
-    def set_Disc(self, Disc):
-        self.Disc = Disc
 
     def _hasContent(self):
         if (
@@ -9299,36 +8426,6 @@ class Global(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Camera(self):
-        return self.Camera
-
-    def set_Camera(self, Camera):
-        self.Camera = Camera
-
-    def get_CaveCamera(self):
-        return self.CaveCamera
-
-    def set_CaveCamera(self, CaveCamera):
-        self.CaveCamera = CaveCamera
-
-    def get_Background(self):
-        return self.Background
-
-    def set_Background(self, Background):
-        self.Background = Background
-
-    def get_WandNavigation(self):
-        return self.WandNavigation
-
-    def set_WandNavigation(self, WandNavigation):
-        self.WandNavigation = WandNavigation
-
     def _hasContent(self):
         if (
             self.Camera is not None
@@ -9561,24 +8658,6 @@ class Camera(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Placement(self):
-        return self.Placement
-
-    def set_Placement(self, Placement):
-        self.Placement = Placement
-
-    def get_far_clip(self):
-        return self.far_clip
-
-    def set_far_clip(self, far_clip):
-        self.far_clip = far_clip
-
     def _hasContent(self):
         if self.Placement is not None:
             return True
@@ -9806,48 +8885,6 @@ class Placement(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_RelativeTo(self):
-        return self.RelativeTo
-
-    def set_RelativeTo(self, RelativeTo):
-        self.RelativeTo = RelativeTo
-
-    def get_Position(self):
-        return self.Position
-
-    def set_Position(self, Position):
-        self.Position = Position
-
-    def get_Axis(self):
-        return self.Axis
-
-    def set_Axis(self, Axis):
-        self.Axis = Axis
-
-    def get_LookAt(self):
-        return self.LookAt
-
-    def set_LookAt(self, LookAt):
-        self.LookAt = LookAt
-
-    def get_Normal(self):
-        return self.Normal
-
-    def set_Normal(self, Normal):
-        self.Normal = Normal
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
     def validate_vector(self, value):
         result = True
         # Validate type vector, a restriction on xs:string.
@@ -9881,7 +8918,7 @@ class Placement(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -10261,60 +9298,6 @@ class Transition(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Visible(self):
-        return self.Visible
-
-    def set_Visible(self, Visible):
-        self.Visible = Visible
-
-    def get_Movement(self):
-        return self.Movement
-
-    def set_Movement(self, Movement):
-        self.Movement = Movement
-
-    def get_MoveRel(self):
-        return self.MoveRel
-
-    def set_MoveRel(self, MoveRel):
-        self.MoveRel = MoveRel
-
-    def get_Color(self):
-        return self.Color
-
-    def set_Color(self, Color):
-        self.Color = Color
-
-    def get_Scale(self):
-        return self.Scale
-
-    def set_Scale(self, Scale):
-        self.Scale = Scale
-
-    def get_Sound(self):
-        return self.Sound
-
-    def set_Sound(self, Sound):
-        self.Sound = Sound
-
-    def get_LinkChange(self):
-        return self.LinkChange
-
-    def set_LinkChange(self, LinkChange):
-        self.LinkChange = LinkChange
-
-    def get_duration(self):
-        return self.duration
-
-    def set_duration(self, duration):
-        self.duration = duration
-
     def validate_color(self, value):
         result = True
         # Validate type color, a restriction on xs:string.
@@ -10346,9 +9329,7 @@ class Transition(GeneratedsSuper):
                 result = False
         return result
 
-    validate_color_patterns_ = [
-        ["^(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\s*(\\d+)\\s*)$"]
-    ]
+    validate_color_patterns_ = [["^((\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+),?)$"]]
 
     def _hasContent(self):
         if (
@@ -10706,27 +9687,6 @@ class ObjectRootType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Object(self):
-        return self.Object
-
-    def set_Object(self, Object):
-        self.Object = Object
-
-    def add_Object(self, value):
-        self.Object.append(value)
-
-    def insert_Object_at(self, index, value):
-        self.Object.insert(index, value)
-
-    def replace_Object_at(self, index, value):
-        self.Object[index] = value
-
     def _hasContent(self):
         if self.Object:
             return True
@@ -10900,27 +9860,6 @@ class GroupRootType(GeneratedsSuper):
             return GroupRootType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Group(self):
-        return self.Group
-
-    def set_Group(self, Group):
-        self.Group = Group
-
-    def add_Group(self, value):
-        self.Group.append(value)
-
-    def insert_Group_at(self, index, value):
-        self.Group.insert(index, value)
-
-    def replace_Group_at(self, index, value):
-        self.Group[index] = value
 
     def _hasContent(self):
         if self.Group:
@@ -11096,27 +10035,6 @@ class TimelineRootType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Timeline(self):
-        return self.Timeline
-
-    def set_Timeline(self, Timeline):
-        self.Timeline = Timeline
-
-    def add_Timeline(self, value):
-        self.Timeline.append(value)
-
-    def insert_Timeline_at(self, index, value):
-        self.Timeline.insert(index, value)
-
-    def replace_Timeline_at(self, index, value):
-        self.Timeline[index] = value
-
     def _hasContent(self):
         if self.Timeline:
             return True
@@ -11289,27 +10207,6 @@ class PlacementRootType(GeneratedsSuper):
             return PlacementRootType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Placement(self):
-        return self.Placement
-
-    def set_Placement(self, Placement):
-        self.Placement = Placement
-
-    def add_Placement(self, value):
-        self.Placement.append(value)
-
-    def insert_Placement_at(self, index, value):
-        self.Placement.insert(index, value)
-
-    def replace_Placement_at(self, index, value):
-        self.Placement[index] = value
 
     def _hasContent(self):
         if self.Placement:
@@ -11485,27 +10382,6 @@ class SoundRootType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Sound(self):
-        return self.Sound
-
-    def set_Sound(self, Sound):
-        self.Sound = Sound
-
-    def add_Sound(self, value):
-        self.Sound.append(value)
-
-    def insert_Sound_at(self, index, value):
-        self.Sound.insert(index, value)
-
-    def replace_Sound_at(self, index, value):
-        self.Sound[index] = value
-
     def _hasContent(self):
         if self.Sound:
             return True
@@ -11679,27 +10555,6 @@ class EventRootType(GeneratedsSuper):
             return EventRootType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_EventTrigger(self):
-        return self.EventTrigger
-
-    def set_EventTrigger(self, EventTrigger):
-        self.EventTrigger = EventTrigger
-
-    def add_EventTrigger(self, value):
-        self.EventTrigger.append(value)
-
-    def insert_EventTrigger_at(self, index, value):
-        self.EventTrigger.insert(index, value)
-
-    def replace_EventTrigger_at(self, index, value):
-        self.EventTrigger[index] = value
 
     def _hasContent(self):
         if self.EventTrigger:
@@ -11877,27 +10732,6 @@ class ParticleActionRootType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_ParticleActionList(self):
-        return self.ParticleActionList
-
-    def set_ParticleActionList(self, ParticleActionList):
-        self.ParticleActionList = ParticleActionList
-
-    def add_ParticleActionList(self, value):
-        self.ParticleActionList.append(value)
-
-    def insert_ParticleActionList_at(self, index, value):
-        self.ParticleActionList.insert(index, value)
-
-    def replace_ParticleActionList_at(self, index, value):
-        self.ParticleActionList[index] = value
-
     def _hasContent(self):
         if self.ParticleActionList:
             return True
@@ -12063,18 +10897,6 @@ class AboutType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_news(self):
-        return self.news
-
-    def set_news(self, news):
-        self.news = news
-
     def _hasContent(self):
         if ():
             return True
@@ -12232,18 +11054,6 @@ class LinkRootType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Link(self):
-        return self.Link
-
-    def set_Link(self, Link):
-        self.Link = Link
-
     def _hasContent(self):
         if self.Link is not None:
             return True
@@ -12395,12 +11205,6 @@ class NoneType(GeneratedsSuper):
             return NoneType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -12579,42 +11383,6 @@ class TextType(GeneratedsSuper):
             return TextType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_text(self):
-        return self.text
-
-    def set_text(self, text):
-        self.text = text
-
-    def get_horiz_align(self):
-        return self.horiz_align
-
-    def set_horiz_align(self, horiz_align):
-        self.horiz_align = horiz_align
-
-    def get_vert_align(self):
-        return self.vert_align
-
-    def set_vert_align(self, vert_align):
-        self.vert_align = vert_align
-
-    def get_font(self):
-        return self.font
-
-    def set_font(self, font):
-        self.font = font
-
-    def get_depth(self):
-        return self.depth
-
-    def set_depth(self, depth):
-        self.depth = depth
 
     def validate_horiz_alignType(self, value):
         # Validate type horiz-alignType, a restriction on xs:string.
@@ -12908,18 +11676,6 @@ class ImageType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_filename(self):
-        return self.filename
-
-    def set_filename(self, filename):
-        self.filename = filename
-
     def validate_file(self, value):
         # Validate type file, a restriction on xs:string.
         if (
@@ -13106,24 +11862,6 @@ class StereoImageType(GeneratedsSuper):
             return StereoImageType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_left_image(self):
-        return self.left_image
-
-    def set_left_image(self, left_image):
-        self.left_image = left_image
-
-    def get_right_image(self):
-        return self.right_image
-
-    def set_right_image(self, right_image):
-        self.right_image = right_image
 
     def validate_file(self, value):
         # Validate type file, a restriction on xs:string.
@@ -13336,24 +12074,6 @@ class ModelType(GeneratedsSuper):
             return ModelType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_filename(self):
-        return self.filename
-
-    def set_filename(self, filename):
-        self.filename = filename
-
-    def get_check_collisions(self):
-        return self.check_collisions
-
-    def set_check_collisions(self, check_collisions):
-        self.check_collisions = check_collisions
 
     def validate_file(self, value):
         # Validate type file, a restriction on xs:string.
@@ -13623,60 +12343,6 @@ class LightType(GeneratedsSuper):
             return LightType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Point(self):
-        return self.Point
-
-    def set_Point(self, Point):
-        self.Point = Point
-
-    def get_Directional(self):
-        return self.Directional
-
-    def set_Directional(self, Directional):
-        self.Directional = Directional
-
-    def get_Spot(self):
-        return self.Spot
-
-    def set_Spot(self, Spot):
-        self.Spot = Spot
-
-    def get_diffuse(self):
-        return self.diffuse
-
-    def set_diffuse(self, diffuse):
-        self.diffuse = diffuse
-
-    def get_specular(self):
-        return self.specular
-
-    def set_specular(self, specular):
-        self.specular = specular
-
-    def get_const_atten(self):
-        return self.const_atten
-
-    def set_const_atten(self, const_atten):
-        self.const_atten = const_atten
-
-    def get_lin_atten(self):
-        return self.lin_atten
-
-    def set_lin_atten(self, lin_atten):
-        self.lin_atten = lin_atten
-
-    def get_quad_atten(self):
-        return self.quad_atten
-
-    def set_quad_atten(self, quad_atten):
-        self.quad_atten = quad_atten
 
     def _hasContent(self):
         if (
@@ -13951,12 +12617,6 @@ class PointType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -14088,12 +12748,6 @@ class DirectionalType(GeneratedsSuper):
             return DirectionalType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -14230,18 +12884,6 @@ class SpotType(GeneratedsSuper):
             return SpotType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_angle(self):
-        return self.angle
-
-    def set_angle(self, angle):
-        self.angle = angle
 
     def _hasContent(self):
         if ():
@@ -14444,48 +13086,6 @@ class ParticleSystemType(GeneratedsSuper):
             return ParticleSystemType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_max_particles(self):
-        return self.max_particles
-
-    def set_max_particles(self, max_particles):
-        self.max_particles = max_particles
-
-    def get_actions_name(self):
-        return self.actions_name
-
-    def set_actions_name(self, actions_name):
-        self.actions_name = actions_name
-
-    def get_particle_group(self):
-        return self.particle_group
-
-    def set_particle_group(self, particle_group):
-        self.particle_group = particle_group
-
-    def get_look_at_camera(self):
-        return self.look_at_camera
-
-    def set_look_at_camera(self, look_at_camera):
-        self.look_at_camera = look_at_camera
-
-    def get_sequential(self):
-        return self.sequential
-
-    def set_sequential(self, sequential):
-        self.sequential = sequential
-
-    def get_speed(self):
-        return self.speed
-
-    def set_speed(self, speed):
-        self.speed = speed
 
     def _hasContent(self):
         if ():
@@ -14757,18 +13357,6 @@ class ActionsType1(ActionsType):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Clicks(self):
-        return self.Clicks
-
-    def set_Clicks(self, Clicks):
-        self.Clicks = Clicks
-
     def _hasContent(self):
         if self.Clicks is not None or super(ActionsType1, self)._hasContent():
             return True
@@ -14959,24 +13547,6 @@ class ClicksType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Any(self):
-        return self.Any
-
-    def set_Any(self, Any):
-        self.Any = Any
-
-    def get_NumClicks(self):
-        return self.NumClicks
-
-    def set_NumClicks(self, NumClicks):
-        self.NumClicks = NumClicks
-
     def _hasContent(self):
         if self.Any is not None or self.NumClicks is not None:
             return True
@@ -15148,12 +13718,6 @@ class AnyType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -15302,24 +13866,6 @@ class NumClicksType(GeneratedsSuper):
             return NumClicksType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_num_clicks(self):
-        return self.num_clicks
-
-    def set_num_clicks(self, num_clicks):
-        self.num_clicks = num_clicks
-
-    def get_reset(self):
-        return self.reset
-
-    def set_reset(self, reset):
-        self.reset = reset
 
     def _hasContent(self):
         if ():
@@ -15509,18 +14055,6 @@ class TimedActionsType(ActionsType):
             return TimedActionsType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_seconds_time(self):
-        return self.seconds_time
-
-    def set_seconds_time(self, seconds_time):
-        self.seconds_time = seconds_time
 
     def _hasContent(self):
         if super(TimedActionsType, self)._hasContent():
@@ -15742,36 +14276,6 @@ class MoveCaveType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Relative(self):
-        return self.Relative
-
-    def set_Relative(self, Relative):
-        self.Relative = Relative
-
-    def get_Absolute(self):
-        return self.Absolute
-
-    def set_Absolute(self, Absolute):
-        self.Absolute = Absolute
-
-    def get_Placement(self):
-        return self.Placement
-
-    def set_Placement(self, Placement):
-        self.Placement = Placement
-
-    def get_duration(self):
-        return self.duration
-
-    def set_duration(self, duration):
-        self.duration = duration
-
     def _hasContent(self):
         if (
             self.Relative is not None
@@ -15989,12 +14493,6 @@ class RelativeType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -16126,12 +14624,6 @@ class AbsoluteType(GeneratedsSuper):
             return AbsoluteType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -16265,12 +14757,6 @@ class RestartType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -16403,12 +14889,6 @@ class startType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -16538,12 +15018,6 @@ class stopType(GeneratedsSuper):
             return stopType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -16677,12 +15151,6 @@ class continueType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -16814,12 +15282,6 @@ class start_if_not_startedType(GeneratedsSuper):
             return start_if_not_startedType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -16978,24 +15440,6 @@ class ModeType(GeneratedsSuper):
             return ModeType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Positional(self):
-        return self.Positional
-
-    def set_Positional(self, Positional):
-        self.Positional = Positional
-
-    def get_Fixed(self):
-        return self.Fixed
-
-    def set_Fixed(self, Fixed):
-        self.Fixed = Fixed
 
     def _hasContent(self):
         if self.Positional is not None or self.Fixed is not None:
@@ -17182,12 +15626,6 @@ class PositionalType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -17319,12 +15757,6 @@ class FixedType(GeneratedsSuper):
             return FixedType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -17496,30 +15928,6 @@ class RepeatType(GeneratedsSuper):
             return RepeatType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_NoRepeat(self):
-        return self.NoRepeat
-
-    def set_NoRepeat(self, NoRepeat):
-        self.NoRepeat = NoRepeat
-
-    def get_RepeatForever(self):
-        return self.RepeatForever
-
-    def set_RepeatForever(self, RepeatForever):
-        self.RepeatForever = RepeatForever
-
-    def get_RepeatNum(self):
-        return self.RepeatNum
-
-    def set_RepeatNum(self, RepeatNum):
-        self.RepeatNum = RepeatNum
 
     def validate_RepeatNumType(self, value):
         result = True
@@ -17763,12 +16171,6 @@ class NoRepeatType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -17900,12 +16302,6 @@ class RepeatForeverType(GeneratedsSuper):
             return RepeatForeverType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -18061,30 +16457,6 @@ class SettingsType(GeneratedsSuper):
             return SettingsType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_freq(self):
-        return self.freq
-
-    def set_freq(self, freq):
-        self.freq = freq
-
-    def get_volume(self):
-        return self.volume
-
-    def set_volume(self, volume):
-        self.volume = volume
-
-    def get_pan(self):
-        return self.pan
-
-    def set_pan(self, pan):
-        self.pan = pan
 
     def validate_freqType(self, value):
         # Validate type freqType, a restriction on xs:float.
@@ -18363,24 +16735,6 @@ class HeadTrackType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Position(self):
-        return self.Position
-
-    def set_Position(self, Position):
-        self.Position = Position
-
-    def get_Direction(self):
-        return self.Direction
-
-    def set_Direction(self, Direction):
-        self.Direction = Direction
-
     def _hasContent(self):
         if self.Position is not None or self.Direction is not None:
             return True
@@ -18577,24 +16931,6 @@ class PositionType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Anywhere(self):
-        return self.Anywhere
-
-    def set_Anywhere(self, Anywhere):
-        self.Anywhere = Anywhere
-
-    def get_Box(self):
-        return self.Box
-
-    def set_Box(self, Box):
-        self.Box = Box
-
     def _hasContent(self):
         if self.Anywhere is not None or self.Box is not None:
             return True
@@ -18780,12 +17116,6 @@ class AnywhereType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -18966,36 +17296,6 @@ class DirectionType(GeneratedsSuper):
             return DirectionType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_PointTarget(self):
-        return self.PointTarget
-
-    def set_PointTarget(self, PointTarget):
-        self.PointTarget = PointTarget
-
-    def get_DirectionTarget(self):
-        return self.DirectionTarget
-
-    def set_DirectionTarget(self, DirectionTarget):
-        self.DirectionTarget = DirectionTarget
-
-    def get_ObjectTarget(self):
-        return self.ObjectTarget
-
-    def set_ObjectTarget(self, ObjectTarget):
-        self.ObjectTarget = ObjectTarget
-
-    def get_None(self):
-        return self.None_
-
-    def set_None(self, None_):
-        self.None_ = None_
 
     def _hasContent(self):
         if (
@@ -19236,24 +17536,6 @@ class PointTargetType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_point(self):
-        return self.point
-
-    def set_point(self, point):
-        self.point = point
-
-    def get_angle(self):
-        return self.angle
-
-    def set_angle(self, angle):
-        self.angle = angle
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -19284,7 +17566,7 @@ class PointTargetType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -19463,24 +17745,6 @@ class DirectionTargetType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_direction(self):
-        return self.direction
-
-    def set_direction(self, direction):
-        self.direction = direction
-
-    def get_angle(self):
-        return self.angle
-
-    def set_angle(self, angle):
-        self.angle = angle
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -19511,7 +17775,7 @@ class DirectionTargetType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -19683,18 +17947,6 @@ class ObjectTargetType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
     def _hasContent(self):
         if ():
             return True
@@ -19840,12 +18092,6 @@ class NoneType2(GeneratedsSuper):
             return NoneType2(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -19999,24 +18245,6 @@ class MoveTrackType(GeneratedsSuper):
             return MoveTrackType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Source(self):
-        return self.Source
-
-    def set_Source(self, Source):
-        self.Source = Source
-
-    def get_Box(self):
-        return self.Box
-
-    def set_Box(self, Box):
-        self.Box = Box
 
     def _hasContent(self):
         if self.Source is not None or self.Box is not None:
@@ -20214,24 +18442,6 @@ class SourceType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_ObjectRef(self):
-        return self.ObjectRef
-
-    def set_ObjectRef(self, ObjectRef):
-        self.ObjectRef = ObjectRef
-
-    def get_GroupObj(self):
-        return self.GroupObj
-
-    def set_GroupObj(self, GroupObj):
-        self.GroupObj = GroupObj
-
     def _hasContent(self):
         if self.ObjectRef is not None or self.GroupObj is not None:
             return True
@@ -20423,18 +18633,6 @@ class ObjectRefType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
     def _hasContent(self):
         if ():
             return True
@@ -20597,24 +18795,6 @@ class GroupObjType(GeneratedsSuper):
             return GroupObjType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
-    def get_objects(self):
-        return self.objects
-
-    def set_objects(self, objects):
-        self.objects = objects
 
     def validate_objectsType(self, value):
         # Validate type objectsType, a restriction on xs:string.
@@ -20831,24 +19011,6 @@ class MovementType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Inside(self):
-        return self.Inside
-
-    def set_Inside(self, Inside):
-        self.Inside = Inside
-
-    def get_Outside(self):
-        return self.Outside
-
-    def set_Outside(self, Outside):
-        self.Outside = Outside
-
     def _hasContent(self):
         if self.Inside is not None or self.Outside is not None:
             return True
@@ -21034,12 +19196,6 @@ class InsideType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -21171,12 +19327,6 @@ class OutsideType(GeneratedsSuper):
             return OutsideType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -21331,24 +19481,6 @@ class SourceType3(GeneratedsSuper):
             return SourceType3(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_ParticleDomain(self):
-        return self.ParticleDomain
-
-    def set_ParticleDomain(self, ParticleDomain):
-        self.ParticleDomain = ParticleDomain
-
-    def get_rate(self):
-        return self.rate
-
-    def set_rate(self, rate):
-        self.rate = rate
 
     def _hasContent(self):
         if self.ParticleDomain is not None:
@@ -21525,18 +19657,6 @@ class VelType(GeneratedsSuper):
             return VelType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_ParticleDomain(self):
-        return self.ParticleDomain
-
-    def set_ParticleDomain(self, ParticleDomain):
-        self.ParticleDomain = ParticleDomain
 
     def _hasContent(self):
         if self.ParticleDomain is not None:
@@ -21724,30 +19844,6 @@ class RemoveConditionType(GeneratedsSuper):
             return RemoveConditionType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Age(self):
-        return self.Age
-
-    def set_Age(self, Age):
-        self.Age = Age
-
-    def get_Position(self):
-        return self.Position
-
-    def set_Position(self, Position):
-        self.Position = Position
-
-    def get_Velocity(self):
-        return self.Velocity
-
-    def set_Velocity(self, Velocity):
-        self.Velocity = Velocity
 
     def _hasContent(self):
         if (
@@ -21975,24 +20071,6 @@ class AgeType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_age(self):
-        return self.age
-
-    def set_age(self, age):
-        self.age = age
-
-    def get_younger_than(self):
-        return self.younger_than
-
-    def set_younger_than(self, younger_than):
-        self.younger_than = younger_than
-
     def _hasContent(self):
         if ():
             return True
@@ -22171,24 +20249,6 @@ class PositionType4(GeneratedsSuper):
             return PositionType4(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_ParticleDomain(self):
-        return self.ParticleDomain
-
-    def set_ParticleDomain(self, ParticleDomain):
-        self.ParticleDomain = ParticleDomain
-
-    def get_inside(self):
-        return self.inside
-
-    def set_inside(self, inside):
-        self.inside = inside
 
     def _hasContent(self):
         if self.ParticleDomain is not None:
@@ -22378,24 +20438,6 @@ class VelocityType(GeneratedsSuper):
             return VelocityType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_ParticleDomain(self):
-        return self.ParticleDomain
-
-    def set_ParticleDomain(self, ParticleDomain):
-        self.ParticleDomain = ParticleDomain
-
-    def get_inside(self):
-        return self.inside
-
-    def set_inside(self, inside):
-        self.inside = inside
 
     def _hasContent(self):
         if self.ParticleDomain is not None:
@@ -22609,36 +20651,6 @@ class AvoidType(GeneratedsSuper):
             return AvoidType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_ParticleDomain(self):
-        return self.ParticleDomain
-
-    def set_ParticleDomain(self, ParticleDomain):
-        self.ParticleDomain = ParticleDomain
-
-    def get_magnitude(self):
-        return self.magnitude
-
-    def set_magnitude(self, magnitude):
-        self.magnitude = magnitude
-
-    def get_epsilon(self):
-        return self.epsilon
-
-    def set_epsilon(self, epsilon):
-        self.epsilon = epsilon
-
-    def get_lookahead(self):
-        return self.lookahead
-
-    def set_lookahead(self, lookahead):
-        self.lookahead = lookahead
 
     def _hasContent(self):
         if self.ParticleDomain is not None:
@@ -22871,36 +20883,6 @@ class BounceType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_ParticleDomain(self):
-        return self.ParticleDomain
-
-    def set_ParticleDomain(self, ParticleDomain):
-        self.ParticleDomain = ParticleDomain
-
-    def get_friction(self):
-        return self.friction
-
-    def set_friction(self, friction):
-        self.friction = friction
-
-    def get_resilience(self):
-        return self.resilience
-
-    def set_resilience(self, resilience):
-        self.resilience = resilience
-
-    def get_cutoff(self):
-        return self.cutoff
-
-    def set_cutoff(self, cutoff):
-        self.cutoff = cutoff
-
     def _hasContent(self):
         if self.ParticleDomain is not None:
             return True
@@ -23101,18 +21083,6 @@ class GravityType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_direction(self):
-        return self.direction
-
-    def set_direction(self, direction):
-        self.direction = direction
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -23143,7 +21113,7 @@ class GravityType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -23326,30 +21296,6 @@ class DampingType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_direction(self):
-        return self.direction
-
-    def set_direction(self, direction):
-        self.direction = direction
-
-    def get_vel_low(self):
-        return self.vel_low
-
-    def set_vel_low(self, vel_low):
-        self.vel_low = vel_low
-
-    def get_vel_high(self):
-        return self.vel_high
-
-    def set_vel_high(self, vel_high):
-        self.vel_high = vel_high
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -23380,7 +21326,7 @@ class DampingType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -23585,30 +21531,6 @@ class GravitateType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_magnitude(self):
-        return self.magnitude
-
-    def set_magnitude(self, magnitude):
-        self.magnitude = magnitude
-
-    def get_epsilon(self):
-        return self.epsilon
-
-    def set_epsilon(self, epsilon):
-        self.epsilon = epsilon
-
-    def get_max_radius(self):
-        return self.max_radius
-
-    def set_max_radius(self, max_radius):
-        self.max_radius = max_radius
-
     def _hasContent(self):
         if ():
             return True
@@ -23805,30 +21727,6 @@ class FollowType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_magnitude(self):
-        return self.magnitude
-
-    def set_magnitude(self, magnitude):
-        self.magnitude = magnitude
-
-    def get_epsilon(self):
-        return self.epsilon
-
-    def set_epsilon(self, epsilon):
-        self.epsilon = epsilon
-
-    def get_max_radius(self):
-        return self.max_radius
-
-    def set_max_radius(self, max_radius):
-        self.max_radius = max_radius
-
     def _hasContent(self):
         if ():
             return True
@@ -24024,30 +21922,6 @@ class MatchVelType(GeneratedsSuper):
             return MatchVelType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_magnitude(self):
-        return self.magnitude
-
-    def set_magnitude(self, magnitude):
-        self.magnitude = magnitude
-
-    def get_epsilon(self):
-        return self.epsilon
-
-    def set_epsilon(self, epsilon):
-        self.epsilon = epsilon
-
-    def get_max_radius(self):
-        return self.max_radius
-
-    def set_max_radius(self, max_radius):
-        self.max_radius = max_radius
 
     def _hasContent(self):
         if ():
@@ -24251,36 +22125,6 @@ class OrbitPointType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_center(self):
-        return self.center
-
-    def set_center(self, center):
-        self.center = center
-
-    def get_magnitude(self):
-        return self.magnitude
-
-    def set_magnitude(self, magnitude):
-        self.magnitude = magnitude
-
-    def get_epsilon(self):
-        return self.epsilon
-
-    def set_epsilon(self, epsilon):
-        self.epsilon = epsilon
-
-    def get_max_radius(self):
-        return self.max_radius
-
-    def set_max_radius(self, max_radius):
-        self.max_radius = max_radius
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -24311,7 +22155,7 @@ class OrbitPointType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -24526,24 +22370,6 @@ class JetType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_ParticleDomain(self):
-        return self.ParticleDomain
-
-    def set_ParticleDomain(self, ParticleDomain):
-        self.ParticleDomain = ParticleDomain
-
-    def get_AccelDomain(self):
-        return self.AccelDomain
-
-    def set_AccelDomain(self, AccelDomain):
-        self.AccelDomain = AccelDomain
-
     def _hasContent(self):
         if self.ParticleDomain is not None or self.AccelDomain is not None:
             return True
@@ -24735,30 +22561,6 @@ class TargetColorType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_color(self):
-        return self.color
-
-    def set_color(self, color):
-        self.color = color
-
-    def get_alpha(self):
-        return self.alpha
-
-    def set_alpha(self, alpha):
-        self.alpha = alpha
-
-    def get_scale(self):
-        return self.scale
-
-    def set_scale(self, scale):
-        self.scale = scale
-
     def validate_color(self, value):
         # Validate type color, a restriction on xs:string.
         if (
@@ -24787,9 +22589,7 @@ class TargetColorType(GeneratedsSuper):
                     )
                 )
 
-    validate_color_patterns_ = [
-        ["^(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\s*(\\d+)\\s*)$"]
-    ]
+    validate_color_patterns_ = [["^((\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+),?)$"]]
 
     def _hasContent(self):
         if ():
@@ -24966,18 +22766,6 @@ class PointType5(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_point(self):
-        return self.point
-
-    def set_point(self, point):
-        self.point = point
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -25008,7 +22796,7 @@ class PointType5(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -25164,24 +22952,6 @@ class LineType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_p1(self):
-        return self.p1
-
-    def set_p1(self, p1):
-        self.p1 = p1
-
-    def get_p2(self):
-        return self.p2
-
-    def set_p2(self, p2):
-        self.p2 = p2
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -25212,7 +22982,7 @@ class LineType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -25392,30 +23162,6 @@ class TriangleType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_p1(self):
-        return self.p1
-
-    def set_p1(self, p1):
-        self.p1 = p1
-
-    def get_p2(self):
-        return self.p2
-
-    def set_p2(self, p2):
-        self.p2 = p2
-
-    def get_p3(self):
-        return self.p3
-
-    def set_p3(self, p3):
-        self.p3 = p3
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -25446,7 +23192,7 @@ class TriangleType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -25644,24 +23390,6 @@ class PlaneType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_point(self):
-        return self.point
-
-    def set_point(self, point):
-        self.point = point
-
-    def get_normal(self):
-        return self.normal
-
-    def set_normal(self, normal):
-        self.normal = normal
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -25692,7 +23420,7 @@ class PlaneType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -25881,30 +23609,6 @@ class RectType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_point(self):
-        return self.point
-
-    def set_point(self, point):
-        self.point = point
-
-    def get_u_dir(self):
-        return self.u_dir
-
-    def set_u_dir(self, u_dir):
-        self.u_dir = u_dir
-
-    def get_v_dir(self):
-        return self.v_dir
-
-    def set_v_dir(self, v_dir):
-        self.v_dir = v_dir
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -25935,7 +23639,7 @@ class RectType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -26125,24 +23829,6 @@ class BoxType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_p1(self):
-        return self.p1
-
-    def set_p1(self, p1):
-        self.p1 = p1
-
-    def get_p2(self):
-        return self.p2
-
-    def set_p2(self, p2):
-        self.p2 = p2
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -26173,7 +23859,7 @@ class BoxType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -26368,30 +24054,6 @@ class SphereType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_center(self):
-        return self.center
-
-    def set_center(self, center):
-        self.center = center
-
-    def get_radius(self):
-        return self.radius
-
-    def set_radius(self, radius):
-        self.radius = radius
-
-    def get_radius_inner(self):
-        return self.radius_inner
-
-    def set_radius_inner(self, radius_inner):
-        self.radius_inner = radius_inner
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -26422,7 +24084,7 @@ class SphereType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -26629,36 +24291,6 @@ class CylinderType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_p1(self):
-        return self.p1
-
-    def set_p1(self, p1):
-        self.p1 = p1
-
-    def get_p2(self):
-        return self.p2
-
-    def set_p2(self, p2):
-        self.p2 = p2
-
-    def get_radius(self):
-        return self.radius
-
-    def set_radius(self, radius):
-        self.radius = radius
-
-    def get_radius_inner(self):
-        return self.radius_inner
-
-    def set_radius_inner(self, radius_inner):
-        self.radius_inner = radius_inner
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -26689,7 +24321,7 @@ class CylinderType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -26919,36 +24551,6 @@ class ConeType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_base_center(self):
-        return self.base_center
-
-    def set_base_center(self, base_center):
-        self.base_center = base_center
-
-    def get_apex(self):
-        return self.apex
-
-    def set_apex(self, apex):
-        self.apex = apex
-
-    def get_radius(self):
-        return self.radius
-
-    def set_radius(self, radius):
-        self.radius = radius
-
-    def get_radius_inner(self):
-        return self.radius_inner
-
-    def set_radius_inner(self, radius_inner):
-        self.radius_inner = radius_inner
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -26979,7 +24581,7 @@ class ConeType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -27187,24 +24789,6 @@ class BlobType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_center(self):
-        return self.center
-
-    def set_center(self, center):
-        self.center = center
-
-    def get_stdev(self):
-        return self.stdev
-
-    def set_stdev(self, stdev):
-        self.stdev = stdev
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -27235,7 +24819,7 @@ class BlobType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -27428,36 +25012,6 @@ class DiscType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_center(self):
-        return self.center
-
-    def set_center(self, center):
-        self.center = center
-
-    def get_normal(self):
-        return self.normal
-
-    def set_normal(self, normal):
-        self.normal = normal
-
-    def get_radius(self):
-        return self.radius
-
-    def set_radius(self, radius):
-        self.radius = radius
-
-    def get_radius_inner(self):
-        return self.radius_inner
-
-    def set_radius_inner(self, radius_inner):
-        self.radius_inner = radius_inner
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -27488,7 +25042,7 @@ class DiscType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -27689,18 +25243,6 @@ class BackgroundType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_color(self):
-        return self.color
-
-    def set_color(self, color):
-        self.color = color
-
     def validate_color(self, value):
         # Validate type color, a restriction on xs:string.
         if (
@@ -27729,9 +25271,7 @@ class BackgroundType(GeneratedsSuper):
                     )
                 )
 
-    validate_color_patterns_ = [
-        ["^(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*\\s*(\\d+)\\s*)$"]
-    ]
+    validate_color_patterns_ = [["^((\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+),?)$"]]
 
     def _hasContent(self):
         if ():
@@ -27904,24 +25444,6 @@ class WandNavigationType(GeneratedsSuper):
             return WandNavigationType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_allow_rotation(self):
-        return self.allow_rotation
-
-    def set_allow_rotation(self, allow_rotation):
-        self.allow_rotation = allow_rotation
-
-    def get_allow_movement(self):
-        return self.allow_movement
-
-    def set_allow_movement(self, allow_movement):
-        self.allow_movement = allow_movement
 
     def _hasContent(self):
         if ():
@@ -28105,24 +25627,6 @@ class AxisType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_rotation(self):
-        return self.rotation
-
-    def set_rotation(self, rotation):
-        self.rotation = rotation
-
-    def get_angle(self):
-        return self.angle
-
-    def set_angle(self, angle):
-        self.angle = angle
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -28153,7 +25657,7 @@ class AxisType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -28333,24 +25837,6 @@ class LookAtType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_target(self):
-        return self.target
-
-    def set_target(self, target):
-        self.target = target
-
-    def get_up(self):
-        return self.up
-
-    def set_up(self, up):
-        self.up = up
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -28381,7 +25867,7 @@ class LookAtType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -28569,24 +26055,6 @@ class NormalType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_normal(self):
-        return self.normal
-
-    def set_normal(self, normal):
-        self.normal = normal
-
-    def get_angle(self):
-        return self.angle
-
-    def set_angle(self, angle):
-        self.angle = angle
-
     def validate_vector(self, value):
         # Validate type vector, a restriction on xs:string.
         if (
@@ -28617,7 +26085,7 @@ class NormalType(GeneratedsSuper):
 
     validate_vector_patterns_ = [
         [
-            "^(\\s*\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*\\)\\s*)$"
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
         ]
     ]
 
@@ -28793,18 +26261,6 @@ class MovementType6(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Placement(self):
-        return self.Placement
-
-    def set_Placement(self, Placement):
-        self.Placement = Placement
-
     def _hasContent(self):
         if self.Placement is not None:
             return True
@@ -28970,18 +26426,6 @@ class MoveRelType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_Placement(self):
-        return self.Placement
-
-    def set_Placement(self, Placement):
-        self.Placement = Placement
-
     def _hasContent(self):
         if self.Placement is not None:
             return True
@@ -29141,18 +26585,6 @@ class SoundType(GeneratedsSuper):
             return SoundType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_action(self):
-        return self.action
-
-    def set_action(self, action):
-        self.action = action
 
     def validate_actionType(self, value):
         # Validate type actionType, a restriction on xs:string.
@@ -29377,36 +26809,6 @@ class LinkChangeType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
-    def get_link_on(self):
-        return self.link_on
-
-    def set_link_on(self, link_on):
-        self.link_on = link_on
-
-    def get_link_off(self):
-        return self.link_off
-
-    def set_link_off(self, link_off):
-        self.link_off = link_off
-
-    def get_activate(self):
-        return self.activate
-
-    def set_activate(self, activate):
-        self.activate = activate
-
-    def get_activate_if_on(self):
-        return self.activate_if_on
-
-    def set_activate_if_on(self, activate_if_on):
-        self.activate_if_on = activate_if_on
-
     def _hasContent(self):
         if (
             self.link_on is not None
@@ -29623,12 +27025,6 @@ class link_onType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -29760,12 +27156,6 @@ class link_offType(GeneratedsSuper):
             return link_offType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():
@@ -29899,12 +27289,6 @@ class activateType(GeneratedsSuper):
 
     factory = staticmethod(factory)
 
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
-
     def _hasContent(self):
         if ():
             return True
@@ -30036,12 +27420,6 @@ class activate_if_onType(GeneratedsSuper):
             return activate_if_onType(*args_, **kwargs_)
 
     factory = staticmethod(factory)
-
-    def get_ns_prefix_(self):
-        return self.ns_prefix_
-
-    def set_ns_prefix_(self, ns_prefix):
-        self.ns_prefix_ = ns_prefix
 
     def _hasContent(self):
         if ():

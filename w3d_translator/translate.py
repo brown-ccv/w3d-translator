@@ -17,19 +17,15 @@ def clean_xml(story: classes.Story) -> classes.Story:
     Object.Link.EnabledColor
     Object.Link.SelectedColor
     """
-    # TODO: Convert 
+    # TODO: Convert
     object: classes.Object
     for object in story.ObjectRoot.Object:
-        color = str_to_color(object.Color)
-        object.set_Color(color)
+        object.Color = str_to_color(object.Color)
 
         if object.LinkRoot is not None:
             link: classes.Link = object.LinkRoot.Link
-            enabled_color = str_to_color(link.EnabledColor)
-            link.set_EnabledColor(enabled_color)
-
-            selected_color = str_to_color(link.SelectedColor)
-            link.set_SelectedColor(selected_color)
+            link.EnabledColor = str_to_color(link.EnabledColor)
+            link.SelectedColor = str_to_color(link.SelectedColor)
 
     # TODO: Object.LinkRoot.Link.Actions.ObjectChange.Transition.Color
     # TODO: ParticleAction.TargetColor.color
@@ -121,21 +117,20 @@ def convert_paths(story: classes.Story) -> classes.Story:
         choice = object.Content.get_choice()
         match type(choice):
             case sub.ImageTypeSub:
-                choice.set_filename(Path(choice.get_filename()))
-                object.Content.set_choice(choice)
+                choice.filename = Path(choice.filename)
             case sub.StereoImageTypeSub:
-                choice.set_left_image(Path(choice.get_left_image()))
-                choice.set_right_image(Path(choice.get_right_image()))
+                choice.left_image = Path(choice.left_image)
+                choice.right_image = Path(choice.right_image)
                 object.Content.set_choice(choice)
             case sub.ModelTypeSub:
-                choice.set_filename(Path(choice.get_filename()))
+                choice.filename = Path(choice.filename)
                 object.Content.set_choice(choice)
             case _:
                 pass
 
     sound: classes.Sound
     for sound in story.SoundRoot.Sound:
-        sound.set_filename(Path(sound.get_filename()))
+        sound.filename = Path(sound.filename)
 
     return story
 
