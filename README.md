@@ -106,28 +106,37 @@ Example projects broken down by object type. Many of the projects contain multip
 
 **vr_movement** enables player rotation and movement within the CAVE.
 
-**sample_00_random.xml** is the same project as `cw2_samples/sample_random.xml` but uses `Story version="8">`
-
-
-
 **sample_01_first.xml**, **sample_02_image.xml**, **sample_03_light.xml**, **sample_04_model.xml**, and **sample_05_move.xml** are updated versions of their counterparts in `cw2_samples`.
 
+**particles/fountain.xml** is an updated version of `cw2_samples/sample_fountain.xml`.
 
-**particles/fountain.xml** is an updated version of `cw2_samples/sample_fountain.xml`. 
+**sample_00_random.xml** is the same project as `cw2_samples/sample_random.xml` but uses `Story version="8">`
 
-**sample_02alt_image.xml**
-**sample_06_movie.xml**
-**sample_07_stereoimage.xml**
-**sample_08_stereoleftvsright.xml**
-**sample_09_fontlights.xml**
-**sample_10_textalign.xml**
-**sample_11_click.xml**
-**sample_12_move.xml**
-**sample_13_scaling.xml**
-**sample_14_alignment.xml**
-**sample_15_multiline.xml**
-**sample_16_multiline.xml**
-**particles/text_blizzard.xml**
+**sample_02alt_image.xml** is an alternate version of `sample_02_image`
+
+**sample_06_movie.xml** animates a sequence of images into a movie
+
+**sample_07_stereoimage.xml** displays a stereo image and several text links. The different links move the image onto a given wall.
+
+**sample_08_stereoleftvsright.xml** is an alternate version of `sample_07_stereoimage.xml`. The links alter the image in different ways.
+
+**sample_09_fontlights.xml** is a similar project to `sample_01_first.xml` and `cw2_samples/sample.xml`. The text/actions are different but follow the same concept, and it includes a Light.
+
+**sample_10_textalign.xml** displays text using different alignment methods.
+
+**sample_11_click.xml** highlights different versions of the Clicks tag on a link - including single vs double clicking an object.
+
+**sample_12_move.xml** highlights the difference between relative and absolute movement within the CAVE.
+
+**sample_13_scaling.xml** shows an image and two text objects. It shows the relative difference between scaling, depth, etc.
+
+**sample_14_alignment.xml** uses the same base project as `sample_13_scaling.xml` but showcases the different text alignment options. It follows the same general pattern as `sample_10_textalign.xml`
+
+**sample_15_multiline.xml** showcases a multiline text object.
+
+**sample_16_multiline.xml** uses the same base project as `sample_15_multiline.xml` but has more grid images.
+
+**particles/text_blizzard.xml** displays a ParticleSystem where the particles keep changing color and size.
 
 The files in `notYetPublished` are more example projects that were never completed. They may be useful to look at and see the development process but should generally be ignored.
 
