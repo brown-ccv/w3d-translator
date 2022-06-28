@@ -81,22 +81,25 @@ Example projects from the cweditor java program. cweditor enabled CaveWriting pr
 
 ### cw2_samples
 
-Example projects broken down by object type. Many of the projects contain multiple objects but each is used to highlight a different object type and how they can be used. I've listed the projects in order below, from smallest to largest.
+Example projects broken down by object type. Many of the projects contain multiple objects but each is used to highlight a different object type and how they can be used.
 
-**play.xml** and **sound.xml** are the sadisplays a single text object. It plays a sound when clicked.
+**sample_fountain.xml** highlights the usage of  `ParticleActionList`s rather than a specific object. It adds a bunch of particles inside the CAVE that float around some centered letters.
 
- contains a sound within the `SoundRoot` branch.
+**sample_image.xml** displays a single image and several text links. The different links move the image onto a given wall.
 
-**I think play and sound are the exact same project**
+**sample_light.xml** displays 3 different lights and moves them around the CAVE.
 
-**sample_random.xml**
-**sample_fountain.xml**
-**sample_light.xml**
-**sample_move.xml**
-**sample_image.xml**
-**sample_model.xml**
-**sample.xml**
-**sound_positional.xml**
+**sample_model.xml** displays a single object and several text links. The links move the .obj file to different walls like in `sample_image`.
+
+**sample_move.xml** displays several links. Clicking each link moves or rotates the link. One uses `MoveCave` to move the entire cave and the last link restarts the position of everything.
+
+**sample_random.xml** highlights the usage of `Timeline`s rather than a specific object. It randomly selects one of 3 objects and moves them up or down. Note that this project uses `<Story version="5">` and must be translated to version 8 usage the `.xslt` files.
+
+**sample.xml** displays a piece of text and several text links. The links move the text object  to different walls like in `sample_image`.
+
+**sound_positional.xml** displays several instances of the same sound in different positions around the CAVE, as well as a few links. The sound(s) play in spatial audio when a link is pressed - some actually move the sound around in space.
+
+**sound.xml** displays a single text object that, when clicked, plays a sound.
 
 ### samples
 
