@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?jaxfront version=2.1;time=2012-03-14 05:18:37.108;xui=jar:http://cavewriting.sourceforge.net/2006/CWEditor/cavewriting.jar!/schema/caveschema.xui;xsd=caveschema.xsd?>
-<Story>
+<Story version="8"> <!-- 'version="8"' attribute was added -->
        <PlacementRoot>
               <Placement name="Center">
                      <RelativeTo>Center</RelativeTo>

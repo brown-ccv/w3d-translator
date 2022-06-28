@@ -68,8 +68,9 @@ Multiple example projects are included in this repo in the `examples` folder, an
 
 * `cweditor/minimum.xml` contains the minimum structure of a valid project
 * `cweditor/maximum.xml` contains at least one of every valid tag
-* The `cw2_samples` folder contains projects highlighting a specific object type
-* The `samples` folder also generally includes projects highlighting a specific object type, but includes Events, Timelines, ParticleActions, etc.
+* The `sample.xml`, `sample_image.xml`, `sample_light.xml`, and `sample_model.xml` files (`cw2_samples`) showcase the basic file types.
+* The `samples/particles` folder contains 2 projects highlighting how ParticleActions
+* `samples/vr_movement.xml` file enables player movement within the CAVE.
 
 ### cweditor
 
@@ -83,35 +84,38 @@ Example projects from the cweditor java program. cweditor enabled CaveWriting pr
 
 Example projects broken down by object type. Many of the projects contain multiple objects but each is used to highlight a different object type and how they can be used.
 
-**sample_fountain.xml** highlights the usage of  `ParticleActionList`s rather than a specific object. It adds a bunch of particles inside the CAVE that float around some centered letters.
+**sample.xml** displays a piece of text and several text links. The links move the text object  to different walls.
 
 **sample_image.xml** displays a single image and several text links. The different links move the image onto a given wall.
 
 **sample_light.xml** displays 3 different lights and moves them around the CAVE.
 
-**sample_model.xml** displays a single object and several text links. The links move the .obj file to different walls like in `sample_image`.
+**sample_model.xml** displays a single object and several text links. The links move the .obj file to different walls.
 
 **sample_move.xml** displays several links. Clicking each link moves or rotates the link. One uses `MoveCave` to move the entire cave and the last link restarts the position of everything.
 
-**sample_random.xml** highlights the usage of `Timeline`s rather than a specific object. It randomly selects one of 3 objects and moves them up or down. Note that this project uses `<Story version="5">` and must be translated to version 8 usage the `.xslt` files.
+**sample_fountain.xml** highlights the usage of  `ParticleActionList`s rather than a specific object. It adds a bunch of particles inside the CAVE that float around some centered letters.
 
-**sample.xml** displays a piece of text and several text links. The links move the text object  to different walls like in `sample_image`.
+**sample_random.xml** highlights the usage of `Timeline`s rather than a specific object. It randomly selects one of 3 objects and moves them up or down. Note that this project uses `<Story version="5">` and must be translated to version 8 usage the `.xslt` files.
 
 **sound_positional.xml** displays several instances of the same sound in different positions around the CAVE, as well as a few links. The sound(s) play in spatial audio when a link is pressed - some actually move the sound around in space.
 
 **sound.xml** displays a single text object that, when clicked, plays a sound.
 
-
 ### samples
 
-**vr_movement**
-**sample_00_random.xml**
-**sample_01_first.xml**
-**sample_02_image.xml**
+**vr_movement** enables player rotation and movement within the CAVE.
+
+**sample_00_random.xml** is the same project as `cw2_samples/sample_random.xml` but uses `Story version="8">`
+
+
+
+**sample_01_first.xml**, **sample_02_image.xml**, **sample_03_light.xml**, **sample_04_model.xml**, and **sample_05_move.xml** are updated versions of their counterparts in `cw2_samples`.
+
+
+**particles/fountain.xml** is an updated version of `cw2_samples/sample_fountain.xml`. 
+
 **sample_02alt_image.xml**
-**sample_03_light.xml**
-**sample_04_model.xml**
-**sample_05_move.xml**
 **sample_06_movie.xml**
 **sample_07_stereoimage.xml**
 **sample_08_stereoleftvsright.xml**
@@ -123,8 +127,9 @@ Example projects broken down by object type. Many of the projects contain multip
 **sample_14_alignment.xml**
 **sample_15_multiline.xml**
 **sample_16_multiline.xml**
-**particles/fountain.xml**
 **particles/text_blizzard.xml**
+
+The files in `notYetPublished` are more example projects that were never completed. They may be useful to look at and see the development process but should generally be ignored.
 
 ### Student Projects
 
@@ -132,3 +137,4 @@ Three different student projects are found in the `projects` folder. These are c
 
 ### test
 
+Input folder used during development.
