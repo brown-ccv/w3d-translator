@@ -68,6 +68,8 @@ Multiple example projects are included in this repo in the `examples` folder, an
 
 * `cweditor/minimum.xml` contains the minimum structure of a valid project
 * `cweditor/maximum.xml` contains at least one of every valid tag
+* The `cw2_samples` folder contains projects highlighting a specific object type
+* The `samples` folder also generally includes projects highlighting a specific object type, but includes Events, Timelines, ParticleActions, etc.
 
 ### cweditor
 
@@ -79,7 +81,22 @@ Example projects from the cweditor java program. cweditor enabled CaveWriting pr
 
 ### cw2_samples
 
-Space
+Example projects broken down by object type. Many of the projects contain multiple objects but each is used to highlight a different object type and how they can be used. I've listed the projects in order below, from smallest to largest.
+
+**play.xml** and **sound.xml** are the sadisplays a single text object. It plays a sound when clicked.
+
+ contains a sound within the `SoundRoot` branch.
+
+**I think play and sound are the exact same project**
+
+**sample_random.xml**
+**sample_fountain.xml**
+**sample_light.xml**
+**sample_move.xml**
+**sample_image.xml**
+**sample_model.xml**
+**sample.xml**
+**sound_positional.xml**
 
 ### samples
 
