@@ -61,3 +61,26 @@ poetry run black . -l 79
 * `schema/`: XML schema files for writing3D, pulled from the original project
 * `unity/`: Unity Yaml file for example scenes.
 * `w3d_translator/`: Python module containing the source code
+
+## Example Projects
+
+Multiple example projects are included in this repo in the `examples` folder. These projects are original examples from the CaveWriting project. Any changes to the xml are noted in comments. More detail is given below but here's a tldr overview
+
+* `cweditor/minimum.xml` contains the minimum structure of a valid project
+* `cweditor/maximum.xml` contains at least one of every valid tag
+
+### cw2_samples
+
+Space
+
+### cweditor
+
+Example projects from the cweditor java program. cweditor enabled CaveWriting project creation with a GUI.
+
+**minimum.xml** contains the base xml necessary for each project. It includes the `PlacementRoot` (`Center`, `FrontWall`, `LeftWall`, `RightWall`, `FloorWall`) with all of the walls and the `Global` (`CameraPos`, `CaveCameraPos`, `Background`, `WandNavigation`) settings - each using the default values.
+
+**everything.xml** contains at least one of every possible Writing3D tag. The image (`w.png`) and sound (`bad.mp3`) used in the project are located in the `testMedia` subfolder.
+
+### samples
+
+Space
