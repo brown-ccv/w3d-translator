@@ -32,13 +32,121 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PlacementRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="PlacementRoot" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <!-- Center -->
+              <xs:element name="Placement">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:restriction base="PlacementType">
+                      <xs:sequence>
+                        <xs:element name="RelativeTo" type="xs:string" fixed="Center" />
+                        <xs:element name="Position" type="vector" fixed="(0.0, 0.0, 0.0)" />
+                        <xs:element name="Axis">
+                          <xs:complexType>
+                            <xs:attribute name="rotation" type="vector" fixed="(0.0, 1.0, 0.0)" />
+                            <xs:attribute name="angle" type="xs:double" fixed="0.0" />
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute name="name" type="xs:string" fixed="Center" />
+                    </xs:restriction>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+              <!-- Front Wall -->
+              <xs:element name="Placement">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:restriction base="PlacementType">
+                      <xs:sequence>
+                        <xs:element name="RelativeTo" type="xs:string" fixed="Center" />
+                        <xs:element name="Position" type="vector" fixed="(0.0, 0.0, -4.0)" />
+                        <xs:element name="LookAt">
+                          <xs:complexType>
+                            <xs:attribute name="target" type="vector" fixed="(0.0, 0.0, 0.0)" />
+                            <xs:attribute name="up" type="vector" fixed="(0.0, 1.0, 0.0)" />
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute name="name" type="xs:string" fixed="FrontWall" />
+                    </xs:restriction>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+              <!-- Left Wall -->
+              <xs:element name="Placement">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:restriction base="PlacementType">
+                      <xs:sequence>
+                        <xs:element name="RelativeTo" type="xs:string" fixed="Center" />
+                        <xs:element name="Position" type="vector" fixed="(-4.0, 0.0, 0.0)" />
+                        <xs:element name="LookAt">
+                          <xs:complexType>
+                            <xs:attribute name="target" type="vector" fixed="(0.0, 0.0, 0.0)" />
+                            <xs:attribute name="up" type="vector" fixed="(0.0, 1.0, 0.0)" />
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute name="name" type="xs:string" fixed="LeftWall" />
+                    </xs:restriction>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+              <!-- Right Wall -->
+              <xs:element name="Placement">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:restriction base="PlacementType">
+                      <xs:sequence>
+                        <xs:element name="RelativeTo" type="xs:string" fixed="Center" />
+                        <xs:element name="Position" type="vector" fixed="(4.0, 0.0, 0.0)" />
+                        <xs:element name="LookAt">
+                          <xs:complexType>
+                            <xs:attribute name="target" type="vector" fixed="(0.0, 0.0, 0.0)" />
+                            <xs:attribute name="up" type="vector" fixed="(0.0, 1.0, 0.0)" />
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute name="name" type="xs:string" fixed="RightWall" />
+                    </xs:restriction>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element> 
+              <!-- Floor Wall -->
+              <xs:element name="Placement">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:restriction base="PlacementType">
+                      <xs:sequence>
+                        <xs:element name="RelativeTo" type="xs:string" fixed="Center" />
+                        <xs:element name="Position" type="vector" fixed="(0.0, -4.0, 0.0)" />
+                        <xs:element name="LookAt">
+                          <xs:complexType>
+                            <xs:attribute name="target" type="vector" fixed="(0.0, 0.0, 0.0)" />
+                            <xs:attribute name="up" type="vector" fixed="(0.0, 0.0, -1.0)" />
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute name="name" type="xs:string" fixed="FloorWall" />
+                    </xs:restriction>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <!-- OLD PLACEMENT ROOT -->
+        <!-- <xs:element name="PlacementRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Placement" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
-        </xs:element>
+        </xs:element> -->
         <xs:element name="SoundRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
@@ -60,7 +168,8 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element ref="Global" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="Global" maxOccurs="1" />
+        <!-- OLD GLOBAL <xs:element ref="Global" minOccurs="0" maxOccurs="1" /> -->
         <xs:element name="About" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:attribute name="news" type="xs:string" use="optional" />
@@ -226,7 +335,8 @@
         <xs:element name="AroundSelfAxis" type="xs:boolean" default="false" />
         <xs:element name="Scale" type="xs:double" default="1.0" />
         <xs:element name="SoundRef" type="xs:string" minOccurs="0" />
-        <xs:element ref="Placement" />
+        <!-- <xs:element ref="Placement" /> -->
+        <xs:element name="Placement" type="PlacementType" />
         <xs:element ref="Content" />
         <xs:element name="LinkRoot" minOccurs="0">
           <xs:complexType>
@@ -455,7 +565,8 @@
                 <xs:complexType />
               </xs:element>
             </xs:choice>
-            <xs:element ref="Placement" />
+            <!-- <xs:element ref="Placement" /> -->
+            <xs:element name="Placement" type="PlacementType" />
           </xs:sequence>
           <xs:attribute name="duration" type="xs:double" use="optional" default="0.0" />
         </xs:complexType>
@@ -926,13 +1037,14 @@
   </xs:element>
   <xs:complexType name="Camera">
     <xs:sequence>
-      <xs:element ref="Placement" />
+      <!-- <xs:element ref="Placement" /> -->
+      <xs:element name="Placement" type="PlacementType" />
     </xs:sequence>
     <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
   </xs:complexType>
 
   <!-- Multi-use elements -->
-  <xs:element name="Placement">
+  <!-- <xs:element name="Placement">
     <xs:annotation>
       <xs:documentation>Placement Obj</xs:documentation>
     </xs:annotation>
@@ -963,7 +1075,40 @@
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="optional" />
     </xs:complexType>
-  </xs:element>
+  </xs:element> -->
+
+  <xs:complexType name="PlacementType">
+    <xs:annotation>
+      <xs:documentation>Placement Obj</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RelativeTo" type="xs:string" default="Center" />
+      <xs:element name="Position" type="vector" default="(0.0, 0.0, 0.0)" />
+      <xs:choice minOccurs="0">
+        <xs:element name="Axis">
+          <xs:complexType>
+            <xs:attribute name="rotation" type="vector" use="optional" default="(0.0, 1.0, 0.0)" />
+            <xs:attribute name="angle" type="xs:double" use="optional" default="0.0" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="LookAt">
+          <xs:complexType>
+            <xs:attribute name="target" type="vector" use="optional" default="(0.0, 0.0, 0.0)" />
+            <xs:attribute name="up" type="vector" use="optional" default="(0.0, 1.0, 0.0)" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Normal">
+          <xs:complexType>
+            <xs:attribute name="normal" type="vector" use="optional" default="(0.0, 0.0, 1.0)" />
+            <xs:attribute name="angle" type="xs:double" use="optional" default="0.0" />
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="optional" />
+  </xs:complexType>
+
+
   <xs:element name="Transition">
     <xs:complexType>
       <xs:choice>
@@ -971,14 +1116,16 @@
         <xs:element name="Movement">
           <xs:complexType>
             <xs:sequence>
-              <xs:element ref="Placement" />
+              <!-- <xs:element ref="Placement" /> -->
+              <xs:element name="Placement" type="PlacementType" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="MoveRel">
           <xs:complexType>
             <xs:sequence>
-              <xs:element ref="Placement" />
+              <!-- <xs:element ref="Placement" /> -->
+              <xs:element name="Placement" type="PlacementType" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
