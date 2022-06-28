@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
-
+  <!-- TODO
+    Make PlacementRoot walls explicit with their default values (minimum.xml)
+    Make Global explicit with default values (minimum.xml) 
+  -->
   <!-- ROOT -->
   <xs:element name="Story">
     <xs:annotation>

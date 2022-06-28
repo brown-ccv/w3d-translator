@@ -64,22 +64,22 @@ poetry run black . -l 79
 
 ## Example Projects
 
-Multiple example projects are included in this repo in the `examples` folder. These projects are original examples from the CaveWriting project. Any changes to the xml are noted in comments. More detail is given below but here's a tldr overview
+Multiple example projects are included in this repo in the `examples` folder, any changes to the original xml (as found in the old `CaveWriting` project) are noted in comments. More detail is given below but here's a tldr overview:
 
 * `cweditor/minimum.xml` contains the minimum structure of a valid project
 * `cweditor/maximum.xml` contains at least one of every valid tag
-
-### cw2_samples
-
-Space
 
 ### cweditor
 
 Example projects from the cweditor java program. cweditor enabled CaveWriting project creation with a GUI.
 
-**minimum.xml** contains the base xml necessary for each project. It includes the `PlacementRoot` (`Center`, `FrontWall`, `LeftWall`, `RightWall`, `FloorWall`) with all of the walls and the `Global` (`CameraPos`, `CaveCameraPos`, `Background`, `WandNavigation`) settings - each using the default values.
+**minimum.xml** contains the base xml necessary for each project. It includes the `PlacementRoot` (`Center`, `FrontWall`, `LeftWall`, `RightWall`, `FloorWall`) and the `Global` settings (`CameraPos`, `CaveCameraPos`, `Background`, `WandNavigation`). Each tag uses its default value.
 
-**everything.xml** contains at least one of every possible Writing3D tag. The image (`w.png`) and sound (`bad.mp3`) used in the project are located in the `testMedia` subfolder.
+**everything.xml** contains at least one of every possible Writing3D tag. The image (`w.png`) and sound (`bad.mp3`) used in the project are located in the `testMedia` subfolder. The default value seems to be used wherever possible, although I have not fully checked to be 100% sure.
+
+### cw2_samples
+
+Space
 
 ### samples
 
