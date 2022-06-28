@@ -101,6 +101,34 @@ Example projects broken down by object type. Many of the projects contain multip
 
 **sound.xml** displays a single text object that, when clicked, plays a sound.
 
+
 ### samples
 
-Space
+**vr_movement**
+**sample_00_random.xml**
+**sample_01_first.xml**
+**sample_02_image.xml**
+**sample_02alt_image.xml**
+**sample_03_light.xml**
+**sample_04_model.xml**
+**sample_05_move.xml**
+**sample_06_movie.xml**
+**sample_07_stereoimage.xml**
+**sample_08_stereoleftvsright.xml**
+**sample_09_fontlights.xml**
+**sample_10_textalign.xml**
+**sample_11_click.xml**
+**sample_12_move.xml**
+**sample_13_scaling.xml**
+**sample_14_alignment.xml**
+**sample_15_multiline.xml**
+**sample_16_multiline.xml**
+**particles/fountain.xml**
+**particles/text_blizzard.xml**
+
+### Student Projects
+
+Three different student projects are found in the `projects` folder. These are completed projects used to develop this package. Run the script and see their projects for real!
+
+### test
+
