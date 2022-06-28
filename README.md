@@ -71,6 +71,7 @@ Multiple example projects are included in this repo in the `examples` folder, an
 * The `sample.xml`, `sample_image.xml`, `sample_light.xml`, and `sample_model.xml` files (`cw2_samples`) showcase the basic file types.
 * The `samples/particles` folder contains 2 projects highlighting how ParticleActions
 * `samples/vr_movement.xml` file enables player movement within the CAVE.
+* Several of the projects in `samples` are updated (and/or slightly changed) versions of projects in `cw2_samples`.
 
 ### cweditor
 
