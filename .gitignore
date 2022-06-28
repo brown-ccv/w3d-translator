@@ -63,6 +63,5 @@ crashlytics-build.properties
 __pycache__/
 *.pyc
 
-# Input and output folders used during development
-test/
+# Output folders used during development
 out/
