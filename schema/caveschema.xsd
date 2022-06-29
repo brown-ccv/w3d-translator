@@ -907,86 +907,8 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="ParticleDomain" type="ParticleDomainType" />
-  <xs:complexType name="ParticleDomainType">
-    <xs:choice>
-      <xs:element name="Point">
-        <xs:complexType>
-          <xs:attribute name="point" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Line">
-        <xs:complexType>
-          <xs:attribute name="p1" type="vector" use="required" />
-          <xs:attribute name="p2" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Triangle">
-        <xs:complexType>
-          <xs:attribute name="p1" type="vector" use="required" />
-          <xs:attribute name="p2" type="vector" use="required" />
-          <xs:attribute name="p3" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Plane">
-        <xs:complexType>
-          <xs:attribute name="point" type="vector" use="required" />
-          <xs:attribute name="normal" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Rect">
-        <xs:complexType>
-          <xs:attribute name="point" type="vector" use="required" />
-          <xs:attribute name="u-dir" type="vector" use="required" />
-          <xs:attribute name="v-dir" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Box">
-        <xs:complexType>
-          <xs:attribute name="p1" type="vector" use="required" />
-          <xs:attribute name="p2" type="vector" use="required" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Sphere">
-        <xs:complexType>
-          <xs:attribute name="center" type="vector" use="required" />
-          <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Cylinder">
-        <xs:complexType>
-          <xs:attribute name="p1" type="vector" use="required" />
-          <xs:attribute name="p2" type="vector" use="required" />
-          <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Cone">
-        <xs:complexType>
-          <xs:attribute name="base-center" type="vector" use="required" />
-          <xs:attribute name="apex" type="vector" use="required" />
-          <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Blob">
-        <xs:complexType>
-          <xs:attribute name="center" type="vector" use="required" />
-          <xs:attribute name="stdev" type="xs:float" use="optional" default="1.0" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Disc">
-        <xs:complexType>
-          <xs:attribute name="center" type="vector" use="required" />
-          <xs:attribute name="normal" type="vector" use="required" />
-          <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
-        </xs:complexType>
-      </xs:element>
-    </xs:choice>
-  </xs:complexType>
 
-  <!-- Multi-use types -->
+  <!-- Comple Types -->
   <xs:complexType name="PlacementType">
     <xs:annotation>
       <xs:documentation>Placement Obj</xs:documentation>
@@ -1148,6 +1070,84 @@
     </xs:choice>
     <xs:attribute name="duration" type="xs:double" use="optional" default="1.0" />
   </xs:complexType>
+  <xs:complexType name="ParticleDomainType">
+    <xs:choice>
+      <xs:element name="Point">
+        <xs:complexType>
+          <xs:attribute name="point" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Line">
+        <xs:complexType>
+          <xs:attribute name="p1" type="vector" use="required" />
+          <xs:attribute name="p2" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Triangle">
+        <xs:complexType>
+          <xs:attribute name="p1" type="vector" use="required" />
+          <xs:attribute name="p2" type="vector" use="required" />
+          <xs:attribute name="p3" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Plane">
+        <xs:complexType>
+          <xs:attribute name="point" type="vector" use="required" />
+          <xs:attribute name="normal" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Rect">
+        <xs:complexType>
+          <xs:attribute name="point" type="vector" use="required" />
+          <xs:attribute name="u-dir" type="vector" use="required" />
+          <xs:attribute name="v-dir" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Box">
+        <xs:complexType>
+          <xs:attribute name="p1" type="vector" use="required" />
+          <xs:attribute name="p2" type="vector" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Sphere">
+        <xs:complexType>
+          <xs:attribute name="center" type="vector" use="required" />
+          <xs:attribute name="radius" type="xs:float" use="required" />
+          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Cylinder">
+        <xs:complexType>
+          <xs:attribute name="p1" type="vector" use="required" />
+          <xs:attribute name="p2" type="vector" use="required" />
+          <xs:attribute name="radius" type="xs:float" use="required" />
+          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Cone">
+        <xs:complexType>
+          <xs:attribute name="base-center" type="vector" use="required" />
+          <xs:attribute name="apex" type="vector" use="required" />
+          <xs:attribute name="radius" type="xs:float" use="required" />
+          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Blob">
+        <xs:complexType>
+          <xs:attribute name="center" type="vector" use="required" />
+          <xs:attribute name="stdev" type="xs:float" use="optional" default="1.0" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Disc">
+        <xs:complexType>
+          <xs:attribute name="center" type="vector" use="required" />
+          <xs:attribute name="normal" type="vector" use="required" />
+          <xs:attribute name="radius" type="xs:float" use="required" />
+          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
   <xs:complexType name="CameraType">
     <xs:sequence>
       <xs:element name="Placement" type="PlacementType" />
@@ -1155,44 +1155,40 @@
     <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
   </xs:complexType>
 
-  <!-- file (xs:string)
-    No validation done
-  -->
+  <!-- Simple Types -->
   <xs:simpleType name="file">
     <xs:annotation>
       <xs:documentation>A filename type</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string" />
   </xs:simpleType>
-
-  <!-- vector (xs:string)
-    Match "([float], [float], [float],)"
-    Ignore whitespace
-    Positive or negative floats are accepted
-    Each [float] matches one of two cases:
-      Starts with a number, eg: 5 or 5. or 5.0
-      Is a decimal, eg: .5
-  -->
   <xs:simpleType name="vector">
     <xs:annotation>
       <xs:documentation>vector attrib</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
+      <!-- Match "([float], [float], [float])"
+        Ignore whitespace
+        Positive or negative floats are accepted
+        Trailing comma is accepted
+        Each [float] matches one of two cases:
+          Starts with a number, eg: 5 or 5. or 5.0
+          Is a decimal, eg: .5
+      -->
       <xs:whiteSpace value="collapse" />
       <xs:pattern value="\(\s*-?(\d+\.?(\d+)?|(\d+)?\.\d+)\s*,\s*-?(\d+\.?(\d+)?|(\d+)?\.\d+)\s*,\s*\s*-?(\d+\.?(\d+)?|(\d+)?\.\d+),?\s*\)" />
     </xs:restriction>
   </xs:simpleType>
-
-  <!-- color (xs:string)
-    Match "[int], [int], [int]"
-    Ignore whitespace
-    Only positive integers are accepted 
-  -->
   <xs:simpleType name="color">
     <xs:annotation>
       <xs:documentation>color attrib</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
+      <!-- Match "[int], [int], [int]"
+        Ignore whitespace
+        Trailing comma is accepted
+        Only positive integers are accepted 
+      -->
       <xs:whiteSpace value="collapse" />
       <xs:pattern value="(\d+)\s*,\s*(\d+)\s*,\s*(\d+),?" />
     </xs:restriction>
