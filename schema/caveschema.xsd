@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
-  <!-- TODO
-    Make Global explicit with default values (minimum.xml) 
-  -->
   <!-- ROOT -->
   <xs:element name="Story">
     <xs:annotation>
@@ -544,7 +541,7 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="Transition" />
+        <xs:element name="Transition" type="TransitionType" />
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required" />
       <xs:attribute name="random" use="optional">
@@ -556,34 +553,6 @@
       </xs:attribute>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="ActionsType">
-    <xs:choice>
-      <xs:element ref="ObjectChange" />
-      <xs:element ref="GroupRef" />
-      <xs:element ref="TimerChange" />
-      <xs:element ref="SoundRef" />
-      <xs:element ref="Event" />
-      <xs:element name="MoveCave">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:choice>
-              <xs:element name="Relative">
-                <xs:complexType />
-              </xs:element>
-              <xs:element name="Absolute">
-                <xs:complexType />
-              </xs:element>
-            </xs:choice>
-            <xs:element name="Placement" type="PlacementType" />
-          </xs:sequence>
-          <xs:attribute name="duration" type="xs:double" use="optional" default="0.0" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Restart">
-        <xs:complexType />
-      </xs:element>
-    </xs:choice>
-  </xs:complexType>
   <xs:element name="TimerChange">
     <xs:complexType>
       <xs:choice>
@@ -606,7 +575,7 @@
   <xs:element name="ObjectChange">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="Transition" />
+        <xs:element name="Transition" type="TransitionType" />
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required" />
     </xs:complexType>
@@ -1020,7 +989,7 @@
     </xs:choice>
   </xs:complexType>
 
-  <!-- Multi-use elements -->
+  <!-- Multi-use types -->
   <xs:complexType name="PlacementType">
     <xs:annotation>
       <xs:documentation>Placement Obj</xs:documentation>
@@ -1051,60 +1020,86 @@
     </xs:sequence>
     <xs:attribute name="name" type="xs:string" use="optional" />
   </xs:complexType>
-  <xs:element name="Transition">
-    <xs:complexType>
-      <xs:choice>
-        <xs:element name="Visible" type="xs:boolean" />
-        <xs:element name="Movement">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="Placement" type="PlacementType" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="MoveRel">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="Placement" type="PlacementType" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="Color" type="color" default="255,255,255" />
-        <xs:element name="Scale" type="xs:double" default="1.0" />
-        <xs:element name="Sound">
-          <xs:complexType>
-            <xs:attribute name="action">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:enumeration value="Play Sound" />
-                  <xs:enumeration value="Stop Sound" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:attribute>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="LinkChange">
-          <xs:complexType>
+  <xs:complexType name="ActionsType">
+    <xs:choice>
+      <xs:element ref="ObjectChange" />
+      <xs:element ref="GroupRef" />
+      <xs:element ref="TimerChange" />
+      <xs:element ref="SoundRef" />
+      <xs:element ref="Event" />
+      <xs:element name="MoveCave">
+        <xs:complexType>
+          <xs:sequence>
             <xs:choice>
-              <xs:element name="link_on">
+              <xs:element name="Relative">
                 <xs:complexType />
               </xs:element>
-              <xs:element name="link_off">
-                <xs:complexType />
-              </xs:element>
-              <xs:element name="activate">
-                <xs:complexType />
-              </xs:element>
-              <xs:element name="activate_if_on">
+              <xs:element name="Absolute">
                 <xs:complexType />
               </xs:element>
             </xs:choice>
-          </xs:complexType>
-        </xs:element>
-      </xs:choice>
-      <xs:attribute name="duration" type="xs:double" use="optional" default="1.0" />
-    </xs:complexType>
-  </xs:element>
+            <xs:element name="Placement" type="PlacementType" />
+          </xs:sequence>
+          <xs:attribute name="duration" type="xs:double" use="optional" default="0.0" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Restart">
+        <xs:complexType />
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="TransitionType">
+    <xs:choice>
+      <xs:element name="Visible" type="xs:boolean" />
+      <xs:element name="Movement">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Placement" type="PlacementType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="MoveRel">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Placement" type="PlacementType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Color" type="color" default="255,255,255" />
+      <xs:element name="Scale" type="xs:double" default="1.0" />
+      <xs:element name="Sound">
+        <xs:complexType>
+          <xs:attribute name="action">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Play Sound" />
+                <xs:enumeration value="Stop Sound" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="LinkChange">
+        <xs:complexType>
+          <xs:choice>
+            <xs:element name="link_on">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="link_off">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="activate">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="activate_if_on">
+              <xs:complexType />
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+    <xs:attribute name="duration" type="xs:double" use="optional" default="1.0" />
+  </xs:complexType>
   <xs:complexType name="CameraType">
     <xs:sequence>
       <xs:element name="Placement" type="PlacementType" />
