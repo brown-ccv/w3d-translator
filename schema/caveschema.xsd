@@ -493,26 +493,25 @@
     <xs:complexType>
       <xs:sequence>
         <xs:choice>
-          <xs:element ref="Objects" maxOccurs="unbounded" />
-          <xs:element ref="Groups" maxOccurs="unbounded" />
+          <xs:element name="Objects" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Reference group objects</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute name="name" type="xs:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Groups" maxOccurs="unbounded">
+            <xs:complexType>
+              <xs:attribute name="name" type="xs:string" use="required" />
+            </xs:complexType>
+          </xs:element>
         </xs:choice>
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required" />
     </xs:complexType>
   </xs:element>
-  <xs:element name="Objects">
-    <xs:annotation>
-      <xs:documentation>Reference group objects</xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="Groups">
-    <xs:complexType>
-      <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
+
 
   <!-- <Timeline> -->
   <xs:element name="Timeline">
