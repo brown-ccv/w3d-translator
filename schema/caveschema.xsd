@@ -537,7 +537,7 @@
       <xs:attribute name="start-immediately" type="xs:boolean" use="optional" default="true" />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GroupRef">
+  <!-- <xs:element name="GroupRef">
     <xs:annotation>
       <xs:documentation> Reference Group</xs:documentation>
     </xs:annotation>
@@ -586,7 +586,7 @@
     <xs:complexType>
       <xs:attribute name="name" type="xs:string" use="required" />
     </xs:complexType>
-  </xs:element>
+  </xs:element> -->
 
   <!-- <Sound> -->
   <xs:element name="Sound">
@@ -765,12 +765,7 @@
       <xs:attribute name="corner2" type="vector" use="required" />
     </xs:complexType>
   </xs:element>
-  <xs:element name="Event">
-    <xs:complexType>
-      <xs:attribute name="enable" type="xs:boolean" use="required" />
-      <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
+
 
   <!-- <ParticleActionList> -->
   <xs:element name="ParticleActionList">
@@ -1024,11 +1019,62 @@
   </xs:complexType>
   <xs:complexType name="ActionsType">
     <xs:choice>
-      <xs:element ref="ObjectChange" />
-      <xs:element ref="GroupRef" />
-      <xs:element ref="TimerChange" />
-      <xs:element ref="SoundRef" />
-      <xs:element ref="Event" />
+      <xs:element name="ObjectChange">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Transition" type="TransitionType" />
+          </xs:sequence>
+          <xs:attribute name="name" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GroupRef">
+        <xs:annotation>
+          <xs:documentation> Reference Group</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Transition" type="TransitionType" />
+          </xs:sequence>
+          <xs:attribute name="name" type="xs:string" use="required" />
+          <xs:attribute name="random" use="optional">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Select One Randomly" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TimerChange">
+        <xs:complexType>
+          <xs:choice>
+            <xs:element name="start">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="stop">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="continue">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="start_if_not_started">
+              <xs:complexType />
+            </xs:element>
+          </xs:choice>
+          <xs:attribute name="name" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SoundRef">
+        <xs:complexType>
+          <xs:attribute name="name" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Event">
+        <xs:complexType>
+          <xs:attribute name="enable" type="xs:boolean" use="required" />
+          <xs:attribute name="name" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
       <xs:element name="MoveCave">
         <xs:complexType>
           <xs:sequence>
