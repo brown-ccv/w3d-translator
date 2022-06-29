@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
   <!-- TODO
-    Make PlacementRoot walls explicit with their default values (minimum.xml)
     Make Global explicit with default values (minimum.xml) 
   -->
   <!-- ROOT -->
@@ -114,7 +113,7 @@
                     </xs:restriction>
                   </xs:complexContent>
                 </xs:complexType>
-              </xs:element> 
+              </xs:element>
               <!-- Floor Wall -->
               <xs:element name="Placement">
                 <xs:complexType>
@@ -138,15 +137,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-
-        <!-- OLD PLACEMENT ROOT -->
-        <!-- <xs:element name="PlacementRoot" minOccurs="0" maxOccurs="1">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element ref="Placement" maxOccurs="unbounded" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element> -->
         <xs:element name="SoundRoot" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
@@ -168,8 +158,28 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element ref="Global" maxOccurs="1" />
-        <!-- OLD GLOBAL <xs:element ref="Global" minOccurs="0" maxOccurs="1" /> -->
+        <xs:element name="Global" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>Global Settings</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CameraPos" type="CameraType" />
+              <xs:element name="CaveCameraPos" type="CameraType" />
+              <xs:element name="Background">
+                <xs:complexType>
+                  <xs:attribute name="color" type="color" use="optional" default="0, 0, 0" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="WandNavigation">
+                <xs:complexType>
+                  <xs:attribute name="allow-rotation" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="allow-movement" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="About" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:attribute name="news" type="xs:string" use="optional" />
@@ -335,7 +345,6 @@
         <xs:element name="AroundSelfAxis" type="xs:boolean" default="false" />
         <xs:element name="Scale" type="xs:double" default="1.0" />
         <xs:element name="SoundRef" type="xs:string" minOccurs="0" />
-        <!-- <xs:element ref="Placement" /> -->
         <xs:element name="Placement" type="PlacementType" />
         <xs:element ref="Content" />
         <xs:element name="LinkRoot" minOccurs="0">
@@ -565,7 +574,6 @@
                 <xs:complexType />
               </xs:element>
             </xs:choice>
-            <!-- <xs:element ref="Placement" /> -->
             <xs:element name="Placement" type="PlacementType" />
           </xs:sequence>
           <xs:attribute name="duration" type="xs:double" use="optional" default="0.0" />
@@ -1012,71 +1020,7 @@
     </xs:choice>
   </xs:complexType>
 
-  <!-- Global -->
-  <xs:element name="Global">
-    <xs:annotation>
-      <xs:documentation>Placement Obj</xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="CameraPos" type="Camera" />
-        <xs:element name="CaveCameraPos" type="Camera" />
-        <xs:element name="Background">
-          <xs:complexType>
-            <xs:attribute name="color" type="color" use="optional" default="0, 0, 0" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="WandNavigation">
-          <xs:complexType>
-            <xs:attribute name="allow-rotation" type="xs:boolean" use="optional" default="false" />
-            <xs:attribute name="allow-movement" type="xs:boolean" use="optional" default="false" />
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:complexType name="Camera">
-    <xs:sequence>
-      <!-- <xs:element ref="Placement" /> -->
-      <xs:element name="Placement" type="PlacementType" />
-    </xs:sequence>
-    <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
-  </xs:complexType>
-
   <!-- Multi-use elements -->
-  <!-- <xs:element name="Placement">
-    <xs:annotation>
-      <xs:documentation>Placement Obj</xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="RelativeTo" type="xs:string" default="Center" />
-        <xs:element name="Position" type="vector" default="(0.0, 0.0, 0.0)" />
-        <xs:choice minOccurs="0">
-          <xs:element name="Axis">
-            <xs:complexType>
-              <xs:attribute name="rotation" type="vector" use="optional" default="(0.0, 1.0, 0.0)" />
-              <xs:attribute name="angle" type="xs:double" use="optional" default="0.0" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="LookAt">
-            <xs:complexType>
-              <xs:attribute name="target" type="vector" use="optional" default="(0.0, 0.0, 0.0)" />
-              <xs:attribute name="up" type="vector" use="optional" default="(0.0, 1.0, 0.0)" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="Normal">
-            <xs:complexType>
-              <xs:attribute name="normal" type="vector" use="optional" default="(0.0, 0.0, 1.0)" />
-              <xs:attribute name="angle" type="xs:double" use="optional" default="0.0" />
-            </xs:complexType>
-          </xs:element>
-        </xs:choice>
-      </xs:sequence>
-      <xs:attribute name="name" type="xs:string" use="optional" />
-    </xs:complexType>
-  </xs:element> -->
-
   <xs:complexType name="PlacementType">
     <xs:annotation>
       <xs:documentation>Placement Obj</xs:documentation>
@@ -1107,8 +1051,6 @@
     </xs:sequence>
     <xs:attribute name="name" type="xs:string" use="optional" />
   </xs:complexType>
-
-
   <xs:element name="Transition">
     <xs:complexType>
       <xs:choice>
@@ -1116,7 +1058,6 @@
         <xs:element name="Movement">
           <xs:complexType>
             <xs:sequence>
-              <!-- <xs:element ref="Placement" /> -->
               <xs:element name="Placement" type="PlacementType" />
             </xs:sequence>
           </xs:complexType>
@@ -1124,7 +1065,6 @@
         <xs:element name="MoveRel">
           <xs:complexType>
             <xs:sequence>
-              <!-- <xs:element ref="Placement" /> -->
               <xs:element name="Placement" type="PlacementType" />
             </xs:sequence>
           </xs:complexType>
@@ -1165,7 +1105,12 @@
       <xs:attribute name="duration" type="xs:double" use="optional" default="1.0" />
     </xs:complexType>
   </xs:element>
-
+  <xs:complexType name="CameraType">
+    <xs:sequence>
+      <xs:element name="Placement" type="PlacementType" />
+    </xs:sequence>
+    <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
+  </xs:complexType>
 
   <!-- file (xs:string)
     No validation done
