@@ -495,13 +495,16 @@
         <xs:choice>
           <xs:element name="Objects" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>Reference group objects</xs:documentation>
+              <xs:documentation>Object references</xs:documentation>
             </xs:annotation>
             <xs:complexType>
               <xs:attribute name="name" type="xs:string" use="required" />
             </xs:complexType>
           </xs:element>
           <xs:element name="Groups" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Group references</xs:documentation>
+            </xs:annotation>
             <xs:complexType>
               <xs:attribute name="name" type="xs:string" use="required" />
             </xs:complexType>
