@@ -6,10 +6,16 @@ I want to jot down a bunch of notes regarding the XML and what they'll look like
 
 - The origin is the middle of all objects
 - Nested objects will assume the local transform of the parent object
+- UNITY USES METERS FOR UNITS (CAVE uses ft)
+  - CAVE walls are 8' (96") squares -> 2.4384 meters
+  - 1ft = 0.3048m || 1m = 3.28084ft
 
 ## PlacementRoot
 
 Each `<Placement>` in `PlacementRoot` is a Plane. Note that a scale(1,1,1) plane translates to =/- position(5, 5, 5). PlacementRoot should be the same for all projects:
+
+- `<Placement name="Center">` is dead center of the CAVE
+  - The VR plane must be moved to -4
 
 ```xml
 <PlacementRoot>
@@ -57,11 +63,17 @@ Each `<Placement>` in `PlacementRoot` is a Plane. Note that a scale(1,1,1) plane
     - `normal`: A normalized vector
     - `angle`: The rotation angle of the object, in degrees
 
-#### Conversions
+### Changes and Conversions
 
+**Changes:**
+
+
+- The `Story` root object needs a scale of 0.3048 to convert XML feet to Unity meters
+  - Set Y position to 4 so the floor sits at Unity 0
+- The `XRRig` goes inside the CAVE but is instantiated with a tracking offset in meters
+  - Set "Camera Y Offset" to 4.66667
 - I believe we need to flip all of the z axis to match. (?)
 - We need to convert `LookAt` and `Normal` from world space to local rotation - essentially making everything an `Axis` object.
-
 
 Example:
 
