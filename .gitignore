@@ -62,4 +62,6 @@ crashlytics-build.properties
 .vscode/
 __pycache__/
 *.pyc
+
+# Output folders used during development
 out/
