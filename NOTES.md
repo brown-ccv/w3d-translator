@@ -10,12 +10,23 @@ I want to jot down a bunch of notes regarding the XML and what they'll look like
   - CAVE walls are 8' (96") squares -> 2.4384 meters
   - 1ft = 0.3048m || 1m = 3.28084ft
 
+## Unity Starter Assets
+
+- Base project uses the "VR Project" template project that Unity provides
+- The starter DirectionalLight can be deleted
+- The starter `XRRig` stays as a root object of the project. Keep defaults
+- The entire project lives inside the `Story` empty game object
+  - Scale is 0.3048 to covert feet to meters
+  - Set Y to 1.2192 so floor sits at 0, 0, 0.
+- The starter `Plane` must be moved inside `Story`
+  - Set Y position to -4.0001 (avoids collision with Floor Wall)
+  - Scale should convert to 32.8084 (was 10m)
+
+### VR Settings
+
 ## PlacementRoot
 
-Each `<Placement>` in `PlacementRoot` is a Plane. Note that a scale(1,1,1) plane translates to =/- position(5, 5, 5). PlacementRoot should be the same for all projects:
-
-- `<Placement name="Center">` is dead center of the CAVE
-  - The VR plane must be moved to -4
+Each `<Placement>` in `PlacementRoot` is a Plane. PlacementRoot is the same for all projects:
 
 ```xml
 <PlacementRoot>
@@ -65,13 +76,8 @@ Each `<Placement>` in `PlacementRoot` is a Plane. Note that a scale(1,1,1) plane
 
 ### Changes and Conversions
 
-**Changes:**
-
-
-- The `Story` root object needs a scale of 0.3048 to convert XML feet to Unity meters
-  - Set Y position to 4 so the floor sits at Unity 0
-- The `XRRig` goes inside the CAVE but is instantiated with a tracking offset in meters
-  - Set "Camera Y Offset" to 4.66667
+- Each wall is a `Plane`
+  - Planes scale to 10x normal objects; Set scale to 0.8 for 8ft walls
 - I believe we need to flip all of the z axis to match. (?)
 - We need to convert `LookAt` and `Normal` from world space to local rotation - essentially making everything an `Axis` object.
 
