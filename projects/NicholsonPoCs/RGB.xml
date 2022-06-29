@@ -1,0 +1,1231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jaxfront version=2.1;time=2014-09-08 07:32:05.959;xui=jar:file:/Users/ben/CWEditor.jar!/schema/caveschema.xui;xsd=caveschema.xsd?>
+<Story version="8" last_xpath="/Story/GroupRoot/Group[12]
+">
+       <ObjectRoot>
+              <Object name="light">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>1.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, 4)</Position>
+                     </Placement>
+                     <Content>
+                            <Light diffuse="true" specular="true" const_atten="1.0" lin_atten="0.0" quad_atten="0.0">
+                                   <Point/>
+                            </Light>
+                     </Content>
+              </Object>
+              <Object name="test_text_1">
+                     <Visible>true</Visible>
+                     <Color>255,0,0</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -10)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Courier.ttf" depth="10">
+                                   <text>red                   </text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="red_wall_center_back">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, -1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/red.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="red_wall_left">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/red.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="red_wall_right">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/red.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="red_wall_bottom">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/red.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="red_wall_top">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/red.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="red_wall_center_front">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, 1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/red.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_red_wall_center_back">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, -1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_red.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_red_wall_left">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_red.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_red_wall_right">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_red.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_red_wall_bottom">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_red.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_red_wall_top">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_red.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_red_wall_center_front">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, 1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_red.png"/>
+                     </Content>
+              </Object>
+              <Object name="test_text_2">
+                     <Visible>true</Visible>
+                     <Color>0,255,0</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -10)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Courier.ttf" depth="10">
+                                   <text>    and green         </text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="green_wall_center_back">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, -1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/green.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="green_wall_left">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/green.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="green_wall_right">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/green.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="green_wall_bottom">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/green.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="green_wall_top">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/green.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="green_wall_center_front">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, 1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/green.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_green_wall_center_back">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, -1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_green.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_green_wall_left">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_green.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_green_wall_right">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_green.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_green_wall_bottom">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_green.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_green_wall_top">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_green.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_green_wall_center_front">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, 1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_green.png"/>
+                     </Content>
+              </Object>
+              <Object name="test_text_3">
+                     <Visible>true</Visible>
+                     <Color>0,0,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -10)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Courier.ttf" depth="10">
+                                   <text>              and blue</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="blue_wall_center_back">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, -1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/blue.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="blue_wall_left">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/blue.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="blue_wall_right">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/blue.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="blue_wall_bottom">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/blue.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="blue_wall_top">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/blue.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="blue_wall_center_front">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, 1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/blue.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_blue_wall_center_back">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, -1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_blue.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_blue_wall_left">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_blue.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_blue_wall_right">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(1, 0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_blue.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_blue_wall_bottom">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_blue.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_blue_wall_top">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_blue.png"/>
+                     </Content>
+              </Object>
+              <Object name="transparent_blue_wall_center_front">
+                     <Visible>false</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>2</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0, 1)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/transparent_blue.png"/>
+                     </Content>
+              </Object>
+              <Object name="black_wall_left">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>8</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4, 0.0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/black.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="black_wall_center">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>8</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0, 0.0, -4)</Position>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/black.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="black_wall_right">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>8</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4, 0.0, 0.0)</Position>
+                                   <Axis rotation="(0.0, 1.0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/black.jpg"/>
+                     </Content>
+              </Object>
+              <Object name="black_wall_floor">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>false</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>8</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -4, 0.0)</Position>
+                                   <Axis rotation="(1, 0, 0.0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Image filename="./images/black.jpg"/>
+                     </Content>
+              </Object>
+       </ObjectRoot>
+       <GroupRoot>
+              <Group name="red_box">
+                            <Objects name="red_wall_left"/>
+                            <Objects name="red_wall_center_back"/>
+                            <Objects name="red_wall_center_front"/>
+                            <Objects name="red_wall_right"/>
+                            <Objects name="red_wall_bottom"/>
+                            <Objects name="red_wall_top"/>
+              </Group>
+              <Group name="red_box_transparent">
+                            <Objects name="transparent_red_wall_left"/>
+                            <Objects name="transparent_red_wall_center_back"/>
+                            <Objects name="transparent_red_wall_center_front"/>
+                            <Objects name="transparent_red_wall_right"/>
+                            <Objects name="transparent_red_wall_bottom"/>
+                            <Objects name="transparent_red_wall_top"/>
+              </Group>
+              <Group name="red_boxes_all">
+                            <Objects name="red_wall_left"/>
+                            <Objects name="red_wall_center_back"/>
+                            <Objects name="red_wall_center_front"/>
+                            <Objects name="red_wall_right"/>
+                            <Objects name="red_wall_bottom"/>
+                            <Objects name="red_wall_top"/>
+                            <Objects name="transparent_red_wall_left"/>
+                            <Objects name="transparent_red_wall_center_back"/>
+                            <Objects name="transparent_red_wall_center_front"/>
+                            <Objects name="transparent_red_wall_right"/>
+                            <Objects name="transparent_red_wall_bottom"/>
+                            <Objects name="transparent_red_wall_top"/>
+              </Group>
+              <Group name="green_box">
+                            <Objects name="green_wall_left"/>
+                            <Objects name="green_wall_center_back"/>
+                            <Objects name="green_wall_center_front"/>
+                            <Objects name="green_wall_right"/>
+                            <Objects name="green_wall_bottom"/>
+                            <Objects name="green_wall_top"/>
+              </Group>
+              <Group name="green_box_transparent">
+                            <Objects name="transparent_green_wall_center_back"/>
+                            <Objects name="transparent_green_wall_left"/>
+                            <Objects name="transparent_green_wall_right"/>
+                            <Objects name="transparent_green_wall_bottom"/>
+                            <Objects name="transparent_green_wall_top"/>
+                            <Objects name="transparent_green_wall_center_front"/>
+              </Group>
+              <Group name="green_boxes_all">
+                            <Objects name="green_wall_left"/>
+                            <Objects name="green_wall_center_back"/>
+                            <Objects name="green_wall_center_front"/>
+                            <Objects name="green_wall_right"/>
+                            <Objects name="green_wall_bottom"/>
+                            <Objects name="green_wall_top"/>
+                            <Objects name="transparent_green_wall_center_back"/>
+                            <Objects name="transparent_green_wall_left"/>
+                            <Objects name="transparent_green_wall_right"/>
+                            <Objects name="transparent_green_wall_bottom"/>
+                            <Objects name="transparent_green_wall_top"/>
+                            <Objects name="transparent_green_wall_center_front"/>
+              </Group>
+              <Group name="blue_box">
+                            <Objects name="blue_wall_left"/>
+                            <Objects name="blue_wall_center_back"/>
+                            <Objects name="blue_wall_center_front"/>
+                            <Objects name="blue_wall_right"/>
+                            <Objects name="blue_wall_bottom"/>
+                            <Objects name="blue_wall_top"/>
+              </Group>
+              <Group name="blue_box_transparent">
+                            <Objects name="transparent_blue_wall_center_back"/>
+                            <Objects name="transparent_blue_wall_left"/>
+                            <Objects name="transparent_blue_wall_right"/>
+                            <Objects name="transparent_blue_wall_bottom"/>
+                            <Objects name="transparent_blue_wall_top"/>
+                            <Objects name="transparent_blue_wall_center_front"/>
+              </Group>
+              <Group name="blue_boxes_all">
+                            <Objects name="blue_wall_left"/>
+                            <Objects name="blue_wall_center_back"/>
+                            <Objects name="blue_wall_center_front"/>
+                            <Objects name="blue_wall_right"/>
+                            <Objects name="blue_wall_bottom"/>
+                            <Objects name="blue_wall_top"/>
+                            <Objects name="transparent_blue_wall_center_back"/>
+                            <Objects name="transparent_blue_wall_left"/>
+                            <Objects name="transparent_blue_wall_right"/>
+                            <Objects name="transparent_blue_wall_bottom"/>
+                            <Objects name="transparent_blue_wall_top"/>
+                            <Objects name="transparent_blue_wall_center_front"/>
+              </Group>
+              <Group name="all_box_solid">
+                            <Objects name="red_wall_left"/>
+                            <Objects name="red_wall_center_back"/>
+                            <Objects name="red_wall_center_front"/>
+                            <Objects name="red_wall_right"/>
+                            <Objects name="red_wall_bottom"/>
+                            <Objects name="red_wall_top"/>
+                            <Objects name="green_wall_left"/>
+                            <Objects name="green_wall_center_back"/>
+                            <Objects name="green_wall_center_front"/>
+                            <Objects name="green_wall_right"/>
+                            <Objects name="green_wall_bottom"/>
+                            <Objects name="green_wall_top"/>
+                            <Objects name="blue_wall_left"/>
+                            <Objects name="blue_wall_center_back"/>
+                            <Objects name="blue_wall_center_front"/>
+                            <Objects name="blue_wall_right"/>
+                            <Objects name="blue_wall_bottom"/>
+                            <Objects name="blue_wall_top"/>
+              </Group>
+              <Group name="all_box_transparent">
+                            <Objects name="transparent_red_wall_center_back"/>
+                            <Objects name="transparent_red_wall_left"/>
+                            <Objects name="transparent_red_wall_right"/>
+                            <Objects name="transparent_red_wall_bottom"/>
+                            <Objects name="transparent_red_wall_top"/>
+                            <Objects name="transparent_red_wall_center_front"/>
+                            <Objects name="transparent_green_wall_center_back"/>
+                            <Objects name="transparent_green_wall_left"/>
+                            <Objects name="transparent_green_wall_right"/>
+                            <Objects name="transparent_green_wall_bottom"/>
+                            <Objects name="transparent_green_wall_top"/>
+                            <Objects name="transparent_green_wall_center_front"/>
+                            <Objects name="transparent_blue_wall_center_back"/>
+                            <Objects name="transparent_blue_wall_left"/>
+                            <Objects name="transparent_blue_wall_right"/>
+                            <Objects name="transparent_blue_wall_bottom"/>
+                            <Objects name="transparent_blue_wall_top"/>
+                            <Objects name="transparent_blue_wall_center_front"/>
+              </Group>
+              <Group name="all_boxes">
+                            <Objects name="red_wall_left"/>
+                            <Objects name="red_wall_center_back"/>
+                            <Objects name="red_wall_center_front"/>
+                            <Objects name="red_wall_right"/>
+                            <Objects name="red_wall_bottom"/>
+                            <Objects name="red_wall_top"/>
+                            <Objects name="green_wall_left"/>
+                            <Objects name="green_wall_center_back"/>
+                            <Objects name="green_wall_center_front"/>
+                            <Objects name="green_wall_right"/>
+                            <Objects name="green_wall_bottom"/>
+                            <Objects name="green_wall_top"/>
+                            <Objects name="blue_wall_left"/>
+                            <Objects name="blue_wall_center_back"/>
+                            <Objects name="blue_wall_center_front"/>
+                            <Objects name="blue_wall_right"/>
+                            <Objects name="blue_wall_bottom"/>
+                            <Objects name="blue_wall_top"/>
+                            <Objects name="transparent_red_wall_center_back"/>
+                            <Objects name="transparent_red_wall_left"/>
+                            <Objects name="transparent_red_wall_right"/>
+                            <Objects name="transparent_red_wall_bottom"/>
+                            <Objects name="transparent_red_wall_top"/>
+                            <Objects name="transparent_red_wall_center_front"/>
+                            <Objects name="transparent_green_wall_center_back"/>
+                            <Objects name="transparent_green_wall_left"/>
+                            <Objects name="transparent_green_wall_right"/>
+                            <Objects name="transparent_green_wall_bottom"/>
+                            <Objects name="transparent_green_wall_top"/>
+                            <Objects name="transparent_green_wall_center_front"/>
+                            <Objects name="transparent_blue_wall_center_back"/>
+                            <Objects name="transparent_blue_wall_left"/>
+                            <Objects name="transparent_blue_wall_right"/>
+                            <Objects name="transparent_blue_wall_bottom"/>
+                            <Objects name="transparent_blue_wall_top"/>
+                            <Objects name="transparent_blue_wall_center_front"/>
+              </Group>
+       </GroupRoot>
+       <TimelineRoot>
+              <Timeline name="box_position" start-immediately="true">
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="red_boxes_all">
+                                   <Transition duration="1.0">
+                                          <MoveRel>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(-2.5, 0.0, 0.0)</Position>
+                                                 </Placement>
+                                          </MoveRel>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="blue_boxes_all">
+                                   <Transition duration="1.0">
+                                          <MoveRel>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(2.5, 0.0, 0.0)</Position>
+                                                 </Placement>
+                                          </MoveRel>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="1.01">
+                            <GroupRef name="all_boxes">
+                                   <Transition duration="1.0">
+                                          <MoveRel>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 1.5, 0.0)</Position>
+                                                 </Placement>
+                                          </MoveRel>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="red_transparent" start-immediately="false">
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="red_box">
+                                   <Transition duration="1.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="green_boxes_all">
+                                   <Transition duration="1.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="blue_boxes_all">
+                                   <Transition duration="1.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="red_box_transparent">
+                                   <Transition duration="1.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="green_transparent" start-immediately="false">
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="red_boxes_all">
+                                   <Transition duration="1.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="green_box">
+                                   <Transition duration="1.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="blue_boxes_all">
+                                   <Transition duration="1.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="green_box_transparent">
+                                   <Transition duration="1.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="blue_transparent" start-immediately="false">
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="red_boxes_all">
+                                   <Transition duration="1.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="green_boxes_all">
+                                   <Transition duration="1.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="blue_box">
+                                   <Transition duration="1.0">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="blue_box_transparent">
+                                   <Transition duration="1.0">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="all_box_solid" start-immediately="false">
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="all_box_solid">
+                                   <Transition duration="1">
+                                          <Visible>true</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.0">
+                            <GroupRef name="all_box_transparent">
+                                   <Transition duration="1">
+                                          <Visible>false</Visible>
+                                   </Transition>
+                            </GroupRef>
+                     </TimedActions>
+              </Timeline>
+       </TimelineRoot>
+       <PlacementRoot>
+              <Placement name="Center">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, 0.0)</Position>
+                            <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0"/>
+              </Placement>
+              <Placement name="FrontWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, -4.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="LeftWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(-4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="RightWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="FloorWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, -4.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
+              </Placement>
+       </PlacementRoot>
+       <EventRoot>
+              <EventTrigger enabled="true" name="solid_world_red" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="true" corner1="(-3.5, 0, -1)" corner2="(-1.5, 0, 1)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <Event enable="true" name="solid_world_green"/>
+                     </Actions>
+                     <Actions>
+                            <TimerChange name="all_box_solid">
+                                   <start_if_not_started/>
+                            </TimerChange>
+                     </Actions>
+                     <Actions>
+                            <Event enable="true" name="solid_world_red"/>
+                     </Actions>
+                     <Actions>
+                            <Event enable="true" name="solid_world_blue"/>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="red_world" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="true" corner1="(-3.5, 0, -1)" corner2="(-1.5, 0, 1)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <TimerChange name="red_transparent">
+                                   <start_if_not_started/>
+                            </TimerChange>
+                     </Actions>
+                     <Actions>
+                            <Event enable="true" name="solid_world_red"/>
+                     </Actions>
+                     <Actions>
+                            <Event enable="false" name="solid_world_green"/>
+                     </Actions>
+                     <Actions>
+                            <Event enable="false" name="solid_world_blue"/>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="solid_world_green" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="true" corner1="(-1, 0, -1)" corner2="(1, 0, 1)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <Event enable="true" name="solid_world_red"/>
+                     </Actions>
+                     <Actions>
+                            <TimerChange name="all_box_solid">
+                                   <start_if_not_started/>
+                            </TimerChange>
+                     </Actions>
+                     <Actions>
+                            <Event enable="true" name="solid_world_green"/>
+                     </Actions>
+                     <Actions>
+                            <Event enable="true" name="solid_world_blue"/>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="green_world" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="true" corner1="(-1, 0, -1)" corner2="(1, 0, 1)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <TimerChange name="green_transparent">
+                                   <start_if_not_started/>
+                            </TimerChange>
+                     </Actions>
+                     <Actions>
+                            <Event enable="true" name="solid_world_green"/>
+                     </Actions>
+                     <Actions>
+                            <Event enable="false" name="solid_world_blue"/>
+                     </Actions>
+                     <Actions>
+                            <Event enable="false" name="solid_world_red"/>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="solid_world_blue" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="true" corner1="(1.5, 0, -1)" corner2="(3.5, 0, 1)">
+                                                 <Movement>
+                                                        <Outside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <Event enable="true" name="solid_world_blue"/>
+                     </Actions>
+                     <Actions>
+                            <TimerChange name="all_box_solid">
+                                   <start_if_not_started/>
+                            </TimerChange>
+                     </Actions>
+                     <Actions>
+                            <Event enable="true" name="solid_world_red"/>
+                     </Actions>
+                     <Actions>
+                            <Event enable="true" name="solid_world_green"/>
+                     </Actions>
+              </EventTrigger>
+              <EventTrigger enabled="true" name="blue_world" duration="0.0" remain-enabled="true">
+                            <HeadTrack>
+                                   <Position>
+                                          <Box ignore-Y="true" corner1="(1.5, 0, -1)" corner2="(3.5, 0, 1)">
+                                                 <Movement>
+                                                        <Inside/>
+                                                 </Movement>
+                                          </Box>
+                                   </Position>
+                                   <Direction>
+                                          <None/>
+                                   </Direction>
+                            </HeadTrack>
+                     <Actions>
+                            <TimerChange name="blue_transparent">
+                                   <start_if_not_started/>
+                            </TimerChange>
+                     </Actions>
+                     <Actions>
+                            <Event enable="true" name="solid_world_blue"/>
+                     </Actions>
+                     <Actions>
+                            <Event enable="false" name="solid_world_red"/>
+                     </Actions>
+                     <Actions>
+                            <Event enable="false" name="solid_world_green"/>
+                     </Actions>
+              </EventTrigger>
+       </EventRoot>
+       <Global>
+              <CameraPos far-clip="40">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, 6.0)</Position>
+                     </Placement>
+              </CameraPos>
+              <CaveCameraPos far-clip="40">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, 0.0)</Position>
+                     </Placement>
+              </CaveCameraPos>
+              <Background color="0,0,0"/>
+              <WandNavigation allow-rotation="false" allow-movement="false"/>
+       </Global>
+</Story>

@@ -1,0 +1,2708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jaxfront version=2.1;time=2017-09-17 11:11:35.099;xui=jar:http://cavewriting.sourceforge.net/2006/CWEditor/cavewriting.jar!/schema/caveschema.xui;xsd=caveschema.xsd?>
+<Story version="8" last_xpath="/Story/TimelineRoot/Timeline[2]
+">
+       <ObjectRoot>
+              <Object name="1">
+                     <Visible>true</Visible>
+                     <Color>0,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>50</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-20, 0.0, -20)</Position>
+                                   <Axis rotation="(-5, 0, -1.5)" angle="30"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="3">
+                                   <text>&lt;</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="2">
+                     <Visible>true</Visible>
+                     <Color>0,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>50</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(20, 0.0, -20)</Position>
+                                   <Axis rotation="(-5, 0, 1.5)" angle="30"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="3">
+                                   <text>&gt;</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="3">
+                     <Visible>true</Visible>
+                     <Color>0,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>70</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0, -2.5, -25)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="3">
+                                   <text>^</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="4">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -28)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.0">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="5">
+                     <Visible>true</Visible>
+                     <Color>102,0,0</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>18</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-0.40, -0.3, -29)</Position>
+                                   <Axis rotation="(0, 0, 0.8)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>(</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="6">
+                     <Visible>true</Visible>
+                     <Color>102,0,0</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>18</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.40, 0.7, -29)</Position>
+                                   <Axis rotation="(0, 0, -0.8)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>(</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="7">
+                     <Visible>true</Visible>
+                     <Color>249,11,11</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>10</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.2, -29.1)</Position>
+                                   <Axis rotation="(0, 0, -1)" angle="50"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.0">
+                                   <text>I</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="8">
+                     <Visible>true</Visible>
+                     <Color>249,11,11</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>10</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-.75, 0.45, -29.1)</Position>
+                                   <Axis rotation="(0, 0, -1)" angle="50"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.0">
+                                   <text>I</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="9">
+                     <Visible>true</Visible>
+                     <Color>249,11,11</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>10</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.75, 0, -29.1)</Position>
+                                   <Axis rotation="(0, 0, -1)" angle="50"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.0">
+                                   <text>I</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="10">
+                     <Visible>true</Visible>
+                     <Color>249,11,11</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>9</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(1, -0.1, -29.1)</Position>
+                                   <Axis rotation="(0, 0, -1)" angle="50"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.0">
+                                   <text>I</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="11">
+                     <Visible>true</Visible>
+                     <Color>249,11,11</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>9</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-1., 0.4, -29.1)</Position>
+                                   <Axis rotation="(0, 0, -1)" angle="50"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.0">
+                                   <text>I</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="12">
+                     <Visible>true</Visible>
+                     <Color>249,11,11</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>7</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(1.4, 0, -29.1)</Position>
+                                   <Axis rotation="(0, 0, -1)" angle="50"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.0">
+                                   <text>I</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="13">
+                     <Visible>true</Visible>
+                     <Color>249,11,11</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>6</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(1.6, 0, -29.1)</Position>
+                                   <Axis rotation="(0, 0, -1)" angle="50"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.0">
+                                   <text>I</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="14">
+                     <Visible>true</Visible>
+                     <Color>249,11,11</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>5</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-1.65, 0.4, -29.1)</Position>
+                                   <Axis rotation="(0, 0, -1)" angle="50"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.0">
+                                   <text>I</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="15">
+                     <Visible>true</Visible>
+                     <Color>249,11,11</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>8.5</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-1.37, 0.4, -29.1)</Position>
+                                   <Axis rotation="(0, 0, -1)" angle="50"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.0">
+                                   <text>I</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="21">
+                     <Visible>true</Visible>
+                     <Color>102,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>6</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.6, -35)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.5">
+                                   <text>o</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="22">
+                     <Visible>true</Visible>
+                     <Color>102,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>6</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.6, -45)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.5">
+                                   <text>o</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="23">
+                     <Visible>true</Visible>
+                     <Color>102,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>6</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.6, -55)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.5">
+                                   <text>o</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="24">
+                     <Visible>true</Visible>
+                     <Color>102,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>6</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.6, -65)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.5">
+                                   <text>o</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="25">
+                     <Visible>true</Visible>
+                     <Color>102,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>6</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.6, -75)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.5">
+                                   <text>o</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="26">
+                     <Visible>true</Visible>
+                     <Color>102,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>6</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.6, -85)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.5">
+                                   <text>o</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="27">
+                     <Visible>true</Visible>
+                     <Color>102,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>6</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.6, -95)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.5">
+                                   <text>o</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="28">
+                     <Visible>true</Visible>
+                     <Color>102,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>6</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.6, -105)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="0.5">
+                                   <text>o</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="1.1">
+                     <Visible>true</Visible>
+                     <Color>0,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>175</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-15, -5, -39)</Position>
+                                   <Axis rotation="(0, -2.5, 1)" angle="30"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="3">
+                                   <text>^</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="2.1">
+                     <Visible>true</Visible>
+                     <Color>0,102,102</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>175</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(15, -5, -39)</Position>
+                                   <Axis rotation="(0, 2.5, -1)" angle="30"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="3">
+                                   <text>^</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="31">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>40</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -7, -18)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="32">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>50</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -6.5, -18)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="33">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>60</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -6, -18)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="35">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>80</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -5, -18)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="36">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>50</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-3, -5.5, -5)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="37">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>40</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-3, -6, -5)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="38">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-3, -6.5, -5)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="39">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>20</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-3, -7, -5)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="40">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>10</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-3, -7.5, -5)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="41">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.75, -5.55, -7.5)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="42">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>20</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.75, -5.7, -7.5)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="43">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>10</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.75, -5.85, -7.5)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="44">
+                     <Visible>true</Visible>
+                     <Color>45,45,6</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>5</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.75, -6, -7.5)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="34">
+                     <Visible>true</Visible>
+                     <Color>0,204,51</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>true</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>100</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-20, -5.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="45">
+                     <Visible>true</Visible>
+                     <Color>0,204,51</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>70</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-21, -4, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="46">
+                     <Visible>true</Visible>
+                     <Color>0,204,51</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>60</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-21, -3, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="47">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>70</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -5.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="48">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>70</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -6, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="49">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>65</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -6.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="50">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>65</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -7, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="51">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>55</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -7.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="52">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>55</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -8, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="53">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>55</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -8.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="54">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>55</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -9, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="55">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>55</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -9.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="56">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>50</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -10, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="57">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>50</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -10.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="58">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>50</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -11, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="59">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>45</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -11.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="60">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>45</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -12, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="61">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>45</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -12.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="62">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>45</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -13, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="63">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>45</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -13.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="64">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>40</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -14, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="65">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>40</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -14.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="66">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>40</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -15, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="67">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>40</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -15.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="68">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>40</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -16, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="69">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>40</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -16.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="79">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>35</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -17, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="80">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>35</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -17.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="81">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>35</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -18, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="82">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>35</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -18.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="83">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>35</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -19, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="84">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>35</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -19.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="85">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>35</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -20, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="86">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>35</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -20.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="87">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>35</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -21, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="88">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>35</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -21.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="89">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -22, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="90">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -22.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="91">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -23, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="92">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -23.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="93">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -24, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="94">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -24.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="95">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -25, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="96">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -25.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="97">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>30</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -26, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="98">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>25</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -26.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="99">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>25</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -27, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="100">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>25</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -27.5, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="101">
+                     <Visible>true</Visible>
+                     <Color>98,79,2</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>25</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(31, -28, -50)</Position>
+                                   <Axis rotation="(1, 0, 0)" angle="90"/>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="1">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="102">
+                     <Visible>true</Visible>
+                     <Color>102,0,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>3</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, -20, -18)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" font="Arial.ttf" depth="10">
+                                   <text>O</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="103">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>1</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-20, -15, -50)</Position>
+                     </Placement>
+                     <Content>
+                            <Light diffuse="true" specular="true" const_atten="1.0" lin_atten="0.0" quad_atten="0.0">
+                                   <Point/>
+                            </Light>
+                     </Content>
+              </Object>
+              <Object name="104">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>100</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(20, 20, -50)</Position>
+                     </Placement>
+                     <Content>
+                            <Light diffuse="true" specular="true" const_atten="1.0" lin_atten="0.0" quad_atten="0.0">
+                                   <Point/>
+                            </Light>
+                     </Content>
+              </Object>
+              <Object name="105">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>100</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0, 0.0, 0.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Light diffuse="true" specular="true" const_atten="1.0" lin_atten="0.0" quad_atten="0.0">
+                                   <Point/>
+                            </Light>
+                     </Content>
+              </Object>
+              <Object name="106">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>50</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(8, 10, -15)</Position>
+                     </Placement>
+                     <Content>
+                            <Light diffuse="true" specular="true" const_atten="1.0" lin_atten="0.0" quad_atten="0.0">
+                                   <Point/>
+                            </Light>
+                     </Content>
+              </Object>
+              <Object name="107">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>1.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(20, 15, -55)</Position>
+                     </Placement>
+                     <Content>
+                            <Light diffuse="true" specular="true" const_atten="1.0" lin_atten="0.0" quad_atten="0.0">
+                                   <Point/>
+                            </Light>
+                     </Content>
+              </Object>
+              <Object name="108">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>50</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, -30)</Position>
+                     </Placement>
+                     <Content>
+                            <Light diffuse="true" specular="true" const_atten="1.0" lin_atten="0.0" quad_atten="0.0">
+                                   <Point/>
+                            </Light>
+                     </Content>
+              </Object>
+              <Object name="light">
+                     <Visible>true</Visible>
+                     <Color>255,255,255</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>1.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.5, 6.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Light diffuse="true" specular="true" const_atten="1.0" lin_atten="0.0" quad_atten="0.0">
+                                   <Point/>
+                            </Light>
+                     </Content>
+              </Object>
+              <Object name="frt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, 4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="frb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, -4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="flb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, -4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="flt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, 4.0, -4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rlt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, 4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rlb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(4.0, -4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rrb">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, -4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+              <Object name="rrt">
+                     <Visible>true</Visible>
+                     <Color>127,127,127</Color>
+                     <Lighting>true</Lighting>
+                     <ClickThrough>false</ClickThrough>
+                     <AroundSelfAxis>false</AroundSelfAxis>
+                     <Scale>4.0</Scale>
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(-4.0, 4.0, 4.0)</Position>
+                     </Placement>
+                     <Content>
+                            <Text horiz-align="center" vert-align="center" depth="0.0">
+                                   <text>.</text>
+                            </Text>
+                     </Content>
+              </Object>
+       </ObjectRoot>
+       <GroupRoot>
+              <Group name="1">
+                            <Objects name="21"/>
+                            <Objects name="22"/>
+                            <Objects name="23"/>
+                            <Objects name="24"/>
+                            <Objects name="25"/>
+                            <Objects name="26"/>
+                            <Objects name="27"/>
+                            <Objects name="28"/>
+              </Group>
+       </GroupRoot>
+       <TimelineRoot>
+              <Timeline name="1" start-immediately="true">
+                     <TimedActions seconds-time="0.0">
+                            <ObjectChange name="21">
+                                   <Transition duration="5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0, -0.5, 15)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="2">
+                            <ObjectChange name="22">
+                                   <Transition duration="5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0, -0.5, 15)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="4">
+                            <ObjectChange name="23">
+                                   <Transition duration="5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0, -0.5, 15)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="6">
+                            <ObjectChange name="24">
+                                   <Transition duration="5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0, -0.5, 15)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="8">
+                            <ObjectChange name="25">
+                                   <Transition duration="5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0, -0.5, 15)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="10">
+                            <ObjectChange name="26">
+                                   <Transition duration="5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0, -0.5, 15)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="12">
+                            <ObjectChange name="27">
+                                   <Transition duration="5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0, -0.5, 15)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="14">
+                            <ObjectChange name="28">
+                                   <Transition duration="5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0, -0.5, 15)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="6">
+                            <ObjectChange name="21">
+                                   <Transition duration="1">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(-15, 20, 0)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="8">
+                            <ObjectChange name="22">
+                                   <Transition duration="1">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(15, 20, 0)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="10">
+                            <ObjectChange name="23">
+                                   <Transition duration="1">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(-15, 20, 0)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="12">
+                            <ObjectChange name="24">
+                                   <Transition duration="1">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(15, 20, 0)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="14">
+                            <ObjectChange name="25">
+                                   <Transition duration="1">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(-15, 20, 0)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="16">
+                            <ObjectChange name="26">
+                                   <Transition duration="1">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(15, 20, 0)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="18">
+                            <ObjectChange name="27">
+                                   <Transition duration="1">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(-15, 20, 0)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20">
+                            <ObjectChange name="28">
+                                   <Transition duration="1">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(15, 20, 0)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="8">
+                            <ObjectChange name="21">
+                                   <Transition duration="12">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.6, -35)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="10">
+                            <ObjectChange name="22">
+                                   <Transition duration="12">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.6, -45)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="12">
+                            <ObjectChange name="23">
+                                   <Transition duration="12">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.6, -55)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="14">
+                            <ObjectChange name="24">
+                                   <Transition duration="12">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.6, -65)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="16">
+                            <ObjectChange name="25">
+                                   <Transition duration="12">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.6, -75)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="18">
+                            <ObjectChange name="26">
+                                   <Transition duration="12">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.6, -85)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20">
+                            <ObjectChange name="27">
+                                   <Transition duration="12">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.6, -95)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="22">
+                            <ObjectChange name="28">
+                                   <Transition duration="12">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 0.6, -105)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="25">
+                            <TimerChange name="1">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="basin scale" start-immediately="true">
+                     <TimedActions seconds-time="0.0">
+                            <ObjectChange name="35">
+                                   <Transition duration="1">
+                                          <Scale>65</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.5">
+                            <ObjectChange name="33">
+                                   <Transition duration="1.0">
+                                          <Scale>50</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="1.5">
+                            <ObjectChange name="32">
+                                   <Transition duration="1.0">
+                                          <Scale>40</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="2.0">
+                            <ObjectChange name="31">
+                                   <Transition duration="1.0">
+                                          <Scale>30</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="1.5">
+                            <ObjectChange name="35">
+                                   <Transition duration="1.0">
+                                          <Scale>80</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="2.5">
+                            <ObjectChange name="33">
+                                   <Transition duration="1.0">
+                                          <Scale>60</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="3">
+                            <ObjectChange name="32">
+                                   <Transition duration="1.0">
+                                          <Scale>50</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="3.5">
+                            <ObjectChange name="31">
+                                   <Transition duration="1.0">
+                                          <Scale>40</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="4">
+                            <ObjectChange name="35">
+                                   <Transition duration="1">
+                                          <Scale>65</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="4.5">
+                            <ObjectChange name="33">
+                                   <Transition duration="1.0">
+                                          <Scale>50</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="5">
+                            <ObjectChange name="32">
+                                   <Transition duration="1.0">
+                                          <Scale>40</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="5.5">
+                            <ObjectChange name="31">
+                                   <Transition duration="1.0">
+                                          <Scale>30</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="6">
+                            <ObjectChange name="35">
+                                   <Transition duration="1.0">
+                                          <Scale>80</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="6.5">
+                            <ObjectChange name="33">
+                                   <Transition duration="1.0">
+                                          <Scale>60</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="7">
+                            <ObjectChange name="32">
+                                   <Transition duration="1.0">
+                                          <Scale>50</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="7.5">
+                            <ObjectChange name="31">
+                                   <Transition duration="1.0">
+                                          <Scale>40</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="8">
+                            <ObjectChange name="35">
+                                   <Transition duration="1">
+                                          <Scale>65</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="8.5">
+                            <ObjectChange name="33">
+                                   <Transition duration="1.0">
+                                          <Scale>50</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="9">
+                            <ObjectChange name="32">
+                                   <Transition duration="1.0">
+                                          <Scale>40</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="9.5">
+                            <ObjectChange name="31">
+                                   <Transition duration="1.0">
+                                          <Scale>30</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="10">
+                            <ObjectChange name="35">
+                                   <Transition duration="1.0">
+                                          <Scale>80</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="10.5">
+                            <ObjectChange name="33">
+                                   <Transition duration="1.0">
+                                          <Scale>60</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="11">
+                            <ObjectChange name="32">
+                                   <Transition duration="1.0">
+                                          <Scale>50</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="11.5">
+                            <ObjectChange name="31">
+                                   <Transition duration="1.0">
+                                          <Scale>40</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="12">
+                            <ObjectChange name="35">
+                                   <Transition duration="1">
+                                          <Scale>65</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="12.5">
+                            <ObjectChange name="33">
+                                   <Transition duration="1.0">
+                                          <Scale>50</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="13">
+                            <ObjectChange name="32">
+                                   <Transition duration="1.0">
+                                          <Scale>40</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="13.5">
+                            <ObjectChange name="31">
+                                   <Transition duration="1.0">
+                                          <Scale>30</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="14">
+                            <ObjectChange name="35">
+                                   <Transition duration="1.0">
+                                          <Scale>80</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="14.5">
+                            <ObjectChange name="33">
+                                   <Transition duration="1.0">
+                                          <Scale>60</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="15">
+                            <ObjectChange name="32">
+                                   <Transition duration="1.0">
+                                          <Scale>50</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="15.5">
+                            <ObjectChange name="31">
+                                   <Transition duration="1.0">
+                                          <Scale>40</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="16">
+                            <ObjectChange name="35">
+                                   <Transition duration="1">
+                                          <Scale>65</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="16.5">
+                            <ObjectChange name="33">
+                                   <Transition duration="1.0">
+                                          <Scale>50</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="17">
+                            <ObjectChange name="32">
+                                   <Transition duration="1.0">
+                                          <Scale>40</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="17.5">
+                            <ObjectChange name="31">
+                                   <Transition duration="1.0">
+                                          <Scale>30</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="18">
+                            <ObjectChange name="35">
+                                   <Transition duration="1.0">
+                                          <Scale>80</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="18.5">
+                            <ObjectChange name="33">
+                                   <Transition duration="1.0">
+                                          <Scale>60</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="19">
+                            <ObjectChange name="32">
+                                   <Transition duration="1.0">
+                                          <Scale>50</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="19.5">
+                            <ObjectChange name="31">
+                                   <Transition duration="1.0">
+                                          <Scale>40</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20">
+                            <ObjectChange name="35">
+                                   <Transition duration="0.5">
+                                          <Scale>10</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20">
+                            <ObjectChange name="33">
+                                   <Transition duration="0.5">
+                                          <Scale>10</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20">
+                            <ObjectChange name="32">
+                                   <Transition duration="0.5">
+                                          <Scale>10</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20">
+                            <ObjectChange name="31">
+                                   <Transition duration="0.5">
+                                          <Scale>10</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20.5">
+                            <ObjectChange name="35">
+                                   <Transition duration="0.2">
+                                          <Scale>80</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20.5">
+                            <ObjectChange name="33">
+                                   <Transition duration="0.2">
+                                          <Scale>60</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20.5">
+                            <ObjectChange name="32">
+                                   <Transition duration="0.2">
+                                          <Scale>50</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20.5">
+                            <ObjectChange name="31">
+                                   <Transition duration="0.2">
+                                          <Scale>40</Scale>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="25">
+                            <TimerChange name="basin scale">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="shoot os" start-immediately="true">
+                     <TimedActions seconds-time="20.5">
+                            <ObjectChange name="102">
+                                   <Transition duration="0.4">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, 8, -18)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="20.9">
+                            <ObjectChange name="102">
+                                   <Transition duration="0.5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(-5, 3, -12)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="21.4">
+                            <ObjectChange name="102">
+                                   <Transition duration="0.5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(-4, 1, -9)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="21.9">
+                            <ObjectChange name="102">
+                                   <Transition duration="0.5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(5, 3, -15)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="22.4">
+                            <ObjectChange name="102">
+                                   <Transition duration="0.5">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(2, -2, -8)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="22.9">
+                            <ObjectChange name="102">
+                                   <Transition duration="1">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(31, 10, -50)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="23.9">
+                            <ObjectChange name="102">
+                                   <Transition duration="1">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(31, -50, -50)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="24.9">
+                            <ObjectChange name="102">
+                                   <Transition duration="0.1">
+                                          <Movement>
+                                                 <Placement>
+                                                        <RelativeTo>Center</RelativeTo>
+                                                        <Position>(0.0, -20, -18)</Position>
+                                                 </Placement>
+                                          </Movement>
+                                   </Transition>
+                            </ObjectChange>
+                     </TimedActions>
+                     <TimedActions seconds-time="25">
+                            <TimerChange name="shoot os">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+              <Timeline name="3" start-immediately="true">
+                     <TimedActions seconds-time="0">
+                            <SoundRef name="3"/>
+                     </TimedActions>
+                     <TimedActions seconds-time="0.5">
+                            <SoundRef name="4"/>
+                     </TimedActions>
+                     <TimedActions seconds-time="3.5">
+                            <SoundRef name="5"/>
+                     </TimedActions>
+                     <TimedActions seconds-time="5.5">
+                            <SoundRef name="4"/>
+                     </TimedActions>
+                     <TimedActions seconds-time="8">
+                            <SoundRef name="5"/>
+                     </TimedActions>
+                     <TimedActions seconds-time="10.5">
+                            <SoundRef name="4"/>
+                     </TimedActions>
+                     <TimedActions seconds-time="12.4">
+                            <SoundRef name="5"/>
+                     </TimedActions>
+                     <TimedActions seconds-time="15">
+                            <SoundRef name="4"/>
+                     </TimedActions>
+                     <TimedActions seconds-time="17">
+                            <SoundRef name="5"/>
+                     </TimedActions>
+                     <TimedActions seconds-time="23.2">
+                            <SoundRef name="6"/>
+                     </TimedActions>
+                     <TimedActions seconds-time="25">
+                            <TimerChange name="3">
+                                   <start/>
+                            </TimerChange>
+                     </TimedActions>
+              </Timeline>
+       </TimelineRoot>
+       <PlacementRoot>
+              <Placement name="Center">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, 0.0)</Position>
+                            <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0"/>
+              </Placement>
+              <Placement name="FrontWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, 0.0, -4.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="LeftWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(-4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="RightWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(4.0, 0.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
+              </Placement>
+              <Placement name="FloorWall">
+                     <RelativeTo>Center</RelativeTo>
+                     <Position>(0.0, -4.0, 0.0)</Position>
+                            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
+              </Placement>
+       </PlacementRoot>
+       <SoundRoot>
+              <Sound name="3" filename="./sounds/basinfinal2.wav" autostart="false">
+                     <Mode>
+                            <Positional/>
+                     </Mode>
+                     <Repeat>
+                            <NoRepeat/>
+                     </Repeat>
+                     <Settings freq="1.0" volume="1.0" pan="0.0"/>
+              </Sound>
+              <Sound name="4" filename="./sounds/o1louder.wav" autostart="false">
+                     <Mode>
+                            <Positional/>
+                     </Mode>
+                     <Repeat>
+                            <NoRepeat/>
+                     </Repeat>
+                     <Settings freq="1.0" volume="1.0" pan="0.0"/>
+              </Sound>
+              <Sound name="5" filename="./sounds/o2louder.wav" autostart="false">
+                     <Mode>
+                            <Positional/>
+                     </Mode>
+                     <Repeat>
+                            <NoRepeat/>
+                     </Repeat>
+                     <Settings freq="1.0" volume="1.0" pan="0.0"/>
+              </Sound>
+              <Sound name="6" filename="./sounds/downtunnel.wav" autostart="false">
+                     <Mode>
+                            <Positional/>
+                     </Mode>
+                     <Repeat>
+                            <NoRepeat/>
+                     </Repeat>
+                     <Settings freq="1.0" volume="1.0" pan="0.0"/>
+              </Sound>
+       </SoundRoot>
+       <Global>
+              <CameraPos far-clip="300.0">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 1.5, 16.0)</Position>
+                     </Placement>
+              </CameraPos>
+              <CaveCameraPos far-clip="300.0">
+                     <Placement>
+                            <RelativeTo>Center</RelativeTo>
+                            <Position>(0.0, 0.0, 0.0)</Position>
+                     </Placement>
+              </CaveCameraPos>
+              <Background color="0, 0, 0"/>
+              <WandNavigation allow-rotation="true" allow-movement="true"/>
+       </Global>
+</Story>
