@@ -44,6 +44,17 @@ def farewell():
 
 
 # Translate a single project
+'''TODO: NEW SUBPROCCESS
+    Copy Base project
+    Copy files into originals subfolder
+    For each XML file:
+        Validate file
+        Create new scene from CAVE.scenetemplate
+            Do anything with C# callbacks?
+        Parse xml file into Python
+        Clean python
+        Create classes and project (Move to C# here?)
+'''
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
     try:
         typer.echo(f"Translating project:\t {cyan(project_dir.name)}")
