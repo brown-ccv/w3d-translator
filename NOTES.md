@@ -24,7 +24,21 @@
 
 The Unity project settings and XRRig must be adjusted for VR to work:
 
-- Space
+- The "XR PLugin Management" package should be installed by virtue of the "VR Project" template. **Version 4.2.1**. In the "XR Plug-In Management" section of the Project Settings:
+  - Add the "Oculus Touch Controller Profile" to the `OpenXR -> Interaction Profiles` list
+    - *HTC, Microsoft, Valve, etc support can also be enabled here*
+- The "XR Interaction toolkit" package must be added my name - `com.unity.xr.interaction.toolkit`. **Version 2.0.2**
+  - Download the "Starter Assets" from the samples download. This downloads the needed presets for VR interaction.
+    - I moved the starter assets to the `ExampleAssets/XR InteractionToolkit` folder
+- Add the "XR Controller (Action Based)" script to each controller
+  - "XRI Default Left Controller" preset for the LeftController object
+  - "XRI Default Right Controller" preset for the RightController object
+- Add the "Input Action Manager" script to the XRRig component
+  - Add the "XRI Default Input Actions" preset to the "Action Assets" list
+    - Note that this is what maps the software actions to the different hardware buttons
+
+*How to do teleport areas & actions?*
+*How to do ray based interaction?*
 
 ### MiddleVR Settings
 
@@ -71,7 +85,7 @@ Each `<Placement>` in `PlacementRoot` is a Quad. PlacementRoot is the same for a
     <Placement name="FloorWall">
         <RelativeTo>Center</RelativeTo>
         <!-- Look at the origin with the z axis pointed upwards -->
-        <!-- The object is below the origin, no rotation needed -->
+        <!-- The object is below the origin so it must rotate to do so. Note that by rotating over the X axis the Z axis now points downward. -->
         <!-- <Axis rotation="(1.0, 0.0, 0.0)" angle="90.0" /> -->
         <Position>(0.0, -4.0, 0.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
@@ -120,6 +134,9 @@ Each `<Placement>` in `PlacementRoot` is a Quad. PlacementRoot is the same for a
   - Make sure this is NOT tagged as MainCamera.
   - Make sure it does NOT have an Audio Listener
   - This camera sits inside `Story` in the hierarchy
+- Unity will display the camera with the highest "Depth" value
+  - Set Main Camera depth to 1
+  - Set Cave Camera depth to 0
 
 ### Background
 
