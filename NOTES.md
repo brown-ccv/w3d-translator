@@ -1,28 +1,33 @@
 # W3D Translator Notes
 
-I want to jot down a bunch of notes regarding the XML and what they'll look like in Unity.
-
 ## Unity Development
 
 - The origin is the middle of all objects
 - Nested objects will assume the local transform of the parent object
+  - Position of the object itself is still in the parent's space
 - UNITY USES METERS FOR UNITS (CAVE uses ft)
   - CAVE walls are 8' (96") squares -> 2.4384 meters
   - 1ft = 0.3048m || 1m = 3.28084ft
 
-## Unity Starter Assets
+### Unity Starter Assets
 
 - Base project uses the "VR Project" template project that Unity provides
 - The starter DirectionalLight can be deleted
-- The starter `XRRig` stays as a root object of the project. Keep defaults
+- The starter `XRRig` stays as a root object of the project. Keep defaults.
 - The entire project lives inside the `Story` empty game object
-  - Scale is 0.3048 to covert feet to meters
-  - Set Y to 1.2192 so floor sits at 0, 0, 0.
 - The starter `Plane` must be moved inside `Story`
   - Set Y position to -4.0001 (avoids collision with Floor Wall)
   - Scale should convert to 32.8084 (was 10m)
 
 ### VR Settings
+
+The Unity project settings and XRRig must be adjusted for VR to work:
+
+- Space
+
+### MiddleVR Settings
+
+In addition to the Unity XRRig, a root MiddleVR package needs to be added in order for the project to work with MiddleVR and the CAVE. More info to come.
 
 ## PlacementRoot
 
@@ -32,26 +37,39 @@ Each `<Placement>` in `PlacementRoot` is a Plane. PlacementRoot is the same for 
 <PlacementRoot>
     <Placement name="Center">
         <RelativeTo>Center</RelativeTo>
+        <!-- Rotate 0 degrees around the y axis -->
         <Position>(0.0, 0.0, 0.0)</Position>
-            <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0"/>
+        <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0"/>
     </Placement>
     <Placement name="FrontWall">
         <RelativeTo>Center</RelativeTo>
+        <!-- Look at the origin with the y axis pointed upwards -->
+        <!-- The object is in front of the origin so it must rotate to do so -->
+        <!-- <Axis rotation="(1.0, 0.0, 0.0)" angle="270.0" /> -->
         <Position>(0.0, 0.0, -4.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
     </Placement>
     <Placement name="LeftWall">
         <RelativeTo>Center</RelativeTo>
+          <!-- Look at the origin with the y axis pointed upwards -->
+          <!-- The object is to the left of the origin so it must rotate to do so -->
+          <!-- <Axis rotation="(0.0, 0.0, 1.0)" angle="270.0" /> -->
         <Position>(-4.0, 0.0, 0.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
     </Placement>
     <Placement name="RightWall">
         <RelativeTo>Center</RelativeTo>
+        <!-- Look at the origin with the y axis pointed upwards -->
+        <!-- The object is to the right of the origin so it must rotate to do so -->
+        <!-- <Axis rotation="(0.0, 0.0, 1.0)" angle="90.0" /> -->
         <Position>(4.0, 0.0, 0.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
     </Placement>
     <Placement name="FloorWall">
         <RelativeTo>Center</RelativeTo>
+        <!-- Look at the origin with the z axis pointed upwards -->
+        <!-- The object is below the origin, no rotation needed -->
+        <!-- <Axis rotation="(1.0, 0.0, 0.0)" angle="0.0" /> -->
         <Position>(0.0, -4.0, 0.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
     </Placement>
@@ -60,13 +78,13 @@ Each `<Placement>` in `PlacementRoot` is a Plane. PlacementRoot is the same for 
 
 ### Placement
 
-- `RelativeTo`: Which Placement inside `PlacementRoot` the object is a child of
+- `RelativeTo`: Which Placement inside `PlacementRoot` the object is a child of in the hierarchy  
+  - Objects that are `<RelativeTo>Center</RelativeTo>` are children of `Story`.
 - `Position`: Origin of the object
 - [Axis || LookAt || Normal]
   - `Axis`: Optional, the objects rotation around an axis
-    - `rotation`: The x/y/z rotation of the object
+    - `rotation`: Unit vector - the axis around which the rotation takes place
     - `angle`: The rotation angle of the object, in degrees
-    - **unity = Vec(rotation) * angle**
   - `LookAt`: Optional, applies rotation to the object
     - `target`: The direction the Placement is rotated to look at. (World Position)
     - `up`: Which direction in world space is considered up
@@ -76,52 +94,42 @@ Each `<Placement>` in `PlacementRoot` is a Plane. PlacementRoot is the same for 
 
 ### Changes and Conversions
 
+- The entire project lives inside the `Story` empty game object
+  - Scale is 0.3048 to covert feet to meters
+  - Set Y to 1.2192 so floor sits at 0, 0, 0.
 - Each wall is a `Plane`
   - Planes scale to 10x normal objects; Set scale to 0.8 for 8ft walls
 - I believe we need to flip all of the z axis to match. (?)
 - We need to convert `LookAt` and `Normal` from world space to local rotation - essentially making everything an `Axis` object.
+  - Converting an `Axis` tag to Unity: `Axis.Rotation * Axis.Angle`
+  - *See the comments in the XML above*
 
-Example:
+## Globals
 
-```xml
-<PlacementRoot>
-    <Placement name="Center">
-        <RelativeTo>Center</RelativeTo>
-        <Position>(0.0, 0.0, 0.0)</Position>
-        <!-- Rotate 0 degrees around the y axis -->
-        <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0" />
-    </Placement>
-    <Placement name="FrontWall">
-        <RelativeTo>Center</RelativeTo>
-        <!-- Look at the origin with the y axis pointed upwards -->
-        <!-- The object is in front of the origin so it must rotate to do so -->
-        <!-- <Axis rotation="(1.0, 0.0, 0.0)" angle="90.0" /> -->
-        <Position>(0.0, 0.0, -4.0)</Position>
-        <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)" />
-    </Placement>
-            <Placement name="LeftWall">
-            <RelativeTo>Center</RelativeTo>
-            <!-- Look at the origin with the y axis pointed upwards -->
-            <!-- The object is to the left of the origin so it must rotate to do so -->
-            <!-- <Axis rotation="(1.0, 0.0, 0.0)" angle="90.0" /> -->
-            <Position>(-4.0, 0.0, 0.0)</Position>
-            <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)" />
-        </Placement>
-</PlacementRoot>
-```
+### Camera and CaveCamera
+
+- The main camera is located within the XRRig hierarchy (`XRRig -> Camera Offset -> Main Camera`).
+  - CameraPos.Placement sets the transform of the XRRig directly
+  - The camera component of Main Camera has a "Clipping Planes" setting. `<CameraPos far-clip="100.0">` sets the "far clip" value.
+- `<CaveCameraPos>` adds a secondary camera to the scene.
+  - Make sure this is NOT set to Main Camera.
+
+### Background
+
+- The `<Background>` sets the `Material` of each wall.
+- Default values are used except for the `color`.
+
+### Wand Navigation
+
+- The `WandNaivigation` changes settings for the `Tracked Pose Driver` component of the main (XRRig) camera - Tracking Type.
+  - `allow-rotation`: Whether or not the player can rotate in the scene
+  - `allow-movement`: Whether or not the player can move in the scene
+- The tracking types in Unity are "Rotation And Position", "Rotation Only", and "Position Only"
+  - R & P: `<WandNavigation allow-rotation="true" allow-movement="true" />`
+  - R: `<WandNavigation allow-rotation="true" allow-movement="false" />`
+  - P: `<WandNavigation allow-rotation="false" allow-movement="true" />`
+  - *What to do if both are false? This is pretty common*
 
 ## SoundRoot
 
 - "Play on Wake" should be turned off for all sounds
-
-
-## Globals
-
-Background color will be controlled by the lighting (Skybox Material)
-
-## Camera and XRRig
-
-The XRRig is what instantiates the player in VR. It is the basis for `CaveCamera`.
-
-- The "Requested Tracking Mode" of the CameraOffset script should be set to "Floor"
-- 
