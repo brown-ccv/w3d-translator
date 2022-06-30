@@ -16,8 +16,9 @@
 - The starter `XRRig` stays as a root object of the project. Keep defaults.
 - The entire project lives inside the `Story` empty game object
 - The starter `Plane` must be moved inside `Story`
-  - Set Y position to -4.0001 (avoids collision with Floor Wall)
-  - Scale should convert to 32.8084 (was 10m)
+  - Set Y position to -5
+    - The floor in Studio 4 is ~1ft below the CAVE floor
+  - Set scale to 10, creates a 100ftx100ft game space
 
 ### VR Settings
 
@@ -27,11 +28,13 @@ The Unity project settings and XRRig must be adjusted for VR to work:
 
 ### MiddleVR Settings
 
-In addition to the Unity XRRig, a root MiddleVR package needs to be added in order for the project to work with MiddleVR and the CAVE. More info to come.
+In addition to the Unity XRRig, a root MiddleVR package needs to be added in order for the project to work with MiddleVR and the CAVE.
+
+- More info to come.
 
 ## PlacementRoot
 
-Each `<Placement>` in `PlacementRoot` is a Plane. PlacementRoot is the same for all projects:
+Each `<Placement>` in `PlacementRoot` is a Quad. PlacementRoot is the same for all projects:
 
 ```xml
 <PlacementRoot>
@@ -44,8 +47,8 @@ Each `<Placement>` in `PlacementRoot` is a Plane. PlacementRoot is the same for 
     <Placement name="FrontWall">
         <RelativeTo>Center</RelativeTo>
         <!-- Look at the origin with the y axis pointed upwards -->
-        <!-- The object is in front of the origin so it must rotate to do so -->
-        <!-- <Axis rotation="(1.0, 0.0, 0.0)" angle="270.0" /> -->
+        <!-- The object is in front of the origin. Note that Position is (0, 0, 4) in Unity.  -->
+        <!-- <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0" /> -->
         <Position>(0.0, 0.0, -4.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
     </Placement>
@@ -53,7 +56,7 @@ Each `<Placement>` in `PlacementRoot` is a Plane. PlacementRoot is the same for 
         <RelativeTo>Center</RelativeTo>
           <!-- Look at the origin with the y axis pointed upwards -->
           <!-- The object is to the left of the origin so it must rotate to do so -->
-          <!-- <Axis rotation="(0.0, 0.0, 1.0)" angle="270.0" /> -->
+          <!-- <Axis rotation="(0.0, 1.0, 0.0)" angle="270.0" /> -->
         <Position>(-4.0, 0.0, 0.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
     </Placement>
@@ -61,7 +64,7 @@ Each `<Placement>` in `PlacementRoot` is a Plane. PlacementRoot is the same for 
         <RelativeTo>Center</RelativeTo>
         <!-- Look at the origin with the y axis pointed upwards -->
         <!-- The object is to the right of the origin so it must rotate to do so -->
-        <!-- <Axis rotation="(0.0, 0.0, 1.0)" angle="90.0" /> -->
+        <!-- <Axis rotation="(0.0, 0.0, 0.0)" angle="90.0" /> -->
         <Position>(4.0, 0.0, 0.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
     </Placement>
@@ -69,7 +72,7 @@ Each `<Placement>` in `PlacementRoot` is a Plane. PlacementRoot is the same for 
         <RelativeTo>Center</RelativeTo>
         <!-- Look at the origin with the z axis pointed upwards -->
         <!-- The object is below the origin, no rotation needed -->
-        <!-- <Axis rotation="(1.0, 0.0, 0.0)" angle="0.0" /> -->
+        <!-- <Axis rotation="(1.0, 0.0, 0.0)" angle="90.0" /> -->
         <Position>(0.0, -4.0, 0.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
     </Placement>
@@ -97,9 +100,9 @@ Each `<Placement>` in `PlacementRoot` is a Plane. PlacementRoot is the same for 
 - The entire project lives inside the `Story` empty game object
   - Scale is 0.3048 to covert feet to meters
   - Set Y to 1.2192 so floor sits at 0, 0, 0.
-- Each wall is a `Plane`
-  - Planes scale to 10x normal objects; Set scale to 0.8 for 8ft walls
-- I believe we need to flip all of the z axis to match. (?)
+- Each wall is a `Quad`
+  - Set scale to 8 for 8ft walls which matches the CAVE exactly
+- The z axis is flipped for the front wall (+4 not -4)
 - We need to convert `LookAt` and `Normal` from world space to local rotation - essentially making everything an `Axis` object.
   - Converting an `Axis` tag to Unity: `Axis.Rotation * Axis.Angle`
   - *See the comments in the XML above*
@@ -109,26 +112,31 @@ Each `<Placement>` in `PlacementRoot` is a Plane. PlacementRoot is the same for 
 ### Camera and CaveCamera
 
 - The main camera is located within the XRRig hierarchy (`XRRig -> Camera Offset -> Main Camera`).
-  - CameraPos.Placement sets the transform of the XRRig directly
-  - The camera component of Main Camera has a "Clipping Planes" setting. `<CameraPos far-clip="100.0">` sets the "far clip" value.
+  - CameraPos.Placement sets the transform of the XRRig directly.
+    - **Convert feet (xml) to meters (Unity)**
+  - The camera component of Main Camera has a "Clipping Planes" setting.
+    - `<CameraPos far-clip="100.0">` sets the "far clip" value.
 - `<CaveCameraPos>` adds a secondary camera to the scene.
-  - Make sure this is NOT set to Main Camera.
+  - Make sure this is NOT tagged as MainCamera.
+  - Make sure it does NOT have an Audio Listener
+  - This camera sits inside `Story` in the hierarchy
 
 ### Background
 
 - The `<Background>` sets the `Material` of each wall.
-- Default values are used except for the `color`.
+- Keep default values except for the `color`.
 
 ### Wand Navigation
 
-- The `WandNaivigation` changes settings for the `Tracked Pose Driver` component of the main (XRRig) camera - Tracking Type.
-  - `allow-rotation`: Whether or not the player can rotate in the scene
-  - `allow-movement`: Whether or not the player can move in the scene
+The `WandNaivigation` changes settings for the `Tracked Pose Driver` component of the main (XRRig) camera - Tracking Type.
+
+- `allow-rotation`: Whether or not the player can rotate in the scene
+- `allow-movement`: Whether or not the player can move in the scene
 - The tracking types in Unity are "Rotation And Position", "Rotation Only", and "Position Only"
   - R & P: `<WandNavigation allow-rotation="true" allow-movement="true" />`
   - R: `<WandNavigation allow-rotation="true" allow-movement="false" />`
   - P: `<WandNavigation allow-rotation="false" allow-movement="true" />`
-  - *What to do if both are false? This is pretty common*
+  - Disable "Tracked Pose Driver" if `<WandNavigation allow-rotation="false" allow-movement="false" />`
 
 ## SoundRoot
 
