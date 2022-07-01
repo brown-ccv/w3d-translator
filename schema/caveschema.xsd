@@ -111,7 +111,7 @@
                   </xs:complexContent>
                 </xs:complexType>
               </xs:element>
-              <!-- Floor Wall -->
+              <!-- Floor -->
               <xs:element name="Placement">
                 <xs:complexType>
                   <xs:complexContent>
