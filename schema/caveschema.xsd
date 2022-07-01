@@ -857,7 +857,7 @@
     </xs:complexType>
   </xs:element>
 
-  <!-- Comple Types -->
+  <!-- Complex Types -->
   <xs:complexType name="PlacementType">
     <xs:annotation>
       <xs:documentation>Placement Obj</xs:documentation>
