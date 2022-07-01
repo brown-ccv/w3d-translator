@@ -7,28 +7,28 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="ObjectRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="ObjectRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Object" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="GroupRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="GroupRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Group" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="TimelineRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="TimelineRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Timeline" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PlacementRoot" maxOccurs="1">
+        <xs:element name="PlacementRoot">
           <xs:complexType>
             <xs:sequence>
               <!-- <Placement name="Center"> -->
@@ -134,28 +134,28 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="SoundRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="SoundRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Sound" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="EventRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="EventRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="EventTrigger" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ParticleActionRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="ParticleActionRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="ParticleActionList" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Global" maxOccurs="1">
+        <xs:element name="Global">
           <xs:annotation>
             <xs:documentation>Global Settings</xs:documentation>
           </xs:annotation>
@@ -177,7 +177,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="About" minOccurs="0" maxOccurs="1">
+        <xs:element name="About" minOccurs="0">
           <xs:complexType>
             <xs:attribute name="news" type="xs:string" use="optional" />
           </xs:complexType>
