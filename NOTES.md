@@ -13,7 +13,8 @@
 
 - Base project uses the "VR Project" template project that Unity provides
 - Delete the Skybox (`Lighting -> Environment -> Skybox Material`)
-  - Set "Environment Lighting" to "Color" and "Ambient Color" to `<Background color="">`
+  - Set "Environment Lighting" to "Color"
+  - Set "Ambient Color" to white (255, 255, 255)
 - The starter DirectionalLight can be deleted
 - The starter `XRRig` stays as a root object of the project. Keep defaults.
 - The entire project lives inside the `Story` empty game object
@@ -116,8 +117,8 @@ Each `<Placement>` in `PlacementRoot` is a Quad. PlacementRoot is the same for a
 - The entire project lives inside the `Story` empty game object
   - Scale is 0.3048 to covert feet to meters
   - Set Y to 1.2192 so floor sits at 0, 0, 0.
-- Each wall is a `Quad`
-  - Set scale to 8 for 8ft walls which matches the CAVE exactly
+- Each wall is an empty game object
+  - Set position and rotation for project specific `RelativeTo` placements later on
 - The z axis is flipped for the front wall (+4 not -4)
 - We need to convert `LookAt` and `Normal` from world space to local rotation - essentially making everything an `Axis` object.
   - Converting an `Axis` tag to Unity: `Axis.Rotation * Axis.Angle`
@@ -130,7 +131,7 @@ Each `<Placement>` in `PlacementRoot` is a Quad. PlacementRoot is the same for a
 - The main camera is located within the XRRig hierarchy (`XRRig -> Camera Offset -> Main Camera`).
   - CameraPos.Placement sets the transform of the XRRig directly.
     - **Convert feet (xml) to meters (Unity)**
-  - The camera component of Main Camera has a "Clipping Planes" setting.
+  - The cameras have a "Clipping Planes" setting.
     - `<CameraPos far-clip="100.0">` sets the "far clip" value.
 - `<CaveCameraPos>` adds a secondary camera to the scene.
   - Make sure this is NOT tagged as MainCamera.
@@ -144,8 +145,6 @@ Each `<Placement>` in `PlacementRoot` is a Quad. PlacementRoot is the same for a
 
 - The background color is set by the Camera when not using a Skybox
   - The `color` attribute sets the background color for *both* cameras in the scene
-<!-- - The `<Background>` sets the `Material` of each wall.
-- Keep default values except for the `color`. -->
 
 ### Wand Navigation
 
