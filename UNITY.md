@@ -145,7 +145,7 @@ Each `<Placement>` in `PlacementRoot` is a Quad. PlacementRoot is the same for a
 
 ### Wand Navigation
 
-The `WandNaivigation` changes settings for the `Tracked Pose Driver` component of the main (XRRig) camera - Tracking Type.
+The `WandNavigation` changes settings for the `Tracked Pose Driver` component of the main (XRRig) camera - Tracking Type.
 
 - `allow-rotation`: Whether or not the player can rotate in the scene
 - `allow-movement`: Whether or not the player can move in the scene
