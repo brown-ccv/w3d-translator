@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
-
   <!-- ROOT -->
   <xs:element name="Story">
     <xs:annotation>
@@ -8,57 +7,172 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="ObjectRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="ObjectRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Object" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="GroupRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="GroupRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Group" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="TimelineRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="TimelineRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Timeline" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PlacementRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="PlacementRoot">
           <xs:complexType>
             <xs:sequence>
-              <xs:element ref="Placement" maxOccurs="unbounded" />
+              <xs:element name="Placement">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:restriction base="PlacementType">
+                      <xs:sequence>
+                        <xs:element name="RelativeTo" type="xs:string" fixed="Center" />
+                        <xs:element name="Position" type="vector" fixed="(0.0, 0.0, 0.0)" />
+                        <xs:element name="Axis">
+                          <xs:complexType>
+                            <xs:attribute name="rotation" type="vector" fixed="(0.0, 1.0, 0.0)" />
+                            <xs:attribute name="angle" type="xs:double" fixed="0.0" />
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute name="name" type="xs:string" fixed="Center" />
+                    </xs:restriction>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Placement">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:restriction base="PlacementType">
+                      <xs:sequence>
+                        <xs:element name="RelativeTo" type="xs:string" fixed="Center" />
+                        <xs:element name="Position" type="vector" fixed="(0.0, 0.0, -4.0)" />
+                        <xs:element name="LookAt">
+                          <xs:complexType>
+                            <xs:attribute name="target" type="vector" fixed="(0.0, 0.0, 0.0)" />
+                            <xs:attribute name="up" type="vector" fixed="(0.0, 1.0, 0.0)" />
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute name="name" type="xs:string" fixed="FrontWall" />
+                    </xs:restriction>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Placement">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:restriction base="PlacementType">
+                      <xs:sequence>
+                        <xs:element name="RelativeTo" type="xs:string" fixed="Center" />
+                        <xs:element name="Position" type="vector" fixed="(-4.0, 0.0, 0.0)" />
+                        <xs:element name="LookAt">
+                          <xs:complexType>
+                            <xs:attribute name="target" type="vector" fixed="(0.0, 0.0, 0.0)" />
+                            <xs:attribute name="up" type="vector" fixed="(0.0, 1.0, 0.0)" />
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute name="name" type="xs:string" fixed="LeftWall" />
+                    </xs:restriction>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Placement">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:restriction base="PlacementType">
+                      <xs:sequence>
+                        <xs:element name="RelativeTo" type="xs:string" fixed="Center" />
+                        <xs:element name="Position" type="vector" fixed="(4.0, 0.0, 0.0)" />
+                        <xs:element name="LookAt">
+                          <xs:complexType>
+                            <xs:attribute name="target" type="vector" fixed="(0.0, 0.0, 0.0)" />
+                            <xs:attribute name="up" type="vector" fixed="(0.0, 1.0, 0.0)" />
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute name="name" type="xs:string" fixed="RightWall" />
+                    </xs:restriction>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Placement">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:restriction base="PlacementType">
+                      <xs:sequence>
+                        <xs:element name="RelativeTo" type="xs:string" fixed="Center" />
+                        <xs:element name="Position" type="vector" fixed="(0.0, -4.0, 0.0)" />
+                        <xs:element name="LookAt">
+                          <xs:complexType>
+                            <xs:attribute name="target" type="vector" fixed="(0.0, 0.0, 0.0)" />
+                            <xs:attribute name="up" type="vector" fixed="(0.0, 0.0, -1.0)" />
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                      <xs:attribute name="name" type="xs:string" fixed="FloorWall" />
+                    </xs:restriction>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="SoundRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="SoundRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="Sound" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="EventRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="EventRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="EventTrigger" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ParticleActionRoot" minOccurs="0" maxOccurs="1">
+        <xs:element name="ParticleActionRoot" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="ParticleActionList" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element ref="Global" minOccurs="0" maxOccurs="1" />
-        <xs:element name="About" minOccurs="0" maxOccurs="1">
+        <xs:element name="Global">
+          <xs:annotation>
+            <xs:documentation>Global Settings</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CameraPos" type="CameraType" />
+              <xs:element name="CaveCameraPos" type="CameraType" />
+              <xs:element name="Background">
+                <xs:complexType>
+                  <xs:attribute name="color" type="color" default="0, 0, 0" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="WandNavigation">
+                <xs:complexType>
+                  <xs:attribute name="allow-rotation" type="xs:boolean" default="false" />
+                  <xs:attribute name="allow-movement" type="xs:boolean" default="false" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="About" minOccurs="0">
           <xs:complexType>
             <xs:attribute name="news" type="xs:string" use="optional" />
           </xs:complexType>
@@ -223,7 +337,7 @@
         <xs:element name="AroundSelfAxis" type="xs:boolean" default="false" />
         <xs:element name="Scale" type="xs:double" default="1.0" />
         <xs:element name="SoundRef" type="xs:string" minOccurs="0" />
-        <xs:element ref="Placement" />
+        <xs:element name="Placement" type="PlacementType" />
         <xs:element ref="Content" />
         <xs:element name="LinkRoot" minOccurs="0">
           <xs:complexType>
@@ -250,7 +364,7 @@
             <xs:sequence>
               <xs:element name="text" type="xs:string" />
             </xs:sequence>
-            <xs:attribute name="horiz-align" use="optional" default="center">
+            <xs:attribute name="horiz-align" default="center">
               <xs:simpleType>
                 <xs:restriction base="xs:string">
                   <xs:enumeration value="left" />
@@ -259,7 +373,7 @@
                 </xs:restriction>
               </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="vert-align" use="optional" default="center">
+            <xs:attribute name="vert-align" default="center">
               <xs:simpleType>
                 <xs:restriction base="xs:string">
                   <xs:enumeration value="top" />
@@ -269,7 +383,7 @@
               </xs:simpleType>
             </xs:attribute>
             <xs:attribute name="font" type="xs:string" use="optional" />
-            <xs:attribute name="depth" type="xs:float" use="optional" default="0.0" />
+            <xs:attribute name="depth" type="xs:float" default="0.0" />
           </xs:complexType>
         </xs:element>
         <xs:element name="Image">
@@ -286,7 +400,7 @@
         <xs:element name="Model">
           <xs:complexType>
             <xs:attribute name="filename" type="file" use="required" />
-            <xs:attribute name="check-collisions" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="check-collisions" type="xs:boolean" default="false" />
           </xs:complexType>
         </xs:element>
         <xs:element name="Light">
@@ -300,25 +414,25 @@
               </xs:element>
               <xs:element name="Spot">
                 <xs:complexType>
-                  <xs:attribute name="angle" type="xs:float" use="optional" default="30.0" />
+                  <xs:attribute name="angle" type="xs:float" default="30.0" />
                 </xs:complexType>
               </xs:element>
             </xs:choice>
-            <xs:attribute name="diffuse" type="xs:boolean" use="optional" default="true" />
-            <xs:attribute name="specular" type="xs:boolean" use="optional" default="true" />
-            <xs:attribute name="const_atten" type="xs:float" use="optional" default="1.0" />
-            <xs:attribute name="lin_atten" type="xs:float" use="optional" default="0.0" />
-            <xs:attribute name="quad_atten" type="xs:float" use="optional" default="0.0" />
+            <xs:attribute name="diffuse" type="xs:boolean" default="true" />
+            <xs:attribute name="specular" type="xs:boolean" default="true" />
+            <xs:attribute name="const_atten" type="xs:float" default="1.0" />
+            <xs:attribute name="lin_atten" type="xs:float" default="0.0" />
+            <xs:attribute name="quad_atten" type="xs:float" default="0.0" />
           </xs:complexType>
         </xs:element>
         <xs:element name="ParticleSystem">
           <xs:complexType>
-            <xs:attribute name="max-particles" type="xs:unsignedInt" use="optional" default="1000" />
+            <xs:attribute name="max-particles" type="xs:unsignedInt" default="1000" />
             <xs:attribute name="actions-name" type="xs:string" use="required" />
             <xs:attribute name="particle-group" type="xs:string" use="required" />
-            <xs:attribute name="look-at-camera" type="xs:boolean" use="optional" default="false" />
-            <xs:attribute name="sequential" type="xs:boolean" use="optional" default="false" />
-            <xs:attribute name="speed" type="xs:float" use="optional" default="1.0" />
+            <xs:attribute name="look-at-camera" type="xs:boolean" default="false" />
+            <xs:attribute name="sequential" type="xs:boolean" default="false" />
+            <xs:attribute name="speed" type="xs:float" default="1.0" />
           </xs:complexType>
         </xs:element>
       </xs:choice>
@@ -350,8 +464,8 @@
                         </xs:element>
                         <xs:element name="NumClicks">
                           <xs:complexType>
-                            <xs:attribute name="num_clicks" type="xs:unsignedInt" use="optional" default="1" />
-                            <xs:attribute name="reset" type="xs:boolean" use="optional" default="false" />
+                            <xs:attribute name="num_clicks" type="xs:unsignedInt" default="1" />
+                            <xs:attribute name="reset" type="xs:boolean" default="false" />
                           </xs:complexType>
                         </xs:element>
                       </xs:choice>
@@ -374,26 +488,28 @@
     <xs:complexType>
       <xs:sequence>
         <xs:choice>
-          <xs:element ref="Objects" maxOccurs="unbounded" />
-          <xs:element ref="Groups" maxOccurs="unbounded" />
+          <xs:element name="Objects" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Object references</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute name="name" type="xs:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Groups" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Group references</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute name="name" type="xs:string" use="required" />
+            </xs:complexType>
+          </xs:element>
         </xs:choice>
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required" />
     </xs:complexType>
   </xs:element>
-  <xs:element name="Objects">
-    <xs:annotation>
-      <xs:documentation>Reference group objects</xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="Groups">
-    <xs:complexType>
-      <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
+
 
   <!-- <Timeline> -->
   <xs:element name="Timeline">
@@ -413,85 +529,7 @@
         </xs:element>
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required" />
-      <xs:attribute name="start-immediately" type="xs:boolean" use="optional" default="true" />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GroupRef">
-    <xs:annotation>
-      <xs:documentation> Reference Group</xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="Transition" />
-      </xs:sequence>
-      <xs:attribute name="name" type="xs:string" use="required" />
-      <xs:attribute name="random" use="optional">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="Select One Randomly" />
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:attribute>
-    </xs:complexType>
-  </xs:element>
-  <xs:complexType name="ActionsType">
-    <xs:choice>
-      <xs:element ref="ObjectChange" />
-      <xs:element ref="GroupRef" />
-      <xs:element ref="TimerChange" />
-      <xs:element ref="SoundRef" />
-      <xs:element ref="Event" />
-      <xs:element name="MoveCave">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:choice>
-              <xs:element name="Relative">
-                <xs:complexType />
-              </xs:element>
-              <xs:element name="Absolute">
-                <xs:complexType />
-              </xs:element>
-            </xs:choice>
-            <xs:element ref="Placement" />
-          </xs:sequence>
-          <xs:attribute name="duration" type="xs:double" use="optional" default="0.0" />
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="Restart">
-        <xs:complexType />
-      </xs:element>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="TimerChange">
-    <xs:complexType>
-      <xs:choice>
-        <xs:element name="start">
-          <xs:complexType />
-        </xs:element>
-        <xs:element name="stop">
-          <xs:complexType />
-        </xs:element>
-        <xs:element name="continue">
-          <xs:complexType />
-        </xs:element>
-        <xs:element name="start_if_not_started">
-          <xs:complexType />
-        </xs:element>
-      </xs:choice>
-      <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObjectChange">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="Transition" />
-      </xs:sequence>
-      <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SoundRef">
-    <xs:complexType>
-      <xs:attribute name="name" type="xs:string" use="required" />
+      <xs:attribute name="start-immediately" type="xs:boolean" default="true" />
     </xs:complexType>
   </xs:element>
 
@@ -532,14 +570,14 @@
         </xs:element>
         <xs:element name="Settings">
           <xs:complexType>
-            <xs:attribute name="freq" use="optional" default="1.0">
+            <xs:attribute name="freq" default="1.0">
               <xs:simpleType>
                 <xs:restriction base="xs:float">
                   <xs:minInclusive value="0.0" />
                 </xs:restriction>
               </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="volume" use="optional" default="1.0">
+            <xs:attribute name="volume" default="1.0">
               <xs:simpleType>
                 <xs:restriction base="xs:float">
                   <xs:minInclusive value="0.0" />
@@ -547,7 +585,7 @@
                 </xs:restriction>
               </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="pan" use="optional" default="0.0">
+            <xs:attribute name="pan" default="0.0">
               <xs:simpleType>
                 <xs:restriction base="xs:float">
                   <xs:minInclusive value="-1.0" />
@@ -560,7 +598,7 @@
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required" />
       <xs:attribute name="filename" type="file" use="required" />
-      <xs:attribute name="autostart" type="xs:boolean" use="optional" default="false" />
+      <xs:attribute name="autostart" type="xs:boolean" default="false" />
     </xs:complexType>
   </xs:element>
 
@@ -588,13 +626,13 @@
                       <xs:element name="PointTarget">
                         <xs:complexType>
                           <xs:attribute name="point" type="vector" use="required" />
-                          <xs:attribute name="angle" type="xs:double" use="optional" default="30" />
+                          <xs:attribute name="angle" type="xs:double" default="30" />
                         </xs:complexType>
                       </xs:element>
                       <xs:element name="DirectionTarget">
                         <xs:complexType>
                           <xs:attribute name="direction" type="vector" use="required" />
-                          <xs:attribute name="angle" type="xs:double" use="optional" default="30" />
+                          <xs:attribute name="angle" type="xs:double" default="30" />
                         </xs:complexType>
                       </xs:element>
                       <xs:element name="ObjectTarget">
@@ -645,10 +683,10 @@
         </xs:choice>
         <xs:element name="Actions" type="ActionsType" maxOccurs="unbounded" />
       </xs:sequence>
-      <xs:attribute name="enabled" type="xs:boolean" use="optional" default="true" />
+      <xs:attribute name="enabled" type="xs:boolean" default="true" />
       <xs:attribute name="name" type="xs:string" use="required" />
-      <xs:attribute name="duration" type="xs:double" use="optional" default="0.0" />
-      <xs:attribute name="remain-enabled" type="xs:boolean" use="optional" default="true" />
+      <xs:attribute name="duration" type="xs:double" default="0.0" />
+      <xs:attribute name="remain-enabled" type="xs:boolean" default="true" />
     </xs:complexType>
   </xs:element>
   <xs:element name="Box">
@@ -667,17 +705,12 @@
           </xs:complexType>
         </xs:element>
       </xs:sequence>
-      <xs:attribute name="ignore-Y" type="xs:boolean" use="optional" default="true" />
+      <xs:attribute name="ignore-Y" type="xs:boolean" default="true" />
       <xs:attribute name="corner1" type="vector" use="required" />
       <xs:attribute name="corner2" type="vector" use="required" />
     </xs:complexType>
   </xs:element>
-  <xs:element name="Event">
-    <xs:complexType>
-      <xs:attribute name="enable" type="xs:boolean" use="required" />
-      <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
+
 
   <!-- <ParticleActionList> -->
   <xs:element name="ParticleActionList">
@@ -686,7 +719,7 @@
         <xs:element name="Source">
           <xs:complexType>
             <xs:sequence>
-              <xs:element ref="ParticleDomain" />
+              <xs:element name="ParticleDomain" type="ParticleDomainType" />
             </xs:sequence>
             <xs:attribute name="rate" type="xs:double" use="required" />
           </xs:complexType>
@@ -694,7 +727,7 @@
         <xs:element name="Vel">
           <xs:complexType>
             <xs:sequence>
-              <xs:element ref="ParticleDomain" />
+              <xs:element name="ParticleDomain" type="ParticleDomainType" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -705,23 +738,23 @@
               <xs:element name="Age">
                 <xs:complexType>
                   <xs:attribute name="age" type="xs:float" use="required" />
-                  <xs:attribute name="younger-than" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="younger-than" type="xs:boolean" default="false" />
                 </xs:complexType>
               </xs:element>
               <xs:element name="Position">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element ref="ParticleDomain" />
+                    <xs:element name="ParticleDomain" type="ParticleDomainType" />
                   </xs:sequence>
-                  <xs:attribute name="inside" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="inside" type="xs:boolean" default="false" />
                 </xs:complexType>
               </xs:element>
               <xs:element name="Velocity">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element ref="ParticleDomain" />
+                    <xs:element name="ParticleDomain" type="ParticleDomainType" />
                   </xs:sequence>
-                  <xs:attribute name="inside" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="inside" type="xs:boolean" default="false" />
                 </xs:complexType>
               </xs:element>
             </xs:choice>
@@ -737,17 +770,17 @@
         <xs:element name="Avoid">
           <xs:complexType>
             <xs:sequence>
-              <xs:element ref="ParticleDomain" />
+              <xs:element name="ParticleDomain" type="ParticleDomainType" />
             </xs:sequence>
             <xs:attribute name="magnitude" type="xs:float" use="required" />
-            <xs:attribute name="epsilon" type="xs:float" use="optional" default="0.001" />
+            <xs:attribute name="epsilon" type="xs:float" default="0.001" />
             <xs:attribute name="lookahead" type="xs:float" use="required" />
           </xs:complexType>
         </xs:element>
         <xs:element name="Bounce">
           <xs:complexType>
             <xs:sequence>
-              <xs:element ref="ParticleDomain" />
+              <xs:element name="ParticleDomain" type="ParticleDomainType" />
             </xs:sequence>
             <xs:attribute name="friction" type="xs:float" use="required" />
             <xs:attribute name="resilience" type="xs:float" use="required" />
@@ -762,43 +795,43 @@
         <xs:element name="Damping">
           <xs:complexType>
             <xs:attribute name="direction" type="vector" use="required" />
-            <xs:attribute name="vel_low" type="xs:float" use="optional" default="0.0" />
-            <xs:attribute name="vel_high" type="xs:float" use="optional" default="0.0" />
+            <xs:attribute name="vel_low" type="xs:float" default="0.0" />
+            <xs:attribute name="vel_high" type="xs:float" default="0.0" />
           </xs:complexType>
         </xs:element>
         <xs:element name="Gravitate">
           <xs:complexType>
-            <xs:attribute name="magnitude" type="xs:float" use="optional" default="1.0" />
-            <xs:attribute name="epsilon" type="xs:float" use="optional" default="0.001" />
-            <xs:attribute name="max_radius" type="xs:float" use="optional" default="0.0" />
+            <xs:attribute name="magnitude" type="xs:float" default="1.0" />
+            <xs:attribute name="epsilon" type="xs:float" default="0.001" />
+            <xs:attribute name="max_radius" type="xs:float" default="0.0" />
           </xs:complexType>
         </xs:element>
         <xs:element name="Follow">
           <xs:complexType>
-            <xs:attribute name="magnitude" type="xs:float" use="optional" default="1.0" />
-            <xs:attribute name="epsilon" type="xs:float" use="optional" default="0.001" />
-            <xs:attribute name="max_radius" type="xs:float" use="optional" default="0.0" />
+            <xs:attribute name="magnitude" type="xs:float" default="1.0" />
+            <xs:attribute name="epsilon" type="xs:float" default="0.001" />
+            <xs:attribute name="max_radius" type="xs:float" default="0.0" />
           </xs:complexType>
         </xs:element>
         <xs:element name="MatchVel">
           <xs:complexType>
-            <xs:attribute name="magnitude" type="xs:float" use="optional" default="1.0" />
-            <xs:attribute name="epsilon" type="xs:float" use="optional" default="0.001" />
-            <xs:attribute name="max_radius" type="xs:float" use="optional" default="0.0" />
+            <xs:attribute name="magnitude" type="xs:float" default="1.0" />
+            <xs:attribute name="epsilon" type="xs:float" default="0.001" />
+            <xs:attribute name="max_radius" type="xs:float" default="0.0" />
           </xs:complexType>
         </xs:element>
         <xs:element name="OrbitPoint">
           <xs:complexType>
             <xs:attribute name="center" type="vector" use="required" />
-            <xs:attribute name="magnitude" type="xs:float" use="optional" default="1.0" />
-            <xs:attribute name="epsilon" type="xs:float" use="optional" default="0.001" />
-            <xs:attribute name="max_radius" type="xs:float" use="optional" default="0.0" />
+            <xs:attribute name="magnitude" type="xs:float" default="1.0" />
+            <xs:attribute name="epsilon" type="xs:float" default="0.001" />
+            <xs:attribute name="max_radius" type="xs:float" default="0.0" />
           </xs:complexType>
         </xs:element>
         <xs:element name="Jet">
           <xs:complexType>
             <xs:sequence>
-              <xs:element ref="ParticleDomain" />
+              <xs:element name="ParticleDomain" type="ParticleDomainType" />
               <xs:element name="AccelDomain" type="ParticleDomainType" />
             </xs:sequence>
           </xs:complexType>
@@ -809,7 +842,7 @@
         <xs:element name="TargetColor">
           <xs:complexType>
             <xs:attribute name="color" type="color" use="required" />
-            <xs:attribute name="alpha" type="xs:float" use="optional" default="1.0" />
+            <xs:attribute name="alpha" type="xs:float" default="1.0" />
             <xs:attribute name="scale" type="xs:float" use="required" />
           </xs:complexType>
         </xs:element>
@@ -818,7 +851,169 @@
       </xs:choice>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ParticleDomain" type="ParticleDomainType" />
+
+  <!-- Complex Types -->
+  <xs:complexType name="PlacementType">
+    <xs:annotation>
+      <xs:documentation>Placement Obj</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RelativeTo" type="xs:string" default="Center" />
+      <xs:element name="Position" type="vector" default="(0.0, 0.0, 0.0)" />
+      <xs:choice minOccurs="0">
+        <xs:element name="Axis">
+          <xs:complexType>
+            <xs:attribute name="rotation" type="vector" default="(0.0, 1.0, 0.0)" />
+            <xs:attribute name="angle" type="xs:double" default="0.0" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="LookAt">
+          <xs:complexType>
+            <xs:attribute name="target" type="vector" default="(0.0, 0.0, 0.0)" />
+            <xs:attribute name="up" type="vector" default="(0.0, 1.0, 0.0)" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Normal">
+          <xs:complexType>
+            <xs:attribute name="normal" type="vector" default="(0.0, 0.0, 1.0)" />
+            <xs:attribute name="angle" type="xs:double" default="0.0" />
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="ActionsType">
+    <xs:choice>
+      <xs:element name="ObjectChange">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Transition" type="TransitionType" />
+          </xs:sequence>
+          <xs:attribute name="name" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GroupRef">
+        <xs:annotation>
+          <xs:documentation> Reference Group</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Transition" type="TransitionType" />
+          </xs:sequence>
+          <xs:attribute name="name" type="xs:string" use="required" />
+          <xs:attribute name="random" use="optional">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Select One Randomly" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TimerChange">
+        <xs:complexType>
+          <xs:choice>
+            <xs:element name="start">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="stop">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="continue">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="start_if_not_started">
+              <xs:complexType />
+            </xs:element>
+          </xs:choice>
+          <xs:attribute name="name" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SoundRef">
+        <xs:complexType>
+          <xs:attribute name="name" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Event">
+        <xs:complexType>
+          <xs:attribute name="enable" type="xs:boolean" use="required" />
+          <xs:attribute name="name" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="MoveCave">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:choice>
+              <xs:element name="Relative">
+                <xs:complexType />
+              </xs:element>
+              <xs:element name="Absolute">
+                <xs:complexType />
+              </xs:element>
+            </xs:choice>
+            <xs:element name="Placement" type="PlacementType" />
+          </xs:sequence>
+          <xs:attribute name="duration" type="xs:double" default="0.0" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Restart">
+        <xs:complexType />
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="TransitionType">
+    <xs:choice>
+      <xs:element name="Visible" type="xs:boolean" />
+      <xs:element name="Movement">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Placement" type="PlacementType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="MoveRel">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Placement" type="PlacementType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Color" type="color" default="255,255,255" />
+      <xs:element name="Scale" type="xs:double" default="1.0" />
+      <xs:element name="Sound">
+        <xs:complexType>
+          <xs:attribute name="action">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Play Sound" />
+                <xs:enumeration value="Stop Sound" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="LinkChange">
+        <xs:complexType>
+          <xs:choice>
+            <xs:element name="link_on">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="link_off">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="activate">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="activate_if_on">
+              <xs:complexType />
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+    <xs:attribute name="duration" type="xs:double" default="1.0" />
+  </xs:complexType>
   <xs:complexType name="ParticleDomainType">
     <xs:choice>
       <xs:element name="Point">
@@ -862,7 +1057,7 @@
         <xs:complexType>
           <xs:attribute name="center" type="vector" use="required" />
           <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+          <xs:attribute name="radius-inner" type="xs:float" default="0.0" />
         </xs:complexType>
       </xs:element>
       <xs:element name="Cylinder">
@@ -870,7 +1065,7 @@
           <xs:attribute name="p1" type="vector" use="required" />
           <xs:attribute name="p2" type="vector" use="required" />
           <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+          <xs:attribute name="radius-inner" type="xs:float" default="0.0" />
         </xs:complexType>
       </xs:element>
       <xs:element name="Cone">
@@ -878,13 +1073,13 @@
           <xs:attribute name="base-center" type="vector" use="required" />
           <xs:attribute name="apex" type="vector" use="required" />
           <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+          <xs:attribute name="radius-inner" type="xs:float" default="0.0" />
         </xs:complexType>
       </xs:element>
       <xs:element name="Blob">
         <xs:complexType>
           <xs:attribute name="center" type="vector" use="required" />
-          <xs:attribute name="stdev" type="xs:float" use="optional" default="1.0" />
+          <xs:attribute name="stdev" type="xs:float" default="1.0" />
         </xs:complexType>
       </xs:element>
       <xs:element name="Disc">
@@ -892,169 +1087,52 @@
           <xs:attribute name="center" type="vector" use="required" />
           <xs:attribute name="normal" type="vector" use="required" />
           <xs:attribute name="radius" type="xs:float" use="required" />
-          <xs:attribute name="radius-inner" type="xs:float" use="optional" default="0.0" />
+          <xs:attribute name="radius-inner" type="xs:float" default="0.0" />
         </xs:complexType>
       </xs:element>
     </xs:choice>
   </xs:complexType>
-
-  <!-- Global -->
-  <xs:element name="Global">
-    <xs:annotation>
-      <xs:documentation>Placement Obj</xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="CameraPos" type="Camera" />
-        <xs:element name="CaveCameraPos" type="Camera" />
-        <xs:element name="Background">
-          <xs:complexType>
-            <xs:attribute name="color" type="color" use="optional" default="0, 0, 0" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="WandNavigation">
-          <xs:complexType>
-            <xs:attribute name="allow-rotation" type="xs:boolean" use="optional" default="false" />
-            <xs:attribute name="allow-movement" type="xs:boolean" use="optional" default="false" />
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:complexType name="Camera">
+  <xs:complexType name="CameraType">
     <xs:sequence>
-      <xs:element ref="Placement" />
+      <xs:element name="Placement" type="PlacementType" />
     </xs:sequence>
-    <xs:attribute name="far-clip" type="xs:double" use="optional" default="100" />
+    <xs:attribute name="far-clip" type="xs:double" default="100" />
   </xs:complexType>
 
-  <!-- Multi-use elements -->
-  <xs:element name="Placement">
-    <xs:annotation>
-      <xs:documentation>Placement Obj</xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="RelativeTo" type="xs:string" default="Center" />
-        <xs:element name="Position" type="vector" default="(0.0, 0.0, 0.0)" />
-        <xs:choice minOccurs="0">
-          <xs:element name="Axis">
-            <xs:complexType>
-              <xs:attribute name="rotation" type="vector" use="optional" default="(0.0, 1.0, 0.0)" />
-              <xs:attribute name="angle" type="xs:double" use="optional" default="0.0" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="LookAt">
-            <xs:complexType>
-              <xs:attribute name="target" type="vector" use="optional" default="(0.0, 0.0, 0.0)" />
-              <xs:attribute name="up" type="vector" use="optional" default="(0.0, 1.0, 0.0)" />
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="Normal">
-            <xs:complexType>
-              <xs:attribute name="normal" type="vector" use="optional" default="(0.0, 0.0, 1.0)" />
-              <xs:attribute name="angle" type="xs:double" use="optional" default="0.0" />
-            </xs:complexType>
-          </xs:element>
-        </xs:choice>
-      </xs:sequence>
-      <xs:attribute name="name" type="xs:string" use="optional" />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="Transition">
-    <xs:complexType>
-      <xs:choice>
-        <xs:element name="Visible" type="xs:boolean" />
-        <xs:element name="Movement">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element ref="Placement" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="MoveRel">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element ref="Placement" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="Color" type="color" default="255,255,255" />
-        <xs:element name="Scale" type="xs:double" default="1.0" />
-        <xs:element name="Sound">
-          <xs:complexType>
-            <xs:attribute name="action">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:enumeration value="Play Sound" />
-                  <xs:enumeration value="Stop Sound" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:attribute>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="LinkChange">
-          <xs:complexType>
-            <xs:choice>
-              <xs:element name="link_on">
-                <xs:complexType />
-              </xs:element>
-              <xs:element name="link_off">
-                <xs:complexType />
-              </xs:element>
-              <xs:element name="activate">
-                <xs:complexType />
-              </xs:element>
-              <xs:element name="activate_if_on">
-                <xs:complexType />
-              </xs:element>
-            </xs:choice>
-          </xs:complexType>
-        </xs:element>
-      </xs:choice>
-      <xs:attribute name="duration" type="xs:double" use="optional" default="1.0" />
-    </xs:complexType>
-  </xs:element>
-
-
-  <!-- file (xs:string)
-    No validation done
-  -->
+  <!-- Simple Types -->
   <xs:simpleType name="file">
     <xs:annotation>
       <xs:documentation>A filename type</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string" />
   </xs:simpleType>
-
-  <!-- vector (xs:string)
-    Match "([float], [float], [float],)"
-    Ignore whitespace
-    Positive or negative floats are accepted
-    Each [float] matches one of two cases:
-      Starts with a number, eg: 5 or 5. or 5.0
-      Is a decimal, eg: .5
-  -->
   <xs:simpleType name="vector">
     <xs:annotation>
       <xs:documentation>vector attrib</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
+      <!-- Match "([float], [float], [float])"
+        Ignore whitespace
+        Positive or negative floats are accepted
+        Trailing comma is accepted
+        Each [float] matches one of two cases:
+          Starts with a number, eg: 5 or 5. or 5.0
+          Is a decimal, eg: .5
+      -->
       <xs:whiteSpace value="collapse" />
       <xs:pattern value="\(\s*-?(\d+\.?(\d+)?|(\d+)?\.\d+)\s*,\s*-?(\d+\.?(\d+)?|(\d+)?\.\d+)\s*,\s*\s*-?(\d+\.?(\d+)?|(\d+)?\.\d+),?\s*\)" />
     </xs:restriction>
   </xs:simpleType>
-
-  <!-- color (xs:string)
-    Match "[int], [int], [int]"
-    Ignore whitespace
-    Only positive integers are accepted 
-  -->
   <xs:simpleType name="color">
     <xs:annotation>
       <xs:documentation>color attrib</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
+      <!-- Match "[int], [int], [int]"
+        Ignore whitespace
+        Trailing comma is accepted
+        Only positive integers are accepted 
+      -->
       <xs:whiteSpace value="collapse" />
       <xs:pattern value="(\d+)\s*,\s*(\d+)\s*,\s*(\d+),?" />
     </xs:restriction>
