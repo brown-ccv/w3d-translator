@@ -27,7 +27,7 @@
 
 The Unity project settings and XRRig must be adjusted for VR to work:
 
-- The "XR PLugin Management" package should be installed by virtue of the "VR Project" template. **Version 4.2.1**. In the "XR Plug-In Management" section of the Project Settings:
+- The "XR Plugin Management" package should be installed by virtue of the "VR Project" template. **Version 4.2.1**. In the "XR Plug-In Management" section of the Project Settings:
   - Add the "Oculus Touch Controller Profile" to the `OpenXR -> Interaction Profiles` list
     - *HTC, Microsoft, Valve, etc support can also be enabled here*
 - The "XR Interaction toolkit" package must be added my name - `com.unity.xr.interaction.toolkit`. **Version 2.0.2**
@@ -39,6 +39,8 @@ The Unity project settings and XRRig must be adjusted for VR to work:
 - Add the "Input Action Manager" script to the XRRig component
   - Add the "XRI Default Input Actions" preset to the "Action Assets" list
     - Note that this is what maps the software actions to the different hardware buttons
+
+Check out [this tutorial](https://www.youtube.com/watch?v=5ZBkEYUyBWQ) for more information on VR with Unity and the XR Interaction Toolkit.
 
 *How to do teleport areas & actions?*
 *How to do ray based interaction?*
