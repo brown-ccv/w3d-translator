@@ -12,6 +12,8 @@
 ### Unity Starter Assets
 
 - Base project uses the "VR Project" template project that Unity provides
+- Delete the Skybox (`Lighting -> Environment -> Skybox Material`)
+  - Set "Environment Lighting" to "Color" and "Ambient Color" to `<Background color="">`
 - The starter DirectionalLight can be deleted
 - The starter `XRRig` stays as a root object of the project. Keep defaults.
 - The entire project lives inside the `Story` empty game object
@@ -140,8 +142,10 @@ Each `<Placement>` in `PlacementRoot` is a Quad. PlacementRoot is the same for a
 
 ### Background
 
-- The `<Background>` sets the `Material` of each wall.
-- Keep default values except for the `color`.
+- The background color is set by the Camera when not using a Skybox
+  - The `color` attribute sets the background color for *both* cameras in the scene
+<!-- - The `<Background>` sets the `Material` of each wall.
+- Keep default values except for the `color`. -->
 
 ### Wand Navigation
 
