@@ -18,10 +18,6 @@
 - The starter DirectionalLight can be deleted
 - The starter `XRRig` stays as a root object of the project. Keep defaults.
 - The entire project lives inside the `Story` empty game object
-- The starter `Plane` must be moved inside `Story`
-  - Set Y position to -5
-    - The floor in Studio 4 is ~1ft below the CAVE floor
-  - Set scale to 10, creates a 100ftx100ft game space
 
 ### VR Settings
 
@@ -42,8 +38,7 @@ The Unity project settings and XRRig must be adjusted for VR to work:
 
 Check out [this tutorial](https://www.youtube.com/watch?v=5ZBkEYUyBWQ) for more information on VR with Unity and the XR Interaction Toolkit.
 
-*How to do teleport areas & actions?*
-*How to do ray based interaction?*
+**TODO**: How to do ray based interaction? (52)
 
 ### MiddleVR Settings
 
