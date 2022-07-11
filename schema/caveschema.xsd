@@ -532,6 +532,7 @@
       <xs:attribute name="start-immediately" type="xs:boolean" default="true" />
     </xs:complexType>
   </xs:element>
+  
   <!-- <Sound> -->
   <xs:element name="Sound">
     <xs:complexType>
