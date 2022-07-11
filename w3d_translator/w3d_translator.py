@@ -3,6 +3,7 @@ from pathlib import Path
 
 from generateDS.subclasses import parse
 from unity import (
+    copy_files,
     create_project,
     build_project,
     UNITY_VERSION,
@@ -63,7 +64,10 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
 
         # Create Unity project
         if not dev:
-            create_project(project_dir, unity_dir)
+            # create_project(project_dir, unity_dir)
+            # TODO: Copy W3D Test Project
+            print(project_dir, unity_dir)
+            copy_files(project_dir, unity_dir)
 
         # Translate .xml files to .unity files (skip invalid)
         xml_files = [
@@ -81,8 +85,8 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 # Build and clean Story
                 story = parse(file, silence=True)
 
-                objects = translate_objects(story.ObjectRoot.Object)
-                print(objects)
+                # objects = translate_objects(story.ObjectRoot.Object)
+                # print(objects)
 
                 build_project(unity_dir, story)
     except (ValidationError, UnityError) as e:
