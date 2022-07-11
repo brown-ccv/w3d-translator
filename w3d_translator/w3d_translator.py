@@ -4,7 +4,6 @@ from pathlib import Path
 from generateDS.subclasses import parse
 from unity import (
     copy_files,
-    create_project,
     build_scene,
     UNITY_VERSION,
     STARTER_PROJECT,
@@ -47,15 +46,6 @@ def farewell():
 
 # Translate a single project
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
-    """TODO: NEW SUBPROCCESS
-    For each XML file:
-        # Validate file
-        Create new scene from CAVE.scenetemplate
-            Do anything with C# callbacks?
-        Parse xml file into Python
-        Clean python
-        Create classes and project (Move to C# here?)
-    """
     try:
         typer.echo(f"Translating project:\t {cyan(project_dir.name)}")
         validate_project(project_dir)

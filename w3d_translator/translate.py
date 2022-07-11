@@ -9,9 +9,9 @@ def translate_objects(objects: list):
 
     object: classes.Object
     for object in objects:
-        id = uuid()
         name = object.name
 
+        id = uuid()
         game_objects[name] = object
 
     return game_objects

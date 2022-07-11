@@ -33,23 +33,23 @@ def build_scene(xml_file: Path, story: classes.Story):
             [
                 f"{UNITY_PATH}",
                 "-batchmode",
-                "-logifle",
-                "-logfile - -",
+                "-quit",
                 "-projectPath",
                 f"{unity_dir}",
-                "-quit",
+                "-executeMethod",
+                "CreateScene.NewScene",
             ],
             check=True,
             capture_output=True,
+            text=True,
         )
-    except subprocess.CalledProcessError as e:
-        raise UnityError(
-            "Error: Failed to launch Unity.\n"
-            + f"{sp.stderr}"
-            + "This script only runs with "
-            + f"Unity version {UNITY_VERSION}.\n"
-            + f"The executable should be found at {UNITY_PATH}\n"
-            + e
-        )
-    else:
-        print("Unity exited with code", sp.returncode)
+    except subprocess.CalledProcessError:
+        # raise UnityError(
+        #     "Error: Failed to launch Unity.\n"
+        #     # + f"{sp.stderr}"
+        #     + "This script only runs with "
+        #     + f"Unity version {UNITY_VERSION}.\n"
+        #     + f"The executable should be found at {UNITY_PATH}\n"
+        #     + e
+        # )
+        pass
