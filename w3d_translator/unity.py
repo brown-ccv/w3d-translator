@@ -9,9 +9,9 @@ UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.e
 EMPTY_SCENE = "../EmptyScene.unity"
 
 
-# Copy project into [unity_dir]/Assets/originals
+# Copy all files from source to destination
 def copy_files(source: Path, destination: Path):
-    # destination = Path(unity_dir, "Assets", "originals")
+    print("COPYING", source, destination)
     try:
         shutil.copytree(str(source), str(destination))
     except Exception as e:
