@@ -7,6 +7,7 @@ from unity import (
     create_project,
     build_project,
     UNITY_VERSION,
+    STARTER_PROJECT
 )
 from validate import validate_project, validate_out, validate_xml
 from errors import ValidationError, XmlError, UnityError
@@ -46,17 +47,17 @@ def farewell():
 
 # Translate a single project
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
-    '''TODO: NEW SUBPROCCESS
-        Copy Base project
-        Copy files into originals subfolder
-        For each XML file:
-            Validate file
-            Create new scene from CAVE.scenetemplate
-                Do anything with C# callbacks?
-            Parse xml file into Python
-            Clean python
-            Create classes and project (Move to C# here?)
-    '''
+    """TODO: NEW SUBPROCCESS
+    Copy Base project
+    Copy files into originals subfolder
+    For each XML file:
+        Validate file
+        Create new scene from CAVE.scenetemplate
+            Do anything with C# callbacks?
+        Parse xml file into Python
+        Clean python
+        Create classes and project (Move to C# here?)
+    """
     try:
         typer.echo(f"Translating project:\t {cyan(project_dir.name)}")
         validate_project(project_dir)
@@ -64,12 +65,10 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
 
         # Create Unity project
         if not dev:
-            
-            # Copy starter project 
-            copy_files(Path("unity/CAVE"), unity_dir)
-            # Copy original project into Unity Assets folder
+
+            # Copy starter project, then xml project into Assets subfolder
+            copy_files(Path(STARTER_PROJECT), unity_dir)
             copy_files(project_dir, Path(unity_dir, "Assets", "Originals"))
-            
 
         # Translate .xml files to .unity files (skip invalid)
         xml_files = [
@@ -87,10 +86,10 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 # Build and clean Story
                 story = parse(file, silence=True)
 
-                # objects = translate_objects(story.ObjectRoot.Object)
-                # print(objects)
+                objects = translate_objects(story.ObjectRoot.Object)
+                print(objects)
 
-                # build_project(unity_dir, story)
+                build_project(unity_dir, story)
     except (ValidationError, UnityError) as e:
         typer.echo(red(e), err=True)
 

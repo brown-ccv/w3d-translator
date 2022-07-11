@@ -6,7 +6,7 @@ from errors import UnityError, CopyError
 
 UNITY_VERSION = "2021.3.0f1"
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"  # noqa (ignore lint)
-EMPTY_SCENE = "../EmptyScene.unity"
+STARTER_PROJECT = "unity/CAVE"
 
 
 # Copy all files from source to destination
