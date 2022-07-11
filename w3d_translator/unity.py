@@ -3,6 +3,7 @@ import shutil
 from pathlib import Path
 
 from errors import UnityError, CopyError
+from generateDS import classes
 
 UNITY_VERSION = "2021.3.0f1"
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"  # noqa (ignore lint)
@@ -11,7 +12,6 @@ STARTER_PROJECT = "unity/CAVE"
 
 # Copy all files from source to destination
 def copy_files(source: Path, destination: Path):
-    print("COPYING", source, destination)
     try:
         shutil.copytree(str(source), str(destination))
     except Exception as e:
@@ -22,32 +22,34 @@ def copy_files(source: Path, destination: Path):
         )
 
 
-# Create Unity project and copy original files
-def create_project(project_dir: Path, unity_dir: Path):
+# TODO: Load project settings and write scene file (13)
+# Creates a new Unity scene file for the given xml file
+def build_scene(xml_file: Path, story: classes.Story):
+    unity_dir = xml_file.parent
+    filename = xml_file.stem
+
     try:
         sp = subprocess.run(
             [
                 f"{UNITY_PATH}",
                 "-batchmode",
-                "-createProject",
+                "-logifle",
+                "-logfile - -",
+                "-projectPath",
                 f"{unity_dir}",
                 "-quit",
             ],
             check=True,
             capture_output=True,
         )
-        copy_files(project_dir, unity_dir)
-        Path(unity_dir, "Assets", "Scenes").mkdir()
-    except Exception:
+    except subprocess.CalledProcessError as e:
         raise UnityError(
             "Error: Failed to launch Unity.\n"
             + f"{sp.stderr}"
             + "This script only runs with "
             + f"Unity version {UNITY_VERSION}.\n"
-            + f"The executable should be found at {UNITY_PATH}"
+            + f"The executable should be found at {UNITY_PATH}\n"
+            + e
         )
-
-
-# TODO: Load project settings and write scene file (13)
-def build_project(unity_dir: Path, yaml):
-    pass
+    else:
+        print("Unity exited with code", sp.returncode)

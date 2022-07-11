@@ -5,9 +5,9 @@ from generateDS.subclasses import parse
 from unity import (
     copy_files,
     create_project,
-    build_project,
+    build_scene,
     UNITY_VERSION,
-    STARTER_PROJECT
+    STARTER_PROJECT,
 )
 from validate import validate_project, validate_out, validate_xml
 from errors import ValidationError, XmlError, UnityError
@@ -48,10 +48,8 @@ def farewell():
 # Translate a single project
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
     """TODO: NEW SUBPROCCESS
-    Copy Base project
-    Copy files into originals subfolder
     For each XML file:
-        Validate file
+        # Validate file
         Create new scene from CAVE.scenetemplate
             Do anything with C# callbacks?
         Parse xml file into Python
@@ -85,11 +83,10 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             else:
                 # Build and clean Story
                 story = parse(file, silence=True)
+                story.ObjectRoot = translate_objects(story.ObjectRoot.Object)
 
-                objects = translate_objects(story.ObjectRoot.Object)
-                print(objects)
-
-                build_project(unity_dir, story)
+                # Build the Unity scene
+                build_scene(Path(unity_dir, file.name), story)
     except (ValidationError, UnityError) as e:
         typer.echo(red(e), err=True)
 
