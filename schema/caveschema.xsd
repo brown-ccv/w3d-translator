@@ -31,7 +31,6 @@
         <xs:element name="PlacementRoot">
           <xs:complexType>
             <xs:sequence>
-              <!-- <Placement name="Center"> -->
               <xs:element name="Placement">
                 <xs:complexType>
                   <xs:complexContent>
@@ -51,7 +50,6 @@
                   </xs:complexContent>
                 </xs:complexType>
               </xs:element>
-              <!-- <Placement name="FrontWall"> -->
               <xs:element name="Placement">
                 <xs:complexType>
                   <xs:complexContent>
@@ -71,7 +69,6 @@
                   </xs:complexContent>
                 </xs:complexType>
               </xs:element>
-              <!-- <Placement name="LeftWall"> -->
               <xs:element name="Placement">
                 <xs:complexType>
                   <xs:complexContent>
@@ -91,7 +88,6 @@
                   </xs:complexContent>
                 </xs:complexType>
               </xs:element>
-              <!-- <Placement name="RightWall"> -->
               <xs:element name="Placement">
                 <xs:complexType>
                   <xs:complexContent>
@@ -111,7 +107,6 @@
                   </xs:complexContent>
                 </xs:complexType>
               </xs:element>
-              <!-- <Placement name="FloorWall"> -->
               <xs:element name="Placement">
                 <xs:complexType>
                   <xs:complexContent>
