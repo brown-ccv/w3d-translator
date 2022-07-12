@@ -28,7 +28,7 @@ def build_scene(xml_file: Path, story: classes.Story):
     unity_dir = xml_file.parent
 
     try:
-        sp = subprocess.run(
+        subprocess.run(
             [
                 f"{UNITY_PATH}",
                 "-batchmode",
@@ -44,16 +44,5 @@ def build_scene(xml_file: Path, story: classes.Story):
             capture_output=True,
             text=True,
         )
-    except subprocess.CalledProcessError:
-        # raise UnityError(
-        #     "Error: Failed to launch Unity.\n"
-        #     # + f"{sp.stderr}"
-        #     + "This script only runs with "
-        #     + f"Unity version {UNITY_VERSION}.\n"
-        #     + f"The executable should be found at {UNITY_PATH}\n"
-        #     + e
-        # )
-        raise UnityError(
-            "Unity CLI "
-        )
-        pass
+    except subprocess.CalledProcessError as e:
+        raise UnityError("Error: Unity CLI failed to execute", e.stderr)
