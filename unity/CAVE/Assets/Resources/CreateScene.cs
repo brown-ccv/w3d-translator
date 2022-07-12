@@ -7,24 +7,17 @@ using UnityEditor.SceneTemplate;
 
 public class CreateScene : MonoBehaviour
 {
-    static void NewScene() {
+    static void NewScene()
+    {
         SceneTemplateAsset caveTemplate = AssetDatabase.LoadAssetAtPath<SceneTemplateAsset>(
             "Assets/Resources/CAVE.scenetemplate"
         );
 
         // Instantiate new scene from template
-        InstantiationResult instanitiatedScene = SceneTemplateService.Instantiate(
+        InstantiationResult instantiatedScene = SceneTemplateService.Instantiate(
             caveTemplate,
-            false, 
+            false,
             "Assets/Scenes/TemplateScene.unity"
         );
-        // Scene newScene = EditorSceneManager.NewScene(
-        //     NewSceneSetup.EmptyScene, 
-        //     NewSceneMode.Single
-        // );
-        // bool saveOK = EditorSceneManager.SaveScene(
-        //     newScene,
-        //     "Assets/Scenes/NewScene.unity"
-        // );
     }
 }

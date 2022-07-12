@@ -26,6 +26,7 @@ def copy_files(source: Path, destination: Path):
 # Creates a new Unity scene file for the given xml file
 def build_scene(xml_file: Path, story: classes.Story):
     unity_dir = xml_file.parent
+    logfile = Path(unity_dir, "cli_log.txt")
 
     try:
         subprocess.run(
@@ -38,11 +39,14 @@ def build_scene(xml_file: Path, story: classes.Story):
                 "-executeMethod",
                 "CreateScene.NewScene",
                 "-logFile",
-                f"{unity_dir}/cli_log.txt"
+                f"{logfile}"
             ],
             check=True,
             capture_output=True,
             text=True,
         )
     except subprocess.CalledProcessError as e:
-        raise UnityError("Error: Unity CLI failed to execute", e.stderr)
+        raise UnityError(
+            f"Error: Unity CLI exited with error on command {e.cmd}.\n" +
+            f"See '{logfile}' for more details."
+        )
