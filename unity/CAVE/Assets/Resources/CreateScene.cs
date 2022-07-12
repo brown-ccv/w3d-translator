@@ -1,12 +1,15 @@
 using System;
+using System.Text.RegularExpressions;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
 
 public class CreateScene : MonoBehaviour
 {
+    // TODO: Lighting Settings aren't being copied unless I copy the actual settings
+    // TODO: Copy settings and rename? Or find a way to re-attach them
     static void NewScene()
     {
         SceneTemplateAsset caveTemplate = AssetDatabase.LoadAssetAtPath<SceneTemplateAsset>(
@@ -19,5 +22,25 @@ public class CreateScene : MonoBehaviour
             false,
             "Assets/Scenes/TemplateScene.unity"
         );
+        GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
+
+        // EXAMPLE - Add sphere at origin of each wall
+        Material material = new Material(Shader.Find("Standard"));
+        material.SetColor("_Color", Color.green);
+        foreach (Transform storyChild in story.transform) {
+            if(Regex.IsMatch(storyChild.name, @"Wall$")) {
+                GameObject Sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                Sphere.transform.SetParent(storyChild, false);
+                Sphere.GetComponent<MeshRenderer>().material = material;
+            }
+        }
+
+        // Save scene
+        EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+    }
+
+    static void addSphere()
+    {
+
     }
 }
