@@ -12,11 +12,10 @@ public class CreateScene : MonoBehaviour
     // TODO: Copy settings and rename? Or find a way to re-attach them
     static void NewScene()
     {
+        // Instantiate new scene from template
         SceneTemplateAsset caveTemplate = AssetDatabase.LoadAssetAtPath<SceneTemplateAsset>(
             "Assets/Resources/CAVE.scenetemplate"
         );
-
-        // Instantiate new scene from template
         InstantiationResult instantiatedScene = SceneTemplateService.Instantiate(
             caveTemplate,
             false,

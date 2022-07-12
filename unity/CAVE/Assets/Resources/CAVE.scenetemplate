@@ -24,7 +24,7 @@ MonoBehaviour:
     instantiationMode: 1
   - dependency: {fileID: 4890085278179872738, guid: f5fca80d99e9a9a448925f1041b7d9c7,
       type: 2}
-    instantiationMode: 0
+    instantiationMode: 1
   - dependency: {fileID: 8758423527188247893, guid: 5b158b94c373d4b4f9e98cdb92789343,
       type: 3}
     instantiationMode: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
   - dependency: {fileID: 4283425761326543017, guid: 1f4d373a613d0466fbd8849470265852,
       type: 3}
     instantiationMode: 1
-  templatePipeline: {fileID: 0}
+  templatePipeline: {fileID: 11500000, guid: d28376cb34da807439fec93356edd887, type: 3}
   addToDefaults: 0
 --- !u!28 &4220884676663841889
 Texture2D:
