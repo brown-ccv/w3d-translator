@@ -26,7 +26,6 @@ def copy_files(source: Path, destination: Path):
 # Creates a new Unity scene file for the given xml file
 def build_scene(xml_file: Path, story: classes.Story):
     unity_dir = xml_file.parent
-    filename = xml_file.stem
 
     try:
         sp = subprocess.run(
@@ -38,6 +37,8 @@ def build_scene(xml_file: Path, story: classes.Story):
                 f"{unity_dir}",
                 "-executeMethod",
                 "CreateScene.NewScene",
+                "-logFile",
+                f"{unity_dir}/cli_log.txt"
             ],
             check=True,
             capture_output=True,
@@ -52,4 +53,7 @@ def build_scene(xml_file: Path, story: classes.Story):
         #     + f"The executable should be found at {UNITY_PATH}\n"
         #     + e
         # )
+        raise UnityError(
+            "Unity CLI "
+        )
         pass
