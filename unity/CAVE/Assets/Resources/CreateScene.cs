@@ -13,6 +13,7 @@ public class CreateScene : MonoBehaviour
     static void NewScene()
     {
         // Instantiate new scene from template
+        // TODO: Use Resource.Load
         SceneTemplateAsset caveTemplate = AssetDatabase.LoadAssetAtPath<SceneTemplateAsset>(
             "Assets/Resources/CAVE.scenetemplate"
         );
