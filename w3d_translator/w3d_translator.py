@@ -3,10 +3,8 @@ import subprocess
 import shutil
 from pathlib import Path
 
-# from generateDS.subclasses import parse
 from validate import validate_project, validate_out, validate_xml
 from errors import ValidationError, CopyError, UnityError
-# from translate import translate_objects
 
 UNITY_VERSION = "2021.3.0f1"
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"  # noqa (ignore lint)
