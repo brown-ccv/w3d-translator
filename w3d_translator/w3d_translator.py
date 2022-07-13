@@ -3,10 +3,10 @@ import subprocess
 import shutil
 from pathlib import Path
 
-from generateDS.subclasses import parse
+# from generateDS.subclasses import parse
 from validate import validate_project, validate_out, validate_xml
 from errors import ValidationError, CopyError, UnityError
-from translate import translate_objects
+# from translate import translate_objects
 
 UNITY_VERSION = "2021.3.0f1"
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"  # noqa (ignore lint)
@@ -46,6 +46,7 @@ def farewell():
 
 # Copy all files from source to destination
 def copy_files(source: Path, destination: Path):
+    # TODO: Catch this exception
     try:
         shutil.copytree(str(source), str(destination))
     except Exception as e:
@@ -65,59 +66,39 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
 
         # Create Unity project
         if not dev:
-
-            # Copy starter project, then xml project into Assets subfolder
-            copy_files(Path(STARTER_PROJECT), unity_dir)
-            copy_files(
-                project_dir,
-                Path(unity_dir, "Assets", "Resources", "Original Project"),
-            )
-
-        # Translate .xml files to .unity files (skip invalid)
-        # TODO: This loop should be done in C#
-        # xml_files = [
-        #     p
-        #     for p in project_dir.iterdir()
-        #     if (p.is_file() and p.suffix == ".xml")
-        # ]
-        # for file in xml_files:
-        #     typer.echo(f"Translating file:\t {green(file.name)}")
-        #     try:
-        #         validate_xml(file)
-        #     except XmlError as e:
-        #         typer.echo(red(e), err=True)
-        #     else:
-        #         # Build and clean Story
-        #         story = parse(file, silence=True)
-        #         story.ObjectRoot = translate_objects(story.ObjectRoot.Object)
-
-        #         # Build the Unity scene
-        #         build_scene(Path(unity_dir, file.name), story)
-
-        # Build the project using Unity's CLI
-        logfile = Path(unity_dir, "cli_log.txt")
-        try:
-            subprocess.run(
-                [
-                    f"{UNITY_PATH}",
-                    "-batchmode",
-                    "-quit",
-                    "-projectPath",
-                    f"{unity_dir}",
-                    "-executeMethod",
-                    "CreateScene.NewScene",
-                    "-logFile",
-                    f"{logfile}",
-                ],
-                check=True,
-                capture_output=True,
-                text=True,
-            )
-        except subprocess.CalledProcessError as e:
-            raise UnityError(
-                f"Error: Unity CLI exited with error on command {e.cmd}.\n"
-                + f"See '{logfile}' for more details."
-            )
+            try:
+                copy_files(Path(STARTER_PROJECT), unity_dir)
+                copy_files(
+                    project_dir,
+                    Path(unity_dir, "Assets", "Resources", "Original Project"),
+                )
+            except CopyError as e:
+                raise e
+            
+            # Build the project using Unity's CLI
+            logfile = Path(unity_dir, "cli_log.txt")
+            try:
+                subprocess.run(
+                    [
+                        f"{UNITY_PATH}",
+                        "-batchmode",
+                        "-quit",
+                        "-projectPath",
+                        f"{unity_dir}",
+                        "-executeMethod",
+                        "CLI.Start",
+                        "-logFile",
+                        f"{logfile}",
+                    ],
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+            except subprocess.CalledProcessError as e:
+                raise UnityError(
+                    f"Error: Unity CLI exited with error on command {e.cmd}.\n"
+                    + f"See '{logfile}' for more details."
+                )
 
     except (ValidationError, UnityError) as e:
         typer.echo(red(e), err=True)

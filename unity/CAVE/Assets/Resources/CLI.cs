@@ -1,18 +1,22 @@
-using System;
-using System.Text.RegularExpressions;
 using UnityEngine;
+using System.Text.RegularExpressions;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
 
-public class CreateScene : MonoBehaviour
+public class CLI : MonoBehaviour
 {
-    static void NewScene()
+    static void Start()
+    {
+        NewScene("NewScene");
+    }
+
+    static void NewScene(string scene)
     {
         // Instantiate new scene from template
         InstantiationResult instantiatedScene = SceneTemplateService.Instantiate(
             Resources.Load<SceneTemplateAsset>("CAVE"),
             false,
-            "Assets/Resources/Scenes/TemplateScene.unity"
+            $"Assets/Resources/Scenes/{scene}.unity"
         );
         GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
 
