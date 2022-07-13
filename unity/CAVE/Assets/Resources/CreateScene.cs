@@ -12,8 +12,7 @@ public class CreateScene : MonoBehaviour
         InstantiationResult instantiatedScene = SceneTemplateService.Instantiate(
             Resources.Load<SceneTemplateAsset>("CAVE"),
             false,
-            // TODO: Move to Assets/Resources/Scenes
-            "Assets/Scenes/TemplateScene.unity"
+            "Assets/Resources/Scenes/TemplateScene.unity"
         );
         GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
 
