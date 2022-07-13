@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 using UnityEditor.SceneTemplate;
 using UnityEditor.SceneManagement;
 
@@ -25,12 +26,13 @@ public class SceneTemplatePipeline : ISceneTemplatePipeline
 
     public void AfterTemplateInstantiation(SceneTemplateAsset sceneTemplateAsset, Scene scene, bool isAdditive, string sceneName)
     {
-        // TODO: Lighting Settings aren't being copied unless I copy the actual settings
-        // TODO: Copy settings and rename? Or find a way to re-attach them
         // Set new scene to use CAVE.lighting
-        LightingSettings lightingSettings = Resources.Load<LightingSettings>("CAVE");
-        Console.WriteLine("Loaded lighting " + lightingSettings.name);
-        Lightmapping.lightingSettings = lightingSettings; // This does nothing
+        Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
+
+        // Remove skybox and use white ambient lighting
+        RenderSettings.skybox = null;
+        RenderSettings.ambientMode = AmbientMode.Flat;
+        RenderSettings.ambientLight = Color.white;
 
         // Save scene
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
