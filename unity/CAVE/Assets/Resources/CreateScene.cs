@@ -8,15 +8,10 @@ using UnityEditor.SceneTemplate;
 
 public class CreateScene : MonoBehaviour
 {
-    // TODO: Lighting Settings aren't being copied unless I copy the actual settings
-    // TODO: Copy settings and rename? Or find a way to re-attach them
     static void NewScene()
     {
         // Instantiate new scene from template
-        // TODO: Use Resource.Load
-        SceneTemplateAsset caveTemplate = AssetDatabase.LoadAssetAtPath<SceneTemplateAsset>(
-            "Assets/Resources/CAVE.scenetemplate"
-        );
+        SceneTemplateAsset caveTemplate = Resources.Load<SceneTemplateAsset>("CAVE");
         InstantiationResult instantiatedScene = SceneTemplateService.Instantiate(
             caveTemplate,
             false,
@@ -37,10 +32,5 @@ public class CreateScene : MonoBehaviour
 
         // Save scene
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
-    }
-
-    static void addSphere()
-    {
-
     }
 }
