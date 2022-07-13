@@ -15,13 +15,6 @@ public class SceneTemplatePipeline : ISceneTemplatePipeline
 
     public void BeforeTemplateInstantiation(SceneTemplateAsset sceneTemplateAsset, bool isAdditive, string sceneName)
     {
-        if (sceneTemplateAsset) {
-            System.Console.WriteLine(
-                "Before Template Pipeline " + sceneTemplateAsset.name +
-                " isAdditive: " + isAdditive +
-                " sceneName: " + sceneName
-            );
-        }
     }
 
     public void AfterTemplateInstantiation(SceneTemplateAsset sceneTemplateAsset, Scene scene, bool isAdditive, string sceneName)
