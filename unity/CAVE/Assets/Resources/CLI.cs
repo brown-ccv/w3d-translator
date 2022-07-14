@@ -11,74 +11,32 @@ public class CLI : MonoBehaviour
 {
     static void Start()
     {
-        try
-        {
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.Schemas.Add("http://www.contoso.com/books", "contosoBooks.xsd");
-            settings.ValidationType = ValidationType.Schema;
+        Application.logMessageReceivedThreaded += HandleLog;
 
-            // GET ALL XML FILES IN THE DIRECTORY (OLD LOOP)
-            DirectoryInfo dir = new DirectoryInfo("Assets/Resources/Original Project");
-            FileInfo[] info = dir.GetFiles("*.xml");
-            foreach (FileInfo f in info) 
-            { 
-                // TODO: How to get this line onto console instead of log file?
-                Console.WriteLine($"Translating file: {f}");
+        // GET ALL XML FILES IN THE DIRECTORY (OLD LOOP)
+        DirectoryInfo dir = new DirectoryInfo("Assets/Resources/Original Project");
+        FileInfo[] info = dir.GetFiles("*.xml");
+        foreach (FileInfo f in info) 
+        { 
+            string file = f.Name;
+            Debug.Log($"Translating file: {file}");
 
-                /**
-                    try:
-                        validate_xml(file)
-                    except XmlError as e:
-                        typer.echo(red(e), err=True)
-                    else:
-                        # Build and clean Story
-                        story = parse(file, silence=True)
-                        story.ObjectRoot = translate_objects(story.ObjectRoot.Object)
-                */
-                
-                // XmlReader reader = XmlReader.Create("contosoBooks.xml", settings);
-                // XmlDocument document = new XmlDocument();
-                // document.Load(reader);
-
-                // ValidationEventHandler eventHandler = new ValidationEventHandler(ValidationEventHandler);
-
-                // the following call to Validate succeeds.
-                // document.Validate(eventHandler);
-
-                // // add a node so that the document is no longer valid
-                // XPathNavigator navigator = document.CreateNavigator();
-                // navigator.MoveToFollowing("price", "http://www.contoso.com/books");
-                // XmlWriter writer = navigator.InsertAfter();
-                // writer.WriteStartElement("anotherNode", "http://www.contoso.com/books");
-                // writer.WriteEndElement();
-                // writer.Close();
-
-                // // the document will now fail to successfully validate
-                // document.Validate(eventHandler);
-
-
-                NewScene("NewScene");
-            }
+            // TODO: Remove .xml extension
+            NewScene(file);
+            /**
+                try:
+                    validate_xml(file)
+                except XmlError as e:
+                    typer.echo(red(e), err=True)
+                else:
+                    # Build and clean Story
+                    story = parse(file, silence=True)
+                    story.ObjectRoot = translate_objects(story.ObjectRoot.Object) 
+            */
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }        
+ 
+        Application.logMessageReceivedThreaded -= HandleLog;    
     }
-
-    static void ValidationEventHandler(object sender, ValidationEventArgs e)
-    {
-        switch (e.Severity)
-        {
-            case XmlSeverityType.Error:
-                Console.WriteLine("Error: {0}", e.Message);
-                break;
-            case XmlSeverityType.Warning:
-                Console.WriteLine("Warning {0}", e.Message);
-                break;
-        }
-    }
-
 
     static void NewScene(string scene)
     {
@@ -104,4 +62,11 @@ public class CLI : MonoBehaviour
         // Save scene
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
+
+    // Callback function when Debug.Log is called within the CLI script
+    static void HandleLog(string logString, string stackTrace, LogType type)
+    {
+        Console.WriteLine($"HandleLog: {logString}");
+    }
+
 }

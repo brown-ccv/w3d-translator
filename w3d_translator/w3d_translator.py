@@ -3,7 +3,7 @@ import subprocess
 import shutil
 from pathlib import Path
 
-from validate import validate_project, validate_out, validate_xml
+from validate import validate_project, validate_out
 from errors import ValidationError, CopyError, UnityError
 
 UNITY_VERSION = "2021.3.0f1"
@@ -71,12 +71,15 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                     Path(unity_dir, "Assets", "Resources", "Original Project"),
                 )
             except CopyError as e:
+                # TODO: Handle this error (54)
                 raise e
-            
+
             # Build the project using Unity's CLI
             logfile = Path(unity_dir, "cli_log.txt")
             try:
-                subprocess.run(
+                # TODO: Write to stdout during execution, not after
+                # TODO: Launch 
+                sp = subprocess.run(
                     [
                         f"{UNITY_PATH}",
                         "-batchmode",
@@ -87,16 +90,21 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                         "CLI.Start",
                         "-logFile",
                         f"{logfile}",
+                        # "-"
                     ],
                     check=True,
                     capture_output=True,
                     text=True,
+
                 )
             except subprocess.CalledProcessError as e:
                 raise UnityError(
                     f"Error: Unity CLI exited with error on command {e.cmd}.\n"
                     + f"See '{logfile}' for more details."
                 )
+            else:
+                typer.echo(green(sp.stdout))
+                typer.echo(red(sp.stderr))
 
     except (ValidationError, UnityError) as e:
         typer.echo(red(e), err=True)
