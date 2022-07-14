@@ -46,62 +46,67 @@ def copy_files(project_dir: Path, unity_dir: Path):
         err_console.print(e, file=sys.stderr, style="red")
 
 
+def run_unity(unity_dir: Path):
+    with Popen(
+        [
+            f"{UNITY_PATH}",
+            "-batchmode",
+            "-quit",
+            "-projectPath",
+            f"{unity_dir}",
+            "-executeMethod",
+            "CLI.Start",
+            "-logFile",
+            "-",
+        ],
+        bufsize=1,
+        stdout=PIPE,
+        stderr=PIPE,
+        universal_newlines=True,
+    ) as sp, open(Path(unity_dir, "cli_log.txt"), "w") as logfile:
+        # Process stdout and stderr as it's written to
+        for line in sp.stdout:
+            if line.startswith(LOG_FLAG):
+                # Send prints from CLI script to console
+                console.print(line.strip(LOG_FLAG), end="")
+            else:
+                # Send Unity logs to a the log file
+                logfile.write(line)
+
+    # Check clean exit
+    if sp.poll() != 0:
+        raise UnityError(
+            "Error: Unity CLI exited with return code "
+            + f"{sp.returncode}.\n"
+            + f"See '{logfile.name}' for more details."
+        )
+
+
 # Translate a single project from W3D to Unity
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
+    console.print(f"Translating project:\t [cyan]{project_dir.name}[/cyan]")
+
     try:
-        console.print(
-            f"Translating project:\t [cyan]{project_dir.name}[/cyan]"
-        )
         with console.status("Validating project"):
             validate_project(project_dir)
         console.print("Project is valid")
 
-        # Create Unity project
-        unity_dir = Path(out_dir, project_dir.name)
         if not dev:
+            unity_dir = Path(out_dir, project_dir.name)
+
             with console.status("Copying files"):
                 copy_files(project_dir, unity_dir)
             console.print("Copied files")
 
-            # Build the project using Unity's CLI
-            with console.status("Running Unity CLI:"):
-                with Popen(
-                    [
-                        f"{UNITY_PATH}",
-                        "-batchmode",
-                        "-quit",
-                        "-projectPath",
-                        f"{unity_dir}",
-                        "-executeMethod",
-                        "CLI.Start",
-                        "-logFile",
-                        "-",
-                    ],
-                    bufsize=1,
-                    stdout=PIPE,
-                    stderr=PIPE,
-                    universal_newlines=True,
-                ) as sp, open(Path(unity_dir, "cli_log.txt"), "w") as logfile:
-                    # Process stdout and stderr as it's written to
-                    for line in sp.stdout:
-                        if line.startswith(LOG_FLAG):
-                            # Send prints from CLI script to console
-                            console.print(line.strip(LOG_FLAG), end="")
-                        else:
-                            # Send Unity logs to a the log file
-                            logfile.write(line)
-
-                # Check clean exit
-                if sp.poll() != 0:
-                    raise UnityError(
-                        "Error: Unity CLI exited with return code "
-                        + f"{sp.returncode}.\n"
-                        + f"See '{logfile.name}' for more details."
-                    )
+            with console.status("Running Unity CLI"):
+                run_unity(unity_dir)
     except (ValidationError, UnityError) as e:
         err_console.print(e, file=sys.stderr, style="red")
     else:
-        console.print("Done!\n")
+        console.print(
+            f":white_check_mark:\t [cyan]{project_dir.name}[/cyan]"
+            + " translated successfully\n"
+        )
 
 
 def main(
@@ -120,8 +125,8 @@ def main(
     """
     greeting(in_dir, out_dir)
 
-    # Create output folder
     try:
+        # Validate and create output folder
         validate_out(out_dir, force)
     except ValidationError as e:
         err_console.print(e, file=sys.stderr, style="red")
