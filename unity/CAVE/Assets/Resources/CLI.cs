@@ -9,23 +9,42 @@ using UnityEditor.SceneTemplate;
 
 public class CLI : MonoBehaviour
 {
-    static void Start()
+    static void Main()
     {
-        try
+        // Get command line arguments from Python
+        string[] args = System.Environment.GetCommandLineArgs();
+        // string schemaFile = null;
+        string schemaFile = null;
+        for(int i = 0; i < args.Length; i++)
         {
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.Schemas.Add("http://www.contoso.com/books", "contosoBooks.xsd");
-            settings.ValidationType = ValidationType.Schema;
+            if(args[i] == "--schemaFile") schemaFile = args[++i];
+        }
 
-            // GET ALL XML FILES IN THE DIRECTORY (OLD LOOP)
-            DirectoryInfo dir = new DirectoryInfo("Assets/Resources/Original Project");
-            FileInfo[] info = dir.GetFiles("*.xml");
-            foreach (FileInfo f in info) 
-            { 
-                // TODO: How to get this line onto console instead of log file?
-                Console.WriteLine($"Translating file: {f}");
+        // Initialize xml schema validator
+        Console.WriteLine("SCHEMA FILE " + schemaFile);
+        try{
+            XmlReaderSettings caveSchema = new XmlReaderSettings();
+            caveSchema.ValidationType = ValidationType.Schema;
+            caveSchema.ValidationEventHandler += new ValidationEventHandler(xmlValidationCallback);
 
-                /**
+            // Read xsd file and initialize schema
+            XmlSchema schema = XmlSchema.Read(
+                new XmlTextReader(schemaFile),
+                xmlValidationCallback
+            );
+            caveSchema.Schemas.Add(schema);
+            Console.WriteLine("SCHEMA " + schema.ToString());
+            Console.WriteLine("CAVE SCHEMA", caveSchema.ToString());
+
+            // Create a new scene for every xml file in the original project
+            string[] files = Directory.GetFiles(
+                "Assets/Resources/Original Project",
+                "*.xml",
+                SearchOption.AllDirectories
+            );
+            foreach(string xmlPath in files)
+            {            
+                /* PYTHON VALIDATION CODE
                     try:
                         validate_xml(file)
                     except XmlError as e:
@@ -33,60 +52,33 @@ public class CLI : MonoBehaviour
                     else:
                         # Build and clean Story
                         story = parse(file, silence=True)
-                        story.ObjectRoot = translate_objects(story.ObjectRoot.Object)
+                        story.ObjectRoot = translate_objects(story.ObjectRoot.Object) 
                 */
-                
-                // XmlReader reader = XmlReader.Create("contosoBooks.xml", settings);
-                // XmlDocument document = new XmlDocument();
-                // document.Load(reader);
+                // Validation is done on .Create
+                XmlReader reader = XmlReader.Create(xmlPath, caveSchema);
+                while (reader.Read()) { }
 
-                // ValidationEventHandler eventHandler = new ValidationEventHandler(ValidationEventHandler);
+                // Create the Unity scene
+                NewScene(xmlPath);
+            }  
 
-                // the following call to Validate succeeds.
-                // document.Validate(eventHandler);
-
-                // // add a node so that the document is no longer valid
-                // XPathNavigator navigator = document.CreateNavigator();
-                // navigator.MoveToFollowing("price", "http://www.contoso.com/books");
-                // XmlWriter writer = navigator.InsertAfter();
-                // writer.WriteStartElement("anotherNode", "http://www.contoso.com/books");
-                // writer.WriteEndElement();
-                // writer.Close();
-
-                // // the document will now fail to successfully validate
-                // document.Validate(eventHandler);
-
-
-                NewScene("NewScene");
-            }
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }        
+        catch(Exception e) { 
+            Console.WriteLine($"ERROR: Could not initialize XMl Validation from {schemaFile}");
+            Console.WriteLine(e);
+            throw e;
+        } 
     }
 
-    static void ValidationEventHandler(object sender, ValidationEventArgs e)
+    static void NewScene(string xmlPath)
     {
-        switch (e.Severity)
-        {
-            case XmlSeverityType.Error:
-                Console.WriteLine("Error: {0}", e.Message);
-                break;
-            case XmlSeverityType.Warning:
-                Console.WriteLine("Warning {0}", e.Message);
-                break;
-        }
-    }
+        Debug.Log($"Translating [green]{Path.GetFileName(xmlPath)}[/green]");
 
-
-    static void NewScene(string scene)
-    {
         // Instantiate new scene from template
         InstantiationResult instantiatedScene = SceneTemplateService.Instantiate(
             Resources.Load<SceneTemplateAsset>("CAVE"),
             false,
-            $"Assets/Resources/Scenes/{scene}.unity"
+            $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(xmlPath)}.unity"
         );
         GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
 
@@ -103,5 +95,17 @@ public class CLI : MonoBehaviour
 
         // Save scene
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+    }
+
+    static void xmlValidationCallback(object sender, ValidationEventArgs e)
+    {
+        Console.WriteLine($"XML Handler {sender} {e.ToString()}");
+        if (e.Severity == XmlSeverityType.Warning) {
+            Console.Write("WARNING: ");
+            Console.WriteLine(e.Message);
+        } else if (e.Severity == XmlSeverityType.Error) {
+            Console.Write("ERROR: ");
+            Console.WriteLine(e.Message);
+        }
     }
 }

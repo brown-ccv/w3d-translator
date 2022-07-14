@@ -6,8 +6,10 @@ from pathlib import Path
 from validate import validate_project, validate_out, validate_xml
 from errors import ValidationError, CopyError, UnityError
 
+# TODO: Hard coded paths won't work on others' machines
 UNITY_VERSION = "2021.3.0f1"
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"  # noqa (ignore lint)
+SCHEMA_PATH = "C:\\Users\\Rob\\ROOT\\CCV\\W3D Translator\\schema\\caveschema.xsd" # noqa (ignore lint)
 STARTER_PROJECT = "unity/CAVE"
 
 
@@ -72,9 +74,13 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 )
             except CopyError as e:
                 raise e
-            
+
             # Build the project using Unity's CLI
             logfile = Path(unity_dir, "cli_log.txt")
+            # TODO: GEt absolute path to caveschema document that can be passed into CLI
+            # TODO: Can pass variables in - call CLI for each scene or project?
+            schema = Path("schema/caveschema.xsd").absolute()
+            print("SCHEMA", schema)
             try:
                 subprocess.run(
                     [
@@ -83,10 +89,12 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                         "-quit",
                         "-projectPath",
                         f"{unity_dir}",
-                        "-executeMethod",
-                        "CLI.Start",
                         "-logFile",
                         f"{logfile}",
+                        "-executeMethod",
+                        "CLI.Main",
+                        "--schemaFile",
+                        Path("schema/caveschema.xsd").absolute()
                     ],
                     check=True,
                     capture_output=True,
