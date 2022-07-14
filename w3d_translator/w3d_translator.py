@@ -6,7 +6,7 @@ from subprocess import Popen, PIPE
 from rich.console import Console
 
 from validate import validate_project, validate_out
-from errors import ValidationError, CopyError, UnityError
+from errors import ValidationError, UnityError
 
 UNITY_VERSION = "2021.3.0f1"
 UNITY_PATH = Path(
@@ -86,7 +86,7 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                     for line in sp.stdout:
                         if line.startswith(LOG_FLAG):
                             # Send prints from CLI script to console
-                            console.print(line.strip(LOG_FLAG))
+                            console.print(line.strip(LOG_FLAG), end="")
                         else:
                             # Send Unity logs to a the log file
                             logfile.write(line)

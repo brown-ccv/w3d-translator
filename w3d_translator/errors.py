@@ -10,12 +10,6 @@ class UnityError(Exception):
     pass
 
 
-class CopyError(Exception):
-    """Raised when python fails to copy files/folders"""
-
-    pass
-
-
 class XmlError(Exception):
     """Raised when an XML file does not follow the defined schema"""
 
