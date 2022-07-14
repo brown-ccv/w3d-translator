@@ -70,7 +70,8 @@ public class CLI : MonoBehaviour
     // Callback function when Debug.Log is called within the CLI script
     static void HandleLog(string logString, string stackTrace, LogType type)
     {
-        Console.WriteLine($"HandleLog: {logString}");
+        // Prepend "CLI:", we check for this in the Python script
+        Console.WriteLine($"LOG:{logString}");
     }
 
 }

@@ -1,3 +1,4 @@
+import sys
 import typer
 import shutil
 from pathlib import Path
@@ -9,6 +10,7 @@ from errors import ValidationError, CopyError, UnityError
 UNITY_VERSION = "2021.3.0f1"
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"  # noqa (ignore lint)
 STARTER_PROJECT = "unity/CAVE"
+LOG_FLAG = "CLI:"  # Flag to send prints from the CLI script onto the console
 
 
 # Color string as cyan
@@ -28,17 +30,17 @@ def red(string: str):
 
 # Opening message
 def greeting(in_dir: Path, out_dir: Path):
-    typer.echo("W3D TRANSLATOR")
-    typer.echo(f"Unity Version:\t {cyan(UNITY_VERSION)}")
-    typer.echo(f"IN_DIR:\t\t {cyan(in_dir)}")
-    typer.echo(f"OUT_DIR:\t {cyan(out_dir)}")
-    typer.echo()
+    print("W3D TRANSLATOR")
+    print(f"Unity Version:\t {cyan(UNITY_VERSION)}")
+    print(f"IN_DIR:\t\t {cyan(in_dir)}")
+    print(f"OUT_DIR:\t {cyan(out_dir)}")
+    print()
 
 
 # Ending message
 def farewell():
-    typer.echo()
-    typer.echo("Translation Complete!")
+    print()
+    print("Translation Complete!")
     exit(0)
 
 
@@ -53,21 +55,6 @@ def copy_files(source: Path, destination: Path):
             + f"to {destination}.\n"
             + f"{e}"
         )
-
-
-# Process stdout and stderr as it's written to
-def poll_cli(sp: Popen):
-    # while True:
-    #     if sp.poll() is not None:
-    #         break
-    while sp.poll() is None:
-        out = sp.stdout.readline()
-        if out:
-            typer.echo(out.strip())
-        err = sp.stderr.readline()
-        if err:
-            typer.echo(red(err.strip()))
-    sp.terminate()
 
 
 # Translate a single project from W3D to Unity
@@ -87,10 +74,9 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 )
             except CopyError as e:
                 # TODO: Handle this error (54)
-                raise e
+                print(red(e), file=sys.stderr)
 
             # Build the project using Unity's CLI
-            logfile = Path(unity_dir, "cli_log.txt")
             with Popen(
                 [
                     f"{UNITY_PATH}",
@@ -101,18 +87,23 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                     "-executeMethod",
                     "CLI.Start",
                     "-logFile",
-                    # f"{logfile}",
                     "-",
                 ],
                 bufsize=1,
                 stdout=PIPE,
                 stderr=PIPE,
                 universal_newlines=True,
-            ) as sp:
+            ) as sp, open(Path(unity_dir, "cli_log.txt"), 'w') as logfile:
+                # Process stdout and stderr as it's written to
                 for line in sp.stdout:
-                    typer.echo(line)
+                    if(line.startswith(LOG_FLAG)):
+                        # Send prints from CLI script to console
+                        print(green(line.strip(LOG_FLAG)), end='')
+                    else:
+                        # Send Unity logs to a the log file
+                        logfile.write(line)
 
-            # Assert return code of 0
+            # Check clean exit
             if sp.poll() != 0:
                 raise UnityError(
                     "Error: Unity CLI exited with return code "
@@ -120,7 +111,7 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                     + f"See '{logfile}' for more details."
                 )
     except (ValidationError, UnityError) as e:
-        typer.echo(red(e), err=True)
+        print(red(e), file=sys.stderr)
 
 
 def main(
@@ -143,7 +134,7 @@ def main(
     try:
         validate_out(out_dir, force)
     except ValidationError as e:
-        typer.echo(red(e), err=True)
+        print(red(e), file=sys.stderr)
         exit(1)
 
     # Translate project(s)
