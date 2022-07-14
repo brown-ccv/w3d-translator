@@ -66,9 +66,7 @@ public class CLI : MonoBehaviour
     // Callback function when Debug.Log is called within the CLI script
     static void HandleLog(string logString, string stackTrace, LogType type)
     {
-        // Prepend "CLI:", we check for this in the Python script
-        // Console.ForegroundColor = ConsoleColor.Green;
-        Console.BackgroundColor = ConsoleColor.Blue;
+        // Prepend "LOG:", we check for this in the Python script
         Console.WriteLine($"LOG:{logString}");
     }
 
