@@ -3,115 +3,105 @@ import typer
 import shutil
 from pathlib import Path
 from subprocess import Popen, PIPE
+from rich.console import Console
 
 from validate import validate_project, validate_out
 from errors import ValidationError, CopyError, UnityError
 
 UNITY_VERSION = "2021.3.0f1"
-UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"  # noqa (ignore lint)
-STARTER_PROJECT = "unity/CAVE"
-LOG_FLAG = "CLI:"  # Flag to send prints from the CLI script onto the console
-
-
-# Color string as cyan
-def cyan(string: str):
-    return typer.style(string, fg=typer.colors.CYAN, bold=True)
-
-
-# Color string as green
-def green(string: str):
-    return typer.style(string, fg=typer.colors.GREEN, bold=True)
-
-
-# Color string as bright red
-def red(string: str):
-    return typer.style(string, fg=typer.colors.BRIGHT_RED, bold=True)
+UNITY_PATH = Path(
+    "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"
+)  # noqa (ignore lint)
+STARTER_PROJECT = Path("unity/CAVE")
+LOG_FLAG = "LOG:"  # Flag to send prints from the CLI script onto the console
+console = Console()
+err_console = Console(stderr=True)
 
 
 # Opening message
 def greeting(in_dir: Path, out_dir: Path):
-    print("W3D TRANSLATOR")
-    print(f"Unity Version:\t {cyan(UNITY_VERSION)}")
-    print(f"IN_DIR:\t\t {cyan(in_dir)}")
-    print(f"OUT_DIR:\t {cyan(out_dir)}")
-    print()
+    console.rule("[bold]W3D TRANSLATOR", align="left")
+    console.print(f"Unity Version:\t [cyan]{UNITY_VERSION}[/cyan]")
+    console.print(f"IN_DIR:\t\t [cyan]{in_dir}[/cyan]")
+    console.print(f"OUT_DIR:\t [cyan]{out_dir}[/cyan]")
+    console.print()
 
 
 # Ending message
 def farewell():
-    print()
-    print("Translation Complete!")
+    console.print("Translation Complete!")
     exit(0)
 
 
-# Copy all files from source to destination
-def copy_files(source: Path, destination: Path):
-    # TODO: Catch this exception
+# Copy files from the project directory to the Unity output directory
+def copy_files(project_dir: Path, unity_dir: Path):
     try:
-        shutil.copytree(str(source), str(destination))
-    except Exception as e:
-        raise CopyError(
-            f"Error: Failed to copy files from {source} "
-            + f"to {destination}.\n"
-            + f"{e}"
+        shutil.copytree(str(STARTER_PROJECT), str(unity_dir))
+        shutil.copytree(
+            project_dir,
+            str(Path(unity_dir, "Assets", "Resources", "Original Project")),
         )
+    except Exception as e:
+        # TODO 55: Catch this expression
+        err_console.print(e, file=sys.stderr, style="red")
 
 
 # Translate a single project from W3D to Unity
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
     try:
-        print(f"Translating project:\t {cyan(project_dir.name)}")
-        validate_project(project_dir)
-        unity_dir = Path(out_dir, project_dir.name)
+        console.print(
+            f"Translating project:\t [cyan]{project_dir.name}[/cyan]"
+        )
+        with console.status("Validating project"):
+            validate_project(project_dir)
+        console.print("Project is valid")
 
         # Create Unity project
+        unity_dir = Path(out_dir, project_dir.name)
         if not dev:
-            try:
-                copy_files(Path(STARTER_PROJECT), unity_dir)
-                copy_files(
-                    project_dir,
-                    Path(unity_dir, "Assets", "Resources", "Original Project"),
-                )
-            except CopyError as e:
-                # TODO: Handle this error (54)
-                print(red(e), file=sys.stderr)
+            with console.status("Copying files"):
+                copy_files(project_dir, unity_dir)
+            console.print("Copied files")
 
             # Build the project using Unity's CLI
-            with Popen(
-                [
-                    f"{UNITY_PATH}",
-                    "-batchmode",
-                    "-quit",
-                    "-projectPath",
-                    f"{unity_dir}",
-                    "-executeMethod",
-                    "CLI.Start",
-                    "-logFile",
-                    "-",
-                ],
-                bufsize=1,
-                stdout=PIPE,
-                stderr=PIPE,
-                universal_newlines=True,
-            ) as sp, open(Path(unity_dir, "cli_log.txt"), "w") as logfile:
-                # Process stdout and stderr as it's written to
-                for line in sp.stdout:
-                    if line.startswith(LOG_FLAG):
-                        # Send prints from CLI script to console
-                        print(green(line.strip(LOG_FLAG)), end="")
-                    else:
-                        # Send Unity logs to a the log file
-                        logfile.write(line)
+            with console.status("Running Unity CLI:"):
+                with Popen(
+                    [
+                        f"{UNITY_PATH}",
+                        "-batchmode",
+                        "-quit",
+                        "-projectPath",
+                        f"{unity_dir}",
+                        "-executeMethod",
+                        "CLI.Start",
+                        "-logFile",
+                        "-",
+                    ],
+                    bufsize=1,
+                    stdout=PIPE,
+                    stderr=PIPE,
+                    universal_newlines=True,
+                ) as sp, open(Path(unity_dir, "cli_log.txt"), "w") as logfile:
+                    # Process stdout and stderr as it's written to
+                    for line in sp.stdout:
+                        if line.startswith(LOG_FLAG):
+                            # Send prints from CLI script to console
+                            console.print(line.strip(LOG_FLAG))
+                        else:
+                            # Send Unity logs to a the log file
+                            logfile.write(line)
 
-            # Check clean exit
-            if sp.poll() != 0:
-                raise UnityError(
-                    "Error: Unity CLI exited with return code "
-                    + f"{sp.returncode}.\n"
-                    + f"See '{logfile}' for more details."
-                )
+                # Check clean exit
+                if sp.poll() != 0:
+                    raise UnityError(
+                        "Error: Unity CLI exited with return code "
+                        + f"{sp.returncode}.\n"
+                        + f"See '{logfile.name}' for more details."
+                    )
     except (ValidationError, UnityError) as e:
-        print(red(e), file=sys.stderr)
+        err_console.print(e, file=sys.stderr, style="red")
+    else:
+        console.print("Done!\n")
 
 
 def main(
@@ -134,7 +124,7 @@ def main(
     try:
         validate_out(out_dir, force)
     except ValidationError as e:
-        print(red(e), file=sys.stderr)
+        err_console.print(e, file=sys.stderr, style="red")
         exit(1)
 
     # Translate project(s)

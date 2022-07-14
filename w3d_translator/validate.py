@@ -24,6 +24,7 @@ def validate_project(dir: Path):
 
 # Creates output directory, if valid
 def validate_out(dir: Path, force: bool):
+    # TODO 54: Catch error when files are being used in another process
     try:
         dir.mkdir()
     except FileExistsError:

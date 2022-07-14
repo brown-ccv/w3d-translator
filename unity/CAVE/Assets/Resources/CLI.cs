@@ -1,7 +1,5 @@
 using System;
 using System.IO;
-using System.Xml;
-using System.Xml.Schema;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEditor.SceneManagement;
@@ -11,11 +9,10 @@ public class CLI : MonoBehaviour
 {
     static void Start()
     {
+        Debug.Log("Initializing");
         Application.logMessageReceivedThreaded += HandleLog;
 
-        // Create a mew scene for every xml file in the original project
-        // DirectoryInfo dir = new DirectoryInfo("Assets/Resources/Original Project");
-        // foreach (FileInfo f in dir.GetFiles("*.xml")) 
+        // Create a new scene for every xml file in the original project
         string[] files = Directory.GetFiles(
             "Assets/Resources/Original Project",
             "*.xml",
@@ -41,14 +38,13 @@ public class CLI : MonoBehaviour
 
     static void NewScene(string xmlPath)
     {
-        Debug.Log($"Translating {xmlPath}");
-        string filename = Path.GetFileNameWithoutExtension(xmlPath);
+        Debug.Log($"Translating [green]{Path.GetFileName(xmlPath)}[/green]");
 
         // Instantiate new scene from template
         InstantiationResult instantiatedScene = SceneTemplateService.Instantiate(
             Resources.Load<SceneTemplateAsset>("CAVE"),
             false,
-            $"Assets/Resources/Scenes/{filename}.unity"
+            $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(xmlPath)}.unity"
         );
         GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
 
@@ -71,6 +67,8 @@ public class CLI : MonoBehaviour
     static void HandleLog(string logString, string stackTrace, LogType type)
     {
         // Prepend "CLI:", we check for this in the Python script
+        // Console.ForegroundColor = ConsoleColor.Green;
+        Console.BackgroundColor = ConsoleColor.Blue;
         Console.WriteLine($"LOG:{logString}");
     }
 
