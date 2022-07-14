@@ -18,11 +18,11 @@ public class CLI : MonoBehaviour
         FileInfo[] info = dir.GetFiles("*.xml");
         foreach (FileInfo f in info) 
         { 
-            string file = f.Name;
-            Debug.Log($"Translating file: {file}");
+            string filename = Path.GetFileNameWithoutExtension(f.Name);
+            Debug.Log($"Translating file: {f.FullName}");
 
             // TODO: Remove .xml extension
-            NewScene(file);
+            NewScene(filename);
             /**
                 try:
                     validate_xml(file)

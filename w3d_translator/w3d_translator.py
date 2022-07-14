@@ -78,7 +78,7 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             logfile = Path(unity_dir, "cli_log.txt")
             try:
                 # TODO: Write to stdout during execution, not after
-                # TODO: Launch 
+                # TODO: Launch
                 sp = subprocess.run(
                     [
                         f"{UNITY_PATH}",
@@ -95,7 +95,6 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                     check=True,
                     capture_output=True,
                     text=True,
-
                 )
             except subprocess.CalledProcessError as e:
                 raise UnityError(
