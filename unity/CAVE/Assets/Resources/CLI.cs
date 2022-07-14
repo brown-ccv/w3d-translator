@@ -69,5 +69,4 @@ public class CLI : MonoBehaviour
         // Prepend "LOG:", we check for this in the Python script
         Console.WriteLine($"LOG:{logString}");
     }
-
 }
