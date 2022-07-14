@@ -60,7 +60,7 @@ def copy_files(source: Path, destination: Path):
 # Translate a single project from W3D to Unity
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
     try:
-        typer.echo(f"Translating project:\t {cyan(project_dir.name)}")
+        print(f"Translating project:\t {cyan(project_dir.name)}")
         validate_project(project_dir)
         unity_dir = Path(out_dir, project_dir.name)
 
@@ -93,12 +93,12 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
                 stdout=PIPE,
                 stderr=PIPE,
                 universal_newlines=True,
-            ) as sp, open(Path(unity_dir, "cli_log.txt"), 'w') as logfile:
+            ) as sp, open(Path(unity_dir, "cli_log.txt"), "w") as logfile:
                 # Process stdout and stderr as it's written to
                 for line in sp.stdout:
-                    if(line.startswith(LOG_FLAG)):
+                    if line.startswith(LOG_FLAG):
                         # Send prints from CLI script to console
-                        print(green(line.strip(LOG_FLAG)), end='')
+                        print(green(line.strip(LOG_FLAG)), end="")
                     else:
                         # Send Unity logs to a the log file
                         logfile.write(line)
