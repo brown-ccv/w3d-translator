@@ -13,17 +13,17 @@ public class CLI : MonoBehaviour
     {
         Application.logMessageReceivedThreaded += HandleLog;
 
-        // GET ALL XML FILES IN THE DIRECTORY (OLD LOOP)
-        DirectoryInfo dir = new DirectoryInfo("Assets/Resources/Original Project");
-        FileInfo[] info = dir.GetFiles("*.xml");
-        foreach (FileInfo f in info) 
-        { 
-            string filename = Path.GetFileNameWithoutExtension(f.Name);
-            Debug.Log($"Translating file: {f.FullName}");
-
-            // TODO: Remove .xml extension
-            NewScene(filename);
-            /**
+        // Create a mew scene for every xml file in the original project
+        // DirectoryInfo dir = new DirectoryInfo("Assets/Resources/Original Project");
+        // foreach (FileInfo f in dir.GetFiles("*.xml")) 
+        string[] files = Directory.GetFiles(
+            "Assets/Resources/Original Project",
+            "*.xml",
+            SearchOption.AllDirectories
+        );
+        foreach(string file in files)
+        {            
+            /* PYTHON VALIDATION CODE
                 try:
                     validate_xml(file)
                 except XmlError as e:
@@ -33,18 +33,22 @@ public class CLI : MonoBehaviour
                     story = parse(file, silence=True)
                     story.ObjectRoot = translate_objects(story.ObjectRoot.Object) 
             */
+            NewScene(file);
         }
  
         Application.logMessageReceivedThreaded -= HandleLog;    
     }
 
-    static void NewScene(string scene)
+    static void NewScene(string xmlPath)
     {
+        Debug.Log($"Translating {xmlPath}");
+        string filename = Path.GetFileNameWithoutExtension(xmlPath);
+
         // Instantiate new scene from template
         InstantiationResult instantiatedScene = SceneTemplateService.Instantiate(
             Resources.Load<SceneTemplateAsset>("CAVE"),
             false,
-            $"Assets/Resources/Scenes/{scene}.unity"
+            $"Assets/Resources/Scenes/{filename}.unity"
         );
         GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
 

@@ -1,7 +1,7 @@
 import typer
-import subprocess
 import shutil
 from pathlib import Path
+from subprocess import Popen, PIPE
 
 from validate import validate_project, validate_out
 from errors import ValidationError, CopyError, UnityError
@@ -55,6 +55,21 @@ def copy_files(source: Path, destination: Path):
         )
 
 
+# Process stdout and stderr as it's written to
+def poll_cli(sp: Popen):
+    # while True:
+    #     if sp.poll() is not None:
+    #         break
+    while sp.poll() is None:
+        out = sp.stdout.readline()
+        if out:
+            typer.echo(out.strip())
+        err = sp.stderr.readline()
+        if err:
+            typer.echo(red(err.strip()))
+    sp.terminate()
+
+
 # Translate a single project from W3D to Unity
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
     try:
@@ -76,35 +91,34 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
 
             # Build the project using Unity's CLI
             logfile = Path(unity_dir, "cli_log.txt")
-            try:
-                # TODO: Write to stdout during execution, not after
-                # TODO: Launch
-                sp = subprocess.run(
-                    [
-                        f"{UNITY_PATH}",
-                        "-batchmode",
-                        "-quit",
-                        "-projectPath",
-                        f"{unity_dir}",
-                        "-executeMethod",
-                        "CLI.Start",
-                        "-logFile",
-                        f"{logfile}",
-                        # "-"
-                    ],
-                    check=True,
-                    capture_output=True,
-                    text=True,
-                )
-            except subprocess.CalledProcessError as e:
+            with Popen(
+                [
+                    f"{UNITY_PATH}",
+                    "-batchmode",
+                    "-quit",
+                    "-projectPath",
+                    f"{unity_dir}",
+                    "-executeMethod",
+                    "CLI.Start",
+                    "-logFile",
+                    # f"{logfile}",
+                    "-",
+                ],
+                bufsize=1,
+                stdout=PIPE,
+                stderr=PIPE,
+                universal_newlines=True,
+            ) as sp:
+                for line in sp.stdout:
+                    typer.echo(line)
+
+            # Assert return code of 0
+            if sp.poll() != 0:
                 raise UnityError(
-                    f"Error: Unity CLI exited with error on command {e.cmd}.\n"
+                    "Error: Unity CLI exited with return code "
+                    + f"{sp.returncode}.\n"
                     + f"See '{logfile}' for more details."
                 )
-            else:
-                typer.echo(green(sp.stdout))
-                typer.echo(red(sp.stderr))
-
     except (ValidationError, UnityError) as e:
         typer.echo(red(e), err=True)
 
