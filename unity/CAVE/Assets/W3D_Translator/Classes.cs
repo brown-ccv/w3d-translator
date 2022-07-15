@@ -1,13 +1,6 @@
 using System.Xml.Serialization;
 using System.Collections.Generic;
 
-// using System.Xml.Serialization;
-// XmlSerializer serializer = new XmlSerializer(typeof(Root));
-// using (StringReader reader = new StringReader(xml))
-// {
-//    var test = (Root)serializer.Deserialize(reader);
-// }
-
 [XmlRoot(ElementName="Placement")]
 public class Placement { 
 

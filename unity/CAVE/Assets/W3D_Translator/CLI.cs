@@ -1,13 +1,17 @@
 using System;
 using System.IO;
-using System.Xml;
+using System.Xml.Serialization;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
 
+
 public class CLI : MonoBehaviour
 {
+    void Start(){ Main(); } // TEMP: Execute script from Unity directly
+
     static void Main()
     {
         string xmlPath = null;
@@ -25,37 +29,49 @@ public class CLI : MonoBehaviour
             throw e;
         }
 
+        
+        xmlPath = "../../../../test/sample.xml"; // TEMP: Hardcode xml file
+        XmlSerializer serializer = new XmlSerializer(typeof(Story));
+        using (StreamReader reader = new StreamReader(xmlPath))
+        {
+            Story story = (Story)serializer.Deserialize(reader);
+            Debug.Log(story.ToString());
+        }
+
+        /********** TEMP: Leave empty for Unity IDE Development ***********/
+
+
         // Load the XML
-        try {
-            XmlDocument file = new XmlDocument();
-            file.Load(xmlPath);
-        } catch(FileNotFoundException e) {
-            Debug.LogError($"ERROR: File {xmlPath} not found");
-            Debug.LogException(e);
-            throw e;
-        } 
+        // XmlDocument file = new XmlDocument();
+        // try {
+        //     file.Load(xmlPath);
+        // } catch(FileNotFoundException e) {
+        //     Debug.LogError($"ERROR: File {xmlPath} not found");
+        //     Debug.LogException(e);
+        //     throw e;
+        // } 
 
         // Create the Unity scene
+        // InstantiationResult instantiatedScene = null;
         // try{
-        //     NewScene(xmlPath);
+        //     instantiatedScene = SceneTemplateService.Instantiate(
+        //         Resources.Load<SceneTemplateAsset>("CAVE"),
+        //         false,
+        //         $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(xmlPath)}.unity"
+        //     );
         // } catch(Exception e) { 
         //     Console.WriteLine($"Error creating scene for {xmlPath}");
         //     Console.WriteLine(e);
         //     throw e;
-        // } 
+        // }
+        // Example(instantiatedScene.scene);
     }
 
-    static void NewScene(string xmlPath)
+    // EXAMPLE - Add sphere at origin of each wall
+    // static void Example(UnityEngine.SceneManagement.Scene scene)
+    static void Example(Scene scene)
     {
-        // Instantiate new scene from template
-        InstantiationResult instantiatedScene = SceneTemplateService.Instantiate(
-            Resources.Load<SceneTemplateAsset>("CAVE"),
-            false,
-            $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(xmlPath)}.unity"
-        );
-        GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
-
-        // EXAMPLE - Add sphere at origin of each wall
+        GameObject story = scene.GetRootGameObjects()[1];
         Material material = new Material(Shader.Find("Standard"));
         material.SetColor("_Color", Color.blue);
         foreach (Transform storyChild in story.transform) {
