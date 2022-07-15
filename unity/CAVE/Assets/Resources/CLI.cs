@@ -10,8 +10,9 @@ public class CLI : MonoBehaviour
 {
     static void Main()
     {
-        // Get command line arguments from Python
         string xmlPath = null;
+
+        // Get command line arguments from Python
         try {
             string[] args = System.Environment.GetCommandLineArgs();
             for(int i = 0; i < args.Length; i++)
@@ -24,7 +25,15 @@ public class CLI : MonoBehaviour
             throw e;
         }
 
-        Debug.Log("XML PATH " + xmlPath);
+        // Load the XML
+        try {
+            XmlDocument file = new XmlDocument();
+            file.Load(xmlPath);
+        } catch(FileNotFoundException e) {
+            Debug.LogError($"ERROR: File {xmlPath} not found");
+            Debug.LogException(e);
+            throw e;
+        } 
 
         // Create the Unity scene
         try{

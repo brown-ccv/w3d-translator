@@ -58,8 +58,8 @@ def copy_files(source: Path, destination: Path):
 
 
 # Translate an XML file using Unity's CLI
-def translate_file(unity_dir: Path, file: Path):
-    logfile = Path(unity_dir, "Logs", f"cli_{file.stem}.log")
+def translate_file(unity_dir: Path, xml_path: Path):
+    logfile = Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log")
     try:
         subprocess.run(
             [
@@ -73,7 +73,7 @@ def translate_file(unity_dir: Path, file: Path):
                 "-executeMethod",
                 "CLI.Main",
                 "--xmlPath",
-                Path(*file.parts[4:])  # Path relative to Resources folder
+                Path(*xml_path.parts[2:]),  # Path relative to unity_dir
             ],
             check=True,
             capture_output=True,
@@ -98,23 +98,20 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
         if not dev:
             try:
                 copy_files(Path(STARTER_PROJECT), unity_dir)
-                copy_files(
-                    project_dir,
-                    unity_copy
-                )
+                copy_files(project_dir, unity_copy)
             except CopyError as e:
                 raise e
 
             # Translate valid .xml files (skip invalid)
-            for file in unity_copy.rglob("*.xml"):
+            for xml_path in unity_copy.rglob("*.xml"):
                 try:
-                    typer.echo(f"Validating file:\t {green(file.name)}")
-                    validate_xml(file)
+                    typer.echo(f"Validating file:\t {green(xml_path.name)}")
+                    validate_xml(xml_path)
                 except XmlError as e:
                     typer.echo(red(e), err=True)
                 else:
-                    typer.echo(f"Translating file:\t {green(file.name)}")
-                    translate_file(unity_dir, file)
+                    typer.echo(f"Translating file:\t {green(xml_path.name)}")
+                    translate_file(unity_dir, xml_path)
     except (ValidationError, UnityError) as e:
         typer.echo(red(e), err=True)
 
