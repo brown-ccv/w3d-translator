@@ -77,10 +77,6 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
 
             # Build the project using Unity's CLI
             logfile = Path(unity_dir, "cli_log.txt")
-            # TODO: GEt absolute path to caveschema document that can be passed into CLI
-            # TODO: Can pass variables in - call CLI for each scene or project?
-            schema = Path("schema/caveschema.xsd").absolute()
-            print("SCHEMA", schema)
             try:
                 subprocess.run(
                     [
