@@ -30,13 +30,17 @@ public class CLI : MonoBehaviour
         }
 
         
-        xmlPath = "../../../../test/sample.xml"; // TEMP: Hardcode xml file
+        xmlPath = "../../test/sample.xml"; // TEMP: Hardcode xml file
         XmlSerializer serializer = new XmlSerializer(typeof(Story));
+        Story story = null;
         using (StreamReader reader = new StreamReader(xmlPath))
         {
-            Story story = (Story)serializer.Deserialize(reader);
-            Debug.Log(story.ToString());
+            story = (Story)serializer.Deserialize(reader);
         }
+        Debug.Log(story.ObjectRoot);
+        Debug.Log($"{story.ObjectRoot.Object} {story.ObjectRoot.Object.Count}");
+        Debug.Log($"Background color: {story.Global.backgroundColor}");
+        Debug.Log($"Cameras {story.Global.Camera} {story.Global.CaveCamera}");
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 

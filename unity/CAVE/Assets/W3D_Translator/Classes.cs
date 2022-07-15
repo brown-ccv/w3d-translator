@@ -1,5 +1,10 @@
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using UnityEngine;
+
+// TODO: Convert vector types to Unity Vector3
+
+/********** CLASSES FOR XML ELEMENTS **********/
 
 [XmlRoot(ElementName="Actions")]
 public class Actions { 
@@ -33,15 +38,7 @@ public class Axis {
 	public string rotation; 
 
 	[XmlAttribute(AttributeName="angle")] 
-	public int angle; 
-}
-
-
-[XmlRoot(ElementName="Background")]
-public class Background { 
-
-	[XmlAttribute(AttributeName="color")] 
-	public double color; 
+	public double angle; 
 }
 
 
@@ -83,34 +80,6 @@ public class Box {
 	[XmlAttribute(AttributeName="p2")] 
 	public string p2; 
 }
-
-[XmlRoot(ElementName="CameraPos")]
-public class CameraPos { 
-
-	[XmlElement(ElementName="Placement")] 
-	public Placement Placement; 
-
-	[XmlAttribute(AttributeName="far-clip")] 
-	public int farClip; 
-
-	[XmlText] 
-	public string text; 
-}
-
-
-[XmlRoot(ElementName="CaveCameraPos")]
-public class CaveCameraPos { 
-
-	[XmlElement(ElementName="Placement")] 
-	public Placement Placement; 
-
-	[XmlAttribute(AttributeName="far-clip")] 
-	public int farClip; 
-
-	[XmlText] 
-	public string text; 
-}
-
 
 [XmlRoot(ElementName="Clicks")]
 public class Clicks { 
@@ -231,13 +200,13 @@ public class EventTrigger {
 public class Global { 
 
 	[XmlElement(ElementName="CameraPos")] 
-	public CameraPos CameraPos; 
+	public Camera Camera; 
 
 	[XmlElement(ElementName="CaveCameraPos")] 
-	public CaveCameraPos CaveCameraPos; 
+	public Camera CaveCamera; 
 
 	[XmlElement(ElementName="Background")] 
-	public Background Background; 
+	public string backgroundColor; 
 
 	[XmlElement(ElementName="WandNavigation")] 
 	public WandNavigation WandNavigation; 
@@ -348,10 +317,10 @@ public class Link {
 	public bool RemainEnabled; 
 
 	[XmlElement(ElementName="EnabledColor")] 
-	public double EnabledColor; 
+	public string EnabledColor; 
 
 	[XmlElement(ElementName="SelectedColor")] 
-	public double SelectedColor; 
+	public string SelectedColor; 
 
 	[XmlElement(ElementName="Actions")] 
 	public Actions Actions; 
@@ -453,7 +422,7 @@ public class Object {
 	public bool Visible; 
 
 	[XmlElement(ElementName="Color")] 
-	public double Color; 
+	public string Color; 
 
 	[XmlElement(ElementName="Lighting")] 
 	public bool Lighting; 
@@ -497,7 +466,7 @@ public class ObjectChange {
 	public string name; 
 
 	[XmlText] 
-	public bool text; 
+	public string text; 
 }
 
 
@@ -803,7 +772,7 @@ public class Story {
 	public int version; 
 
 	[XmlAttribute(AttributeName="last_xpath")] 
-	public string last_xpath; 
+	public string lastXpath; 
 
 	[XmlText] 
 	public string text; 
@@ -932,7 +901,7 @@ public class Transition {
 	public Sound Sound; 
 
 	[XmlElement(ElementName="Color")] 
-	public double Color; 
+	public string Color; 
 }
 
 
@@ -952,4 +921,18 @@ public class WandNavigation {
 
 	[XmlAttribute(AttributeName="allow-movement")] 
 	public bool allowMovement; 
+}
+
+/*********** OTHER CLASSES ************/
+
+public class Camera { 
+
+	[XmlElement(ElementName="Placement")] 
+	public Placement Placement; 
+
+	[XmlAttribute(AttributeName="far-clip")] 
+	public float farClip; 
+
+	[XmlText] 
+	public string text; 
 }
