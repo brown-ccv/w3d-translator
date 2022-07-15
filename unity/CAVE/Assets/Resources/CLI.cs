@@ -50,8 +50,6 @@ public class CLI : MonoBehaviour
 
     static void NewScene(string xmlPath)
     {
-        Debug.Log($"Translating [green]{Path.GetFileName(xmlPath)}[/green]");
-
         // Instantiate new scene from template
         InstantiationResult instantiatedScene = SceneTemplateService.Instantiate(
             Resources.Load<SceneTemplateAsset>("CAVE"),

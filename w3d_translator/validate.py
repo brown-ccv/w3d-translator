@@ -1,4 +1,3 @@
-import shutil
 from lxml import etree
 from pathlib import Path
 
@@ -20,24 +19,6 @@ def validate_project(dir: Path):
         raise ValidationError(
             f"Error: Project does not contain an xml file: {dir}"
         )
-
-
-# Creates output directory, if valid
-def validate_out(dir: Path, force: bool):
-    # TODO 54: Catch error when files are being used in another process
-    try:
-        dir.mkdir()
-    except FileExistsError:
-        if force:
-            shutil.rmtree(dir)
-            dir.mkdir(exist_ok=True)
-        else:
-            raise ValidationError(
-                f"Error: OUTPUT directory already exists: {dir}.\n"
-                + "Use --force to overwrite"
-            )
-    except FileNotFoundError:
-        raise ValidationError("Error: OUTPUT directory is not valid")
 
 
 # Validate xml file against caveschema.xsd
