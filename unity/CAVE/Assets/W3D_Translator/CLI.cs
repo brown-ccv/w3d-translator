@@ -36,13 +36,13 @@ public class CLI : MonoBehaviour
         } 
 
         // Create the Unity scene
-        try{
-            NewScene(xmlPath);
-        } catch(Exception e) { 
-            Console.WriteLine($"Error creating scene for {xmlPath}");
-            Console.WriteLine(e);
-            throw e;
-        } 
+        // try{
+        //     NewScene(xmlPath);
+        // } catch(Exception e) { 
+        //     Console.WriteLine($"Error creating scene for {xmlPath}");
+        //     Console.WriteLine(e);
+        //     throw e;
+        // } 
     }
 
     static void NewScene(string xmlPath)
