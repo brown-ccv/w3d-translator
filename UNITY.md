@@ -48,7 +48,7 @@ In addition to the Unity XRRig, a root MiddleVR package needs to be added in ord
 
 ## PlacementRoot
 
-Each `<Placement>` in `PlacementRoot` is a Quad. PlacementRoot is the same for all projects:
+Each `<Placement>` in `PlacementRoot` is a Quad. PlacementRoot is the same for all projects, see [minimuim.xml](examples/cweditor/minimum.xml):
 
 ```xml
 <PlacementRoot>
