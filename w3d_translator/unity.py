@@ -39,7 +39,7 @@ def build_scene(xml_file: Path, story: classes.Story):
                 "-executeMethod",
                 "CreateScene.NewScene",
                 "-logFile",
-                f"{logfile}"
+                f"{logfile}",
             ],
             check=True,
             capture_output=True,
@@ -47,6 +47,6 @@ def build_scene(xml_file: Path, story: classes.Story):
         )
     except subprocess.CalledProcessError as e:
         raise UnityError(
-            f"Error: Unity CLI exited with error on command {e.cmd}.\n" +
-            f"See '{logfile}' for more details."
+            f"Error: Unity CLI exited with error on command {e.cmd}.\n"
+            + f"See '{logfile}' for more details."
         )

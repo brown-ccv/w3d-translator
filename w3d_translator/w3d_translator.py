@@ -58,7 +58,7 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             copy_files(Path(STARTER_PROJECT), unity_dir)
             copy_files(
                 project_dir,
-                Path(unity_dir, "Assets", "Resources", "Original Project")
+                Path(unity_dir, "Assets", "Resources", "Original Project"),
             )
 
         # Translate .xml files to .unity files (skip invalid)
