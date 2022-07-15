@@ -1,10 +1,15 @@
 import typer
 from pathlib import Path
 
-import generateDS.classes as generateDS
-from unity import create_project, build_project, UNITY_VERSION
+from generateDS.subclasses import parse
+from unity import (
+    create_project,
+    build_project,
+    UNITY_VERSION,
+)
 from validate import validate_project, validate_out, validate_xml
-from errors import ValidationError, UnityError, XmlError
+from errors import ValidationError, XmlError, UnityError
+from translate import translate_objects
 
 
 # Color string as cyan
@@ -39,6 +44,17 @@ def farewell():
 
 
 # Translate a single project
+'''TODO: NEW SUBPROCCESS
+    Copy Base project
+    Copy files into originals subfolder
+    For each XML file:
+        Validate file
+        Create new scene from CAVE.scenetemplate
+            Do anything with C# callbacks?
+        Parse xml file into Python
+        Clean python
+        Create classes and project (Move to C# here?)
+'''
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
     try:
         typer.echo(f"Translating project:\t {cyan(project_dir.name)}")
@@ -62,7 +78,12 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             except XmlError as e:
                 typer.echo(red(e), err=True)
             else:
-                story = generateDS.parse(file, silence=True)
+                # Build and clean Story
+                story = parse(file, silence=True)
+
+                objects = translate_objects(story.ObjectRoot.Object)
+                print(objects)
+
                 build_project(unity_dir, story)
     except (ValidationError, UnityError) as e:
         typer.echo(red(e), err=True)

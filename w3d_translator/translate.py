@@ -1,26 +1,61 @@
-# TODO: Move to .clean() method of appropriate classes
-# TODO: Should be Dictionary (name is key), not a list
-def clean_xml(Story):
-    if Story.Objects is not None:
-        Story.Objects = Story.Objects.Object
-    if Story.Groups is not None:
-        Story.Groups = Story.Groups.Group
-    if Story.Timelines is not None:
-        Story.Timelines = Story.Timelines.Timeline
-    if Story.Placements is not None:
-        Story.Placements = Story.Placements.Placement
-    if Story.Sounds is not None:
-        Story.Sounds = Story.Sounds.Sound
+from typing import Tuple
+from uuid import uuid4 as uuid
 
-    if Story.Events is not None:
-        Story.Events = Story.Events.Event
-    if Story.ParticleActions is not None:
-        Story.ParticleActions = Story.ParticleActions.ParticleActionList
+import generateDS.classes as classes
 
-    # OLD
-    # # Parse each <PlacementRoot>, each <Placement> is referenced by name
-    # story["walls"] = dict(
-    #     (tag.attrib.pop("name"), parse_recursive(tag))
-    #     for tag in root.find("PlacementRoot")
-    # )
-    return Story
+
+def translate_objects(objects: list):
+    game_objects = {}
+
+    object: classes.Object
+    for object in objects:
+        id = uuid()
+        name = object.name
+
+        game_objects[name] = object
+
+    return game_objects
+
+
+def translate_path(string: str):
+    """Translate a <xs:simpleType name="path> type"""
+    pass
+
+
+def translate_color(string: str):
+    """Translate a <xs:simpleType name="color> type"""
+    pass
+
+
+def translate_vector(string: str):
+    """Translate a <xs:simpleType name="vector> type"""
+    pass
+
+
+def get_choice(obj, options=None):
+    """Loop over options, returning the class property that is not None"""
+
+    # Use all members if custom list isn't given
+    if options is None:
+        options = obj.member_data_items_
+    for member in options:
+        temp = getattr(obj, member.get_name())
+        if temp is not None:
+            return temp
+
+
+def set_choice(obj, value, options=None):
+    """Loop over options, updating the property that is not None"""
+
+    # Use all members if custom list isn't given
+    if options is None:
+        options = obj.member_data_items_
+    for member in options:
+        if getattr(obj, member.get_name()) is not None:
+            setattr(obj, member.get_name(), value)
+
+
+def print_member_names(obj):
+    """Helper function to print xml class properties"""
+    names = list(map(lambda x: x.get_name(), obj.member_data_items_))
+    print(names)

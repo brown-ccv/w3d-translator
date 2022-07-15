@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Thu Jun  2 10:23:57 2022 by generateDS.py version 2.40.13.
+# Generated Thu Jun 16 13:46:59 2022 by generateDS.py version 2.40.13.
 # Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]
 #
 # Command line options:
@@ -10,14 +10,14 @@
 #   ('-s', 'w3d_translator/generateDS/subclasses.py')
 #   ('--super', 'generateDS.classes')
 #   ('--use-getter-setter', 'none')
-#   ('--member-specs', 'dict')
-#   ('--cleanup-name-list', "[('[-:.]', '_'), ('Root$', 's'), ('Pos$', '')]")
+#   ('--member-specs', 'list')
+#   ('--cleanup-name-list', "[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]")
 #
 # Command line arguments:
-#   .\schema\caveschema.xsd
+#   ./schema/caveschema.xsd
 #
 # Command line:
-#   .\generateDS\generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="dict" --cleanup-name-list="[('[-:.]', '_'), ('Root$', 's'), ('Pos$', '')]" .\schema\caveschema.xsd
+#   ./.venv/Scripts/generateDS.py -o "w3d_translator/generateDS/classes.py" -s "w3d_translator/generateDS/subclasses.py" --super="generateDS.classes" --use-getter-setter="none" --member-specs="list" --cleanup-name-list="[('^Objects$', 'ObjectName'), ('^Groups$', 'GroupName'), ('[-:.]', '_'), ('Pos$', '')]" ./schema/caveschema.xsd
 #
 # Current working directory (os.getcwd()):
 #   W3D Translator
@@ -1251,24 +1251,24 @@ class Story(GeneratedsSuper):
     """Story -- The root story element"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "version": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "version",
             "xs:unsignedInt",
             0,
             0,
             {"use": "required", "name": "version"},
         ),
-        "last_xpath": MemberSpec_(
+        MemberSpec_(
             "last_xpath",
             "xs:string",
             0,
             1,
             {"use": "optional", "name": "last_xpath"},
         ),
-        "Objects": MemberSpec_(
-            "Objects",
-            "Objects",
+        MemberSpec_(
+            "ObjectRoot",
+            "ObjectRootType",
             0,
             1,
             {
@@ -1279,9 +1279,9 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Groups": MemberSpec_(
-            "Groups",
-            "Groups",
+        MemberSpec_(
+            "GroupRoot",
+            "GroupRootType",
             0,
             1,
             {
@@ -1292,8 +1292,8 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Timelines": MemberSpec_(
-            "Timelines",
+        MemberSpec_(
+            "TimelineRoot",
             "TimelineRootType",
             0,
             1,
@@ -1305,8 +1305,8 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Placements": MemberSpec_(
-            "Placements",
+        MemberSpec_(
+            "PlacementRoot",
             "PlacementRootType",
             0,
             1,
@@ -1318,8 +1318,8 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Sounds": MemberSpec_(
-            "Sounds",
+        MemberSpec_(
+            "SoundRoot",
             "SoundRootType",
             0,
             1,
@@ -1331,8 +1331,8 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Events": MemberSpec_(
-            "Events",
+        MemberSpec_(
+            "EventRoot",
             "EventRootType",
             0,
             1,
@@ -1344,8 +1344,8 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "ParticleActions": MemberSpec_(
-            "ParticleActions",
+        MemberSpec_(
+            "ParticleActionRoot",
             "ParticleActionRootType",
             0,
             1,
@@ -1357,7 +1357,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "Global": MemberSpec_(
+        MemberSpec_(
             "Global",
             "Global",
             0,
@@ -1371,7 +1371,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-        "About": MemberSpec_(
+        MemberSpec_(
             "About",
             "AboutType",
             0,
@@ -1384,7 +1384,7 @@ class Story(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -1392,13 +1392,13 @@ class Story(GeneratedsSuper):
         self,
         version=8,
         last_xpath=None,
-        Objects=None,
-        Groups=None,
-        Timelines=None,
-        Placements=None,
-        Sounds=None,
-        Events=None,
-        ParticleActions=None,
+        ObjectRoot=None,
+        GroupRoot=None,
+        TimelineRoot=None,
+        PlacementRoot=None,
+        SoundRoot=None,
+        EventRoot=None,
+        ParticleActionRoot=None,
         Global=None,
         About=None,
         gds_collector_=None,
@@ -1413,20 +1413,20 @@ class Story(GeneratedsSuper):
         self.version_nsprefix_ = None
         self.last_xpath = _cast(None, last_xpath)
         self.last_xpath_nsprefix_ = None
-        self.Objects = Objects
-        self.Objects_nsprefix_ = None
-        self.Groups = Groups
-        self.Groups_nsprefix_ = None
-        self.Timelines = Timelines
-        self.Timelines_nsprefix_ = None
-        self.Placements = Placements
-        self.Placements_nsprefix_ = None
-        self.Sounds = Sounds
-        self.Sounds_nsprefix_ = None
-        self.Events = Events
-        self.Events_nsprefix_ = None
-        self.ParticleActions = ParticleActions
-        self.ParticleActions_nsprefix_ = None
+        self.ObjectRoot = ObjectRoot
+        self.ObjectRoot_nsprefix_ = None
+        self.GroupRoot = GroupRoot
+        self.GroupRoot_nsprefix_ = None
+        self.TimelineRoot = TimelineRoot
+        self.TimelineRoot_nsprefix_ = None
+        self.PlacementRoot = PlacementRoot
+        self.PlacementRoot_nsprefix_ = None
+        self.SoundRoot = SoundRoot
+        self.SoundRoot_nsprefix_ = None
+        self.EventRoot = EventRoot
+        self.EventRoot_nsprefix_ = None
+        self.ParticleActionRoot = ParticleActionRoot
+        self.ParticleActionRoot_nsprefix_ = None
         self.Global = Global
         self.Global_nsprefix_ = None
         self.About = About
@@ -1446,13 +1446,13 @@ class Story(GeneratedsSuper):
 
     def _hasContent(self):
         if (
-            self.Objects is not None
-            or self.Groups is not None
-            or self.Timelines is not None
-            or self.Placements is not None
-            or self.Sounds is not None
-            or self.Events is not None
-            or self.ParticleActions is not None
+            self.ObjectRoot is not None
+            or self.GroupRoot is not None
+            or self.TimelineRoot is not None
+            or self.PlacementRoot is not None
+            or self.SoundRoot is not None
+            or self.EventRoot is not None
+            or self.ParticleActionRoot is not None
             or self.Global is not None
             or self.About is not None
         ):
@@ -1553,13 +1553,13 @@ class Story(GeneratedsSuper):
             eol_ = "\n"
         else:
             eol_ = ""
-        if self.Objects is not None:
+        if self.ObjectRoot is not None:
             namespaceprefix_ = (
-                self.Objects_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Objects_nsprefix_)
+                self.ObjectRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.ObjectRoot_nsprefix_)
                 else ""
             )
-            self.Objects.export(
+            self.ObjectRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1567,13 +1567,13 @@ class Story(GeneratedsSuper):
                 name_="ObjectRoot",
                 pretty_print=pretty_print,
             )
-        if self.Groups is not None:
+        if self.GroupRoot is not None:
             namespaceprefix_ = (
-                self.Groups_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Groups_nsprefix_)
+                self.GroupRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.GroupRoot_nsprefix_)
                 else ""
             )
-            self.Groups.export(
+            self.GroupRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1581,13 +1581,13 @@ class Story(GeneratedsSuper):
                 name_="GroupRoot",
                 pretty_print=pretty_print,
             )
-        if self.Timelines is not None:
+        if self.TimelineRoot is not None:
             namespaceprefix_ = (
-                self.Timelines_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Timelines_nsprefix_)
+                self.TimelineRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.TimelineRoot_nsprefix_)
                 else ""
             )
-            self.Timelines.export(
+            self.TimelineRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1595,13 +1595,13 @@ class Story(GeneratedsSuper):
                 name_="TimelineRoot",
                 pretty_print=pretty_print,
             )
-        if self.Placements is not None:
+        if self.PlacementRoot is not None:
             namespaceprefix_ = (
-                self.Placements_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Placements_nsprefix_)
+                self.PlacementRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.PlacementRoot_nsprefix_)
                 else ""
             )
-            self.Placements.export(
+            self.PlacementRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1609,13 +1609,13 @@ class Story(GeneratedsSuper):
                 name_="PlacementRoot",
                 pretty_print=pretty_print,
             )
-        if self.Sounds is not None:
+        if self.SoundRoot is not None:
             namespaceprefix_ = (
-                self.Sounds_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Sounds_nsprefix_)
+                self.SoundRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.SoundRoot_nsprefix_)
                 else ""
             )
-            self.Sounds.export(
+            self.SoundRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1623,13 +1623,13 @@ class Story(GeneratedsSuper):
                 name_="SoundRoot",
                 pretty_print=pretty_print,
             )
-        if self.Events is not None:
+        if self.EventRoot is not None:
             namespaceprefix_ = (
-                self.Events_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Events_nsprefix_)
+                self.EventRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.EventRoot_nsprefix_)
                 else ""
             )
-            self.Events.export(
+            self.EventRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1637,13 +1637,13 @@ class Story(GeneratedsSuper):
                 name_="EventRoot",
                 pretty_print=pretty_print,
             )
-        if self.ParticleActions is not None:
+        if self.ParticleActionRoot is not None:
             namespaceprefix_ = (
-                self.ParticleActions_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.ParticleActions_nsprefix_)
+                self.ParticleActionRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.ParticleActionRoot_nsprefix_)
                 else ""
             )
-            self.ParticleActions.export(
+            self.ParticleActionRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -1710,37 +1710,37 @@ class Story(GeneratedsSuper):
         if nodeName_ == "ObjectRoot":
             obj_ = ObjectRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Objects = obj_
+            self.ObjectRoot = obj_
             obj_.original_tagname_ = "ObjectRoot"
         elif nodeName_ == "GroupRoot":
             obj_ = GroupRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Groups = obj_
+            self.GroupRoot = obj_
             obj_.original_tagname_ = "GroupRoot"
         elif nodeName_ == "TimelineRoot":
             obj_ = TimelineRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Timelines = obj_
+            self.TimelineRoot = obj_
             obj_.original_tagname_ = "TimelineRoot"
         elif nodeName_ == "PlacementRoot":
             obj_ = PlacementRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Placements = obj_
+            self.PlacementRoot = obj_
             obj_.original_tagname_ = "PlacementRoot"
         elif nodeName_ == "SoundRoot":
             obj_ = SoundRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Sounds = obj_
+            self.SoundRoot = obj_
             obj_.original_tagname_ = "SoundRoot"
         elif nodeName_ == "EventRoot":
             obj_ = EventRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Events = obj_
+            self.EventRoot = obj_
             obj_.original_tagname_ = "EventRoot"
         elif nodeName_ == "ParticleActionRoot":
             obj_ = ParticleActionRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.ParticleActions = obj_
+            self.ParticleActionRoot = obj_
             obj_.original_tagname_ = "ParticleActionRoot"
         elif nodeName_ == "Global":
             obj_ = Global.factory(parent_object_=self)
@@ -1761,11 +1761,11 @@ class Object(GeneratedsSuper):
     """Object -- Entire Content obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "Visible": MemberSpec_(
+        MemberSpec_(
             "Visible",
             "xs:boolean",
             0,
@@ -1773,7 +1773,7 @@ class Object(GeneratedsSuper):
             {"default": "true", "name": "Visible", "type": "xs:boolean"},
             None,
         ),
-        "Color": MemberSpec_(
+        MemberSpec_(
             "Color",
             ["color", "xs:string"],
             0,
@@ -1781,7 +1781,7 @@ class Object(GeneratedsSuper):
             {"default": "255,255,255", "name": "Color", "type": "xs:string"},
             None,
         ),
-        "Lighting": MemberSpec_(
+        MemberSpec_(
             "Lighting",
             "xs:boolean",
             0,
@@ -1789,7 +1789,7 @@ class Object(GeneratedsSuper):
             {"default": "false", "name": "Lighting", "type": "xs:boolean"},
             None,
         ),
-        "ClickThrough": MemberSpec_(
+        MemberSpec_(
             "ClickThrough",
             "xs:boolean",
             0,
@@ -1797,7 +1797,7 @@ class Object(GeneratedsSuper):
             {"default": "false", "name": "ClickThrough", "type": "xs:boolean"},
             None,
         ),
-        "AroundSelfAxis": MemberSpec_(
+        MemberSpec_(
             "AroundSelfAxis",
             "xs:boolean",
             0,
@@ -1809,7 +1809,7 @@ class Object(GeneratedsSuper):
             },
             None,
         ),
-        "Scale": MemberSpec_(
+        MemberSpec_(
             "Scale",
             "xs:double",
             0,
@@ -1817,7 +1817,7 @@ class Object(GeneratedsSuper):
             {"default": "1.0", "name": "Scale", "type": "xs:double"},
             None,
         ),
-        "SoundRef": MemberSpec_(
+        MemberSpec_(
             "SoundRef",
             "SoundRef",
             0,
@@ -1825,7 +1825,7 @@ class Object(GeneratedsSuper):
             {"minOccurs": "0", "name": "SoundRef", "type": "xs:string"},
             None,
         ),
-        "Placement": MemberSpec_(
+        MemberSpec_(
             "Placement",
             "Placement",
             0,
@@ -1833,7 +1833,7 @@ class Object(GeneratedsSuper):
             {"name": "Placement", "ref": "Placement", "type": "Placement"},
             None,
         ),
-        "Content": MemberSpec_(
+        MemberSpec_(
             "Content",
             "Content",
             0,
@@ -1841,15 +1841,15 @@ class Object(GeneratedsSuper):
             {"name": "Content", "ref": "Content", "type": "Content"},
             None,
         ),
-        "Links": MemberSpec_(
-            "Links",
+        MemberSpec_(
+            "LinkRoot",
             "LinkRootType",
             0,
             1,
             {"minOccurs": "0", "name": "LinkRoot", "type": "LinkRootType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -1865,7 +1865,7 @@ class Object(GeneratedsSuper):
         SoundRef=None,
         Placement=None,
         Content=None,
-        Links=None,
+        LinkRoot=None,
         gds_collector_=None,
         **kwargs_
     ):
@@ -1895,8 +1895,8 @@ class Object(GeneratedsSuper):
         self.Placement_nsprefix_ = None
         self.Content = Content
         self.Content_nsprefix_ = None
-        self.Links = Links
-        self.Links_nsprefix_ = None
+        self.LinkRoot = LinkRoot
+        self.LinkRoot_nsprefix_ = None
 
     def factory(*args_, **kwargs_):
         if CurrentSubclassModule_ is not None:
@@ -1928,8 +1928,20 @@ class Object(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_color_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_color_patterns_,
+                    )
+                )
+                result = False
         return result
+
+    validate_color_patterns_ = [["^((\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+),?)$"]]
 
     def _hasContent(self):
         if (
@@ -1942,7 +1954,7 @@ class Object(GeneratedsSuper):
             or self.SoundRef is not None
             or self.Placement is not None
             or self.Content is not None
-            or self.Links is not None
+            or self.LinkRoot is not None
         ):
             return True
         else:
@@ -2253,13 +2265,13 @@ class Object(GeneratedsSuper):
                 name_="Content",
                 pretty_print=pretty_print,
             )
-        if self.Links is not None:
+        if self.LinkRoot is not None:
             namespaceprefix_ = (
-                self.Links_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Links_nsprefix_)
+                self.LinkRoot_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.LinkRoot_nsprefix_)
                 else ""
             )
-            self.Links.export(
+            self.LinkRoot.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -2348,7 +2360,7 @@ class Object(GeneratedsSuper):
         elif nodeName_ == "LinkRoot":
             obj_ = LinkRootType.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Links = obj_
+            self.LinkRoot = obj_
             obj_.original_tagname_ = "LinkRoot"
 
 
@@ -2359,14 +2371,14 @@ class Content(GeneratedsSuper):
     """Content -- Content node"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "None_": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "None_", "None", 0, 0, {"name": "None", "type": "NoneType"}, 1
         ),
-        "Text": MemberSpec_(
+        MemberSpec_(
             "Text", "TextType", 0, 0, {"name": "Text", "type": "TextType"}, 1
         ),
-        "Image": MemberSpec_(
+        MemberSpec_(
             "Image",
             "ImageType",
             0,
@@ -2374,7 +2386,7 @@ class Content(GeneratedsSuper):
             {"name": "Image", "type": "ImageType"},
             1,
         ),
-        "StereoImage": MemberSpec_(
+        MemberSpec_(
             "StereoImage",
             "StereoImageType",
             0,
@@ -2382,7 +2394,7 @@ class Content(GeneratedsSuper):
             {"name": "StereoImage", "type": "StereoImageType"},
             1,
         ),
-        "Model": MemberSpec_(
+        MemberSpec_(
             "Model",
             "ModelType",
             0,
@@ -2390,7 +2402,7 @@ class Content(GeneratedsSuper):
             {"name": "Model", "type": "ModelType"},
             1,
         ),
-        "Light": MemberSpec_(
+        MemberSpec_(
             "Light",
             "LightType",
             0,
@@ -2398,7 +2410,7 @@ class Content(GeneratedsSuper):
             {"name": "Light", "type": "LightType"},
             1,
         ),
-        "ParticleSystem": MemberSpec_(
+        MemberSpec_(
             "ParticleSystem",
             "ParticleSystemType",
             0,
@@ -2406,7 +2418,7 @@ class Content(GeneratedsSuper):
             {"name": "ParticleSystem", "type": "ParticleSystemType"},
             1,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -2710,8 +2722,8 @@ class Link(GeneratedsSuper):
     """
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Enabled": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Enabled",
             "xs:boolean",
             0,
@@ -2719,7 +2731,7 @@ class Link(GeneratedsSuper):
             {"default": "true", "name": "Enabled", "type": "xs:boolean"},
             None,
         ),
-        "RemainEnabled": MemberSpec_(
+        MemberSpec_(
             "RemainEnabled",
             "xs:boolean",
             0,
@@ -2727,7 +2739,7 @@ class Link(GeneratedsSuper):
             {"default": "true", "name": "RemainEnabled", "type": "xs:boolean"},
             None,
         ),
-        "EnabledColor": MemberSpec_(
+        MemberSpec_(
             "EnabledColor",
             ["color", "xs:string"],
             0,
@@ -2739,7 +2751,7 @@ class Link(GeneratedsSuper):
             },
             None,
         ),
-        "SelectedColor": MemberSpec_(
+        MemberSpec_(
             "SelectedColor",
             ["color", "xs:string"],
             0,
@@ -2751,7 +2763,7 @@ class Link(GeneratedsSuper):
             },
             None,
         ),
-        "Actions": MemberSpec_(
+        MemberSpec_(
             "Actions",
             "ActionsType1",
             1,
@@ -2764,7 +2776,7 @@ class Link(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -2829,8 +2841,20 @@ class Link(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_color_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_color_patterns_,
+                    )
+                )
+                result = False
         return result
+
+    validate_color_patterns_ = [["^((\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+),?)$"]]
 
     def _hasContent(self):
         if (
@@ -3115,12 +3139,12 @@ class Group(GeneratedsSuper):
     """Group -- Group obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "Objects": MemberSpec_(
-            "Objects",
+        MemberSpec_(
+            "ObjectName",
             "Objects",
             1,
             0,
@@ -3132,8 +3156,8 @@ class Group(GeneratedsSuper):
             },
             2,
         ),
-        "Groups": MemberSpec_(
-            "Groups",
+        MemberSpec_(
+            "GroupName",
             "Groups",
             1,
             0,
@@ -3145,15 +3169,15 @@ class Group(GeneratedsSuper):
             },
             2,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
     def __init__(
         self,
         name=None,
-        Objects=None,
-        Groups=None,
+        ObjectName=None,
+        GroupName=None,
         gds_collector_=None,
         **kwargs_
     ):
@@ -3164,16 +3188,16 @@ class Group(GeneratedsSuper):
         self.ns_prefix_ = None
         self.name = _cast(None, name)
         self.name_nsprefix_ = None
-        if Objects is None:
-            self.Objects = []
+        if ObjectName is None:
+            self.ObjectName = []
         else:
-            self.Objects = Objects
-        self.Objects_nsprefix_ = None
-        if Groups is None:
-            self.Groups = []
+            self.ObjectName = ObjectName
+        self.ObjectName_nsprefix_ = None
+        if GroupName is None:
+            self.GroupName = []
         else:
-            self.Groups = Groups
-        self.Groups_nsprefix_ = None
+            self.GroupName = GroupName
+        self.GroupName_nsprefix_ = None
 
     def factory(*args_, **kwargs_):
         if CurrentSubclassModule_ is not None:
@@ -3188,7 +3212,7 @@ class Group(GeneratedsSuper):
     factory = staticmethod(factory)
 
     def _hasContent(self):
-        if self.Objects or self.Groups:
+        if self.ObjectName or self.GroupName:
             return True
         else:
             return False
@@ -3276,13 +3300,13 @@ class Group(GeneratedsSuper):
             eol_ = "\n"
         else:
             eol_ = ""
-        for Objects_ in self.Objects:
+        for ObjectName_ in self.ObjectName:
             namespaceprefix_ = (
-                self.Objects_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Objects_nsprefix_)
+                self.ObjectName_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.ObjectName_nsprefix_)
                 else ""
             )
-            Objects_.export(
+            ObjectName_.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -3290,13 +3314,13 @@ class Group(GeneratedsSuper):
                 name_="Objects",
                 pretty_print=pretty_print,
             )
-        for Groups_ in self.Groups:
+        for GroupName_ in self.GroupName:
             namespaceprefix_ = (
-                self.Groups_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Groups_nsprefix_)
+                self.GroupName_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.GroupName_nsprefix_)
                 else ""
             )
-            Groups_.export(
+            GroupName_.export(
                 outfile,
                 level,
                 namespaceprefix_,
@@ -3329,29 +3353,29 @@ class Group(GeneratedsSuper):
         self, child_, node, nodeName_, fromsubclass_=False, gds_collector_=None
     ):
         if nodeName_ == "Objects":
-            obj_ = Objects.factory(parent_object_=self)
+            obj_ = ObjectName.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Objects.append(obj_)
+            self.ObjectName.append(obj_)
             obj_.original_tagname_ = "Objects"
         elif nodeName_ == "Groups":
-            obj_ = Groups.factory(parent_object_=self)
+            obj_ = GroupName.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
-            self.Groups.append(obj_)
+            self.GroupName.append(obj_)
             obj_.original_tagname_ = "Groups"
 
 
 # end class Group
 
 
-class Objects(GeneratedsSuper):
+class ObjectName(GeneratedsSuper):
     """Objects -- Reference group objects"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -3366,13 +3390,15 @@ class Objects(GeneratedsSuper):
 
     def factory(*args_, **kwargs_):
         if CurrentSubclassModule_ is not None:
-            subclass = getSubclassFromModule_(CurrentSubclassModule_, Objects)
+            subclass = getSubclassFromModule_(
+                CurrentSubclassModule_, ObjectName
+            )
             if subclass is not None:
                 return subclass(*args_, **kwargs_)
-        if Objects.subclass:
-            return Objects.subclass(*args_, **kwargs_)
+        if ObjectName.subclass:
+            return ObjectName.subclass(*args_, **kwargs_)
         else:
-            return Objects(*args_, **kwargs_)
+            return ObjectName(*args_, **kwargs_)
 
     factory = staticmethod(factory)
 
@@ -3492,16 +3518,16 @@ class Objects(GeneratedsSuper):
         pass
 
 
-# end class Objects
+# end class ObjectName
 
 
-class Groups(GeneratedsSuper):
+class GroupName(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -3516,13 +3542,15 @@ class Groups(GeneratedsSuper):
 
     def factory(*args_, **kwargs_):
         if CurrentSubclassModule_ is not None:
-            subclass = getSubclassFromModule_(CurrentSubclassModule_, Groups)
+            subclass = getSubclassFromModule_(
+                CurrentSubclassModule_, GroupName
+            )
             if subclass is not None:
                 return subclass(*args_, **kwargs_)
-        if Groups.subclass:
-            return Groups.subclass(*args_, **kwargs_)
+        if GroupName.subclass:
+            return GroupName.subclass(*args_, **kwargs_)
         else:
-            return Groups(*args_, **kwargs_)
+            return GroupName(*args_, **kwargs_)
 
     factory = staticmethod(factory)
 
@@ -3638,25 +3666,25 @@ class Groups(GeneratedsSuper):
         pass
 
 
-# end class Groups
+# end class GroupName
 
 
 class Timeline(GeneratedsSuper):
     """Timeline -- Timer obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "start_immediately": MemberSpec_(
+        MemberSpec_(
             "start_immediately",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "start-immediately"},
         ),
-        "TimedActions": MemberSpec_(
+        MemberSpec_(
             "TimedActions",
             "TimedActionsType",
             1,
@@ -3669,7 +3697,7 @@ class Timeline(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -3869,270 +3897,10 @@ class Timeline(GeneratedsSuper):
 # end class Timeline
 
 
-class GroupRef(GeneratedsSuper):
-    """GroupRef --  Reference Group"""
-
-    __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
-            "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
-        ),
-        "random": MemberSpec_(
-            "random", "randomType", 0, 1, {"use": "optional", "name": "random"}
-        ),
-        "Transition": MemberSpec_(
-            "Transition",
-            "Transition",
-            0,
-            0,
-            {"name": "Transition", "ref": "Transition", "type": "Transition"},
-            None,
-        ),
-    }
-    subclass = None
-    superclass = None
-
-    def __init__(
-        self,
-        name=None,
-        random=None,
-        Transition=None,
-        gds_collector_=None,
-        **kwargs_
-    ):
-        self.gds_collector_ = gds_collector_
-        self.gds_elementtree_node_ = None
-        self.original_tagname_ = None
-        self.parent_object_ = kwargs_.get("parent_object_")
-        self.ns_prefix_ = None
-        self.name = _cast(None, name)
-        self.name_nsprefix_ = None
-        self.random = _cast(None, random)
-        self.random_nsprefix_ = None
-        self.Transition = Transition
-        self.Transition_nsprefix_ = None
-
-    def factory(*args_, **kwargs_):
-        if CurrentSubclassModule_ is not None:
-            subclass = getSubclassFromModule_(CurrentSubclassModule_, GroupRef)
-            if subclass is not None:
-                return subclass(*args_, **kwargs_)
-        if GroupRef.subclass:
-            return GroupRef.subclass(*args_, **kwargs_)
-        else:
-            return GroupRef(*args_, **kwargs_)
-
-    factory = staticmethod(factory)
-
-    def validate_randomType(self, value):
-        # Validate type randomType, a restriction on xs:string.
-        if (
-            value is not None
-            and Validate_simpletypes_
-            and self.gds_collector_ is not None
-        ):
-            if not isinstance(value, str):
-                lineno = self.gds_get_node_lineno_()
-                self.gds_collector_.add_message(
-                    'Value "%(value)s"%(lineno)s is not of the correct base simple type (str)'
-                    % {
-                        "value": value,
-                        "lineno": lineno,
-                    }
-                )
-                return False
-            value = value
-            enumerations = ["Select One Randomly"]
-            if value not in enumerations:
-                lineno = self.gds_get_node_lineno_()
-                self.gds_collector_.add_message(
-                    'Value "%(value)s"%(lineno)s does not match xsd enumeration restriction on randomType'
-                    % {"value": encode_str_2_3(value), "lineno": lineno}
-                )
-                result = False
-
-    def _hasContent(self):
-        if self.Transition is not None:
-            return True
-        else:
-            return False
-
-    def export(
-        self,
-        outfile,
-        level,
-        namespaceprefix_="",
-        namespacedef_="",
-        name_="GroupRef",
-        pretty_print=True,
-    ):
-        imported_ns_def_ = GenerateDSNamespaceDefs_.get("GroupRef")
-        if imported_ns_def_ is not None:
-            namespacedef_ = imported_ns_def_
-        if pretty_print:
-            eol_ = "\n"
-        else:
-            eol_ = ""
-        if self.original_tagname_ is not None and name_ == "GroupRef":
-            name_ = self.original_tagname_
-        if UseCapturedNS_ and self.ns_prefix_:
-            namespaceprefix_ = self.ns_prefix_ + ":"
-        showIndent(outfile, level, pretty_print)
-        outfile.write(
-            "<%s%s%s"
-            % (
-                namespaceprefix_,
-                name_,
-                namespacedef_ and " " + namespacedef_ or "",
-            )
-        )
-        already_processed = set()
-        self._exportAttributes(
-            outfile,
-            level,
-            already_processed,
-            namespaceprefix_,
-            name_="GroupRef",
-        )
-        if self._hasContent():
-            outfile.write(">%s" % (eol_,))
-            self._exportChildren(
-                outfile,
-                level + 1,
-                namespaceprefix_,
-                namespacedef_,
-                name_="GroupRef",
-                pretty_print=pretty_print,
-            )
-            showIndent(outfile, level, pretty_print)
-            outfile.write("</%s%s>%s" % (namespaceprefix_, name_, eol_))
-        else:
-            outfile.write("/>%s" % (eol_,))
-
-    def _exportAttributes(
-        self,
-        outfile,
-        level,
-        already_processed,
-        namespaceprefix_="",
-        name_="GroupRef",
-    ):
-        if self.name is not None and "name" not in already_processed:
-            already_processed.add("name")
-            outfile.write(
-                " name=%s"
-                % (
-                    self.gds_encode(
-                        self.gds_format_string(
-                            quote_attrib(self.name), input_name="name"
-                        )
-                    ),
-                )
-            )
-        if self.random is not None and "random" not in already_processed:
-            already_processed.add("random")
-            outfile.write(
-                " random=%s"
-                % (
-                    self.gds_encode(
-                        self.gds_format_string(
-                            quote_attrib(self.random), input_name="random"
-                        )
-                    ),
-                )
-            )
-
-    def _exportChildren(
-        self,
-        outfile,
-        level,
-        namespaceprefix_="",
-        namespacedef_="",
-        name_="GroupRef",
-        fromsubclass_=False,
-        pretty_print=True,
-    ):
-        if pretty_print:
-            eol_ = "\n"
-        else:
-            eol_ = ""
-        if self.Transition is not None:
-            namespaceprefix_ = (
-                self.Transition_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.Transition_nsprefix_)
-                else ""
-            )
-            self.Transition.export(
-                outfile,
-                level,
-                namespaceprefix_,
-                namespacedef_="",
-                name_="Transition",
-                pretty_print=pretty_print,
-            )
-
-    def build(self, node, gds_collector_=None):
-        self.gds_collector_ = gds_collector_
-        if SaveElementTreeNode:
-            self.gds_elementtree_node_ = node
-        already_processed = set()
-        self.ns_prefix_ = node.prefix
-        self._buildAttributes(node, node.attrib, already_processed)
-        for child in node:
-            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
-            self._buildChildren(
-                child, node, nodeName_, gds_collector_=gds_collector_
-            )
-        return self
-
-    def _buildAttributes(self, node, attrs, already_processed):
-        value = find_attr_value_("name", node)
-        if value is not None and "name" not in already_processed:
-            already_processed.add("name")
-            self.name = value
-        value = find_attr_value_("random", node)
-        if value is not None and "random" not in already_processed:
-            already_processed.add("random")
-            self.random = value
-            self.validate_randomType(self.random)  # validate type randomType
-
-    def _buildChildren(
-        self, child_, node, nodeName_, fromsubclass_=False, gds_collector_=None
-    ):
-        if nodeName_ == "Transition":
-            obj_ = Transition.factory(parent_object_=self)
-            obj_.build(child_, gds_collector_=gds_collector_)
-            self.Transition = obj_
-            obj_.original_tagname_ = "Transition"
-
-
-# end class GroupRef
-
-
 class ActionsType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ObjectChange": MemberSpec_(
-            "ObjectChange",
-            "ObjectChange",
-            0,
-            0,
-            {
-                "name": "ObjectChange",
-                "ref": "ObjectChange",
-                "type": "ObjectChange",
-            },
-            3,
-        ),
-        "GroupRef": MemberSpec_(
-            "GroupRef",
-            "GroupRef",
-            0,
-            0,
-            {"name": "GroupRef", "ref": "GroupRef", "type": "GroupRef"},
-            3,
-        ),
-        "TimerChange": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "TimerChange",
             "TimerChange",
             0,
@@ -4144,7 +3912,19 @@ class ActionsType(GeneratedsSuper):
             },
             3,
         ),
-        "SoundRef": MemberSpec_(
+        MemberSpec_(
+            "ObjectChange",
+            "ObjectChange",
+            0,
+            0,
+            {
+                "name": "ObjectChange",
+                "ref": "ObjectChange",
+                "type": "ObjectChange",
+            },
+            3,
+        ),
+        MemberSpec_(
             "SoundRef",
             "SoundRef",
             0,
@@ -4152,7 +3932,15 @@ class ActionsType(GeneratedsSuper):
             {"name": "SoundRef", "ref": "SoundRef", "type": "SoundRef"},
             3,
         ),
-        "Event": MemberSpec_(
+        MemberSpec_(
+            "GroupRef",
+            "GroupRef",
+            0,
+            0,
+            {"name": "GroupRef", "ref": "GroupRef", "type": "GroupRef"},
+            3,
+        ),
+        MemberSpec_(
             "Event",
             "Event",
             0,
@@ -4160,7 +3948,7 @@ class ActionsType(GeneratedsSuper):
             {"name": "Event", "ref": "Event", "type": "Event"},
             3,
         ),
-        "MoveCave": MemberSpec_(
+        MemberSpec_(
             "MoveCave",
             "MoveCaveType",
             0,
@@ -4168,7 +3956,7 @@ class ActionsType(GeneratedsSuper):
             {"name": "MoveCave", "type": "MoveCaveType"},
             3,
         ),
-        "Restart": MemberSpec_(
+        MemberSpec_(
             "Restart",
             "RestartType",
             0,
@@ -4176,16 +3964,16 @@ class ActionsType(GeneratedsSuper):
             {"name": "Restart", "type": "RestartType"},
             3,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
     def __init__(
         self,
-        ObjectChange=None,
-        GroupRef=None,
         TimerChange=None,
+        ObjectChange=None,
         SoundRef=None,
+        GroupRef=None,
         Event=None,
         MoveCave=None,
         Restart=None,
@@ -4198,14 +3986,14 @@ class ActionsType(GeneratedsSuper):
         self.original_tagname_ = None
         self.parent_object_ = kwargs_.get("parent_object_")
         self.ns_prefix_ = None
-        self.ObjectChange = ObjectChange
-        self.ObjectChange_nsprefix_ = None
-        self.GroupRef = GroupRef
-        self.GroupRef_nsprefix_ = None
         self.TimerChange = TimerChange
         self.TimerChange_nsprefix_ = None
+        self.ObjectChange = ObjectChange
+        self.ObjectChange_nsprefix_ = None
         self.SoundRef = SoundRef
         self.SoundRef_nsprefix_ = None
+        self.GroupRef = GroupRef
+        self.GroupRef_nsprefix_ = None
         self.Event = Event
         self.Event_nsprefix_ = None
         self.MoveCave = MoveCave
@@ -4230,10 +4018,10 @@ class ActionsType(GeneratedsSuper):
 
     def _hasContent(self):
         if (
-            self.ObjectChange is not None
-            or self.GroupRef is not None
-            or self.TimerChange is not None
+            self.TimerChange is not None
+            or self.ObjectChange is not None
             or self.SoundRef is not None
+            or self.GroupRef is not None
             or self.Event is not None
             or self.MoveCave is not None
             or self.Restart is not None
@@ -4338,34 +4126,6 @@ class ActionsType(GeneratedsSuper):
             eol_ = "\n"
         else:
             eol_ = ""
-        if self.ObjectChange is not None:
-            namespaceprefix_ = (
-                self.ObjectChange_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.ObjectChange_nsprefix_)
-                else ""
-            )
-            self.ObjectChange.export(
-                outfile,
-                level,
-                namespaceprefix_,
-                namespacedef_="",
-                name_="ObjectChange",
-                pretty_print=pretty_print,
-            )
-        if self.GroupRef is not None:
-            namespaceprefix_ = (
-                self.GroupRef_nsprefix_ + ":"
-                if (UseCapturedNS_ and self.GroupRef_nsprefix_)
-                else ""
-            )
-            self.GroupRef.export(
-                outfile,
-                level,
-                namespaceprefix_,
-                namespacedef_="",
-                name_="GroupRef",
-                pretty_print=pretty_print,
-            )
         if self.TimerChange is not None:
             namespaceprefix_ = (
                 self.TimerChange_nsprefix_ + ":"
@@ -4380,6 +4140,20 @@ class ActionsType(GeneratedsSuper):
                 name_="TimerChange",
                 pretty_print=pretty_print,
             )
+        if self.ObjectChange is not None:
+            namespaceprefix_ = (
+                self.ObjectChange_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.ObjectChange_nsprefix_)
+                else ""
+            )
+            self.ObjectChange.export(
+                outfile,
+                level,
+                namespaceprefix_,
+                namespacedef_="",
+                name_="ObjectChange",
+                pretty_print=pretty_print,
+            )
         if self.SoundRef is not None:
             namespaceprefix_ = (
                 self.SoundRef_nsprefix_ + ":"
@@ -4392,6 +4166,20 @@ class ActionsType(GeneratedsSuper):
                 namespaceprefix_,
                 namespacedef_="",
                 name_="SoundRef",
+                pretty_print=pretty_print,
+            )
+        if self.GroupRef is not None:
+            namespaceprefix_ = (
+                self.GroupRef_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.GroupRef_nsprefix_)
+                else ""
+            )
+            self.GroupRef.export(
+                outfile,
+                level,
+                namespaceprefix_,
+                namespacedef_="",
+                name_="GroupRef",
                 pretty_print=pretty_print,
             )
         if self.Event is not None:
@@ -4460,26 +4248,26 @@ class ActionsType(GeneratedsSuper):
     def _buildChildren(
         self, child_, node, nodeName_, fromsubclass_=False, gds_collector_=None
     ):
-        if nodeName_ == "ObjectChange":
-            obj_ = ObjectChange.factory(parent_object_=self)
-            obj_.build(child_, gds_collector_=gds_collector_)
-            self.ObjectChange = obj_
-            obj_.original_tagname_ = "ObjectChange"
-        elif nodeName_ == "GroupRef":
-            obj_ = GroupRef.factory(parent_object_=self)
-            obj_.build(child_, gds_collector_=gds_collector_)
-            self.GroupRef = obj_
-            obj_.original_tagname_ = "GroupRef"
-        elif nodeName_ == "TimerChange":
+        if nodeName_ == "TimerChange":
             obj_ = TimerChange.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
             self.TimerChange = obj_
             obj_.original_tagname_ = "TimerChange"
+        elif nodeName_ == "ObjectChange":
+            obj_ = ObjectChange.factory(parent_object_=self)
+            obj_.build(child_, gds_collector_=gds_collector_)
+            self.ObjectChange = obj_
+            obj_.original_tagname_ = "ObjectChange"
         elif nodeName_ == "SoundRef":
             obj_ = SoundRef.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
             self.SoundRef = obj_
             obj_.original_tagname_ = "SoundRef"
+        elif nodeName_ == "GroupRef":
+            obj_ = GroupRef.factory(parent_object_=self)
+            obj_.build(child_, gds_collector_=gds_collector_)
+            self.GroupRef = obj_
+            obj_.original_tagname_ = "GroupRef"
         elif nodeName_ == "Event":
             obj_ = Event.factory(parent_object_=self)
             obj_.build(child_, gds_collector_=gds_collector_)
@@ -4502,11 +4290,11 @@ class ActionsType(GeneratedsSuper):
 
 class TimerChange(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "start": MemberSpec_(
+        MemberSpec_(
             "start",
             "startType",
             0,
@@ -4514,10 +4302,10 @@ class TimerChange(GeneratedsSuper):
             {"name": "start", "type": "startType"},
             4,
         ),
-        "stop": MemberSpec_(
+        MemberSpec_(
             "stop", "stopType", 0, 0, {"name": "stop", "type": "stopType"}, 4
         ),
-        "continue_": MemberSpec_(
+        MemberSpec_(
             "continue_",
             "continueType",
             0,
@@ -4525,7 +4313,7 @@ class TimerChange(GeneratedsSuper):
             {"name": "continue", "type": "continueType"},
             4,
         ),
-        "start_if_not_started": MemberSpec_(
+        MemberSpec_(
             "start_if_not_started",
             "start_if_not_startedType",
             0,
@@ -4536,7 +4324,7 @@ class TimerChange(GeneratedsSuper):
             },
             4,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -4785,11 +4573,11 @@ class TimerChange(GeneratedsSuper):
 
 class ObjectChange(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "Transition": MemberSpec_(
+        MemberSpec_(
             "Transition",
             "Transition",
             0,
@@ -4797,7 +4585,7 @@ class ObjectChange(GeneratedsSuper):
             {"name": "Transition", "ref": "Transition", "type": "Transition"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -4971,11 +4759,11 @@ class ObjectChange(GeneratedsSuper):
 
 class SoundRef(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -5119,23 +4907,263 @@ class SoundRef(GeneratedsSuper):
 # end class SoundRef
 
 
-class Sound(GeneratedsSuper):
+class GroupRef(GeneratedsSuper):
+    """GroupRef --  Reference Group"""
+
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "filename": MemberSpec_(
+        MemberSpec_(
+            "random", "randomType", 0, 1, {"use": "optional", "name": "random"}
+        ),
+        MemberSpec_(
+            "Transition",
+            "Transition",
+            0,
+            0,
+            {"name": "Transition", "ref": "Transition", "type": "Transition"},
+            None,
+        ),
+    ]
+    subclass = None
+    superclass = None
+
+    def __init__(
+        self,
+        name=None,
+        random=None,
+        Transition=None,
+        gds_collector_=None,
+        **kwargs_
+    ):
+        self.gds_collector_ = gds_collector_
+        self.gds_elementtree_node_ = None
+        self.original_tagname_ = None
+        self.parent_object_ = kwargs_.get("parent_object_")
+        self.ns_prefix_ = None
+        self.name = _cast(None, name)
+        self.name_nsprefix_ = None
+        self.random = _cast(None, random)
+        self.random_nsprefix_ = None
+        self.Transition = Transition
+        self.Transition_nsprefix_ = None
+
+    def factory(*args_, **kwargs_):
+        if CurrentSubclassModule_ is not None:
+            subclass = getSubclassFromModule_(CurrentSubclassModule_, GroupRef)
+            if subclass is not None:
+                return subclass(*args_, **kwargs_)
+        if GroupRef.subclass:
+            return GroupRef.subclass(*args_, **kwargs_)
+        else:
+            return GroupRef(*args_, **kwargs_)
+
+    factory = staticmethod(factory)
+
+    def validate_randomType(self, value):
+        # Validate type randomType, a restriction on xs:string.
+        if (
+            value is not None
+            and Validate_simpletypes_
+            and self.gds_collector_ is not None
+        ):
+            if not isinstance(value, str):
+                lineno = self.gds_get_node_lineno_()
+                self.gds_collector_.add_message(
+                    'Value "%(value)s"%(lineno)s is not of the correct base simple type (str)'
+                    % {
+                        "value": value,
+                        "lineno": lineno,
+                    }
+                )
+                return False
+            value = value
+            enumerations = ["Select One Randomly"]
+            if value not in enumerations:
+                lineno = self.gds_get_node_lineno_()
+                self.gds_collector_.add_message(
+                    'Value "%(value)s"%(lineno)s does not match xsd enumeration restriction on randomType'
+                    % {"value": encode_str_2_3(value), "lineno": lineno}
+                )
+                result = False
+
+    def _hasContent(self):
+        if self.Transition is not None:
+            return True
+        else:
+            return False
+
+    def export(
+        self,
+        outfile,
+        level,
+        namespaceprefix_="",
+        namespacedef_="",
+        name_="GroupRef",
+        pretty_print=True,
+    ):
+        imported_ns_def_ = GenerateDSNamespaceDefs_.get("GroupRef")
+        if imported_ns_def_ is not None:
+            namespacedef_ = imported_ns_def_
+        if pretty_print:
+            eol_ = "\n"
+        else:
+            eol_ = ""
+        if self.original_tagname_ is not None and name_ == "GroupRef":
+            name_ = self.original_tagname_
+        if UseCapturedNS_ and self.ns_prefix_:
+            namespaceprefix_ = self.ns_prefix_ + ":"
+        showIndent(outfile, level, pretty_print)
+        outfile.write(
+            "<%s%s%s"
+            % (
+                namespaceprefix_,
+                name_,
+                namespacedef_ and " " + namespacedef_ or "",
+            )
+        )
+        already_processed = set()
+        self._exportAttributes(
+            outfile,
+            level,
+            already_processed,
+            namespaceprefix_,
+            name_="GroupRef",
+        )
+        if self._hasContent():
+            outfile.write(">%s" % (eol_,))
+            self._exportChildren(
+                outfile,
+                level + 1,
+                namespaceprefix_,
+                namespacedef_,
+                name_="GroupRef",
+                pretty_print=pretty_print,
+            )
+            showIndent(outfile, level, pretty_print)
+            outfile.write("</%s%s>%s" % (namespaceprefix_, name_, eol_))
+        else:
+            outfile.write("/>%s" % (eol_,))
+
+    def _exportAttributes(
+        self,
+        outfile,
+        level,
+        already_processed,
+        namespaceprefix_="",
+        name_="GroupRef",
+    ):
+        if self.name is not None and "name" not in already_processed:
+            already_processed.add("name")
+            outfile.write(
+                " name=%s"
+                % (
+                    self.gds_encode(
+                        self.gds_format_string(
+                            quote_attrib(self.name), input_name="name"
+                        )
+                    ),
+                )
+            )
+        if self.random is not None and "random" not in already_processed:
+            already_processed.add("random")
+            outfile.write(
+                " random=%s"
+                % (
+                    self.gds_encode(
+                        self.gds_format_string(
+                            quote_attrib(self.random), input_name="random"
+                        )
+                    ),
+                )
+            )
+
+    def _exportChildren(
+        self,
+        outfile,
+        level,
+        namespaceprefix_="",
+        namespacedef_="",
+        name_="GroupRef",
+        fromsubclass_=False,
+        pretty_print=True,
+    ):
+        if pretty_print:
+            eol_ = "\n"
+        else:
+            eol_ = ""
+        if self.Transition is not None:
+            namespaceprefix_ = (
+                self.Transition_nsprefix_ + ":"
+                if (UseCapturedNS_ and self.Transition_nsprefix_)
+                else ""
+            )
+            self.Transition.export(
+                outfile,
+                level,
+                namespaceprefix_,
+                namespacedef_="",
+                name_="Transition",
+                pretty_print=pretty_print,
+            )
+
+    def build(self, node, gds_collector_=None):
+        self.gds_collector_ = gds_collector_
+        if SaveElementTreeNode:
+            self.gds_elementtree_node_ = node
+        already_processed = set()
+        self.ns_prefix_ = node.prefix
+        self._buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self._buildChildren(
+                child, node, nodeName_, gds_collector_=gds_collector_
+            )
+        return self
+
+    def _buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_("name", node)
+        if value is not None and "name" not in already_processed:
+            already_processed.add("name")
+            self.name = value
+        value = find_attr_value_("random", node)
+        if value is not None and "random" not in already_processed:
+            already_processed.add("random")
+            self.random = value
+            self.validate_randomType(self.random)  # validate type randomType
+
+    def _buildChildren(
+        self, child_, node, nodeName_, fromsubclass_=False, gds_collector_=None
+    ):
+        if nodeName_ == "Transition":
+            obj_ = Transition.factory(parent_object_=self)
+            obj_.build(child_, gds_collector_=gds_collector_)
+            self.Transition = obj_
+            obj_.original_tagname_ = "Transition"
+
+
+# end class GroupRef
+
+
+class Sound(GeneratedsSuper):
+    __hash__ = GeneratedsSuper.__hash__
+    member_data_items_ = [
+        MemberSpec_(
+            "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
+        ),
+        MemberSpec_(
             "filename", "file", 0, 0, {"use": "required", "name": "filename"}
         ),
-        "autostart": MemberSpec_(
+        MemberSpec_(
             "autostart",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "autostart"},
         ),
-        "Mode": MemberSpec_(
+        MemberSpec_(
             "Mode",
             "ModeType",
             0,
@@ -5143,7 +5171,7 @@ class Sound(GeneratedsSuper):
             {"minOccurs": "0", "name": "Mode", "type": "ModeType"},
             None,
         ),
-        "Repeat": MemberSpec_(
+        MemberSpec_(
             "Repeat",
             "RepeatType",
             0,
@@ -5151,7 +5179,7 @@ class Sound(GeneratedsSuper):
             {"name": "Repeat", "type": "RepeatType"},
             None,
         ),
-        "Settings": MemberSpec_(
+        MemberSpec_(
             "Settings",
             "SettingsType",
             0,
@@ -5159,7 +5187,7 @@ class Sound(GeneratedsSuper):
             {"name": "Settings", "type": "SettingsType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -5438,32 +5466,32 @@ class Sound(GeneratedsSuper):
 
 class EventTrigger(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "enabled": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "enabled",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "enabled"},
         ),
-        "name": MemberSpec_(
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "duration": MemberSpec_(
+        MemberSpec_(
             "duration",
             "xs:double",
             0,
             1,
             {"use": "optional", "name": "duration"},
         ),
-        "remain_enabled": MemberSpec_(
+        MemberSpec_(
             "remain_enabled",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "remain-enabled"},
         ),
-        "HeadTrack": MemberSpec_(
+        MemberSpec_(
             "HeadTrack",
             "HeadTrackType",
             0,
@@ -5471,7 +5499,7 @@ class EventTrigger(GeneratedsSuper):
             {"name": "HeadTrack", "type": "HeadTrackType"},
             5,
         ),
-        "MoveTrack": MemberSpec_(
+        MemberSpec_(
             "MoveTrack",
             "MoveTrackType",
             0,
@@ -5479,7 +5507,7 @@ class EventTrigger(GeneratedsSuper):
             {"name": "MoveTrack", "type": "MoveTrackType"},
             5,
         ),
-        "Actions": MemberSpec_(
+        MemberSpec_(
             "Actions",
             "ActionsType",
             1,
@@ -5491,7 +5519,7 @@ class EventTrigger(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -5776,21 +5804,21 @@ class EventTrigger(GeneratedsSuper):
 
 class Box(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ignore_Y": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "ignore_Y",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "ignore-Y"},
         ),
-        "corner1": MemberSpec_(
+        MemberSpec_(
             "corner1", "vector", 0, 0, {"use": "required", "name": "corner1"}
         ),
-        "corner2": MemberSpec_(
+        MemberSpec_(
             "corner2", "vector", 0, 0, {"use": "required", "name": "corner2"}
         ),
-        "Movement": MemberSpec_(
+        MemberSpec_(
             "Movement",
             "MovementType",
             0,
@@ -5798,7 +5826,7 @@ class Box(GeneratedsSuper):
             {"name": "Movement", "type": "MovementType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -5854,7 +5882,22 @@ class Box(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if self.Movement is not None:
@@ -6028,14 +6071,14 @@ class Box(GeneratedsSuper):
 
 class Event(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "enable": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "enable", "xs:boolean", 0, 0, {"use": "required", "name": "enable"}
         ),
-        "name": MemberSpec_(
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -6194,11 +6237,11 @@ class Event(GeneratedsSuper):
 
 class ParticleActionList(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "Source": MemberSpec_(
+        MemberSpec_(
             "Source",
             "SourceType3",
             0,
@@ -6206,10 +6249,10 @@ class ParticleActionList(GeneratedsSuper):
             {"name": "Source", "type": "SourceType3"},
             None,
         ),
-        "Vel": MemberSpec_(
+        MemberSpec_(
             "Vel", "VelType", 0, 0, {"name": "Vel", "type": "VelType"}, None
         ),
-        "ParticleAction": MemberSpec_(
+        MemberSpec_(
             "ParticleAction",
             "ParticleAction",
             1,
@@ -6222,7 +6265,7 @@ class ParticleActionList(GeneratedsSuper):
             },
             None,
         ),
-        "RemoveCondition": MemberSpec_(
+        MemberSpec_(
             "RemoveCondition",
             "RemoveConditionType",
             0,
@@ -6230,7 +6273,7 @@ class ParticleActionList(GeneratedsSuper):
             {"name": "RemoveCondition", "type": "RemoveConditionType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -6485,8 +6528,8 @@ class ParticleActionList(GeneratedsSuper):
 
 class ParticleAction(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Avoid": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Avoid",
             "AvoidType",
             0,
@@ -6494,7 +6537,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Avoid", "type": "AvoidType"},
             6,
         ),
-        "Bounce": MemberSpec_(
+        MemberSpec_(
             "Bounce",
             "BounceType",
             0,
@@ -6502,7 +6545,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Bounce", "type": "BounceType"},
             6,
         ),
-        "Gravity": MemberSpec_(
+        MemberSpec_(
             "Gravity",
             "GravityType",
             0,
@@ -6510,7 +6553,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Gravity", "type": "GravityType"},
             6,
         ),
-        "Damping": MemberSpec_(
+        MemberSpec_(
             "Damping",
             "DampingType",
             0,
@@ -6518,7 +6561,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Damping", "type": "DampingType"},
             6,
         ),
-        "Gravitate": MemberSpec_(
+        MemberSpec_(
             "Gravitate",
             "GravitateType",
             0,
@@ -6526,7 +6569,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Gravitate", "type": "GravitateType"},
             6,
         ),
-        "Follow": MemberSpec_(
+        MemberSpec_(
             "Follow",
             "FollowType",
             0,
@@ -6534,7 +6577,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "Follow", "type": "FollowType"},
             6,
         ),
-        "MatchVel": MemberSpec_(
+        MemberSpec_(
             "MatchVel",
             "MatchVelType",
             0,
@@ -6542,7 +6585,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "MatchVel", "type": "MatchVelType"},
             6,
         ),
-        "OrbitPoint": MemberSpec_(
+        MemberSpec_(
             "OrbitPoint",
             "OrbitPointType",
             0,
@@ -6550,10 +6593,10 @@ class ParticleAction(GeneratedsSuper):
             {"name": "OrbitPoint", "type": "OrbitPointType"},
             6,
         ),
-        "Jet": MemberSpec_(
+        MemberSpec_(
             "Jet", "JetType", 0, 0, {"name": "Jet", "type": "JetType"}, 6
         ),
-        "RandomVel": MemberSpec_(
+        MemberSpec_(
             "RandomVel",
             "xs:string",
             0,
@@ -6561,7 +6604,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "RandomVel", "type": "xs:string"},
             6,
         ),
-        "RandomAccel": MemberSpec_(
+        MemberSpec_(
             "RandomAccel",
             "xs:string",
             0,
@@ -6569,7 +6612,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "RandomAccel", "type": "xs:string"},
             6,
         ),
-        "RandomDisplace": MemberSpec_(
+        MemberSpec_(
             "RandomDisplace",
             "xs:string",
             0,
@@ -6577,7 +6620,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "RandomDisplace", "type": "xs:string"},
             6,
         ),
-        "TargetColor": MemberSpec_(
+        MemberSpec_(
             "TargetColor",
             "TargetColorType",
             0,
@@ -6585,7 +6628,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "TargetColor", "type": "TargetColorType"},
             6,
         ),
-        "TargetSize": MemberSpec_(
+        MemberSpec_(
             "TargetSize",
             "xs:string",
             0,
@@ -6593,7 +6636,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "TargetSize", "type": "xs:string"},
             6,
         ),
-        "TargetVel": MemberSpec_(
+        MemberSpec_(
             "TargetVel",
             "xs:string",
             0,
@@ -6601,7 +6644,7 @@ class ParticleAction(GeneratedsSuper):
             {"name": "TargetVel", "type": "xs:string"},
             6,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -7123,7 +7166,7 @@ class ParticleAction(GeneratedsSuper):
 
 class RandomVel(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -7255,7 +7298,7 @@ class RandomVel(GeneratedsSuper):
 
 class RandomAccel(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -7387,7 +7430,7 @@ class RandomAccel(GeneratedsSuper):
 
 class RandomDisplace(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -7519,7 +7562,7 @@ class RandomDisplace(GeneratedsSuper):
 
 class TargetSize(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -7651,7 +7694,7 @@ class TargetSize(GeneratedsSuper):
 
 class TargetVel(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -7783,8 +7826,8 @@ class TargetVel(GeneratedsSuper):
 
 class ParticleDomainType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Point": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Point",
             "PointType5",
             0,
@@ -7792,10 +7835,10 @@ class ParticleDomainType(GeneratedsSuper):
             {"name": "Point", "type": "PointType5"},
             7,
         ),
-        "Line": MemberSpec_(
+        MemberSpec_(
             "Line", "LineType", 0, 0, {"name": "Line", "type": "LineType"}, 7
         ),
-        "Triangle": MemberSpec_(
+        MemberSpec_(
             "Triangle",
             "TriangleType",
             0,
@@ -7803,7 +7846,7 @@ class ParticleDomainType(GeneratedsSuper):
             {"name": "Triangle", "type": "TriangleType"},
             7,
         ),
-        "Plane": MemberSpec_(
+        MemberSpec_(
             "Plane",
             "PlaneType",
             0,
@@ -7811,13 +7854,11 @@ class ParticleDomainType(GeneratedsSuper):
             {"name": "Plane", "type": "PlaneType"},
             7,
         ),
-        "Rect": MemberSpec_(
+        MemberSpec_(
             "Rect", "RectType", 0, 0, {"name": "Rect", "type": "RectType"}, 7
         ),
-        "Box": MemberSpec_(
-            "Box", "Box", 0, 0, {"name": "Box", "type": "BoxType"}, 7
-        ),
-        "Sphere": MemberSpec_(
+        MemberSpec_("Box", "Box", 0, 0, {"name": "Box", "type": "BoxType"}, 7),
+        MemberSpec_(
             "Sphere",
             "SphereType",
             0,
@@ -7825,7 +7866,7 @@ class ParticleDomainType(GeneratedsSuper):
             {"name": "Sphere", "type": "SphereType"},
             7,
         ),
-        "Cylinder": MemberSpec_(
+        MemberSpec_(
             "Cylinder",
             "CylinderType",
             0,
@@ -7833,16 +7874,16 @@ class ParticleDomainType(GeneratedsSuper):
             {"name": "Cylinder", "type": "CylinderType"},
             7,
         ),
-        "Cone": MemberSpec_(
+        MemberSpec_(
             "Cone", "ConeType", 0, 0, {"name": "Cone", "type": "ConeType"}, 7
         ),
-        "Blob": MemberSpec_(
+        MemberSpec_(
             "Blob", "BlobType", 0, 0, {"name": "Blob", "type": "BlobType"}, 7
         ),
-        "Disc": MemberSpec_(
+        MemberSpec_(
             "Disc", "DiscType", 0, 0, {"name": "Disc", "type": "DiscType"}, 7
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -8240,8 +8281,8 @@ class Global(GeneratedsSuper):
     """Global -- Placement Obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Camera": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Camera",
             "Camera",
             0,
@@ -8249,7 +8290,7 @@ class Global(GeneratedsSuper):
             {"name": "CameraPos", "type": "Camera"},
             None,
         ),
-        "CaveCamera": MemberSpec_(
+        MemberSpec_(
             "CaveCamera",
             "Camera",
             0,
@@ -8257,7 +8298,7 @@ class Global(GeneratedsSuper):
             {"name": "CaveCameraPos", "type": "Camera"},
             None,
         ),
-        "Background": MemberSpec_(
+        MemberSpec_(
             "Background",
             "BackgroundType",
             0,
@@ -8265,7 +8306,7 @@ class Global(GeneratedsSuper):
             {"name": "Background", "type": "BackgroundType"},
             None,
         ),
-        "WandNavigation": MemberSpec_(
+        MemberSpec_(
             "WandNavigation",
             "WandNavigationType",
             0,
@@ -8273,7 +8314,7 @@ class Global(GeneratedsSuper):
             {"name": "WandNavigation", "type": "WandNavigationType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -8499,15 +8540,15 @@ class Global(GeneratedsSuper):
 
 class Camera(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "far_clip": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "far_clip",
             "xs:double",
             0,
             1,
             {"use": "optional", "name": "far-clip"},
         ),
-        "Placement": MemberSpec_(
+        MemberSpec_(
             "Placement",
             "Placement",
             0,
@@ -8515,7 +8556,7 @@ class Camera(GeneratedsSuper):
             {"name": "Placement", "ref": "Placement", "type": "Placement"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -8680,11 +8721,11 @@ class Placement(GeneratedsSuper):
     """Placement -- Placement Obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 1, {"use": "optional", "name": "name"}
         ),
-        "RelativeTo": MemberSpec_(
+        MemberSpec_(
             "RelativeTo",
             "xs:string",
             0,
@@ -8692,7 +8733,7 @@ class Placement(GeneratedsSuper):
             {"default": "Center", "name": "RelativeTo", "type": "xs:string"},
             None,
         ),
-        "Position": MemberSpec_(
+        MemberSpec_(
             "Position",
             ["vector", "xs:string"],
             0,
@@ -8704,10 +8745,10 @@ class Placement(GeneratedsSuper):
             },
             None,
         ),
-        "Axis": MemberSpec_(
+        MemberSpec_(
             "Axis", "AxisType", 0, 1, {"name": "Axis", "type": "AxisType"}, 8
         ),
-        "LookAt": MemberSpec_(
+        MemberSpec_(
             "LookAt",
             "LookAtType",
             0,
@@ -8715,7 +8756,7 @@ class Placement(GeneratedsSuper):
             {"name": "LookAt", "type": "LookAtType"},
             8,
         ),
-        "Normal": MemberSpec_(
+        MemberSpec_(
             "Normal",
             "NormalType",
             0,
@@ -8723,7 +8764,7 @@ class Placement(GeneratedsSuper):
             {"name": "Normal", "type": "NormalType"},
             8,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -8789,8 +8830,24 @@ class Placement(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+                result = False
         return result
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if (
@@ -9055,15 +9112,15 @@ class Placement(GeneratedsSuper):
 
 class Transition(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "duration": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "duration",
             "xs:double",
             0,
             1,
             {"use": "optional", "name": "duration"},
         ),
-        "Visible": MemberSpec_(
+        MemberSpec_(
             "Visible",
             "xs:boolean",
             0,
@@ -9071,7 +9128,7 @@ class Transition(GeneratedsSuper):
             {"name": "Visible", "type": "xs:boolean"},
             9,
         ),
-        "Movement": MemberSpec_(
+        MemberSpec_(
             "Movement",
             "MovementType6",
             0,
@@ -9079,7 +9136,7 @@ class Transition(GeneratedsSuper):
             {"name": "Movement", "type": "MovementType6"},
             9,
         ),
-        "MoveRel": MemberSpec_(
+        MemberSpec_(
             "MoveRel",
             "MoveRelType",
             0,
@@ -9087,7 +9144,7 @@ class Transition(GeneratedsSuper):
             {"name": "MoveRel", "type": "MoveRelType"},
             9,
         ),
-        "Color": MemberSpec_(
+        MemberSpec_(
             "Color",
             ["color", "xs:string"],
             0,
@@ -9095,7 +9152,7 @@ class Transition(GeneratedsSuper):
             {"default": "255,255,255", "name": "Color", "type": "xs:string"},
             9,
         ),
-        "Scale": MemberSpec_(
+        MemberSpec_(
             "Scale",
             "xs:double",
             0,
@@ -9103,10 +9160,10 @@ class Transition(GeneratedsSuper):
             {"default": "1.0", "name": "Scale", "type": "xs:double"},
             9,
         ),
-        "Sound": MemberSpec_(
+        MemberSpec_(
             "Sound", "Sound", 0, 0, {"name": "Sound", "type": "SoundType"}, 9
         ),
-        "LinkChange": MemberSpec_(
+        MemberSpec_(
             "LinkChange",
             "LinkChangeType",
             0,
@@ -9114,7 +9171,7 @@ class Transition(GeneratedsSuper):
             {"name": "LinkChange", "type": "LinkChangeType"},
             9,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -9186,8 +9243,20 @@ class Transition(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_color_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_color_patterns_,
+                    )
+                )
+                result = False
         return result
+
+    validate_color_patterns_ = [["^((\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+),?)$"]]
 
     def _hasContent(self):
         if (
@@ -9488,8 +9557,8 @@ class Transition(GeneratedsSuper):
 
 class ObjectRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Object": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Object",
             "Object",
             1,
@@ -9503,7 +9572,7 @@ class ObjectRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -9662,8 +9731,8 @@ class ObjectRootType(GeneratedsSuper):
 
 class GroupRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Group": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Group",
             "Group",
             1,
@@ -9677,7 +9746,7 @@ class GroupRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -9836,8 +9905,8 @@ class GroupRootType(GeneratedsSuper):
 
 class TimelineRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Timeline": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Timeline",
             "Timeline",
             1,
@@ -9851,7 +9920,7 @@ class TimelineRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10010,8 +10079,8 @@ class TimelineRootType(GeneratedsSuper):
 
 class PlacementRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Placement": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Placement",
             "Placement",
             1,
@@ -10024,7 +10093,7 @@ class PlacementRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10183,8 +10252,8 @@ class PlacementRootType(GeneratedsSuper):
 
 class SoundRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Sound": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Sound",
             "Sound",
             1,
@@ -10198,7 +10267,7 @@ class SoundRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10357,8 +10426,8 @@ class SoundRootType(GeneratedsSuper):
 
 class EventRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "EventTrigger": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "EventTrigger",
             "EventTrigger",
             1,
@@ -10372,7 +10441,7 @@ class EventRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10531,8 +10600,8 @@ class EventRootType(GeneratedsSuper):
 
 class ParticleActionRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ParticleActionList": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "ParticleActionList",
             "ParticleActionList",
             1,
@@ -10546,7 +10615,7 @@ class ParticleActionRootType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10712,11 +10781,11 @@ class ParticleActionRootType(GeneratedsSuper):
 
 class AboutType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "news": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "news", "xs:string", 0, 1, {"use": "optional", "name": "news"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -10864,8 +10933,8 @@ class AboutType(GeneratedsSuper):
 
 class LinkRootType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Link": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Link",
             "Link",
             0,
@@ -10873,7 +10942,7 @@ class LinkRootType(GeneratedsSuper):
             {"minOccurs": "0", "name": "Link", "ref": "Link", "type": "Link"},
             10,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -11029,7 +11098,7 @@ class LinkRootType(GeneratedsSuper):
 
 class NoneType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -11159,28 +11228,28 @@ class NoneType(GeneratedsSuper):
 
 class TextType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "horiz_align": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "horiz_align",
             "horiz-alignType",
             0,
             1,
             {"use": "optional", "name": "horiz-align"},
         ),
-        "vert_align": MemberSpec_(
+        MemberSpec_(
             "vert_align",
             "vert-alignType",
             0,
             1,
             {"use": "optional", "name": "vert-align"},
         ),
-        "font": MemberSpec_(
+        MemberSpec_(
             "font", "xs:string", 0, 1, {"use": "optional", "name": "font"}
         ),
-        "depth": MemberSpec_(
+        MemberSpec_(
             "depth", "xs:float", 0, 1, {"use": "optional", "name": "depth"}
         ),
-        "text": MemberSpec_(
+        MemberSpec_(
             "text",
             "xs:string",
             0,
@@ -11188,7 +11257,7 @@ class TextType(GeneratedsSuper):
             {"name": "text", "type": "xs:string"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -11491,11 +11560,11 @@ class TextType(GeneratedsSuper):
 
 class ImageType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "filename": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "filename", "file", 0, 0, {"use": "required", "name": "filename"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -11663,22 +11732,22 @@ class ImageType(GeneratedsSuper):
 
 class StereoImageType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "left_image": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "left_image",
             "file",
             0,
             0,
             {"use": "required", "name": "left-image"},
         ),
-        "right_image": MemberSpec_(
+        MemberSpec_(
             "right_image",
             "file",
             0,
             0,
             {"use": "required", "name": "right-image"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -11875,18 +11944,18 @@ class StereoImageType(GeneratedsSuper):
 
 class ModelType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "filename": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "filename", "file", 0, 0, {"use": "required", "name": "filename"}
         ),
-        "check_collisions": MemberSpec_(
+        MemberSpec_(
             "check_collisions",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "check-collisions"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -12082,43 +12151,43 @@ class ModelType(GeneratedsSuper):
 
 class LightType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "diffuse": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "diffuse",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "diffuse"},
         ),
-        "specular": MemberSpec_(
+        MemberSpec_(
             "specular",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "specular"},
         ),
-        "const_atten": MemberSpec_(
+        MemberSpec_(
             "const_atten",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "const_atten"},
         ),
-        "lin_atten": MemberSpec_(
+        MemberSpec_(
             "lin_atten",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "lin_atten"},
         ),
-        "quad_atten": MemberSpec_(
+        MemberSpec_(
             "quad_atten",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "quad_atten"},
         ),
-        "Point": MemberSpec_(
+        MemberSpec_(
             "Point",
             "PointType",
             0,
@@ -12126,7 +12195,7 @@ class LightType(GeneratedsSuper):
             {"name": "Point", "type": "PointType"},
             11,
         ),
-        "Directional": MemberSpec_(
+        MemberSpec_(
             "Directional",
             "DirectionalType",
             0,
@@ -12134,10 +12203,10 @@ class LightType(GeneratedsSuper):
             {"name": "Directional", "type": "DirectionalType"},
             11,
         ),
-        "Spot": MemberSpec_(
+        MemberSpec_(
             "Spot", "SpotType", 0, 0, {"name": "Spot", "type": "SpotType"}, 11
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -12426,7 +12495,7 @@ class LightType(GeneratedsSuper):
 
 class PointType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -12558,7 +12627,7 @@ class PointType(GeneratedsSuper):
 
 class DirectionalType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -12690,11 +12759,11 @@ class DirectionalType(GeneratedsSuper):
 
 class SpotType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "angle": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "angle", "xs:float", 0, 1, {"use": "optional", "name": "angle"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -12835,46 +12904,46 @@ class SpotType(GeneratedsSuper):
 
 class ParticleSystemType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "max_particles": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "max_particles",
             "xs:unsignedInt",
             0,
             1,
             {"use": "optional", "name": "max-particles"},
         ),
-        "actions_name": MemberSpec_(
+        MemberSpec_(
             "actions_name",
             "xs:string",
             0,
             0,
             {"use": "required", "name": "actions-name"},
         ),
-        "particle_group": MemberSpec_(
+        MemberSpec_(
             "particle_group",
             "xs:string",
             0,
             0,
             {"use": "required", "name": "particle-group"},
         ),
-        "look_at_camera": MemberSpec_(
+        MemberSpec_(
             "look_at_camera",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "look-at-camera"},
         ),
-        "sequential": MemberSpec_(
+        MemberSpec_(
             "sequential",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "sequential"},
         ),
-        "speed": MemberSpec_(
+        MemberSpec_(
             "speed", "xs:float", 0, 1, {"use": "optional", "name": "speed"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -13133,8 +13202,8 @@ class ActionsType1(ActionsType):
     """ActionsType1 -- Link Actions Obj"""
 
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Clicks": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Clicks",
             "ClicksType",
             0,
@@ -13142,16 +13211,16 @@ class ActionsType1(ActionsType):
             {"minOccurs": "0", "name": "Clicks", "type": "ClicksType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = ActionsType
 
     def __init__(
         self,
-        ObjectChange=None,
-        GroupRef=None,
         TimerChange=None,
+        ObjectChange=None,
         SoundRef=None,
+        GroupRef=None,
         Event=None,
         MoveCave=None,
         Restart=None,
@@ -13165,10 +13234,10 @@ class ActionsType1(ActionsType):
         self.parent_object_ = kwargs_.get("parent_object_")
         self.ns_prefix_ = None
         super(globals().get("ActionsType1"), self).__init__(
-            ObjectChange,
-            GroupRef,
             TimerChange,
+            ObjectChange,
             SoundRef,
+            GroupRef,
             Event,
             MoveCave,
             Restart,
@@ -13338,11 +13407,11 @@ class ActionsType1(ActionsType):
 
 class ClicksType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Any": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Any", "AnyType", 0, 0, {"name": "Any", "type": "AnyType"}, 12
         ),
-        "NumClicks": MemberSpec_(
+        MemberSpec_(
             "NumClicks",
             "NumClicksType",
             0,
@@ -13350,7 +13419,7 @@ class ClicksType(GeneratedsSuper):
             {"name": "NumClicks", "type": "NumClicksType"},
             12,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -13529,7 +13598,7 @@ class ClicksType(GeneratedsSuper):
 
 class AnyType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -13659,18 +13728,18 @@ class AnyType(GeneratedsSuper):
 
 class NumClicksType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "num_clicks": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "num_clicks",
             "xs:unsignedInt",
             0,
             1,
             {"use": "optional", "name": "num_clicks"},
         ),
-        "reset": MemberSpec_(
+        MemberSpec_(
             "reset", "xs:boolean", 0, 1, {"use": "optional", "name": "reset"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -13833,24 +13902,24 @@ class NumClicksType(GeneratedsSuper):
 
 class TimedActionsType(ActionsType):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "seconds_time": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "seconds_time",
             "xs:string",
             0,
             0,
             {"use": "required", "name": "seconds-time"},
         ),
-    }
+    ]
     subclass = None
     superclass = ActionsType
 
     def __init__(
         self,
-        ObjectChange=None,
-        GroupRef=None,
         TimerChange=None,
+        ObjectChange=None,
         SoundRef=None,
+        GroupRef=None,
         Event=None,
         MoveCave=None,
         Restart=None,
@@ -13864,10 +13933,10 @@ class TimedActionsType(ActionsType):
         self.parent_object_ = kwargs_.get("parent_object_")
         self.ns_prefix_ = None
         super(globals().get("TimedActionsType"), self).__init__(
-            ObjectChange,
-            GroupRef,
             TimerChange,
+            ObjectChange,
             SoundRef,
+            GroupRef,
             Event,
             MoveCave,
             Restart,
@@ -14037,15 +14106,15 @@ class TimedActionsType(ActionsType):
 
 class MoveCaveType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "duration": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "duration",
             "xs:double",
             0,
             1,
             {"use": "optional", "name": "duration"},
         ),
-        "Relative": MemberSpec_(
+        MemberSpec_(
             "Relative",
             "RelativeType",
             0,
@@ -14053,7 +14122,7 @@ class MoveCaveType(GeneratedsSuper):
             {"name": "Relative", "type": "RelativeType"},
             13,
         ),
-        "Absolute": MemberSpec_(
+        MemberSpec_(
             "Absolute",
             "AbsoluteType",
             0,
@@ -14061,7 +14130,7 @@ class MoveCaveType(GeneratedsSuper):
             {"name": "Absolute", "type": "AbsoluteType"},
             13,
         ),
-        "Placement": MemberSpec_(
+        MemberSpec_(
             "Placement",
             "Placement",
             0,
@@ -14069,7 +14138,7 @@ class MoveCaveType(GeneratedsSuper):
             {"name": "Placement", "ref": "Placement", "type": "Placement"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -14290,7 +14359,7 @@ class MoveCaveType(GeneratedsSuper):
 
 class RelativeType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -14422,7 +14491,7 @@ class RelativeType(GeneratedsSuper):
 
 class AbsoluteType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -14554,7 +14623,7 @@ class AbsoluteType(GeneratedsSuper):
 
 class RestartType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -14686,7 +14755,7 @@ class RestartType(GeneratedsSuper):
 
 class startType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -14818,7 +14887,7 @@ class startType(GeneratedsSuper):
 
 class stopType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -14948,7 +15017,7 @@ class stopType(GeneratedsSuper):
 
 class continueType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -15080,7 +15149,7 @@ class continueType(GeneratedsSuper):
 
 class start_if_not_startedType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -15217,8 +15286,8 @@ class start_if_not_startedType(GeneratedsSuper):
 
 class ModeType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Positional": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Positional",
             "PositionalType",
             0,
@@ -15226,7 +15295,7 @@ class ModeType(GeneratedsSuper):
             {"name": "Positional", "type": "PositionalType"},
             14,
         ),
-        "Fixed": MemberSpec_(
+        MemberSpec_(
             "Fixed",
             "FixedType",
             0,
@@ -15234,7 +15303,7 @@ class ModeType(GeneratedsSuper):
             {"name": "Fixed", "type": "FixedType"},
             14,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -15411,7 +15480,7 @@ class ModeType(GeneratedsSuper):
 
 class PositionalType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -15543,7 +15612,7 @@ class PositionalType(GeneratedsSuper):
 
 class FixedType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -15675,8 +15744,8 @@ class FixedType(GeneratedsSuper):
 
 class RepeatType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "NoRepeat": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "NoRepeat",
             "NoRepeatType",
             0,
@@ -15684,7 +15753,7 @@ class RepeatType(GeneratedsSuper):
             {"name": "NoRepeat", "type": "NoRepeatType"},
             15,
         ),
-        "RepeatForever": MemberSpec_(
+        MemberSpec_(
             "RepeatForever",
             "RepeatForeverType",
             0,
@@ -15692,7 +15761,7 @@ class RepeatType(GeneratedsSuper):
             {"name": "RepeatForever", "type": "RepeatForeverType"},
             15,
         ),
-        "RepeatNum": MemberSpec_(
+        MemberSpec_(
             "RepeatNum",
             ["RepeatNumType", "xs:unsignedInt"],
             0,
@@ -15700,7 +15769,7 @@ class RepeatType(GeneratedsSuper):
             {"name": "RepeatNum", "type": "xs:unsignedInt"},
             15,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -15944,7 +16013,7 @@ class RepeatType(GeneratedsSuper):
 
 class NoRepeatType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -16076,7 +16145,7 @@ class NoRepeatType(GeneratedsSuper):
 
 class RepeatForeverType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -16208,17 +16277,17 @@ class RepeatForeverType(GeneratedsSuper):
 
 class SettingsType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "freq": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "freq", "freqType", 0, 1, {"use": "optional", "name": "freq"}
         ),
-        "volume": MemberSpec_(
+        MemberSpec_(
             "volume", "volumeType", 0, 1, {"use": "optional", "name": "volume"}
         ),
-        "pan": MemberSpec_(
+        MemberSpec_(
             "pan", "panType", 0, 1, {"use": "optional", "name": "pan"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -16485,8 +16554,8 @@ class SettingsType(GeneratedsSuper):
 
 class HeadTrackType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Position": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Position",
             "PositionType",
             0,
@@ -16494,7 +16563,7 @@ class HeadTrackType(GeneratedsSuper):
             {"name": "Position", "type": "PositionType"},
             None,
         ),
-        "Direction": MemberSpec_(
+        MemberSpec_(
             "Direction",
             "DirectionType",
             0,
@@ -16502,7 +16571,7 @@ class HeadTrackType(GeneratedsSuper):
             {"name": "Direction", "type": "DirectionType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -16681,8 +16750,8 @@ class HeadTrackType(GeneratedsSuper):
 
 class PositionType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Anywhere": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Anywhere",
             "AnywhereType",
             0,
@@ -16690,7 +16759,7 @@ class PositionType(GeneratedsSuper):
             {"name": "Anywhere", "type": "AnywhereType"},
             16,
         ),
-        "Box": MemberSpec_(
+        MemberSpec_(
             "Box",
             "Box",
             0,
@@ -16698,7 +16767,7 @@ class PositionType(GeneratedsSuper):
             {"name": "Box", "ref": "Box", "type": "Box"},
             16,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -16877,7 +16946,7 @@ class PositionType(GeneratedsSuper):
 
 class AnywhereType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -17009,8 +17078,8 @@ class AnywhereType(GeneratedsSuper):
 
 class DirectionType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "PointTarget": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "PointTarget",
             "PointTargetType",
             0,
@@ -17018,7 +17087,7 @@ class DirectionType(GeneratedsSuper):
             {"name": "PointTarget", "type": "PointTargetType"},
             17,
         ),
-        "DirectionTarget": MemberSpec_(
+        MemberSpec_(
             "DirectionTarget",
             "DirectionTargetType",
             0,
@@ -17026,7 +17095,7 @@ class DirectionType(GeneratedsSuper):
             {"name": "DirectionTarget", "type": "DirectionTargetType"},
             17,
         ),
-        "ObjectTarget": MemberSpec_(
+        MemberSpec_(
             "ObjectTarget",
             "ObjectTargetType",
             0,
@@ -17034,7 +17103,7 @@ class DirectionType(GeneratedsSuper):
             {"name": "ObjectTarget", "type": "ObjectTargetType"},
             17,
         ),
-        "None_": MemberSpec_(
+        MemberSpec_(
             "None_",
             "NoneType2",
             0,
@@ -17042,7 +17111,7 @@ class DirectionType(GeneratedsSuper):
             {"name": "None", "type": "NoneType2"},
             17,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -17274,14 +17343,14 @@ class DirectionType(GeneratedsSuper):
 
 class PointTargetType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "point": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "point", "vector", 0, 0, {"use": "required", "name": "point"}
         ),
-        "angle": MemberSpec_(
+        MemberSpec_(
             "angle", "xs:double", 0, 1, {"use": "optional", "name": "angle"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -17327,7 +17396,22 @@ class PointTargetType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -17462,18 +17546,18 @@ class PointTargetType(GeneratedsSuper):
 
 class DirectionTargetType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "direction": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "direction",
             "vector",
             0,
             0,
             {"use": "required", "name": "direction"},
         ),
-        "angle": MemberSpec_(
+        MemberSpec_(
             "angle", "xs:double", 0, 1, {"use": "optional", "name": "angle"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -17521,7 +17605,22 @@ class DirectionTargetType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -17660,11 +17759,11 @@ class DirectionTargetType(GeneratedsSuper):
 
 class ObjectTargetType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -17812,7 +17911,7 @@ class ObjectTargetType(GeneratedsSuper):
 
 class NoneType2(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -17944,8 +18043,8 @@ class NoneType2(GeneratedsSuper):
 
 class MoveTrackType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Source": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Source",
             "SourceType",
             0,
@@ -17953,7 +18052,7 @@ class MoveTrackType(GeneratedsSuper):
             {"name": "Source", "type": "SourceType"},
             None,
         ),
-        "Box": MemberSpec_(
+        MemberSpec_(
             "Box",
             "Box",
             0,
@@ -17961,7 +18060,7 @@ class MoveTrackType(GeneratedsSuper):
             {"name": "Box", "ref": "Box", "type": "Box"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -18138,8 +18237,8 @@ class MoveTrackType(GeneratedsSuper):
 
 class SourceType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ObjectRef": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "ObjectRef",
             "ObjectRefType",
             0,
@@ -18147,7 +18246,7 @@ class SourceType(GeneratedsSuper):
             {"name": "ObjectRef", "type": "ObjectRefType"},
             18,
         ),
-        "GroupObj": MemberSpec_(
+        MemberSpec_(
             "GroupObj",
             "GroupObjType",
             0,
@@ -18155,7 +18254,7 @@ class SourceType(GeneratedsSuper):
             {"name": "GroupObj", "type": "GroupObjType"},
             18,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -18334,11 +18433,11 @@ class SourceType(GeneratedsSuper):
 
 class ObjectRefType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -18486,18 +18585,18 @@ class ObjectRefType(GeneratedsSuper):
 
 class GroupObjType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "name": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "name", "xs:string", 0, 0, {"use": "required", "name": "name"}
         ),
-        "objects": MemberSpec_(
+        MemberSpec_(
             "objects",
             "objectsType",
             0,
             1,
             {"use": "optional", "name": "objects"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -18695,8 +18794,8 @@ class GroupObjType(GeneratedsSuper):
 
 class MovementType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Inside": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Inside",
             "InsideType",
             0,
@@ -18704,7 +18803,7 @@ class MovementType(GeneratedsSuper):
             {"name": "Inside", "type": "InsideType"},
             19,
         ),
-        "Outside": MemberSpec_(
+        MemberSpec_(
             "Outside",
             "OutsideType",
             0,
@@ -18712,7 +18811,7 @@ class MovementType(GeneratedsSuper):
             {"name": "Outside", "type": "OutsideType"},
             19,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -18891,7 +18990,7 @@ class MovementType(GeneratedsSuper):
 
 class InsideType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -19023,7 +19122,7 @@ class InsideType(GeneratedsSuper):
 
 class OutsideType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -19155,11 +19254,11 @@ class OutsideType(GeneratedsSuper):
 
 class SourceType3(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "rate": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "rate", "xs:double", 0, 0, {"use": "required", "name": "rate"}
         ),
-        "ParticleDomain": MemberSpec_(
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -19171,7 +19270,7 @@ class SourceType3(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -19340,8 +19439,8 @@ class SourceType3(GeneratedsSuper):
 
 class VelType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ParticleDomain": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -19353,7 +19452,7 @@ class VelType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -19507,11 +19606,11 @@ class VelType(GeneratedsSuper):
 
 class RemoveConditionType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Age": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Age", "AgeType", 0, 0, {"name": "Age", "type": "AgeType"}, 20
         ),
-        "Position": MemberSpec_(
+        MemberSpec_(
             "Position",
             "PositionType4",
             0,
@@ -19519,7 +19618,7 @@ class RemoveConditionType(GeneratedsSuper):
             {"name": "Position", "type": "PositionType4"},
             20,
         ),
-        "Velocity": MemberSpec_(
+        MemberSpec_(
             "Velocity",
             "VelocityType",
             0,
@@ -19527,7 +19626,7 @@ class RemoveConditionType(GeneratedsSuper):
             {"name": "Velocity", "type": "VelocityType"},
             20,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -19739,18 +19838,18 @@ class RemoveConditionType(GeneratedsSuper):
 
 class AgeType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "age": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "age", "xs:float", 0, 0, {"use": "required", "name": "age"}
         ),
-        "younger_than": MemberSpec_(
+        MemberSpec_(
             "younger_than",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "younger-than"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -19911,11 +20010,11 @@ class AgeType(GeneratedsSuper):
 
 class PositionType4(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "inside": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "inside", "xs:boolean", 0, 1, {"use": "optional", "name": "inside"}
         ),
-        "ParticleDomain": MemberSpec_(
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -19927,7 +20026,7 @@ class PositionType4(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -20100,11 +20199,11 @@ class PositionType4(GeneratedsSuper):
 
 class VelocityType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "inside": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "inside", "xs:boolean", 0, 1, {"use": "optional", "name": "inside"}
         ),
-        "ParticleDomain": MemberSpec_(
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -20116,7 +20215,7 @@ class VelocityType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -20289,25 +20388,25 @@ class VelocityType(GeneratedsSuper):
 
 class AvoidType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "magnitude": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "magnitude",
             "xs:float",
             0,
             0,
             {"use": "required", "name": "magnitude"},
         ),
-        "epsilon": MemberSpec_(
+        MemberSpec_(
             "epsilon", "xs:float", 0, 1, {"use": "optional", "name": "epsilon"}
         ),
-        "lookahead": MemberSpec_(
+        MemberSpec_(
             "lookahead",
             "xs:float",
             0,
             0,
             {"use": "required", "name": "lookahead"},
         ),
-        "ParticleDomain": MemberSpec_(
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -20319,7 +20418,7 @@ class AvoidType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -20520,25 +20619,25 @@ class AvoidType(GeneratedsSuper):
 
 class BounceType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "friction": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "friction",
             "xs:float",
             0,
             0,
             {"use": "required", "name": "friction"},
         ),
-        "resilience": MemberSpec_(
+        MemberSpec_(
             "resilience",
             "xs:float",
             0,
             0,
             {"use": "required", "name": "resilience"},
         ),
-        "cutoff": MemberSpec_(
+        MemberSpec_(
             "cutoff", "xs:float", 0, 0, {"use": "required", "name": "cutoff"}
         ),
-        "ParticleDomain": MemberSpec_(
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -20550,7 +20649,7 @@ class BounceType(GeneratedsSuper):
             },
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -20756,15 +20855,15 @@ class BounceType(GeneratedsSuper):
 
 class GravityType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "direction": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "direction",
             "vector",
             0,
             0,
             {"use": "required", "name": "direction"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -20808,7 +20907,22 @@ class GravityType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -20933,25 +21047,25 @@ class GravityType(GeneratedsSuper):
 
 class DampingType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "direction": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "direction",
             "vector",
             0,
             0,
             {"use": "required", "name": "direction"},
         ),
-        "vel_low": MemberSpec_(
+        MemberSpec_(
             "vel_low", "xs:float", 0, 1, {"use": "optional", "name": "vel_low"}
         ),
-        "vel_high": MemberSpec_(
+        MemberSpec_(
             "vel_high",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "vel_high"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -21006,7 +21120,22 @@ class DampingType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -21153,25 +21282,25 @@ class DampingType(GeneratedsSuper):
 
 class GravitateType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "magnitude": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "magnitude",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "magnitude"},
         ),
-        "epsilon": MemberSpec_(
+        MemberSpec_(
             "epsilon", "xs:float", 0, 1, {"use": "optional", "name": "epsilon"}
         ),
-        "max_radius": MemberSpec_(
+        MemberSpec_(
             "max_radius",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "max_radius"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -21349,25 +21478,25 @@ class GravitateType(GeneratedsSuper):
 
 class FollowType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "magnitude": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "magnitude",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "magnitude"},
         ),
-        "epsilon": MemberSpec_(
+        MemberSpec_(
             "epsilon", "xs:float", 0, 1, {"use": "optional", "name": "epsilon"}
         ),
-        "max_radius": MemberSpec_(
+        MemberSpec_(
             "max_radius",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "max_radius"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -21545,25 +21674,25 @@ class FollowType(GeneratedsSuper):
 
 class MatchVelType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "magnitude": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "magnitude",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "magnitude"},
         ),
-        "epsilon": MemberSpec_(
+        MemberSpec_(
             "epsilon", "xs:float", 0, 1, {"use": "optional", "name": "epsilon"}
         ),
-        "max_radius": MemberSpec_(
+        MemberSpec_(
             "max_radius",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "max_radius"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -21741,28 +21870,28 @@ class MatchVelType(GeneratedsSuper):
 
 class OrbitPointType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "center": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "center", "vector", 0, 0, {"use": "required", "name": "center"}
         ),
-        "magnitude": MemberSpec_(
+        MemberSpec_(
             "magnitude",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "magnitude"},
         ),
-        "epsilon": MemberSpec_(
+        MemberSpec_(
             "epsilon", "xs:float", 0, 1, {"use": "optional", "name": "epsilon"}
         ),
-        "max_radius": MemberSpec_(
+        MemberSpec_(
             "max_radius",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "max_radius"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -21820,7 +21949,22 @@ class OrbitPointType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -21979,8 +22123,8 @@ class OrbitPointType(GeneratedsSuper):
 
 class JetType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "ParticleDomain": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "ParticleDomain",
             "ParticleDomainType",
             0,
@@ -21992,7 +22136,7 @@ class JetType(GeneratedsSuper):
             },
             None,
         ),
-        "AccelDomain": MemberSpec_(
+        MemberSpec_(
             "AccelDomain",
             "ParticleDomainType",
             0,
@@ -22000,7 +22144,7 @@ class JetType(GeneratedsSuper):
             {"name": "AccelDomain", "type": "ParticleDomainType"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -22181,17 +22325,17 @@ class JetType(GeneratedsSuper):
 
 class TargetColorType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "color": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "color", "color", 0, 0, {"use": "required", "name": "color"}
         ),
-        "alpha": MemberSpec_(
+        MemberSpec_(
             "alpha", "xs:float", 0, 1, {"use": "optional", "name": "alpha"}
         ),
-        "scale": MemberSpec_(
+        MemberSpec_(
             "scale", "xs:float", 0, 0, {"use": "required", "name": "scale"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -22241,7 +22385,18 @@ class TargetColorType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_color_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_color_patterns_,
+                    )
+                )
+
+    validate_color_patterns_ = [["^((\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+),?)$"]]
 
     def _hasContent(self):
         if ():
@@ -22387,11 +22542,11 @@ class TargetColorType(GeneratedsSuper):
 
 class PointType5(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "point": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "point", "vector", 0, 0, {"use": "required", "name": "point"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -22435,7 +22590,22 @@ class PointType5(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -22559,14 +22729,10 @@ class PointType5(GeneratedsSuper):
 
 class LineType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "p1": MemberSpec_(
-            "p1", "vector", 0, 0, {"use": "required", "name": "p1"}
-        ),
-        "p2": MemberSpec_(
-            "p2", "vector", 0, 0, {"use": "required", "name": "p2"}
-        ),
-    }
+    member_data_items_ = [
+        MemberSpec_("p1", "vector", 0, 0, {"use": "required", "name": "p1"}),
+        MemberSpec_("p2", "vector", 0, 0, {"use": "required", "name": "p2"}),
+    ]
     subclass = None
     superclass = None
 
@@ -22610,7 +22776,22 @@ class LineType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -22751,17 +22932,11 @@ class LineType(GeneratedsSuper):
 
 class TriangleType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "p1": MemberSpec_(
-            "p1", "vector", 0, 0, {"use": "required", "name": "p1"}
-        ),
-        "p2": MemberSpec_(
-            "p2", "vector", 0, 0, {"use": "required", "name": "p2"}
-        ),
-        "p3": MemberSpec_(
-            "p3", "vector", 0, 0, {"use": "required", "name": "p3"}
-        ),
-    }
+    member_data_items_ = [
+        MemberSpec_("p1", "vector", 0, 0, {"use": "required", "name": "p1"}),
+        MemberSpec_("p2", "vector", 0, 0, {"use": "required", "name": "p2"}),
+        MemberSpec_("p3", "vector", 0, 0, {"use": "required", "name": "p3"}),
+    ]
     subclass = None
     superclass = None
 
@@ -22811,7 +22986,22 @@ class TriangleType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -22969,14 +23159,14 @@ class TriangleType(GeneratedsSuper):
 
 class PlaneType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "point": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "point", "vector", 0, 0, {"use": "required", "name": "point"}
         ),
-        "normal": MemberSpec_(
+        MemberSpec_(
             "normal", "vector", 0, 0, {"use": "required", "name": "normal"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -23024,7 +23214,22 @@ class PlaneType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -23165,17 +23370,17 @@ class PlaneType(GeneratedsSuper):
 
 class RectType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "point": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "point", "vector", 0, 0, {"use": "required", "name": "point"}
         ),
-        "u_dir": MemberSpec_(
+        MemberSpec_(
             "u_dir", "vector", 0, 0, {"use": "required", "name": "u-dir"}
         ),
-        "v_dir": MemberSpec_(
+        MemberSpec_(
             "v_dir", "vector", 0, 0, {"use": "required", "name": "v-dir"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -23228,7 +23433,22 @@ class RectType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -23386,14 +23606,10 @@ class RectType(GeneratedsSuper):
 
 class BoxType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "p1": MemberSpec_(
-            "p1", "vector", 0, 0, {"use": "required", "name": "p1"}
-        ),
-        "p2": MemberSpec_(
-            "p2", "vector", 0, 0, {"use": "required", "name": "p2"}
-        ),
-    }
+    member_data_items_ = [
+        MemberSpec_("p1", "vector", 0, 0, {"use": "required", "name": "p1"}),
+        MemberSpec_("p2", "vector", 0, 0, {"use": "required", "name": "p2"}),
+    ]
     subclass = None
     superclass = None
 
@@ -23437,7 +23653,22 @@ class BoxType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -23578,21 +23809,21 @@ class BoxType(GeneratedsSuper):
 
 class SphereType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "center": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "center", "vector", 0, 0, {"use": "required", "name": "center"}
         ),
-        "radius": MemberSpec_(
+        MemberSpec_(
             "radius", "xs:float", 0, 0, {"use": "required", "name": "radius"}
         ),
-        "radius_inner": MemberSpec_(
+        MemberSpec_(
             "radius_inner",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "radius-inner"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -23647,7 +23878,22 @@ class SphereType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -23798,24 +24044,20 @@ class SphereType(GeneratedsSuper):
 
 class CylinderType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "p1": MemberSpec_(
-            "p1", "vector", 0, 0, {"use": "required", "name": "p1"}
-        ),
-        "p2": MemberSpec_(
-            "p2", "vector", 0, 0, {"use": "required", "name": "p2"}
-        ),
-        "radius": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_("p1", "vector", 0, 0, {"use": "required", "name": "p1"}),
+        MemberSpec_("p2", "vector", 0, 0, {"use": "required", "name": "p2"}),
+        MemberSpec_(
             "radius", "xs:float", 0, 0, {"use": "required", "name": "radius"}
         ),
-        "radius_inner": MemberSpec_(
+        MemberSpec_(
             "radius_inner",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "radius-inner"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -23873,7 +24115,22 @@ class CylinderType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -24041,28 +24298,28 @@ class CylinderType(GeneratedsSuper):
 
 class ConeType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "base_center": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "base_center",
             "vector",
             0,
             0,
             {"use": "required", "name": "base-center"},
         ),
-        "apex": MemberSpec_(
+        MemberSpec_(
             "apex", "vector", 0, 0, {"use": "required", "name": "apex"}
         ),
-        "radius": MemberSpec_(
+        MemberSpec_(
             "radius", "xs:float", 0, 0, {"use": "required", "name": "radius"}
         ),
-        "radius_inner": MemberSpec_(
+        MemberSpec_(
             "radius_inner",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "radius-inner"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -24118,7 +24375,22 @@ class ConeType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -24290,14 +24562,14 @@ class ConeType(GeneratedsSuper):
 
 class BlobType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "center": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "center", "vector", 0, 0, {"use": "required", "name": "center"}
         ),
-        "stdev": MemberSpec_(
+        MemberSpec_(
             "stdev", "xs:float", 0, 1, {"use": "optional", "name": "stdev"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -24341,7 +24613,22 @@ class BlobType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -24476,24 +24763,24 @@ class BlobType(GeneratedsSuper):
 
 class DiscType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "center": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "center", "vector", 0, 0, {"use": "required", "name": "center"}
         ),
-        "normal": MemberSpec_(
+        MemberSpec_(
             "normal", "vector", 0, 0, {"use": "required", "name": "normal"}
         ),
-        "radius": MemberSpec_(
+        MemberSpec_(
             "radius", "xs:float", 0, 0, {"use": "required", "name": "radius"}
         ),
-        "radius_inner": MemberSpec_(
+        MemberSpec_(
             "radius_inner",
             "xs:float",
             0,
             1,
             {"use": "optional", "name": "radius-inner"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -24549,7 +24836,22 @@ class DiscType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -24717,11 +25019,11 @@ class DiscType(GeneratedsSuper):
 
 class BackgroundType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "color": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "color", "color", 0, 1, {"use": "optional", "name": "color"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -24765,7 +25067,18 @@ class BackgroundType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_color_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_color_patterns_,
+                    )
+                )
+
+    validate_color_patterns_ = [["^((\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+),?)$"]]
 
     def _hasContent(self):
         if ():
@@ -24889,22 +25202,22 @@ class BackgroundType(GeneratedsSuper):
 
 class WandNavigationType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "allow_rotation": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "allow_rotation",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "allow-rotation"},
         ),
-        "allow_movement": MemberSpec_(
+        MemberSpec_(
             "allow_movement",
             "xs:boolean",
             0,
             1,
             {"use": "optional", "name": "allow-movement"},
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -25081,14 +25394,14 @@ class WandNavigationType(GeneratedsSuper):
 
 class AxisType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "rotation": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "rotation", "vector", 0, 1, {"use": "optional", "name": "rotation"}
         ),
-        "angle": MemberSpec_(
+        MemberSpec_(
             "angle", "xs:double", 0, 1, {"use": "optional", "name": "angle"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -25138,7 +25451,22 @@ class AxisType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -25276,14 +25604,12 @@ class AxisType(GeneratedsSuper):
 
 class LookAtType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "target": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "target", "vector", 0, 1, {"use": "optional", "name": "target"}
         ),
-        "up": MemberSpec_(
-            "up", "vector", 0, 1, {"use": "optional", "name": "up"}
-        ),
-    }
+        MemberSpec_("up", "vector", 0, 1, {"use": "optional", "name": "up"}),
+    ]
     subclass = None
     superclass = None
 
@@ -25335,7 +25661,22 @@ class LookAtType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -25479,14 +25820,14 @@ class LookAtType(GeneratedsSuper):
 
 class NormalType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "normal": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "normal", "vector", 0, 1, {"use": "optional", "name": "normal"}
         ),
-        "angle": MemberSpec_(
+        MemberSpec_(
             "angle", "xs:double", 0, 1, {"use": "optional", "name": "angle"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -25538,7 +25879,22 @@ class NormalType(GeneratedsSuper):
                     }
                 )
                 return False
-            pass
+            if not self.gds_validate_simple_patterns(
+                self.validate_vector_patterns_, value
+            ):
+                self.gds_collector_.add_message(
+                    'Value "%s" does not match xsd pattern restrictions: %s'
+                    % (
+                        encode_str_2_3(value),
+                        self.validate_vector_patterns_,
+                    )
+                )
+
+    validate_vector_patterns_ = [
+        [
+            "^(\\(\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+)\\s*,\\s*\\s*-?(\\d+\\.?(\\d+)?|(\\d+)?\\.\\d+),?\\s*\\))$"
+        ]
+    ]
 
     def _hasContent(self):
         if ():
@@ -25676,8 +26032,8 @@ class NormalType(GeneratedsSuper):
 
 class MovementType6(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Placement": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Placement",
             "Placement",
             0,
@@ -25685,7 +26041,7 @@ class MovementType6(GeneratedsSuper):
             {"name": "Placement", "ref": "Placement", "type": "Placement"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -25841,8 +26197,8 @@ class MovementType6(GeneratedsSuper):
 
 class MoveRelType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "Placement": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "Placement",
             "Placement",
             0,
@@ -25850,7 +26206,7 @@ class MoveRelType(GeneratedsSuper):
             {"name": "Placement", "ref": "Placement", "type": "Placement"},
             None,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -26006,11 +26362,11 @@ class MoveRelType(GeneratedsSuper):
 
 class SoundType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "action": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "action", "actionType", 0, 1, {"use": "optional", "name": "action"}
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -26186,8 +26542,8 @@ class SoundType(GeneratedsSuper):
 
 class LinkChangeType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {
-        "link_on": MemberSpec_(
+    member_data_items_ = [
+        MemberSpec_(
             "link_on",
             "link_onType",
             0,
@@ -26195,7 +26551,7 @@ class LinkChangeType(GeneratedsSuper):
             {"name": "link_on", "type": "link_onType"},
             21,
         ),
-        "link_off": MemberSpec_(
+        MemberSpec_(
             "link_off",
             "link_offType",
             0,
@@ -26203,7 +26559,7 @@ class LinkChangeType(GeneratedsSuper):
             {"name": "link_off", "type": "link_offType"},
             21,
         ),
-        "activate": MemberSpec_(
+        MemberSpec_(
             "activate",
             "activateType",
             0,
@@ -26211,7 +26567,7 @@ class LinkChangeType(GeneratedsSuper):
             {"name": "activate", "type": "activateType"},
             21,
         ),
-        "activate_if_on": MemberSpec_(
+        MemberSpec_(
             "activate_if_on",
             "activate_if_onType",
             0,
@@ -26219,7 +26575,7 @@ class LinkChangeType(GeneratedsSuper):
             {"name": "activate_if_on", "type": "activate_if_onType"},
             21,
         ),
-    }
+    ]
     subclass = None
     superclass = None
 
@@ -26451,7 +26807,7 @@ class LinkChangeType(GeneratedsSuper):
 
 class link_onType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -26583,7 +26939,7 @@ class link_onType(GeneratedsSuper):
 
 class link_offType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -26715,7 +27071,7 @@ class link_offType(GeneratedsSuper):
 
 class activateType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -26847,7 +27203,7 @@ class activateType(GeneratedsSuper):
 
 class activate_if_onType(GeneratedsSuper):
     __hash__ = GeneratedsSuper.__hash__
-    member_data_items_ = {}
+    member_data_items_ = []
     subclass = None
     superclass = None
 
@@ -27238,10 +27594,10 @@ __all__ = [
     "GravitateType",
     "GravityType",
     "Group",
+    "GroupName",
     "GroupObjType",
     "GroupRef",
     "GroupRootType",
-    "Groups",
     "HeadTrackType",
     "ImageType",
     "InsideType",
@@ -27267,10 +27623,10 @@ __all__ = [
     "NumClicksType",
     "Object",
     "ObjectChange",
+    "ObjectName",
     "ObjectRefType",
     "ObjectRootType",
     "ObjectTargetType",
-    "Objects",
     "OrbitPointType",
     "OutsideType",
     "ParticleAction",

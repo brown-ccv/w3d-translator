@@ -5,6 +5,4 @@ __pycache__/
 
 # Output folders used during development
 out/
-
-# TEMP - Ignore for schema PR
-/test/W3D Test Project
+unity/CAVE
