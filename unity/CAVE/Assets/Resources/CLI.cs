@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Xml;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEditor.SceneManagement;
@@ -7,33 +8,44 @@ using UnityEditor.SceneTemplate;
 
 public class CLI : MonoBehaviour
 {
-    static void Start()
+    static void Main()
     {
         Debug.Log("Initializing");
         Application.logMessageReceivedThreaded += HandleLog;
-
-        // Create a new scene for every xml file in the original project
-        string[] files = Directory.GetFiles(
-            "Assets/Resources/Original Project",
-            "*.xml",
-            SearchOption.AllDirectories
-        );
-        foreach(string file in files)
-        {            
-            /* PYTHON VALIDATION CODE
-                try:
-                    validate_xml(file)
-                except XmlError as e:
-                    typer.echo(red(e), err=True)
-                else:
-                    # Build and clean Story
-                    story = parse(file, silence=True)
-                    story.ObjectRoot = translate_objects(story.ObjectRoot.Object) 
-            */
-            NewScene(file);
+        
+        // Get command line arguments from Python
+        string xmlPath = null;
+        try {
+            string[] args = System.Environment.GetCommandLineArgs();
+            for(int i = 0; i < args.Length; i++)
+            {
+                if(args[i] == "--xmlPath") xmlPath = args[++i];
+            }
+        } catch(Exception e) {
+            Debug.Log("Error initializing command line arguments");
+            Debug.Log(e);
+            throw e;
         }
- 
-        Application.logMessageReceivedThreaded -= HandleLog;    
+
+        // Load the XML
+        try {
+            XmlDocument file = new XmlDocument();
+            file.Load(xmlPath);
+        } catch(FileNotFoundException e) {
+            Debug.LogError($"ERROR: File {xmlPath} not found");
+            Debug.LogException(e);
+            throw e;
+        } 
+
+        // Create the Unity scene
+        try{
+            NewScene(xmlPath);
+        } catch(Exception e) { 
+            Console.WriteLine($"Error creating scene for {xmlPath}");
+            Console.WriteLine(e);
+            throw e;
+        } 
+        Application.logMessageReceivedThreaded -= HandleLog;
     }
 
     static void NewScene(string xmlPath)
