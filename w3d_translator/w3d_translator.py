@@ -4,12 +4,12 @@ import shutil
 from pathlib import Path
 
 from validate import validate_project, validate_out, validate_xml
-from errors import ValidationError, CopyError, UnityError
+from errors import ValidationError, CopyError, UnityError, XmlError
 
 # TODO: Hard coded paths won't work on others' machines
 UNITY_VERSION = "2021.3.0f1"
 UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"  # noqa (ignore lint)
-SCHEMA_PATH = "C:\\Users\\Rob\\ROOT\\CCV\\W3D Translator\\schema\\caveschema.xsd" # noqa (ignore lint)
+SCHEMA_PATH = "C:\\Users\\Rob\\ROOT\\CCV\\W3D Translator\\schema\\caveschema.xsd"  # noqa (ignore lint)
 STARTER_PROJECT = "unity/CAVE"
 
 
@@ -57,51 +57,64 @@ def copy_files(source: Path, destination: Path):
         )
 
 
+# Translate an XML file using Unity's CLI
+def translate_file(unity_dir: Path, file: Path):
+    logfile = Path(unity_dir, "Logs", f"cli_{file.stem}.log")
+    try:
+        subprocess.run(
+            [
+                f"{UNITY_PATH}",
+                "-batchmode",
+                "-quit",
+                "-projectPath",
+                f"{unity_dir}",
+                "-logFile",
+                f"{logfile}",
+                "-executeMethod",
+                "CLI.Main",
+                "--xmlPath",
+                Path(*file.parts[4:])  # Path relative to Resources folder
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except subprocess.CalledProcessError as e:
+        raise UnityError(
+            f"Error: Unity CLI exited with error on command {e.cmd}.\n"
+            + f"See '{logfile}' for more details."
+        )
+
+
 # Translate a single project from W3D to Unity
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
     try:
         typer.echo(f"Translating project:\t {cyan(project_dir.name)}")
         validate_project(project_dir)
-        unity_dir = Path(out_dir, project_dir.name)
 
         # Create Unity project
+        unity_dir = Path(out_dir, project_dir.name)
+        unity_copy = Path(unity_dir, "Assets", "Resources", "Original Project")
         if not dev:
             try:
                 copy_files(Path(STARTER_PROJECT), unity_dir)
                 copy_files(
                     project_dir,
-                    Path(unity_dir, "Assets", "Resources", "Original Project"),
+                    unity_copy
                 )
             except CopyError as e:
                 raise e
 
-            # Build the project using Unity's CLI
-            logfile = Path(unity_dir, "cli_log.txt")
-            try:
-                subprocess.run(
-                    [
-                        f"{UNITY_PATH}",
-                        "-batchmode",
-                        "-quit",
-                        "-projectPath",
-                        f"{unity_dir}",
-                        "-logFile",
-                        f"{logfile}",
-                        "-executeMethod",
-                        "CLI.Main",
-                        "--schemaFile",
-                        Path("schema/caveschema.xsd").absolute()
-                    ],
-                    check=True,
-                    capture_output=True,
-                    text=True,
-                )
-            except subprocess.CalledProcessError as e:
-                raise UnityError(
-                    f"Error: Unity CLI exited with error on command {e.cmd}.\n"
-                    + f"See '{logfile}' for more details."
-                )
-
+            # Translate valid .xml files (skip invalid)
+            for file in unity_copy.rglob("*.xml"):
+                try:
+                    typer.echo(f"Validating file:\t {green(file.name)}")
+                    validate_xml(file)
+                except XmlError as e:
+                    typer.echo(red(e), err=True)
+                else:
+                    typer.echo(f"Translating file:\t {green(file.name)}")
+                    translate_file(unity_dir, file)
     except (ValidationError, UnityError) as e:
         typer.echo(red(e), err=True)
 
