@@ -1526,11 +1526,7 @@ namespace W3D
     {
         public string serialize()
         {
-            return JsonConvert.SerializeObject(
-                this,
-                Formatting.Indented,
-                new JsonSerializerSettings() { ReferenceLoopHandling=ReferenceLoopHandling.Ignore }
-            );
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
     }
 }

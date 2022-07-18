@@ -30,8 +30,8 @@ public class CLI : MonoBehaviour
             throw e;
         }
 
-        
         xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
+
         XmlSerializer serializer = new XmlSerializer(typeof(Story));
         Story story = null;
         using (StreamReader reader = new StreamReader(xmlPath))
