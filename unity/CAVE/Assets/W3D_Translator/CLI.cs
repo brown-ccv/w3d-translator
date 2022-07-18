@@ -31,6 +31,7 @@ public class CLI : MonoBehaviour
 
         
         xmlPath = "../../test/sample.xml"; // TEMP: Hardcode xml file
+        // xmlPath = "../../../../examples/cweditor/everything.1xml"; // TEMP - hard code xml file
         XmlSerializer serializer = new XmlSerializer(typeof(Story));
         Story story = null;
         using (StreamReader reader = new StreamReader(xmlPath))
@@ -39,7 +40,7 @@ public class CLI : MonoBehaviour
         }
         Debug.Log(story.ObjectRoot);
         Debug.Log($"{story.ObjectRoot.Object} {story.ObjectRoot.Object.Count}");
-        Debug.Log($"Background color: {story.Global.backgroundColor}");
+        Debug.Log($"Background color: {story.Global.Background.color}");
         Debug.Log($"Cameras {story.Global.Camera} {story.Global.CaveCamera}");
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
