@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
+using W3D;
 
 
 public class CLI : MonoBehaviour
