@@ -3,8 +3,172 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // TODO: Convert vector types to Unity Vector3
+// TODO: Add color, vector, and file class types (custom string translation)
 
-/********** CLASSES FOR XML ELEMENTS **********/
+/********** STORY			***********/
+
+
+[XmlRoot(ElementName="Story")]
+public class Story { 
+
+	[XmlElement(ElementName="ObjectRoot")] 
+	public ObjectRoot ObjectRoot; 
+
+	[XmlElement(ElementName="GroupRoot")] 
+	public GroupRoot GroupRoot; 
+
+	[XmlElement(ElementName="TimelineRoot")] 
+	public TimelineRoot TimelineRoot; 
+
+	[XmlElement(ElementName="PlacementRoot")] 
+	public PlacementRoot PlacementRoot; 
+
+	[XmlElement(ElementName="SoundRoot")] 
+	public SoundRoot SoundRoot; 
+
+	[XmlElement(ElementName="EventRoot")] 
+	public EventRoot EventRoot; 
+
+	[XmlElement(ElementName="ParticleActionRoot")] 
+	public ParticleActionRoot ParticleActionRoot; 
+
+	[XmlElement(ElementName="Global")] 
+	public Global Global; 
+
+	[XmlElement(ElementName="About")] 
+	public About About; 
+
+	[XmlAttribute(AttributeName="version")] 
+	public int version; 
+
+	[XmlAttribute(AttributeName="last_xpath")] 
+	public string lastXpath; 
+
+	[XmlText] 
+	public string text; 
+}
+
+[XmlRoot(ElementName="PlacementRoot")]
+public class PlacementRoot { 
+
+	[XmlElement(ElementName="Placement")] 
+	public List<Placement> Placement; 
+}
+
+
+[XmlRoot(ElementName="Global")]
+public class Global { 
+
+	[XmlElement(ElementName="CameraPos")] 
+	public Camera Camera; 
+
+	[XmlElement(ElementName="CaveCameraPos")] 
+	public Camera CaveCamera; 
+
+	[XmlElement(ElementName="Background")] 
+	public string backgroundColor; 
+
+	[XmlElement(ElementName="WandNavigation")] 
+	public WandNavigation WandNavigation; 
+}
+
+
+[XmlRoot(ElementName="About")]
+public class About { 
+
+    [XmlAttribute(AttributeName="About")] 
+    public string news;
+}
+
+
+public class Camera { 
+
+	[XmlElement(ElementName="Placement")] 
+	public Placement Placement; 
+
+	[XmlAttribute(AttributeName="far-clip")] 
+	public float farClip; 
+
+	[XmlText]
+	public string text; 
+}
+
+
+[XmlRoot(ElementName="WandNavigation")]
+public class WandNavigation { 
+
+	[XmlAttribute(AttributeName="allow-rotation")] 
+	public bool allowRotation; 
+
+	[XmlAttribute(AttributeName="allow-movement")] 
+	public bool allowMovement; 
+}
+
+
+/********** OBJECT			***********/
+
+
+[XmlRoot(ElementName="ObjectRoot")]
+public class ObjectRoot { 
+
+	[XmlElement(ElementName="Object")] 
+	public List<Object> Object; 
+}
+
+
+[XmlRoot(ElementName="Object")]
+public class Object { 
+
+	[XmlElement(ElementName="Visible")] 
+	public bool visible; 
+
+	[XmlElement(ElementName="Color")] 
+	public string Color; 
+
+	[XmlElement(ElementName="Lighting")] 
+	public bool lighting; 
+
+	[XmlElement(ElementName="ClickThrough")] 
+	public bool clickThrough; 
+
+	[XmlElement(ElementName="AroundSelfAxis")] 
+	public bool aroundSelfAxis; 
+
+	[XmlElement(ElementName="Scale")] 
+	public double scale; 
+
+	[XmlElement(ElementName="Placement")] 
+	public Placement Placement; 
+
+	[XmlElement(ElementName="Content")] 
+	public Content Content; 
+
+	[XmlAttribute(AttributeName="name")] 
+	public string name; 
+
+	[XmlText] 
+	public string text;
+
+	[XmlElement(ElementName="LinkRoot")] 
+	public LinkRoot LinkRoot; 
+
+	[XmlElement(ElementName="SoundRef")] 
+	public string soundRef; 
+}
+
+
+
+/********** GROUP			***********/
+/********** TIMELINE		***********/
+/********** SOUND			***********/
+/********** EVENT			***********/
+/********** PARTICLE ACTION	***********/
+/********** GLOBAL			***********/
+/********** OBJECT			***********/
+/********** COMPLEX TYPES	***********/
+
+
+/********** UNORGANIZED **********/
 
 [XmlRoot(ElementName="Actions")]
 public class Actions { 
@@ -193,23 +357,6 @@ public class EventTrigger {
 
 	[XmlAttribute(AttributeName="remain-enabled")] 
 	public bool remainEnabled; 
-}
-
-
-[XmlRoot(ElementName="Global")]
-public class Global { 
-
-	[XmlElement(ElementName="CameraPos")] 
-	public Camera Camera; 
-
-	[XmlElement(ElementName="CaveCameraPos")] 
-	public Camera CaveCamera; 
-
-	[XmlElement(ElementName="Background")] 
-	public string backgroundColor; 
-
-	[XmlElement(ElementName="WandNavigation")] 
-	public WandNavigation WandNavigation; 
 }
 
 
@@ -415,47 +562,6 @@ public class NumClicks {
 }
 
 
-[XmlRoot(ElementName="Object")]
-public class Object { 
-
-	[XmlElement(ElementName="Visible")] 
-	public bool Visible; 
-
-	[XmlElement(ElementName="Color")] 
-	public string Color; 
-
-	[XmlElement(ElementName="Lighting")] 
-	public bool Lighting; 
-
-	[XmlElement(ElementName="ClickThrough")] 
-	public bool ClickThrough; 
-
-	[XmlElement(ElementName="AroundSelfAxis")] 
-	public bool AroundSelfAxis; 
-
-	[XmlElement(ElementName="Scale")] 
-	public double Scale; 
-
-	[XmlElement(ElementName="Placement")] 
-	public Placement Placement; 
-
-	[XmlElement(ElementName="Content")] 
-	public Content Content; 
-
-	[XmlAttribute(AttributeName="name")] 
-	public string name; 
-
-	[XmlText] 
-	public string text; 
-
-	[XmlElement(ElementName="LinkRoot")] 
-	public LinkRoot LinkRoot; 
-
-	[XmlElement(ElementName="SoundRef")] 
-	public string SoundRef; 
-}
-
-
 [XmlRoot(ElementName="ObjectChange")]
 public class ObjectChange { 
 
@@ -475,14 +581,6 @@ public class Objects {
 
 	[XmlAttribute(AttributeName="name")] 
 	public string name; 
-}
-
-
-[XmlRoot(ElementName="ObjectRoot")]
-public class ObjectRoot { 
-
-	[XmlElement(ElementName="Object")] 
-	public List<Object> Object; 
 }
 
 
@@ -614,14 +712,6 @@ public class Placement {
 }
 
 
-[XmlRoot(ElementName="PlacementRoot")]
-public class PlacementRoot { 
-
-	[XmlElement(ElementName="Placement")] 
-	public List<Placement> Placement; 
-}
-
-
 [XmlRoot(ElementName="Plane")]
 public class Plane { 
 
@@ -744,44 +834,6 @@ public class Sphere {
 
 	[XmlAttribute(AttributeName="radius-inner")] 
 	public double radiusInner; 
-}
-
-
-[XmlRoot(ElementName="Story")]
-public class Story { 
-
-	[XmlElement(ElementName="ObjectRoot")] 
-	public ObjectRoot ObjectRoot; 
-
-	[XmlElement(ElementName="GroupRoot")] 
-	public GroupRoot GroupRoot; 
-
-	[XmlElement(ElementName="TimelineRoot")] 
-	public TimelineRoot TimelineRoot; 
-
-	[XmlElement(ElementName="PlacementRoot")] 
-	public PlacementRoot PlacementRoot; 
-
-	[XmlElement(ElementName="EventRoot")] 
-	public EventRoot EventRoot; 
-
-	[XmlElement(ElementName="Global")] 
-	public Global Global; 
-
-	[XmlAttribute(AttributeName="version")] 
-	public int version; 
-
-	[XmlAttribute(AttributeName="last_xpath")] 
-	public string lastXpath; 
-
-	[XmlText] 
-	public string text; 
-
-	[XmlElement(ElementName="SoundRoot")] 
-	public SoundRoot SoundRoot; 
-
-	[XmlElement(ElementName="ParticleActionRoot")] 
-	public ParticleActionRoot ParticleActionRoot; 
 }
 
 
@@ -910,29 +962,4 @@ public class Vel {
 
 	[XmlElement(ElementName="ParticleDomain")] 
 	public ParticleDomain ParticleDomain; 
-}
-
-
-[XmlRoot(ElementName="WandNavigation")]
-public class WandNavigation { 
-
-	[XmlAttribute(AttributeName="allow-rotation")] 
-	public bool allowRotation; 
-
-	[XmlAttribute(AttributeName="allow-movement")] 
-	public bool allowMovement; 
-}
-
-/*********** OTHER CLASSES ************/
-
-public class Camera { 
-
-	[XmlElement(ElementName="Placement")] 
-	public Placement Placement; 
-
-	[XmlAttribute(AttributeName="far-clip")] 
-	public float farClip; 
-
-	[XmlText] 
-	public string text; 
 }

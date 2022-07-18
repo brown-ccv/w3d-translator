@@ -44,7 +44,6 @@ public class CLI : MonoBehaviour
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 
-
         // Load the XML
         // XmlDocument file = new XmlDocument();
         // try {
