@@ -39,7 +39,6 @@ public class CLI : MonoBehaviour
             story = (Story)serializer.Deserialize(reader);
         }
 
-        // PrettyPrint(story);
         Debug.Log(story.serialize());
         Debug.Log($"{story.ObjectRoot.Object.Count} {story.ObjectRoot.serialize()}");
 
