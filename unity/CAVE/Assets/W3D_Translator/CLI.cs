@@ -32,7 +32,6 @@ public class CLI : MonoBehaviour
         }
 
         
-        // xmlPath = "../../test/sample.xml"; // TEMP: Hardcode xml file
         xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
         XmlSerializer serializer = new XmlSerializer(typeof(Story));
         Story story = null;
@@ -74,7 +73,6 @@ public class CLI : MonoBehaviour
     }
 
     // EXAMPLE - Add sphere at origin of each wall
-    // static void Example(UnityEngine.SceneManagement.Scene scene)
     static void Example(Scene scene)
     {
         GameObject story = scene.GetRootGameObjects()[1];
