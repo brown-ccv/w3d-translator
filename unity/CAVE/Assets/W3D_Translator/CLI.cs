@@ -40,9 +40,10 @@ public class CLI : MonoBehaviour
         {
             story = (Story)serializer.Deserialize(reader);
         }
-        Debug.Log(story);
+
         PrettyPrint(story);
-        Debug.Log($"{story.ObjectRoot.Object.Count} {story.ObjectRoot.Object}");
+        PrettyPrint(story.ObjectRoot.Object.Count);
+        PrettyPrint(story.ObjectRoot.Object);
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 
