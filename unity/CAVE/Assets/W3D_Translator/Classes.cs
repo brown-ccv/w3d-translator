@@ -1,3 +1,6 @@
+using System;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.IO;
@@ -1026,7 +1029,7 @@ namespace W3D
     public class Background : W3D
     {
         [XmlAttribute(AttributeName="color")]
-        public string color;
+        public ColorType color;
     }
 
 
@@ -1520,13 +1523,73 @@ namespace W3D
     }
 
 
-    /********** BASE CLASS          ***********/
+    /********** SIMPLE TYPES            ***********/
+
+    // TODO: NEITHER OF THESE ARE VALID BECAUSE COLOR IS AN ATTRIBUTE
+
+    // public class ColorType : IXmlSerializable
+    // {
+
+    //     public int color;
+
+    //     public void ReadXml(XmlReader reader)
+    //     {
+        
+    //         string data = null;
+    //         reader.MoveToAttribute("Color");
+    //         if (reader.ReadAttributeValue())
+    //         {
+    //             data = reader.Value;
+    //         }
+    //         reader.ReadEndElement();
+
+    //         Debug.Log("READ DATA " + data);
+    //         var split = data.Split(',');
+    //         Debug.Log("SPLIT " + split);
+    //         color = 10;
+    //     }
+
+    //     public void WriteXml(XmlWriter writer)
+    //     {
+    //         writer.WriteAttributeString("Color", color.ToString());
+    //     }
+
+    //     public XmlSchema GetSchema()
+    //     {
+    //         return(null);
+    //     }
+    // }
+
+
+    // public class ColorType
+    // {
+    //     [XmlIgnore]
+    //     public int color;
+
+    //     [XmlAttribute(AttributeName="color")]
+    //     public string colorString{
+    //         get {return colorString;}
+    //         set {
+    //             Debug.Log("CUSTOM SETTER " + value);
+    //             color =  10;
+    //         }
+    //     }
+    // }
+
+
+    /********** BASE CLASS              ***********/
 
     public class W3D
     {
         public string serialize()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            return JsonConvert.SerializeObject(
+                this, 
+                Formatting.Indented,
+                new JsonSerializerSettings() { 
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore 
+                }
+            );
         }
     }
 }

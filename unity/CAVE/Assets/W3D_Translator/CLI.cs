@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
+
 using W3D;
 
 
@@ -30,7 +31,8 @@ public class CLI : MonoBehaviour
             throw e;
         }
 
-        xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
+        // xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
+        xmlPath = "../../test/sample.xml"; // TEMP - hard code xml file
 
         XmlSerializer serializer = new XmlSerializer(typeof(Story));
         Story story = null;
@@ -40,7 +42,7 @@ public class CLI : MonoBehaviour
         }
 
         Debug.Log(story.serialize());
-        Debug.Log($"{story.ObjectRoot.Object.Count} {story.ObjectRoot.serialize()}");
+        Debug.Log($"Background Color: {story.Global.Background.color} {story.Global.Background.color.GetType()}");
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 
@@ -68,6 +70,8 @@ public class CLI : MonoBehaviour
         //     throw e;
         // }
         // Example(instantiatedScene.scene);
+
+        Application.Quit();
     }
 
     // EXAMPLE - Add sphere at origin of each wall
