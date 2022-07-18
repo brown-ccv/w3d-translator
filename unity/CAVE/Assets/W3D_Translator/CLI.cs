@@ -39,10 +39,8 @@ public class CLI : MonoBehaviour
         {
             story = (Story)serializer.Deserialize(reader);
         }
-        Debug.Log(story.ObjectRoot);
-        Debug.Log($"{story.ObjectRoot.Object} {story.ObjectRoot.Object.Count}");
-        Debug.Log($"Background color: {story.Global.Background.color}");
-        Debug.Log($"Cameras {story.Global.Camera} {story.Global.CaveCamera}");
+        Debug.Log(story);
+        Debug.Log($"{story.ObjectRoot.Object.Count} {story.ObjectRoot.Object}");
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 
