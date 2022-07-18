@@ -31,8 +31,8 @@ public class CLI : MonoBehaviour
         }
 
         
-        xmlPath = "../../test/sample.xml"; // TEMP: Hardcode xml file
-        // xmlPath = "../../../../examples/cweditor/everything.1xml"; // TEMP - hard code xml file
+        // xmlPath = "../../test/sample.xml"; // TEMP: Hardcode xml file
+        xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
         XmlSerializer serializer = new XmlSerializer(typeof(Story));
         Story story = null;
         using (StreamReader reader = new StreamReader(xmlPath))

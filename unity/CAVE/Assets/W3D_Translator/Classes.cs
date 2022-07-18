@@ -163,10 +163,11 @@ namespace W3D
     // CONTENT
 
 
+    // TODO: Enum?
     [XmlRoot(ElementName="Content")]
     public class Content
     {
-        // TODO: Just make content null?
+        // TODO: Just make content null
         [XmlElement(ElementName="None")]
         public object None;
 
@@ -250,10 +251,10 @@ namespace W3D
     public class ParticleSystem
     {
         [XmlAttribute(AttributeName="max-particles")]
-        public uint maxParticles;
+        public int maxParticles;
 
         [XmlAttribute(AttributeName="actions-name")]
-        public int actionsName;
+        public string actionsName;
 
         [XmlAttribute(AttributeName="particle-group")]
         public string particleGroup;
@@ -713,7 +714,7 @@ namespace W3D
         public RemoveCondition RemoveCondition;
 
         [XmlAttribute(AttributeName="name")]
-        public int name;
+        public string name;
     }
 
 
