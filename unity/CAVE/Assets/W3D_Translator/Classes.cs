@@ -10,7 +10,6 @@ using UnityEngine;
 
 [XmlRoot(ElementName="Story")]
 public class Story { 
-
 	[XmlElement(ElementName="ObjectRoot")] 
 	public ObjectRoot ObjectRoot; 
 
@@ -48,9 +47,9 @@ public class Story {
 	public string text; 
 }
 
+
 [XmlRoot(ElementName="PlacementRoot")]
 public class PlacementRoot { 
-
 	[XmlElement(ElementName="Placement")] 
 	public List<Placement> Placement; 
 }
@@ -58,7 +57,6 @@ public class PlacementRoot {
 
 [XmlRoot(ElementName="Global")]
 public class Global { 
-
 	[XmlElement(ElementName="CameraPos")] 
 	public Camera Camera; 
 
@@ -66,7 +64,7 @@ public class Global {
 	public Camera CaveCamera; 
 
 	[XmlElement(ElementName="Background")] 
-	public string backgroundColor; 
+	public Background Background; 
 
 	[XmlElement(ElementName="WandNavigation")] 
 	public WandNavigation WandNavigation; 
@@ -75,14 +73,12 @@ public class Global {
 
 [XmlRoot(ElementName="About")]
 public class About { 
-
     [XmlAttribute(AttributeName="About")] 
     public string news;
 }
 
 
 public class Camera { 
-
 	[XmlElement(ElementName="Placement")] 
 	public Placement Placement; 
 
@@ -93,10 +89,14 @@ public class Camera {
 	public string text; 
 }
 
+[XmlRoot(ElementName="Background")] 
+public class Background {
+	[XmlAttribute(AttributeName="color")] 
+	public string color;
+}
 
 [XmlRoot(ElementName="WandNavigation")]
 public class WandNavigation { 
-
 	[XmlAttribute(AttributeName="allow-rotation")] 
 	public bool allowRotation; 
 
@@ -110,7 +110,6 @@ public class WandNavigation {
 
 [XmlRoot(ElementName="ObjectRoot")]
 public class ObjectRoot { 
-
 	[XmlElement(ElementName="Object")] 
 	public List<Object> Object; 
 }
@@ -118,7 +117,6 @@ public class ObjectRoot {
 
 [XmlRoot(ElementName="Object")]
 public class Object { 
-
 	[XmlElement(ElementName="Visible")] 
 	public bool visible; 
 
@@ -137,23 +135,74 @@ public class Object {
 	[XmlElement(ElementName="Scale")] 
 	public double scale; 
 
+    [XmlElement(ElementName="SoundRef")] 
+	public string soundRef; 
+
 	[XmlElement(ElementName="Placement")] 
 	public Placement Placement; 
 
 	[XmlElement(ElementName="Content")] 
 	public Content Content; 
 
+        [XmlElement(ElementName="LinkRoot")] 
+	public LinkRoot LinkRoot; 
+
 	[XmlAttribute(AttributeName="name")] 
 	public string name; 
 
 	[XmlText] 
 	public string text;
+}
 
-	[XmlElement(ElementName="LinkRoot")] 
-	public LinkRoot LinkRoot; 
 
-	[XmlElement(ElementName="SoundRef")] 
-	public string soundRef; 
+[XmlRoot(ElementName="Content")]
+public class Content { 
+    // TODO: Just make content null?
+	[XmlElement(ElementName="None")] 
+	public object None;
+
+    [XmlElement(ElementName="Text")] 
+	public Text Text; 
+
+    [XmlElement(ElementName="Image")] 
+	public Image Image; 
+
+    // TODO: StereoImage
+    // TODO: Model
+
+	[XmlElement(ElementName="Light")] 
+	public Light Light; 
+
+	[XmlElement(ElementName="ParticleSystem")] 
+	public ParticleSystem ParticleSystem; 
+}
+
+
+[XmlRoot(ElementName="Text")]
+public class Text { 
+
+	[XmlElement(ElementName="text")] 
+	public List<string> text;
+
+	[XmlAttribute(AttributeName="horiz-align")]
+	public string horizAlign; 
+
+	[XmlAttribute(AttributeName="vert-align")] 
+	public string vertAlign; 
+
+	[XmlAttribute(AttributeName="font")] 
+	public string font; 
+
+	[XmlAttribute(AttributeName="depth")] 
+	public double depth; 
+}
+
+
+[XmlRoot(ElementName="Image")]
+public class Image { 
+
+	[XmlAttribute(AttributeName="filename")] 
+	public string filename; 
 }
 
 
@@ -253,26 +302,6 @@ public class Clicks {
 
 	[XmlElement(ElementName="Any")] 
 	public object Any; 
-}
-
-
-[XmlRoot(ElementName="Content")]
-public class Content { 
-
-	[XmlElement(ElementName="Light")] 
-	public Light Light; 
-
-	[XmlElement(ElementName="Text")] 
-	public Text Text; 
-
-	[XmlElement(ElementName="Image")] 
-	public Image Image; 
-
-	[XmlElement(ElementName="None")] 
-	public object None; 
-
-	[XmlElement(ElementName="ParticleSystem")] 
-	public ParticleSystem ParticleSystem; 
 }
 
 
@@ -411,13 +440,6 @@ public class HeadTrack {
 	public Direction Direction; 
 }
 
-
-[XmlRoot(ElementName="Image")]
-public class Image { 
-
-	[XmlAttribute(AttributeName="filename")] 
-	public string filename; 
-}
 
 
 [XmlRoot(ElementName="Light")]
@@ -836,25 +858,6 @@ public class Sphere {
 	public double radiusInner; 
 }
 
-
-[XmlRoot(ElementName="Text")]
-public class Text { 
-
-	[XmlElement(ElementName="text")] 
-	public List<string> text;
-
-	[XmlAttribute(AttributeName="horiz-align")]
-	public string horizAlign; 
-
-	[XmlAttribute(AttributeName="vert-align")] 
-	public string vertAlign; 
-
-	[XmlAttribute(AttributeName="font")] 
-	public string font; 
-
-	[XmlAttribute(AttributeName="depth")] 
-	public double depth; 
-}
 
 
 [XmlRoot(ElementName="TimedActions")]
