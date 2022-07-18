@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
 using W3D;
-using Newtonsoft.Json;
 
 
 public class CLI : MonoBehaviour
@@ -40,9 +39,9 @@ public class CLI : MonoBehaviour
             story = (Story)serializer.Deserialize(reader);
         }
 
-        PrettyPrint(story);
-        PrettyPrint(story.ObjectRoot.Object.Count);
-        PrettyPrint(story.ObjectRoot.Object);
+        // PrettyPrint(story);
+        Debug.Log(story.serialize());
+        Debug.Log($"{story.ObjectRoot.Object.Count} {story.ObjectRoot.serialize()}");
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 
@@ -88,13 +87,5 @@ public class CLI : MonoBehaviour
 
         // Save scene
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
-    }
-
-    static void PrettyPrint<T>(T obj){
-        Debug.Log(JsonConvert.SerializeObject(
-            obj, 
-            Formatting.Indented,
-            new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }
-        ));
     }
 }
