@@ -1165,7 +1165,12 @@ namespace W3D
 
         // TODO: vector enum
         [XmlElement(ElementName="Position")]
-        public string Position;
+        public string positionString
+        {
+            get { return this.position.ToString(); }
+            set { this.position = ConvertVector3(value); }
+        }
+        public Vector3 position;
 
         [XmlElement(ElementName="Axis")]
         public Axis Axis;
@@ -1686,6 +1691,16 @@ namespace W3D
                 float.Parse(strings[0]) / 255,
                 float.Parse(strings[1]) / 255,
                 float.Parse(strings[2]) / 255
+            );   
+        }
+
+        public Vector3 ConvertVector3(string vectorString)
+        {
+            string[] strings = vectorString.Trim(new Char[] { ' ', '(', ')' } ).Split(",");
+            return new Vector3(
+                float.Parse(strings[0]),
+                float.Parse(strings[1]),
+                float.Parse(strings[2])
             );   
         }
     }

@@ -43,7 +43,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             story = (Story)serializer.Deserialize(reader);
         }
 
-        Debug.Log(story.pprint());
+        Debug.Log(story.Global.pprint());
 
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
