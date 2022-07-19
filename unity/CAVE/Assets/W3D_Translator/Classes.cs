@@ -11,11 +11,11 @@ using UnityEngine;
 
 namespace W3D
 {
-    using Newtonsoft.Json;
 
     /********** STORY            ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Story")]
     public class Story : W3D
     {
@@ -54,8 +54,11 @@ namespace W3D
 
         [XmlText]
         public string text;
+    
     }
-
+    
+    
+    [Serializable]
     [XmlRoot(ElementName="ObjectRoot")]
     public class ObjectRoot : W3D
     {
@@ -64,6 +67,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="GroupRoot")]
     public class GroupRoot : W3D
     {
@@ -72,6 +76,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="TimelineRoot")]
     public class TimelineRoot : W3D
     {
@@ -81,6 +86,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="PlacementRoot")]
     public class PlacementRoot : W3D
     {
@@ -89,6 +95,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="SoundRoot")]
     public class SoundRoot : W3D
     {
@@ -97,6 +104,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="EventRoot")]
     public class EventRoot : W3D
     {
@@ -105,6 +113,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="ParticleActionRoot")]
     public class ParticleActionRoot : W3D
     {
@@ -113,6 +122,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="About")]
     public class About : W3D
     {
@@ -124,6 +134,7 @@ namespace W3D
     /********** OBJECT            ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Object")]
     public class Object : W3D
     {
@@ -169,6 +180,7 @@ namespace W3D
 
 
     // TODO: Enum?
+    [Serializable]
     [XmlRoot(ElementName="Content")]
     public class Content : W3D
     {
@@ -197,6 +209,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Text")]
     public class Text : W3D
     {
@@ -220,14 +233,18 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Image")]
     public class Image : W3D
     {
         // TODO: file simple type
         [XmlAttribute(AttributeName="filename")]
         public string filename;
+    
     }
-
+    
+    
+    [Serializable]
     [XmlRoot(ElementName="StereoImage")]
     public class StereoImage : W3D
     {
@@ -238,8 +255,11 @@ namespace W3D
         // TODO: file simple type
         [XmlAttribute(AttributeName="right-image")]
         public string rightImage;
+    
     }
-
+    
+    
+    [Serializable]
     [XmlRoot(ElementName="Model")]
     public class Model : W3D
     {
@@ -252,6 +272,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="ParticleSystem")]
     public class ParticleSystem : W3D
     {
@@ -278,6 +299,7 @@ namespace W3D
     // Content.Light
 
 
+    [Serializable]
     [XmlRoot(ElementName="Light")]
     public class Light : W3D
     {
@@ -305,8 +327,11 @@ namespace W3D
 
         [XmlAttribute(AttributeName="quad_atten")]
         public double quadAtten;
+    
     }
-
+    
+    
+    [Serializable]
     [XmlRoot(ElementName="Spot")]
     public class Spot : W3D
     {
@@ -318,6 +343,7 @@ namespace W3D
     // LINK
 
 
+    [Serializable]
     [XmlRoot(ElementName="LinkRoot")]
     public class LinkRoot : W3D
     {
@@ -326,6 +352,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Link")]
     public class Link : W3D
     {
@@ -351,6 +378,7 @@ namespace W3D
     // Link.Actions
 
 
+    [Serializable]
     [XmlRoot(ElementName="Actions")]
     public class Actions : ActionsType
     {
@@ -360,6 +388,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Clicks")]
     public class Clicks : W3D
     {
@@ -373,6 +402,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="NumClicks")]
     public class NumClicks : W3D
     {
@@ -387,6 +417,7 @@ namespace W3D
     /********** GROUP            ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Group")]
     public class Group : W3D
     {
@@ -398,8 +429,11 @@ namespace W3D
 
         [XmlAttribute(AttributeName="name")]
         public string name;
+    
     }
-
+    
+    
+    [Serializable]
     [XmlRoot(ElementName="Objects")]
     public class Objects : W3D
     {
@@ -408,6 +442,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Groups")]
     public class Groups : W3D
     {
@@ -419,6 +454,7 @@ namespace W3D
     /********** TIMELINE        ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Timeline")]
     public class Timeline : W3D
     {
@@ -436,6 +472,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="TimedActions")]
     public class TimedActions : ActionsType
     {
@@ -450,6 +487,7 @@ namespace W3D
     /********** SOUND            ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Sound")]
     public class Sound : W3D
     {
@@ -478,6 +516,7 @@ namespace W3D
 
 
     // TODO Make an enum
+    [Serializable]
     [XmlRoot(ElementName="Mode")]
     public class Mode : W3D
     {
@@ -489,6 +528,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Repeat")]
     public class Repeat : W3D
     {
@@ -503,6 +543,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Settings")]
     public class Settings : W3D
     {
@@ -520,6 +561,7 @@ namespace W3D
     /********** EVENT TRIGGER       ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="EventTrigger")]
     public class EventTrigger : W3D
     {
@@ -550,6 +592,7 @@ namespace W3D
     // HEAD TRACK
 
 
+    [Serializable]
     [XmlRoot(ElementName="HeadTrack")]
     public class HeadTrack : W3D
     {
@@ -561,6 +604,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Position")]
     public class TrackPosition : W3D
     {
@@ -575,6 +619,7 @@ namespace W3D
     // HeadTrack.Direction
 
 
+    [Serializable]
     [XmlRoot(ElementName="Direction")]
     public class Direction : W3D
     {
@@ -592,6 +637,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="PointTarget")]
     public class PointTarget : W3D
     {
@@ -601,8 +647,9 @@ namespace W3D
 
         [XmlAttribute(AttributeName="angle")]
         public double angle;
+    
     }
-
+    [Serializable]
     [XmlRoot(ElementName="DirectionTarget")]
     public class DirectionTarget : W3D
     {
@@ -615,6 +662,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="ObjectTarget")]
     public class ObjectTarget : W3D
     {
@@ -626,6 +674,7 @@ namespace W3D
     // MOVE TRACK
 
 
+    [Serializable]
     [XmlRoot(ElementName="MoveTrack")]
     public class MoveTrack : W3D
     {
@@ -634,8 +683,11 @@ namespace W3D
 
         [XmlElement(ElementName="Box")]
         public Box Box;
+    
     }
-
+    
+    
+    [Serializable]
     [XmlRoot(ElementName="Source")]
     public class Source : W3D
     {
@@ -647,13 +699,17 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="ObjectRef")]
     public class ObjectRef : W3D
     {
         [XmlAttribute(AttributeName="name")]
         public string name;
+    
     }
-
+    
+    
+    [Serializable]
     [XmlRoot(ElementName="GroupObj")]
     public class GroupObj : W3D
     {
@@ -668,6 +724,8 @@ namespace W3D
 
     // BOX
 
+
+    [Serializable]
     [XmlRoot(ElementName="Box")]
     public class Box : W3D
     {
@@ -688,6 +746,7 @@ namespace W3D
 
 
     // TODO: Enum
+    [Serializable]
     [XmlRoot(ElementName="Movement")]
     public class Movement : W3D
     {
@@ -699,9 +758,11 @@ namespace W3D
         public object Inside;
     }
 
+
     /********** PARTICLE ACTION     ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="ParticleActionList")]
     public class ParticleActionList : W3D
     {
@@ -723,6 +784,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Source")]
     public class ParticleSource : W3D
     {
@@ -734,6 +796,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Vel")]
     public class Vel : W3D
     {
@@ -745,7 +808,8 @@ namespace W3D
     // PARTICLE ACTION
 
 
-    // TODO: enum?
+
+    // TODO: enum?  [Serializable]
     [XmlRoot(ElementName="ParticleAction")]
     public class ParticleAction : W3D
     {
@@ -796,6 +860,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Avoid")]
     public class Avoid : W3D
     {
@@ -813,6 +878,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Bounce")]
     public class Bounce : W3D
     {
@@ -830,6 +896,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Gravity")]
     public class Gravity : W3D
     {
@@ -839,6 +906,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Damping")]
     public class Damping : W3D
     {
@@ -854,6 +922,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Gravitate")]
     public class Gravitate : W3D
     {
@@ -868,6 +937,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Follow")]
     public class Follow : W3D
     {
@@ -883,6 +953,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="MatchVel")]
     public class MatchVel : W3D
     {
@@ -897,6 +968,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="OrbitPoint")]
     public class OrbitPoint : W3D
     {
@@ -915,6 +987,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Jet")]
     public class Jet : W3D
     {
@@ -926,6 +999,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="TargetColor")]
     public class TargetColor : W3D
     {
@@ -940,10 +1014,11 @@ namespace W3D
         public double scale;
     }
 
+
     // REMOVE CONDITION
 
 
-    // TODO: Enum?
+    // TODO: Enum?  [Serializable]
     [XmlRoot(ElementName="RemoveCondition")]
     public class RemoveCondition : W3D
     {
@@ -959,6 +1034,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Age")]
     public class Age : W3D
     {
@@ -970,6 +1046,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Position")]
     public class Position : W3D
     {
@@ -981,6 +1058,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Velocity")]
     public class Velocity : W3D
     {
@@ -995,6 +1073,7 @@ namespace W3D
     /********** GLOBAL              ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Global")]
     public class Global : W3D
     {
@@ -1008,10 +1087,12 @@ namespace W3D
         public Background Background;
 
         [XmlElement(ElementName="WandNavigation")]
+    
         public WandNavigation WandNavigation;
     }
 
 
+    [Serializable]
     public class Camera : W3D
     {
         [XmlElement(ElementName="Placement")]
@@ -1025,14 +1106,25 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Background")]
     public class Background : W3D
     {
-        [XmlAttribute(AttributeName="color")]
-        public ColorType color;
+
+        [XmlAttribute(AttributeName = "color")]
+        public string colorString
+        {
+            // get { return $"Color({color.r}, {color.g}, {color.b}, {color.a})";}
+            // get { return ""; }
+            get { return this.serialize(); }
+            set { color = ConvertColor(value); }
+        }
+        public Color color;
+    
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="WandNavigation")]
     public class WandNavigation : W3D
     {
@@ -1050,6 +1142,7 @@ namespace W3D
     // PLACEMENT TYPE
 
 
+    [Serializable]
     [XmlRoot(ElementName="Placement")]
     public class PlacementType : W3D
     {
@@ -1077,6 +1170,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Axis")]
     public class Axis : W3D
     {
@@ -1089,6 +1183,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="LookAt")]
     public class LookAt : W3D
     {
@@ -1102,6 +1197,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Normal")]
     public class Normal : W3D
     {
@@ -1117,6 +1213,7 @@ namespace W3D
     // ACTIONS TYPE
 
 
+    [Serializable]
     // TODO: Enum?
     public class ActionsType : W3D
     {
@@ -1143,6 +1240,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="ObjectChange")]
     public class ObjectChange : W3D
     {
@@ -1157,6 +1255,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="GroupRef")]
     public class GroupRef : W3D
     {
@@ -1175,7 +1274,8 @@ namespace W3D
     }
 
 
-    // TODO: Enum
+
+    // TODO: Enum   [Serializable]
     [XmlRoot(ElementName="TimerChange")]
     public class TimerChange : W3D
     {
@@ -1196,6 +1296,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="SoundRef")]
     public class SoundRef : W3D
     {
@@ -1204,6 +1305,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Event")]
     public class Event : W3D
     {
@@ -1215,6 +1317,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="MoveCave")]
     public class MoveCave : W3D
     {
@@ -1239,8 +1342,9 @@ namespace W3D
     // TRANSITION TYPE
 
 
-    // TODO: Enum?
-    // [XmlRoot(ElementName="Transition")]
+
+    // TODO: Enum?  
+    [Serializable]
     public class TransitionType : W3D
     {
         [XmlElement(ElementName="Visible")]
@@ -1273,6 +1377,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Movement")]
     public class MovementTransition : W3D
     {
@@ -1281,13 +1386,17 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="MoveRel")]
     public class MoveRel : W3D
     {
         [XmlElement(ElementName="Placement")]
         public PlacementType Placement;
+    
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="Sound")]
     public class SoundTransition : W3D
     {
@@ -1297,7 +1406,9 @@ namespace W3D
     }
 
 
+
     // TODO: Enum
+    [Serializable]
     [XmlRoot(ElementName="LinkChange")]
     public class LinkChange : W3D
     {
@@ -1318,7 +1429,9 @@ namespace W3D
     // PARTICLE DOMAIN TYPE
 
 
+
     // TODO: Enum?
+    [Serializable]
     [XmlRoot(ElementName="ParticleDomain")]
     public class ParticleDomainType : W3D
     {
@@ -1357,14 +1470,18 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Point")]
     public class Point : W3D
     {
         // TODO: vector simple type
         [XmlAttribute(AttributeName="point")]
         public string point;
+    
     }
-
+    
+    
+    [Serializable]
     [XmlRoot(ElementName="Line")]
     public class Line : W3D
     {
@@ -1378,6 +1495,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Triangle")]
     public class Triangle : W3D
     {
@@ -1395,6 +1513,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Plane")]
     public class Plane : W3D
     {
@@ -1408,6 +1527,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Rectangle")]
     public class Rectangle : W3D
     {
@@ -1425,6 +1545,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Box")]
     public class BoxParticle : W3D
     {
@@ -1438,6 +1559,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Sphere")]
     public class Sphere : W3D
     {
@@ -1455,6 +1577,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Cylinder")]
     public class Cylinder : W3D
     {
@@ -1474,6 +1597,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Cone")]
     public class Cone : W3D
     {
@@ -1492,6 +1616,8 @@ namespace W3D
         public double innerRadius;
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="Blob")]
     public class Blob : W3D
     {
@@ -1504,6 +1630,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Disc")]
     public class Disc : W3D
     {
@@ -1523,73 +1650,25 @@ namespace W3D
     }
 
 
-    /********** SIMPLE TYPES            ***********/
-
-    // TODO: NEITHER OF THESE ARE VALID BECAUSE COLOR IS AN ATTRIBUTE
-
-    // public class ColorType : IXmlSerializable
-    // {
-
-    //     public int color;
-
-    //     public void ReadXml(XmlReader reader)
-    //     {
-        
-    //         string data = null;
-    //         reader.MoveToAttribute("Color");
-    //         if (reader.ReadAttributeValue())
-    //         {
-    //             data = reader.Value;
-    //         }
-    //         reader.ReadEndElement();
-
-    //         Debug.Log("READ DATA " + data);
-    //         var split = data.Split(',');
-    //         Debug.Log("SPLIT " + split);
-    //         color = 10;
-    //     }
-
-    //     public void WriteXml(XmlWriter writer)
-    //     {
-    //         writer.WriteAttributeString("Color", color.ToString());
-    //     }
-
-    //     public XmlSchema GetSchema()
-    //     {
-    //         return(null);
-    //     }
-    // }
-
-
-    // public class ColorType
-    // {
-    //     [XmlIgnore]
-    //     public int color;
-
-    //     [XmlAttribute(AttributeName="color")]
-    //     public string colorString{
-    //         get {return colorString;}
-    //         set {
-    //             Debug.Log("CUSTOM SETTER " + value);
-    //             color =  10;
-    //         }
-    //     }
-    // }
-
-
     /********** BASE CLASS              ***********/
 
+
+    [Serializable]
     public class W3D
     {
         public string serialize()
         {
-            return JsonConvert.SerializeObject(
-                this, 
-                Formatting.Indented,
-                new JsonSerializerSettings() { 
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore 
-                }
-            );
+            return JsonUtility.ToJson(this, true);
+        }
+
+        public Color ConvertColor(string colorString)
+        {
+            string[] strings = colorString.Trim(new Char[] { ' ', '(', ')' } ).Split(",");
+            return new Color(
+                float.Parse(strings[0]) / 255,
+                float.Parse(strings[1]) / 255,
+                float.Parse(strings[2]) / 255
+            );   
         }
     }
 }

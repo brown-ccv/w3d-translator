@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -10,7 +11,7 @@ using UnityEditor.SceneTemplate;
 using W3D;
 
 
-public class CLI : MonoBehaviour
+public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
     void Start(){ Main(); } // TEMP: Execute script from Unity directly
 
@@ -34,15 +35,18 @@ public class CLI : MonoBehaviour
         // xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
         xmlPath = "../../test/sample.xml"; // TEMP - hard code xml file
 
+        // TODO: Add try/catch for when deserialization fails
         XmlSerializer serializer = new XmlSerializer(typeof(Story));
         Story story = null;
-        using (StreamReader reader = new StreamReader(xmlPath))
+        using (XmlReader reader = XmlReader.Create(xmlPath))
         {
             story = (Story)serializer.Deserialize(reader);
         }
 
+        // TODO: .serialize method is causing a stack overflow exception
         Debug.Log(story.serialize());
         Debug.Log($"Background Color: {story.Global.Background.color} {story.Global.Background.color.GetType()}");
+
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 

@@ -294,7 +294,7 @@
                 <Position>(0.0, 0.0, 0.0)</Position>
             </Placement>
         </CaveCameraPos>
-        <Background color="0, 0, 0" />
+        <Background color="100, 200, 127" />
         <WandNavigation allow-rotation="false" allow-movement="false" />
     </Global>
 </Story>
