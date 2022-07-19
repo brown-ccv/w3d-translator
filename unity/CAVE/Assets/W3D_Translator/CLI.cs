@@ -43,6 +43,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             story = (Story)serializer.Deserialize(reader);
         }
         Debug.Log(story.Global.pprint());
+        Debug.Log(story.Global.Camera.Placement);
+        Debug.Log(story.Global.Camera.Placement.Axis);
+        Debug.Log(story.Global.Camera.Placement.position);
 
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/

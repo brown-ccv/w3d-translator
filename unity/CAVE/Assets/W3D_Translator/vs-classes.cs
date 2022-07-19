@@ -8,6 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
+namespace vsClasses{
+
 using System.Xml.Serialization;
 
 // 
@@ -4361,4 +4364,5 @@ public partial class StoryAbout {
             this.newsField = value;
         }
     }
+}
 }
