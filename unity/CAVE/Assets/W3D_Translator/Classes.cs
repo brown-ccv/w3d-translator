@@ -142,7 +142,12 @@ namespace W3D
         public bool visible;
 
         [XmlElement(ElementName="Color")]
-        public string Color;
+        public string colorString
+        {
+            get { return color.ToString(); }
+            set { color = ConvertColor(value); }
+        }
+        public Color color;
 
         [XmlElement(ElementName="Lighting")]
         public bool lighting;
@@ -362,13 +367,21 @@ namespace W3D
         [XmlElement(ElementName="RemainEnabled")]
         public bool remainEnabled;
 
-        // TODO: color simple type
         [XmlElement(ElementName="EnabledColor")]
-        public string enabledColor;
+        public string enabledColorString
+        {
+            get { return enabledColor.ToString(); }
+            set { enabledColor = ConvertColor(value); }
+        }
+        public Color enabledColor;
 
-        // TODO: color simple type
         [XmlElement(ElementName="SelectedColor")]
-        public string selectedColor;
+        public string selectedColorString
+        {
+            get { return selectedColor.ToString(); }
+            set { selectedColor = ConvertColor(value); }
+        }
+        public Color selectedColor;
 
         [XmlElement(ElementName="Actions")]
         public Actions Actions;
@@ -1003,9 +1016,13 @@ namespace W3D
     [XmlRoot(ElementName="TargetColor")]
     public class TargetColor : W3D
     {
-        // TODO: color simple type
         [XmlAttribute(AttributeName="color")]
-        public string color;
+        public string colorString
+        {
+            get { return color.ToString(); }
+            set { color = ConvertColor(value); }
+        }
+        public Color color;
 
         [XmlAttribute(AttributeName="alpha")]
         public double alpha;
@@ -1110,11 +1127,10 @@ namespace W3D
     [XmlRoot(ElementName="Background")]
     public class Background : W3D
     {
-
         [XmlAttribute(AttributeName = "color")]
         public string colorString
         {
-            get { return "COLOR GET"; }
+            get { return color.ToString(); }
             set { color = ConvertColor(value); }
         }
         public Color color;
@@ -1354,9 +1370,13 @@ namespace W3D
         [XmlElement(ElementName="MoveRel")]
         public MoveRel MoveRel;
 
-        // TODO: Color simple type
         [XmlElement(ElementName="Color")]
-        public string Color;
+        public string colorString
+        {
+            get { return color.ToString(); }
+            set { color = ConvertColor(value); }
+        }
+        public Color color;
 
         [XmlElement(ElementName="Scale")]
         public double scale;
