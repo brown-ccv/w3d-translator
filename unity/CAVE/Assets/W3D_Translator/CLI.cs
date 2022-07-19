@@ -43,9 +43,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             story = (Story)serializer.Deserialize(reader);
         }
 
-        // TODO: .serialize method is causing a stack overflow exception
-        Debug.Log(story.serialize());
-        Debug.Log($"Background Color: {story.Global.Background.color} {story.Global.Background.color.GetType()}");
+        Debug.Log(story.Global.pprint());
 
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/

@@ -1114,9 +1114,7 @@ namespace W3D
         [XmlAttribute(AttributeName = "color")]
         public string colorString
         {
-            // get { return $"Color({color.r}, {color.g}, {color.b}, {color.a})";}
-            // get { return ""; }
-            get { return this.serialize(); }
+            get { return "COLOR GET"; }
             set { color = ConvertColor(value); }
         }
         public Color color;
@@ -1656,7 +1654,7 @@ namespace W3D
     [Serializable]
     public class W3D
     {
-        public string serialize()
+        public string pprint()
         {
             return JsonUtility.ToJson(this, true);
         }
