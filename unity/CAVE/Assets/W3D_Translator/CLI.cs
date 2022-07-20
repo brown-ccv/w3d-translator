@@ -42,8 +42,11 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         }
         Debug.Log(story.pprint());
 
-        Debug.Log(story.About);
-        Debug.Log(story.About.pprint());
+        foreach(W3D.Sound sound in story.SoundRoot)
+        {
+            Debug.Log($"{sound.name} {sound.Mode.mode} {sound.Mode.test}");
+            Debug.Log(sound.Mode.pprint());
+        }
 
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/

@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-// TODO: Convert vector types to Unity Vector3
-// TODO: Add color, vector, and file class types (custom string translation)
 
 namespace W3D
 {
@@ -128,12 +126,10 @@ namespace W3D
     // CONTENT
 
 
-    // TODO: Enum?
     [Serializable]
     [XmlRoot(ElementName="Content")]
     public class Content : W3D
     {
-        // TODO: Just make content null
         [XmlElement(ElementName="None")]
         public object None;
 
@@ -146,7 +142,6 @@ namespace W3D
         [XmlElement(ElementName="StereoImage")]
         public StereoImage StereoImage;
 
-        // TODO: Model
         [XmlElement(ElementName="Model")]
         public Model Model;
 
@@ -186,7 +181,6 @@ namespace W3D
     [XmlRoot(ElementName="Image")]
     public class Image : W3D
     {
-        // TODO: file simple type
         [XmlAttribute(AttributeName="filename")]
         public string filename;
 
@@ -197,11 +191,9 @@ namespace W3D
     [XmlRoot(ElementName="StereoImage")]
     public class StereoImage : W3D
     {
-        // TODO: file simple type
         [XmlAttribute(AttributeName="left-image")]
         public string leftImage;
 
-        // TODO: file simple type
         [XmlAttribute(AttributeName="right-image")]
         public string rightImage;
 
@@ -212,7 +204,6 @@ namespace W3D
     [XmlRoot(ElementName="Model")]
     public class Model : W3D
     {
-        // TODO: file simple type
         [XmlAttribute(AttributeName="filename")]
         public string filename;
 
@@ -454,7 +445,6 @@ namespace W3D
         [XmlAttribute(AttributeName="name")]
         public string name;
 
-        // TODO: file simple type
         [XmlAttribute(AttributeName="filename")]
         public string filename;
 
@@ -468,11 +458,23 @@ namespace W3D
     [XmlRoot(ElementName="Mode")]
     public class Mode : W3D
     {
-        [XmlElement(ElementName="Positional")]
-        public object Positional;
+        // Enums tha are leafs (Mode, Repeat) can have test be private
+        // Otherwise, that will contain the actual value (must be public)
+        // Use mode to get the type of test - test contains the data.
 
-        [XmlElement(ElementName="Fixed")]
-        public object Fixed;
+        // TODO: Make this enum part of Sound not separate class
+
+        [XmlChoiceIdentifier("mode")]
+        [XmlElement(ElementName="Positional", Type=typeof(string))]
+        [XmlElement(ElementName="Fixed", Type=typeof(string))]
+        public string test;
+        public ModeEnum mode;
+
+
+        public enum ModeEnum {
+            Positional,
+            Fixed
+        }
     }
 
 
@@ -944,7 +946,6 @@ namespace W3D
     [XmlRoot(ElementName="OrbitPoint")]
     public class OrbitPoint : W3D
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="center")]
         public string centerString
         {
@@ -1528,7 +1529,6 @@ namespace W3D
         }
         public Vector3 p2;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="p3")]
         public string p3String
         {
@@ -1617,7 +1617,6 @@ namespace W3D
     [XmlRoot(ElementName="Sphere")]
     public class Sphere : W3D
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="center")]
         public string centerString
         {
@@ -1626,7 +1625,6 @@ namespace W3D
         }
         public Vector3 center;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="radius")]
         public string radiusString
         {
@@ -1635,7 +1633,6 @@ namespace W3D
         }
         public Vector3 radius;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="radius-inner")]
         public string innerRadiusString
         {
