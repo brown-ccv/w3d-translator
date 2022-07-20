@@ -145,7 +145,7 @@ namespace W3D
         public string colorString
         {
             get { return color.ToString(); }
-            set { color=ConvertColor(value); }
+            set { color= ConvertColor(value); }
         }
         public Color color;
 
@@ -371,7 +371,7 @@ namespace W3D
         public string enabledColorString
         {
             get { return enabledColor.ToString(); }
-            set { enabledColor=ConvertColor(value); }
+            set { enabledColor= ConvertColor(value); }
         }
         public Color enabledColor;
 
@@ -379,7 +379,7 @@ namespace W3D
         public string selectedColorString
         {
             get { return selectedColor.ToString(); }
-            set { selectedColor=ConvertColor(value); }
+            set { selectedColor= ConvertColor(value); }
         }
         public Color selectedColor;
 
@@ -658,7 +658,7 @@ namespace W3D
         public string pointString
         {
             get { return point.ToString(); }
-            set { point=ConvertVector3(value); }
+            set { point= ConvertVector3(value); }
         }
         public Vector3 point;
 
@@ -674,7 +674,7 @@ namespace W3D
         public string directionString
         {
             get { return direction.ToString(); }
-            set { direction=ConvertVector3(value); }
+            set { direction= ConvertVector3(value); }
         }
         public Vector3 direction;
 
@@ -760,7 +760,7 @@ namespace W3D
         public string corner1String
         {
             get { return corner1.ToString(); }
-            set { corner1=ConvertVector3(value); }
+            set { corner1= ConvertVector3(value); }
         }
         public Vector3 corner1;
 
@@ -768,7 +768,7 @@ namespace W3D
         public string corner2String
         {
             get { return corner2.ToString(); }
-            set { corner2=ConvertVector3(value); }
+            set { corner2= ConvertVector3(value); }
         }
         public Vector3 corner2;
     }
@@ -933,7 +933,7 @@ namespace W3D
         public string directionString
         {
             get { return direction.ToString(); }
-            set { direction=ConvertVector3(value); }
+            set { direction= ConvertVector3(value); }
         }
         public Vector3 direction;
     }
@@ -947,7 +947,7 @@ namespace W3D
         public string directionString
         {
             get { return direction.ToString(); }
-            set { direction=ConvertVector3(value); }
+            set { direction= ConvertVector3(value); }
         }
         public Vector3 direction;
 
@@ -1014,7 +1014,7 @@ namespace W3D
         public string centerString
         {
             get { return center.ToString(); }
-            set { center=ConvertVector3(value); }
+            set { center= ConvertVector3(value); }
         }
         public Vector3 center;
         [XmlAttribute(AttributeName="magnitude")]
@@ -1048,7 +1048,7 @@ namespace W3D
         public string colorString
         {
             get { return color.ToString(); }
-            set { color=ConvertColor(value); }
+            set { color= ConvertColor(value); }
         }
         public Color color;
 
@@ -1159,7 +1159,7 @@ namespace W3D
         public string colorString
         {
             get { return color.ToString(); }
-            set { color=ConvertColor(value); }
+            set { color= ConvertColor(value); }
         }
         public Color color;
 
@@ -1195,7 +1195,7 @@ namespace W3D
         public string positionString
         {
             get { return position.ToString(); }
-            set { position=ConvertVector3(value); }
+            set { position= ConvertVector3(value); }
         }
         public Vector3 position;
 
@@ -1224,7 +1224,7 @@ namespace W3D
         public string rotationString
         {
             get { return rotation.ToString(); }
-            set { rotation=ConvertVector3(value); }
+            set { rotation= ConvertVector3(value); }
         }
         public Vector3 rotation;
 
@@ -1241,7 +1241,7 @@ namespace W3D
         public string targetString
         {
             get { return target.ToString(); }
-            set { target=ConvertVector3(value); }
+            set { target= ConvertVector3(value); }
         }
         public Vector3 target;
 
@@ -1249,7 +1249,7 @@ namespace W3D
         public string upString
         {
             get { return up.ToString(); }
-            set { up=ConvertVector3(value); }
+            set { up= ConvertVector3(value); }
         }
         public Vector3 up;
     }
@@ -1263,7 +1263,7 @@ namespace W3D
         public string normalString
         {
             get { return normal.ToString(); }
-            set { normal=ConvertVector3(value); }
+            set { normal= ConvertVector3(value); }
         }
         public Vector3 normal;
 
@@ -1422,7 +1422,7 @@ namespace W3D
         public string colorString
         {
             get { return color.ToString(); }
-            set { color=ConvertColor(value); }
+            set { color= ConvertColor(value); }
         }
         public Color color;
 
@@ -1544,7 +1544,7 @@ namespace W3D
         public string pointString
         {
             get { return point.ToString(); }
-            set { point=ConvertVector3(value); }
+            set { point= ConvertVector3(value); }
         }
         public Vector3 point;
 
@@ -1559,7 +1559,7 @@ namespace W3D
         public string p1String
         {
             get { return p1.ToString(); }
-            set { p1=ConvertVector3(value); }
+            set { p1= ConvertVector3(value); }
         }
         public Vector3 p1;
 
@@ -1567,7 +1567,7 @@ namespace W3D
         public string p2String
         {
             get { return p2.ToString(); }
-            set { p2=ConvertVector3(value); }
+            set { p2= ConvertVector3(value); }
         }
         public Vector3 p2;
     }
@@ -1581,7 +1581,7 @@ namespace W3D
         public string p1String
         {
             get { return p1.ToString(); }
-            set { p1=ConvertVector3(value); }
+            set { p1= ConvertVector3(value); }
         }
         public Vector3 p1;
 
@@ -1589,7 +1589,7 @@ namespace W3D
         public string p2String
         {
             get { return p2.ToString(); }
-            set { p2=ConvertVector3(value); }
+            set { p2= ConvertVector3(value); }
         }
         public Vector3 p2;
 
@@ -1598,7 +1598,7 @@ namespace W3D
         public string p3String
         {
             get { return p3.ToString(); }
-            set { p3=ConvertVector3(value); }
+            set { p3= ConvertVector3(value); }
         }
         public Vector3 p3;
     }
@@ -1612,7 +1612,7 @@ namespace W3D
         public string pointString
         {
             get { return point.ToString(); }
-            set { point=ConvertVector3(value); }
+            set { point= ConvertVector3(value); }
         }
         public Vector3 point;
 
@@ -1620,7 +1620,7 @@ namespace W3D
         public string normalString
         {
             get { return normal.ToString(); }
-            set { normal=ConvertVector3(value); }
+            set { normal= ConvertVector3(value); }
         }
         public Vector3 normal;
     }
@@ -1634,7 +1634,7 @@ namespace W3D
         public string p1String
         {
             get { return p1.ToString(); }
-            set { p1=ConvertVector3(value); }
+            set { p1= ConvertVector3(value); }
         }
         public Vector3 p1;
 
@@ -1642,7 +1642,7 @@ namespace W3D
         public string uString
         {
             get { return u.ToString(); }
-            set { u=ConvertVector3(value); }
+            set { u= ConvertVector3(value); }
         }
         public Vector3 u;
 
@@ -1650,7 +1650,7 @@ namespace W3D
         public string vString
         {
             get { return v.ToString(); }
-            set { v=ConvertVector3(value); }
+            set { v= ConvertVector3(value); }
         }
         public Vector3 v;
     }
@@ -1664,7 +1664,7 @@ namespace W3D
         public string p1String
         {
             get { return p1.ToString(); }
-            set { p1=ConvertVector3(value); }
+            set { p1= ConvertVector3(value); }
         }
         public Vector3 p1;
 
@@ -1672,7 +1672,7 @@ namespace W3D
         public string p2String
         {
             get { return p2.ToString(); }
-            set { p2=ConvertVector3(value); }
+            set { p2= ConvertVector3(value); }
         }
         public Vector3 p2;
     }
@@ -1687,7 +1687,7 @@ namespace W3D
         public string centerString
         {
             get { return center.ToString(); }
-            set { center=ConvertVector3(value); }
+            set { center= ConvertVector3(value); }
         }
         public Vector3 center;
 
@@ -1696,7 +1696,7 @@ namespace W3D
         public string radiusString
         {
             get { return radius.ToString(); }
-            set { radius=ConvertVector3(value); }
+            set { radius= ConvertVector3(value); }
         }
         public Vector3 radius;
 
@@ -1705,7 +1705,7 @@ namespace W3D
         public string innerRadiusString
         {
             get { return innerRadius.ToString(); }
-            set { innerRadius=ConvertVector3(value); }
+            set { innerRadius= ConvertVector3(value); }
         }
         public Vector3 innerRadius;
     }
@@ -1719,7 +1719,7 @@ namespace W3D
         public string p1String
         {
             get { return p1.ToString(); }
-            set { p1=ConvertVector3(value); }
+            set { p1= ConvertVector3(value); }
         }
         public Vector3 p1;
 
@@ -1727,7 +1727,7 @@ namespace W3D
         public string p2String
         {
             get { return p2.ToString(); }
-            set { p2=ConvertVector3(value); }
+            set { p2= ConvertVector3(value); }
         }
         public Vector3 p2;
 
@@ -1747,7 +1747,7 @@ namespace W3D
         public string baseCenterString
         {
             get { return baseCenter.ToString(); }
-            set { baseCenter=ConvertVector3(value); }
+            set { baseCenter= ConvertVector3(value); }
         }
         public Vector3 baseCenter;
 
@@ -1755,7 +1755,7 @@ namespace W3D
         public string apexString
         {
             get { return apex.ToString(); }
-            set { apex=ConvertVector3(value); }
+            set { apex= ConvertVector3(value); }
         }
         public Vector3 apex;
 
@@ -1775,7 +1775,7 @@ namespace W3D
         public string centerString
         {
             get { return center.ToString(); }
-            set { center=ConvertVector3(value); }
+            set { center= ConvertVector3(value); }
         }
         public Vector3 center;
 
@@ -1792,7 +1792,7 @@ namespace W3D
         public string centerString
         {
             get { return center.ToString(); }
-            set { center=ConvertVector3(value); }
+            set { center= ConvertVector3(value); }
         }
         public Vector3 center;
 

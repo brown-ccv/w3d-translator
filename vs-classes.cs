@@ -9,8 +9,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace vsClasses{
-
+// USED AS A REFERENCE DOCUMENT.
 using System.Xml.Serialization;
 
 // 
@@ -4364,5 +4363,4 @@ public partial class StoryAbout {
             this.newsField = value;
         }
     }
-}
 }
