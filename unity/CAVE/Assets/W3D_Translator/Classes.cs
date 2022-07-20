@@ -69,7 +69,7 @@ namespace W3D
     [XmlRoot(ElementName="About")]
     public class About : W3D
     {
-        [XmlAttribute(AttributeName="About")]
+        [XmlAttribute(AttributeName="news")]
         public string news;
     }
 

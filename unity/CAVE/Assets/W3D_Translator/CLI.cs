@@ -8,8 +8,6 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
 
-using W3D;
-
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
@@ -36,20 +34,16 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         // xmlPath = "../../test/sample.xml"; // TEMP - hard code xml file
 
         // TODO: Add try/catch for when deserialization fails
-        XmlSerializer serializer = new XmlSerializer(typeof(Story));
-        Story story = null;
+        XmlSerializer serializer = new XmlSerializer(typeof(W3D.Story));
+        W3D.Story story = null;
         using (XmlReader reader = XmlReader.Create(xmlPath))
         {
-            story = (Story)serializer.Deserialize(reader);
+            story = (W3D.Story)serializer.Deserialize(reader);
         }
         Debug.Log(story.pprint());
-        Debug.Log(story.SoundRoot);
 
-        foreach(W3D.Object obj in story.ObjectRoot){
-            if(obj.LinkRoot != null) {
-                Debug.Log(obj.LinkRoot.Count + " " + obj.LinkRoot[0].pprint());
-            }   
-        }
+        Debug.Log(story.About);
+        Debug.Log(story.About.pprint());
 
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
