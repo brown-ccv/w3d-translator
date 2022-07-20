@@ -465,9 +465,9 @@ namespace W3D
         // TODO: Make this enum part of Sound not separate class
 
         [XmlChoiceIdentifier("mode")]
-        [XmlElement(ElementName="Positional", Type=typeof(string))]
-        [XmlElement(ElementName="Fixed", Type=typeof(string))]
-        public string test;
+        [XmlElement(ElementName="Positional")]
+        [XmlElement(ElementName="Fixed")]
+        public object test;
         public ModeEnum mode;
 
 
