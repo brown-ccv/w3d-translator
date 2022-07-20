@@ -19,26 +19,36 @@ namespace W3D
     [XmlRoot(ElementName="Story")]
     public class Story : W3D
     {
-        [XmlElement(ElementName="ObjectRoot")]
-        public ObjectRoot ObjectRoot;
+        [XmlArray(ElementName="ObjectRoot")]
+        [XmlArrayItem(ElementName="Object")] 
+        public List<Object> ObjectRoot;
+    
+        [XmlArray(ElementName="GroupRoot")]
+        [XmlArrayItem(ElementName="Group")] 
+        public List<Group> GroupRoot;
 
-        [XmlElement(ElementName="GroupRoot")]
-        public GroupRoot GroupRoot;
+    	[XmlArray(ElementName="TimelineRoot")]
+        [XmlArrayItem(ElementName="Timeline")]
+        public List<Timeline> TimelineRoot;
+    
+        [XmlArray(ElementName="PlacementRoot")]
+        [XmlArrayItem(ElementName="Placement")] 
+        public List<PlacementType> PlacementRoot;
+    
+        [XmlArray(ElementName="SoundRoot")]
+        [XmlArrayItem(ElementName="Sound")] 
+        public List<Sound> SoundRoot;
 
-        [XmlElement(ElementName="TimelineRoot")]
-        public TimelineRoot TimelineRoot;
 
-        [XmlElement(ElementName="PlacementRoot")]
-        public PlacementRoot PlacementRoot;
-
-        [XmlElement(ElementName="SoundRoot")]
-        public SoundRoot SoundRoot;
-
-        [XmlElement(ElementName="EventRoot")]
-        public EventRoot EventRoot;
-
-        [XmlElement(ElementName="ParticleActionRoot")]
-        public ParticleActionRoot ParticleActionRoot;
+        // [XmlElement(ElementName="EventRoot")]
+        // public EventRoot EventRoot;
+        [XmlArray(ElementName="EventRoot")]
+        [XmlArrayItem(ElementName="EventTrigger")]
+        public List<EventTrigger> EventTrigger;
+	    
+        [XmlArray(ElementName="ParticleActionRoot")]
+	    [XmlArrayItem(ElementName="ParticleActionList")] 
+	    public List<ParticleAction> ParticleActionRoot;
 
         [XmlElement(ElementName="Global")]
         public Global Global;
@@ -55,70 +65,6 @@ namespace W3D
         [XmlText]
         public string text;
 
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="ObjectRoot")]
-    public class ObjectRoot : W3D
-    {
-        [XmlElement(ElementName="Object")]
-        public List<Object> Object;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="GroupRoot")]
-    public class GroupRoot : W3D
-    {
-        [XmlElement(ElementName="Group")]
-        public List<Group> Group;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="TimelineRoot")]
-    public class TimelineRoot : W3D
-    {
-
-        [XmlElement(ElementName="Timeline")]
-        public List<Timeline> Timeline;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="PlacementRoot")]
-    public class PlacementRoot : W3D
-    {
-        [XmlElement(ElementName="Placement")]
-        public List<PlacementType> Placement;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="SoundRoot")]
-    public class SoundRoot : W3D
-    {
-        [XmlElement(ElementName="Sound")]
-        public List<Sound> Sound;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="EventRoot")]
-    public class EventRoot : W3D
-    {
-        [XmlElement(ElementName="EventTrigger")]
-        public List<EventTrigger> EventTrigger;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="ParticleActionRoot")]
-    public class ParticleActionRoot : W3D
-    {
-        [XmlElement(ElementName="ParticleActionList")]
-        public List<ParticleActionList> ParticleActionList;
     }
 
 

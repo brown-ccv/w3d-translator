@@ -32,8 +32,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             throw e;
         }
 
-        // xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
-        xmlPath = "../../test/sample.xml"; // TEMP - hard code xml file
+        xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
+        // xmlPath = "../../test/sample.xml"; // TEMP - hard code xml file
 
         // TODO: Add try/catch for when deserialization fails
         XmlSerializer serializer = new XmlSerializer(typeof(Story));
@@ -43,10 +43,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             story = (Story)serializer.Deserialize(reader);
         }
         Debug.Log(story.pprint());
-        Debug.Log(story.Global.pprint());
-        Debug.Log(story.Global.Camera.Placement);
-        Debug.Log(story.Global.Camera.Placement.Axis);
-        Debug.Log(story.Global.Camera.Placement.position);
+        Debug.Log(story.SoundRoot);
 
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
