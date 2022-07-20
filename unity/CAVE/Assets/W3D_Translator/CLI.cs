@@ -45,6 +45,12 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Debug.Log(story.pprint());
         Debug.Log(story.SoundRoot);
 
+        foreach(W3D.Object obj in story.ObjectRoot){
+            if(obj.LinkRoot != null) {
+                Debug.Log(obj.LinkRoot.Count + " " + obj.LinkRoot[0].pprint());
+            }   
+        }
+
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 

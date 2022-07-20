@@ -39,9 +39,6 @@ namespace W3D
         [XmlArrayItem(ElementName="Sound")] 
         public List<Sound> SoundRoot;
 
-
-        // [XmlElement(ElementName="EventRoot")]
-        // public EventRoot EventRoot;
         [XmlArray(ElementName="EventRoot")]
         [XmlArrayItem(ElementName="EventTrigger")]
         public List<EventTrigger> EventTrigger;
@@ -116,8 +113,9 @@ namespace W3D
         [XmlElement(ElementName="Content")]
         public Content Content;
 
-        [XmlElement(ElementName="LinkRoot")]
-        public LinkRoot LinkRoot;
+        [XmlArray(ElementName="LinkRoot")]
+        [XmlArrayItem(ElementName="Link")]
+        public List<Link> LinkRoot;
 
         [XmlAttribute(AttributeName="name")]
         public string name;
@@ -292,15 +290,6 @@ namespace W3D
 
 
     // LINK
-
-
-    [Serializable]
-    [XmlRoot(ElementName="LinkRoot")]
-    public class LinkRoot : W3D
-    {
-        [XmlElement(ElementName="Link")]
-        public List<Link> Link;
-    }
 
 
     [Serializable]
