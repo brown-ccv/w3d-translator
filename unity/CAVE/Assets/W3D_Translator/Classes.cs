@@ -165,13 +165,22 @@ namespace W3D
 
         [XmlAttribute(AttributeName="horiz-align")]
         public horizAlign horizontalAlign;
-        public enum horizAlign { left, center, right }
+        public enum horizAlign { 
+            None,
+            [XmlEnum(Name="left")] Left,
+            [XmlEnum(Name="center")] Center,
+            [XmlEnum(Name="right")] Right,
+        }
 
         // TODO: Enum
         [XmlAttribute(AttributeName="vert-align")]
-        // public string verticalAlign;
         public vertAlign verticalAlign;
-        public enum vertAlign { top, center, bottom }
+        public enum vertAlign { 
+            None,
+            [XmlEnum(Name="top")] Top,
+            [XmlEnum(Name="center")] Center,
+            [XmlEnum(Name="bottom")] Bottom,
+        }
 
         [XmlAttribute(AttributeName="font")]
         public string font;
@@ -469,8 +478,9 @@ namespace W3D
 
 
         public enum ModeEnum {
-            Positional,
-            Fixed
+            None,
+            [XmlEnum(Name="Positional")] Positional,
+            [XmlEnum(Name="Fixed")] Fixed
         }
     }
 
@@ -674,6 +684,7 @@ namespace W3D
         [XmlAttribute(AttributeName="objects")]
         public Selection objectSelection;
         public enum Selection { 
+            None,
             [XmlEnum(Name="Any Object")] Any,
             [XmlEnum(Name="All Objects")] All
         }
@@ -1266,6 +1277,7 @@ namespace W3D
         [XmlAttribute(AttributeName="random")]
         public Random random;
         public enum Random { 
+            None,
             [XmlEnum(Name="Select One Randomly")] OneRandom,
         }
 

@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
@@ -44,9 +45,11 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Debug.Log(story.pprint());
         
         ObjectClass obj = story.ObjectRoot.Find(x => x.name == "LINK");
-        Debug.Log(obj.LinkRoot[0].Actions.Count);
-        // foreach(Action)
-
+        foreach(Actions action in obj.LinkRoot[0].Actions){
+            if(action.GroupRef != null){
+                Debug.Log($"ACTION {action.GroupRef.name} {action.GroupRef.random}");
+            }
+        }
         // Use enum (ModeType) to get the type - object (mode) contains the data.
         // This type is an enum so it doesn't make a difference, will elsewhere
 
