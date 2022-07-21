@@ -9,6 +9,7 @@ using UnityEngine;
 namespace W3D
 {
 
+// TODO: Make name attribute part of W3D - don't need it anywhere else?
 
     /********** STORY            ***********/
 
@@ -799,50 +800,42 @@ namespace W3D
     [XmlRoot(ElementName="ParticleAction")]
     public class ParticleAction : W3D
     {
-        [XmlElement(ElementName="Avoid")]
-        public Avoid Avoid;
-
-        [XmlElement(ElementName="Bounce")]
-        public Bounce Bounce;
-
-        [XmlElement(ElementName="Gravity")]
-        public Gravity Gravity;
-
-        [XmlElement(ElementName="Damping")]
-        public Damping Damping;
-
-        [XmlElement(ElementName="Gravitate")]
-        public Gravitate Gravitate;
-
-        [XmlElement(ElementName="Follow")]
-        public Follow Follow;
-
-        [XmlElement(ElementName="MatchVel")]
-        public MatchVel MatchVel;
-
-        [XmlElement(ElementName="OrbitPoint")]
-        public OrbitPoint OrbitPoint;
-
-        [XmlElement(ElementName="Jet")]
-        public Jet Jet;
-
+        [XmlChoiceIdentifier("particleType")]
+        [XmlElement(ElementName="Avoid", Type=typeof(Avoid))]
+        [XmlElement(ElementName="Bounce", Type=typeof(Bounce))]
+        [XmlElement(ElementName="Gravity", Type=typeof(Gravity))]
+        [XmlElement(ElementName="Damping", Type=typeof(Damping))]
+        [XmlElement(ElementName="Gravitate", Type=typeof(Gravitate))]
+        [XmlElement(ElementName="Follow", Type=typeof(Follow))]
+        [XmlElement(ElementName="MatchVel", Type=typeof(MatchVel))]
+        [XmlElement(ElementName="OrbitPoint", Type=typeof(OrbitPoint))]
+        [XmlElement(ElementName="Jet", Type=typeof(Jet))]
         [XmlElement(ElementName="RandomVel")]
-        public object randomVelocity;
-
         [XmlElement(ElementName="RandomAccel")]
-        public object randomAcceleration;
-
         [XmlElement(ElementName="RandomDisplace")]
-        public object randomDisplacement;
-
-        [XmlElement(ElementName="TargetColor")]
-        public TargetColor TargetColor;
-
+        [XmlElement(ElementName="TargetColor", Type=typeof(TargetColor))]
         [XmlElement(ElementName="TargetSize")]
-        public object targetSize;
-
         [XmlElement(ElementName="TargetVel")]
-        public object targetVelocity;
+        public object particle;
+        public ParticleType particleType;
+
+        public enum ParticleType {
+            [XmlEnum("Avoid")] Avoid,
+            [XmlEnum("Bounce")] Bounce,
+            [XmlEnum("Gravity")] Gravity,
+            [XmlEnum("Damping")] Damping,
+            [XmlEnum("Gravitate")] Gravitate,
+            [XmlEnum("Follow")] Follow,
+            [XmlEnum("MatchVel")] MatchVelocity,
+            [XmlEnum("OrbitPoint")] OrbitPoint,
+            [XmlEnum("Jet")] Jet,
+            [XmlEnum("RandomVel")] RandomVelocity,
+            [XmlEnum("RandomAccel")] RandomAcceleration,
+            [XmlEnum("RandomDisplace")] RandomDisplace,
+            [XmlEnum("TargetColor")] TargetColor,
+            [XmlEnum("TargetSize")] TargetSize,
+            [XmlEnum("TargetVel")] TargetVelocity,
+        }
     }
 
 
@@ -1224,38 +1217,35 @@ namespace W3D
     [Serializable]
     public class Actions : W3D
     {
-        [XmlElement(ElementName="ObjectChange")]
-        public ObjectChange ObjectChange;
-
-        [XmlElement(ElementName="GroupRef")]
-        public GroupRef GroupRef;
-
-        [XmlElement(ElementName="TimerChange")]
-        public TimerChange TimerChange;
-
-        [XmlElement(ElementName="SoundRef")]
-        public SoundRef SoundRef;
-
-        [XmlElement(ElementName="Event")]
-        public Event Event;
-
-        [XmlElement(ElementName="MoveCave")]
-        public MoveCave MoveCave;
-
+        [XmlChoiceIdentifier("actionType")]
+        [XmlElement(ElementName="ObjectChange", Type=typeof(ObjectChange))]
+        [XmlElement(ElementName="GroupRef", Type=typeof(GroupRef))]
+        [XmlElement(ElementName="TimerChange", Type=typeof(TimerChange))]
+        [XmlElement(ElementName="SoundRef", Type=typeof(Reference))]
+        [XmlElement(ElementName="Event", Type=typeof(Event))]
+        [XmlElement(ElementName="MoveCave", Type=typeof(MoveCave))]
         [XmlElement(ElementName="Restart")]
-        public object Restart;
+        public object action;
+        public ActionType actionType;
+
+        public enum ActionType {
+            [XmlEnum("ObjectChange")] ObjectChange,
+            [XmlEnum("GroupRef")] GroupReference,
+            [XmlEnum("TimerChange")] TimerChange,
+            [XmlEnum("SoundRef")] SoundReference,
+            [XmlEnum("Event")] Event,
+            [XmlEnum("MoveCave")] MoveCave,
+            [XmlEnum("Restart")] Restart,
+        }
     }
 
 
     [Serializable]
     [XmlRoot(ElementName="ObjectChange")]
-    public class ObjectChange : W3D
+    public class ObjectChange : Reference
     {
         [XmlElement(ElementName="Transition")]
         public Transition Transition;
-
-        [XmlAttribute(AttributeName="name")]
-        public string name;
 
         [XmlText]
         public string text;
@@ -1264,13 +1254,10 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="GroupRef")]
-    public class GroupRef : W3D
+    public class GroupRef : Reference
     {
         [XmlElement(ElementName="Transition")]
         public Transition Transition;
-
-        [XmlAttribute(AttributeName="name")]
-        public string name;
 
         [XmlAttribute(AttributeName="random")]
         public Random random;
@@ -1284,46 +1271,32 @@ namespace W3D
     }
 
 
-
     [Serializable]
     [XmlRoot(ElementName="TimerChange")]
-    public class TimerChange : W3D
-    {
+    public class TimerChange : Reference
+    {        
+        [XmlChoiceIdentifier("changeType")]
         [XmlElement(ElementName="start")]
-        public object start;
-
         [XmlElement(ElementName="stop")]
-        public object stop;
-
         [XmlElement(ElementName="continue")]
-        public object continueTimer;
-
         [XmlElement(ElementName="start_if_not_started")]
-        public object startIfNotStarted;
+        public object change;
+        public ChangeType changeType;
 
-        [XmlAttribute(AttributeName="name")]
-        public string name;
+        public enum ChangeType {
+            [XmlEnum("start")] Start,
+            [XmlEnum("stop")] Stop,
+            [XmlEnum("continue")] Continue,
+            [XmlEnum("start_if_not_started")] StartIfNotStarted,
+        }
     }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="SoundRef")]
-    public class SoundRef : W3D
-    {
-        [XmlAttribute(AttributeName="name")]
-        public string name;
-    }
-
 
     [Serializable]
     [XmlRoot(ElementName="Event")]
-    public class Event : W3D
+    public class Event : Reference
     {
         [XmlAttribute(AttributeName="enable")]
         public bool enable;
-
-        [XmlAttribute(AttributeName="name")]
-        public string name;
     }
 
 
