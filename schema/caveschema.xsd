@@ -340,6 +340,8 @@
         <xs:element ref="Content" />
         <xs:element name="LinkRoot" minOccurs="0">
           <xs:complexType>
+            <!-- TODO: This choice is doing nothing -->
+            <!-- Include Link 0 or 1 times  -->
             <xs:choice minOccurs="0">
               <xs:element ref="Link" minOccurs="0" />
             </xs:choice>

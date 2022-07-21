@@ -111,15 +111,21 @@ namespace W3D
         [XmlElement(ElementName="Content")]
         public Content Content;
 
-        [XmlArray(ElementName="LinkRoot")]
-        [XmlArrayItem(ElementName="Link")]
-        public List<Link> LinkRoot;
+        [XmlElement(ElementName="LinkRoot")]
+        public LinkRoot LinkRoot;
 
         [XmlAttribute(AttributeName="name")]
         public string name;
 
         [XmlText]
         public string text;
+    }
+
+    [XmlRoot(ElementName = "LinkRoot")]
+    public class LinkRoot
+    {
+        [XmlElement(ElementName = "Link")]
+        public Link Link;
     }
 
 
@@ -470,7 +476,7 @@ namespace W3D
         [XmlElement(ElementName="Fixed")]
         public object mode; // Data inside of <Positional> or <Fixed>
         public SoundMode soundMode; // Whether <Positional> or <Fixed> is inside <Mode>
-        
+
         public enum SoundMode {
             [XmlEnum("Positional")] Positional,
             [XmlEnum("Fixed")] Fixed
