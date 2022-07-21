@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
 
+using W3D;
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
@@ -41,13 +42,13 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             story = (W3D.Story)serializer.Deserialize(reader);
         }
         Debug.Log(story.pprint());
+        
+        ObjectClass obj = story.ObjectRoot.Find(x => x.name == "LINK");
+        Debug.Log(obj.LinkRoot[0].Actions.Count);
+        // foreach(Action)
 
-        foreach(W3D.Sound sound in story.SoundRoot)
-        {
-            Debug.Log($"{sound.name} {sound.Mode.mode}");
-            Debug.Log(sound.Mode.modeType);
-        }
-
+        // Use enum (ModeType) to get the type - object (mode) contains the data.
+        // This type is an enum so it doesn't make a difference, will elsewhere
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 

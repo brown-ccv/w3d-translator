@@ -19,7 +19,7 @@ namespace W3D
     {
         [XmlArray(ElementName="ObjectRoot")]
         [XmlArrayItem(ElementName="Object")] 
-        public List<Object> ObjectRoot;
+        public List<ObjectClass> ObjectRoot;
     
         [XmlArray(ElementName="GroupRoot")]
         [XmlArrayItem(ElementName="Group")] 
@@ -39,7 +39,7 @@ namespace W3D
 
         [XmlArray(ElementName="EventRoot")]
         [XmlArrayItem(ElementName="EventTrigger")]
-        public List<EventTrigger> EventTrigger;
+        public List<EventTrigger> EventRoot;
 	    
         [XmlArray(ElementName="ParticleActionRoot")]
 	    [XmlArrayItem(ElementName="ParticleActionList")] 
@@ -77,7 +77,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="Object")]
-    public class Object : W3D
+    public class ObjectClass : W3D
     {
         [XmlElement(ElementName="Visible")]
         public bool visible;
@@ -162,12 +162,16 @@ namespace W3D
         public List<string> text;
 
         // TODO: Enum
+
         [XmlAttribute(AttributeName="horiz-align")]
-        public string horizontalAlign;
+        public horizAlign horizontalAlign;
+        public enum horizAlign { left, center, right }
 
         // TODO: Enum
         [XmlAttribute(AttributeName="vert-align")]
-        public string verticalAlign;
+        // public string verticalAlign;
+        public vertAlign verticalAlign;
+        public enum vertAlign { top, center, bottom }
 
         [XmlAttribute(AttributeName="font")]
         public string font;
@@ -310,7 +314,7 @@ namespace W3D
         public Color selectedColor;
 
         [XmlElement(ElementName="Actions")]
-        public Actions Actions;
+        public List<Actions> Actions;
     }
 
 
@@ -457,9 +461,6 @@ namespace W3D
     [XmlRoot(ElementName="Mode")]
     public class Mode : W3D
     {
-        // Use enum (ModeType) to get the type - object (mode) contains the data.
-        // This type is an enum so it doesn't make a difference, will elsewhere
-
         [XmlChoiceIdentifier("modeType")]
         [XmlElement(ElementName="Positional")]
         [XmlElement(ElementName="Fixed")]
@@ -670,9 +671,12 @@ namespace W3D
         [XmlAttribute(AttributeName="name")]
         public string name;
 
-        // TODO: Enum ("any Object" or "All Objects")
         [XmlAttribute(AttributeName="objects")]
-        public string objects;
+        public Selection objectSelection;
+        public enum Selection { 
+            [XmlEnum(Name="Any Object")] Any,
+            [XmlEnum(Name="All Objects")] All
+        }
     }
 
 
@@ -1259,9 +1263,11 @@ namespace W3D
         [XmlAttribute(AttributeName="name")]
         public string name;
 
-        // TODO: Enum ("Select One Randomly")
         [XmlAttribute(AttributeName="random")]
-        public string random;
+        public Random random;
+        public enum Random { 
+            [XmlEnum(Name="Select One Randomly")] OneRandom,
+        }
 
         [XmlText]
         public string text;
@@ -1269,7 +1275,8 @@ namespace W3D
 
 
 
-    // TODO: Enum   [Serializable]
+    // TODO: Enum
+    [Serializable]
     [XmlRoot(ElementName="TimerChange")]
     public class TimerChange : W3D
     {
