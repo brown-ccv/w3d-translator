@@ -45,42 +45,27 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Debug.Log(story.pprint());
 
         foreach(W3D.Object obj in story.ObjectRoot){
-            Debug.Log($"OBJ {obj.name}: {obj.pprint()}");
-            Debug.Log($"{obj.Content.contentType}");
-
             switch(obj.Content.contentType) {
-                case Content.ContentType.None: {                    
-                    Debug.Log(null);
-                    break;
-                }
-                case Content.ContentType.Text: {
-                    Text content = (Text)obj.Content.content;
-                    Debug.Log($"{content.GetType()} {content.pprint()}");
-                    break;
-                }
-                case Content.ContentType.Image: {
-                    Image content = (Image)obj.Content.content;
-                    Debug.Log($"{content.GetType()} {content.pprint()}");
-                    break;
-                }
-                case Content.ContentType.StereoImage: {
-                    StereoImage content = (StereoImage)obj.Content.content;
-                    Debug.Log($"{content.GetType()} {content.pprint()}");
-                    break;
-                }
-                case Content.ContentType.Model: {
-                    Model content = (Model)obj.Content.content;
-                    Debug.Log($"{content.GetType()} {content.pprint()}");
-                    break;
-                }
                 case Content.ContentType.Light: {
                     W3D.Light content = (W3D.Light)obj.Content.content;
                     Debug.Log($"{content.GetType()} {content.pprint()}");
-                    break;
-                }
-                case Content.ContentType.ParticleSystem: {
-                    W3D.ParticleSystem content = (W3D.ParticleSystem)obj.Content.content;
-                    Debug.Log($"{content.GetType()} {content.pprint()}");
+
+                    switch(content.lightType){
+                        case W3D.Light.LightType.Point: {
+                            Debug.Log($"POINT");
+                            break;
+                        }
+                        case W3D.Light.LightType.Directional: {
+                            Debug.Log($"DIRECTIONAL");
+                            break;
+                        }
+                        case W3D.Light.LightType.Spot: {
+                            Spot spotlight = (Spot)content.light;
+                            Debug.Log($"SPOT {spotlight.pprint()}");
+                            break;
+                        }
+                        default: break;
+                    }
                     break;
                 }
                 default: break;

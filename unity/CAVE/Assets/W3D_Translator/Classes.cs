@@ -262,14 +262,18 @@ namespace W3D
     // TODO: Unity has a Light class
     public class Light : W3D
     {
+        [XmlChoiceIdentifier("lightType")]
         [XmlElement(ElementName="Point")]
-        public object Point;
-
         [XmlElement(ElementName="Directional")]
-        public object Directional;
+        [XmlElement(ElementName="Spot", Type=typeof(Spot))]
+        public object light;
+        public LightType lightType;
 
-        [XmlElement(ElementName="Spot")]
-        public object Spot;
+        public enum LightType {
+            [XmlEnum("Point")] Point,
+            [XmlEnum("Directional")] Directional,
+            [XmlEnum("Spot")] Spot,
+        }
 
         [XmlAttribute(AttributeName="diffuse")]
         public bool diffuse;
