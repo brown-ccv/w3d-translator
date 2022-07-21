@@ -352,13 +352,16 @@ namespace W3D
     [XmlRoot(ElementName="Clicks")]
     public class Clicks : W3D
     {
+        [XmlChoiceIdentifier("clicksType")]
         [XmlElement(ElementName="Any")]
-        public object Any;
+        [XmlElement(ElementName="NumClicks", Type=typeof(NumClicks))]
+        public object clicks;
+        public ClicksType clicksType;
 
-        [XmlElement(ElementName="NumClicks")]
-        public NumClicks NumClicks;
-
-
+        public enum ClicksType {
+            [XmlEnum("Any")] Any,
+            [XmlEnum("NumClicks")] Number,
+        }
     }
 
 
