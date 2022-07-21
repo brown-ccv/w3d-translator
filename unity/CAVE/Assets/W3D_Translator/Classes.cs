@@ -465,11 +465,16 @@ namespace W3D
     [XmlRoot(ElementName="Mode")]
     public class Mode : W3D
     {
+        [XmlChoiceIdentifier("soundMode")]
         [XmlElement(ElementName="Positional")]
-        public object Positional;
-
         [XmlElement(ElementName="Fixed")]
-        public object Fixed;
+        public object mode; // Data inside of <Positional> or <Fixed>
+        public SoundMode soundMode; // Whether <Positional> or <Fixed> is inside <Mode>
+        
+        public enum SoundMode {
+            [XmlEnum("Positional")] Positional,
+            [XmlEnum("Fixed")] Fixed
+        }
     }
 
 
