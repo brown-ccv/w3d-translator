@@ -384,34 +384,32 @@ namespace W3D
     [XmlRoot(ElementName="Group")]
     public class Group : W3D
     {
-        [XmlElement(ElementName="Objects")]
-        public List<Objects> Objects;
+        [XmlChoiceIdentifier("referenceTypes")]
+        [XmlElement(ElementName="Objects", Type=typeof(Reference))]
+        [XmlElement(ElementName="Groups", Type=typeof(Reference))]
+        public Reference[] references;
+        public ReferenceType[] referenceTypes;
 
-        [XmlElement(ElementName="Groups")]
-        public List<Groups> Groups;
+        public enum ReferenceType {
+            [XmlEnum("Objects")] Object,
+            [XmlEnum("Groups")] Group
+        }
+
+        
 
         [XmlAttribute(AttributeName="name")]
         public string name;
 
     }
-
 
     [Serializable]
     [XmlRoot(ElementName="Objects")]
-    public class Objects : W3D
-    {
-        [XmlAttribute(AttributeName="name")]
-        public string name;
-    }
+    public class Objects : Reference{}
 
 
     [Serializable]
     [XmlRoot(ElementName="Groups")]
-    public class Groups : W3D
-    {
-        [XmlAttribute(AttributeName="name")]
-        public string name;
-    }
+    public class Groups : Reference{}
 
 
     /********** TIMELINE        ***********/
@@ -1786,5 +1784,13 @@ namespace W3D
                 float.Parse(strings[2])
             );
         }
+    }
+
+
+    // Reference another class/object by name
+    public class Reference : W3D
+    {
+        [XmlAttribute(AttributeName="name")]
+        public string name;
     }
 }

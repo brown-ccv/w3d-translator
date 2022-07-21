@@ -44,32 +44,19 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         }
         Debug.Log(story.pprint());
 
-        foreach(W3D.Object obj in story.ObjectRoot){
-            switch(obj.Content.contentType) {
-                case Content.ContentType.Light: {
-                    W3D.Light content = (W3D.Light)obj.Content.content;
-                    Debug.Log($"{content.GetType()} {content.pprint()}");
-
-                    switch(content.lightType){
-                        case W3D.Light.LightType.Point: {
-                            Debug.Log($"POINT");
-                            break;
-                        }
-                        case W3D.Light.LightType.Directional: {
-                            Debug.Log($"DIRECTIONAL");
-                            break;
-                        }
-                        case W3D.Light.LightType.Spot: {
-                            Spot spotlight = (Spot)content.light;
-                            Debug.Log($"SPOT {spotlight.pprint()}");
-                            break;
-                        }
-                        default: break;
+            W3D.Group group = story.GroupRoot[0];
+            Debug.Log(group.pprint());
+            for(int i = 0; i < group.references.Length; i++) {
+                switch(group.referenceTypes[i]){
+                    case W3D.Group.ReferenceType.Object: {
+                        Debug.Log($"Object ref {group.references[i].name}");
+                        break;
                     }
-                    break;
+                    case W3D.Group.ReferenceType.Group: {
+                        Debug.Log($"Group ref {group.references[i].name}");
+                        break;
+                    }
                 }
-                default: break;
-            }
         }
 
 
