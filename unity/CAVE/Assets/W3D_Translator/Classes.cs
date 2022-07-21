@@ -1304,11 +1304,11 @@ namespace W3D
     [XmlRoot(ElementName="MoveCave")]
     public class MoveCave : W3D
     {
+        [XmlChoiceIdentifier("moveType")]
         [XmlElement(ElementName="Relative")]
-        public object Relative;
-
         [XmlElement(ElementName="Absolute")]
-        public object Absolute;
+        public object move;
+        public MoveType moveType;
 
         [XmlElement(ElementName="Placement")]
         public Placement Placement;
@@ -1318,6 +1318,11 @@ namespace W3D
 
         [XmlText]
         public string text;
+
+        public enum MoveType {
+            [XmlEnum("Relative")] Relative,
+            [XmlEnum("Absolute")] Absolute,
+        }
     }
 
 
