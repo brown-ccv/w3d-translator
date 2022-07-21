@@ -161,8 +161,6 @@ namespace W3D
         [XmlElement(ElementName="text")]
         public List<string> text;
 
-        // TODO: Enum
-
         [XmlAttribute(AttributeName="horiz-align")]
         public horizAlign horizontalAlign;
         public enum horizAlign { 
@@ -172,7 +170,6 @@ namespace W3D
             [XmlEnum(Name="right")] Right,
         }
 
-        // TODO: Enum
         [XmlAttribute(AttributeName="vert-align")]
         public vertAlign verticalAlign;
         public enum vertAlign { 
@@ -256,7 +253,6 @@ namespace W3D
     [XmlRoot(ElementName="Light")]
     public class Light : W3D
     {
-        // TODO: Enum (Point, Directional, Spot)
         [XmlElement(ElementName="Point")]
         public object Point;
 
@@ -334,7 +330,6 @@ namespace W3D
     [XmlRoot(ElementName="Actions")]
     public class Actions : ActionsType
     {
-        // TODO: Enum
         [XmlElement(ElementName="Clicks")]
         public Clicks Clicks;
     }
@@ -470,15 +465,11 @@ namespace W3D
     [XmlRoot(ElementName="Mode")]
     public class Mode : W3D
     {
-        [XmlChoiceIdentifier("soundMode")]
         [XmlElement(ElementName="Positional")]
+        public object Positional;
+
         [XmlElement(ElementName="Fixed")]
-        public object mode; // Data inside of <Positional> or <Fixed>
-        public SoundMode soundMode; // Whether <Positional> or <Fixed> is inside <Mode>
-        public enum SoundMode {
-            [XmlEnum("Positional")] Positional,
-            [XmlEnum("Fixed")] Fixed
-        }
+        public object Fixed;
     }
 
 
@@ -719,7 +710,6 @@ namespace W3D
     }
 
 
-    // TODO: Enum
     [Serializable]
     [XmlRoot(ElementName="Movement")]
     public class Movement : W3D
@@ -782,8 +772,7 @@ namespace W3D
     // PARTICLE ACTION
 
 
-
-    // TODO: enum?  [Serializable]
+    [Serializable]
     [XmlRoot(ElementName="ParticleAction")]
     public class ParticleAction : W3D
     {
@@ -1007,7 +996,7 @@ namespace W3D
     // REMOVE CONDITION
 
 
-    // TODO: Enum?  [Serializable]
+    [Serializable]
     [XmlRoot(ElementName="RemoveCondition")]
     public class RemoveCondition : W3D
     {
@@ -1220,7 +1209,6 @@ namespace W3D
 
 
     [Serializable]
-    // TODO: Enum?
     public class ActionsType : W3D
     {
         [XmlElement(ElementName="ObjectChange")]
@@ -1284,7 +1272,6 @@ namespace W3D
 
 
 
-    // TODO: Enum
     [Serializable]
     [XmlRoot(ElementName="TimerChange")]
     public class TimerChange : W3D
@@ -1331,7 +1318,6 @@ namespace W3D
     [XmlRoot(ElementName="MoveCave")]
     public class MoveCave : W3D
     {
-        // TODO: Enum (relative or Absolute)
         [XmlElement(ElementName="Relative")]
         public object Relative;
 
@@ -1351,9 +1337,7 @@ namespace W3D
 
     // TRANSITION TYPE
 
-
-
-    // TODO: Enum?  
+ 
     [Serializable]
     public class TransitionType : W3D
     {
@@ -1424,8 +1408,6 @@ namespace W3D
     }
 
 
-
-    // TODO: Enum
     [Serializable]
     [XmlRoot(ElementName="LinkChange")]
     public class LinkChange : W3D
@@ -1447,8 +1429,6 @@ namespace W3D
     // PARTICLE DOMAIN TYPE
 
 
-
-    // TODO: Enum?
     [Serializable]
     [XmlRoot(ElementName="ParticleDomain")]
     public class ParticleDomainType : W3D
