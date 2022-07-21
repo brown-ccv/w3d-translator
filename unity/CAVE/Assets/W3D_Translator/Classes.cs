@@ -470,17 +470,14 @@ namespace W3D
     [XmlRoot(ElementName="Mode")]
     public class Mode : W3D
     {
-        [XmlChoiceIdentifier("modeType")]
+        [XmlChoiceIdentifier("soundMode")]
         [XmlElement(ElementName="Positional")]
         [XmlElement(ElementName="Fixed")]
-        public object mode;
-        public ModeEnum modeType;
-
-
-        public enum ModeEnum {
-            None,
-            [XmlEnum(Name="Positional")] Positional,
-            [XmlEnum(Name="Fixed")] Fixed
+        public object mode; // Data inside of <Positional> or <Fixed>
+        public SoundMode soundMode; // Whether <Positional> or <Fixed> is inside <Mode>
+        public enum SoundMode {
+            [XmlEnum("Positional")] Positional,
+            [XmlEnum("Fixed")] Fixed
         }
     }
 
@@ -1417,9 +1414,13 @@ namespace W3D
     [XmlRoot(ElementName="Sound")]
     public class SoundTransition : W3D
     {
-        // TODO: Enum ("Play Sound", "Stop Sound")
         [XmlAttribute(AttributeName="action")]
-        public string action;
+        public Action action;
+        public enum Action { 
+            None,
+            [XmlEnum(Name="Play Sound")] Play,
+            [XmlEnum(Name="Stop Sound")] Stop,
+        }
     }
 
 

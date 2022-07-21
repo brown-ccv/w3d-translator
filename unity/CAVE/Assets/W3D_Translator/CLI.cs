@@ -43,13 +43,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             story = (W3D.Story)serializer.Deserialize(reader);
         }
         Debug.Log(story.pprint());
-        
-        ObjectClass obj = story.ObjectRoot.Find(x => x.name == "LINK");
-        foreach(Actions action in obj.LinkRoot[0].Actions){
-            if(action.GroupRef != null){
-                Debug.Log($"ACTION {action.GroupRef.name} {action.GroupRef.random}");
-            }
-        }
+
+
+
         // Use enum (ModeType) to get the type - object (mode) contains the data.
         // This type is an enum so it doesn't make a difference, will elsewhere
 
