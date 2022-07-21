@@ -395,21 +395,9 @@ namespace W3D
             [XmlEnum("Groups")] Group
         }
 
-        
-
         [XmlAttribute(AttributeName="name")]
         public string name;
-
     }
-
-    [Serializable]
-    [XmlRoot(ElementName="Objects")]
-    public class Objects : Reference{}
-
-
-    [Serializable]
-    [XmlRoot(ElementName="Groups")]
-    public class Groups : Reference{}
 
 
     /********** TIMELINE        ***********/
