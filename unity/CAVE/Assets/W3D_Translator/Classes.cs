@@ -570,12 +570,6 @@ namespace W3D
     [XmlRoot(ElementName="Position")]
     public class TrackPosition : W3D
     {
-        // [XmlElement(ElementName="Anywhere")]
-        // public object Anywhere;
-
-        // [XmlElement(ElementName="Box")]
-        // public Box Box;
-
         [XmlChoiceIdentifier("positionType")]
         [XmlElement(ElementName="Anywhere")]
         [XmlElement(ElementName="Box", Type=typeof(Box))]
@@ -1029,15 +1023,18 @@ namespace W3D
     [XmlRoot(ElementName="RemoveCondition")]
     public class RemoveCondition : W3D
     {
+        [XmlChoiceIdentifier("removeType")]
+        [XmlElement(ElementName="Age", Type=typeof(Age))]
+        [XmlElement(ElementName="Position", Type=typeof(Remove))]
+        [XmlElement(ElementName="Velocity", Type=typeof(Remove))]
+        public object remove;
+        public RemoveType removeType;
 
-        [XmlElement(ElementName="Age")]
-        public Age Age;
-
-        [XmlElement(ElementName="Position")]
-        public Position Position;
-
-        [XmlElement(ElementName="Velocity")]
-        public Velocity Velocity;
+        public enum RemoveType {
+            [XmlEnum("Age")] Age,
+            [XmlEnum("Position")] Position,
+            [XmlEnum("Velocity")] Velocity
+        }
     }
 
 
@@ -1054,20 +1051,7 @@ namespace W3D
 
 
     [Serializable]
-    [XmlRoot(ElementName="Position")]
-    public class Position : W3D
-    {
-        [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomain ParticleDomain;
-
-        [XmlAttribute(AttributeName="inside")]
-        public bool inside;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="Velocity")]
-    public class Velocity : W3D
+    public class Remove : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
         public ParticleDomain ParticleDomain;
