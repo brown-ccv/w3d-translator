@@ -84,12 +84,7 @@ namespace W3D
         public bool visible;
 
         [XmlElement(ElementName="Color")]
-        public string colorString
-        {
-            get { return color.ToString(); }
-            set { color= ConvertColor(value); }
-        }
-        public Color color;
+        public string colorString;
 
         [XmlElement(ElementName="Lighting")]
         public bool lighting;
@@ -316,20 +311,10 @@ namespace W3D
         public bool remainEnabled;
 
         [XmlElement(ElementName="EnabledColor")]
-        public string enabledColorString
-        {
-            get { return enabledColor.ToString(); }
-            set { enabledColor= ConvertColor(value); }
-        }
-        public Color enabledColor;
+        public string enabledColorString;
 
         [XmlElement(ElementName="SelectedColor")]
-        public string selectedColorString
-        {
-            get { return selectedColor.ToString(); }
-            set { selectedColor= ConvertColor(value); }
-        }
-        public Color selectedColor;
+        public string selectedColorString;
 
         [XmlElement(ElementName="Actions")]
         public List<LinkActions> Actions;
@@ -613,12 +598,7 @@ namespace W3D
     public class PointTarget : W3D
     {
         [XmlAttribute(AttributeName="point")]
-        public string pointString
-        {
-            get { return point.ToString(); }
-            set { point= ConvertVector3(value); }
-        }
-        public Vector3 point;
+        public string pointString;
 
         [XmlAttribute(AttributeName="angle")]
         public double angle;
@@ -631,12 +611,7 @@ namespace W3D
     public class DirectionTarget : W3D
     {
         [XmlAttribute(AttributeName="direction")]
-        public string directionString
-        {
-            get { return direction.ToString(); }
-            set { direction= ConvertVector3(value); }
-        }
-        public Vector3 direction;
+        public string directionString;
 
         [XmlAttribute(AttributeName="angle")]
         public double angle;
@@ -704,20 +679,10 @@ namespace W3D
         public bool ignoreY;
 
         [XmlAttribute(AttributeName="corner1")]
-        public string corner1String
-        {
-            get { return corner1.ToString(); }
-            set { corner1= ConvertVector3(value); }
-        }
-        public Vector3 corner1;
+        public string corner1String;
 
         [XmlAttribute(AttributeName="corner2")]
-        public string corner2String
-        {
-            get { return corner2.ToString(); }
-            set { corner2= ConvertVector3(value); }
-        }
-        public Vector3 corner2;
+        public string corner2String;
     }
 
 
@@ -871,12 +836,7 @@ namespace W3D
     public class Gravity : W3D
     {
         [XmlAttribute(AttributeName="direction")]
-        public string directionString
-        {
-            get { return direction.ToString(); }
-            set { direction= ConvertVector3(value); }
-        }
-        public Vector3 direction;
+        public string directionString;
     }
 
 
@@ -885,12 +845,7 @@ namespace W3D
     public class Damping : W3D
     {
         [XmlAttribute(AttributeName="direction")]
-        public string directionString
-        {
-            get { return direction.ToString(); }
-            set { direction= ConvertVector3(value); }
-        }
-        public Vector3 direction;
+        public string directionString;
 
         [XmlAttribute(AttributeName="vel_low")]
         public double velocityLow;
@@ -951,12 +906,8 @@ namespace W3D
     public class OrbitPoint : W3D
     {
         [XmlAttribute(AttributeName="center")]
-        public string centerString
-        {
-            get { return center.ToString(); }
-            set { center= ConvertVector3(value); }
-        }
-        public Vector3 center;
+        public string centerString;
+
         [XmlAttribute(AttributeName="magnitude")]
         public double magnitude;
 
@@ -985,12 +936,7 @@ namespace W3D
     public class TargetColor : W3D
     {
         [XmlAttribute(AttributeName="color")]
-        public string colorString
-        {
-            get { return color.ToString(); }
-            set { color= ConvertColor(value); }
-        }
-        public Color color;
+        public string colorString;
 
         [XmlAttribute(AttributeName="alpha")]
         public double alpha;
@@ -1086,13 +1032,7 @@ namespace W3D
     public class Background : W3D
     {
         [XmlAttribute(AttributeName="color")]
-        public string colorString
-        {
-            get { return color.ToString(); }
-            set { color= ConvertColor(value); }
-        }
-        public Color color;
-
+        public string colorString;
     }
 
 
@@ -1122,12 +1062,7 @@ namespace W3D
         public string relativeTo;
 
         [XmlElement(ElementName="Position")]
-        public string positionString
-        {
-            get { return position.ToString(); }
-            set { position= ConvertVector3(value); }
-        }
-        public Vector3 position;
+        public string positionString;
 
         [XmlElement(ElementName="Axis")]
         public Axis Axis;
@@ -1151,12 +1086,7 @@ namespace W3D
     public class Axis : W3D
     {
         [XmlAttribute(AttributeName="rotation")]
-        public string rotationString
-        {
-            get { return rotation.ToString(); }
-            set { rotation= ConvertVector3(value); }
-        }
-        public Vector3 rotation;
+        public string rotationString;
 
         [XmlAttribute(AttributeName="angle")]
         public double angle;
@@ -1168,20 +1098,10 @@ namespace W3D
     public class LookAt : W3D
     {
         [XmlAttribute(AttributeName="target")]
-        public string targetString
-        {
-            get { return target.ToString(); }
-            set { target= ConvertVector3(value); }
-        }
-        public Vector3 target;
+        public string targetString;
 
         [XmlAttribute(AttributeName="up")]
-        public string upString
-        {
-            get { return up.ToString(); }
-            set { up= ConvertVector3(value); }
-        }
-        public Vector3 up;
+        public string upString;
     }
 
 
@@ -1190,12 +1110,7 @@ namespace W3D
     public class Normal : W3D
     {
         [XmlAttribute(AttributeName="normal")]
-        public string normalString
-        {
-            get { return normal.ToString(); }
-            set { normal= ConvertVector3(value); }
-        }
-        public Vector3 normal;
+        public string normalString;
 
         [XmlAttribute(AttributeName="angle")]
         public double angle;
@@ -1323,14 +1238,6 @@ namespace W3D
     [Serializable]
     public class Transition : W3D
     {
-        // [XmlElement(ElementName="Color")]
-        // public string colorString
-        // {
-        //     get { return color.ToString(); }
-        //     set { color= ConvertColor(value); }
-        // }
-        // public Color color;
-
         [XmlChoiceIdentifier("transitionType")]
         [XmlElement(ElementName="Visible", Type=typeof(bool))]
         [XmlElement(ElementName="Movement", Type=typeof(MovementTransition))]
@@ -1458,13 +1365,7 @@ namespace W3D
     public class Point : W3D
     {
         [XmlAttribute(AttributeName="point")]
-        public string pointString
-        {
-            get { return point.ToString(); }
-            set { point= ConvertVector3(value); }
-        }
-        public Vector3 point;
-
+        public string pointString;
     }
 
 
@@ -1473,20 +1374,10 @@ namespace W3D
     public class Line : W3D
     {
         [XmlAttribute(AttributeName="p1")]
-        public string p1String
-        {
-            get { return p1.ToString(); }
-            set { p1= ConvertVector3(value); }
-        }
-        public Vector3 p1;
+        public string p1String;
 
         [XmlAttribute(AttributeName="p2")]
-        public string p2String
-        {
-            get { return p2.ToString(); }
-            set { p2= ConvertVector3(value); }
-        }
-        public Vector3 p2;
+        public string p2String;
     }
 
 
@@ -1495,28 +1386,13 @@ namespace W3D
     public class Triangle : W3D
     {
         [XmlAttribute(AttributeName="p1")]
-        public string p1String
-        {
-            get { return p1.ToString(); }
-            set { p1= ConvertVector3(value); }
-        }
-        public Vector3 p1;
+        public string p1String;
 
         [XmlAttribute(AttributeName="p2")]
-        public string p2String
-        {
-            get { return p2.ToString(); }
-            set { p2= ConvertVector3(value); }
-        }
-        public Vector3 p2;
+        public string p2String;
 
         [XmlAttribute(AttributeName="p3")]
-        public string p3String
-        {
-            get { return p3.ToString(); }
-            set { p3= ConvertVector3(value); }
-        }
-        public Vector3 p3;
+        public string p3String;
     }
 
 
@@ -1525,20 +1401,10 @@ namespace W3D
     public class Plane : W3D
     {
         [XmlAttribute(AttributeName="point")]
-        public string pointString
-        {
-            get { return point.ToString(); }
-            set { point= ConvertVector3(value); }
-        }
-        public Vector3 point;
+        public string pointString;
 
         [XmlAttribute(AttributeName="normal")]
-        public string normalString
-        {
-            get { return normal.ToString(); }
-            set { normal= ConvertVector3(value); }
-        }
-        public Vector3 normal;
+        public string normalString;
     }
 
 
@@ -1547,28 +1413,13 @@ namespace W3D
     public class Rectangle : W3D
     {
         [XmlAttribute(AttributeName="p1")]
-        public string p1String
-        {
-            get { return p1.ToString(); }
-            set { p1= ConvertVector3(value); }
-        }
-        public Vector3 p1;
+        public string p1String;
 
         [XmlAttribute(AttributeName="u-dir")]
-        public string uString
-        {
-            get { return u.ToString(); }
-            set { u= ConvertVector3(value); }
-        }
-        public Vector3 u;
+        public string uString;
 
         [XmlAttribute(AttributeName="v-dir")]
-        public string vString
-        {
-            get { return v.ToString(); }
-            set { v= ConvertVector3(value); }
-        }
-        public Vector3 v;
+        public string vStringl;
     }
 
 
@@ -1577,20 +1428,10 @@ namespace W3D
     public class BoxBoxParticle : W3D
     {
         [XmlAttribute(AttributeName="p1")]
-        public string p1String
-        {
-            get { return p1.ToString(); }
-            set { p1= ConvertVector3(value); }
-        }
-        public Vector3 p1;
+        public string p1String;
 
         [XmlAttribute(AttributeName="p2")]
-        public string p2String
-        {
-            get { return p2.ToString(); }
-            set { p2= ConvertVector3(value); }
-        }
-        public Vector3 p2;
+        public string p2String;
     }
 
 
@@ -1599,28 +1440,13 @@ namespace W3D
     public class Sphere : W3D
     {
         [XmlAttribute(AttributeName="center")]
-        public string centerString
-        {
-            get { return center.ToString(); }
-            set { center= ConvertVector3(value); }
-        }
-        public Vector3 center;
+        public string centerString;
 
         [XmlAttribute(AttributeName="radius")]
-        public string radiusString
-        {
-            get { return radius.ToString(); }
-            set { radius= ConvertVector3(value); }
-        }
-        public Vector3 radius;
+        public string radiusString;
 
         [XmlAttribute(AttributeName="radius-inner")]
-        public string innerRadiusString
-        {
-            get { return innerRadius.ToString(); }
-            set { innerRadius= ConvertVector3(value); }
-        }
-        public Vector3 innerRadius;
+        public string innerRadiusString;
     }
 
 
@@ -1629,20 +1455,10 @@ namespace W3D
     public class Cylinder : W3D
     {
         [XmlAttribute(AttributeName="p1")]
-        public string p1String
-        {
-            get { return p1.ToString(); }
-            set { p1= ConvertVector3(value); }
-        }
-        public Vector3 p1;
+        public string p1String;
 
         [XmlAttribute(AttributeName="p2")]
-        public string p2String
-        {
-            get { return p2.ToString(); }
-            set { p2= ConvertVector3(value); }
-        }
-        public Vector3 p2;
+        public string p2String;
 
         [XmlAttribute(AttributeName="radius")]
         public double radius;
@@ -1657,20 +1473,10 @@ namespace W3D
     public class Cone : W3D
     {
         [XmlAttribute(AttributeName="base-center")]
-        public string baseCenterString
-        {
-            get { return baseCenter.ToString(); }
-            set { baseCenter= ConvertVector3(value); }
-        }
-        public Vector3 baseCenter;
+        public string baseCenterString;
 
         [XmlAttribute(AttributeName="apex")]
-        public string apexString
-        {
-            get { return apex.ToString(); }
-            set { apex= ConvertVector3(value); }
-        }
-        public Vector3 apex;
+        public string apexString;
 
         [XmlAttribute(AttributeName="radius")]
         public double radius;
@@ -1685,12 +1491,7 @@ namespace W3D
     public class Blob : W3D
     {
         [XmlAttribute(AttributeName="center")]
-        public string centerString
-        {
-            get { return center.ToString(); }
-            set { center= ConvertVector3(value); }
-        }
-        public Vector3 center;
+        public string centerString;
 
         [XmlAttribute(AttributeName="stdev")]
         public double deviation;
@@ -1702,12 +1503,7 @@ namespace W3D
     public class Disc : W3D
     {
         [XmlAttribute(AttributeName="center")]
-        public string centerString
-        {
-            get { return center.ToString(); }
-            set { center= ConvertVector3(value); }
-        }
-        public Vector3 center;
+        public string centerString;
 
         [XmlAttribute(AttributeName="normal")]
         public string normal;
