@@ -31,7 +31,7 @@ namespace W3D
     
         [XmlArray(ElementName="PlacementRoot")]
         [XmlArrayItem(ElementName="Placement")] 
-        public List<PlacementType> PlacementRoot;
+        public List<Placement> PlacementRoot;
     
         [XmlArray(ElementName="SoundRoot")]
         [XmlArrayItem(ElementName="Sound")] 
@@ -106,7 +106,7 @@ namespace W3D
         public string soundRef;
 
         [XmlElement(ElementName="Placement")]
-        public PlacementType Placement;
+        public Placement Placement;
 
         [XmlElement(ElementName="Content")]
         public Content Content;
@@ -146,7 +146,7 @@ namespace W3D
         [XmlElement(ElementName="Light", Type=typeof(Light))]
         [XmlElement(ElementName="ParticleSystem", Type=typeof(ParticleSystem))]
         public object content;
-        public ContentType contentType;
+        public ContentType contentType; 
 
         public enum ContentType {
             [XmlEnum("None")] None,
@@ -156,8 +156,8 @@ namespace W3D
             [XmlEnum("Model")] Model,
             [XmlEnum("Light")] Light,
             [XmlEnum("ParticleSystem")] ParticleSystem,
-        }       
-    }
+        }   
+    }   
 
 
     [Serializable]
@@ -269,12 +269,6 @@ namespace W3D
         public object light;
         public LightType lightType;
 
-        public enum LightType {
-            [XmlEnum("Point")] Point,
-            [XmlEnum("Directional")] Directional,
-            [XmlEnum("Spot")] Spot,
-        }
-
         [XmlAttribute(AttributeName="diffuse")]
         public bool diffuse;
 
@@ -290,6 +284,11 @@ namespace W3D
         [XmlAttribute(AttributeName="quad_atten")]
         public double quadAtten;
 
+        public enum LightType {
+            [XmlEnum("Point")] Point,
+            [XmlEnum("Directional")] Directional,
+            [XmlEnum("Spot")] Spot,
+        }
     }
 
 
@@ -332,7 +331,7 @@ namespace W3D
         public Color selectedColor;
 
         [XmlElement(ElementName="Actions")]
-        public List<Actions> Actions;
+        public List<LinkActions> Actions;
     }
 
 
@@ -341,7 +340,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="Actions")]
-    public class Actions : ActionsType
+    public class LinkActions : Actions
     {
         [XmlElement(ElementName="Clicks")]
         public Clicks Clicks;
@@ -363,6 +362,7 @@ namespace W3D
             [XmlEnum("NumClicks")] Number,
         }
     }
+
 
 
     [Serializable]
@@ -390,14 +390,15 @@ namespace W3D
         public Reference[] references;
         public ReferenceType[] referenceTypes;
 
+        [XmlAttribute(AttributeName="name")]
+        public string name;
+
         public enum ReferenceType {
             [XmlEnum("Objects")] Object,
             [XmlEnum("Groups")] Group
         }
-
-        [XmlAttribute(AttributeName="name")]
-        public string name;
     }
+
 
 
     /********** TIMELINE        ***********/
@@ -423,7 +424,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="TimedActions")]
-    public class TimedActions : ActionsType
+    public class TimedActions : Actions
     {
         [XmlAttribute(AttributeName="seconds-time")]
         public double secondsTime;
@@ -467,31 +468,36 @@ namespace W3D
     [XmlRoot(ElementName="Mode")]
     public class Mode : W3D
     {
-        [XmlChoiceIdentifier("soundMode")]
+        [XmlChoiceIdentifier("modeType")]
         [XmlElement(ElementName="Positional")]
         [XmlElement(ElementName="Fixed")]
-        public object mode; // Data inside of <Positional> or <Fixed>
-        public SoundMode soundMode; // Whether <Positional> or <Fixed> is inside <Mode>
+        public object mode;
+        public ModeType modeType;
 
-        public enum SoundMode {
+        public enum ModeType {
             [XmlEnum("Positional")] Positional,
             [XmlEnum("Fixed")] Fixed
         }
     }
 
 
+
     [Serializable]
     [XmlRoot(ElementName="Repeat")]
     public class Repeat : W3D
     {
+        [XmlChoiceIdentifier("repeatType")]
         [XmlElement(ElementName="NoRepeat")]
-        public object NoRepeat;
-
         [XmlElement(ElementName="RepeatForever")]
-        public object RepeatForever;
-
-        [XmlElement(ElementName="RepeatNum")]
-        public uint repeatNum;
+        [XmlElement(ElementName="RepeatNum", Type=typeof(uint))]
+        public object repeat;
+        public RepeatType repeatType;
+            
+        public enum RepeatType {
+            [XmlEnum("NoRepeat")] No,
+            [XmlEnum("RepeatForever")] Forever,
+            [XmlEnum("RepeatNum")] Number,
+        }
     }
 
 
@@ -517,15 +523,14 @@ namespace W3D
     [XmlRoot(ElementName="EventTrigger")]
     public class EventTrigger : W3D
     {
-
-        [XmlElement(ElementName="HeadTrack")]
-        public HeadTrack HeadTrack;
-
-        [XmlElement(ElementName="MoveTrack")]
-        public MoveTrack MoveTrack;
+        [XmlChoiceIdentifier("trackType")]
+        [XmlElement(ElementName="HeadTrack", Type=typeof(HeadTrack))]
+        [XmlElement(ElementName="MoveTrack", Type=typeof(MoveTrack))]
+        public object Track;
+        public TrackType trackType;
 
         [XmlElement(ElementName="Actions")]
-        public List<ActionsType> Actions;
+        public List<Actions> Actions;
 
         [XmlAttribute(AttributeName="enabled")]
         public bool enabled;
@@ -538,6 +543,11 @@ namespace W3D
 
         [XmlAttribute(AttributeName="remain-enabled")]
         public bool remainEnabled;
+
+        public enum TrackType {
+            [XmlEnum("HeadTrack")] Head,
+            [XmlEnum("MoveTrack")] Move,
+        }
     }
 
 
@@ -760,7 +770,7 @@ namespace W3D
     public class ParticleSource : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomainType ParticleDomain;
+        public ParticleDomain ParticleDomain;
 
         [XmlAttribute(AttributeName="rate")]
         public double rate;
@@ -772,7 +782,7 @@ namespace W3D
     public class Vel : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomainType ParticleDomain;
+        public ParticleDomain ParticleDomain;
     }
 
 
@@ -835,7 +845,7 @@ namespace W3D
     public class Avoid : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomainType ParticleDomain;
+        public ParticleDomain ParticleDomain;
 
         [XmlAttribute(AttributeName="magnitude")]
         public double magnitude;
@@ -853,7 +863,7 @@ namespace W3D
     public class Bounce : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomainType ParticleDomain;
+        public ParticleDomain ParticleDomain;
 
         [XmlAttribute(AttributeName="friction")]
         public double friction;
@@ -973,10 +983,10 @@ namespace W3D
     public class Jet : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomainType ParticleDomain;
+        public ParticleDomain ParticleDomain;
 
         [XmlElement(ElementName="AccelDomain")]
-        public ParticleDomainType AccelDomain;
+        public ParticleDomain AccelDomain;
     }
 
 
@@ -1036,7 +1046,7 @@ namespace W3D
     public class Position : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomainType ParticleDomain;
+        public ParticleDomain ParticleDomain;
 
         [XmlAttribute(AttributeName="inside")]
         public bool inside;
@@ -1048,7 +1058,7 @@ namespace W3D
     public class Velocity : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomainType ParticleDomain;
+        public ParticleDomain ParticleDomain;
 
         [XmlAttribute(AttributeName="inside")]
         public bool inside;
@@ -1081,7 +1091,7 @@ namespace W3D
     public class Camera : W3D
     {
         [XmlElement(ElementName="Placement")]
-        public PlacementType Placement;
+        public Placement Placement;
 
         [XmlAttribute(AttributeName="far-clip")]
         public float farClip;
@@ -1126,7 +1136,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="Placement")]
-    public class PlacementType : W3D
+    public class Placement : W3D
     {
         [XmlElement(ElementName="RelativeTo")]
         public string relativeTo;
@@ -1216,7 +1226,7 @@ namespace W3D
 
 
     [Serializable]
-    public class ActionsType : W3D
+    public class Actions : W3D
     {
         [XmlElement(ElementName="ObjectChange")]
         public ObjectChange ObjectChange;
@@ -1246,7 +1256,7 @@ namespace W3D
     public class ObjectChange : W3D
     {
         [XmlElement(ElementName="Transition")]
-        public TransitionType Transition;
+        public Transition Transition;
 
         [XmlAttribute(AttributeName="name")]
         public string name;
@@ -1261,7 +1271,7 @@ namespace W3D
     public class GroupRef : W3D
     {
         [XmlElement(ElementName="Transition")]
-        public TransitionType Transition;
+        public Transition Transition;
 
         [XmlAttribute(AttributeName="name")]
         public string name;
@@ -1332,7 +1342,7 @@ namespace W3D
         public object Absolute;
 
         [XmlElement(ElementName="Placement")]
-        public PlacementType Placement;
+        public Placement Placement;
 
         [XmlAttribute(AttributeName="duration")]
         public double duration;
@@ -1346,7 +1356,7 @@ namespace W3D
 
  
     [Serializable]
-    public class TransitionType : W3D
+    public class Transition : W3D
     {
         [XmlElement(ElementName="Visible")]
         public bool visible;
@@ -1387,7 +1397,7 @@ namespace W3D
     public class MovementTransition : W3D
     {
         [XmlElement(ElementName="Placement")]
-        public PlacementType Placement;
+        public Placement Placement;
     }
 
 
@@ -1396,7 +1406,7 @@ namespace W3D
     public class MoveRel : W3D
     {
         [XmlElement(ElementName="Placement")]
-        public PlacementType Placement;
+        public Placement Placement;
 
     }
 
@@ -1438,7 +1448,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="ParticleDomain")]
-    public class ParticleDomainType : W3D
+    public class ParticleDomain : W3D
     {
         [XmlElement(ElementName="Point")]
         public Point Point;

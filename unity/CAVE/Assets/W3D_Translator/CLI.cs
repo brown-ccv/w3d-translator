@@ -44,21 +44,19 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         }
         Debug.Log(story.pprint());
 
-            W3D.Group group = story.GroupRoot[0];
-            Debug.Log(group.pprint());
-            for(int i = 0; i < group.references.Length; i++) {
-                switch(group.referenceTypes[i]){
-                    case W3D.Group.ReferenceType.Object: {
-                        Debug.Log($"Object ref {group.references[i].name}");
-                        break;
-                    }
-                    case W3D.Group.ReferenceType.Group: {
-                        Debug.Log($"Group ref {group.references[i].name}");
-                        break;
-                    }
+        foreach(EventTrigger e in story.EventRoot) {
+            Debug.Log($"Event: {e.name}");
+            switch(e.trackType){
+                case EventTrigger.TrackType.Head: {
+                    Debug.Log("HEAD");
+                    break;
                 }
+                case EventTrigger.TrackType.Move: {
+                    Debug.Log("MOVE");
+                    break;
+                }
+            }
         }
-
 
 
         // Use enum (ModeType) to get the type - object (mode) contains the data.
