@@ -46,17 +46,37 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         foreach(EventTrigger e in story.EventRoot) {
             switch(e.trackType){
-                case EventTrigger.TrackType.Move: {
-                    MoveTrack track = (MoveTrack)e.Track;
-                    switch(track.Source.sourceType){
-                        case Source.SourceType.Object: {
-                            Reference objRef = (Reference)track.Source.source;
-                            Debug.Log($"Object Ref {objRef.name}");
+                // case EventTrigger.TrackType.Move: {
+                //     MoveTrack track = (MoveTrack)e.Track;
+                //     switch(track.Box.Movement.movementType){
+                //         case Movement.MovementType.Inside: {
+                //             Debug.Log($"{e.name}: Move Track Inside");
+                //             break;
+                //         }
+                //         case Movement.MovementType.Outside: {
+                //             Debug.Log($"{e.name}: Move Track Outside");
+                //             break;
+                //         }
+                //     }
+                //     break;
+                // }
+                case EventTrigger.TrackType.Head: {
+                    HeadTrack track = (HeadTrack)e.Track;
+                    switch(track.Direction.directionType) {
+                        case Direction.DirectionType.None: {
+                            Debug.Log($"{e.name}: Head Track None");
                             break;
                         }
-                        case Source.SourceType.Group: {
-                            GroupSource groupRef = (GroupSource)track.Source.source;
-                            Debug.Log($"Group Ref {groupRef.pprint()}");
+                        case Direction.DirectionType.PointTarget: {
+                            Debug.Log($"{e.name}: Head Track Point");
+                            break;
+                        }
+                        case Direction.DirectionType.DirectionTarget: {
+                            Debug.Log($"{e.name}: Head Track Direction");
+                            break;
+                        }
+                        case Direction.DirectionType.ObjectTarget: {
+                            Debug.Log($"{e.name}: Head Track Object {((Reference)track.Direction.direction).name}");
                             break;
                         }
                     }

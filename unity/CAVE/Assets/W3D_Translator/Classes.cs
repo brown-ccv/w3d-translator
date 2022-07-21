@@ -570,11 +570,22 @@ namespace W3D
     [XmlRoot(ElementName="Position")]
     public class TrackPosition : W3D
     {
-        [XmlElement(ElementName="Anywhere")]
-        public object Anywhere;
+        // [XmlElement(ElementName="Anywhere")]
+        // public object Anywhere;
 
-        [XmlElement(ElementName="Box")]
-        public Box Box;
+        // [XmlElement(ElementName="Box")]
+        // public Box Box;
+
+        [XmlChoiceIdentifier("positionType")]
+        [XmlElement(ElementName="Anywhere")]
+        [XmlElement(ElementName="Box", Type=typeof(Box))]
+        public object position;
+        public PositionType positionType;
+
+        public enum PositionType {
+            [XmlEnum("Anywhere")] Anywhere,
+            [XmlEnum("Box")] Box
+        }
     }
 
 
@@ -585,17 +596,20 @@ namespace W3D
     [XmlRoot(ElementName="Direction")]
     public class Direction : W3D
     {
+        [XmlChoiceIdentifier("directionType")]
         [XmlElement(ElementName="None")]
-        public object None;
+        [XmlElement(ElementName="PointTarget", Type=typeof(PointTarget))]
+        [XmlElement(ElementName="DirectionTarget", Type=typeof(DirectionTarget))]
+        [XmlElement(ElementName="ObjectTarget", Type=typeof(Reference))]
+        public object direction;
+        public DirectionType directionType;
 
-        [XmlElement(ElementName="PointTarget")]
-        public PointTarget PointTarget;
-
-        [XmlElement(ElementName="DirectionTarget")]
-        public DirectionTarget DirectionTarget;
-
-        [XmlElement(ElementName="ObjectTarget")]
-        public ObjectTarget ObjectTarget;
+        public enum DirectionType {
+            [XmlEnum("None")] None,
+            [XmlEnum("PointTarget")] PointTarget,
+            [XmlEnum("DirectionTarget")] DirectionTarget,
+            [XmlEnum("ObjectTarget")] ObjectTarget
+        }
     }
 
 
@@ -615,6 +629,8 @@ namespace W3D
         public double angle;
 
     }
+
+
     [Serializable]
     [XmlRoot(ElementName="DirectionTarget")]
     public class DirectionTarget : W3D
@@ -632,13 +648,13 @@ namespace W3D
     }
 
 
-    [Serializable]
-    [XmlRoot(ElementName="ObjectTarget")]
-    public class ObjectTarget : W3D
-    {
-        [XmlAttribute(AttributeName="name")]
-        public string name;
-    }
+    // [Serializable]
+    // [XmlRoot(ElementName="ObjectTarget")]
+    // public class ObjectTarget : W3D
+    // {
+    //     [XmlAttribute(AttributeName="name")]
+    //     public string name;
+    // }
 
 
     // MOVE TRACK
@@ -723,12 +739,16 @@ namespace W3D
     [XmlRoot(ElementName="Movement")]
     public class Movement : W3D
     {
-
+        [XmlChoiceIdentifier("movementType")]
         [XmlElement(ElementName="Outside")]
-        public object Outside;
-
         [XmlElement(ElementName="Inside")]
-        public object Inside;
+        public object movement;
+        public MovementType movementType;
+
+        public enum MovementType {
+            [XmlEnum("Outside")] Outside,
+            [XmlEnum("Inside")] Inside
+        }
     }
 
 
