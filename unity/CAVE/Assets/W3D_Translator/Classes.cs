@@ -453,14 +453,12 @@ namespace W3D
     }
 
 
-    // TODO Make an enum
     [Serializable]
     [XmlRoot(ElementName="Mode")]
     public class Mode : W3D
     {
-        // Enums tha are leafs (Mode, Repeat) can have test be private
-        // Otherwise, that will contain the actual value (must be public)
-        // Use mode to get the type of test - test contains the data.
+        // Use enum (ModeType) to get the type - object (mode) contains the data.
+        // This type is an enum so it doesn't make a difference, will elsewhere
 
         [XmlChoiceIdentifier("modeType")]
         [XmlElement(ElementName="Positional")]
