@@ -462,13 +462,11 @@ namespace W3D
         // Otherwise, that will contain the actual value (must be public)
         // Use mode to get the type of test - test contains the data.
 
-        // TODO: Make this enum part of Sound not separate class
-
-        [XmlChoiceIdentifier("mode")]
+        [XmlChoiceIdentifier("modeType")]
         [XmlElement(ElementName="Positional")]
         [XmlElement(ElementName="Fixed")]
-        public object test;
-        public ModeEnum mode;
+        public object mode;
+        public ModeEnum modeType;
 
 
         public enum ModeEnum {

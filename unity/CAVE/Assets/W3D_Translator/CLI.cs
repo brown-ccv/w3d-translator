@@ -44,8 +44,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         foreach(W3D.Sound sound in story.SoundRoot)
         {
-            Debug.Log($"{sound.name} {sound.Mode.mode} {sound.Mode.test}");
-            Debug.Log(sound.Mode.pprint());
+            Debug.Log($"{sound.name} {sound.Mode.mode}");
+            Debug.Log(sound.Mode.modeType);
         }
 
 
