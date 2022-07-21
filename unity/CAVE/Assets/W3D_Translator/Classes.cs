@@ -661,31 +661,23 @@ namespace W3D
     [XmlRoot(ElementName="Source")]
     public class Source : W3D
     {
-        [XmlElement(ElementName="ObjectRef")]
-        public ObjectRef ObjectRef;
+        [XmlChoiceIdentifier("sourceType")]
+        [XmlElement(ElementName="ObjectRef", Type=typeof(Reference))]
+        [XmlElement(ElementName="GroupObj", Type=typeof(GroupSource))]
+        public object source;
+        public SourceType sourceType;
 
-        [XmlElement(ElementName="GroupObj")]
-        public GroupObj GroupObj;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="ObjectRef")]
-    public class ObjectRef : W3D
-    {
-        [XmlAttribute(AttributeName="name")]
-        public string name;
-
+        public enum SourceType {
+            [XmlEnum("ObjectRef")] Object,
+            [XmlEnum("GroupObj")] Group,
+        }
     }
 
 
     [Serializable]
     [XmlRoot(ElementName="GroupObj")]
-    public class GroupObj : W3D
+    public class GroupSource : Reference
     {
-        [XmlAttribute(AttributeName="name")]
-        public string name;
-
         [XmlAttribute(AttributeName="objects")]
         public Selection objectSelection;
         public enum Selection { 

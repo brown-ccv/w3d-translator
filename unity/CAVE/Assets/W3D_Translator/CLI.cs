@@ -45,14 +45,21 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Debug.Log(story.pprint());
 
         foreach(EventTrigger e in story.EventRoot) {
-            Debug.Log($"Event: {e.name}");
             switch(e.trackType){
-                case EventTrigger.TrackType.Head: {
-                    Debug.Log("HEAD");
-                    break;
-                }
                 case EventTrigger.TrackType.Move: {
-                    Debug.Log("MOVE");
+                    MoveTrack track = (MoveTrack)e.Track;
+                    switch(track.Source.sourceType){
+                        case Source.SourceType.Object: {
+                            Reference objRef = (Reference)track.Source.source;
+                            Debug.Log($"Object Ref {objRef.name}");
+                            break;
+                        }
+                        case Source.SourceType.Group: {
+                            GroupSource groupRef = (GroupSource)track.Source.source;
+                            Debug.Log($"Group Ref {groupRef.pprint()}");
+                            break;
+                        }
+                    }
                     break;
                 }
             }
