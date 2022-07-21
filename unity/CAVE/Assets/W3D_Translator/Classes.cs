@@ -643,15 +643,6 @@ namespace W3D
     }
 
 
-    // [Serializable]
-    // [XmlRoot(ElementName="ObjectTarget")]
-    // public class ObjectTarget : W3D
-    // {
-    //     [XmlAttribute(AttributeName="name")]
-    //     public string name;
-    // }
-
-
     // MOVE TRACK
 
 
@@ -777,7 +768,7 @@ namespace W3D
     public class ParticleSource : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomain ParticleDomain;
+        public Particle Particle;
 
         [XmlAttribute(AttributeName="rate")]
         public double rate;
@@ -789,7 +780,7 @@ namespace W3D
     public class Vel : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomain ParticleDomain;
+        public Particle Particle;
     }
 
 
@@ -817,9 +808,9 @@ namespace W3D
         [XmlElement(ElementName="TargetSize")]
         [XmlElement(ElementName="TargetVel")]
         public object particle;
-        public ParticleType particleType;
+        public ParticleActionType particleType;
 
-        public enum ParticleType {
+        public enum ParticleActionType {
             [XmlEnum("Avoid")] Avoid,
             [XmlEnum("Bounce")] Bounce,
             [XmlEnum("Gravity")] Gravity,
@@ -844,7 +835,7 @@ namespace W3D
     public class Avoid : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomain ParticleDomain;
+        public Particle Particle;
 
         [XmlAttribute(AttributeName="magnitude")]
         public double magnitude;
@@ -862,7 +853,7 @@ namespace W3D
     public class Bounce : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomain ParticleDomain;
+        public Particle Particle;
 
         [XmlAttribute(AttributeName="friction")]
         public double friction;
@@ -982,10 +973,10 @@ namespace W3D
     public class Jet : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomain ParticleDomain;
+        public Particle Particle;
 
         [XmlElement(ElementName="AccelDomain")]
-        public ParticleDomain AccelDomain;
+        public Particle AccelDomain;
     }
 
 
@@ -1047,7 +1038,7 @@ namespace W3D
     public class Remove : W3D
     {
         [XmlElement(ElementName="ParticleDomain")]
-        public ParticleDomain ParticleDomain;
+        public Particle Particle;
 
         [XmlAttribute(AttributeName="inside")]
         public bool inside;
@@ -1332,37 +1323,40 @@ namespace W3D
     [Serializable]
     public class Transition : W3D
     {
-        [XmlElement(ElementName="Visible")]
-        public bool visible;
+        // [XmlElement(ElementName="Color")]
+        // public string colorString
+        // {
+        //     get { return color.ToString(); }
+        //     set { color= ConvertColor(value); }
+        // }
+        // public Color color;
 
-        [XmlElement(ElementName="Movement")]
-        public MovementTransition Movement;
-
-        [XmlElement(ElementName="MoveRel")]
-        public MoveRel MoveRel;
-
-        [XmlElement(ElementName="Color")]
-        public string colorString
-        {
-            get { return color.ToString(); }
-            set { color= ConvertColor(value); }
-        }
-        public Color color;
-
-        [XmlElement(ElementName="Scale")]
-        public double scale;
-
-        [XmlElement(ElementName="Sound")]
-        public SoundTransition Sound;
-
-        [XmlElement(ElementName="LinkChange")]
-        public LinkChange LinkChange;
+        [XmlChoiceIdentifier("transitionType")]
+        [XmlElement(ElementName="Visible", Type=typeof(bool))]
+        [XmlElement(ElementName="Movement", Type=typeof(MovementTransition))]
+        [XmlElement(ElementName="MoveRel", Type=typeof(MoveRel))]
+        [XmlElement(ElementName="Color", Type=typeof(string))]
+        [XmlElement(ElementName="Scale", Type=typeof(double))]
+        [XmlElement(ElementName="Sound", Type=typeof(SoundTransition))]
+        [XmlElement(ElementName="LinkTransition", Type=typeof(LinkTransition))]
+        public object transition;
+        public TransitionType transitionType;
 
         [XmlAttribute(AttributeName="duration")]
         public double duration;
 
         [XmlText]
         public string text;
+
+        public enum TransitionType {
+            [XmlEnum("Visible")] Visible,
+            [XmlEnum("Movement")] Movement,
+            [XmlEnum("MoveRel")] MoveRelative,
+            [XmlEnum("Color")] Color,
+            [XmlEnum("Scale")] Scale,
+            [XmlEnum("Sound")] Sound,
+            [XmlEnum("LinkTransition")] Link,
+        }
     }
 
 
@@ -1401,19 +1395,23 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="LinkChange")]
-    public class LinkChange : W3D
+    public class LinkTransition : W3D
     {
+        [XmlChoiceIdentifier("transitionType")]
         [XmlElement(ElementName="link_on")]
-        public object on;
-
         [XmlElement(ElementName="link_off")]
-        public object off;
-
         [XmlElement(ElementName="activate")]
-        public object activate;
-
         [XmlElement(ElementName="activate_if_on")]
-        public object activateIfOn;
+        public object transition;
+        public LinkTransitionType transitionType;
+
+        public enum LinkTransitionType {
+            [XmlEnum("link_on")] On,
+            [XmlEnum("link_off")] Off,
+            [XmlEnum("activate")] Activate,
+            [XmlEnum("activate_if_on")] ActivateIfOn,
+        }
+
     }
 
 
@@ -1422,41 +1420,37 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="ParticleDomain")]
-    public class ParticleDomain : W3D
+    public class Particle : W3D
     {
-        [XmlElement(ElementName="Point")]
-        public Point Point;
+        [XmlChoiceIdentifier("particleType")]
+        [XmlElement(ElementName="Point", Type=typeof(Point))]
+        [XmlElement(ElementName="Line", Type=typeof(Line))]
+        [XmlElement(ElementName="Triangle", Type=typeof(Triangle))]
+        [XmlElement(ElementName="Plane", Type=typeof(Plane))]
+        [XmlElement(ElementName="Rect", Type=typeof(Rectangle))]
+        [XmlElement(ElementName="Box", Type=typeof(BoxBoxParticle))]
+        [XmlElement(ElementName="Sphere", Type=typeof(Sphere))]
+        [XmlElement(ElementName="Cylinder", Type=typeof(Cylinder))]
+        [XmlElement(ElementName="Cone", Type=typeof(Cone))]
+        [XmlElement(ElementName="Blob", Type=typeof(Blob))]
+        [XmlElement(ElementName="Disc", Type=typeof(Disc))]
+        public object particle;
+        public ParticleType particleType;
 
-        [XmlElement(ElementName="Line")]
-        public Line Line;
-
-        [XmlElement(ElementName="Triangle")]
-        public Triangle Triangle;
-
-        [XmlElement(ElementName="Plane")]
-        public Plane Plane;
-
-        [XmlElement(ElementName="Rect")]
-        public Rectangle Rectangle;
-
-        [XmlElement(ElementName="Box")]
-        public Box Box;
-
-        [XmlElement(ElementName="Sphere")]
-        public Sphere Sphere;
-
-        [XmlElement(ElementName="Cylinder")]
-        public Cylinder Cylinder;
-
-        [XmlElement(ElementName="Cone")]
-        public Cone Cone;
-
-        [XmlElement(ElementName="Blob")]
-        public Blob Blob;
-
-        [XmlElement(ElementName="Disc")]
-        public Disc Disc;
-    }
+        public enum ParticleType {
+            [XmlEnum("Point")] Point,
+            [XmlEnum("Line")] Line,
+            [XmlEnum("Triangle")] Triangle,
+            [XmlEnum("Plane")] Plane,
+            [XmlEnum("Rect")] Rectangle,
+            [XmlEnum("Box")] BoxBoxParticle,
+            [XmlEnum("Sphere")] Sphere,
+            [XmlEnum("Cylinder")] Cylinder,
+            [XmlEnum("Cone")] Cone,
+            [XmlEnum("Blob")] Blob,
+            [XmlEnum("Disc")] Disc,
+        }
+   }
 
 
     [Serializable]
@@ -1580,7 +1574,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="Box")]
-    public class BoxParticle : W3D
+    public class BoxBoxParticle : W3D
     {
         [XmlAttribute(AttributeName="p1")]
         public string p1String
