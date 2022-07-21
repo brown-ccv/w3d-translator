@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-
 namespace W3D
 {
+
 
     /********** STORY            ***********/
 
@@ -19,7 +19,7 @@ namespace W3D
     {
         [XmlArray(ElementName="ObjectRoot")]
         [XmlArrayItem(ElementName="Object")] 
-        public List<ObjectClass> ObjectRoot;
+        public List<Object> ObjectRoot;
     
         [XmlArray(ElementName="GroupRoot")]
         [XmlArrayItem(ElementName="Group")] 
@@ -77,7 +77,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="Object")]
-    public class ObjectClass : W3D
+    public class Object : W3D
     {
         [XmlElement(ElementName="Visible")]
         public bool visible;
@@ -121,6 +121,7 @@ namespace W3D
         public string text;
     }
 
+
     [XmlRoot(ElementName = "LinkRoot")]
     public class LinkRoot
     {
@@ -136,26 +137,26 @@ namespace W3D
     [XmlRoot(ElementName="Content")]
     public class Content : W3D
     {
-        [XmlElement(ElementName="None")]
-        public object None;
+        [XmlChoiceIdentifier("contentType")]
+        [XmlElement(ElementName="None", Type=null)]
+        [XmlElement(ElementName="Text", Type=typeof(Text))]
+        [XmlElement(ElementName="Image", Type=typeof(Image))]
+        [XmlElement(ElementName="StereoImage", Type=typeof(StereoImage))]
+        [XmlElement(ElementName="Model", Type=typeof(Model))]
+        [XmlElement(ElementName="Light", Type=typeof(Light))]
+        [XmlElement(ElementName="ParticleSystem", Type=typeof(ParticleSystem))]
+        public object content;
+        public ContentType contentType;
 
-        [XmlElement(ElementName="Text")]
-        public Text Text;
-
-        [XmlElement(ElementName="Image")]
-        public Image Image;
-
-        [XmlElement(ElementName="StereoImage")]
-        public StereoImage StereoImage;
-
-        [XmlElement(ElementName="Model")]
-        public Model Model;
-
-        [XmlElement(ElementName="Light")]
-        public Light Light;
-
-        [XmlElement(ElementName="ParticleSystem")]
-        public ParticleSystem ParticleSystem;
+        public enum ContentType {
+            [XmlEnum("None")] None,
+            [XmlEnum("Text")] Text,
+            [XmlEnum("Image")] Image,
+            [XmlEnum("StereoImage")] StereoImage,
+            [XmlEnum("Model")] Model,
+            [XmlEnum("Light")] Light,
+            [XmlEnum("ParticleSystem")] ParticleSystem,
+        }       
     }
 
 
@@ -230,6 +231,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="ParticleSystem")]
+    // TODO: Unity has a ParticleSystem class
     public class ParticleSystem : W3D
     {
         [XmlAttribute(AttributeName="max-particles")]
@@ -257,6 +259,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="Light")]
+    // TODO: Unity has a Light class
     public class Light : W3D
     {
         [XmlElement(ElementName="Point")]

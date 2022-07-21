@@ -44,6 +44,49 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         }
         Debug.Log(story.pprint());
 
+        foreach(W3D.Object obj in story.ObjectRoot){
+            Debug.Log($"OBJ {obj.name}: {obj.pprint()}");
+            Debug.Log($"{obj.Content.contentType}");
+
+            switch(obj.Content.contentType) {
+                case Content.ContentType.None: {                    
+                    Debug.Log(null);
+                    break;
+                }
+                case Content.ContentType.Text: {
+                    Text content = (Text)obj.Content.content;
+                    Debug.Log($"{content.GetType()} {content.pprint()}");
+                    break;
+                }
+                case Content.ContentType.Image: {
+                    Image content = (Image)obj.Content.content;
+                    Debug.Log($"{content.GetType()} {content.pprint()}");
+                    break;
+                }
+                case Content.ContentType.StereoImage: {
+                    StereoImage content = (StereoImage)obj.Content.content;
+                    Debug.Log($"{content.GetType()} {content.pprint()}");
+                    break;
+                }
+                case Content.ContentType.Model: {
+                    Model content = (Model)obj.Content.content;
+                    Debug.Log($"{content.GetType()} {content.pprint()}");
+                    break;
+                }
+                case Content.ContentType.Light: {
+                    W3D.Light content = (W3D.Light)obj.Content.content;
+                    Debug.Log($"{content.GetType()} {content.pprint()}");
+                    break;
+                }
+                case Content.ContentType.ParticleSystem: {
+                    W3D.ParticleSystem content = (W3D.ParticleSystem)obj.Content.content;
+                    Debug.Log($"{content.GetType()} {content.pprint()}");
+                    break;
+                }
+                default: break;
+            }
+        }
+
 
 
         // Use enum (ModeType) to get the type - object (mode) contains the data.
