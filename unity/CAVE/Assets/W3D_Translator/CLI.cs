@@ -22,7 +22,10 @@ public class CLI : MonoBehaviour
             string[] args = System.Environment.GetCommandLineArgs();
             for(int i = 0; i < args.Length; i++)
             {
-                if(args[i] == "--xmlPath") xmlPath = args[++i];
+                if(args[i] == "--xmlPath") {
+                    xmlPath = args[i + 1];
+                    break;
+                }
             }
         } catch(Exception e) {
             Debug.Log("Error initializing command line arguments");
