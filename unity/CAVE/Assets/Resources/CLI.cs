@@ -10,8 +10,8 @@ public class CLI : MonoBehaviour
 {
     static void Main()
     {
-        Debug.Log("Initializing");
         Application.logMessageReceivedThreaded += HandleLog;
+        Debug.Log("Running Unity CLI");
         
         // Get command line arguments from Python
         string xmlPath = null;
