@@ -145,7 +145,7 @@ namespace W3D
         public string colorString
         {
             get { return color.ToString(); }
-            set { color= ConvertColor(value); }
+            set { color = ConvertColor(value); }
         }
         public Color color;
 
