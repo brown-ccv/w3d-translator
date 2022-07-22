@@ -1043,8 +1043,6 @@ namespace W3D
 
         [XmlAttribute(AttributeName="allow-movement")]
         public bool allowMovement;
-
-        
     }
 
 

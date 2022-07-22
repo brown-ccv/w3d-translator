@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
+using UnityEngine.SpatialTracking;
 
 using W3D;
 
@@ -124,6 +125,18 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         xrRig.transform.position = 
             Xml.ConvertVector3(xmlCamera.Placement.positionString) * 0.3048f;
 
-        // Update Controller settings inside of xrRig
+        // Update tracking settings for the Main Camera
+        TrackedPoseDriver tracking = xrRig.transform.GetChild(0).Find("Main Camera").GetComponent<TrackedPoseDriver>();
+        bool allowRotation = xml.WandNavigation.allowRotation;
+        bool allowMovement = xml.WandNavigation.allowMovement;
+        if(!allowRotation && !allowMovement) {
+            tracking.enabled = false;
+        } else if(allowRotation && allowMovement) {
+            tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
+        } else if(allowRotation && !allowMovement) {
+            tracking.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
+        } else if(!allowRotation && allowMovement) {
+            tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
+        }
     }
 }
