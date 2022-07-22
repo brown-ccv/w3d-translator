@@ -1527,7 +1527,7 @@ namespace W3D
             return JsonUtility.ToJson(this, true);
         }
 
-        public Color ConvertColor(string colorString)
+        static public Color ConvertColor(string colorString)
         {
             string[] strings=colorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
             return new Color(
@@ -1537,7 +1537,7 @@ namespace W3D
             );
         }
 
-        public Vector3 ConvertVector3(string vectorString)
+        static public Vector3 ConvertVector3(string vectorString)
         {
             string[] strings=vectorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
             return new Vector3(

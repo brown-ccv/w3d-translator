@@ -17,6 +17,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
     static void Main()
     {
+        Application.logMessageReceivedThreaded += HandleLog;
+        Debug.Log("Running Unity CLI");
         string xmlPath = null;
 
         // Get command line arguments from Python
@@ -24,7 +26,10 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             string[] args = System.Environment.GetCommandLineArgs();
             for(int i = 0; i < args.Length; i++)
             {
-                if(args[i] == "--xmlPath") xmlPath = args[++i];
+                if(args[i] == "--xmlPath") {
+                    xmlPath = args[i + 1];
+                    break;
+                }
             }
         } catch(Exception e) {
             Debug.Log("Error initializing command line arguments");
@@ -106,13 +111,21 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         //         $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(xmlPath)}.unity"
         //     );
         // } catch(Exception e) { 
-        //     Console.WriteLine($"Error creating scene for {xmlPath}");
-        //     Console.WriteLine(e);
+        //     Debug.LogError($"Error creating scene for {xmlPath}");
+        //     Debug.LogException(e);
         //     throw e;
         // }
         // Example(instantiatedScene.scene);
 
+        Application.logMessageReceivedThreaded -= HandleLog;
         Application.Quit();
+    }
+
+    // Callback function when Debug.Log is called within the CLI script
+    static void HandleLog(string logString, string stackTrace, LogType type)
+    {
+        // Prepend "LOG:", we check for this in the Python script
+        Console.WriteLine($"LOG:{logString}");
     }
 
     // EXAMPLE - Add sphere at origin of each wall
