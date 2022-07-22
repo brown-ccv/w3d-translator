@@ -95,6 +95,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
     }
 
+    // Apply camera, lighting, and tracking settings from the xml
     static void ApplyGlobalSettings(Global xml, GameObject xrRig, GameObject story) {
         // Load default lighting settings and delete skybox
         UnityEditor.Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
