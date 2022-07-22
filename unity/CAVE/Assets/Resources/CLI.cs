@@ -10,9 +10,11 @@ public class CLI : MonoBehaviour
 {
     static void Main()
     {
-        string xmlPath = null;
-
+        Application.logMessageReceivedThreaded += HandleLog;
+        Debug.Log("Running Unity CLI");
+        
         // Get command line arguments from Python
+        string xmlPath = null;
         try {
             string[] args = System.Environment.GetCommandLineArgs();
             for(int i = 0; i < args.Length; i++)
@@ -46,6 +48,7 @@ public class CLI : MonoBehaviour
             Console.WriteLine(e);
             throw e;
         } 
+        Application.logMessageReceivedThreaded -= HandleLog;
     }
 
     static void NewScene(string xmlPath)
@@ -71,5 +74,12 @@ public class CLI : MonoBehaviour
 
         // Save scene
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+    }
+
+    // Callback function when Debug.Log is called within the CLI script
+    static void HandleLog(string logString, string stackTrace, LogType type)
+    {
+        // Prepend "LOG:", we check for this in the Python script
+        Console.WriteLine($"LOG:{logString}");
     }
 }

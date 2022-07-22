@@ -1,119 +1,166 @@
+import sys
 import typer
-import subprocess
 import shutil
 from pathlib import Path
+from subprocess import Popen, PIPE
+from rich.console import Console
 
-from validate import validate_project, validate_out, validate_xml
-from errors import ValidationError, CopyError, UnityError, XmlError
+from validate import validate_project, validate_xml
+from errors import ValidationError, UnityError, XmlError
 
 # TODO: Hard coded paths won't work on others' machines
 UNITY_VERSION = "2021.3.0f1"
-UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"  # noqa (ignore lint)
-SCHEMA_PATH = "C:\\Users\\Rob\\ROOT\\CCV\\W3D Translator\\schema\\caveschema.xsd"  # noqa (ignore lint)
-STARTER_PROJECT = "unity/CAVE"
-
-
-# Color string as cyan
-def cyan(string: str):
-    return typer.style(string, fg=typer.colors.CYAN, bold=True)
-
-
-# Color string as green
-def green(string: str):
-    return typer.style(string, fg=typer.colors.GREEN, bold=True)
-
-
-# Color string as bright red
-def red(string: str):
-    return typer.style(string, fg=typer.colors.BRIGHT_RED, bold=True)
+UNITY_PATH = Path(
+    "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"
+)
+STARTER_PROJECT = Path("unity/CAVE")
+LOG_FLAG = "LOG:"  # Flag to send prints from the CLI script onto the console
+console = Console()
+err_console = Console(stderr=True)
 
 
 # Opening message
 def greeting(in_dir: Path, out_dir: Path):
-    typer.echo("W3D TRANSLATOR")
-    typer.echo(f"Unity Version:\t {cyan(UNITY_VERSION)}")
-    typer.echo(f"IN_DIR:\t\t {cyan(in_dir)}")
-    typer.echo(f"OUT_DIR:\t {cyan(out_dir)}")
-    typer.echo()
+    console.rule("[bold]W3D TRANSLATOR", align="left")
+    console.print(f"Unity Version:\t [cyan]{UNITY_VERSION}[/cyan]")
+    console.print(f"IN_DIR:\t\t [cyan]{in_dir}[/cyan]")
+    console.print(f"OUT_DIR:\t [cyan]{out_dir}[/cyan]")
+    console.print()
 
 
 # Ending message
 def farewell():
-    typer.echo()
-    typer.echo("Translation Complete!")
+    console.print("Translation Complete!")
     exit(0)
 
 
-# Copy all files from source to destination
-def copy_files(source: Path, destination: Path):
-    # TODO: Catch this exception
+# Validate and create the output folder
+
+
+def create_out(out_dir: Path, force: bool):
     try:
-        shutil.copytree(str(source), str(destination))
-    except Exception as e:
-        raise CopyError(
-            f"Error: Failed to copy files from {source} "
-            + f"to {destination}.\n"
-            + f"{e}"
+        out_dir.mkdir()
+    except PermissionError:
+        # TODO 54: Catch error when files are being used in another process
+        # TODO: Retry a certain number of times?
+        # Output folder currently in use, pause and try again
+        pass
+    except FileExistsError:
+        if force:
+            shutil.rmtree(out_dir)
+            out_dir.mkdir(exist_ok=True)
+        else:
+            raise ValidationError(
+                f"Error: OUTPUT directory already exists: {out_dir}.\n"
+                + "Use --force to overwrite"
+            )
+    except FileNotFoundError:
+        raise ValidationError("Error: OUTPUT directory is not valid")
+    except ValidationError as e:
+        err_console.print(e, file=sys.stderr, style="red")
+        exit(1)
+
+
+# Copy files from the project directory to the Unity output directory
+def copy_files(project_dir: Path, unity_dir: Path, unity_copy: Path):
+    try:
+        shutil.copytree(str(STARTER_PROJECT), str(unity_dir))
+        shutil.copytree(
+            project_dir,
+            unity_copy,
         )
+    except Exception as e:
+        # TODO 55: Catch this exception (skip file)
+        err_console.print(e, file=sys.stderr, style="red")
 
 
 # Translate an XML file using Unity's CLI
-def translate_file(unity_dir: Path, xml_path: Path):
-    logfile = Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log")
+def translate_file(unity_dir: Path, xml_path: Path, filename: str):
     try:
-        subprocess.run(
-            [
-                f"{UNITY_PATH}",
-                "-batchmode",
-                "-quit",
-                "-projectPath",
-                f"{unity_dir}",
-                "-logFile",
-                f"{logfile}",
-                "-executeMethod",
-                "CLI.Main",
-                "--xmlPath",
-                Path(*xml_path.parts[2:]),  # Path relative to unity_dir
-            ],
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-    except subprocess.CalledProcessError as e:
-        raise UnityError(
-            f"Error: Unity CLI exited with error on command {e.cmd}.\n"
-            + f"See '{logfile}' for more details."
-        )
+        validate_xml(xml_path)
+    except XmlError as e:
+        err_console.print(e, file=sys.stderr, style="red")
+    else:
+        console.print(f"'{filename}' is valid")
+
+    # Run Unity CLI
+    with Popen(
+        [
+            f"{UNITY_PATH}",
+            "-batchmode",
+            "-quit",
+            "-projectPath",
+            f"{unity_dir}",
+            "-logFile",
+            "-",
+            "-executeMethod",
+            "CLI.Main",
+            "--xmlPath",
+            Path(*xml_path.parts[2:]),  # Path relative to unity_dir
+        ],
+        bufsize=1,
+        stdout=PIPE,
+        stderr=PIPE,
+        universal_newlines=True,
+    ) as sp, open(
+        Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log"), "w"
+    ) as logfile:
+        # Process stdout and stderr as it's written to
+        for line in sp.stdout:
+            if line.startswith(LOG_FLAG):
+                # Send prints from CLI script to console
+                console.print(line.strip(LOG_FLAG), end="")
+            else:
+                # Send Unity logs to a the log file
+                logfile.write(line)
+
+        # Check clean exit
+        if sp.poll() != 0:
+            raise UnityError(
+                "Error: Unity CLI exited with return code "
+                + f"{sp.returncode}.\n"
+                + f"See '{logfile.name}' for more details."
+            )
 
 
 # Translate a single project from W3D to Unity
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
-    try:
-        typer.echo(f"Translating project:\t {cyan(project_dir.name)}")
-        validate_project(project_dir)
+    console.print(f"Translating project: [cyan]{project_dir.name}[/cyan]")
 
-        # Create Unity project
-        unity_dir = Path(out_dir, project_dir.name)
-        unity_copy = Path(unity_dir, "Assets", "Resources", "Original Project")
+    try:
+        # Validate project
+        with console.status("Validating project"):
+            validate_project(project_dir)
+        console.print(f"'{project_dir}' is valid")
+
+        # Create the Unity project
         if not dev:
-            try:
-                copy_files(Path(STARTER_PROJECT), unity_dir)
-                copy_files(project_dir, unity_copy)
-            except CopyError as e:
-                raise e
+            unity_dir = Path(out_dir, project_dir.name)
+            unity_copy = Path(
+                unity_dir, "Assets", "Resources", "Original Project"
+            )
+
+            with console.status("Copying files"):
+                copy_files(project_dir, unity_dir, unity_copy)
+            console.print(
+                f"Copied files from '{project_dir}' to '{unity_dir}'"
+            )
 
             # Translate valid .xml files (skip invalid)
             for xml_path in unity_copy.rglob("*.xml"):
-                try:
-                    typer.echo(f"Validating file:\t {green(xml_path.name)}")
-                    validate_xml(xml_path)
-                except XmlError as e:
-                    typer.echo(red(e), err=True)
-                else:
-                    typer.echo(f"Translating file:\t {green(xml_path.name)}")
-                    translate_file(unity_dir, xml_path)
+                with console.status(
+                    "Translating file: "
+                    + f"[cyan]{project_dir.name}/{xml_path.name}[/cyan]"
+                ):
+                    translate_file(unity_dir, xml_path, xml_path.name)
     except (ValidationError, UnityError) as e:
-        typer.echo(red(e), err=True)
+        err_console.print(e, file=sys.stderr, style="red")
+    else:
+        console.print(
+            ":white_check_mark: "
+            + f"[cyan]{project_dir.name}/{xml_path.name}[/cyan] "
+            + "translated successfully\n"
+        )
 
 
 def main(
@@ -132,12 +179,9 @@ def main(
     """
     greeting(in_dir, out_dir)
 
-    # Create output folder
-    try:
-        validate_out(out_dir, force)
-    except ValidationError as e:
-        typer.echo(red(e), err=True)
-        exit(1)
+    with console.status("Creating output folder"):
+        create_out(out_dir, force)
+    console.print(f"'{out_dir}' created successfully\n")
 
     # Translate project(s)
     if multiple:
