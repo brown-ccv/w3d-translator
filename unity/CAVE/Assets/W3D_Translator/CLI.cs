@@ -18,6 +18,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
     static void Main()
     {
+        Application.logMessageReceivedThreaded += HandleLog;
+        Debug.Log("Running Unity CLI");
         string xmlPath = GetXmlPathArg();
 
         // TEMP - hard code xml file
@@ -38,6 +40,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         // Save and quit
         // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+        Application.logMessageReceivedThreaded -= HandleLog;
         Application.Quit();
     }
 
@@ -139,5 +142,12 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         } else if(!allowRotation && allowMovement) {
             tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
         }
+    }
+
+    // Callback function when Debug.Log is called within the CLI script
+    static void HandleLog(string logString, string stackTrace, LogType type)
+    {
+        // Prepend "LOG:", we check for this in the Python script
+        Console.WriteLine($"LOG:{logString}");
     }
 }
