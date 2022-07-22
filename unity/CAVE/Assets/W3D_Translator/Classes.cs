@@ -1043,6 +1043,8 @@ namespace W3D
 
         [XmlAttribute(AttributeName="allow-movement")]
         public bool allowMovement;
+
+        
     }
 
 
@@ -1525,6 +1527,7 @@ namespace W3D
             return JsonUtility.ToJson(this, true);
         }
 
+        // Converts "[int], [int], [int]" to a UnityEngine.Color object
         static public Color ConvertColor(string colorString)
         {
             string[] strings=colorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
@@ -1535,13 +1538,14 @@ namespace W3D
             );
         }
 
-        public Vector3 ConvertVector3(string vectorString)
+        // Converts a "([float], [float], [float])" string to a UnityEngine.Vector3 object
+        static public Vector3 ConvertVector3(string vectorString)
         {
             string[] strings=vectorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
             return new Vector3(
                 float.Parse(strings[0]),
                 float.Parse(strings[1]),
-                float.Parse(strings[2])
+                float.Parse(strings[2]) * -1 // The z axis is inverted in Unity 
             );
         }
     }

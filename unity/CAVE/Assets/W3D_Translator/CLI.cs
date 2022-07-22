@@ -95,10 +95,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     }
 
     static void ApplyGlobalSettings(Global xml, GameObject xrRig, GameObject story) {
-        // Load default lighting settings
+        // Load default lighting settings and delete skybox
         UnityEditor.Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
-
-        // Delete Skybox
         RenderSettings.skybox = null;
 
         // Use color based lighting - <Background color="0, 0, 0" />
@@ -106,8 +104,26 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         RenderSettings.ambientLight = Xml.ConvertColor(xml.Background.colorString);
         
         // Update CaveCamera inside of story
-        // Update Camera inside of xrRig
+        W3D.Camera xmlCaveCamera = xml.CaveCamera;
+        UnityEngine.Camera caveCamera = 
+            story.transform.Find("Cave Camera").GetComponent<UnityEngine.Camera>();
+        caveCamera.farClipPlane = xmlCaveCamera.farClip;
+        Debug.Assert(xmlCaveCamera.Placement.relativeTo == "Center");
+        caveCamera.transform.localPosition = 
+            Xml.ConvertVector3(xmlCaveCamera.Placement.positionString);
 
-        // Update Controller settings inside of  xrRig
+        // Update Camera inside of xrRig
+        W3D.Camera xmlCamera = xml.Camera;
+        UnityEngine.Camera camera = 
+            xrRig.transform.GetChild(0).Find("Main Camera").GetComponent<UnityEngine.Camera>();
+        camera.farClipPlane = xmlCamera.farClip;
+        Debug.Assert(xmlCamera.Placement.relativeTo == "Center");
+
+        // xml.Camera is really the player's position - update xrRig directly
+        // xrRig is outside the Story object so we must convert to meters
+        xrRig.transform.position = 
+            Xml.ConvertVector3(xmlCamera.Placement.positionString) * 0.3048f;
+
+        // Update Controller settings inside of xrRig
     }
 }
