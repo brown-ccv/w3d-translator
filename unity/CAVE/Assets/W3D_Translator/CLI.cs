@@ -12,9 +12,6 @@ using UnityEngine.SpatialTracking;
 
 using W3D;
 
-// TODO: Handle Axis/LookAt/Normal children in placement
-// TODO: Should ConvertVector3 invert z axis?
-
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
     void Start(){ Main(); } // TEMP: Execute script from Unity directly
@@ -154,13 +151,11 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         List<W3D.Object> objectList, GameObject story
     ) {
         Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
-
-        W3D.Object xml = objectList[0];
-        GameObject gameObject = new GameObject();
-        string name = xml.name;
-
-        Debug.Log(xml.pprint());
-        /**
+        
+        
+        W3D.Object xml = objectList[0]; // TEMP - Make loop
+        
+        /** Object
             Visible: gameObject.active
             Color: TODO
             Lighting: TODO
@@ -171,7 +166,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             Placement.Position: gameObject.transform.localPosition
             name: gameObject.name
         */
-        gameObject.name = name;
+        GameObject gameObject = new GameObject();
+        gameObject.name = xml.name;
         gameObject.SetActive(xml.visible);
 
         // Nest under Placement.RelativeTo & set local transform
@@ -181,9 +177,12 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         gameObject.transform.localRotation = Quaternion.identity; // No local rotation
         
         // LinkRoot.Link -> Add a VRCanvas
+        if(xml.LinkRoot != null) {
 
+        }
 
-        // Add Components
+        // Add Component(s)
+        // TODO: Add the TODOs to GitHub and here
         switch(xml.Content.content) {
             case(Content.ContentType.Text): {
                 Text content = (Text)xml.Content.content;
@@ -213,7 +212,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         }
         
         
-        gameObjects.Add(name, gameObject);
+        gameObjects.Add(gameObject.name, gameObject);
         return gameObjects;
     }
 
