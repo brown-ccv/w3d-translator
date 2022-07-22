@@ -46,7 +46,6 @@ def farewell():
 
 # Copy all files from source to destination
 def copy_files(source: Path, destination: Path):
-    # TODO: Catch this exception
     try:
         shutil.copytree(str(source), str(destination))
     except Exception as e:

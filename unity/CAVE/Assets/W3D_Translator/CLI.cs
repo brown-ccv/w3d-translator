@@ -66,8 +66,8 @@ public class CLI : MonoBehaviour
         //         $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(xmlPath)}.unity"
         //     );
         // } catch(Exception e) { 
-        //     Console.WriteLine($"Error creating scene for {xmlPath}");
-        //     Console.WriteLine(e);
+        //     Debug.LogError($"Error creating scene for {xmlPath}");
+        //     Debug.LogException(e);
         //     throw e;
         // }
         // Example(instantiatedScene.scene);
