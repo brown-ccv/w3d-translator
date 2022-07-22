@@ -46,20 +46,20 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         foreach(EventTrigger e in story.EventRoot) {
             switch(e.trackType){
-                // case EventTrigger.TrackType.Move: {
-                //     MoveTrack track = (MoveTrack)e.Track;
-                //     switch(track.Box.Movement.movementType){
-                //         case Movement.MovementType.Inside: {
-                //             Debug.Log($"{e.name}: Move Track Inside");
-                //             break;
-                //         }
-                //         case Movement.MovementType.Outside: {
-                //             Debug.Log($"{e.name}: Move Track Outside");
-                //             break;
-                //         }
-                //     }
-                //     break;
-                // }
+                case EventTrigger.TrackType.Move: {
+                    MoveTrack track = (MoveTrack)e.Track;
+                    switch(track.Box.Movement.movementType){
+                        case Movement.MovementType.Inside: {
+                            Debug.Log($"{e.name}: Move Track Inside");
+                            break;
+                        }
+                        case Movement.MovementType.Outside: {
+                            Debug.Log($"{e.name}: Move Track Outside");
+                            break;
+                        }
+                    }
+                    break;
+                }
                 case EventTrigger.TrackType.Head: {
                     HeadTrack track = (HeadTrack)e.Track;
                     switch(track.Direction.directionType) {
@@ -84,10 +84,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 }
             }
         }
-
-
-        // Use enum (ModeType) to get the type - object (mode) contains the data.
-        // This type is an enum so it doesn't make a difference, will elsewhere
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 

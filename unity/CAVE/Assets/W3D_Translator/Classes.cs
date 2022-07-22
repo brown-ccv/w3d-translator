@@ -1139,7 +1139,7 @@ namespace W3D
             [XmlEnum("GroupRef")] GroupReference,
             [XmlEnum("TimerChange")] TimerChange,
             [XmlEnum("SoundRef")] SoundReference,
-            [XmlEnum("Event")] Event,
+            [XmlEnum("Event")] EventReference,
             [XmlEnum("MoveCave")] MoveCave,
             [XmlEnum("Restart")] Restart,
         }
