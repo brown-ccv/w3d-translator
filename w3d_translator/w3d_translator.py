@@ -35,8 +35,6 @@ def farewell():
 
 
 # Validate and create the output folder
-
-
 def create_out(out_dir: Path, force: bool):
     try:
         out_dir.mkdir()
