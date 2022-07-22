@@ -76,51 +76,53 @@ def copy_files(project_dir: Path, unity_dir: Path, unity_copy: Path):
 
 # Translate an XML file using Unity's CLI
 def translate_file(unity_dir: Path, xml_path: Path, filename: str):
-    try:
-        validate_xml(xml_path)
-    except XmlError as e:
-        err_console.print(e, file=sys.stderr, style="red")
-    else:
-        console.print(f"'{filename}' is valid")
+    with console.status(f"Validating file: '{filename}'"):
+        try:
+            validate_xml(xml_path)
+        except XmlError as e:
+            err_console.print(e, file=sys.stderr, style="red")
+        else:
+            console.print(f"'{filename}' is valid")
 
     # Run Unity CLI
-    with Popen(
-        [
-            f"{UNITY_PATH}",
-            "-batchmode",
-            "-quit",
-            "-projectPath",
-            f"{unity_dir}",
-            "-logFile",
-            "-",
-            "-executeMethod",
-            "CLI.Main",
-            "--xmlPath",
-            Path(*xml_path.parts[2:]),  # Path relative to unity_dir
-        ],
-        bufsize=1,
-        stdout=PIPE,
-        stderr=PIPE,
-        universal_newlines=True,
-    ) as sp, open(
-        Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log"), "w"
-    ) as logfile:
-        # Process stdout and stderr as it's written to
-        for line in sp.stdout:
-            if line.startswith(LOG_FLAG):
-                # Send prints from CLI script to console
-                console.print(line.strip(LOG_FLAG), end="")
-            else:
-                # Send Unity logs to a the log file
-                logfile.write(line)
+    with console.status("Running Unity CLI:"):
+        with Popen(
+            [
+                f"{UNITY_PATH}",
+                "-batchmode",
+                "-quit",
+                "-projectPath",
+                f"{unity_dir}",
+                "-logFile",
+                "-",
+                "-executeMethod",
+                "CLI.Main",
+                "--xmlPath",
+                Path(*xml_path.parts[2:]),  # Path relative to unity_dir
+            ],
+            bufsize=1,
+            stdout=PIPE,
+            stderr=PIPE,
+            universal_newlines=True,
+        ) as sp, open(
+            Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log"), "w"
+        ) as logfile:
+            # Process stdout and stderr as it's written to
+            for line in sp.stdout:
+                if line.startswith(LOG_FLAG):
+                    # Send prints from CLI script to console
+                    console.print(line.strip(LOG_FLAG), end="")
+                else:
+                    # Send Unity logs to a the log file
+                    logfile.write(line)
 
-    # Check clean exit
-    if sp.poll() != 0:
-        raise UnityError(
-            "Error: Unity CLI exited with return code "
-            + f"{sp.returncode}.\n"
-            + f"See '{logfile.name}' for more details."
-        )
+        # Check clean exit
+        if sp.poll() != 0:
+            raise UnityError(
+                "Error: Unity CLI exited with return code "
+                + f"{sp.returncode}.\n"
+                + f"See '{logfile.name}' for more details."
+            )
 
 
 # Translate a single project from W3D to Unity
@@ -148,15 +150,18 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
 
             # Translate valid .xml files (skip invalid)
             for xml_path in unity_copy.rglob("*.xml"):
-                filename = xml_path.name
-                with console.status(f"Translating file: '{filename}'"):
-                    translate_file(unity_dir, xml_path, filename)
+                console.print(
+                    "Translating file: "
+                    + f"[cyan]{project_dir.name}/{xml_path.name}[/cyan]"
+                )
+                translate_file(unity_dir, xml_path, xml_path.name)
     except (ValidationError, UnityError) as e:
         err_console.print(e, file=sys.stderr, style="red")
     else:
         console.print(
-            f":white_check_mark: [cyan]{project_dir.name}[/cyan]"
-            + " translated successfully\n"
+            ":white_check_mark: "
+            + f"[cyan]{project_dir.name}/{xml_path.name}[/cyan] "
+            + "translated successfully\n"
         )
 
 
