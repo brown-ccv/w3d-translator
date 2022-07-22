@@ -183,6 +183,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         // Add Component(s)
         // TODO: Add the TODOs to GitHub and here
+        
+        // TODO: Handle Axis/LookAt/Normal children in placement
+        // TODO: Should ConvertVector3 invert z axis?
         switch(xml.Content.content) {
             case(Content.ContentType.Text): {
                 Text content = (Text)xml.Content.content;
