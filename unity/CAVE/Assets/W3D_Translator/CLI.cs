@@ -12,6 +12,9 @@ using UnityEngine.SpatialTracking;
 
 using W3D;
 
+// TODO: Handle Axis/LookAt/Normal children in placement
+// TODO: Should ConvertVector3 invert z axis?
+
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
     void Start(){ Main(); } // TEMP: Execute script from Unity directly
@@ -37,6 +40,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
+
+        Dictionary<string, GameObject> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
         // Save and quit
         // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
@@ -113,7 +118,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         UnityEngine.Camera caveCamera = 
             story.transform.Find("Cave Camera").GetComponent<UnityEngine.Camera>();
         caveCamera.farClipPlane = xmlCaveCamera.farClip;
-        Debug.Assert(xmlCaveCamera.Placement.relativeTo == "Center");
+        Debug.Assert(xmlCaveCamera.Placement.relativeTo == Placement.RelativeTo.Center);
         caveCamera.transform.localPosition = 
             Xml.ConvertVector3(xmlCaveCamera.Placement.positionString);
 
@@ -122,7 +127,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         UnityEngine.Camera camera = 
             xrRig.transform.GetChild(0).Find("Main Camera").GetComponent<UnityEngine.Camera>();
         camera.farClipPlane = xmlCamera.farClip;
-        Debug.Assert(xmlCamera.Placement.relativeTo == "Center");
+        Debug.Assert(xmlCamera.Placement.relativeTo == Placement.RelativeTo.Center);
 
         // xml.Camera is really the player's position - update xrRig directly
         // xrRig is outside the Story object so we must convert to meters
@@ -142,6 +147,74 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         } else if(!allowRotation && allowMovement) {
             tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
         }
+    }
+
+    // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
+    static Dictionary<string, GameObject> TranslateGameObjects(
+        List<W3D.Object> objectList, GameObject story
+    ) {
+        Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
+
+        W3D.Object xml = objectList[0];
+        GameObject gameObject = new GameObject();
+        string name = xml.name;
+
+        Debug.Log(xml.pprint());
+        /**
+            Visible: gameObject.active
+            Color: TODO
+            Lighting: TODO
+            ClickThrough: TODO
+            AroundSelfAxis: TODO
+            Scale: gameObject.localScale (Convert to vector)
+            Placement.RelativeTo: gameObject.transform.parent
+            Placement.Position: gameObject.transform.localPosition
+            name: gameObject.name
+        */
+        gameObject.name = name;
+        gameObject.SetActive(xml.visible);
+
+        // Nest under Placement.RelativeTo & set local transform
+        gameObject.transform.parent = story.transform.Find(xml.Placement.relativeTo.ToString());
+        gameObject.transform.localPosition = Xml.ConvertVector3(xml.Placement.positionString);
+        gameObject.transform.localScale = Vector3.one * xml.scale;
+        gameObject.transform.localRotation = Quaternion.identity; // No local rotation
+        
+        // LinkRoot.Link -> Add a VRCanvas
+
+
+        // Add Components
+        switch(xml.Content.content) {
+            case(Content.ContentType.Text): {
+                Text content = (Text)xml.Content.content;
+                break;
+            }
+            case(Content.ContentType.Image): {
+                Image content = (Image)xml.Content.content;
+                break;
+            }
+            case(Content.ContentType.StereoImage): {
+                StereoImage content = (StereoImage)xml.Content.content;
+                break;
+            }
+            case(Content.ContentType.Model): {
+                Model content = (Model)xml.Content.content;
+                break;
+            }
+            case(Content.ContentType.Light): {
+                W3D.Light content = (W3D.Light)xml.Content.content;
+                break;
+            }
+            case(Content.ContentType.ParticleSystem): {
+                W3D.ParticleSystem content = (W3D.ParticleSystem)xml.Content.content;
+                break;
+            }
+            default: break;
+        }
+        
+        
+        gameObjects.Add(name, gameObject);
+        return gameObjects;
     }
 
     // Callback function when Debug.Log is called within the CLI script

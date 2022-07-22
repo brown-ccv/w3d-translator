@@ -95,7 +95,7 @@ namespace W3D
         public bool aroundSelfAxis;
 
         [XmlElement(ElementName="Scale")]
-        public double scale;
+        public float scale;
 
         [XmlElement(ElementName="SoundRef")]
         public string soundRef;
@@ -1057,7 +1057,7 @@ namespace W3D
     public class Placement : Xml
     {
         [XmlElement(ElementName="RelativeTo")]
-        public string relativeTo;
+        public RelativeTo relativeTo;
 
         [XmlElement(ElementName="Position")]
         public string positionString;
@@ -1076,6 +1076,14 @@ namespace W3D
 
         [XmlText]
         public string text;
+
+        public enum RelativeTo {
+            Center,
+            FrontWall,
+            LeftWall,
+            RightWall,
+            FloorWall
+        }
     }
 
 
