@@ -15,6 +15,8 @@ public class CLI : MonoBehaviour
 
     static void Main()
     {
+        Application.logMessageReceivedThreaded += HandleLog;
+        Debug.Log("Running Unity CLI");
         string xmlPath = null;
 
         // Get command line arguments from Python
@@ -71,6 +73,15 @@ public class CLI : MonoBehaviour
         //     throw e;
         // }
         // Example(instantiatedScene.scene);
+        
+        Application.logMessageReceivedThreaded -= HandleLog;
+    }
+
+    // Callback function when Debug.Log is called within the CLI script
+    static void HandleLog(string logString, string stackTrace, LogType type)
+    {
+        // Prepend "LOG:", we check for this in the Python script
+        Console.WriteLine($"LOG:{logString}");
     }
 
     // EXAMPLE - Add sphere at origin of each wall
