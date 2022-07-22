@@ -27,7 +27,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Story xml = LoadStory(xmlPath);
         Debug.Log(xml.pprint());
 
-        // Temp - Load test scene from play
+        // TEMP - Load test scene from play
         // InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
         // GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
         // GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
