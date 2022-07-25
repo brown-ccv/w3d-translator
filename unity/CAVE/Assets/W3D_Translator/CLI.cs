@@ -37,26 +37,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
-
-        // TEMP - Check placements (see if they move)
-        foreach (Placement placement in xml.PlacementRoot)
-        {
-            // Ignore center
-
-
-            
-            GameObject gameObject = new GameObject();
-            gameObject.name = placement.name;
-            gameObject.SetActive(true);
-
-
-            // Nest under Placement.RelativeTo & set local transform
-            Debug.Log("Updating " + placement.name);
-            placement.SetTransform(
-                gameObject.transform, 
-                1f, story.transform
-            );
-        }
+        BuildWalls(xml, story.transform);
 
         Dictionary<string, GameObject> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
@@ -166,6 +147,22 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         } else if(!allowRotation && allowMovement) {
             tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
         }
+    }
+
+    static void BuildWalls(Story xml, Transform storyT) {
+        foreach (Placement placement in xml.PlacementRoot)
+        {
+            if(placement.name == "Center") continue;
+            GameObject wall = new GameObject();
+            wall.name = placement.name;
+            wall.SetActive(true);
+
+            placement.SetTransform(
+                wall.transform, 
+                1f, storyT
+            );
+        }
+        return;
     }
 
     // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
