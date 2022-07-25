@@ -1,15 +1,17 @@
 using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
+
 using W3D;
 
 
-public class CLI : MonoBehaviour
+public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
     void Start(){ Main(); } // TEMP: Execute script from Unity directly
 
@@ -35,17 +37,22 @@ public class CLI : MonoBehaviour
             throw e;
         }
 
-        
-        // xmlPath = "../../test/sample.xml"; // TEMP: Hardcode xml file
-        xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
+        // xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
+        xmlPath = "../../test/sample.xml"; // TEMP - hard code xml file
+
+        // TODO: Add try/catch for when deserialization fails
         XmlSerializer serializer = new XmlSerializer(typeof(Story));
         Story story = null;
-        using (StreamReader reader = new StreamReader(xmlPath))
+        using (XmlReader reader = XmlReader.Create(xmlPath))
         {
             story = (Story)serializer.Deserialize(reader);
         }
-        Debug.Log(story);
-        Debug.Log($"{story.ObjectRoot.Object.Count} {story.ObjectRoot.Object}");
+        Debug.Log(story.pprint());
+        Debug.Log(story.Global.pprint());
+        Debug.Log(story.Global.Camera.Placement);
+        Debug.Log(story.Global.Camera.Placement.Axis);
+        Debug.Log(story.Global.Camera.Placement.position);
+
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 
@@ -73,8 +80,9 @@ public class CLI : MonoBehaviour
         //     throw e;
         // }
         // Example(instantiatedScene.scene);
-        
+
         Application.logMessageReceivedThreaded -= HandleLog;
+        Application.Quit();
     }
 
     // Callback function when Debug.Log is called within the CLI script
@@ -85,7 +93,6 @@ public class CLI : MonoBehaviour
     }
 
     // EXAMPLE - Add sphere at origin of each wall
-    // static void Example(UnityEngine.SceneManagement.Scene scene)
     static void Example(Scene scene)
     {
         GameObject story = scene.GetRootGameObjects()[1];

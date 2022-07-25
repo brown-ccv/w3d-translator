@@ -1,3 +1,6 @@
+using System;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.IO;
@@ -8,11 +11,38 @@ using UnityEngine;
 
 namespace W3D
 {
+    [Serializable]
+    public class Xml
+    {
+        public string pprint() { return JsonUtility.ToJson(this, true); }
+
+        static public Color ConvertColor(string colorString)
+        {
+            string[] strings=colorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
+            return new Color(
+                float.Parse(strings[0]) / 255,
+                float.Parse(strings[1]) / 255,
+                float.Parse(strings[2]) / 255
+            );
+        }
+
+        static public Vector3 ConvertVector3(string vectorString)
+        {
+            string[] strings=vectorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
+            return new Vector3(
+                float.Parse(strings[0]),
+                float.Parse(strings[1]),
+                float.Parse(strings[2])
+            );
+        }
+    }
+
     /********** STORY            ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Story")]
-    public class Story
+    public class Story : Xml
     {
         [XmlElement(ElementName="ObjectRoot")]
         public ObjectRoot ObjectRoot;
@@ -49,26 +79,31 @@ namespace W3D
 
         [XmlText]
         public string text;
+
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="ObjectRoot")]
-    public class ObjectRoot
+    public class ObjectRoot : Xml
     {
         [XmlElement(ElementName="Object")]
         public List<Object> Object;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="GroupRoot")]
-    public class GroupRoot
+    public class GroupRoot : Xml
     {
         [XmlElement(ElementName="Group")]
         public List<Group> Group;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="TimelineRoot")]
-    public class TimelineRoot
+    public class TimelineRoot : Xml
     {
 
         [XmlElement(ElementName="Timeline")]
@@ -76,40 +111,45 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="PlacementRoot")]
-    public class PlacementRoot
+    public class PlacementRoot : Xml
     {
         [XmlElement(ElementName="Placement")]
         public List<PlacementType> Placement;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="SoundRoot")]
-    public class SoundRoot
+    public class SoundRoot : Xml
     {
         [XmlElement(ElementName="Sound")]
         public List<Sound> Sound;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="EventRoot")]
-    public class EventRoot
+    public class EventRoot : Xml
     {
         [XmlElement(ElementName="EventTrigger")]
         public List<EventTrigger> EventTrigger;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="ParticleActionRoot")]
-    public class ParticleActionRoot
+    public class ParticleActionRoot : Xml
     {
         [XmlElement(ElementName="ParticleActionList")]
         public List<ParticleActionList> ParticleActionList;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="About")]
-    public class About
+    public class About : Xml
     {
         [XmlAttribute(AttributeName="About")]
         public string news;
@@ -119,14 +159,20 @@ namespace W3D
     /********** OBJECT            ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Object")]
-    public class Object
+    public class Object : Xml
     {
         [XmlElement(ElementName="Visible")]
         public bool visible;
 
         [XmlElement(ElementName="Color")]
-        public string Color;
+        public string colorString
+        {
+            get { return color.ToString(); }
+            set { color = ConvertColor(value); }
+        }
+        public Color color;
 
         [XmlElement(ElementName="Lighting")]
         public bool lighting;
@@ -164,8 +210,9 @@ namespace W3D
 
 
     // TODO: Enum?
+    [Serializable]
     [XmlRoot(ElementName="Content")]
-    public class Content
+    public class Content : Xml
     {
         // TODO: Just make content null
         [XmlElement(ElementName="None")]
@@ -192,8 +239,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Text")]
-    public class Text
+    public class Text : Xml
     {
 
         [XmlElement(ElementName="text")]
@@ -215,16 +263,20 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Image")]
-    public class Image
+    public class Image : Xml
     {
         // TODO: file simple type
         [XmlAttribute(AttributeName="filename")]
         public string filename;
+
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="StereoImage")]
-    public class StereoImage
+    public class StereoImage : Xml
     {
         // TODO: file simple type
         [XmlAttribute(AttributeName="left-image")]
@@ -233,10 +285,13 @@ namespace W3D
         // TODO: file simple type
         [XmlAttribute(AttributeName="right-image")]
         public string rightImage;
+
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="Model")]
-    public class Model
+    public class Model : Xml
     {
         // TODO: file simple type
         [XmlAttribute(AttributeName="filename")]
@@ -247,8 +302,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="ParticleSystem")]
-    public class ParticleSystem
+    public class ParticleSystem : Xml
     {
         [XmlAttribute(AttributeName="max-particles")]
         public int maxParticles;
@@ -273,8 +329,9 @@ namespace W3D
     // Content.Light
 
 
+    [Serializable]
     [XmlRoot(ElementName="Light")]
-    public class Light
+    public class Light : Xml
     {
         // TODO: Enum (Point, Directional, Spot)
         [XmlElement(ElementName="Point")]
@@ -300,10 +357,13 @@ namespace W3D
 
         [XmlAttribute(AttributeName="quad_atten")]
         public double quadAtten;
+
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="Spot")]
-    public class Spot
+    public class Spot : Xml
     {
         [XmlAttribute(AttributeName="angle")]
         public double angle;
@@ -313,16 +373,18 @@ namespace W3D
     // LINK
 
 
+    [Serializable]
     [XmlRoot(ElementName="LinkRoot")]
-    public class LinkRoot
+    public class LinkRoot : Xml
     {
         [XmlElement(ElementName="Link")]
         public List<Link> Link;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Link")]
-    public class Link
+    public class Link : Xml
     {
         [XmlElement(ElementName="Enabled")]
         public bool enabled;
@@ -330,13 +392,21 @@ namespace W3D
         [XmlElement(ElementName="RemainEnabled")]
         public bool remainEnabled;
 
-        // TODO: color simple type
         [XmlElement(ElementName="EnabledColor")]
-        public string enabledColor;
+        public string enabledColorString
+        {
+            get { return enabledColor.ToString(); }
+            set { enabledColor= ConvertColor(value); }
+        }
+        public Color enabledColor;
 
-        // TODO: color simple type
         [XmlElement(ElementName="SelectedColor")]
-        public string selectedColor;
+        public string selectedColorString
+        {
+            get { return selectedColor.ToString(); }
+            set { selectedColor= ConvertColor(value); }
+        }
+        public Color selectedColor;
 
         [XmlElement(ElementName="Actions")]
         public Actions Actions;
@@ -346,6 +416,7 @@ namespace W3D
     // Link.Actions
 
 
+    [Serializable]
     [XmlRoot(ElementName="Actions")]
     public class Actions : ActionsType
     {
@@ -355,8 +426,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Clicks")]
-    public class Clicks
+    public class Clicks : Xml
     {
         [XmlElement(ElementName="Any")]
         public object Any;
@@ -368,8 +440,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="NumClicks")]
-    public class NumClicks
+    public class NumClicks : Xml
     {
         [XmlAttribute(AttributeName="num_clicks")]
         public uint numClicks;
@@ -382,8 +455,9 @@ namespace W3D
     /********** GROUP            ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Group")]
-    public class Group
+    public class Group : Xml
     {
         [XmlElement(ElementName="Objects")]
         public List<Objects> Objects;
@@ -393,18 +467,22 @@ namespace W3D
 
         [XmlAttribute(AttributeName="name")]
         public string name;
+
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="Objects")]
-    public class Objects
+    public class Objects : Xml
     {
         [XmlAttribute(AttributeName="name")]
         public string name;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Groups")]
-    public class Groups
+    public class Groups : Xml
     {
         [XmlAttribute(AttributeName="name")]
         public string name;
@@ -414,8 +492,9 @@ namespace W3D
     /********** TIMELINE        ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Timeline")]
-    public class Timeline
+    public class Timeline : Xml
     {
         [XmlElement(ElementName="TimedActions")]
         public List<TimedActions> TimedActions;
@@ -431,6 +510,7 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="TimedActions")]
     public class TimedActions : ActionsType
     {
@@ -445,8 +525,9 @@ namespace W3D
     /********** SOUND            ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Sound")]
-    public class Sound
+    public class Sound : Xml
     {
         [XmlElement(ElementName="Mode")]
         public Mode Mode;
@@ -473,8 +554,9 @@ namespace W3D
 
 
     // TODO Make an enum
+    [Serializable]
     [XmlRoot(ElementName="Mode")]
-    public class Mode
+    public class Mode : Xml
     {
         [XmlElement(ElementName="Positional")]
         public object Positional;
@@ -484,8 +566,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Repeat")]
-    public class Repeat
+    public class Repeat : Xml
     {
         [XmlElement(ElementName="NoRepeat")]
         public object NoRepeat;
@@ -498,8 +581,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Settings")]
-    public class Settings
+    public class Settings : Xml
     {
         [XmlAttribute(AttributeName="freq")]
         public double frequency;
@@ -515,8 +599,9 @@ namespace W3D
     /********** EVENT TRIGGER       ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="EventTrigger")]
-    public class EventTrigger
+    public class EventTrigger : Xml
     {
 
         [XmlElement(ElementName="HeadTrack")]
@@ -545,8 +630,9 @@ namespace W3D
     // HEAD TRACK
 
 
+    [Serializable]
     [XmlRoot(ElementName="HeadTrack")]
-    public class HeadTrack
+    public class HeadTrack : Xml
     {
         [XmlElement(ElementName="Position")]
         public TrackPosition Position;
@@ -556,8 +642,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Position")]
-    public class TrackPosition
+    public class TrackPosition : Xml
     {
         [XmlElement(ElementName="Anywhere")]
         public object Anywhere;
@@ -570,8 +657,9 @@ namespace W3D
     // HeadTrack.Direction
 
 
+    [Serializable]
     [XmlRoot(ElementName="Direction")]
-    public class Direction
+    public class Direction : Xml
     {
         [XmlElement(ElementName="None")]
         public object None;
@@ -587,31 +675,42 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="PointTarget")]
-    public class PointTarget
+    public class PointTarget : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="point")]
-        public string point;
+        public string pointString
+        {
+            get { return point.ToString(); }
+            set { point= ConvertVector3(value); }
+        }
+        public Vector3 point;
 
         [XmlAttribute(AttributeName="angle")]
         public double angle;
-    }
 
+    }
+    [Serializable]
     [XmlRoot(ElementName="DirectionTarget")]
-    public class DirectionTarget
+    public class DirectionTarget : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="direction")]
-        public string direction;
+        public string directionString
+        {
+            get { return direction.ToString(); }
+            set { direction= ConvertVector3(value); }
+        }
+        public Vector3 direction;
 
         [XmlAttribute(AttributeName="angle")]
         public double angle;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="ObjectTarget")]
-    public class ObjectTarget
+    public class ObjectTarget : Xml
     {
         [XmlAttribute(AttributeName="name")]
         public string name;
@@ -621,18 +720,22 @@ namespace W3D
     // MOVE TRACK
 
 
+    [Serializable]
     [XmlRoot(ElementName="MoveTrack")]
-    public class MoveTrack
+    public class MoveTrack : Xml
     {
         [XmlElement(ElementName="Source")]
         public Source Source;
 
         [XmlElement(ElementName="Box")]
         public Box Box;
+
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="Source")]
-    public class Source
+    public class Source : Xml
     {
         [XmlElement(ElementName="ObjectRef")]
         public ObjectRef ObjectRef;
@@ -642,15 +745,19 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="ObjectRef")]
-    public class ObjectRef
+    public class ObjectRef : Xml
     {
         [XmlAttribute(AttributeName="name")]
         public string name;
+
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="GroupObj")]
-    public class GroupObj
+    public class GroupObj : Xml
     {
         [XmlAttribute(AttributeName="name")]
         public string name;
@@ -663,8 +770,10 @@ namespace W3D
 
     // BOX
 
+
+    [Serializable]
     [XmlRoot(ElementName="Box")]
-    public class Box
+    public class Box : Xml
     {
         [XmlElement(ElementName="Movement")]
         public Movement Movement;
@@ -672,19 +781,28 @@ namespace W3D
         [XmlAttribute(AttributeName="ignore-Y")]
         public bool ignoreY;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="corner1")]
-        public string corner1;
+        public string corner1String
+        {
+            get { return corner1.ToString(); }
+            set { corner1= ConvertVector3(value); }
+        }
+        public Vector3 corner1;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="corner2")]
-        public string corner2;
+        public string corner2String
+        {
+            get { return corner2.ToString(); }
+            set { corner2= ConvertVector3(value); }
+        }
+        public Vector3 corner2;
     }
 
 
     // TODO: Enum
+    [Serializable]
     [XmlRoot(ElementName="Movement")]
-    public class Movement
+    public class Movement : Xml
     {
 
         [XmlElement(ElementName="Outside")]
@@ -694,11 +812,13 @@ namespace W3D
         public object Inside;
     }
 
+
     /********** PARTICLE ACTION     ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="ParticleActionList")]
-    public class ParticleActionList
+    public class ParticleActionList : Xml
     {
 
         [XmlElement(ElementName="Source")]
@@ -718,8 +838,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Source")]
-    public class ParticleSource
+    public class ParticleSource : Xml
     {
         [XmlElement(ElementName="ParticleDomain")]
         public ParticleDomainType ParticleDomain;
@@ -729,8 +850,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Vel")]
-    public class Vel
+    public class Vel : Xml
     {
         [XmlElement(ElementName="ParticleDomain")]
         public ParticleDomainType ParticleDomain;
@@ -740,9 +862,10 @@ namespace W3D
     // PARTICLE ACTION
 
 
-    // TODO: enum?
+
+    // TODO: enum?  [Serializable]
     [XmlRoot(ElementName="ParticleAction")]
-    public class ParticleAction
+    public class ParticleAction : Xml
     {
         [XmlElement(ElementName="Avoid")]
         public Avoid Avoid;
@@ -791,8 +914,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Avoid")]
-    public class Avoid
+    public class Avoid : Xml
     {
         [XmlElement(ElementName="ParticleDomain")]
         public ParticleDomainType ParticleDomain;
@@ -808,8 +932,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Bounce")]
-    public class Bounce
+    public class Bounce : Xml
     {
         [XmlElement(ElementName="ParticleDomain")]
         public ParticleDomainType ParticleDomain;
@@ -825,21 +950,31 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Gravity")]
-    public class Gravity
+    public class Gravity : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="direction")]
-        public string direction;
+        public string directionString
+        {
+            get { return direction.ToString(); }
+            set { direction= ConvertVector3(value); }
+        }
+        public Vector3 direction;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Damping")]
-    public class Damping
+    public class Damping : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="direction")]
-        public string direction;
+        public string directionString
+        {
+            get { return direction.ToString(); }
+            set { direction= ConvertVector3(value); }
+        }
+        public Vector3 direction;
 
         [XmlAttribute(AttributeName="vel_low")]
         public double velocityLow;
@@ -849,8 +984,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Gravitate")]
-    public class Gravitate
+    public class Gravitate : Xml
     {
         [XmlAttribute(AttributeName="magnitude")]
         public double magnitude;
@@ -863,8 +999,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Follow")]
-    public class Follow
+    public class Follow : Xml
     {
 
         [XmlAttribute(AttributeName="magnitude")]
@@ -878,8 +1015,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="MatchVel")]
-    public class MatchVel
+    public class MatchVel : Xml
     {
         [XmlAttribute(AttributeName="magnitude")]
         public double magnitude;
@@ -892,13 +1030,18 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="OrbitPoint")]
-    public class OrbitPoint
+    public class OrbitPoint : Xml
     {
         // TODO: vector simple type
         [XmlAttribute(AttributeName="center")]
-        public string center;
-
+        public string centerString
+        {
+            get { return center.ToString(); }
+            set { center= ConvertVector3(value); }
+        }
+        public Vector3 center;
         [XmlAttribute(AttributeName="magnitude")]
         public double magnitude;
 
@@ -910,8 +1053,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Jet")]
-    public class Jet
+    public class Jet : Xml
     {
         [XmlElement(ElementName="ParticleDomain")]
         public ParticleDomainType ParticleDomain;
@@ -921,12 +1065,17 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="TargetColor")]
-    public class TargetColor
+    public class TargetColor : Xml
     {
-        // TODO: color simple type
         [XmlAttribute(AttributeName="color")]
-        public string color;
+        public string colorString
+        {
+            get { return color.ToString(); }
+            set { color= ConvertColor(value); }
+        }
+        public Color color;
 
         [XmlAttribute(AttributeName="alpha")]
         public double alpha;
@@ -935,12 +1084,13 @@ namespace W3D
         public double scale;
     }
 
+
     // REMOVE CONDITION
 
 
-    // TODO: Enum?
+    // TODO: Enum?  [Serializable]
     [XmlRoot(ElementName="RemoveCondition")]
-    public class RemoveCondition
+    public class RemoveCondition : Xml
     {
 
         [XmlElement(ElementName="Age")]
@@ -954,8 +1104,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Age")]
-    public class Age
+    public class Age : Xml
     {
         [XmlAttribute(AttributeName="age")]
         public double age;
@@ -965,8 +1116,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Position")]
-    public class Position
+    public class Position : Xml
     {
         [XmlElement(ElementName="ParticleDomain")]
         public ParticleDomainType ParticleDomain;
@@ -976,8 +1128,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Velocity")]
-    public class Velocity
+    public class Velocity : Xml
     {
         [XmlElement(ElementName="ParticleDomain")]
         public ParticleDomainType ParticleDomain;
@@ -990,8 +1143,9 @@ namespace W3D
     /********** GLOBAL              ***********/
 
 
+    [Serializable]
     [XmlRoot(ElementName="Global")]
-    public class Global
+    public class Global : Xml
     {
         [XmlElement(ElementName="CameraPos")]
         public Camera Camera;
@@ -1003,11 +1157,13 @@ namespace W3D
         public Background Background;
 
         [XmlElement(ElementName="WandNavigation")]
+
         public WandNavigation WandNavigation;
     }
 
 
-    public class Camera
+    [Serializable]
+    public class Camera : Xml
     {
         [XmlElement(ElementName="Placement")]
         public PlacementType Placement;
@@ -1020,16 +1176,24 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Background")]
-    public class Background
+    public class Background : Xml
     {
         [XmlAttribute(AttributeName="color")]
-        public string color;
+        public string colorString
+        {
+            get { return color.ToString(); }
+            set { color= ConvertColor(value); }
+        }
+        public Color color;
+
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="WandNavigation")]
-    public class WandNavigation
+    public class WandNavigation : Xml
     {
         [XmlAttribute(AttributeName="allow-rotation")]
         public bool allowRotation;
@@ -1045,15 +1209,20 @@ namespace W3D
     // PLACEMENT TYPE
 
 
+    [Serializable]
     [XmlRoot(ElementName="Placement")]
-    public class PlacementType
+    public class PlacementType : Xml
     {
         [XmlElement(ElementName="RelativeTo")]
         public string relativeTo;
 
-        // TODO: vector enum
         [XmlElement(ElementName="Position")]
-        public string Position;
+        public string positionString
+        {
+            get { return position.ToString(); }
+            set { position= ConvertVector3(value); }
+        }
+        public Vector3 position;
 
         [XmlElement(ElementName="Axis")]
         public Axis Axis;
@@ -1072,37 +1241,56 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Axis")]
-    public class Axis
+    public class Axis : Xml
     {
-        // TODO: Vector simple type
         [XmlAttribute(AttributeName="rotation")]
-        public string rotation;
+        public string rotationString
+        {
+            get { return rotation.ToString(); }
+            set { rotation= ConvertVector3(value); }
+        }
+        public Vector3 rotation;
 
         [XmlAttribute(AttributeName="angle")]
         public double angle;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="LookAt")]
-    public class LookAt
+    public class LookAt : Xml
     {
-        // TODO: Vector simple type
         [XmlAttribute(AttributeName="target")]
-        public string target;
+        public string targetString
+        {
+            get { return target.ToString(); }
+            set { target= ConvertVector3(value); }
+        }
+        public Vector3 target;
 
-        // TODO: Vector simple type
         [XmlAttribute(AttributeName="up")]
-        public string up;
+        public string upString
+        {
+            get { return up.ToString(); }
+            set { up= ConvertVector3(value); }
+        }
+        public Vector3 up;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Normal")]
-    public class Normal
+    public class Normal : Xml
     {
-        // TODO: Vector simple type
         [XmlAttribute(AttributeName="normal")]
-        public string normal;
+        public string normalString
+        {
+            get { return normal.ToString(); }
+            set { normal= ConvertVector3(value); }
+        }
+        public Vector3 normal;
 
         [XmlAttribute(AttributeName="angle")]
         public double angle;
@@ -1112,8 +1300,9 @@ namespace W3D
     // ACTIONS TYPE
 
 
+    [Serializable]
     // TODO: Enum?
-    public class ActionsType
+    public class ActionsType : Xml
     {
         [XmlElement(ElementName="ObjectChange")]
         public ObjectChange ObjectChange;
@@ -1138,8 +1327,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="ObjectChange")]
-    public class ObjectChange
+    public class ObjectChange : Xml
     {
         [XmlElement(ElementName="Transition")]
         public TransitionType Transition;
@@ -1152,8 +1342,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="GroupRef")]
-    public class GroupRef
+    public class GroupRef : Xml
     {
         [XmlElement(ElementName="Transition")]
         public TransitionType Transition;
@@ -1170,9 +1361,10 @@ namespace W3D
     }
 
 
-    // TODO: Enum
+
+    // TODO: Enum   [Serializable]
     [XmlRoot(ElementName="TimerChange")]
-    public class TimerChange
+    public class TimerChange : Xml
     {
         [XmlElement(ElementName="start")]
         public object start;
@@ -1191,16 +1383,18 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="SoundRef")]
-    public class SoundRef
+    public class SoundRef : Xml
     {
         [XmlAttribute(AttributeName="name")]
         public string name;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Event")]
-    public class Event
+    public class Event : Xml
     {
         [XmlAttribute(AttributeName="enable")]
         public bool enable;
@@ -1210,8 +1404,9 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="MoveCave")]
-    public class MoveCave
+    public class MoveCave : Xml
     {
         // TODO: Enum (relative or Absolute)
         [XmlElement(ElementName="Relative")]
@@ -1234,9 +1429,10 @@ namespace W3D
     // TRANSITION TYPE
 
 
-    // TODO: Enum?
-    // [XmlRoot(ElementName="Transition")]
-    public class TransitionType
+
+    // TODO: Enum?  
+    [Serializable]
+    public class TransitionType : Xml
     {
         [XmlElement(ElementName="Visible")]
         public bool visible;
@@ -1247,9 +1443,13 @@ namespace W3D
         [XmlElement(ElementName="MoveRel")]
         public MoveRel MoveRel;
 
-        // TODO: Color simple type
         [XmlElement(ElementName="Color")]
-        public string Color;
+        public string colorString
+        {
+            get { return color.ToString(); }
+            set { color= ConvertColor(value); }
+        }
+        public Color color;
 
         [XmlElement(ElementName="Scale")]
         public double scale;
@@ -1268,23 +1468,28 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Movement")]
-    public class MovementTransition
+    public class MovementTransition : Xml
     {
         [XmlElement(ElementName="Placement")]
         public PlacementType Placement;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="MoveRel")]
-    public class MoveRel
+    public class MoveRel : Xml
     {
         [XmlElement(ElementName="Placement")]
         public PlacementType Placement;
+
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="Sound")]
-    public class SoundTransition
+    public class SoundTransition : Xml
     {
         // TODO: Enum ("Play Sound", "Stop Sound")
         [XmlAttribute(AttributeName="action")]
@@ -1292,9 +1497,11 @@ namespace W3D
     }
 
 
+
     // TODO: Enum
+    [Serializable]
     [XmlRoot(ElementName="LinkChange")]
-    public class LinkChange
+    public class LinkChange : Xml
     {
         [XmlElement(ElementName="link_on")]
         public object on;
@@ -1313,9 +1520,11 @@ namespace W3D
     // PARTICLE DOMAIN TYPE
 
 
+
     // TODO: Enum?
+    [Serializable]
     [XmlRoot(ElementName="ParticleDomain")]
-    public class ParticleDomainType
+    public class ParticleDomainType : Xml
     {
         [XmlElement(ElementName="Point")]
         public Point Point;
@@ -1352,114 +1561,200 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Point")]
-    public class Point
+    public class Point : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="point")]
-        public string point;
+        public string pointString
+        {
+            get { return point.ToString(); }
+            set { point= ConvertVector3(value); }
+        }
+        public Vector3 point;
+
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="Line")]
-    public class Line
+    public class Line : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="p1")]
-        public string p1;
+        public string p1String
+        {
+            get { return p1.ToString(); }
+            set { p1= ConvertVector3(value); }
+        }
+        public Vector3 p1;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="p2")]
-        public string p2;
+        public string p2String
+        {
+            get { return p2.ToString(); }
+            set { p2= ConvertVector3(value); }
+        }
+        public Vector3 p2;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Triangle")]
-    public class Triangle
+    public class Triangle : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="p1")]
-        public string p1;
+        public string p1String
+        {
+            get { return p1.ToString(); }
+            set { p1= ConvertVector3(value); }
+        }
+        public Vector3 p1;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="p2")]
-        public string p2;
+        public string p2String
+        {
+            get { return p2.ToString(); }
+            set { p2= ConvertVector3(value); }
+        }
+        public Vector3 p2;
 
         // TODO: vector simple type
         [XmlAttribute(AttributeName="p3")]
-        public string p3;
+        public string p3String
+        {
+            get { return p3.ToString(); }
+            set { p3= ConvertVector3(value); }
+        }
+        public Vector3 p3;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Plane")]
-    public class Plane
+    public class Plane : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="point")]
-        public string point;
+        public string pointString
+        {
+            get { return point.ToString(); }
+            set { point= ConvertVector3(value); }
+        }
+        public Vector3 point;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="normal")]
-        public string normal;
+        public string normalString
+        {
+            get { return normal.ToString(); }
+            set { normal= ConvertVector3(value); }
+        }
+        public Vector3 normal;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Rectangle")]
-    public class Rectangle
+    public class Rectangle : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="p1")]
-        public string p1;
+        public string p1String
+        {
+            get { return p1.ToString(); }
+            set { p1= ConvertVector3(value); }
+        }
+        public Vector3 p1;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="u-dir")]
-        public string u;
+        public string uString
+        {
+            get { return u.ToString(); }
+            set { u= ConvertVector3(value); }
+        }
+        public Vector3 u;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="v-dir")]
-        public string v;
+        public string vString
+        {
+            get { return v.ToString(); }
+            set { v= ConvertVector3(value); }
+        }
+        public Vector3 v;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Box")]
-    public class BoxParticle
+    public class BoxParticle : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="p1")]
-        public string p1;
+        public string p1String
+        {
+            get { return p1.ToString(); }
+            set { p1= ConvertVector3(value); }
+        }
+        public Vector3 p1;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="p2")]
-        public string p2;
+        public string p2String
+        {
+            get { return p2.ToString(); }
+            set { p2= ConvertVector3(value); }
+        }
+        public Vector3 p2;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Sphere")]
-    public class Sphere
+    public class Sphere : Xml
     {
         // TODO: vector simple type
         [XmlAttribute(AttributeName="center")]
-        public string center;
+        public string centerString
+        {
+            get { return center.ToString(); }
+            set { center= ConvertVector3(value); }
+        }
+        public Vector3 center;
 
         // TODO: vector simple type
         [XmlAttribute(AttributeName="radius")]
-        public double radius;
+        public string radiusString
+        {
+            get { return radius.ToString(); }
+            set { radius= ConvertVector3(value); }
+        }
+        public Vector3 radius;
 
         // TODO: vector simple type
         [XmlAttribute(AttributeName="radius-inner")]
-        public double innerRadius;
+        public string innerRadiusString
+        {
+            get { return innerRadius.ToString(); }
+            set { innerRadius= ConvertVector3(value); }
+        }
+        public Vector3 innerRadius;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Cylinder")]
-    public class Cylinder
+    public class Cylinder : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="p1")]
-        public string p1;
+        public string p1String
+        {
+            get { return p1.ToString(); }
+            set { p1= ConvertVector3(value); }
+        }
+        public Vector3 p1;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="p2")]
-        public string p2;
+        public string p2String
+        {
+            get { return p2.ToString(); }
+            set { p2= ConvertVector3(value); }
+        }
+        public Vector3 p2;
 
         [XmlAttribute(AttributeName="radius")]
         public double radius;
@@ -1469,16 +1764,25 @@ namespace W3D
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Cone")]
-    public class Cone
+    public class Cone : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="base-center")]
-        public string baseCenter;
+        public string baseCenterString
+        {
+            get { return baseCenter.ToString(); }
+            set { baseCenter= ConvertVector3(value); }
+        }
+        public Vector3 baseCenter;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="apex")]
-        public string apex;
+        public string apexString
+        {
+            get { return apex.ToString(); }
+            set { apex= ConvertVector3(value); }
+        }
+        public Vector3 apex;
 
         [XmlAttribute(AttributeName="radius")]
         public double radius;
@@ -1487,26 +1791,36 @@ namespace W3D
         public double innerRadius;
     }
 
+
+    [Serializable]
     [XmlRoot(ElementName="Blob")]
-    public class Blob
+    public class Blob : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="center")]
-        public string center;
+        public string centerString
+        {
+            get { return center.ToString(); }
+            set { center= ConvertVector3(value); }
+        }
+        public Vector3 center;
 
         [XmlAttribute(AttributeName="stdev")]
         public double deviation;
     }
 
 
+    [Serializable]
     [XmlRoot(ElementName="Disc")]
-    public class Disc
+    public class Disc : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="center")]
-        public string center;
+        public string centerString
+        {
+            get { return center.ToString(); }
+            set { center= ConvertVector3(value); }
+        }
+        public Vector3 center;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="normal")]
         public string normal;
 
