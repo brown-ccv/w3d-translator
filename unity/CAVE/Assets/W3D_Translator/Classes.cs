@@ -44,7 +44,7 @@ namespace W3D
     {
         [XmlArray(ElementName="ObjectRoot")]
         [XmlArrayItem(ElementName="Object")] 
-        public List<ObjectClass> ObjectRoot;
+        public List<Object> ObjectRoot;
     
         [XmlArray(ElementName="GroupRoot")]
         [XmlArrayItem(ElementName="Group")] 
