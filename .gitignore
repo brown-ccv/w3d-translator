@@ -6,3 +6,6 @@ __pycache__/
 
 # Output folders used during development
 out/
+
+# Reference class file
+vs-classes.cs
