@@ -13,6 +13,7 @@ namespace W3D
     {
         public string pprint() { return JsonUtility.ToJson(this, true); }
 
+        // Converts "[int], [int], [int]" to a UnityEngine.Color object
         static public Color ConvertColor(string colorString)
         {
             string[] strings=colorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
@@ -23,6 +24,7 @@ namespace W3D
             );
         }
 
+        // Converts a "([float], [float], [float])" string to a UnityEngine.Vector3 object
         static public Vector3 ConvertVector3(string vectorString)
         {
             string[] strings=vectorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
