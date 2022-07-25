@@ -1106,25 +1106,23 @@ namespace W3D
             gameObjectT.localPosition = Xml.ConvertVector3(this.positionString);
 
             // TODO: Set localRotation based off Axis, LookAt, and Normal are a choice (?)
-            // Set rotation
             switch(this.rotationType) {
                 case(Placement.RotationType.Null): {
+                    // No rotation
                     gameObjectT.localRotation = Quaternion.identity;
                     break;
                 }
                 case(Placement.RotationType.Axis): {
-                    var axis = (Axis)this.rotation;
+                    // Set local rotation directly
+                    Axis axis = (Axis)this.rotation;
                     gameObjectT.localEulerAngles = axis.GetEuler();
                     break;
                 }
                 case(Placement.RotationType.LookAt): {
-                    var lookAt = (LookAt)this.rotation;
-                    Vector3 worldTarget = rootT.TransformPoint(
-                        Xml.ConvertVector3(lookAt.targetString)
-                    );
-
+                    // Rotate to look at the target in world space
+                    LookAt lookAt = (LookAt)this.rotation;
                     gameObjectT.LookAt(
-                        worldTarget,
+                        rootT.TransformPoint(Xml.ConvertVector3(lookAt.targetString)),
                         Xml.ConvertVector3(lookAt.upString)
                     );
                     break;

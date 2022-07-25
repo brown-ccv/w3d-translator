@@ -149,18 +149,17 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         }
     }
 
+    // Create each <Placement> as an empty GameObject 
     static void BuildWalls(Story xml, Transform storyT) {
         foreach (Placement placement in xml.PlacementRoot)
         {
+            // Skip - center objects are nested directly under Story
             if(placement.name == "Center") continue;
+
             GameObject wall = new GameObject();
             wall.name = placement.name;
             wall.SetActive(true);
-
-            placement.SetTransform(
-                wall.transform, 
-                1f, storyT
-            );
+            placement.SetTransform(wall.transform, 1f, storyT);
         }
         return;
     }
