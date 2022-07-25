@@ -111,6 +111,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         RenderSettings.ambientLight = Xml.ConvertColor(xml.Background.colorString);
         
         // Update CaveCamera inside of story
+        // TODO: placement method
         W3D.Camera xmlCaveCamera = xml.CaveCamera;
         UnityEngine.Camera caveCamera = 
             story.transform.Find("Cave Camera").GetComponent<UnityEngine.Camera>();
@@ -120,6 +121,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             Xml.ConvertVector3(xmlCaveCamera.Placement.positionString);
 
         // Update Camera inside of xrRig
+        // TODO: placement method
         W3D.Camera xmlCamera = xml.Camera;
         UnityEngine.Camera camera = 
             xrRig.transform.GetChild(0).Find("Main Camera").GetComponent<UnityEngine.Camera>();
@@ -153,30 +155,25 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
         
         
-        W3D.Object xml = objectList[0]; // TEMP - Make loop
+        W3D.Object xml = objectList[0]; // TODO - Make loop
         
         /** Object
+            name: gameObject.name
             Visible: gameObject.active
             Color: TODO
             Lighting: TODO
             ClickThrough: TODO
             AroundSelfAxis: TODO
-            Scale: gameObject.localScale (Convert to vector)
-            Placement.RelativeTo: gameObject.transform.parent
-            Placement.Position: gameObject.transform.localPosition
-            name: gameObject.name
+            Scale: gameObject.localScale (set in Placement.SetTransform)
         */
         GameObject gameObject = new GameObject();
         gameObject.name = xml.name;
         gameObject.SetActive(xml.visible);
 
         // Nest under Placement.RelativeTo & set local transform
-        gameObject.transform.parent = story.transform.Find(xml.Placement.relativeTo.ToString());
-        gameObject.transform.localPosition = Xml.ConvertVector3(xml.Placement.positionString);
-        gameObject.transform.localScale = Vector3.one * xml.scale;
-        gameObject.transform.localRotation = Quaternion.identity; // No local rotation
+        xml.Placement.SetTransform(gameObject.transform, xml.scale, story.transform);
         
-        // LinkRoot.Link -> Add a VRCanvas
+        // TODO LinkRoot.Link -> Add a VRCanvas
         if(xml.LinkRoot != null) {
 
         }
@@ -184,31 +181,36 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         // Add Component(s)
         // TODO: Add the TODOs to GitHub and here
         
-        // TODO: Handle Axis/LookAt/Normal children in placement
-        // TODO: Should ConvertVector3 invert z axis?
+        // TODO: Should ConvertVector3 invert z axis always?
         switch(xml.Content.content) {
             case(Content.ContentType.Text): {
-                Text content = (Text)xml.Content.content;
+                // TODO: type (64)
+                Text text = (Text)xml.Content.content;
                 break;
             }
             case(Content.ContentType.Image): {
-                Image content = (Image)xml.Content.content;
+                // TODO: type (65)
+                Image image = (Image)xml.Content.content;
                 break;
             }
             case(Content.ContentType.StereoImage): {
-                StereoImage content = (StereoImage)xml.Content.content;
+                // TODO: type (66)
+                StereoImage stereoImage = (StereoImage)xml.Content.content;
                 break;
             }
             case(Content.ContentType.Model): {
-                Model content = (Model)xml.Content.content;
+                // TODO: type (67)
+                Model model = (Model)xml.Content.content;
                 break;
             }
             case(Content.ContentType.Light): {
-                W3D.Light content = (W3D.Light)xml.Content.content;
+                // TODO: type (68)
+                W3D.Light light = (W3D.Light)xml.Content.content;
                 break;
             }
             case(Content.ContentType.ParticleSystem): {
-                W3D.ParticleSystem content = (W3D.ParticleSystem)xml.Content.content;
+                // TODO: type (69)
+                W3D.ParticleSystem particleSystem = (W3D.ParticleSystem)xml.Content.content;
                 break;
             }
             default: break;

@@ -4,7 +4,9 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using UnityEngine;
+
 
 namespace W3D
 {
@@ -159,7 +161,6 @@ namespace W3D
     [XmlRoot(ElementName="Text")]
     public class Text : Xml
     {
-
         [XmlElement(ElementName="text")]
         public List<string> text;
 
@@ -829,7 +830,6 @@ namespace W3D
         public double cutoff;
     }
 
-
     [Serializable]
     [XmlRoot(ElementName="Gravity")]
     public class Gravity : Xml
@@ -1062,14 +1062,18 @@ namespace W3D
         [XmlElement(ElementName="Position")]
         public string positionString;
 
-        [XmlElement(ElementName="Axis")]
-        public Axis Axis;
-
-        [XmlElement(ElementName="LookAt")]
-        public LookAt LookAt;
-
-        [XmlElement(ElementName="Normal")]
-        public Normal Normal;
+        [XmlChoiceIdentifier("rotationType")]
+        [XmlElement(ElementName="Axis", Type=typeof(Axis))]
+        [XmlElement(ElementName="LookAt", Type=typeof(LookAt))]
+        [XmlElement(ElementName="Normal", Type=typeof(Normal))]
+        public object rotation;
+        public RotationType rotationType;
+        public enum RotationType {
+            Null,
+            [XmlEnum("Axis")] Axis,
+            [XmlEnum("LookAt")] LookAt,
+            [XmlEnum("Normal")] Normal,
+        }
 
         [XmlAttribute(AttributeName="name")]
         public string name;
@@ -1084,6 +1088,49 @@ namespace W3D
             RightWall,
             FloorWall
         }
+
+        /** Set parent GameObject and local transforms of gameObjectT
+            relativeTo: [GameObject].transform.parent
+            position: [GameObject].transform.localPosition
+            Axis: Local rotation around Axis 
+            LookAt: Rotate to look at target vector
+            Normal: Local rotation around a normalized vector
+        */
+        public void SetTransform(Transform gameObjectT, float scale, Transform rootT) {
+            // Set parent, position, and scale
+            gameObjectT.parent = rootT.Find(this.relativeTo.ToString());
+            gameObjectT.localScale = Vector3.one * scale;
+            gameObjectT.localPosition = Xml.ConvertVector3(this.positionString);
+
+            // TODO: Set localRotation based off Axis, LookAt, and Normal are a choice (?)
+            // Set rotation
+            switch(this.rotationType) {
+                case(Placement.RotationType.Null): {
+                    gameObjectT.localRotation = Quaternion.identity;
+                    break;
+                }
+                case(Placement.RotationType.Axis): {
+                    var axis = (Axis)this.rotation;
+                    gameObjectT.localEulerAngles = axis.GetEuler();
+                    break;
+                }
+                case(Placement.RotationType.LookAt): {
+                    // TODO: I need to validate this (Look at Story origin not global origin)
+                    var lookAt = (LookAt)this.rotation;
+                    gameObjectT.LookAt(
+                        Xml.ConvertVector3(lookAt.targetString),
+                        Xml.ConvertVector3(lookAt.upString)
+                    );
+                    break;
+                }
+                case(Placement.RotationType.Normal): {
+                    // TODO
+                    break;
+                }
+                default: break;
+            }
+            return;
+        }
     }
 
 
@@ -1095,7 +1142,11 @@ namespace W3D
         public string rotationString;
 
         [XmlAttribute(AttributeName="angle")]
-        public double angle;
+        public float angle;
+
+        public Vector3 GetEuler() {
+            return Xml.ConvertVector3(this.rotationString) * this.angle;
+        }
     }
 
 
