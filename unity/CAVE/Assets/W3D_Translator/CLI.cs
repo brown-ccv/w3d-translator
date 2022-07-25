@@ -103,6 +103,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
     // Apply camera, lighting, and tracking settings from the xml
     static void ApplyGlobalSettings(Global xml, GameObject xrRig, GameObject story) {
+        Transform mainCameraT = xrRig.transform.GetChild(0).Find("Main Camera");
+        Transform caveCameraT = story.transform.Find("Cave Camera");
+
         // Load default lighting settings and delete skybox
         UnityEditor.Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
         RenderSettings.skybox = null;
@@ -112,30 +115,23 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         RenderSettings.ambientLight = Xml.ConvertColor(xml.Background.colorString);
         
         // Update CaveCamera inside of story
-        // TODO: placement method
         W3D.Camera xmlCaveCamera = xml.CaveCamera;
         UnityEngine.Camera caveCamera = 
-            story.transform.Find("Cave Camera").GetComponent<UnityEngine.Camera>();
+            caveCameraT.GetComponent<UnityEngine.Camera>();
         caveCamera.farClipPlane = xmlCaveCamera.farClip;
-        Debug.Assert(xmlCaveCamera.Placement.relativeTo == Placement.RelativeTo.Center);
-        caveCamera.transform.localPosition = 
-            Xml.ConvertVector3(xmlCaveCamera.Placement.positionString);
+        xmlCaveCamera.Placement.SetTransform(caveCamera.transform, 1f, story.transform);
 
         // Update Camera inside of xrRig
-        // TODO: placement method
         W3D.Camera xmlCamera = xml.Camera;
-        UnityEngine.Camera camera = 
-            xrRig.transform.GetChild(0).Find("Main Camera").GetComponent<UnityEngine.Camera>();
+        UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
         camera.farClipPlane = xmlCamera.farClip;
-        Debug.Assert(xmlCamera.Placement.relativeTo == Placement.RelativeTo.Center);
-
-        // xml.Camera is really the player's position - update xrRig directly
-        // xrRig is outside the Story object so we must convert to meters
         xrRig.transform.position = 
+            // xml.Camera is really the player's position - update xrRig directly
+            // xrRig is outside the Story object so we must convert to meters
             Xml.ConvertVector3(xmlCamera.Placement.positionString) * 0.3048f;
 
         // Update tracking settings for the Main Camera
-        TrackedPoseDriver tracking = xrRig.transform.GetChild(0).Find("Main Camera").GetComponent<TrackedPoseDriver>();
+        TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
         bool allowRotation = xml.WandNavigation.allowRotation;
         bool allowMovement = xml.WandNavigation.allowMovement;
         if(!allowRotation && !allowMovement) {
@@ -185,9 +181,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         GameObject gameObject = new GameObject();
         gameObject.name = xml.name;
         gameObject.SetActive(xml.visible);
-
-
-        // Nest under Placement.RelativeTo & set local transform
         xml.Placement.SetTransform(gameObject.transform, xml.scale, story.transform);
         
         // TODO LinkRoot.Link -> Add a VRCanvas
