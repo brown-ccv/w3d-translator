@@ -1092,34 +1092,31 @@ namespace W3D
         /** Set parent GameObject and local transforms of gameObjectT
             relativeTo: [GameObject].transform.parent
             position: [GameObject].transform.localPosition
-            Axis: Local rotation around Axis 
-            LookAt: Rotate to look at target vector
-            Normal: Local rotation around a normalized vector
+            rotationType.Null: No rotation
+            rotationType.Axis: Rotation angle around an axis 
+            rotationType.LookAt: Rotate to look at target vector (world space)
+            rotationType.Normal: Local rotation around a normalized vector
         */
         public void SetTransform(Transform gameObjectT, float scale, Transform rootT) {
-            // Set parent, position, and scale
             gameObjectT.parent = 
                 this.relativeTo == Placement.RelativeTo.Center
-                    ? rootT // There's no "center wall" - just make relative to Story
+                    ? rootT // Nest root object (Story || XrRig)
                     : rootT.Find(this.relativeTo.ToString());
             gameObjectT.localScale = Vector3.one * scale;
             gameObjectT.localPosition = Xml.ConvertVector3(this.positionString);
 
-            // TODO: Set localRotation based off Axis, LookAt, and Normal are a choice (?)
             switch(this.rotationType) {
                 case(Placement.RotationType.Null): {
-                    // No rotation
                     gameObjectT.localRotation = Quaternion.identity;
                     break;
                 }
                 case(Placement.RotationType.Axis): {
-                    // Set local rotation directly
                     Axis axis = (Axis)this.rotation;
-                    gameObjectT.localEulerAngles = axis.GetEuler();
+                    gameObjectT.localEulerAngles = 
+                        Xml.ConvertVector3(axis.rotationString) * axis.angle;
                     break;
                 }
                 case(Placement.RotationType.LookAt): {
-                    // Rotate to look at the target in world space
                     LookAt lookAt = (LookAt)this.rotation;
                     gameObjectT.LookAt(
                         rootT.TransformPoint(Xml.ConvertVector3(lookAt.targetString)),
@@ -1128,7 +1125,7 @@ namespace W3D
                     break;
                 }
                 case(Placement.RotationType.Normal): {
-                    // TODO
+                    // TODO (63)
                     break;
                 }
                 default: break;
@@ -1147,10 +1144,6 @@ namespace W3D
 
         [XmlAttribute(AttributeName="angle")]
         public float angle;
-
-        public Vector3 GetEuler() {
-            return Xml.ConvertVector3(this.rotationString) * this.angle;
-        }
     }
 
 
