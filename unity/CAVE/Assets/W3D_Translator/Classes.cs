@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
+using TMPro;
 
 
 namespace W3D
@@ -191,18 +192,16 @@ namespace W3D
         public List<string> text;
 
         [XmlAttribute(AttributeName="horiz-align")]
-        public horizAlign horizontalAlign;
-        public enum horizAlign { 
-            None,
+        public hAlign horizontalAlign;
+        public enum hAlign { 
             [XmlEnum(Name="left")] Left,
             [XmlEnum(Name="center")] Center,
             [XmlEnum(Name="right")] Right,
         }
 
         [XmlAttribute(AttributeName="vert-align")]
-        public vertAlign verticalAlign;
-        public enum vertAlign { 
-            None,
+        public vAlign verticalAlign;
+        public enum vAlign { 
             [XmlEnum(Name="top")] Top,
             [XmlEnum(Name="center")] Center,
             [XmlEnum(Name="bottom")] Bottom,
@@ -213,6 +212,41 @@ namespace W3D
 
         [XmlAttribute(AttributeName="depth")]
         public double depth;
+
+        public void GenerateTMP(GameObject gameObject) {
+            TextMeshPro tmp = gameObject.AddComponent<TextMeshPro>();
+
+            // TMP Defaults
+            // Width - 8
+            // Height - 8
+            // Font size 10 (?)
+
+            // Set text
+            tmp.text = String.Join(String.Empty, this.text);
+
+            // Set text alignment
+            Text.hAlign ha = this.horizontalAlign;
+            Text.vAlign va = this.verticalAlign;
+            if(va == Text.vAlign.Top && ha == Text.hAlign.Left)
+                tmp.alignment = TextAlignmentOptions.TopLeft;
+            else if(va == Text.vAlign.Top && ha == Text.hAlign.Center)
+                tmp.alignment = TextAlignmentOptions.Top;
+            else if(va == Text.vAlign.Top && ha == Text.hAlign.Right)
+                tmp.alignment = TextAlignmentOptions.TopRight;
+            else if(va == Text.vAlign.Center && ha == Text.hAlign.Left)
+                tmp.alignment = TextAlignmentOptions.Left;
+            else if(va == Text.vAlign.Center && ha == Text.hAlign.Center)
+                tmp.alignment = TextAlignmentOptions.Center;
+            else if(va == Text.vAlign.Center && ha == Text.hAlign.Right)
+                tmp.alignment = TextAlignmentOptions.Right;
+            else if(va == Text.vAlign.Bottom && ha == Text.hAlign.Left)
+                tmp.alignment = TextAlignmentOptions.BottomLeft;
+            else if(va == Text.vAlign.Bottom && ha == Text.hAlign.Center)
+                tmp.alignment = TextAlignmentOptions.Bottom;
+            else if(va == Text.vAlign.Bottom && ha == Text.hAlign.Right)
+                tmp.alignment = TextAlignmentOptions.BottomRight;
+
+        }
     }
 
 

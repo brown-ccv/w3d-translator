@@ -2,13 +2,13 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SpatialTracking;
+using TMPro;
 
 using W3D;
 
@@ -192,10 +192,21 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         // TODO: Add the TODOs to GitHub and here
         
         // TODO: Should ConvertVector3 invert z axis always?
-        switch(xml.Content.content) {
+        switch(xml.Content.contentType) {
             case(Content.ContentType.Text): {
                 // TODO: type (64)
-                Text text = (Text)xml.Content.content;
+                Text xmlText = (Text)xml.Content.content;
+                // TextMeshPro tmp = gameObject.AddComponent<TextMeshPro>();
+                
+                
+                xmlText.GenerateTMP(gameObject);
+                
+                
+                // tmp.text = String.Join(String.Empty, xmlText.text);
+                
+
+
+                Debug.Log(xmlText.pprint());
                 break;
             }
             case(Content.ContentType.Image): {
@@ -225,7 +236,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             }
             default: break;
         }
-        
         
         gameObjects.Add(gameObject.name, gameObject);
         return gameObjects;
