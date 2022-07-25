@@ -13,6 +13,8 @@
             <Placement>
                 <RelativeTo>LeftWall</RelativeTo>
                 <Position>(0.0, 0.0, 0.0)</Position>
+                <!-- TEMP -->
+                <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)" />
             </Placement>
             <Content>
                 <Text horiz-align="center" vert-align="center" font="Courier.ttf" depth="0.0">

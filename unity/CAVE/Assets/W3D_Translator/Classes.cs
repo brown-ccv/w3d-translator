@@ -1098,7 +1098,10 @@ namespace W3D
         */
         public void SetTransform(Transform gameObjectT, float scale, Transform rootT) {
             // Set parent, position, and scale
-            gameObjectT.parent = rootT.Find(this.relativeTo.ToString());
+            gameObjectT.parent = 
+                this.relativeTo == Placement.RelativeTo.Center
+                    ? rootT // There's no "center wall" - just make relative to Story
+                    : rootT.Find(this.relativeTo.ToString());
             gameObjectT.localScale = Vector3.one * scale;
             gameObjectT.localPosition = Xml.ConvertVector3(this.positionString);
 
@@ -1115,10 +1118,13 @@ namespace W3D
                     break;
                 }
                 case(Placement.RotationType.LookAt): {
-                    // TODO: I need to validate this (Look at Story origin not global origin)
                     var lookAt = (LookAt)this.rotation;
+                    Vector3 worldTarget = rootT.TransformPoint(
+                        Xml.ConvertVector3(lookAt.targetString)
+                    );
+
                     gameObjectT.LookAt(
-                        Xml.ConvertVector3(lookAt.targetString),
+                        worldTarget,
                         Xml.ConvertVector3(lookAt.upString)
                     );
                     break;

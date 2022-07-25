@@ -38,6 +38,26 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
 
+        // TEMP - Check placements (see if they move)
+        foreach (Placement placement in xml.PlacementRoot)
+        {
+            // Ignore center
+
+
+            
+            GameObject gameObject = new GameObject();
+            gameObject.name = placement.name;
+            gameObject.SetActive(true);
+
+
+            // Nest under Placement.RelativeTo & set local transform
+            Debug.Log("Updating " + placement.name);
+            placement.SetTransform(
+                gameObject.transform, 
+                1f, story.transform
+            );
+        }
+
         Dictionary<string, GameObject> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
         // Save and quit
@@ -169,6 +189,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         GameObject gameObject = new GameObject();
         gameObject.name = xml.name;
         gameObject.SetActive(xml.visible);
+
 
         // Nest under Placement.RelativeTo & set local transform
         xml.Placement.SetTransform(gameObject.transform, xml.scale, story.transform);
