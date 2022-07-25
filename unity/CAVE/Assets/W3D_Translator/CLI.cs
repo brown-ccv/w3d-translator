@@ -134,14 +134,14 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
         bool allowRotation = xml.WandNavigation.allowRotation;
         bool allowMovement = xml.WandNavigation.allowMovement;
-        if(!allowRotation && !allowMovement) {
-            tracking.enabled = false;
-        } else if(allowRotation && allowMovement) {
+        if(allowRotation && allowMovement) {
             tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
         } else if(allowRotation && !allowMovement) {
             tracking.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
         } else if(!allowRotation && allowMovement) {
             tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
+        } else if(!allowRotation && !allowMovement) {
+            tracking.enabled = false;
         }
     }
 
@@ -149,7 +149,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     static void BuildWalls(Story xml, Transform storyT) {
         foreach (Placement placement in xml.PlacementRoot)
         {
-            // Skip - center objects are nested directly under Story
+            // Center objects are nested directly under Story
             if(placement.name == "Center") continue;
 
             GameObject wall = new GameObject();
