@@ -10,7 +10,33 @@ using UnityEngine;
 
 namespace W3D
 {
+    [Serializable]
+    public class Xml
+    {
+        public string pprint() { return JsonUtility.ToJson(this, true); }
 
+        // Converts "[int], [int], [int]" to a UnityEngine.Color object
+        static public Color ConvertColor(string colorString)
+        {
+            string[] strings=colorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
+            return new Color(
+                float.Parse(strings[0]) / 255,
+                float.Parse(strings[1]) / 255,
+                float.Parse(strings[2]) / 255
+            );
+        }
+
+        // Converts a "([float], [float], [float])" string to a UnityEngine.Vector3 object
+        static public Vector3 ConvertVector3(string vectorString)
+        {
+            string[] strings=vectorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
+            return new Vector3(
+                float.Parse(strings[0]),
+                float.Parse(strings[1]),
+                float.Parse(strings[2])
+            );
+        }
+    }
 
     /********** STORY            ***********/
 
@@ -384,7 +410,6 @@ namespace W3D
             [XmlEnum("Groups")] Group
         }
     }
-
 
 
     /********** TIMELINE        ***********/
@@ -1389,7 +1414,7 @@ namespace W3D
         [XmlElement(ElementName="Triangle", Type=typeof(Triangle))]
         [XmlElement(ElementName="Plane", Type=typeof(Plane))]
         [XmlElement(ElementName="Rect", Type=typeof(Rectangle))]
-        [XmlElement(ElementName="Box", Type=typeof(BoxBoxParticle))]
+        [XmlElement(ElementName="Box", Type=typeof(BoxParticle))]
         [XmlElement(ElementName="Sphere", Type=typeof(Sphere))]
         [XmlElement(ElementName="Cylinder", Type=typeof(Cylinder))]
         [XmlElement(ElementName="Cone", Type=typeof(Cone))]
@@ -1404,7 +1429,7 @@ namespace W3D
             [XmlEnum("Triangle")] Triangle,
             [XmlEnum("Plane")] Plane,
             [XmlEnum("Rect")] Rectangle,
-            [XmlEnum("Box")] BoxBoxParticle,
+            [XmlEnum("Box")] BoxParticle,
             [XmlEnum("Sphere")] Sphere,
             [XmlEnum("Cylinder")] Cylinder,
             [XmlEnum("Cone")] Cone,
@@ -1479,7 +1504,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="Box")]
-    public class BoxBoxParticle : Xml
+    public class BoxParticle : Xml
     {
         [XmlAttribute(AttributeName="p1")]
         public string p1String;
@@ -1570,42 +1595,8 @@ namespace W3D
     }
 
 
-    /********** BASE CLASS              ***********/
-
-
-    [Serializable]
-    public class Xml
-    {
-        public string pprint()
-        {
-            return JsonUtility.ToJson(this, true);
-        }
-
-        // Converts "[int], [int], [int]" to a UnityEngine.Color object
-        static public Color ConvertColor(string colorString)
-        {
-            string[] strings=colorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
-            return new Color(
-                float.Parse(strings[0]) / 255,
-                float.Parse(strings[1]) / 255,
-                float.Parse(strings[2]) / 255
-            );
-        }
-
-        // Converts a "([float], [float], [float])" string to a UnityEngine.Vector3 object
-        static public Vector3 ConvertVector3(string vectorString)
-        {
-            string[] strings=vectorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
-            return new Vector3(
-                float.Parse(strings[0]),
-                float.Parse(strings[1]),
-                float.Parse(strings[2]) * -1 // The z axis is inverted in Unity 
-            );
-        }
-    }
-
-
     // Reference another class/object by name
+    [Serializable]
     public class Reference : Xml
     {
         [XmlAttribute(AttributeName="name")]
