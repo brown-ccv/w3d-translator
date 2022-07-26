@@ -3,13 +3,13 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
 
 using W3D;
-
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
@@ -37,22 +37,22 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             throw e;
         }
 
-        // xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
-        xmlPath = "../../test/sample.xml"; // TEMP - hard code xml file
+        xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
+        // xmlPath = "../../test/sample.xml"; // TEMP - hard code xml file
 
         // TODO: Add try/catch for when deserialization fails
-        XmlSerializer serializer = new XmlSerializer(typeof(Story));
-        Story story = null;
+        XmlSerializer serializer = new XmlSerializer(typeof(W3D.Story));
+        W3D.Story story = null;
         using (XmlReader reader = XmlReader.Create(xmlPath))
         {
-            story = (Story)serializer.Deserialize(reader);
+            story = (W3D.Story)serializer.Deserialize(reader);
         }
         Debug.Log(story.pprint());
-        Debug.Log(story.Global.pprint());
-        Debug.Log(story.Global.Camera.Placement);
-        Debug.Log(story.Global.Camera.Placement.Axis);
-        Debug.Log(story.Global.Camera.Placement.position);
 
+
+
+        // Use enum (ModeType) to get the type - object (mode) contains the data.
+        // This type is an enum so it doesn't make a difference, will elsewhere
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 

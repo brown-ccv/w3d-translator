@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-// TODO: Convert vector types to Unity Vector3
-// TODO: Add color, vector, and file class types (custom string translation)
 
 namespace W3D
 {
@@ -44,26 +42,33 @@ namespace W3D
     [XmlRoot(ElementName="Story")]
     public class Story : Xml
     {
-        [XmlElement(ElementName="ObjectRoot")]
-        public ObjectRoot ObjectRoot;
+        [XmlArray(ElementName="ObjectRoot")]
+        [XmlArrayItem(ElementName="Object")] 
+        public List<Object> ObjectRoot;
+    
+        [XmlArray(ElementName="GroupRoot")]
+        [XmlArrayItem(ElementName="Group")] 
+        public List<Group> GroupRoot;
 
-        [XmlElement(ElementName="GroupRoot")]
-        public GroupRoot GroupRoot;
+    	[XmlArray(ElementName="TimelineRoot")]
+        [XmlArrayItem(ElementName="Timeline")]
+        public List<Timeline> TimelineRoot;
+    
+        [XmlArray(ElementName="PlacementRoot")]
+        [XmlArrayItem(ElementName="Placement")] 
+        public List<PlacementType> PlacementRoot;
+    
+        [XmlArray(ElementName="SoundRoot")]
+        [XmlArrayItem(ElementName="Sound")] 
+        public List<Sound> SoundRoot;
 
-        [XmlElement(ElementName="TimelineRoot")]
-        public TimelineRoot TimelineRoot;
-
-        [XmlElement(ElementName="PlacementRoot")]
-        public PlacementRoot PlacementRoot;
-
-        [XmlElement(ElementName="SoundRoot")]
-        public SoundRoot SoundRoot;
-
-        [XmlElement(ElementName="EventRoot")]
-        public EventRoot EventRoot;
-
-        [XmlElement(ElementName="ParticleActionRoot")]
-        public ParticleActionRoot ParticleActionRoot;
+        [XmlArray(ElementName="EventRoot")]
+        [XmlArrayItem(ElementName="EventTrigger")]
+        public List<EventTrigger> EventRoot;
+	    
+        [XmlArray(ElementName="ParticleActionRoot")]
+	    [XmlArrayItem(ElementName="ParticleActionList")] 
+	    public List<ParticleAction> ParticleActionRoot;
 
         [XmlElement(ElementName="Global")]
         public Global Global;
@@ -84,74 +89,10 @@ namespace W3D
 
 
     [Serializable]
-    [XmlRoot(ElementName="ObjectRoot")]
-    public class ObjectRoot : Xml
-    {
-        [XmlElement(ElementName="Object")]
-        public List<Object> Object;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="GroupRoot")]
-    public class GroupRoot : Xml
-    {
-        [XmlElement(ElementName="Group")]
-        public List<Group> Group;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="TimelineRoot")]
-    public class TimelineRoot : Xml
-    {
-
-        [XmlElement(ElementName="Timeline")]
-        public List<Timeline> Timeline;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="PlacementRoot")]
-    public class PlacementRoot : Xml
-    {
-        [XmlElement(ElementName="Placement")]
-        public List<PlacementType> Placement;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="SoundRoot")]
-    public class SoundRoot : Xml
-    {
-        [XmlElement(ElementName="Sound")]
-        public List<Sound> Sound;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="EventRoot")]
-    public class EventRoot : Xml
-    {
-        [XmlElement(ElementName="EventTrigger")]
-        public List<EventTrigger> EventTrigger;
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName="ParticleActionRoot")]
-    public class ParticleActionRoot : Xml
-    {
-        [XmlElement(ElementName="ParticleActionList")]
-        public List<ParticleActionList> ParticleActionList;
-    }
-
-
-    [Serializable]
     [XmlRoot(ElementName="About")]
     public class About : Xml
     {
-        [XmlAttribute(AttributeName="About")]
+        [XmlAttribute(AttributeName="news")]
         public string news;
     }
 
@@ -195,8 +136,9 @@ namespace W3D
         [XmlElement(ElementName="Content")]
         public Content Content;
 
-        [XmlElement(ElementName="LinkRoot")]
-        public LinkRoot LinkRoot;
+        [XmlArray(ElementName="LinkRoot")]
+        [XmlArrayItem(ElementName="Link")]
+        public List<Link> LinkRoot;
 
         [XmlAttribute(AttributeName="name")]
         public string name;
@@ -209,12 +151,10 @@ namespace W3D
     // CONTENT
 
 
-    // TODO: Enum?
     [Serializable]
     [XmlRoot(ElementName="Content")]
     public class Content : Xml
     {
-        // TODO: Just make content null
         [XmlElement(ElementName="None")]
         public object None;
 
@@ -227,7 +167,6 @@ namespace W3D
         [XmlElement(ElementName="StereoImage")]
         public StereoImage StereoImage;
 
-        // TODO: Model
         [XmlElement(ElementName="Model")]
         public Model Model;
 
@@ -247,13 +186,23 @@ namespace W3D
         [XmlElement(ElementName="text")]
         public List<string> text;
 
-        // TODO: Enum
         [XmlAttribute(AttributeName="horiz-align")]
-        public string horizontalAlign;
+        public horizAlign horizontalAlign;
+        public enum horizAlign { 
+            None,
+            [XmlEnum(Name="left")] Left,
+            [XmlEnum(Name="center")] Center,
+            [XmlEnum(Name="right")] Right,
+        }
 
-        // TODO: Enum
         [XmlAttribute(AttributeName="vert-align")]
-        public string verticalAlign;
+        public vertAlign verticalAlign;
+        public enum vertAlign { 
+            None,
+            [XmlEnum(Name="top")] Top,
+            [XmlEnum(Name="center")] Center,
+            [XmlEnum(Name="bottom")] Bottom,
+        }
 
         [XmlAttribute(AttributeName="font")]
         public string font;
@@ -267,7 +216,6 @@ namespace W3D
     [XmlRoot(ElementName="Image")]
     public class Image : Xml
     {
-        // TODO: file simple type
         [XmlAttribute(AttributeName="filename")]
         public string filename;
 
@@ -278,11 +226,9 @@ namespace W3D
     [XmlRoot(ElementName="StereoImage")]
     public class StereoImage : Xml
     {
-        // TODO: file simple type
         [XmlAttribute(AttributeName="left-image")]
         public string leftImage;
 
-        // TODO: file simple type
         [XmlAttribute(AttributeName="right-image")]
         public string rightImage;
 
@@ -293,7 +239,6 @@ namespace W3D
     [XmlRoot(ElementName="Model")]
     public class Model : Xml
     {
-        // TODO: file simple type
         [XmlAttribute(AttributeName="filename")]
         public string filename;
 
@@ -333,7 +278,6 @@ namespace W3D
     [XmlRoot(ElementName="Light")]
     public class Light : Xml
     {
-        // TODO: Enum (Point, Directional, Spot)
         [XmlElement(ElementName="Point")]
         public object Point;
 
@@ -374,15 +318,6 @@ namespace W3D
 
 
     [Serializable]
-    [XmlRoot(ElementName="LinkRoot")]
-    public class LinkRoot : Xml
-    {
-        [XmlElement(ElementName="Link")]
-        public List<Link> Link;
-    }
-
-
-    [Serializable]
     [XmlRoot(ElementName="Link")]
     public class Link : Xml
     {
@@ -409,7 +344,7 @@ namespace W3D
         public Color selectedColor;
 
         [XmlElement(ElementName="Actions")]
-        public Actions Actions;
+        public List<Actions> Actions;
     }
 
 
@@ -420,7 +355,6 @@ namespace W3D
     [XmlRoot(ElementName="Actions")]
     public class Actions : ActionsType
     {
-        // TODO: Enum
         [XmlElement(ElementName="Clicks")]
         public Clicks Clicks;
     }
@@ -544,7 +478,6 @@ namespace W3D
         [XmlAttribute(AttributeName="name")]
         public string name;
 
-        // TODO: file simple type
         [XmlAttribute(AttributeName="filename")]
         public string filename;
 
@@ -553,7 +486,6 @@ namespace W3D
     }
 
 
-    // TODO Make an enum
     [Serializable]
     [XmlRoot(ElementName="Mode")]
     public class Mode : Xml
@@ -762,9 +694,13 @@ namespace W3D
         [XmlAttribute(AttributeName="name")]
         public string name;
 
-        // TODO: Enum ("any Object" or "All Objects")
         [XmlAttribute(AttributeName="objects")]
-        public string objects;
+        public Selection objectSelection;
+        public enum Selection { 
+            None,
+            [XmlEnum(Name="Any Object")] Any,
+            [XmlEnum(Name="All Objects")] All
+        }
     }
 
 
@@ -799,7 +735,6 @@ namespace W3D
     }
 
 
-    // TODO: Enum
     [Serializable]
     [XmlRoot(ElementName="Movement")]
     public class Movement : Xml
@@ -862,8 +797,7 @@ namespace W3D
     // PARTICLE ACTION
 
 
-
-    // TODO: enum?  [Serializable]
+    [Serializable]
     [XmlRoot(ElementName="ParticleAction")]
     public class ParticleAction : Xml
     {
@@ -1034,7 +968,6 @@ namespace W3D
     [XmlRoot(ElementName="OrbitPoint")]
     public class OrbitPoint : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="center")]
         public string centerString
         {
@@ -1088,7 +1021,7 @@ namespace W3D
     // REMOVE CONDITION
 
 
-    // TODO: Enum?  [Serializable]
+    [Serializable]
     [XmlRoot(ElementName="RemoveCondition")]
     public class RemoveCondition : Xml
     {
@@ -1352,9 +1285,12 @@ namespace W3D
         [XmlAttribute(AttributeName="name")]
         public string name;
 
-        // TODO: Enum ("Select One Randomly")
         [XmlAttribute(AttributeName="random")]
-        public string random;
+        public Random random;
+        public enum Random { 
+            None,
+            [XmlEnum(Name="Select One Randomly")] OneRandom,
+        }
 
         [XmlText]
         public string text;
@@ -1362,7 +1298,7 @@ namespace W3D
 
 
 
-    // TODO: Enum   [Serializable]
+    [Serializable]
     [XmlRoot(ElementName="TimerChange")]
     public class TimerChange : Xml
     {
@@ -1408,7 +1344,6 @@ namespace W3D
     [XmlRoot(ElementName="MoveCave")]
     public class MoveCave : Xml
     {
-        // TODO: Enum (relative or Absolute)
         [XmlElement(ElementName="Relative")]
         public object Relative;
 
@@ -1428,9 +1363,7 @@ namespace W3D
 
     // TRANSITION TYPE
 
-
-
-    // TODO: Enum?  
+ 
     [Serializable]
     public class TransitionType : Xml
     {
@@ -1491,14 +1424,16 @@ namespace W3D
     [XmlRoot(ElementName="Sound")]
     public class SoundTransition : Xml
     {
-        // TODO: Enum ("Play Sound", "Stop Sound")
         [XmlAttribute(AttributeName="action")]
-        public string action;
+        public Action action;
+        public enum Action { 
+            None,
+            [XmlEnum(Name="Play Sound")] Play,
+            [XmlEnum(Name="Stop Sound")] Stop,
+        }
     }
 
 
-
-    // TODO: Enum
     [Serializable]
     [XmlRoot(ElementName="LinkChange")]
     public class LinkChange : Xml
@@ -1520,8 +1455,6 @@ namespace W3D
     // PARTICLE DOMAIN TYPE
 
 
-
-    // TODO: Enum?
     [Serializable]
     [XmlRoot(ElementName="ParticleDomain")]
     public class ParticleDomainType : Xml
@@ -1618,7 +1551,6 @@ namespace W3D
         }
         public Vector3 p2;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="p3")]
         public string p3String
         {
@@ -1707,7 +1639,6 @@ namespace W3D
     [XmlRoot(ElementName="Sphere")]
     public class Sphere : Xml
     {
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="center")]
         public string centerString
         {
@@ -1716,7 +1647,6 @@ namespace W3D
         }
         public Vector3 center;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="radius")]
         public string radiusString
         {
@@ -1725,7 +1655,6 @@ namespace W3D
         }
         public Vector3 radius;
 
-        // TODO: vector simple type
         [XmlAttribute(AttributeName="radius-inner")]
         public string innerRadiusString
         {
