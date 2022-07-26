@@ -115,11 +115,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: lines SDF
+  m_Name: Lines SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -592090228
   material: {fileID: -3776835438726755872}
-  materialHashCode: 0
+  materialHashCode: 33061548
   m_Version: 1.1.0
   m_SourceFontFileGUID: 0defd16b368f4d8478dcca537e783be1
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 0defd16b368f4d8478dcca537e783be1,
@@ -144,7 +144,7 @@ MonoBehaviour:
     m_SubscriptSize: 0.5
     m_UnderlineOffset: 2.3828127
     m_UnderlineThickness: 0
-    m_StrikethroughOffset: 0
+    m_StrikethroughOffset: 53.6
     m_StrikethroughThickness: 0
     m_TabWidth: 0
   m_GlyphTable:
@@ -425,7 +425,8 @@ MonoBehaviour:
   m_FontFeatureTable:
     m_GlyphPairAdjustmentRecords: []
   fallbackFontAssets: []
-  m_FallbackFontAssetTable: []
+  m_FallbackFontAssetTable:
+  - {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_CreationSettings:
     sourceFontFileName: 
     sourceFontFileGUID: 0defd16b368f4d8478dcca537e783be1

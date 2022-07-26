@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: MiniH24 SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 62589020
   material: {fileID: 9219731700625883569}
-  materialHashCode: 0
+  materialHashCode: 1529804284
   m_Version: 1.1.0
   m_SourceFontFileGUID: 6b7f081fd71eb6648a4204bab5af1b38
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 6b7f081fd71eb6648a4204bab5af1b38,
@@ -2266,7 +2266,8 @@ MonoBehaviour:
   m_FontFeatureTable:
     m_GlyphPairAdjustmentRecords: []
   fallbackFontAssets: []
-  m_FallbackFontAssetTable: []
+  m_FallbackFontAssetTable:
+  - {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_CreationSettings:
     sourceFontFileName: 
     sourceFontFileGUID: 6b7f081fd71eb6648a4204bab5af1b38

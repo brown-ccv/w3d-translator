@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Lucida SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 467399335
   material: {fileID: 4701198270072420222}
-  materialHashCode: 0
+  materialHashCode: 730238759
   m_Version: 1.1.0
   m_SourceFontFileGUID: c48dc0e4d370a7d439a46c8ee09385c8
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: c48dc0e4d370a7d439a46c8ee09385c8,
@@ -2494,7 +2494,8 @@ MonoBehaviour:
   m_FontFeatureTable:
     m_GlyphPairAdjustmentRecords: []
   fallbackFontAssets: []
-  m_FallbackFontAssetTable: []
+  m_FallbackFontAssetTable:
+  - {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_CreationSettings:
     sourceFontFileName: 
     sourceFontFileGUID: c48dc0e4d370a7d439a46c8ee09385c8

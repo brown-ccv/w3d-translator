@@ -29,7 +29,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         xmlPath = "../../test/sample.xml"; 
 
         Story xml = LoadStory(xmlPath);
-        Debug.Log(xml.pprint());
 
         // TEMP - Load test scene from play
         // InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
@@ -81,7 +80,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             throw e;
         } 
         catch(Exception e) {
-            Debug.Log($"Error: Deserialization of file at {xmlPath} failed.");
+            Debug.LogError($"Error: Deserialization of file at {xmlPath} failed.");
             Debug.LogException(e);
             throw e;
         }
@@ -96,7 +95,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(xmlPath)}.unity"
             );
         } catch(Exception e) { 
-            Debug.Log($"Error creating scene for {xmlPath}");
+            Debug.LogError($"Error creating scene for {xmlPath}");
             Debug.LogException(e);
             throw e;
         }
@@ -186,7 +185,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         // TODO LinkRoot.Link -> Add a VRCanvas
         if(xml.LinkRoot != null) {}
 
-        // Add Content component(s)        
+        // Add Content component(s)
         switch(xml.Content.contentType) {
             case(Content.ContentType.Text): {
                 // TODO: type (64)
@@ -229,6 +228,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     // Callback function when Debug.Log is called within the CLI script
     static void HandleLog(string logString, string stackTrace, LogType type)
     {
+        // TODO: Log errors in red
+        // TODO: Don't write Exceptions to console (just logfile)
+        
         // Prepend "LOG:", we check for this in the Python script
         Console.WriteLine($"LOG:{logString}");
     }

@@ -59,9 +59,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Times SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -982030025
   material: {fileID: 8715037260171679584}
-  materialHashCode: 0
+  materialHashCode: 1274675127
   m_Version: 1.1.0
   m_SourceFontFileGUID: 787b3b0fd5dfbde46ab7701ec0656645
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 787b3b0fd5dfbde46ab7701ec0656645,
@@ -2541,7 +2541,8 @@ MonoBehaviour:
   m_FontFeatureTable:
     m_GlyphPairAdjustmentRecords: []
   fallbackFontAssets: []
-  m_FallbackFontAssetTable: []
+  m_FallbackFontAssetTable:
+  - {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_CreationSettings:
     sourceFontFileName: 
     sourceFontFileGUID: 787b3b0fd5dfbde46ab7701ec0656645

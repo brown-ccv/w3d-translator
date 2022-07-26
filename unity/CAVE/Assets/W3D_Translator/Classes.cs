@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using UnityEditor;
 using UnityEngine;
 using TMPro;
 
@@ -217,10 +218,8 @@ namespace W3D
 
         public void GenerateTMP(GameObject gameObject, Color color) {
             TextMeshPro tmp = gameObject.AddComponent<TextMeshPro>();
-            RectTransform rectT = gameObject.GetComponent<RectTransform>();
-            MeshRenderer mesh = gameObject.GetComponent<MeshRenderer>();
             
-            // Change Defaults
+            // Change TMP Defaults
             tmp.autoSizeTextContainer = true; // Autosize rectT
             // TODO: Validate default font size
             // TODO: Validate default word wrapping
@@ -229,22 +228,37 @@ namespace W3D
             tmp.enableWordWrapping = false;
             tmp.overflowMode = TextOverflowModes.Truncate;
 
-            // Set text
+            // Load font
+            TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
+                "Materials/Fonts/" + 
+                Path.GetFileNameWithoutExtension(this.font) + 
+                " SDF"
+            );
+            if(tmpFont == null) {
+                // Attempt to load new font asset
+                // TODO: More robust path checking (72)
+                try {
+                    Font font = AssetDatabase.LoadAssetAtPath<Font>(this.font);
+                    tmpFont = TMP_FontAsset.CreateFontAsset(font);
+                    tmpFont.name = Path.GetFileNameWithoutExtension(this.font);
+                } catch(NullReferenceException e) {
+                    Debug.LogError($"Error loading font: {this.font}");
+                    Debug.LogException(e);
+                }
+            }
+            try { tmp.font = tmpFont; }
+            catch(NullReferenceException e) {
+                Debug.LogError($"Error creating font asset {this.font} for {gameObject.name}");
+                Debug.Log("Defaulting to fallback font LiberationSans SDF");
+                Debug.LogException(e);
+            }
+            
+            // Set class values
             tmp.SetText(this.text);
             tmp.horizontalAlignment = (HorizontalAlignmentOptions)this.horizontalAlignment;
             tmp.verticalAlignment = (VerticalAlignmentOptions)this.verticalAlignment;
             tmp.color = color; // Vertex Color
             tmp.faceColor = color; // Material color
-
-            // Set font
-            // TODO: "Font Asset Creator" GUI - create font material
-            // Attempt to load font from Resources/Materials/Fonts
-            // Attempt to create font form script (Just add TODO and log exception for now)
-
-            // mesh.material (?) (The material)
-            // tmp.fontMaterial (The Material)
-            // tmp.fontSharedMaterial (?) (Material seems to be shared)
-            // tmp.font (The font file)
         }
     }
 
