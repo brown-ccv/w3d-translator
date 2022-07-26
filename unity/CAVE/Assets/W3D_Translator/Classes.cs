@@ -189,7 +189,7 @@ namespace W3D
     public class Text : Xml
     {
         [XmlElement(ElementName="text")]
-        public List<string> text;
+        public string text;
 
         // Match TMPro.HorizontalAlignmentOptions
         [XmlAttribute(AttributeName="horiz-align")]
@@ -230,7 +230,7 @@ namespace W3D
             tmp.overflowMode = TextOverflowModes.Truncate;
 
             // Set text
-            tmp.SetText(String.Join(String.Empty, this.text));
+            tmp.SetText(this.text);
             tmp.horizontalAlignment = (HorizontalAlignmentOptions)this.horizontalAlignment;
             tmp.verticalAlignment = (VerticalAlignmentOptions)this.verticalAlignment;
             tmp.color = color; // Vertex Color

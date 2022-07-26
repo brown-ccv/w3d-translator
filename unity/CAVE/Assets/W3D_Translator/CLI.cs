@@ -172,7 +172,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         /** Object
             name: gameObject.name
             Visible: gameObject.active
-            Color: gameObject.GetComponent([content]).color
+            Color: gameObject.[content].color
             Lighting: TODO
             ClickThrough: TODO
             AroundSelfAxis: TODO
@@ -184,9 +184,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         xml.Placement.SetTransform(gameObject.transform, xml.scale, story.transform);
         
         // TODO LinkRoot.Link -> Add a VRCanvas
-        if(xml.LinkRoot != null) {
-
-        }
+        if(xml.LinkRoot != null) {}
 
         // Add Content component(s)        
         switch(xml.Content.contentType) {
