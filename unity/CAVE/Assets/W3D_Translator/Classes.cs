@@ -236,8 +236,8 @@ namespace W3D
             );
             if(tmpFont == null) {
                 // Attempt to load new font asset
-                // TODO: More robust path checking (72)
                 try {
+                    // TODO: More robust path checking (72)
                     Font font = AssetDatabase.LoadAssetAtPath<Font>(this.font);
                     tmpFont = TMP_FontAsset.CreateFontAsset(font);
                     tmpFont.name = Path.GetFileNameWithoutExtension(this.font);
