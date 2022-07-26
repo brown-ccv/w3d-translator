@@ -12,6 +12,8 @@ using TMPro;
 
 using W3D;
 
+// TODO: Should ConvertVector3 invert z axis always?
+
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
     void Start(){ Main(); } // TEMP: Execute script from Unity directly
@@ -68,7 +70,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     static Story LoadStory(string xmlPath) {
         try {
             XmlSerializer serializer = new XmlSerializer(typeof(Story));
-            using (XmlReader reader = XmlReader.Create(xmlPath))
+            using (XmlReader reader = XmlReader.Create(xmlPath)) 
             {
                 return (Story)serializer.Deserialize(reader);
             }
@@ -87,7 +89,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
     // Create a new scene in Unity
     static InstantiationResult InstantiateScene(string xmlPath){
-        try{
+        try {
             return SceneTemplateService.Instantiate(
                 Resources.Load<SceneTemplateAsset>("CAVE"),
                 false,
@@ -166,13 +168,11 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     ) {
         Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
         
-        
         W3D.Object xml = objectList[0]; // TODO - Make loop
-        
         /** Object
             name: gameObject.name
             Visible: gameObject.active
-            Color: TODO
+            Color: gameObject.GetComponent([content]).color
             Lighting: TODO
             ClickThrough: TODO
             AroundSelfAxis: TODO
@@ -188,25 +188,12 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         }
 
-        // Add Component(s)
-        // TODO: Add the TODOs to GitHub and here
-        
-        // TODO: Should ConvertVector3 invert z axis always?
+        // Add Content component(s)        
         switch(xml.Content.contentType) {
             case(Content.ContentType.Text): {
                 // TODO: type (64)
-                Text xmlText = (Text)xml.Content.content;
-                // TextMeshPro tmp = gameObject.AddComponent<TextMeshPro>();
-                
-                
-                xmlText.GenerateTMP(gameObject);
-                
-                
-                // tmp.text = String.Join(String.Empty, xmlText.text);
-                
-
-
-                Debug.Log(xmlText.pprint());
+                Text xmlText = (Text)xml.Content.content;              
+                xmlText.GenerateTMP(gameObject, Xml.ConvertColor(xml.colorString));
                 break;
             }
             case(Content.ContentType.Image): {

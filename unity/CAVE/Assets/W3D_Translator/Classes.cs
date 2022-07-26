@@ -34,7 +34,7 @@ namespace W3D
             return new Vector3(
                 float.Parse(strings[0]),
                 float.Parse(strings[1]),
-                float.Parse(strings[2])
+                float.Parse(strings[2]) * -1
             );
         }
     }
@@ -191,61 +191,60 @@ namespace W3D
         [XmlElement(ElementName="text")]
         public List<string> text;
 
+        // Match TMPro.HorizontalAlignmentOptions
         [XmlAttribute(AttributeName="horiz-align")]
-        public hAlign horizontalAlign;
-        public enum hAlign { 
-            [XmlEnum(Name="left")] Left,
-            [XmlEnum(Name="center")] Center,
-            [XmlEnum(Name="right")] Right,
+        public hAlign horizontalAlignment;
+        public enum hAlign {
+            [XmlEnum(Name="left")] Left = 1,
+            [XmlEnum(Name="center")] Center = 2,
+            [XmlEnum(Name="right")] Right = 4,
         }
 
+        // Match TMPro.VerticalAlignmentOptions
         [XmlAttribute(AttributeName="vert-align")]
-        public vAlign verticalAlign;
+        public vAlign verticalAlignment;
         public enum vAlign { 
-            [XmlEnum(Name="top")] Top,
-            [XmlEnum(Name="center")] Center,
-            [XmlEnum(Name="bottom")] Bottom,
+            [XmlEnum(Name="top")] Top = 256,
+            [XmlEnum(Name="center")] Middle = 512,
+            [XmlEnum(Name="bottom")] Bottom = 1024,
         }
 
         [XmlAttribute(AttributeName="font")]
         public string font;
 
         [XmlAttribute(AttributeName="depth")]
-        public double depth;
+        public float depth;
 
-        public void GenerateTMP(GameObject gameObject) {
+        public void GenerateTMP(GameObject gameObject, Color color) {
             TextMeshPro tmp = gameObject.AddComponent<TextMeshPro>();
-
-            // TMP Defaults
-            // Width - 8
-            // Height - 8
-            // Font size 10 (?)
+            RectTransform rectT = gameObject.GetComponent<RectTransform>();
+            MeshRenderer mesh = gameObject.GetComponent<MeshRenderer>();
+            
+            // Change Defaults
+            tmp.autoSizeTextContainer = true; // Autosize rectT
+            // TODO: Validate default font size
+            // TODO: Validate default word wrapping
+            // TODO: Validate default overflow mode
+            tmp.fontSize = 10;
+            tmp.enableWordWrapping = false;
+            tmp.overflowMode = TextOverflowModes.Truncate;
 
             // Set text
-            tmp.text = String.Join(String.Empty, this.text);
+            tmp.SetText(String.Join(String.Empty, this.text));
+            tmp.horizontalAlignment = (HorizontalAlignmentOptions)this.horizontalAlignment;
+            tmp.verticalAlignment = (VerticalAlignmentOptions)this.verticalAlignment;
+            tmp.color = color; // Vertex Color
+            tmp.faceColor = color; // Material color
 
-            // Set text alignment
-            Text.hAlign ha = this.horizontalAlign;
-            Text.vAlign va = this.verticalAlign;
-            if(va == Text.vAlign.Top && ha == Text.hAlign.Left)
-                tmp.alignment = TextAlignmentOptions.TopLeft;
-            else if(va == Text.vAlign.Top && ha == Text.hAlign.Center)
-                tmp.alignment = TextAlignmentOptions.Top;
-            else if(va == Text.vAlign.Top && ha == Text.hAlign.Right)
-                tmp.alignment = TextAlignmentOptions.TopRight;
-            else if(va == Text.vAlign.Center && ha == Text.hAlign.Left)
-                tmp.alignment = TextAlignmentOptions.Left;
-            else if(va == Text.vAlign.Center && ha == Text.hAlign.Center)
-                tmp.alignment = TextAlignmentOptions.Center;
-            else if(va == Text.vAlign.Center && ha == Text.hAlign.Right)
-                tmp.alignment = TextAlignmentOptions.Right;
-            else if(va == Text.vAlign.Bottom && ha == Text.hAlign.Left)
-                tmp.alignment = TextAlignmentOptions.BottomLeft;
-            else if(va == Text.vAlign.Bottom && ha == Text.hAlign.Center)
-                tmp.alignment = TextAlignmentOptions.Bottom;
-            else if(va == Text.vAlign.Bottom && ha == Text.hAlign.Right)
-                tmp.alignment = TextAlignmentOptions.BottomRight;
+            // Set font
+            // TODO: "Font Asset Creator" GUI - create font material
+            // Attempt to load font from Resources/Materials/Fonts
+            // Attempt to create font form script (Just add TODO and log exception for now)
 
+            // mesh.material (?) (The material)
+            // tmp.fontMaterial (The Material)
+            // tmp.fontSharedMaterial (?) (Material seems to be shared)
+            // tmp.font (The font file)
         }
     }
 
