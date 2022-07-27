@@ -1123,10 +1123,12 @@ namespace W3D
             rotationType.Normal: Local rotation around a normalized vector
         */
         public void SetTransform(Transform gameObjectT, float scale, Transform storyT) {
-            gameObjectT.parent = 
+            gameObjectT.SetParent(
                 this.relativeTo == Placement.RelativeTo.Center
                     ? storyT // Nest Story directly
-                    : storyT.Find(this.relativeTo.ToString());
+                    : storyT.Find(this.relativeTo.ToString())
+                , false
+            );
             gameObjectT.localScale = Vector3.one * scale;
             gameObjectT.localPosition = Xml.ConvertVector3(this.positionString);
 
@@ -1144,7 +1146,8 @@ namespace W3D
                 case(Placement.RotationType.LookAt): {
                     LookAt lookAt = (LookAt)this.rotation;
                     gameObjectT.LookAt(
-                        storyT.TransformPoint(Xml.ConvertVector3(lookAt.targetString)),
+                        2 * gameObjectT.position - 
+                            storyT.TransformPoint(Xml.ConvertVector3(lookAt.targetString)),
                         Xml.ConvertVector3(lookAt.upString)
                     );
                     break;

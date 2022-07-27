@@ -142,17 +142,42 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         }
     }
 
-    // Create each <Placement> as an empty GameObject 
+    // Create each <Placement> as an outlined GameObject 
     static void BuildWalls(Story xml, Transform storyT) {
+        // Each wall is an 8" by 8" square
+        Vector3[] points = {
+            new Vector3(-4, 4, 0),
+            new Vector3(4, 4, 0),
+            new Vector3(4, -4, 0),
+            new Vector3(-4, -4, 0),
+        };
+
         foreach (Placement placement in xml.PlacementRoot)
         {
             // Center objects are nested directly under Story
             if(placement.name == "Center") continue;
 
+            // Create wall
             GameObject wall = new GameObject();
             wall.name = placement.name;
             wall.SetActive(true);
             placement.SetTransform(wall.transform, 1f, storyT);
+
+            // Create outline
+            LineRenderer outline = wall.AddComponent<LineRenderer>();
+            outline.widthMultiplier = 0.01f;
+            outline.useWorldSpace = false;
+            outline.loop = true;
+            outline.material.SetColor("_EmissionColor", Color.white);
+            outline.positionCount = points.Length;
+            outline.SetPositions(points);
+
+            // TEMP - Child
+            GameObject textObj = new GameObject();
+            textObj.transform.SetParent(wall.transform, false);
+            TextMesh text = textObj.AddComponent<TextMesh>();
+            text.anchor = TextAnchor.MiddleCenter;
+            text.text = "Hello, World";
         }
         return;
     }
