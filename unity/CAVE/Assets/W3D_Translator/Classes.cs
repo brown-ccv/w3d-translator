@@ -31,7 +31,7 @@ namespace W3D
             return new Vector3(
                 float.Parse(strings[0]),
                 float.Parse(strings[1]),
-                float.Parse(strings[2])
+                float.Parse(strings[2]) * -1
             );
         }
     }
@@ -1082,27 +1082,82 @@ namespace W3D
     public class Placement : Xml
     {
         [XmlElement(ElementName="RelativeTo")]
-        public string relativeTo;
+        public RelativeTo relativeTo;
 
         [XmlElement(ElementName="Position")]
         public string positionString;
 
-        [XmlElement(ElementName="Axis")]
-        public Axis Axis;
-
-        [XmlElement(ElementName="LookAt")]
-        public LookAt LookAt;
-
-        [XmlElement(ElementName="Normal")]
-        public Normal Normal;
+        [XmlChoiceIdentifier("rotationType")]
+        [XmlElement(ElementName="Axis", Type=typeof(Axis))]
+        [XmlElement(ElementName="LookAt", Type=typeof(LookAt))]
+        [XmlElement(ElementName="Normal", Type=typeof(Normal))]
+        public object rotation;
+        public RotationType rotationType;
+        public enum RotationType {
+            Null,
+            [XmlEnum("Axis")] Axis,
+            [XmlEnum("LookAt")] LookAt,
+            [XmlEnum("Normal")] Normal,
+        }
 
         [XmlAttribute(AttributeName="name")]
         public string name;
 
         [XmlText]
         public string text;
-    }
 
+        public enum RelativeTo {
+            Center,
+            FrontWall,
+            LeftWall,
+            RightWall,
+            FloorWall
+        }
+
+        /** Set parent GameObject and local transforms of gameObjectT
+            relativeTo: [GameObject].transform.parent
+            position: [GameObject].transform.localPosition
+            rotationType.Null: No rotation
+            rotationType.Axis: Rotation angle around an axis 
+            rotationType.LookAt: Rotate to look at target vector (world space)
+            rotationType.Normal: Local rotation around a normalized vector
+        */
+        public void SetTransform(Transform gameObjectT, float scale, Transform storyT) {
+            gameObjectT.parent = 
+                this.relativeTo == Placement.RelativeTo.Center
+                    ? storyT // Nest Story directly
+                    : storyT.Find(this.relativeTo.ToString());
+            gameObjectT.localScale = Vector3.one * scale;
+            gameObjectT.localPosition = Xml.ConvertVector3(this.positionString);
+
+            switch(this.rotationType) {
+                case(Placement.RotationType.Null): {
+                    gameObjectT.localRotation = Quaternion.identity;
+                    break;
+                }
+                case(Placement.RotationType.Axis): {
+                    Axis axis = (Axis)this.rotation;
+                    gameObjectT.localEulerAngles = 
+                        Xml.ConvertVector3(axis.rotationString) * axis.angle;
+                    break;
+                }
+                case(Placement.RotationType.LookAt): {
+                    LookAt lookAt = (LookAt)this.rotation;
+                    gameObjectT.LookAt(
+                        storyT.TransformPoint(Xml.ConvertVector3(lookAt.targetString)),
+                        Xml.ConvertVector3(lookAt.upString)
+                    );
+                    break;
+                }
+                case(Placement.RotationType.Normal): {
+                    // TODO (63)
+                    break;
+                }
+                default: break;
+            }
+            return;
+        }
+    }
 
     [Serializable]
     [XmlRoot(ElementName="Axis")]
@@ -1112,7 +1167,7 @@ namespace W3D
         public string rotationString;
 
         [XmlAttribute(AttributeName="angle")]
-        public double angle;
+        public float angle;
     }
 
 

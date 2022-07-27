@@ -27,7 +27,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         xmlPath = "../../test/sample.xml"; 
 
         Story xml = LoadStory(xmlPath);
-        Debug.Log(xml.pprint());
 
         // TEMP - Load test scene from play
         // InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
@@ -37,6 +36,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
+        BuildWalls(xml, story.transform);
 
         // Save and quit
         // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
@@ -100,6 +100,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
     // Apply camera, lighting, and tracking settings from the xml
     static void ApplyGlobalSettings(Global xml, GameObject xrRig, GameObject story) {
+        Transform mainCameraT = xrRig.transform.GetChild(0).Find("Main Camera");
+        Transform caveCameraT = story.transform.Find("Cave Camera");
+
         // Load default lighting settings and delete skybox
         UnityEditor.Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
         RenderSettings.skybox = null;
@@ -111,37 +114,47 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         // Update CaveCamera inside of story
         W3D.Camera xmlCaveCamera = xml.CaveCamera;
         UnityEngine.Camera caveCamera = 
-            story.transform.Find("Cave Camera").GetComponent<UnityEngine.Camera>();
+            caveCameraT.GetComponent<UnityEngine.Camera>();
         caveCamera.farClipPlane = xmlCaveCamera.farClip;
-        Debug.Assert(xmlCaveCamera.Placement.relativeTo == "Center");
-        caveCamera.transform.localPosition = 
-            Xml.ConvertVector3(xmlCaveCamera.Placement.positionString);
+        xmlCaveCamera.Placement.SetTransform(caveCamera.transform, 1f, story.transform);
 
         // Update Camera inside of xrRig
         W3D.Camera xmlCamera = xml.Camera;
-        UnityEngine.Camera camera = 
-            xrRig.transform.GetChild(0).Find("Main Camera").GetComponent<UnityEngine.Camera>();
+        UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
         camera.farClipPlane = xmlCamera.farClip;
-        Debug.Assert(xmlCamera.Placement.relativeTo == "Center");
-
-        // xml.Camera is really the player's position - update xrRig directly
-        // xrRig is outside the Story object so we must convert to meters
         xrRig.transform.position = 
+            // xml.Camera is really the player's position - update xrRig directly
+            // xrRig is outside the Story object so we must convert to meters
             Xml.ConvertVector3(xmlCamera.Placement.positionString) * 0.3048f;
 
         // Update tracking settings for the Main Camera
-        TrackedPoseDriver tracking = xrRig.transform.GetChild(0).Find("Main Camera").GetComponent<TrackedPoseDriver>();
+        TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
         bool allowRotation = xml.WandNavigation.allowRotation;
         bool allowMovement = xml.WandNavigation.allowMovement;
-        if(!allowRotation && !allowMovement) {
-            tracking.enabled = false;
-        } else if(allowRotation && allowMovement) {
+        if(allowRotation && allowMovement) {
             tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
         } else if(allowRotation && !allowMovement) {
             tracking.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
         } else if(!allowRotation && allowMovement) {
             tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
+        } else if(!allowRotation && !allowMovement) {
+            tracking.enabled = false;
         }
+    }
+
+    // Create each <Placement> as an empty GameObject 
+    static void BuildWalls(Story xml, Transform storyT) {
+        foreach (Placement placement in xml.PlacementRoot)
+        {
+            // Center objects are nested directly under Story
+            if(placement.name == "Center") continue;
+
+            GameObject wall = new GameObject();
+            wall.name = placement.name;
+            wall.SetActive(true);
+            placement.SetTransform(wall.transform, 1f, storyT);
+        }
+        return;
     }
 
     // Callback function when Debug.Log is called within the CLI script
