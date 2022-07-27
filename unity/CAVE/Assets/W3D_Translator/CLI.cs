@@ -49,10 +49,46 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         }
         Debug.Log(story.pprint());
 
-
-
-        // Use enum (ModeType) to get the type - object (mode) contains the data.
-        // This type is an enum so it doesn't make a difference, will elsewhere
+        foreach(EventTrigger e in story.EventRoot) {
+            switch(e.TrackType){
+                case EventTrigger.TrackTypes.Move: {
+                    MoveTrack track = (MoveTrack)e.Tracking;
+                    switch(track.Box.Movement.Data){
+                        case Movement.MovementTypes.Inside: {
+                            Debug.Log($"{e.Name}: Move Track Inside");
+                            break;
+                        }
+                        case Movement.MovementTypes.Outside: {
+                            Debug.Log($"{e.Name}: Move Track Outside");
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case EventTrigger.TrackTypes.Head: {
+                    HeadTrack track = (HeadTrack)e.Tracking;
+                    switch(track.Direction.TargetType) {
+                        case Direction.Targets.None: {
+                            Debug.Log($"{e.Name}: Head Track None");
+                            break;
+                        }
+                        case Direction.Targets.Point: {
+                            Debug.Log($"{e.Name}: Head Track Point");
+                            break;
+                        }
+                        case Direction.Targets.Direction: {
+                            Debug.Log($"{e.Name}: Head Track Direction");
+                            break;
+                        }
+                        case Direction.Targets.Object: {
+                            Debug.Log($"{e.Name}: Head Track Object {((Reference)track.Direction.Target).Name}");
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
 
         /********** TEMP: Leave empty for Unity IDE Development ***********/
 

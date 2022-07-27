@@ -340,9 +340,9 @@
         <xs:element ref="Content" />
         <xs:element name="LinkRoot" minOccurs="0">
           <xs:complexType>
-            <xs:choice minOccurs="0">
+            <xs:sequence>
               <xs:element ref="Link" minOccurs="0" />
-            </xs:choice>
+            </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
