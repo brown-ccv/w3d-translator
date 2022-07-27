@@ -1145,8 +1145,8 @@ namespace W3D
                 }
                 case(Placement.RotationType.LookAt): {
                     LookAt lookAt = (LookAt)this.rotation;
-                    gameObjectT.LookAt(
-                        2 * gameObjectT.position - 
+                    gameObjectT.rotation = Quaternion.LookRotation(
+                        gameObjectT.position - 
                             storyT.TransformPoint(Xml.ConvertVector3(lookAt.targetString)),
                         Xml.ConvertVector3(lookAt.upString)
                     );
