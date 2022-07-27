@@ -109,28 +109,28 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         // Use color based lighting - <Background color="0, 0, 0" />
         RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-        RenderSettings.ambientLight = Xml.ConvertColor(xml.Background.colorString);
+        RenderSettings.ambientLight = Xml.ConvertColor(xml.Background.ColorString);
         
         // Update CaveCamera inside of story
         W3D.Camera xmlCaveCamera = xml.CaveCamera;
         UnityEngine.Camera caveCamera = 
             caveCameraT.GetComponent<UnityEngine.Camera>();
-        caveCamera.farClipPlane = xmlCaveCamera.farClip;
+        caveCamera.farClipPlane = xmlCaveCamera.FarClip;
         xmlCaveCamera.Placement.SetTransform(caveCamera.transform, 1f, story.transform);
 
         // Update Camera inside of xrRig
         W3D.Camera xmlCamera = xml.Camera;
         UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
-        camera.farClipPlane = xmlCamera.farClip;
+        camera.farClipPlane = xmlCamera.FarClip;
         xrRig.transform.position = 
             // xml.Camera is really the player's position - update xrRig directly
             // xrRig is outside the Story object so we must convert to meters
-            Xml.ConvertVector3(xmlCamera.Placement.positionString) * 0.3048f;
+            Xml.ConvertVector3(xmlCamera.Placement.PositionString) * 0.3048f;
 
         // Update tracking settings for the Main Camera
         TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
-        bool allowRotation = xml.WandNavigation.allowRotation;
-        bool allowMovement = xml.WandNavigation.allowMovement;
+        bool allowRotation = xml.WandNavigation.AllowRotation;
+        bool allowMovement = xml.WandNavigation.AllowMovement;
         if(allowRotation && allowMovement) {
             tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
         } else if(allowRotation && !allowMovement) {
@@ -155,11 +155,11 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         foreach (Placement placement in xml.PlacementRoot)
         {
             // Center objects are nested directly under Story
-            if(placement.name == "Center") continue;
+            if(placement.Name == "Center") continue;
 
             // Create wall
             GameObject wall = new GameObject();
-            wall.name = placement.name;
+            wall.name = placement.Name;
             wall.SetActive(true);
             placement.SetTransform(wall.transform, 1f, storyT);
 
