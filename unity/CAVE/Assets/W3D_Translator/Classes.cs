@@ -152,7 +152,7 @@ namespace W3D
     }
 
 
-    // CONTENT
+    // OBJECT.CONTENT
 
 
     [Serializable]
@@ -253,7 +253,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="ParticleSystem")]
-    // TODO: Unity has a ParticleSystem class
+    // TODO: Unity has a ParticleSystem class (69)
     public class ParticleSystem : Xml
     {
         [XmlAttribute(AttributeName="max-particles")]
@@ -276,12 +276,9 @@ namespace W3D
     }
 
 
-    // Content.Light
-
-
     [Serializable]
     [XmlRoot(ElementName="Light")]
-    // TODO: Unity has a Light class
+    // TODO: Unity has a Light class (68)
     public class Light : Xml
     {
         [XmlChoiceIdentifier("Type")]
@@ -347,9 +344,6 @@ namespace W3D
     }
 
 
-    // Link.Actions
-
-
     [Serializable]
     [XmlRoot(ElementName="Actions")]
     public class LinkActions : Actions
@@ -374,7 +368,6 @@ namespace W3D
             [XmlEnum("NumClicks")] Number,
         }
     }
-
 
 
     [Serializable]
@@ -492,7 +485,6 @@ namespace W3D
     }
 
 
-
     [Serializable]
     [XmlRoot(ElementName="Repeat")]
     public class Repeat : Xml
@@ -592,9 +584,6 @@ namespace W3D
             [XmlEnum("Box")] Box
         }
     }
-
-
-    // HeadTrack.Direction
 
 
     [Serializable]
@@ -728,7 +717,7 @@ namespace W3D
     }
 
 
-    /********** PARTICLE ACTION     ***********/
+    /********** PARTICLE ACTION LIST     ***********/
 
 
     [Serializable]
@@ -1076,7 +1065,7 @@ namespace W3D
     /********** COMPLEX TYPES    ***********/
 
 
-    // PLACEMENT TYPE
+    // PLACEMENT
 
 
     [Serializable]
@@ -1142,7 +1131,7 @@ namespace W3D
     }
 
 
-    // ACTIONS TYPE
+    // ACTIONS
 
 
     [Serializable]
@@ -1257,7 +1246,7 @@ namespace W3D
     }
 
 
-    // TRANSITION TYPE
+    // TRANSITION
 
  
     [Serializable]
@@ -1346,7 +1335,7 @@ namespace W3D
     }
 
 
-    // PARTICLE DOMAIN TYPE
+    // PARTICLE DOMAIN
 
 
     [Serializable]
