@@ -131,22 +131,14 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
         bool allowRotation = xml.WandNavigation.AllowRotation;
         bool allowMovement = xml.WandNavigation.AllowMovement;
-
-        // TODO: Example of what to use
-        // string favoriteTask = developer.FirstName switch
-        // {
-        //   "Julia" => "Writing code", // This is the first switch expression arm
-        //   "Thomas" => "Writing this blog post",
-        //   _ => "Watching TV",
-        // };
-        if(allowRotation && allowMovement) {
-            tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
-        } else if(allowRotation && !allowMovement) {
-            tracking.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
-        } else if(!allowRotation && allowMovement) {
-            tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
-        } else if(!allowRotation && !allowMovement) {
-            tracking.enabled = false;
+        if(!allowRotation && !allowMovement) tracking.enabled = false;
+        else {
+            # pragma warning disable CS8509 // (false, false) case is handled above
+            tracking.trackingType = (allowRotation, allowMovement) switch {
+                (true, true) => TrackedPoseDriver.TrackingType.RotationAndPosition,
+                (true, false) => TrackedPoseDriver.TrackingType.RotationOnly,
+                (false, true) => TrackedPoseDriver.TrackingType.PositionOnly,
+            };
         }
     }
 
