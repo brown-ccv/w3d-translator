@@ -1108,7 +1108,6 @@ namespace W3D
         /** Set parent GameObject and local transforms of gameObjectT
             relativeTo: [GameObject].transform.parent
             position: [GameObject].transform.localPosition
-            rotationType.Null: No rotation
             rotationType.Axis: Rotation angle around an axis 
             rotationType.LookAt: Rotate to look at target vector (world space)
             rotationType.Normal: Local rotation around a normalized vector
@@ -1116,14 +1115,13 @@ namespace W3D
         public void SetTransform(Transform gameObjectT, float scale, Transform storyT) {
             gameObjectT.SetParent(
                 this.RelativeTo == Placement.PlacementTypes.Center
-                    ? storyT // Nest Story directly
+                    ? storyT // Nest under Story directly
                     : storyT.Find(this.RelativeTo.ToString())
                 , false
             );
             gameObjectT.localScale = Vector3.one * scale;
             gameObjectT.localPosition = Xml.ConvertVector3(this.PositionString);
 
-            // Apply rotation
             switch(this.rotation) {
                 case(Axis rotation):
                     gameObjectT.localEulerAngles = 
