@@ -175,13 +175,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             outline.material.SetColor("_EmissionColor", Color.white);
             outline.positionCount = points.Length;
             outline.SetPositions(points);
-
-            // TEMP - Child
-            GameObject textObj = new GameObject();
-            textObj.transform.SetParent(wall.transform, false);
-            TextMesh text = textObj.AddComponent<TextMesh>();
-            text.anchor = TextAnchor.MiddleCenter;
-            text.text = "Hello, World";
         }
         return;
     }
@@ -211,38 +204,26 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         if(xml.LinkRoot != null) {}
 
         // Add Content component(s)
-        switch(xml.Content.Type) {
-            case(Content.ContentTypes.Text): {
+        switch(xml.Content.ContentData) {
+            case(Text text):
                 // TODO: type (64)
-                Text xmlText = (Text)xml.Content.ContentData;              
-                xmlText.GenerateTMP(gameObject, Xml.ConvertColor(xml.ColorString));
+                text.GenerateTMP(gameObject, Xml.ConvertColor(xml.ColorString));
                 break;
-            }
-            case(Content.ContentTypes.Image): {
+            case(Image image):
                 // TODO: type (65)
-                Image image = (Image)xml.Content.ContentData;
                 break;
-            }
-            case(Content.ContentTypes.StereoImage): {
+            case(StereoImage stereoImage):
                 // TODO: type (66)
-                StereoImage stereoImage = (StereoImage)xml.Content.ContentData;
                 break;
-            }
-            case(Content.ContentTypes.Model): {
+            case(Model model):
                 // TODO: type (67)
-                Model model = (Model)xml.Content.ContentData;
                 break;
-            }
-            case(Content.ContentTypes.Light): {
+            case(W3D.Light light):
                 // TODO: type (68)
-                W3D.Light light = (W3D.Light)xml.Content.ContentData;
                 break;
-            }
-            case(Content.ContentTypes.ParticleSystem): {
+            case(W3D.ParticleSystem particleSystem):
                 // TODO: type (69)
-                W3D.ParticleSystem particleSystem = (W3D.ParticleSystem)xml.Content.ContentData;
                 break;
-            }
             default: break;
         }
         
