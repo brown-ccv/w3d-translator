@@ -113,50 +113,75 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         // Use color based lighting - <Background color="0, 0, 0" />
         RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-        RenderSettings.ambientLight = Xml.ConvertColor(xml.Background.colorString);
+        RenderSettings.ambientLight = Xml.ConvertColor(xml.Background.ColorString);
         
         // Update CaveCamera inside of story
         W3D.Camera xmlCaveCamera = xml.CaveCamera;
         UnityEngine.Camera caveCamera = 
             caveCameraT.GetComponent<UnityEngine.Camera>();
-        caveCamera.farClipPlane = xmlCaveCamera.farClip;
+        caveCamera.farClipPlane = xmlCaveCamera.FarClip;
         xmlCaveCamera.Placement.SetTransform(caveCamera.transform, 1f, story.transform);
 
         // Update Camera inside of xrRig
         W3D.Camera xmlCamera = xml.Camera;
         UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
-        camera.farClipPlane = xmlCamera.farClip;
+        camera.farClipPlane = xmlCamera.FarClip;
         xrRig.transform.position = 
             // xml.Camera is really the player's position - update xrRig directly
             // xrRig is outside the Story object so we must convert to meters
-            Xml.ConvertVector3(xmlCamera.Placement.positionString) * 0.3048f;
+            Xml.ConvertVector3(xmlCamera.Placement.PositionString) * 0.3048f;
 
         // Update tracking settings for the Main Camera
         TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
-        bool allowRotation = xml.WandNavigation.allowRotation;
-        bool allowMovement = xml.WandNavigation.allowMovement;
-        if(allowRotation && allowMovement) {
-            tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
-        } else if(allowRotation && !allowMovement) {
-            tracking.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
-        } else if(!allowRotation && allowMovement) {
-            tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
-        } else if(!allowRotation && !allowMovement) {
-            tracking.enabled = false;
+        bool allowRotation = xml.WandNavigation.AllowRotation;
+        bool allowMovement = xml.WandNavigation.AllowMovement;
+        if(!allowRotation && !allowMovement) tracking.enabled = false;
+        else {
+            # pragma warning disable CS8509 // (false, false) case is handled above
+            tracking.trackingType = (allowRotation, allowMovement) switch {
+                (true, true) => TrackedPoseDriver.TrackingType.RotationAndPosition,
+                (true, false) => TrackedPoseDriver.TrackingType.RotationOnly,
+                (false, true) => TrackedPoseDriver.TrackingType.PositionOnly,
+            };
         }
     }
 
-    // Create each <Placement> as an empty GameObject 
+    // Create each <Placement> as an outlined GameObject 
     static void BuildWalls(Story xml, Transform storyT) {
+        // Each wall is an 8" by 8" square
+        Vector3[] points = {
+            new Vector3(-4, 4, 0),
+            new Vector3(4, 4, 0),
+            new Vector3(4, -4, 0),
+            new Vector3(-4, -4, 0),
+        };
+
         foreach (Placement placement in xml.PlacementRoot)
         {
             // Center objects are nested directly under Story
-            if(placement.name == "Center") continue;
+            if(placement.Name == "Center") continue;
 
+            // Create wall
             GameObject wall = new GameObject();
-            wall.name = placement.name;
+            wall.name = placement.Name;
             wall.SetActive(true);
             placement.SetTransform(wall.transform, 1f, storyT);
+
+            // Create outline
+            LineRenderer outline = wall.AddComponent<LineRenderer>();
+            outline.widthMultiplier = 0.01f;
+            outline.useWorldSpace = false;
+            outline.loop = true;
+            outline.material.SetColor("_EmissionColor", Color.white);
+            outline.positionCount = points.Length;
+            outline.SetPositions(points);
+
+            // TEMP - Child
+            GameObject textObj = new GameObject();
+            textObj.transform.SetParent(wall.transform, false);
+            TextMesh text = textObj.AddComponent<TextMesh>();
+            text.anchor = TextAnchor.MiddleCenter;
+            text.text = "Hello, World";
         }
         return;
     }
@@ -178,44 +203,44 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             Scale: gameObject.localScale (set in Placement.SetTransform)
         */
         GameObject gameObject = new GameObject();
-        gameObject.name = xml.name;
-        gameObject.SetActive(xml.visible);
-        xml.Placement.SetTransform(gameObject.transform, xml.scale, story.transform);
+        gameObject.name = xml.Name;
+        gameObject.SetActive(xml.Visible);
+        xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
         
         // TODO LinkRoot.Link -> Add a VRCanvas
         if(xml.LinkRoot != null) {}
 
         // Add Content component(s)
-        switch(xml.Content.contentType) {
-            case(Content.ContentType.Text): {
+        switch(xml.Content.Type) {
+            case(Content.ContentTypes.Text): {
                 // TODO: type (64)
-                Text xmlText = (Text)xml.Content.content;              
-                xmlText.GenerateTMP(gameObject, Xml.ConvertColor(xml.colorString));
+                Text xmlText = (Text)xml.Content.ContentData;              
+                xmlText.GenerateTMP(gameObject, Xml.ConvertColor(xml.ColorString));
                 break;
             }
-            case(Content.ContentType.Image): {
+            case(Content.ContentTypes.Image): {
                 // TODO: type (65)
-                Image image = (Image)xml.Content.content;
+                Image image = (Image)xml.Content.ContentData;
                 break;
             }
-            case(Content.ContentType.StereoImage): {
+            case(Content.ContentTypes.StereoImage): {
                 // TODO: type (66)
-                StereoImage stereoImage = (StereoImage)xml.Content.content;
+                StereoImage stereoImage = (StereoImage)xml.Content.ContentData;
                 break;
             }
-            case(Content.ContentType.Model): {
+            case(Content.ContentTypes.Model): {
                 // TODO: type (67)
-                Model model = (Model)xml.Content.content;
+                Model model = (Model)xml.Content.ContentData;
                 break;
             }
-            case(Content.ContentType.Light): {
+            case(Content.ContentTypes.Light): {
                 // TODO: type (68)
-                W3D.Light light = (W3D.Light)xml.Content.content;
+                W3D.Light light = (W3D.Light)xml.Content.ContentData;
                 break;
             }
-            case(Content.ContentType.ParticleSystem): {
+            case(Content.ContentTypes.ParticleSystem): {
                 // TODO: type (69)
-                W3D.ParticleSystem particleSystem = (W3D.ParticleSystem)xml.Content.content;
+                W3D.ParticleSystem particleSystem = (W3D.ParticleSystem)xml.Content.ContentData;
                 break;
             }
             default: break;
