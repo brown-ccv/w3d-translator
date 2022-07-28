@@ -1123,30 +1123,25 @@ namespace W3D
             gameObjectT.localScale = Vector3.one * scale;
             gameObjectT.localPosition = Xml.ConvertVector3(this.PositionString);
 
-            switch(this.rotationType) {
-                case(Placement.RotationType.Null): {
-                    gameObjectT.localRotation = Quaternion.identity;
-                    break;
-                }
-                case(Placement.RotationType.Axis): {
-                    Axis axis = (Axis)this.rotation;
+            // Apply rotation
+            switch(this.rotation) {
+                case(Axis rotation):
                     gameObjectT.localEulerAngles = 
-                        Xml.ConvertVector3(axis.RotationString) * axis.Angle;
+                        Xml.ConvertVector3(rotation.RotationString) * rotation.Angle;
                     break;
-                }
-                case(Placement.RotationType.LookAt): {
-                    LookAt lookAt = (LookAt)this.rotation;
+                case(LookAt rotation):
                     gameObjectT.rotation = Quaternion.LookRotation(
                         gameObjectT.position - 
-                            storyT.TransformPoint(Xml.ConvertVector3(lookAt.TargetString)),
-                        Xml.ConvertVector3(lookAt.UpString)
+                            storyT.TransformPoint(Xml.ConvertVector3(rotation.TargetString)),
+                        Xml.ConvertVector3(rotation.UpString)
                     );
                     break;
-                }
-                case(Placement.RotationType.Normal): {
+                case(Normal rotation):
                     // TODO (63)
                     break;
-                }
+                case(null):
+                    gameObjectT.localRotation = Quaternion.identity;
+                    break;
                 default: break;
             }
             return;
