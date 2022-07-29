@@ -1260,6 +1260,10 @@ namespace W3D
             [XmlEnum("MoveCave")] MoveCave,
             [XmlEnum("Restart")] Restart,
         }
+
+        /* TODO: Each action should have a function associated with it
+            This function gets added to an array of actions and is called when clicked
+        */
     }
 
 
