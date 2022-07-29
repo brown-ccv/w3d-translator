@@ -171,13 +171,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             outline.material.SetColor("_EmissionColor", Color.white);
             outline.positionCount = points.Length;
             outline.SetPositions(points);
-
-            // TEMP - Child
-            GameObject textObj = new GameObject();
-            textObj.transform.SetParent(wall.transform, false);
-            TextMesh text = textObj.AddComponent<TextMesh>();
-            text.anchor = TextAnchor.MiddleCenter;
-            text.text = "Hello, World";
         }
         return;
     }
