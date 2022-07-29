@@ -185,7 +185,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     ) {
         Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
         
-        W3D.Object xml = objectList[0]; // TODO - Make loop
+        // W3D.Object xml = objectList[0]; // TODO - Make loop
         /** Object
             name: gameObject.name
             Visible: gameObject.active
@@ -195,39 +195,41 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             AroundSelfAxis: TODO
             Scale: gameObject.localScale (set in Placement.SetTransform)
         */
-        GameObject gameObject = new GameObject();
-        gameObject.name = xml.Name;
-        gameObject.SetActive(xml.Visible);
-        xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
-        
-        // TODO LinkRoot.Link -> Add a VRCanvas
-        if(xml.LinkRoot != null) {}
+        foreach (W3D.Object xml in objectList)
+        {   
+            GameObject gameObject = new GameObject();
+            gameObject.name = xml.Name;
+            xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
+            
+            // TODO LinkRoot.Link -> Add a VRCanvas
+            if(xml.LinkRoot is not null) {}
+    
+            // Add Content component(s)
+            switch(xml.Content.ContentData) {
+                case(Text textContent):
+                    textContent.GenerateTMP(gameObject, Xml.ConvertColor(xml.ColorString));
+                    break;
+                case(Image imageContent):
+                    // TODO: type (65)
+                    break;
+                case(StereoImage stereoImageContent):
+                    // TODO: type (66)
+                    break;
+                case(Model modelContent):
+                    // TODO: type (67)
+                    break;
+                case(W3D.Light lightContent):
+                    // TODO: type (68)
+                    break;
+                case(W3D.ParticleSystem particleSystemContent):
+                    // TODO: type (69)
+                    break;
+                default: break;
+            }
 
-        // Add Content component(s)
-        switch(xml.Content.ContentData) {
-            case(Text text):
-                // TODO: type (64)
-                text.GenerateTMP(gameObject, Xml.ConvertColor(xml.ColorString));
-                break;
-            case(Image image):
-                // TODO: type (65)
-                break;
-            case(StereoImage stereoImage):
-                // TODO: type (66)
-                break;
-            case(Model model):
-                // TODO: type (67)
-                break;
-            case(W3D.Light light):
-                // TODO: type (68)
-                break;
-            case(W3D.ParticleSystem particleSystem):
-                // TODO: type (69)
-                break;
-            default: break;
+            gameObject.SetActive(xml.Visible);
+            gameObjects.Add(gameObject.name, gameObject);
         }
-        
-        gameObjects.Add(gameObject.name, gameObject);
         return gameObjects;
     }
 

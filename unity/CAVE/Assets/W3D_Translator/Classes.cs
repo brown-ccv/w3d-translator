@@ -230,11 +230,15 @@ namespace W3D
             tmp.overflowMode = TextOverflowModes.Truncate;
 
             // Load font
+            // TODO: Don't want to load the same asset multiple times
+            // Create new preset of the font
             TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
                 "Materials/Fonts/" + 
                 Path.GetFileNameWithoutExtension(this.Font) + 
                 " SDF"
             );
+
+
             if(tmpFont == null) {
                 // Attempt to load new font asset
                 try {
@@ -247,8 +251,10 @@ namespace W3D
                     Debug.LogException(e);
                 }
             }
+            
             try { tmp.font = tmpFont; }
             catch(NullReferenceException e) {
+                Debug.LogWarning($"{gameObject.name} {tmpFont.ToString()} {tmp.font.ToString()}");
                 Debug.LogError($"Error creating font asset {this.Font} for {gameObject.name}");
                 Debug.Log("Defaulting to fallback font LiberationSans SDF");
                 Debug.LogException(e);
