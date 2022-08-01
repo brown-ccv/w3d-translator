@@ -8,6 +8,7 @@ using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SpatialTracking;
+using Unity.XR.CoreUtils;
 using TMPro;
 
 using W3D;
@@ -43,7 +44,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Dictionary<string, GameObject> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
         // Save and quit
-        // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+        // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene()); // Can only be run in editor mode
         Application.logMessageReceivedThreaded -= HandleLog;
         Application.Quit();
     }
@@ -123,8 +124,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         xmlCaveCamera.Placement.SetTransform(caveCamera.transform, 1f, story.transform);
 
         // Update Camera inside of xrRig
-        // TODO: Not working when I disable the tracking
-        /*
         W3D.Camera xmlCamera = xml.Camera;
         UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
         camera.farClipPlane = xmlCamera.FarClip;
@@ -137,7 +136,13 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
         bool allowRotation = xml.WandNavigation.AllowRotation;
         bool allowMovement = xml.WandNavigation.AllowMovement;
-        if(!allowRotation && !allowMovement) tracking.enabled = false;
+        Debug.Log($"xml: {xmlCamera} {allowRotation} {allowMovement}");
+        if(!allowRotation && !allowMovement) {
+            tracking.enabled = false;
+            // Setting the tracking to device based re-adds the camera offset
+            xrRig.GetComponent<XROrigin>().RequestedTrackingOriginMode = 
+                XROrigin.TrackingOriginMode.Device;
+        }
         else {
             # pragma warning disable CS8509 // (false, false) case is handled above
             tracking.trackingType = (allowRotation, allowMovement) switch {
@@ -146,7 +151,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 (false, true) => TrackedPoseDriver.TrackingType.PositionOnly,
             };
         }
-        */
     }
 
     // Create each <Placement> as an outlined GameObject 
