@@ -16,9 +16,9 @@ using W3D;
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
-    void Start(){ Main(); } // TEMP: Execute script from Unity directly
+    // void Start(){ Main(); } // TEMP: Execute script from Unity directly
 
-    static void Main()
+    public static void Main()
     {
         Application.logMessageReceivedThreaded += HandleLog;
         Debug.Log("Running Unity CLI");
@@ -123,6 +123,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         xmlCaveCamera.Placement.SetTransform(caveCamera.transform, 1f, story.transform);
 
         // Update Camera inside of xrRig
+        // TODO: Not working when I disable the tracking
+        /*
         W3D.Camera xmlCamera = xml.Camera;
         UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
         camera.farClipPlane = xmlCamera.FarClip;
@@ -144,6 +146,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 (false, true) => TrackedPoseDriver.TrackingType.PositionOnly,
             };
         }
+        */
     }
 
     // Create each <Placement> as an outlined GameObject 
