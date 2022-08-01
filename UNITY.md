@@ -268,8 +268,36 @@ TODO 69
 
 TODO (74)
 
-`<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object turns it into a clickable button
+`<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object turns it into a clickable button. A canvas (grandparent) and button (parent) object are added to the hierarchy. The canvas's name will match the objects.
+
+#### Canvas and UI Button
+
+- `Canvas Renderer -> Cull Transparent Mesh` must be turned off (button and `<Object>`)
+- The canvas and button are scaled to a hit box around the child `<Object>`
+- The `Tracked Device Graphic Raycaster` script must be added to the canvas
+  
+#### Parent xml
+
+- "Blocking Mask" is set by `<ClickThrough>` in the original object
+- The `<Object>`s `<Color>` tag sets Button.NormalColor
+  - Make sure "Target Graphic" is set to the original `<Object>`
+
+#### Link xml
+
+- `<Enabled>`: Button.Intractable
+- `<RemainEnabled>`: Whether or not the button remains enabled after being clicked
+  - true: Navigation.None
+  - false: Navigation.Automatic
+- `<EnabledColor>`: Button.NormalColor
+- `<SelectedColor>`: Button.SelectedColor
+- `<Actions>`: An action to complete once triggered (Button.OnClick)
+  - Choice of actions (ObjectChange, GroupChange, TimerChange, SoundRef, Event, MoveCave, Restart)
+  - `<NumClicks>`: The number of clicks required to trigger the actions
+  - *Note that there can be mulitiple `<Actions>` per `<Link>`*
+
+*What to do with highlighted color? disabled color?*
 
 ### Changes and Conversions (Object)
 
 - `<Scale>` is applied to every axis (e.g. `scale * Vector3(1, 1, 1)`)
+- The scale of the canvas is `0.1, 0.1, 0.1`
