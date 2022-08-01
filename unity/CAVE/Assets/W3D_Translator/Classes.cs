@@ -32,7 +32,7 @@ namespace W3D
             return new Vector3(
                 float.Parse(strings[0]),
                 float.Parse(strings[1]),
-                float.Parse(strings[2])
+                float.Parse(strings[2]) * -1
             );
         }
     }
