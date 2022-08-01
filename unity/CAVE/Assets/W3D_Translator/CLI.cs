@@ -244,6 +244,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     static void HandleLog(string logString, string stackTrace, LogType type)
     {
         // TODO: Log errors in red
+        // TODO: Log warnings in yellow
         // TODO: Don't write Exceptions to console (just logfile)
         
         // Prepend "LOG:", we check for this in the Python script
