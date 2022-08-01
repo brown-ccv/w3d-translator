@@ -221,28 +221,24 @@ namespace W3D
             TextMeshPro tmp = gameObject.AddComponent<TextMeshPro>();
             
             // Change TMP Defaults
-            tmp.autoSizeTextContainer = true; // Autosize rectT
-            // TODO: Validate default font size
-            // TODO: Validate default word wrapping
-            // TODO: Validate default overflow mode
+            tmp.autoSizeTextContainer = true;
+            // TODO (64): Validate default font size
+            // TODO (64): Validate default word wrapping
+            // TODO (64): Validate default overflow mode
             tmp.fontSize = 10;
             tmp.enableWordWrapping = false;
             tmp.overflowMode = TextOverflowModes.Truncate;
 
-            // Load font
-            // TODO: Don't want to load the same asset multiple times
-            // Create new preset of the font
+            // Load font material
             TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
                 "Materials/Fonts/" + 
                 Path.GetFileNameWithoutExtension(this.Font) + 
                 " SDF"
             );
-
-
+            // Font material hasn't been created, attempt to load from ttf file
+            // TODO: More robust path checking (72)
             if(tmpFont == null) {
-                // Attempt to load new font asset
                 try {
-                    // TODO: More robust path checking (72)
                     Font font = AssetDatabase.LoadAssetAtPath<Font>(this.Font);
                     tmpFont = TMP_FontAsset.CreateFontAsset(font);
                     tmpFont.name = Path.GetFileNameWithoutExtension(this.Font);
@@ -251,7 +247,7 @@ namespace W3D
                     Debug.LogException(e);
                 }
             }
-            
+            // Add font to the TextMeshPro object
             try { tmp.font = tmpFont; }
             catch(NullReferenceException e) {
                 Debug.LogWarning($"{gameObject.name} {tmpFont.ToString()} {tmp.font.ToString()}");
@@ -260,7 +256,7 @@ namespace W3D
                 Debug.LogException(e);
             }
             
-            // Set class values
+            // Set object properties defined in the xml
             tmp.SetText(this.String);
             tmp.horizontalAlignment = (HorizontalAlignmentOptions)this.HorizontalAlignment;
             tmp.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
@@ -276,7 +272,6 @@ namespace W3D
     {
         [XmlAttribute(AttributeName="filename")]
         public string Filename;
-
     }
 
 
