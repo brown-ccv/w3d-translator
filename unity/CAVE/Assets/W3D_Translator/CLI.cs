@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
 using UnityEngine.SpatialTracking;
+using Unity.XR.CoreUtils;
 
 using W3D;
 
@@ -100,6 +101,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
     // Apply camera, lighting, and tracking settings from the xml
     static void ApplyGlobalSettings(Global xml, GameObject xrRig, GameObject story) {
+        Transform mainCameraT = xrRig.transform.Find("Camera Offset").Find("Main Camera");
+        Transform caveCameraT = story.transform.Find("Cave Camera");
+
         // Load default lighting settings and delete skybox
         UnityEditor.Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
         RenderSettings.skybox = null;
@@ -111,36 +115,39 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         // Update CaveCamera inside of story
         W3D.Camera xmlCaveCamera = xml.CaveCamera;
         UnityEngine.Camera caveCamera = 
-            story.transform.Find("Cave Camera").GetComponent<UnityEngine.Camera>();
+            caveCameraT.GetComponent<UnityEngine.Camera>();
         caveCamera.farClipPlane = xmlCaveCamera.FarClip;
-        Debug.Assert(xmlCaveCamera.Placement.RelativeTo == "Center");
         caveCamera.transform.localPosition = 
             Xml.ConvertVector3(xmlCaveCamera.Placement.PositionString);
 
         // Update Camera inside of xrRig
         W3D.Camera xmlCamera = xml.Camera;
-        UnityEngine.Camera camera = 
-            xrRig.transform.GetChild(0).Find("Main Camera").GetComponent<UnityEngine.Camera>();
+        UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
         camera.farClipPlane = xmlCamera.FarClip;
-        Debug.Assert(xmlCamera.Placement.RelativeTo == "Center");
-
-        // xml.Camera is really the player's position - update xrRig directly
-        // xrRig is outside the Story object so we must convert to meters
         xrRig.transform.position = 
+            // xml.Camera is really the player's position - update xrRig directly
+            // xrRig is outside the Story object so we must convert to meters
             Xml.ConvertVector3(xmlCamera.Placement.PositionString) * 0.3048f;
 
         // Update tracking settings for the Main Camera
-        TrackedPoseDriver tracking = xrRig.transform.GetChild(0).Find("Main Camera").GetComponent<TrackedPoseDriver>();
+        TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
         bool allowRotation = xml.WandNavigation.AllowRotation;
         bool allowMovement = xml.WandNavigation.AllowMovement;
+        Debug.Log($"xml: {xmlCamera} {allowRotation} {allowMovement}");
         if(!allowRotation && !allowMovement) {
             tracking.enabled = false;
-        } else if(allowRotation && allowMovement) {
-            tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
-        } else if(allowRotation && !allowMovement) {
-            tracking.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
-        } else if(!allowRotation && allowMovement) {
-            tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
+            // Setting the tracking to device based re-adds the camera offset
+            xrRig.GetComponent<XROrigin>().RequestedTrackingOriginMode = 
+                XROrigin.TrackingOriginMode.Device;
+            Debug.Log(tracking.ToString());
+        }
+        else {
+            # pragma warning disable CS8509 // (false, false) case is handled above
+            tracking.trackingType = (allowRotation, allowMovement) switch {
+                (true, true) => TrackedPoseDriver.TrackingType.RotationAndPosition,
+                (true, false) => TrackedPoseDriver.TrackingType.RotationOnly,
+                (false, true) => TrackedPoseDriver.TrackingType.PositionOnly,
+            };
         }
     }
 
