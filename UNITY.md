@@ -79,20 +79,18 @@ In addition to the Unity XRRig, a root MiddleVR package needs to be added in ord
 
 ### Background
 
-- The background color is set by the Camera when not using a Skybox
-  - The `color` attribute sets the background color for *both* cameras in the scene
+The `<Background color>...` attribute sets the background color for BOTH `Main Camera` and `CaveCamera`. The Camera's background color adjusts the scene lighting when not using a Skybox
 
 ### Wand Navigation
 
-The `WandNavigation` changes settings for the `Tracked Pose Driver` component of the main (XRRig) camera - Tracking Type.
-
-- `allow-rotation`: Whether or not the player can rotate in the scene
-- `allow-movement`: Whether or not the player can move in the scene
+- `<WandNavigation>` changes settings for the `Tracked Pose Driver` component of `Main Camera`
+  - `allow-rotation`: Whether or not the player can rotate in the scene
+  - `allow-movement`: Whether or not the player can move in the scene
 - The tracking types in Unity are "Rotation And Position", "Rotation Only", and "Position Only"
   - R & P: `<WandNavigation allow-rotation="true" allow-movement="true" />`
   - R: `<WandNavigation allow-rotation="true" allow-movement="false" />`
   - P: `<WandNavigation allow-rotation="false" allow-movement="true" />`
-  - Disable "Tracked Pose Driver" if `<WandNavigation allow-rotation="false" allow-movement="false" />`
+  - If `<WandNavigation allow-rotation="false" allow-movement="false" />`, disable `Tracked Pose Driver` and set `XR Origin` (a script attached directly to XRRig) origin mode to "Device"
 
 ### Changes and Conversions (Global)
 
