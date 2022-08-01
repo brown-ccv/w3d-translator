@@ -173,6 +173,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             wall.SetActive(true);
             placement.SetTransform(wall.transform, 1f, storyT);
 
+            // TODO: Add a canvas to each wall
+
             // Create outline
             LineRenderer outline = wall.AddComponent<LineRenderer>();
             outline.widthMultiplier = 0.01f;
