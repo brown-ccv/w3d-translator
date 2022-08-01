@@ -165,10 +165,10 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         foreach (Placement placement in xml.PlacementRoot)
         {
-            // Center objects are nested directly under Story
+            // Objects in the "Center" space are nested directly under Story
             if(placement.Name == "Center") continue;
 
-            // Create wall
+            // Create and position wall
             GameObject wall = new GameObject();
             wall.name = placement.Name;
             wall.SetActive(true);
@@ -191,15 +191,13 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         List<W3D.Object> objectList, GameObject story
     ) {
         Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
-        
-        // W3D.Object xml = objectList[0]; // TODO - Make loop
         /** Object
             name: gameObject.name
             Visible: gameObject.active
             Color: gameObject.[content].color
-            Lighting: TODO
-            ClickThrough: TODO
-            AroundSelfAxis: TODO
+            Lighting: TODO (76)
+            ClickThrough: TODO (76)
+            AroundSelfAxis: TODO (76)
             Scale: gameObject.localScale (set in Placement.SetTransform)
         */
         foreach (W3D.Object xml in objectList)
@@ -208,7 +206,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             gameObject.name = xml.Name;
             xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
             
-            // TODO LinkRoot.Link -> Add a VRCanvas
+            // TODO LinkRoot.Link -> Add a VRCanvas (74)
             if(xml.LinkRoot is not null) {}
     
             // Add Content component(s)
