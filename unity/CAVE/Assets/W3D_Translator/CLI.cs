@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
 using UnityEngine.SpatialTracking;
+using Unity.XR.CoreUtils;
 
 using W3D;
 
@@ -100,7 +101,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
     // Apply camera, lighting, and tracking settings from the xml
     static void ApplyGlobalSettings(Global xml, GameObject xrRig, GameObject story) {
-        Transform mainCameraT = xrRig.transform.GetChild(0).Find("Main Camera");
+        Transform mainCameraT = xrRig.transform.Find("Camera Offset").Find("Main Camera");
         Transform caveCameraT = story.transform.Find("Cave Camera");
 
         // Load default lighting settings and delete skybox
@@ -131,7 +132,13 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
         bool allowRotation = xml.WandNavigation.AllowRotation;
         bool allowMovement = xml.WandNavigation.AllowMovement;
-        if(!allowRotation && !allowMovement) tracking.enabled = false;
+        if(!allowRotation && !allowMovement) {
+            tracking.enabled = false;
+            // Setting the tracking to device based re-adds the camera offset
+            xrRig.GetComponent<XROrigin>().RequestedTrackingOriginMode = 
+                XROrigin.TrackingOriginMode.Device;
+            Debug.Log(tracking.ToString());
+        }
         else {
             # pragma warning disable CS8509 // (false, false) case is handled above
             tracking.trackingType = (allowRotation, allowMovement) switch {
