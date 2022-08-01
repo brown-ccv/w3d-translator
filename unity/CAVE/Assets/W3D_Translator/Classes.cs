@@ -217,7 +217,8 @@ namespace W3D
         [XmlAttribute(AttributeName="depth")]
         public float Depth;
 
-        public void GenerateTMP(GameObject gameObject, Color color) {
+        public GameObject GenerateTMP(Color color) {
+            GameObject gameObject = new GameObject();
             TextMeshPro tmp = gameObject.AddComponent<TextMeshPro>();
             
             // Change TMP Defaults
@@ -262,6 +263,8 @@ namespace W3D
             tmp.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
             tmp.color = color; // Vertex Color
             tmp.faceColor = color; // Material color
+
+            return gameObject;
         }
     }
 

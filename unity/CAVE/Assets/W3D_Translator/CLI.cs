@@ -3,11 +3,14 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SpatialTracking;
+using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit.UI;
 using Unity.XR.CoreUtils;
 using TMPro;
 
@@ -17,7 +20,7 @@ using W3D;
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
-    // void Start(){ Main(); } // TEMP: Execute script from Unity directly
+    void Start(){ Main(); } // TEMP: Execute script from Unity directly
 
     public static void Main()
     {
@@ -203,37 +206,77 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         */
         foreach (W3D.Object xml in objectList)
         {   
-            GameObject gameObject = new GameObject();
+            GameObject gameObject = xml.Content.ContentData switch
+            {
+                W3D.Text textContent => textContent.GenerateTMP(Xml.ConvertColor(xml.ColorString)),
+                W3D.Image imageContent => new GameObject(), // TODO (65)
+                StereoImage stereoImageContent => new GameObject(), // TODO (66)
+                Model modelContent => new GameObject(), // TODO (67)
+                W3D.Light lightContent => new GameObject(), // TODO (68)
+                W3D.ParticleSystem particleSystemContent => new GameObject(), // TODO (69)
+                _ => new GameObject(),
+            };
             gameObject.name = xml.Name;
             xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
-            
-            // TODO LinkRoot.Link -> Add a VRCanvas (74)
-            if(xml.LinkRoot is not null) {}
-    
-            // Add Content component(s)
-            switch(xml.Content.ContentData) {
-                case(Text textContent):
-                    textContent.GenerateTMP(gameObject, Xml.ConvertColor(xml.ColorString));
-                    break;
-                case(Image imageContent):
-                    // TODO: type (65)
-                    break;
-                case(StereoImage stereoImageContent):
-                    // TODO: type (66)
-                    break;
-                case(Model modelContent):
-                    // TODO: type (67)
-                    break;
-                case(W3D.Light lightContent):
-                    // TODO: type (68)
-                    break;
-                case(W3D.ParticleSystem particleSystemContent):
-                    // TODO: type (69)
-                    break;
-                default: break;
-            }
-
             gameObject.SetActive(xml.Visible);
+
+            // TODO LinkRoot.Link -> Add a VRCanvas (74)
+            if(xml.LinkRoot is not null) {
+                // Create the UI Canvas (Same as source code for GameObject/XR/UI Canvas menu action)
+                // TODO: Make a default canvas prefab and instantiate it?
+                GameObject canvasGO = new GameObject(
+                    xml.Name,
+                    typeof(Canvas),
+                    typeof(CanvasScaler),
+                    typeof(GraphicRaycaster),
+                    typeof(TrackedDeviceGraphicRaycaster)
+                );
+                canvasGO.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
+                canvasGO.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
+                canvasGO.layer = LayerMask.NameToLayer("UI"); // Use Unity's default layer interaction
+                canvasGO.GetComponent<TrackedDeviceGraphicRaycaster>().checkFor2DOcclusion =
+                    canvasGO.GetComponent<TrackedDeviceGraphicRaycaster>().checkFor3DOcclusion = 
+                    true;
+
+                // TODO: Scale here will be weird? Looking at a canvas. Maybe always set text?
+                xml.Placement.SetTransform(canvasGO.transform, xml.Scale, story.transform);
+                canvasGO.SetActive(xml.Visible);
+                
+                // Create the UI Button
+                // TODO: Make a default button prefab and instantiate it?
+                GameObject buttonGO = new GameObject(
+                    "Button",
+                    typeof(Button),
+                    typeof(CanvasRenderer),
+                    typeof(UnityEngine.UI.Image),
+                    typeof(VerticalLayoutGroup),
+                    typeof(ContentSizeFitter)
+                );
+                buttonGO.transform.SetParent(canvasGO.transform, false);
+                buttonGO.SetActive(xml.Visible);
+                buttonGO.GetComponent<UnityEngine.UI.Image>().color = Color.clear;
+                // Resize button to child
+                buttonGO.GetComponent<VerticalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
+                buttonGO.GetComponent<VerticalLayoutGroup>().childScaleHeight = 
+                    buttonGO.GetComponent<VerticalLayoutGroup>().childScaleWidth = 
+                    true;
+                buttonGO.GetComponent<ContentSizeFitter>().horizontalFit = 
+                    buttonGO.GetComponent<ContentSizeFitter>().verticalFit = 
+                    ContentSizeFitter.FitMode.PreferredSize;
+                
+                // TODO: This will change with object type
+                Button button = buttonGO.GetComponent<Button>();
+                button.targetGraphic = gameObject.GetComponent<TextMeshPro>();
+
+                // TODO: Colors aren't changing (font material?)
+                ColorBlock colors = button.colors;
+                colors.normalColor = Xml.ConvertColor(xml.LinkRoot.Link.EnabledColorString);
+                colors.selectedColor = Xml.ConvertColor(xml.LinkRoot.Link.SelectedColorString);
+                button.colors = colors;
+
+                // <Content> is a child of the <Link> button
+                gameObject.transform.SetParent(buttonGO.transform, false);
+            }
             gameObjects.Add(gameObject.name, gameObject);
         }
         return gameObjects;
