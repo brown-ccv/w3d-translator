@@ -153,7 +153,7 @@ Note that even though the `<PlacementRoot>` is identical between projects each w
   - `<LookAt>`: Object is rotated to look at a specified point (in `Story` space)
     - `target`: The position the object is looking at
     - `up`: Which direction (world space) is considered up (+y)
-  - `<Normal>`: **TODO (63):** *Same as LookAt but with a normalized vector?*
+  - `<Normal>`: **TODO (#63):** *Same as LookAt but with a normalized vector?*
     - `normal`: A normalized vector
     - `angle`: The rotation angle of the object, in degrees
   - Every rotation in Unity can be thought of as an `<Axis>` type
@@ -164,4 +164,4 @@ Note that even though the `<PlacementRoot>` is identical between projects each w
 - `<LookAt>` is calculated by generating a direction vector (`<Position> - target`)
   - Note that `target` must be converted to world space before calculating the direction vector
   - Unity has a built in `LookRotation()` function that takes the direction vector and `up`
-- `Normal` is calculated by **TODO: 63**
+- `Normal` is calculated by (TODO: #63)
