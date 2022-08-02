@@ -28,7 +28,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Application.logMessageReceivedThreaded += HandleLog;
         Debug.Log("Running Unity CLI");
         
-
         #if DEV
             // string xmlPath = "../../test/everything.xml";
             string xmlPath = "../../test/sample.xml"; 
@@ -50,7 +49,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
         BuildWalls(xml, story.transform);
-
         Dictionary<string, GameObject> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
         // Save and quit
