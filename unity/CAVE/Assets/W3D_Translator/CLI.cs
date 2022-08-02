@@ -15,32 +15,44 @@ using W3D;
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
-    void Start(){ Main(); } // TEMP: Execute script from Unity directly
+    const bool DEV = true;
+
+    #if DEV
+        void Start(){ Main(); } // TEMP: Execute script from Unity directly
+    #endif
 
     static void Main()
     {
         Application.logMessageReceivedThreaded += HandleLog;
         Debug.Log("Running Unity CLI");
-        string xmlPath = GetXmlPathArg();
+        
 
-        // TEMP - hard code xml file
-        // xmlPath = "../../test/everything.xml";
-        xmlPath = "../../test/sample.xml"; 
-
+        #if DEV
+            // string xmlPath = "../../test/everything.xml";
+            string xmlPath = "../../test/sample.xml"; 
+        #else
+            // The path to the xml is send as a command line argument
+            string xmlPath = GetXmlPathArg();  
+        #endif
         Story xml = LoadStory(xmlPath);
-        Debug.Log(xml.pprint());
 
-        // TEMP - Load test scene from play
-        // InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
-        // GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
-        // GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
-        GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
-        GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
+        #if DEV
+            // Create new scene and load the root GameObjects
+            InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
+            GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
+            GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
+        #else
+            GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
+            GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
+        #endif
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
 
         // Save and quit
-        // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+        #if !DEV
+            // Scenes can only be saved in editor mode
+            EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+        #endif
         Application.logMessageReceivedThreaded -= HandleLog;
         Application.Quit();
     }
