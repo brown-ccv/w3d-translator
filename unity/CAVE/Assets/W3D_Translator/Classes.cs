@@ -217,15 +217,18 @@ namespace W3D
         [XmlAttribute(AttributeName="depth")]
         public float Depth;
 
-        public GameObject GenerateTMP(Color color) {
+        public GameObject GenerateTMP(bool isLink, Color color) {
             GameObject gameObject = new GameObject();
-            TextMeshPro tmp = gameObject.AddComponent<TextMeshPro>();
-            
+            TMP_Text tmp = isLink
+                ? gameObject.AddComponent<TextMeshProUGUI>() 
+                : gameObject.AddComponent<TextMeshPro>();
+
             // Change TMP Defaults
             tmp.autoSizeTextContainer = true;
             // TODO (64): Validate default font size
             // TODO (64): Validate default word wrapping
             // TODO (64): Validate default overflow mode
+            // TODO: Instantiate a default prefab?
             tmp.fontSize = 10;
             tmp.enableWordWrapping = false;
             tmp.overflowMode = TextOverflowModes.Truncate;

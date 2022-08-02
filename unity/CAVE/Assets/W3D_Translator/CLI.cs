@@ -20,46 +20,32 @@ using W3D;
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
-    const bool DEV = true;
-
-    #if DEV
-        void Start(){ Main(); } // TEMP: Execute script from Unity directly
-    #endif
+    void Start(){ Main(); } // TEMP - Run script on Play
 
     public static void Main()
     {
         Application.logMessageReceivedThreaded += HandleLog;
         Debug.Log("Running Unity CLI");
 
-        
-        #if DEV
-            // xmlPath = "../../test/everything.xml";
-            string xmlPath = "../../test/sample.xml"; 
-        #else 
-            // xmlPath is a sent as a command line argument
-            string xmlPath = GetXmlPathArg();
-        #endif
+        // xmlPath is a sent as a command line argument
+        // xmlPath = GetXmlPathArg();
+        // xmlPath = "../../test/everything.xml";
+        string xmlPath = "../../test/sample.xml";
         Story xml = LoadStory(xmlPath);
 
-        #if DEV
-            // Create new scene and store the root GameObjects
-            InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
-            GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
-            GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
-        #else
-            GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
-            GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
-        #endif
+        // Create new scene and store the root GameObjects
+        // InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
+        // GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
+        // GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
+        GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
+        GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
         BuildWalls(xml, story.transform);
         Dictionary<string, GameObject> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
         // Save and quit
-        #if !DEV
-            // Scenes can only be saved in editor mode
-            EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
-        #endif
+        // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
         Application.logMessageReceivedThreaded -= HandleLog;
         Application.Quit();
     }
@@ -86,9 +72,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         try {
             XmlSerializer serializer = new XmlSerializer(typeof(Story));
             using (XmlReader reader = XmlReader.Create(xmlPath)) 
-            {
                 return (Story)serializer.Deserialize(reader);
-            }
         } 
         catch(FileNotFoundException e) {
             Debug.LogError($"ERROR: File at {xmlPath} not found");
@@ -221,9 +205,10 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         */
         foreach (W3D.Object xml in objectList)
         {   
+            bool isLink = xml.LinkRoot is not null;
             GameObject gameObject = xml.Content.ContentData switch
             {
-                W3D.Text textContent => textContent.GenerateTMP(Xml.ConvertColor(xml.ColorString)),
+                W3D.Text textContent => textContent.GenerateTMP(isLink, Xml.ConvertColor(xml.ColorString)),
                 W3D.Image imageContent => new GameObject(), // TODO (65)
                 StereoImage stereoImageContent => new GameObject(), // TODO (66)
                 Model modelContent => new GameObject(), // TODO (67)
@@ -232,11 +217,10 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 _ => new GameObject(),
             };
             gameObject.name = xml.Name;
-            xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
             gameObject.SetActive(xml.Visible);
 
             // TODO LinkRoot.Link -> Add a VRCanvas (74)
-            if(xml.LinkRoot is not null) {
+            if(isLink) {
                 // Create the UI Canvas (Same as source code for GameObject/XR/UI Canvas menu action)
                 // TODO: Make a default canvas prefab and instantiate it?
                 GameObject canvasGO = new GameObject(
@@ -244,7 +228,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                     typeof(Canvas),
                     typeof(CanvasScaler),
                     typeof(GraphicRaycaster),
-                    typeof(TrackedDeviceGraphicRaycaster)
+                    typeof(TrackedDeviceGraphicRaycaster),
+                    typeof(ContentSizeFitter)
                 );
                 canvasGO.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
                 canvasGO.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
@@ -252,10 +237,15 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 canvasGO.GetComponent<TrackedDeviceGraphicRaycaster>().checkFor2DOcclusion =
                     canvasGO.GetComponent<TrackedDeviceGraphicRaycaster>().checkFor3DOcclusion = 
                     true;
-
+                
+                
                 // TODO: Scale here will be weird? Looking at a canvas. Maybe always set text?
                 xml.Placement.SetTransform(canvasGO.transform, xml.Scale, story.transform);
+                canvasGO.transform.localScale *= 0.1f;
                 canvasGO.SetActive(xml.Visible);
+                canvasGO.GetComponent<ContentSizeFitter>().horizontalFit = 
+                    canvasGO.GetComponent<ContentSizeFitter>().verticalFit = 
+                    ContentSizeFitter.FitMode.PreferredSize;
                 
                 // Create the UI Button
                 // TODO: Make a default button prefab and instantiate it?
@@ -263,13 +253,12 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                     "Button",
                     typeof(Button),
                     typeof(CanvasRenderer),
-                    typeof(UnityEngine.UI.Image),
                     typeof(VerticalLayoutGroup),
                     typeof(ContentSizeFitter)
                 );
                 buttonGO.transform.SetParent(canvasGO.transform, false);
                 buttonGO.SetActive(xml.Visible);
-                buttonGO.GetComponent<UnityEngine.UI.Image>().color = Color.clear;
+                
                 // Resize button to child
                 buttonGO.GetComponent<VerticalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
                 buttonGO.GetComponent<VerticalLayoutGroup>().childScaleHeight = 
@@ -279,18 +268,31 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                     buttonGO.GetComponent<ContentSizeFitter>().verticalFit = 
                     ContentSizeFitter.FitMode.PreferredSize;
                 
-                // TODO: This will change with object type
                 Button button = buttonGO.GetComponent<Button>();
-                button.targetGraphic = gameObject.GetComponent<TextMeshPro>();
-
-                // TODO: Colors aren't changing (font material?)
+                // Set navigation type
+                if(xml.LinkRoot.Link.RemainEnabled) {
+                    Navigation navigation = button.navigation;
+                    navigation.mode = Navigation.Mode.None;
+                    button.navigation = navigation;
+                }
+                // Set colors - target the original <Content>
+                button.targetGraphic = gameObject.GetComponent<Graphic>(); // Text, Image, etc.
                 ColorBlock colors = button.colors;
-                colors.normalColor = Xml.ConvertColor(xml.LinkRoot.Link.EnabledColorString);
-                colors.selectedColor = Xml.ConvertColor(xml.LinkRoot.Link.SelectedColorString);
+                colors.normalColor = colors.highlightedColor =
+                    Xml.ConvertColor(xml.LinkRoot.Link.EnabledColorString);
+                colors.pressedColor = colors.selectedColor = 
+                    Xml.ConvertColor(xml.LinkRoot.Link.SelectedColorString);
+                colors.disabledColor = Xml.ConvertColor(xml.ColorString);
                 button.colors = colors;
 
-                // <Content> is a child of the <Link> button
+                // Update the original <Content> GameObject
                 gameObject.transform.SetParent(buttonGO.transform, false);
+
+                // TODO: Add button actions
+                // TODO: Deactivate OnClick if !xml.LinkRoot.Link.RemainEnabled
+                // TODO: Refactor as a method on Link - take xml.LinkRoot.Link
+            } else {
+                xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
             }
             gameObjects.Add(gameObject.name, gameObject);
         }
