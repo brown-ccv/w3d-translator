@@ -20,26 +20,34 @@ using W3D;
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
+    const bool DEV = true;
+
     void Start(){ Main(); } // TEMP: Execute script from Unity directly
 
     public static void Main()
     {
         Application.logMessageReceivedThreaded += HandleLog;
         Debug.Log("Running Unity CLI");
-        string xmlPath = GetXmlPathArg();
 
-        // TEMP - hard code xml file
-        // xmlPath = "../../test/everything.xml";
-        xmlPath = "../../test/sample.xml"; 
-
+        
+        #if DEV
+            // xmlPath = "../../test/everything.xml";
+            string xmlPath = "../../test/sample.xml"; 
+        #else 
+            // xmlPath is a sent as a command line argument
+            string xmlPath = GetXmlPathArg();
+        #endif
         Story xml = LoadStory(xmlPath);
 
-        // TEMP - Load test scene from play
-        // InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
-        // GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
-        // GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
-        GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
-        GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
+        #if DEV
+            GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
+            GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
+        #else
+            // Create new scene and grab root objects
+            InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
+            GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
+            GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
+        #endif 
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
         BuildWalls(xml, story.transform);
@@ -47,7 +55,10 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Dictionary<string, GameObject> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
         // Save and quit
-        // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene()); // Can only be run in editor mode
+        #if !DEV
+            // Scenes can only be saved when Unity is run in editor mode
+            EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+        #endif
         Application.logMessageReceivedThreaded -= HandleLog;
         Application.Quit();
     }
