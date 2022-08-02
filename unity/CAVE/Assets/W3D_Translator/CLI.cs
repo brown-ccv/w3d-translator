@@ -17,26 +17,36 @@ using W3D;
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
-    void Start(){ Main(); } // TEMP: Execute script from Unity directly
+    const bool DEV = true;
+
+    #if DEV
+        void Start(){ Main(); } // TEMP: Execute script from Unity directly
+    #endif
 
     static void Main()
     {
         Application.logMessageReceivedThreaded += HandleLog;
         Debug.Log("Running Unity CLI");
-        string xmlPath = GetXmlPathArg();
+        
 
-        // TEMP - hard code xml file
-        // xmlPath = "../../test/everything.xml";
-        xmlPath = "../../test/sample.xml"; 
-
+        #if DEV
+            // string xmlPath = "../../test/everything.xml";
+            string xmlPath = "../../test/sample.xml"; 
+        #else
+            // The path to the xml is send as a command line argument
+            string xmlPath = GetXmlPathArg();  
+        #endif
         Story xml = LoadStory(xmlPath);
 
-        // TEMP - Load test scene from play
-        // InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
-        // GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
-        // GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
-        GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
-        GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
+        #if DEV
+            // Create new scene and load the root GameObjects
+            InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
+            GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
+            GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
+        #else
+            GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
+            GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
+        #endif
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
         BuildWalls(xml, story.transform);
@@ -44,7 +54,10 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Dictionary<string, GameObject> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
         // Save and quit
-        // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+        #if !DEV
+            // Scenes can only be saved in editor mode
+            EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+        #endif
         Application.logMessageReceivedThreaded -= HandleLog;
         Application.Quit();
     }
@@ -136,20 +149,22 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
         bool allowRotation = xml.WandNavigation.AllowRotation;
         bool allowMovement = xml.WandNavigation.AllowMovement;
-        if(!allowRotation && !allowMovement) {
-            tracking.enabled = false;
-            // Setting the tracking to device based re-adds the camera offset
-            xrRig.GetComponent<XROrigin>().RequestedTrackingOriginMode = 
-                XROrigin.TrackingOriginMode.Device;
-            Debug.Log(tracking.ToString());
-        }
-        else {
-            # pragma warning disable CS8509 // (false, false) case is handled above
-            tracking.trackingType = (allowRotation, allowMovement) switch {
-                (true, true) => TrackedPoseDriver.TrackingType.RotationAndPosition,
-                (true, false) => TrackedPoseDriver.TrackingType.RotationOnly,
-                (false, true) => TrackedPoseDriver.TrackingType.PositionOnly,
-            };
+        switch(allowRotation, allowMovement) {
+            case (true, true):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
+                break;
+            case (true, false):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
+                break;
+            case (false, true):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
+                break;
+            case (false, false):
+                tracking.enabled = false;
+                // Using device based tracking adds the hard-coded camera offset
+                xrRig.GetComponent<XROrigin>().RequestedTrackingOriginMode = 
+                    XROrigin.TrackingOriginMode.Device;
+                break;
         }
     }
 
