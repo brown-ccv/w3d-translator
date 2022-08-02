@@ -145,21 +145,22 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
         bool allowRotation = xml.WandNavigation.AllowRotation;
         bool allowMovement = xml.WandNavigation.AllowMovement;
-        Debug.Log($"xml: {xmlCamera} {allowRotation} {allowMovement}");
-        if(!allowRotation && !allowMovement) {
-            tracking.enabled = false;
-            // Setting the tracking to device based re-adds the camera offset
-            xrRig.GetComponent<XROrigin>().RequestedTrackingOriginMode = 
-                XROrigin.TrackingOriginMode.Device;
-            Debug.Log(tracking.ToString());
-        }
-        else {
-            # pragma warning disable CS8509 // (false, false) case is handled above
-            tracking.trackingType = (allowRotation, allowMovement) switch {
-                (true, true) => TrackedPoseDriver.TrackingType.RotationAndPosition,
-                (true, false) => TrackedPoseDriver.TrackingType.RotationOnly,
-                (false, true) => TrackedPoseDriver.TrackingType.PositionOnly,
-            };
+        switch(allowRotation, allowMovement) {
+            case (true, true):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
+                break;
+            case (true, false):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
+                break;
+            case (false, true):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
+                break;
+            case (false, false):
+                tracking.enabled = false;
+                // Using device based tracking adds the hard-coded camera offset
+                xrRig.GetComponent<XROrigin>().RequestedTrackingOriginMode = 
+                    XROrigin.TrackingOriginMode.Device;
+                break;
         }
     }
 
