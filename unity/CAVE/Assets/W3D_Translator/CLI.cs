@@ -8,117 +8,160 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
+using UnityEngine.SpatialTracking;
+using Unity.XR.CoreUtils;
 
 using W3D;
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
-    void Start(){ Main(); } // TEMP: Execute script from Unity directly
+    const bool DEV = true;
+
+    #if DEV
+        void Start(){ Main(); } // TEMP: Execute script from Unity directly
+    #endif
 
     static void Main()
     {
         Application.logMessageReceivedThreaded += HandleLog;
         Debug.Log("Running Unity CLI");
-        string xmlPath = null;
+        
 
-        // Get command line arguments from Python
+        #if DEV
+            // string xmlPath = "../../test/everything.xml";
+            string xmlPath = "../../test/sample.xml"; 
+        #else
+            // The path to the xml is send as a command line argument
+            string xmlPath = GetXmlPathArg();  
+        #endif
+        Story xml = LoadStory(xmlPath);
+
+        #if DEV
+            // Create new scene and load the root GameObjects
+            InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
+            GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
+            GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
+        #else
+            GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
+            GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
+        #endif
+
+        ApplyGlobalSettings(xml.Global, xrRig, story);
+
+        // Save and quit
+        #if !DEV
+            // Scenes can only be saved in editor mode
+            EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+        #endif
+        Application.logMessageReceivedThreaded -= HandleLog;
+        Application.Quit();
+    }
+
+
+    // Get command line arguments from Python
+    static string GetXmlPathArg() {
         try {
             string[] args = System.Environment.GetCommandLineArgs();
-            for(int i = 0; i < args.Length; i++)
-            {
-                if(args[i] == "--xmlPath") {
-                    xmlPath = args[i + 1];
-                    break;
-                }
+            for (int i = 0; i < args.Length; i++) {
+                if (args[i] == "--xmlPath") return args[++i];
             }
-        } catch(Exception e) {
+            return null; // No Path given
+        }
+        catch (Exception e) {
             Debug.Log("Error initializing command line arguments");
-            Debug.Log(e);
+            Debug.LogException(e);
+            throw e;
+        }
+    }
+
+    // Deserialize the xml file into a Story object
+    static Story LoadStory(string xmlPath) {
+        try {
+            XmlSerializer serializer = new XmlSerializer(typeof(Story));
+            using (XmlReader reader = XmlReader.Create(xmlPath))
+            {
+                return (Story)serializer.Deserialize(reader);
+            }
+        } 
+        catch(FileNotFoundException e) {
+            Debug.LogError($"ERROR: File at {xmlPath} not found");
+            Debug.LogException(e);
+            throw e;
+        } 
+        catch(Exception e) {
+            Debug.Log($"Error: Deserialization of file at {xmlPath} failed.");
+            Debug.LogException(e);
+            throw e;
+        }
+    }
+
+    // Create a new scene in Unity
+    static InstantiationResult InstantiateScene(string xmlPath){
+        try{
+            return SceneTemplateService.Instantiate(
+                Resources.Load<SceneTemplateAsset>("CAVE"),
+                false,
+                $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(xmlPath)}.unity"
+            );
+        } catch(Exception e) { 
+            Debug.Log($"Error creating scene for {xmlPath}");
+            Debug.LogException(e);
             throw e;
         }
 
-        xmlPath = "../../examples/cweditor/everything.xml"; // TEMP - hard code xml file
-        // xmlPath = "../../test/sample.xml"; // TEMP - hard code xml file
+    }
 
-        // TODO: Add try/catch for when deserialization fails
-        XmlSerializer serializer = new XmlSerializer(typeof(W3D.Story));
-        W3D.Story story = null;
-        using (XmlReader reader = XmlReader.Create(xmlPath))
-        {
-            story = (W3D.Story)serializer.Deserialize(reader);
+    // Apply camera, lighting, and tracking settings from the xml
+    static void ApplyGlobalSettings(Global xml, GameObject xrRig, GameObject story) {
+        Transform mainCameraT = xrRig.transform.Find("Camera Offset").Find("Main Camera");
+        Transform caveCameraT = story.transform.Find("Cave Camera");
+
+        // Load default lighting settings and delete skybox
+        UnityEditor.Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
+        RenderSettings.skybox = null;
+
+        // Use color based lighting - <Background color="0, 0, 0" />
+        RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+        RenderSettings.ambientLight = Xml.ConvertColor(xml.Background.ColorString);
+        
+        // Update CaveCamera inside of story
+        W3D.Camera xmlCaveCamera = xml.CaveCamera;
+        UnityEngine.Camera caveCamera = 
+            caveCameraT.GetComponent<UnityEngine.Camera>();
+        caveCamera.farClipPlane = xmlCaveCamera.FarClip;
+        caveCamera.transform.localPosition = 
+            Xml.ConvertVector3(xmlCaveCamera.Placement.PositionString);
+
+        // Update Camera inside of xrRig
+        W3D.Camera xmlCamera = xml.Camera;
+        UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
+        camera.farClipPlane = xmlCamera.FarClip;
+        xrRig.transform.position = 
+            // xml.Camera is really the player's position - update xrRig directly
+            // xrRig is outside the Story object so we must convert to meters
+            Xml.ConvertVector3(xmlCamera.Placement.PositionString) * 0.3048f;
+
+        // Update tracking settings for the Main Camera
+        TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
+        bool allowRotation = xml.WandNavigation.AllowRotation;
+        bool allowMovement = xml.WandNavigation.AllowMovement;
+        switch(allowRotation, allowMovement) {
+            case (true, true):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
+                break;
+            case (true, false):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
+                break;
+            case (false, true):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
+                break;
+            case (false, false):
+                tracking.enabled = false;
+                // Using device based tracking adds the hard-coded camera offset
+                xrRig.GetComponent<XROrigin>().RequestedTrackingOriginMode = 
+                    XROrigin.TrackingOriginMode.Device;
+                break;
         }
-        Debug.Log(story.pprint());
-
-        foreach(EventTrigger e in story.EventRoot) {
-            switch(e.TrackType){
-                case EventTrigger.TrackTypes.Move: {
-                    MoveTrack track = (MoveTrack)e.Tracking;
-                    switch(track.Box.Movement.Data){
-                        case Movement.MovementTypes.Inside: {
-                            Debug.Log($"{e.Name}: Move Track Inside");
-                            break;
-                        }
-                        case Movement.MovementTypes.Outside: {
-                            Debug.Log($"{e.Name}: Move Track Outside");
-                            break;
-                        }
-                    }
-                    break;
-                }
-                case EventTrigger.TrackTypes.Head: {
-                    HeadTrack track = (HeadTrack)e.Tracking;
-                    switch(track.Direction.TargetType) {
-                        case Direction.Targets.None: {
-                            Debug.Log($"{e.Name}: Head Track None");
-                            break;
-                        }
-                        case Direction.Targets.Point: {
-                            Debug.Log($"{e.Name}: Head Track Point");
-                            break;
-                        }
-                        case Direction.Targets.Direction: {
-                            Debug.Log($"{e.Name}: Head Track Direction");
-                            break;
-                        }
-                        case Direction.Targets.Object: {
-                            Debug.Log($"{e.Name}: Head Track Object {((Reference)track.Direction.Target).Name}");
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-
-        /********** TEMP: Leave empty for Unity IDE Development ***********/
-
-        // Load the XML
-        // XmlDocument file = new XmlDocument();
-        // try {
-        //     file.Load(xmlPath);
-        // } catch(FileNotFoundException e) {
-        //     Debug.LogError($"ERROR: File {xmlPath} not found");
-        //     Debug.LogException(e);
-        //     throw e;
-        // } 
-
-        // Create the Unity scene
-        // InstantiationResult instantiatedScene = null;
-        // try{
-        //     instantiatedScene = SceneTemplateService.Instantiate(
-        //         Resources.Load<SceneTemplateAsset>("CAVE"),
-        //         false,
-        //         $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(xmlPath)}.unity"
-        //     );
-        // } catch(Exception e) { 
-        //     Debug.LogError($"Error creating scene for {xmlPath}");
-        //     Debug.LogException(e);
-        //     throw e;
-        // }
-        // Example(instantiatedScene.scene);
-
-        Application.logMessageReceivedThreaded -= HandleLog;
-        Application.Quit();
     }
 
     // Callback function when Debug.Log is called within the CLI script
@@ -126,23 +169,5 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     {
         // Prepend "LOG:", we check for this in the Python script
         Console.WriteLine($"LOG:{logString}");
-    }
-
-    // EXAMPLE - Add sphere at origin of each wall
-    static void Example(Scene scene)
-    {
-        GameObject story = scene.GetRootGameObjects()[1];
-        Material material = new Material(Shader.Find("Standard"));
-        material.SetColor("_Color", Color.blue);
-        foreach (Transform storyChild in story.transform) {
-            if(Regex.IsMatch(storyChild.name, @"Wall$")) {
-                GameObject Sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                Sphere.transform.SetParent(storyChild, false);
-                Sphere.GetComponent<MeshRenderer>().material = material;
-            }
-        }
-
-        // Save scene
-        EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
 }

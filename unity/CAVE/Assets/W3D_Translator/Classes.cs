@@ -14,7 +14,7 @@ namespace W3D
         // Print the class as a Json object
         public string pprint() { return JsonUtility.ToJson(this, true); }
 
-        // Convert a r, g, b string into a Unity Color
+        // Converts "[int], [int], [int]" to a UnityEngine.Color object
         static public Color ConvertColor(string colorString)
         {
             string[] strings = colorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
@@ -25,14 +25,14 @@ namespace W3D
             );
         }
 
-        // Convert an (x, y, z) vector string to a Unity Vector3 
+        // Converts a "([float], [float], [float])" string to a UnityEngine.Vector3 object
         static public Vector3 ConvertVector3(string vectorString)
         {
             string[] strings = vectorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
             return new Vector3(
                 float.Parse(strings[0]),
                 float.Parse(strings[1]),
-                float.Parse(strings[2])
+                float.Parse(strings[2]) * -1
             );
         }
     }
@@ -1022,7 +1022,6 @@ namespace W3D
         public Background Background;
 
         [XmlElement(ElementName="WandNavigation")]
-
         public WandNavigation WandNavigation;
     }
 
@@ -1363,7 +1362,7 @@ namespace W3D
             [XmlEnum("Triangle")] Triangle,
             [XmlEnum("Plane")] Plane,
             [XmlEnum("Rect")] Rectangle,
-            [XmlEnum("Box")] BoxBoxParticle,
+            [XmlEnum("Box")] BoxParticle,
             [XmlEnum("Sphere")] Sphere,
             [XmlEnum("Cylinder")] Cylinder,
             [XmlEnum("Cone")] Cone,
