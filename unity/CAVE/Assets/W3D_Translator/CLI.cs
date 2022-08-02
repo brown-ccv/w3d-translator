@@ -22,7 +22,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
     const bool DEV = true;
 
-    void Start(){ Main(); } // TEMP: Execute script from Unity directly
+    #if DEV
+        void Start(){ Main(); } // TEMP: Execute script from Unity directly
+    #endif
 
     public static void Main()
     {
@@ -40,23 +42,22 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Story xml = LoadStory(xmlPath);
 
         #if DEV
-            GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
-            GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
-        #else
-            // Create new scene and grab root objects
+            // Create new scene and store the root GameObjects
             InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
             GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
             GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
-        #endif 
+        #else
+            GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
+            GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
+        #endif
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
         BuildWalls(xml, story.transform);
-
         Dictionary<string, GameObject> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
         // Save and quit
         #if !DEV
-            // Scenes can only be saved when Unity is run in editor mode
+            // Scenes can only be saved in editor mode
             EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
         #endif
         Application.logMessageReceivedThreaded -= HandleLog;
@@ -150,19 +151,22 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
         bool allowRotation = xml.WandNavigation.AllowRotation;
         bool allowMovement = xml.WandNavigation.AllowMovement;
-        if(!allowRotation && !allowMovement) {
-            tracking.enabled = false;
-            // Setting the tracking to device based re-adds the camera offset
-            xrRig.GetComponent<XROrigin>().RequestedTrackingOriginMode = 
-                XROrigin.TrackingOriginMode.Device;
-        }
-        else {
-            # pragma warning disable CS8509 // (false, false) case is handled above
-            tracking.trackingType = (allowRotation, allowMovement) switch {
-                (true, true) => TrackedPoseDriver.TrackingType.RotationAndPosition,
-                (true, false) => TrackedPoseDriver.TrackingType.RotationOnly,
-                (false, true) => TrackedPoseDriver.TrackingType.PositionOnly,
-            };
+        switch(allowRotation, allowMovement) {
+            case (true, true):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
+                break;
+            case (true, false):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
+                break;
+            case (false, true):
+                tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
+                break;
+            case (false, false):
+                tracking.enabled = false;
+                // Using device based tracking adds the hard-coded camera offset
+                xrRig.GetComponent<XROrigin>().RequestedTrackingOriginMode = 
+                    XROrigin.TrackingOriginMode.Device;
+                break;
         }
     }
 
