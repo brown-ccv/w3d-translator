@@ -22,15 +22,14 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
     void Start(){ Main(); } // TEMP - Run script on Play
 
-    public static void Main()
+    static void Main()
     {
         Application.logMessageReceivedThreaded += HandleLog;
         Debug.Log("Running Unity CLI");
-
-        // xmlPath is a sent as a command line argument
-        // xmlPath = GetXmlPathArg();
-        // xmlPath = "../../test/everything.xml";
-        string xmlPath = "../../test/sample.xml";
+        
+        // The path to the xml is send as a command line argument
+        // string xmlPath = GetXmlPathArg();
+        string xmlPath = "../../test/sample.xml"; 
         Story xml = LoadStory(xmlPath);
 
         // Create new scene and store the root GameObjects
@@ -175,14 +174,16 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             wall.SetActive(true);
             placement.SetTransform(wall.transform, 1f, storyT);
 
-            // Create outline
-            LineRenderer outline = wall.AddComponent<LineRenderer>();
-            outline.widthMultiplier = 0.01f;
-            outline.useWorldSpace = false;
-            outline.loop = true;
-            outline.material.SetColor("_EmissionColor", Color.white);
-            outline.positionCount = points.Length;
-            outline.SetPositions(points);
+            #if DEV
+                // Create outline
+                LineRenderer outline = wall.AddComponent<LineRenderer>();
+                outline.widthMultiplier = 0.01f;
+                outline.useWorldSpace = false;
+                outline.loop = true;
+                outline.material.SetColor("_EmissionColor", Color.white);
+                outline.positionCount = points.Length;
+                outline.SetPositions(points);
+            #endif
         }
         return;
     }
