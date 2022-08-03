@@ -243,15 +243,22 @@ namespace W3D
             );
             TMP_Text tmp = gameObject.GetComponent<TMP_Text>();
 
+            // Set object properties defined in the xml
+            tmp.SetText(this.String);
+            tmp.horizontalAlignment = (HorizontalAlignmentOptions)this.HorizontalAlignment;
+            tmp.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
+            tmp.color = color; // Vertex Color
+            tmp.faceColor = color; // Material color
+
             // Load font material
+            // TODO (72): More robust path checking
             TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
                 "Materials/Fonts/" + 
                 Path.GetFileNameWithoutExtension(this.Font) + 
                 " SDF"
             );
-            // Font material hasn't been created, attempt to load from ttf file
-            // TODO (72): More robust path checking
             if(tmpFont == null) {
+                // Font material hasn't been created, attempt to load from ttf file
                 try {
                     Font font = AssetDatabase.LoadAssetAtPath<Font>(this.Font);
                     tmpFont = TMP_FontAsset.CreateFontAsset(font);
@@ -261,6 +268,7 @@ namespace W3D
                     Debug.LogException(e);
                 }
             }
+
             // Add font to the TextMeshPro object
             try {tmp.font = tmpFont; }
             catch(NullReferenceException e) {
@@ -270,12 +278,6 @@ namespace W3D
                 Debug.LogException(e);
             }
             
-            // Set object properties defined in the xml
-            tmp.SetText(this.String);
-            tmp.horizontalAlignment = (HorizontalAlignmentOptions)this.HorizontalAlignment;
-            tmp.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
-            tmp.color = color; // Vertex Color
-            tmp.faceColor = color; // Material color
             return gameObject;
         }
     }
