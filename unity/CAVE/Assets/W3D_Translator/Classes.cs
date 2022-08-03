@@ -363,13 +363,13 @@ namespace W3D
         public bool Specular;
 
         [XmlAttribute(AttributeName="const_atten")]
-        public float ConstAtten;
+        public float ConstantAtten;
 
         [XmlAttribute(AttributeName="lin_atten")]
-        public float LinAtten;
+        public float LinearAtten;
 
         [XmlAttribute(AttributeName="quad_atten")]
-        public float QuadAtten;
+        public float QuadraticAtten;
 
         public enum LightTypes {
             [XmlEnum("Point")] Point,
