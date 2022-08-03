@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using Unity;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -235,20 +236,12 @@ namespace W3D
         public float Depth;
 
         public GameObject GenerateTMP(bool isLink, Color color) {
-            GameObject gameObject = new GameObject();
-            TMP_Text tmp = isLink
-                ? gameObject.AddComponent<TextMeshProUGUI>() 
-                : gameObject.AddComponent<TextMeshPro>();
-
-            // Change TMP Defaults
-            tmp.autoSizeTextContainer = true;
-            // TODO (64): Validate default font size
-            // TODO (64): Validate default word wrapping
-            // TODO (64): Validate default overflow mode
-            // TODO (79): Instantiate a default prefab?
-            tmp.fontSize = 10;
-            tmp.enableWordWrapping = false;
-            tmp.overflowMode = TextOverflowModes.Truncate;
+            // Instantiate TextMeshPro or TextMeshProUGUI prefab
+            // TODO (64): Validate prefab settings
+            GameObject gameObject = UnityEngine.Object.Instantiate(
+                Resources.Load<GameObject>("Prefabs/tmp" + (isLink ? "GUI" : ""))
+            );
+            TMP_Text tmp = gameObject.GetComponent<TMP_Text>();
 
             // Load font material
             TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
@@ -269,7 +262,7 @@ namespace W3D
                 }
             }
             // Add font to the TextMeshPro object
-            try { tmp.font = tmpFont; }
+            try {tmp.font = tmpFont; }
             catch(NullReferenceException e) {
                 Debug.LogWarning($"{gameObject.name} {tmpFont.ToString()} {tmp.font.ToString()}");
                 Debug.LogError($"Error creating font asset {this.Font} for {gameObject.name}");
@@ -283,7 +276,6 @@ namespace W3D
             tmp.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
             tmp.color = color; // Vertex Color
             tmp.faceColor = color; // Material color
-
             return gameObject;
         }
     }

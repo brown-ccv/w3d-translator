@@ -17,7 +17,8 @@ MonoBehaviour:
   description: Instantiates the empty CAVE scene
   preview: {fileID: 0}
   dependencies:
-  - dependency: {fileID: 12800000, guid: cf467ab4c4d9bda4591a421516fac7a9, type: 3}
+  - dependency: {fileID: 749118204716703131, guid: 57fcf76e5b4da854e821fa74ac0475fb,
+      type: 3}
     instantiationMode: 0
   - dependency: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
@@ -40,8 +41,6 @@ MonoBehaviour:
   - dependency: {fileID: 2800000, guid: ee148e281f3c41c5b4ff5f8a5afe5a6c, type: 3}
     instantiationMode: 0
   - dependency: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    instantiationMode: 0
-  - dependency: {fileID: 11400000, guid: c9f4b5a5b0134af45a12fc304973c5a4, type: 2}
     instantiationMode: 0
   - dependency: {fileID: 919132149155446097, guid: e48d18018a0ba46c283d9fd9c227e578,
       type: 3}

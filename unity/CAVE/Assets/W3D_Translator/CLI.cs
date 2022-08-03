@@ -10,9 +10,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SpatialTracking;
 using UnityEngine.UI;
-using UnityEngine.XR.Interaction.Toolkit.UI;
 using Unity.XR.CoreUtils;
-using TMPro;
 
 using W3D;
 
@@ -174,16 +172,14 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             wall.SetActive(true);
             placement.SetTransform(wall.transform, 1f, storyT);
 
-            #if DEV
-                // Create outline
-                LineRenderer outline = wall.AddComponent<LineRenderer>();
-                outline.widthMultiplier = 0.01f;
-                outline.useWorldSpace = false;
-                outline.loop = true;
-                outline.material.SetColor("_EmissionColor", Color.white);
-                outline.positionCount = points.Length;
-                outline.SetPositions(points);
-            #endif
+            // Create outline
+            LineRenderer outline = wall.AddComponent<LineRenderer>();
+            outline.widthMultiplier = 0.01f;
+            outline.useWorldSpace = false;
+            outline.loop = true;
+            outline.material.SetColor("_EmissionColor", Color.white);
+            outline.positionCount = points.Length;
+            outline.SetPositions(points);
         }
         return;
     }
