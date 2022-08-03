@@ -340,7 +340,7 @@ namespace W3D
         public bool Sequential;
 
         [XmlAttribute(AttributeName="speed")]
-        public double Speed;
+        public float Speed;
     }
 
 
@@ -363,13 +363,13 @@ namespace W3D
         public bool Specular;
 
         [XmlAttribute(AttributeName="const_atten")]
-        public double ConstAtten;
+        public float ConstAtten;
 
         [XmlAttribute(AttributeName="lin_atten")]
-        public double LinAtten;
+        public float LinAtten;
 
         [XmlAttribute(AttributeName="quad_atten")]
-        public double QuadAtten;
+        public float QuadAtten;
 
         public enum LightTypes {
             [XmlEnum("Point")] Point,
@@ -384,7 +384,7 @@ namespace W3D
     public class Spot : Xml
     {
         [XmlAttribute(AttributeName="angle")]
-        public double Angle;
+        public float Angle;
     }
 
 
@@ -508,7 +508,7 @@ namespace W3D
     public class TimedActions : Actions
     {
         [XmlAttribute(AttributeName="seconds-time")]
-        public double SecondsTime;
+        public float SecondsTime;
 
         [XmlText]
         public string text;
@@ -586,13 +586,13 @@ namespace W3D
     public class Settings : Xml
     {
         [XmlAttribute(AttributeName="freq")]
-        public double Frequency;
+        public float Frequency;
 
         [XmlAttribute(AttributeName="volume")]
-        public double Volume;
+        public float Volume;
 
         [XmlAttribute(AttributeName="pan")]
-        public double Pan;
+        public float Pan;
     }
 
 
@@ -619,7 +619,7 @@ namespace W3D
         public string Name;
 
         [XmlAttribute(AttributeName="duration")]
-        public double Duration;
+        public float Duration;
 
         [XmlAttribute(AttributeName="remain-enabled")]
         public bool RemainEnabled;
@@ -692,7 +692,7 @@ namespace W3D
         public string PointString;
 
         [XmlAttribute(AttributeName="angle")]
-        public double Angle;
+        public float Angle;
 
     }
 
@@ -705,7 +705,7 @@ namespace W3D
         public string DirectionString;
 
         [XmlAttribute(AttributeName="angle")]
-        public double Angle;
+        public float Angle;
     }
 
 
@@ -827,7 +827,7 @@ namespace W3D
         public Particle Particle;
 
         [XmlAttribute(AttributeName="rate")]
-        public double Rate;
+        public float Rate;
     }
 
 
@@ -894,13 +894,13 @@ namespace W3D
         public Particle Particle;
 
         [XmlAttribute(AttributeName="magnitude")]
-        public double Magnitude;
+        public float Magnitude;
 
         [XmlAttribute(AttributeName="epsilon")]
-        public double Epsilon;
+        public float Epsilon;
 
         [XmlAttribute(AttributeName="lookahead")]
-        public double LookAhead;
+        public float LookAhead;
     }
 
 
@@ -912,13 +912,13 @@ namespace W3D
         public Particle Particle;
 
         [XmlAttribute(AttributeName="friction")]
-        public double Friction;
+        public float Friction;
 
         [XmlAttribute(AttributeName="resilience")]
-        public double Resilience;
+        public float Resilience;
 
         [XmlAttribute(AttributeName="cutoff")]
-        public double Cutoff;
+        public float Cutoff;
     }
 
     [Serializable]
@@ -938,10 +938,10 @@ namespace W3D
         public string DirectionString;
 
         [XmlAttribute(AttributeName="vel_low")]
-        public double VelocityLow;
+        public float VelocityLow;
 
         [XmlAttribute(AttributeName="vel_high")]
-        public double VelocityHigh;
+        public float VelocityHigh;
     }
 
 
@@ -950,13 +950,13 @@ namespace W3D
     public class Gravitate : Xml
     {
         [XmlAttribute(AttributeName="magnitude")]
-        public double Magnitude;
+        public float Magnitude;
 
         [XmlAttribute(AttributeName="epsilon")]
-        public double Epsilon;
+        public float Epsilon;
 
         [XmlAttribute(AttributeName="max_radius")]
-        public double MaxRadius;
+        public float MaxRadius;
     }
 
 
@@ -966,13 +966,13 @@ namespace W3D
     {
 
         [XmlAttribute(AttributeName="magnitude")]
-        public double Magnitude;
+        public float Magnitude;
 
         [XmlAttribute(AttributeName="epsilon")]
-        public double Epsilon;
+        public float Epsilon;
 
         [XmlAttribute(AttributeName="max_radius")]
-        public double MaxRadius;
+        public float MaxRadius;
     }
 
 
@@ -981,13 +981,13 @@ namespace W3D
     public class MatchVel : Xml
     {
         [XmlAttribute(AttributeName="magnitude")]
-        public double Magnitude;
+        public float Magnitude;
 
         [XmlAttribute(AttributeName="epsilon")]
-        public double Epsilon;
+        public float Epsilon;
 
         [XmlAttribute(AttributeName="max_radius")]
-        public double MaxRadius;
+        public float MaxRadius;
     }
 
 
@@ -999,13 +999,13 @@ namespace W3D
         public string CenterString;
 
         [XmlAttribute(AttributeName="magnitude")]
-        public double Magnitude;
+        public float Magnitude;
 
         [XmlAttribute(AttributeName="epsilon")]
-        public double Epsilon;
+        public float Epsilon;
 
         [XmlAttribute(AttributeName="max_radius")]
-        public double MaxRadius;
+        public float MaxRadius;
     }
 
 
@@ -1029,10 +1029,10 @@ namespace W3D
         public string ColorString;
 
         [XmlAttribute(AttributeName="alpha")]
-        public double Alpha;
+        public float Alpha;
 
         [XmlAttribute(AttributeName="scale")]
-        public double Scale;
+        public float Scale;
     }
 
 
@@ -1063,7 +1063,7 @@ namespace W3D
     public class Age : Xml
     {
         [XmlAttribute(AttributeName="age")]
-        public double Seconds;
+        public float Seconds;
 
         [XmlAttribute(AttributeName="younger-than")]
         public bool YoungerThan;
@@ -1376,7 +1376,7 @@ namespace W3D
         public Placement Placement;
 
         [XmlAttribute(AttributeName="duration")]
-        public double duration;
+        public float duration;
 
         [XmlText]
         public string text;
@@ -1399,14 +1399,14 @@ namespace W3D
         [XmlElement(ElementName="Movement", Type=typeof(MovementTransition))]
         [XmlElement(ElementName="MoveRel", Type=typeof(MoveRel))]
         [XmlElement(ElementName="Color", Type=typeof(string))]
-        [XmlElement(ElementName="Scale", Type=typeof(double))]
+        [XmlElement(ElementName="Scale", Type=typeof(float))]
         [XmlElement(ElementName="Sound", Type=typeof(SoundTransition))]
         [XmlElement(ElementName="LinkTransition", Type=typeof(LinkTransition))]
         public object Change;
         public TransitionType Type;
 
         [XmlAttribute(AttributeName="duration")]
-        public double duration;
+        public float duration;
 
         [XmlText]
         public string text;
@@ -1616,10 +1616,10 @@ namespace W3D
         public string P2String;
 
         [XmlAttribute(AttributeName="radius")]
-        public double Radius;
+        public float Radius;
 
         [XmlAttribute(AttributeName="radius-inner")]
-        public double InnerRadius;
+        public float InnerRadius;
     }
 
 
@@ -1634,10 +1634,10 @@ namespace W3D
         public string ApexString;
 
         [XmlAttribute(AttributeName="radius")]
-        public double Radius;
+        public float Radius;
 
         [XmlAttribute(AttributeName="radius-inner")]
-        public double InnerRadius;
+        public float InnerRadius;
     }
 
 
@@ -1649,7 +1649,7 @@ namespace W3D
         public string CenterString;
 
         [XmlAttribute(AttributeName="stdev")]
-        public double Deviation;
+        public float Deviation;
     }
 
 
@@ -1667,7 +1667,7 @@ namespace W3D
         public float Radius;
 
         [XmlAttribute(AttributeName="radius-inner")]
-        public double InnerRadius;
+        public float InnerRadius;
     }
 
 
