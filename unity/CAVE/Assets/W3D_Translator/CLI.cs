@@ -16,7 +16,7 @@ using TMPro;
 
 using W3D;
 
-// TODO: Should ConvertVector3 invert z axis always?
+// TODO (80): Should ConvertVector3 invert z axis always?
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
@@ -175,8 +175,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             wall.SetActive(true);
             placement.SetTransform(wall.transform, 1f, storyT);
 
-            // TODO: Add a canvas to each wall
-
             // Create outline
             LineRenderer outline = wall.AddComponent<LineRenderer>();
             outline.widthMultiplier = 0.01f;
@@ -207,17 +205,11 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         {
             GameObject contentGO = xml.Content.Create(xml);
 
-            // TODO LinkRoot.Link -> Add a VRCanvas (74)
+            // TODO (74): LinkRoot.Link -> Add a VRCanvas
             if(xml.LinkRoot is not null) {
-                // Instantiate a new canvas and button
-                GameObject prefab = Instantiate(
-                    Resources.Load<GameObject>("Prefabs/canvas")
-                );
+                // Instantiate a new link prefab
+                GameObject prefab = Instantiate(Resources.Load<GameObject>("Prefabs/canvas"));
                 prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
-
-                Link link = xml.LinkRoot.Link;
-                GameObject buttonGO = prefab.transform.Find("button").gameObject;
-                Button button = buttonGO.GetComponent<Button>();
                 
                 // Set xml for canvas
                 prefab.name = xml.Name;
@@ -225,17 +217,20 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 xml.Placement.SetTransform(prefab.transform, xml.Scale, story.transform);
                 prefab.transform.localScale *= 0.1f;
 
-                // Set xml for button
-                button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
-                button.colors = link.SetColors(button.colors, xml.ColorString);
-                if(!link.RemainEnabled) {} // TODO: disable button after click
+                Link link = xml.LinkRoot.Link;
+                GameObject buttonGO = prefab.transform.GetChild(0).gameObject;
+                Button button = buttonGO.GetComponent<Button>();
 
                 // Nest the original <Content> GameObject inside the prefab
                 contentGO.transform.SetParent(buttonGO.transform, false);
 
-                // TODO: Add button actions
-                // TODO: Deactivate OnClick if !xml.LinkRoot.Link.RemainEnabled
-                // TODO: Refactor as a method on Link - take xml.LinkRoot.Link
+                // Set xml for button
+                button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
+                button.colors = link.SetColors(button.colors, xml.ColorString);
+                if(!link.RemainEnabled) {} // TODO: Disable button after click
+
+                // TODO (83): Add button actions
+                foreach (LinkActions action in link.Actions) {} 
             } else {
                 contentGO.SetActive(xml.Visible);
                 xml.Placement.SetTransform(contentGO.transform, xml.Scale, story.transform);
@@ -248,11 +243,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     // Callback function when Debug.Log is called within the CLI script
     static void HandleLog(string logString, string stackTrace, LogType type)
     {
-        // TODO: Log errors in red
-        // TODO: Log warnings in yellow
-        // TODO: Don't write Exceptions to console (just logfile)
+        // TODO (84): Change string based on LogType
+        // Prepending "LOG:" will print the line to the screen (checked in Python script)
         
-        // Prepend "LOG:", we check for this in the Python script
         Console.WriteLine($"LOG:{logString}");
     }
 }

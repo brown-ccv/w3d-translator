@@ -1454,7 +1454,7 @@ GameObject:
   - component: {fileID: 2111055611}
   - component: {fileID: 2111055610}
   m_Layer: 0
-  m_Name: CLI
+  m_Name: CLI (temp)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

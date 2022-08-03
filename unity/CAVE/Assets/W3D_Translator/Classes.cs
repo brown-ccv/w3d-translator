@@ -245,7 +245,7 @@ namespace W3D
             // TODO (64): Validate default font size
             // TODO (64): Validate default word wrapping
             // TODO (64): Validate default overflow mode
-            // TODO: Instantiate a default prefab?
+            // TODO (79): Instantiate a default prefab?
             tmp.fontSize = 10;
             tmp.enableWordWrapping = false;
             tmp.overflowMode = TextOverflowModes.Truncate;
@@ -257,7 +257,7 @@ namespace W3D
                 " SDF"
             );
             // Font material hasn't been created, attempt to load from ttf file
-            // TODO: More robust path checking (72)
+            // TODO (72): More robust path checking
             if(tmpFont == null) {
                 try {
                     Font font = AssetDatabase.LoadAssetAtPath<Font>(this.Font);
@@ -325,7 +325,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="ParticleSystem")]
-    // TODO: Unity has a ParticleSystem class (69)
+    // TODO (69): Unity has a ParticleSystem class
     public class ParticleSystem : Xml
     {
         [XmlAttribute(AttributeName="max-particles")]
@@ -350,7 +350,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="Light")]
-    // TODO: Unity has a Light class (68)
+    // TODO (68): Unity has a Light class 
     public class Light : Xml
     {
         [XmlChoiceIdentifier("Type")]
@@ -1191,6 +1191,7 @@ namespace W3D
             rotationType.LookAt: Rotate to look at target vector (world space)
             rotationType.Normal: Local rotation around a normalized vector
         */
+        // TODO (81): Split into separate functions that return their values
         public void SetTransform(Transform gameObjectT, float scale, Transform storyT) {
             gameObjectT.SetParent(
                 this.RelativeTo == Placement.PlacementTypes.Center
@@ -1214,7 +1215,7 @@ namespace W3D
                     );
                     break;
                 case(Normal rotation):
-                    // TODO (63)
+                    // TODO (63): Add logic
                     break;
                 case(null):
                     gameObjectT.localRotation = Quaternion.identity;
@@ -1287,10 +1288,6 @@ namespace W3D
             [XmlEnum("MoveCave")] MoveCave,
             [XmlEnum("Restart")] Restart,
         }
-
-        /* TODO: Each action should have a function associated with it
-            This function gets added to an array of actions and is called when clicked
-        */
     }
 
 

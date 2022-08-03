@@ -50,8 +50,6 @@ The Unity project settings and XRRig must be adjusted for VR to work:
 
 Check out [this tutorial](https://www.youtube.com/watch?v=5ZBkEYUyBWQ) for more information on VR with Unity and the XR Interaction Toolkit.
 
-**TODO**: How to do ray based interaction? (52)
-
 ### MiddleVR Settings
 
 In addition to the Unity XRRig, a root MiddleVR package needs to be added in order for the project to work with MiddleVR and the CAVE.
@@ -202,8 +200,6 @@ Each `<Object>...` inside `<ObjectRoot>` corresponds to a single GameObject in U
 
 #### Text
 
-TODO (64)
-
 Text in Unity is defined by `TextMeshPro`. Some properties are set for all `TextMeshPro` objects to closer match the text defined in the original project (font size, word wrapping and overflow settings, etc.)
 
 - `<text>`: The string physically displayed on screen
@@ -265,8 +261,6 @@ TODO 69
 - `speed`: How fast the particles move
 
 ### Link
-
-TODO (74)
 
 `<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object turns it into a clickable button. A canvas (grandparent) and button (parent) object are added to the hierarchy. The canvas's name will match the objects.
 

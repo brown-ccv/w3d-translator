@@ -8,7 +8,7 @@ from rich.console import Console
 from validate import validate_project, validate_xml
 from errors import ValidationError, UnityError, XmlError
 
-# TODO: Hard coded paths won't work on others' machines
+# TODO: Hard coded paths won't work on others' machines?
 UNITY_VERSION = "2021.3.0f1"
 UNITY_PATH = Path(
     "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"
@@ -40,7 +40,7 @@ def create_out(out_dir: Path, force: bool):
         out_dir.mkdir()
     except PermissionError:
         # TODO 54: Catch error when files are being used in another process
-        # TODO: Retry a certain number of times?
+        # TODO 54: Retry a certain number of times?
         # Output folder currently in use, pause and try again
         pass
     except FileExistsError:
