@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using Unity;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -144,6 +145,8 @@ namespace W3D
 
         [XmlText]
         public string text;
+
+        public Vector3 GetScale() { return Vector3.one * this.Scale; }
     }
 
 
@@ -235,30 +238,29 @@ namespace W3D
         public float Depth;
 
         public GameObject GenerateTMP(bool isLink, Color color) {
-            GameObject gameObject = new GameObject();
-            TMP_Text tmp = isLink
-                ? gameObject.AddComponent<TextMeshProUGUI>() 
-                : gameObject.AddComponent<TextMeshPro>();
+            // Instantiate TextMeshPro or TextMeshProUGUI prefab
+            // TODO (64): Validate prefab settings
+            GameObject gameObject = UnityEngine.Object.Instantiate(
+                Resources.Load<GameObject>("Prefabs/tmp" + (isLink ? "GUI" : ""))
+            );
+            TMP_Text tmp = gameObject.GetComponent<TMP_Text>();
 
-            // Change TMP Defaults
-            tmp.autoSizeTextContainer = true;
-            // TODO (64): Validate default font size
-            // TODO (64): Validate default word wrapping
-            // TODO (64): Validate default overflow mode
-            // TODO (79): Instantiate a default prefab?
-            tmp.fontSize = 10;
-            tmp.enableWordWrapping = false;
-            tmp.overflowMode = TextOverflowModes.Truncate;
+            // Set object properties defined in the xml
+            tmp.SetText(this.String);
+            tmp.horizontalAlignment = (HorizontalAlignmentOptions)this.HorizontalAlignment;
+            tmp.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
+            tmp.color = color; // Vertex Color
+            tmp.faceColor = color; // Material color
 
             // Load font material
+            // TODO (72): More robust path checking
             TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
                 "Materials/Fonts/" + 
                 Path.GetFileNameWithoutExtension(this.Font) + 
                 " SDF"
             );
-            // Font material hasn't been created, attempt to load from ttf file
-            // TODO (72): More robust path checking
             if(tmpFont == null) {
+                // Font material hasn't been created, attempt to load from ttf file
                 try {
                     Font font = AssetDatabase.LoadAssetAtPath<Font>(this.Font);
                     tmpFont = TMP_FontAsset.CreateFontAsset(font);
@@ -268,8 +270,9 @@ namespace W3D
                     Debug.LogException(e);
                 }
             }
+
             // Add font to the TextMeshPro object
-            try { tmp.font = tmpFont; }
+            try {tmp.font = tmpFont; }
             catch(NullReferenceException e) {
                 Debug.LogWarning($"{gameObject.name} {tmpFont.ToString()} {tmp.font.ToString()}");
                 Debug.LogError($"Error creating font asset {this.Font} for {gameObject.name}");
@@ -277,13 +280,6 @@ namespace W3D
                 Debug.LogException(e);
             }
             
-            // Set object properties defined in the xml
-            tmp.SetText(this.String);
-            tmp.horizontalAlignment = (HorizontalAlignmentOptions)this.HorizontalAlignment;
-            tmp.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
-            tmp.color = color; // Vertex Color
-            tmp.faceColor = color; // Material color
-
             return gameObject;
         }
     }
@@ -1192,30 +1188,20 @@ namespace W3D
             rotationType.Normal: Local rotation around a normalized vector
         */
         // TODO (81): Split into separate functions that return their values
-        public void SetTransform(Transform gameObjectT, float scale, Transform storyT) {
-            gameObjectT.SetParent(
-                this.RelativeTo == Placement.PlacementTypes.Center
-                    ? storyT // Nest under Story directly
-                    : storyT.Find(this.RelativeTo.ToString())
-                , false
-            );
-            gameObjectT.localScale = Vector3.one * scale;
-            gameObjectT.localPosition = Xml.ConvertVector3(this.PositionString);
+        public void SetTransform(Transform gameObjectT, Vector3 scale, Transform storyT) {
+            gameObjectT.SetParent(this.GetParent(storyT), false);
+            gameObjectT.localPosition = this.GetPosition();
+            gameObjectT.localScale = scale;
 
             switch(this.Rotation) {
                 case(Axis rotation):
-                    gameObjectT.localEulerAngles = 
-                        Xml.ConvertVector3(rotation.RotationString) * rotation.Angle;
+                    gameObjectT.localEulerAngles = rotation.GetEuler();
                     break;
                 case(LookAt rotation):
-                    gameObjectT.rotation = Quaternion.LookRotation(
-                        gameObjectT.position - 
-                            storyT.TransformPoint(Xml.ConvertVector3(rotation.TargetString)),
-                        Xml.ConvertVector3(rotation.UpString)
-                    );
+                    gameObjectT.rotation = rotation.GetQuaternion(gameObjectT.position, storyT);
                     break;
                 case(Normal rotation):
-                    // TODO (63): Add logic
+                    gameObjectT.localEulerAngles = rotation.GetEuler();
                     break;
                 case(null):
                     gameObjectT.localRotation = Quaternion.identity;
@@ -1223,6 +1209,14 @@ namespace W3D
                 default: break;
             }
             return;
+        }
+
+        public Vector3 GetPosition() { return Xml.ConvertVector3(this.PositionString); }
+
+        public Transform GetParent(Transform storyT) {
+            return this.RelativeTo == Placement.PlacementTypes.Center
+                    ? storyT // Nest under Story directly
+                    : storyT.Find(this.RelativeTo.ToString());
         }
     }
 
@@ -1235,6 +1229,10 @@ namespace W3D
 
         [XmlAttribute(AttributeName="angle")]
         public float Angle;
+
+        public Vector3 GetEuler() {
+            return Xml.ConvertVector3(this.RotationString) * this.Angle;
+        }
     }
 
 
@@ -1247,6 +1245,14 @@ namespace W3D
 
         [XmlAttribute(AttributeName="up")]
         public string UpString;
+
+        public Quaternion GetQuaternion(Vector3 position, Transform storyT) {
+            return Quaternion.LookRotation(
+                position - 
+                    storyT.TransformPoint(Xml.ConvertVector3(this.TargetString)),
+                Xml.ConvertVector3(this.UpString)
+            );
+        }
     }
 
 
@@ -1258,7 +1264,12 @@ namespace W3D
         public string NormalString;
 
         [XmlAttribute(AttributeName="angle")]
-        public double Angle;
+        public float Angle;
+
+        public Vector3 GetEuler() {
+            // TODO (63): Is this the correct logic?
+            return Xml.ConvertVector3(this.NormalString) * this.Angle;
+        } 
     }
 
 
