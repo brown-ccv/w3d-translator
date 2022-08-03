@@ -197,30 +197,18 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         /** Object
             name: gameObject.name
             Visible: gameObject.active
-            Color: gameObject.[content].color
+            Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
             Lighting: TODO (76)
             ClickThrough: TODO (76)
             AroundSelfAxis: TODO (76)
             Scale: gameObject.localScale (set in Placement.SetTransform)
         */
         foreach (W3D.Object xml in objectList)
-        {   
-            bool isLink = xml.LinkRoot is not null;
-            // TODO: Move as function under Content class
-            GameObject gameObject = xml.Content.ContentData switch
-            {
-                W3D.Text textContent => textContent.GenerateTMP(isLink, Xml.ConvertColor(xml.ColorString)),
-                W3D.Image imageContent => new GameObject(), // TODO (65)
-                StereoImage stereoImageContent => new GameObject(), // TODO (66)
-                Model modelContent => new GameObject(), // TODO (67)
-                W3D.Light lightContent => new GameObject(), // TODO (68)
-                W3D.ParticleSystem particleSystemContent => new GameObject(), // TODO (69)
-                _ => new GameObject(),
-            };
-            gameObject.name = xml.Name;
+        {
+            GameObject contentGO = xml.Content.Create(xml);
 
             // TODO LinkRoot.Link -> Add a VRCanvas (74)
-            if(isLink) {
+            if(xml.LinkRoot is not null) {
                 // Instantiate a new canvas and button
                 GameObject objectPrefab = Instantiate(
                     Resources.Load<GameObject>("Prefabs/canvas")
@@ -237,7 +225,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 GameObject buttonGO = objectPrefab.transform.Find("button").gameObject;
                 Button button = buttonGO.GetComponent<Button>();
                 ColorBlock colors = button.colors;
-                button.targetGraphic = gameObject.GetComponent<Graphic>(); // Text, Image, etc.                
+                button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.                
                 colors.normalColor = colors.highlightedColor =
                     Xml.ConvertColor(xml.LinkRoot.Link.EnabledColorString);
                 colors.pressedColor = colors.selectedColor = 
@@ -249,16 +237,16 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 }
 
                 // Update the original <Content> GameObject
-                gameObject.transform.SetParent(buttonGO.transform, false);
+                contentGO.transform.SetParent(buttonGO.transform, false);
 
                 // TODO: Add button actions
                 // TODO: Deactivate OnClick if !xml.LinkRoot.Link.RemainEnabled
                 // TODO: Refactor as a method on Link - take xml.LinkRoot.Link
             } else {
-                gameObject.SetActive(xml.Visible);
-                xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
+                contentGO.SetActive(xml.Visible);
+                xml.Placement.SetTransform(contentGO.transform, xml.Scale, story.transform);
             }
-            gameObjects.Add(gameObject.name, gameObject);
+            gameObjects.Add(contentGO.name, contentGO);
         }
         return gameObjects;
     }

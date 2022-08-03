@@ -182,6 +182,24 @@ namespace W3D
             [XmlEnum("Model")] Model,
             [XmlEnum("Light")] Light,
             [XmlEnum("ParticleSystem")] ParticleSystem,
+        }
+
+        public GameObject Create(Object parent) {
+            GameObject gameObject = this.ContentData switch
+            {
+                Text text => text.GenerateTMP(
+                    parent.LinkRoot is not null, 
+                    Xml.ConvertColor(parent.ColorString)
+                ),
+                Image image => new GameObject(), // TODO (65)
+                StereoImage stereoImage => new GameObject(), // TODO (66)
+                Model model => new GameObject(), // TODO (67)
+                Light light => new GameObject(), // TODO (68)
+                ParticleSystem particleSystem => new GameObject(), // TODO (69)
+                _ => new GameObject(), // TODO: - Shouldn't occur, throw error
+            };
+            gameObject.name = parent.Name;
+            return gameObject;
         }   
     }   
 
