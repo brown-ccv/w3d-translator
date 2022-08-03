@@ -98,9 +98,7 @@ The `<Background color>...` attribute sets the background color for BOTH `Main C
 
 ## PlacementRoot
 
-### Placement
-
-Each `<Placement>` in `PlacementRoot` is an empty GameObject. PlacementRoot is the same for all projects, see [minimuim.xml](examples/cweditor/minimum.xml):
+Each `<Placement>...` inside `PlacementRoot` is a reference point for the `<RelativeTo>` child. They are empty GameObjects in Unity, nested under story and moved to the correct position/rotation. PlacementRoot is the same for all projects (see [minimuim.xml](examples/cweditor/minimum.xml)):
 
 ```xml
 <PlacementRoot>
@@ -113,8 +111,7 @@ Each `<Placement>` in `PlacementRoot` is an empty GameObject. PlacementRoot is t
     <Placement name="FrontWall">
         <RelativeTo>Center</RelativeTo>
         <!-- Look at the origin with the y axis pointed upwards -->
-        <!-- The object is in front of the origin. Note that Position is (0, 0, 4) in Unity.  -->
-        <!-- <Axis rotation="(0.0, 1.0, 0.0)" angle="0.0" /> -->
+        <!-- The object is in front of the origin (z axis flipped) -->
         <Position>(0.0, 0.0, -4.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
     </Placement>
@@ -122,7 +119,6 @@ Each `<Placement>` in `PlacementRoot` is an empty GameObject. PlacementRoot is t
         <RelativeTo>Center</RelativeTo>
           <!-- Look at the origin with the y axis pointed upwards -->
           <!-- The object is to the left of the origin so it must rotate to do so -->
-          <!-- <Axis rotation="(0.0, 1.0, 0.0)" angle="270.0" /> -->
         <Position>(-4.0, 0.0, 0.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
     </Placement>
@@ -130,43 +126,42 @@ Each `<Placement>` in `PlacementRoot` is an empty GameObject. PlacementRoot is t
         <RelativeTo>Center</RelativeTo>
         <!-- Look at the origin with the y axis pointed upwards -->
         <!-- The object is to the right of the origin so it must rotate to do so -->
-        <!-- <Axis rotation="(0.0, 0.0, 0.0)" angle="90.0" /> -->
         <Position>(4.0, 0.0, 0.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 1.0, 0.0)"/>
     </Placement>
     <Placement name="FloorWall">
         <RelativeTo>Center</RelativeTo>
         <!-- Look at the origin with the z axis pointed upwards -->
-        <!-- The object is below the origin so it must rotate to do so. Note that by rotating over the X axis the Z axis now points downward. -->
-        <!-- <Axis rotation="(1.0, 0.0, 0.0)" angle="90.0" /> -->
+        <!-- The object is below the origin so it must rotate to do so. Note that the Z axis points downward as a result of the rotation. -->
         <Position>(0.0, -4.0, 0.0)</Position>
         <LookAt target="(0.0, 0.0, 0.0)" up="(0.0, 0.0, -1.0)"/>
     </Placement>
 </PlacementRoot>
 ```
 
+Note that even though the `<PlacementRoot>` is identical between projects each wall is still instantiated from `CLI.cs`.
+
+### Placement
+
 - `RelativeTo`: Which wall inside `PlacementRoot` the object is a child of in the hierarchy  
   - Objects that are `<RelativeTo>Center</RelativeTo>` are children of `Story`.
-- `Position`: Local Position
-- [Axis || LookAt || Normal]
-  - `Axis`: The objects rotation around a specified axis
+- `<Position>`: The local position of the object
+- Rotation is an `<xs:choice>` (Axis, LookAt, Normal)
+  - `<Axis>`: The objects rotation around a specified axis
     - `rotation`: The axis around which the rotation takes place
     - `angle`: The rotation angle of the object, in degrees
-  - `LookAt`: Object is rotated to look at a specified point (in `Story` space)
+  - `<LookAt>`: Object is rotated to look at a specified point (in `Story` space)
     - `target`: The position the object is looking at
     - `up`: Which direction (world space) is considered up (+y)
-  - `Normal`: *Same as LookAt but with a normalized vector?*
+  - `<Normal>`: **(TODO #63)**: *Same as LookAt but with a normalized vector?*
     - `normal`: A normalized vector
     - `angle`: The rotation angle of the object, in degrees
+  - Every rotation in Unity can be thought of as an `<Axis>` type
 
 ### Changes and Conversions (Placement)
 
-- The entire project lives inside the `Story` empty game object
-  - Scale is 0.3048 to covert feet to meters
-  - Set Y to 1.2192 so floor sits at 0, 0, 0.
-- Each wall is an empty game object
-  - Set position and rotation for project specific `RelativeTo` placements later on
-- The z axis is flipped for the front wall (+4 not -4)
-- We need to convert `LookAt` and `Normal` from world space to local rotation - essentially making everything an `Axis` object.
-  - Converting an `Axis` tag to Unity: `Axis.Rotation * Axis.Angle`
-  - *See the comments in the XML above*
+- `<Axis>` is calculated by creating a Eular angle (`rotation * axis`)
+- `<LookAt>` is calculated by generating a direction vector (`<Position> - target`)
+  - Note that `target` must be converted to world space before calculating the direction vector
+  - Unity has a built in `LookRotation()` function that takes the direction vector and `up`
+- `Normal` is calculated by **(TODO #63)**

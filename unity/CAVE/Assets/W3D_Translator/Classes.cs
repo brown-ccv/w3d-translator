@@ -1072,27 +1072,79 @@ namespace W3D
     public class Placement : Xml
     {
         [XmlElement(ElementName="RelativeTo")]
-        public string RelativeTo;
+        public PlacementTypes RelativeTo;
+        public enum PlacementTypes {
+            Center,
+            FrontWall,
+            LeftWall,
+            RightWall,
+            FloorWall
+        }
 
         [XmlElement(ElementName="Position")]
         public string PositionString;
 
-        [XmlElement(ElementName="Axis")]
-        public Axis Axis;
-
-        [XmlElement(ElementName="LookAt")]
-        public LookAt LookAt;
-
-        [XmlElement(ElementName="Normal")]
-        public Normal Normal;
+        [XmlChoiceIdentifier("rotationType")]
+        [XmlElement(ElementName="Axis", Type=typeof(Axis))]
+        [XmlElement(ElementName="LookAt", Type=typeof(LookAt))]
+        [XmlElement(ElementName="Normal", Type=typeof(Normal))]
+        public object rotation;
+        public RotationType rotationType;
+        public enum RotationType {
+            Null,
+            [XmlEnum("Axis")] Axis,
+            [XmlEnum("LookAt")] LookAt,
+            [XmlEnum("Normal")] Normal,
+        }
 
         [XmlAttribute(AttributeName="name")]
         public string Name;
 
         [XmlText]
         public string text;
-    }
 
+
+
+        /** Set parent GameObject and local transforms of gameObjectT
+            relativeTo: [GameObject].transform.parent
+            position: [GameObject].transform.localPosition
+            rotationType.Axis: Rotation angle around an axis 
+            rotationType.LookAt: Rotate to look at target vector (world space)
+            rotationType.Normal: Local rotation around a normalized vector
+        */
+        public void SetTransform(Transform gameObjectT, float scale, Transform storyT) {
+            gameObjectT.SetParent(
+                this.RelativeTo == Placement.PlacementTypes.Center
+                    ? storyT // Nest under Story directly
+                    : storyT.Find(this.RelativeTo.ToString())
+                , false
+            );
+            gameObjectT.localScale = Vector3.one * scale;
+            gameObjectT.localPosition = Xml.ConvertVector3(this.PositionString);
+
+            switch(this.rotation) {
+                case(Axis rotation):
+                    gameObjectT.localEulerAngles = 
+                        Xml.ConvertVector3(rotation.RotationString) * rotation.Angle;
+                    break;
+                case(LookAt rotation):
+                    gameObjectT.rotation = Quaternion.LookRotation(
+                        gameObjectT.position - 
+                            storyT.TransformPoint(Xml.ConvertVector3(rotation.TargetString)),
+                        Xml.ConvertVector3(rotation.UpString)
+                    );
+                    break;
+                case(Normal rotation):
+                    // TODO (63)
+                    break;
+                case(null):
+                    gameObjectT.localRotation = Quaternion.identity;
+                    break;
+                default: break;
+            }
+            return;
+        }
+    }
 
     [Serializable]
     [XmlRoot(ElementName="Axis")]
@@ -1102,7 +1154,7 @@ namespace W3D
         public string RotationString;
 
         [XmlAttribute(AttributeName="angle")]
-        public double Angle;
+        public float Angle;
     }
 
 

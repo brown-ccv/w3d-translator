@@ -15,44 +15,30 @@ using W3D;
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
-    const bool DEV = true;
-
-    #if DEV
-        void Start(){ Main(); } // TEMP: Execute script from Unity directly
-    #endif
+    void Start(){ Main(); } // TEMP: Execute script from Unity directly
 
     static void Main()
     {
         Application.logMessageReceivedThreaded += HandleLog;
         Debug.Log("Running Unity CLI");
         
-
-        #if DEV
-            // string xmlPath = "../../test/everything.xml";
-            string xmlPath = "../../test/sample.xml"; 
-        #else
-            // The path to the xml is send as a command line argument
-            string xmlPath = GetXmlPathArg();  
-        #endif
+        // The path to the xml is send as a command line argument
+        // string xmlPath = GetXmlPathArg();
+        string xmlPath = "../../test/sample.xml"; 
         Story xml = LoadStory(xmlPath);
 
-        #if DEV
-            // Create new scene and load the root GameObjects
-            InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
-            GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
-            GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
-        #else
-            GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
-            GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
-        #endif
+        // Create new scene and load the root GameObjects
+        // InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
+        // GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
+        // GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
+        GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
+        GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
+        BuildWalls(xml, story.transform);
 
         // Save and quit
-        #if !DEV
-            // Scenes can only be saved in editor mode
-            EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
-        #endif
+        // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
         Application.logMessageReceivedThreaded -= HandleLog;
         Application.Quit();
     }
@@ -129,8 +115,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         UnityEngine.Camera caveCamera = 
             caveCameraT.GetComponent<UnityEngine.Camera>();
         caveCamera.farClipPlane = xmlCaveCamera.FarClip;
-        caveCamera.transform.localPosition = 
-            Xml.ConvertVector3(xmlCaveCamera.Placement.PositionString);
+        xmlCaveCamera.Placement.SetTransform(caveCamera.transform, 1f, story.transform);
 
         // Update Camera inside of xrRig
         W3D.Camera xmlCamera = xml.Camera;
@@ -162,6 +147,41 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                     XROrigin.TrackingOriginMode.Device;
                 break;
         }
+    }
+
+    // Create each <Placement> as an outlined GameObject 
+    static void BuildWalls(Story xml, Transform storyT) {
+        // Each wall is an 8" by 8" square
+        Vector3[] points = {
+            new Vector3(-4, 4, 0),
+            new Vector3(4, 4, 0),
+            new Vector3(4, -4, 0),
+            new Vector3(-4, -4, 0),
+        };
+
+        foreach (Placement placement in xml.PlacementRoot)
+        {
+            // Center objects are nested directly under Story
+            if(placement.Name == "Center") continue;
+
+            // Create wall
+            GameObject wall = new GameObject();
+            wall.name = placement.Name;
+            wall.SetActive(true);
+            placement.SetTransform(wall.transform, 1f, storyT);
+
+            #if DEV
+                // Create outline
+                LineRenderer outline = wall.AddComponent<LineRenderer>();
+                outline.widthMultiplier = 0.01f;
+                outline.useWorldSpace = false;
+                outline.loop = true;
+                outline.material.SetColor("_EmissionColor", Color.white);
+                outline.positionCount = points.Length;
+                outline.SetPositions(points);
+            #endif
+        }
+        return;
     }
 
     // Callback function when Debug.Log is called within the CLI script
