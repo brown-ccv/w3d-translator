@@ -117,7 +117,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         UnityEngine.Camera caveCamera = 
             caveCameraT.GetComponent<UnityEngine.Camera>();
         caveCamera.farClipPlane = xmlCaveCamera.FarClip;
-        xmlCaveCamera.Placement.SetTransform(caveCamera.transform, 1f, story.transform);
+        xmlCaveCamera.Placement.SetTransform(caveCamera.transform, Vector3.one, story.transform);
 
         // Update Camera inside of xrRig
         W3D.Camera xmlCamera = xml.Camera;
@@ -170,7 +170,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             GameObject wall = new GameObject();
             wall.name = placement.Name;
             wall.SetActive(true);
-            placement.SetTransform(wall.transform, 1f, storyT);
+            placement.SetTransform(wall.transform, Vector3.one, storyT);
 
             // Create outline
             LineRenderer outline = wall.AddComponent<LineRenderer>();
@@ -211,7 +211,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 // Set xml for canvas
                 prefab.name = xml.Name;
                 prefab.SetActive(xml.Visible);
-                xml.Placement.SetTransform(prefab.transform, xml.Scale, story.transform);
+                xml.Placement.SetTransform(prefab.transform, xml.GetScale(), story.transform);
                 prefab.transform.localScale *= 0.1f;
 
                 Link link = xml.LinkRoot.Link;
@@ -230,7 +230,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 foreach (LinkActions action in link.Actions) {} 
             } else {
                 contentGO.SetActive(xml.Visible);
-                xml.Placement.SetTransform(contentGO.transform, xml.Scale, story.transform);
+                xml.Placement.SetTransform(contentGO.transform, xml.GetScale(), story.transform);
             }
             gameObjects.Add(contentGO.name, contentGO);
         }

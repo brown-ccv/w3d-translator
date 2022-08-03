@@ -145,6 +145,8 @@ namespace W3D
 
         [XmlText]
         public string text;
+
+        public Vector3 GetScale() { return Vector3.one * this.Scale; }
     }
 
 
@@ -1186,30 +1188,20 @@ namespace W3D
             rotationType.Normal: Local rotation around a normalized vector
         */
         // TODO (81): Split into separate functions that return their values
-        public void SetTransform(Transform gameObjectT, float scale, Transform storyT) {
-            gameObjectT.SetParent(
-                this.RelativeTo == Placement.PlacementTypes.Center
-                    ? storyT // Nest under Story directly
-                    : storyT.Find(this.RelativeTo.ToString())
-                , false
-            );
-            gameObjectT.localScale = Vector3.one * scale;
-            gameObjectT.localPosition = Xml.ConvertVector3(this.PositionString);
+        public void SetTransform(Transform gameObjectT, Vector3 scale, Transform storyT) {
+            gameObjectT.SetParent(this.GetParent(storyT), false);
+            gameObjectT.localPosition = this.GetPosition();
+            gameObjectT.localScale = scale;
 
             switch(this.Rotation) {
                 case(Axis rotation):
-                    gameObjectT.localEulerAngles = 
-                        Xml.ConvertVector3(rotation.RotationString) * rotation.Angle;
+                    gameObjectT.localEulerAngles = rotation.GetEuler();
                     break;
                 case(LookAt rotation):
-                    gameObjectT.rotation = Quaternion.LookRotation(
-                        gameObjectT.position - 
-                            storyT.TransformPoint(Xml.ConvertVector3(rotation.TargetString)),
-                        Xml.ConvertVector3(rotation.UpString)
-                    );
+                    gameObjectT.rotation = rotation.GetQuaternion(gameObjectT.position, storyT);
                     break;
                 case(Normal rotation):
-                    // TODO (63): Add logic
+                    gameObjectT.localEulerAngles = rotation.GetEuler();
                     break;
                 case(null):
                     gameObjectT.localRotation = Quaternion.identity;
@@ -1217,6 +1209,14 @@ namespace W3D
                 default: break;
             }
             return;
+        }
+
+        public Vector3 GetPosition() { return Xml.ConvertVector3(this.PositionString); }
+
+        public Transform GetParent(Transform storyT) {
+            return this.RelativeTo == Placement.PlacementTypes.Center
+                    ? storyT // Nest under Story directly
+                    : storyT.Find(this.RelativeTo.ToString());
         }
     }
 
@@ -1229,6 +1229,10 @@ namespace W3D
 
         [XmlAttribute(AttributeName="angle")]
         public float Angle;
+
+        public Vector3 GetEuler() {
+            return Xml.ConvertVector3(this.RotationString) * this.Angle;
+        }
     }
 
 
@@ -1241,6 +1245,14 @@ namespace W3D
 
         [XmlAttribute(AttributeName="up")]
         public string UpString;
+
+        public Quaternion GetQuaternion(Vector3 position, Transform storyT) {
+            return Quaternion.LookRotation(
+                position - 
+                    storyT.TransformPoint(Xml.ConvertVector3(this.TargetString)),
+                Xml.ConvertVector3(this.UpString)
+            );
+        }
     }
 
 
@@ -1252,7 +1264,12 @@ namespace W3D
         public string NormalString;
 
         [XmlAttribute(AttributeName="angle")]
-        public double Angle;
+        public float Angle;
+
+        public Vector3 GetEuler() {
+            // TODO (63): Is this the correct logic?
+            return Xml.ConvertVector3(this.NormalString) * this.Angle;
+        } 
     }
 
 
