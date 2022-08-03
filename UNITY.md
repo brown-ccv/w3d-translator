@@ -195,8 +195,6 @@ Each `<Object>...` inside `<ObjectRoot>` corresponds to a single GameObject in U
 
 #### Text
 
-TODO (64)
-
 Text in Unity is defined by `TextMeshPro`. Some properties are set for all `TextMeshPro` objects to closer match the text defined in the original project (font size, word wrapping and overflow settings, etc.)
 
 - `<text>`: The string physically displayed on screen

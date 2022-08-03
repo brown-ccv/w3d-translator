@@ -13,7 +13,7 @@ using TMPro;
 
 using W3D;
 
-// TODO: Should ConvertVector3 invert z axis always?
+// TODO (80): Should ConvertVector3 invert z axis always?
 
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
@@ -207,7 +207,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             gameObject.name = xml.Name;
             xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
             
-            // TODO LinkRoot.Link -> Add a VRCanvas (74)
+            // TODO 74: LinkRoot.Link -> Add a VRCanvas
             if(xml.LinkRoot is not null) {}
     
             // Add Content component(s)
@@ -216,20 +216,15 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                     textContent.GenerateTMP(gameObject, Xml.ConvertColor(xml.ColorString));
                     break;
                 case(Image imageContent):
-                    // TODO: type (65)
-                    break;
+                    break; // TODO (65)
                 case(StereoImage stereoImageContent):
-                    // TODO: type (66)
-                    break;
+                    break; // TODO (66)
                 case(Model modelContent):
-                    // TODO: type (67)
-                    break;
+                    break; // TODO (67)
                 case(W3D.Light lightContent):
-                    // TODO: type (68)
-                    break;
+                    break; // TODO (68)
                 case(W3D.ParticleSystem particleSystemContent):
-                    // TODO: type (69)
-                    break;
+                    break; // TODO (69)
                 default: break;
             }
 
@@ -242,10 +237,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     // Callback function when Debug.Log is called within the CLI script
     static void HandleLog(string logString, string stackTrace, LogType type)
     {
-        // TODO: Log errors in red
-        // TODO: Log warnings in yellow
-        // TODO: Don't write Exceptions to console (just logfile)
-        
+        // TODO 84: Update text with rich color        
         // Prepend "LOG:", we check for this in the Python script
         Console.WriteLine($"LOG:{logString}");
     }

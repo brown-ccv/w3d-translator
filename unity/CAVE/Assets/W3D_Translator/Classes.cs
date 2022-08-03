@@ -222,9 +222,7 @@ namespace W3D
             
             // Change TMP Defaults
             tmp.autoSizeTextContainer = true;
-            // TODO (64): Validate default font size
-            // TODO (64): Validate default word wrapping
-            // TODO (64): Validate default overflow mode
+            // TODO (64): Validate default values (font size, wrapping, overflow, etc)
             tmp.fontSize = 10;
             tmp.enableWordWrapping = false;
             tmp.overflowMode = TextOverflowModes.Truncate;
@@ -236,7 +234,7 @@ namespace W3D
                 " SDF"
             );
             // Font material hasn't been created, attempt to load from ttf file
-            // TODO: More robust path checking (72)
+            // TODO (72): More robust path checking
             if(tmpFont == null) {
                 try {
                     Font font = AssetDatabase.LoadAssetAtPath<Font>(this.Font);
@@ -302,7 +300,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="ParticleSystem")]
-    // TODO: Unity has a ParticleSystem class (69)
+    // TODO (69): Unity has a ParticleSystem class
     public class ParticleSystem : Xml
     {
         [XmlAttribute(AttributeName="max-particles")]
@@ -327,7 +325,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="Light")]
-    // TODO: Unity has a Light class (68)
+    // TODO (68): Unity has a Light class
     public class Light : Xml
     {
         [XmlChoiceIdentifier("Type")]
