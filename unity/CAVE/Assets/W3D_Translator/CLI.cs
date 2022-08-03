@@ -224,10 +224,24 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 // Set xml for button
                 button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
                 button.colors = link.SetColors(button.colors, xml.ColorString);
-                if(!link.RemainEnabled) {} // TODO: Disable button after click
+                
 
                 // TODO (83): Add button actions
-                foreach (LinkActions action in link.Actions) {} 
+                Button.ButtonClickedEvent onClick = button.onClick;
+
+                // MyScript myScriptInstance = FindObjectOfType<MyScript>();
+                // var go = new GameObject();
+                // var btn = go.AddComponent<Button>();
+
+                // UnityAction<GameObject> action = new UnityAction<GameObject>(myScriptInstance.OnButtonClick);
+                // UnityEventTools.AddObjectPersistentListener<GameObject>(btn.onClick, action, go);
+
+                foreach (LinkActions action in link.Actions) {
+
+                }
+                if(!link.RemainEnabled) 
+                    onClick.AddListener(delegate {});
+                Debug.Log(onClick.GetPersistentEventCount());
             } else {
                 contentGO.SetActive(xml.Visible);
                 xml.Placement.SetTransform(contentGO.transform, xml.GetScale(), story.transform);
