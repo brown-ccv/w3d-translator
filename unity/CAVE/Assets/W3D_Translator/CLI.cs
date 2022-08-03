@@ -210,33 +210,27 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             // TODO LinkRoot.Link -> Add a VRCanvas (74)
             if(xml.LinkRoot is not null) {
                 // Instantiate a new canvas and button
-                GameObject objectPrefab = Instantiate(
+                GameObject prefab = Instantiate(
                     Resources.Load<GameObject>("Prefabs/canvas")
                 );
-                objectPrefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
+                prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
+
+                Link link = xml.LinkRoot.Link;
+                GameObject buttonGO = prefab.transform.Find("button").gameObject;
+                Button button = buttonGO.GetComponent<Button>();
                 
                 // Set xml for canvas
-                objectPrefab.name = xml.Name;
-                objectPrefab.SetActive(xml.Visible);
-                xml.Placement.SetTransform(objectPrefab.transform, xml.Scale, story.transform);
-                objectPrefab.transform.localScale *= 0.1f;
+                prefab.name = xml.Name;
+                prefab.SetActive(xml.Visible);
+                xml.Placement.SetTransform(prefab.transform, xml.Scale, story.transform);
+                prefab.transform.localScale *= 0.1f;
 
                 // Set xml for button
-                GameObject buttonGO = objectPrefab.transform.Find("button").gameObject;
-                Button button = buttonGO.GetComponent<Button>();
-                ColorBlock colors = button.colors;
-                button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.                
-                colors.normalColor = colors.highlightedColor =
-                    Xml.ConvertColor(xml.LinkRoot.Link.EnabledColorString);
-                colors.pressedColor = colors.selectedColor = 
-                    Xml.ConvertColor(xml.LinkRoot.Link.SelectedColorString);
-                colors.disabledColor = Xml.ConvertColor(xml.ColorString);
-                button.colors = colors;
-                if(!xml.LinkRoot.Link.RemainEnabled) {
-                    // TODO: disable button after click
-                }
+                button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
+                button.colors = link.SetColors(button.colors, xml.ColorString);
+                if(!link.RemainEnabled) {} // TODO: disable button after click
 
-                // Update the original <Content> GameObject
+                // Nest the original <Content> GameObject inside the prefab
                 contentGO.transform.SetParent(buttonGO.transform, false);
 
                 // TODO: Add button actions

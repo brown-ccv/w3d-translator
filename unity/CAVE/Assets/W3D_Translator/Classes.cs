@@ -1,12 +1,11 @@
 using System;
+using System.IO;
 using System.Xml;
-using System.Xml.Schema;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 
@@ -414,6 +413,15 @@ namespace W3D
 
         [XmlElement(ElementName="Actions")]
         public List<LinkActions> Actions;
+
+        public ColorBlock SetColors(ColorBlock colors, string parentColorString) {
+            colors.normalColor = colors.highlightedColor =
+                Xml.ConvertColor(this.EnabledColorString);
+            colors.pressedColor = colors.selectedColor = 
+                Xml.ConvertColor(this.SelectedColorString);
+            colors.disabledColor = Xml.ConvertColor(parentColorString);
+            return colors;
+        } 
     }
 
 
