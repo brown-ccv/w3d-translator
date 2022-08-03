@@ -5,11 +5,13 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEditor.Events;
 using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SpatialTracking;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using Unity.XR.CoreUtils;
 
 using W3D;
@@ -228,20 +230,18 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
                 // TODO (83): Add button actions
                 Button.ButtonClickedEvent onClick = button.onClick;
+                ActionMethods methods = story.GetComponent<ActionMethods>();
 
-                // MyScript myScriptInstance = FindObjectOfType<MyScript>();
-                // var go = new GameObject();
-                // var btn = go.AddComponent<Button>();
-
-                // UnityAction<GameObject> action = new UnityAction<GameObject>(myScriptInstance.OnButtonClick);
-                // UnityEventTools.AddObjectPersistentListener<GameObject>(btn.onClick, action, go);
-
-                foreach (LinkActions action in link.Actions) {
+                foreach (LinkActions xmlAction in link.Actions) {
 
                 }
-                if(!link.RemainEnabled) 
-                    onClick.AddListener(delegate {});
-                Debug.Log(onClick.GetPersistentEventCount());
+                if(!link.RemainEnabled) {                        
+                    UnityEventTools.AddObjectPersistentListener<Button>(
+                        onClick, 
+                        new UnityAction<Button>(methods.DisableButton), 
+                        button
+                    );
+                }
             } else {
                 contentGO.SetActive(xml.Visible);
                 xml.Placement.SetTransform(contentGO.transform, xml.GetScale(), story.transform);

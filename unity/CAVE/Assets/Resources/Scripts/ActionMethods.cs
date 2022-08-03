@@ -7,7 +7,7 @@ using Unity.XR.CoreUtils;
 
 using W3D;
 
-public class Actions : MonoBehaviour {
+public class ActionMethods : MonoBehaviour {
     // Disable the button after it's been clicked
     public void DisableButton(Button button) {
         button.interactable = false;
