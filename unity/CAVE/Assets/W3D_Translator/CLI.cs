@@ -206,6 +206,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         foreach (W3D.Object xml in objectList)
         {   
             bool isLink = xml.LinkRoot is not null;
+            // TODO: Move as function under Content class
             GameObject gameObject = xml.Content.ContentData switch
             {
                 W3D.Text textContent => textContent.GenerateTMP(isLink, Xml.ConvertColor(xml.ColorString)),
@@ -217,73 +218,35 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 _ => new GameObject(),
             };
             gameObject.name = xml.Name;
-            gameObject.SetActive(xml.Visible);
 
             // TODO LinkRoot.Link -> Add a VRCanvas (74)
             if(isLink) {
-                // Create the UI Canvas (Same as source code for GameObject/XR/UI Canvas menu action)
-                // TODO: Make a default canvas prefab and instantiate it?
-                GameObject canvasGO = new GameObject(
-                    xml.Name,
-                    typeof(Canvas),
-                    typeof(CanvasScaler),
-                    typeof(GraphicRaycaster),
-                    typeof(TrackedDeviceGraphicRaycaster),
-                    typeof(ContentSizeFitter)
+                // Instantiate a new canvas and button
+                GameObject objectPrefab = Instantiate(
+                    Resources.Load<GameObject>("Prefabs/canvas")
                 );
-                canvasGO.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
-                canvasGO.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
-                canvasGO.layer = LayerMask.NameToLayer("UI"); // Use Unity's default layer interaction
-                canvasGO.GetComponent<TrackedDeviceGraphicRaycaster>().checkFor2DOcclusion =
-                    canvasGO.GetComponent<TrackedDeviceGraphicRaycaster>().checkFor3DOcclusion = 
-                    true;
+                objectPrefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
                 
-                
-                // TODO: Scale here will be weird? Looking at a canvas. Maybe always set text?
-                xml.Placement.SetTransform(canvasGO.transform, xml.Scale, story.transform);
-                canvasGO.transform.localScale *= 0.1f;
-                canvasGO.SetActive(xml.Visible);
-                canvasGO.GetComponent<ContentSizeFitter>().horizontalFit = 
-                    canvasGO.GetComponent<ContentSizeFitter>().verticalFit = 
-                    ContentSizeFitter.FitMode.PreferredSize;
-                
-                // Create the UI Button
-                // TODO: Make a default button prefab and instantiate it?
-                GameObject buttonGO = new GameObject(
-                    "Button",
-                    typeof(Button),
-                    typeof(CanvasRenderer),
-                    typeof(VerticalLayoutGroup),
-                    typeof(ContentSizeFitter)
-                );
-                buttonGO.transform.SetParent(canvasGO.transform, false);
-                buttonGO.SetActive(xml.Visible);
-                
-                // Resize button to child
-                buttonGO.GetComponent<VerticalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
-                buttonGO.GetComponent<VerticalLayoutGroup>().childScaleHeight = 
-                    buttonGO.GetComponent<VerticalLayoutGroup>().childScaleWidth = 
-                    true;
-                buttonGO.GetComponent<ContentSizeFitter>().horizontalFit = 
-                    buttonGO.GetComponent<ContentSizeFitter>().verticalFit = 
-                    ContentSizeFitter.FitMode.PreferredSize;
-                
+                // Set xml for canvas
+                objectPrefab.name = xml.Name;
+                objectPrefab.SetActive(xml.Visible);
+                xml.Placement.SetTransform(objectPrefab.transform, xml.Scale, story.transform);
+                objectPrefab.transform.localScale *= 0.1f;
+
+                // Set xml for button
+                GameObject buttonGO = objectPrefab.transform.Find("button").gameObject;
                 Button button = buttonGO.GetComponent<Button>();
-                // Set navigation type
-                if(xml.LinkRoot.Link.RemainEnabled) {
-                    Navigation navigation = button.navigation;
-                    navigation.mode = Navigation.Mode.None;
-                    button.navigation = navigation;
-                }
-                // Set colors - target the original <Content>
-                button.targetGraphic = gameObject.GetComponent<Graphic>(); // Text, Image, etc.
                 ColorBlock colors = button.colors;
+                button.targetGraphic = gameObject.GetComponent<Graphic>(); // Text, Image, etc.                
                 colors.normalColor = colors.highlightedColor =
                     Xml.ConvertColor(xml.LinkRoot.Link.EnabledColorString);
                 colors.pressedColor = colors.selectedColor = 
                     Xml.ConvertColor(xml.LinkRoot.Link.SelectedColorString);
                 colors.disabledColor = Xml.ConvertColor(xml.ColorString);
                 button.colors = colors;
+                if(!xml.LinkRoot.Link.RemainEnabled) {
+                    // TODO: disable button after click
+                }
 
                 // Update the original <Content> GameObject
                 gameObject.transform.SetParent(buttonGO.transform, false);
@@ -292,6 +255,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 // TODO: Deactivate OnClick if !xml.LinkRoot.Link.RemainEnabled
                 // TODO: Refactor as a method on Link - take xml.LinkRoot.Link
             } else {
+                gameObject.SetActive(xml.Visible);
                 xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
             }
             gameObjects.Add(gameObject.name, gameObject);
