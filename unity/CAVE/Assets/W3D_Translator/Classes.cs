@@ -417,7 +417,7 @@ namespace W3D
                 Xml.ConvertColor(this.SelectedColorString);
             colors.disabledColor = Xml.ConvertColor(parentColorString);
             return colors;
-        } 
+        }
     }
 
 

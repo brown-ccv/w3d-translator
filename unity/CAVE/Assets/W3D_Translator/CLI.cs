@@ -228,12 +228,11 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 button.colors = link.SetColors(button.colors, xml.ColorString);
                 
 
-                // TODO (83): Add button actions
+                // Add the <Action>s to onClick
                 Button.ButtonClickedEvent onClick = button.onClick;
                 ActionMethods methods = story.GetComponent<ActionMethods>();
-
                 foreach (LinkActions xmlAction in link.Actions) {
-
+                    // TODO (83): Add button actions
                 }
                 if(!link.RemainEnabled) {                        
                     UnityEventTools.AddObjectPersistentListener<Button>(
