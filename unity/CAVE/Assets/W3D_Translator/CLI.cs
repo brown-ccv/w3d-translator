@@ -225,7 +225,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                     break; // TODO (68)
                 case(W3D.ParticleSystem particleSystemContent):
                     break; // TODO (69)
-                default: break;
+                default: 
+                    // This should be caught in Python
+                    throw new ArgumentException($"The object {xml.Name}'s content is not a valid");
             }
 
             gameObject.SetActive(xml.Visible);
