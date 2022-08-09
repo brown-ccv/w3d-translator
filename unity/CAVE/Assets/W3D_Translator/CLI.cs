@@ -190,7 +190,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     static Dictionary<string, GameObject> TranslateGameObjects(
         List<W3D.Object> objectList, GameObject story
     ) {
+        ActionMethods methods = story.GetComponent<ActionMethods>();
         Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
+        
         /** Object
             name: gameObject.name
             Visible: gameObject.active
@@ -230,17 +232,10 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
                 // Add the <Action>s to onClick
                 Button.ButtonClickedEvent onClick = button.onClick;
-                ActionMethods methods = story.GetComponent<ActionMethods>();
                 foreach (LinkActions xmlAction in link.Actions) {
                     // TODO (83): Add button actions
                 }
-                if(!link.RemainEnabled) {                        
-                    UnityEventTools.AddObjectPersistentListener<Button>(
-                        onClick, 
-                        new UnityAction<Button>(methods.DisableButton), 
-                        button
-                    );
-                }
+                link.SetRemainEnabled(methods, onClick, button);
             } else {
                 contentGO.SetActive(xml.Visible);
                 xml.Placement.SetTransform(contentGO.transform, xml.GetScale(), story.transform);

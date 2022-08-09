@@ -5,7 +5,9 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 using Unity;
 using UnityEditor;
+using UnityEditor.Events;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
@@ -417,6 +419,20 @@ namespace W3D
                 Xml.ConvertColor(this.SelectedColorString);
             colors.disabledColor = Xml.ConvertColor(parentColorString);
             return colors;
+        }
+
+        // Disables button after click if RemainEnabled is false
+        public void SetRemainEnabled(
+            ActionMethods methods, 
+            Button.ButtonClickedEvent onClick, 
+            Button button
+        ) {
+            if(this.RemainEnabled) return;
+            UnityEventTools.AddObjectPersistentListener<Button>(
+                onClick, 
+                new UnityAction<Button>(methods.DisableButton), 
+                button
+            );
         }
     }
 
