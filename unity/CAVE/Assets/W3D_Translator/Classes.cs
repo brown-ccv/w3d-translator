@@ -346,7 +346,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="Light")]
-    // TODO (68): Unity has a Light class 
+    // TODO (68): Unity has a Light class
     public class Light : Xml
     {
         [XmlChoiceIdentifier("Type")]

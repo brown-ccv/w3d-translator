@@ -253,7 +253,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     // Callback function when Debug.Log is called within the CLI script
     static void HandleLog(string logString, string stackTrace, LogType type)
     {
-        // TODO (84): Change string based on LogType
+        // TODO (84): Change string based on LogType (rich color)
         // Prepending "LOG:" will print the line to the screen (checked in Python script)
         
         Console.WriteLine($"LOG:{logString}");
