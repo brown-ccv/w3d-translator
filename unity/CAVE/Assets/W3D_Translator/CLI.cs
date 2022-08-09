@@ -233,7 +233,48 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 // Add the <Action>s to onClick
                 Button.ButtonClickedEvent onClick = button.onClick;
                 foreach (LinkActions xmlAction in link.Actions) {
+                    if(
+                        xmlAction.Clicks is not null && 
+                        xmlAction.Clicks.Type == Clicks.ActivationTypes.Number
+                    ){
+                        // Button is only activated after a certain number of clicks
+                    }
+
+
+
+                    // TODO: Each case wil add this persistent listener (class method)
+                    // UnityEventTools.AddObjectPersistentListener<Button>(
+                    //     onClick, 
+                    //     new UnityAction<Button>(methods.DisableButton),// Call class function
+                    //     button
+                    // );
+
                     // TODO (83): Add button actions
+                    switch(xmlAction.Action) {
+                        case(ObjectChange objectRef):
+                            // TODO 86
+                            break;
+                        case(GroupRef groupRef):
+                            // TODO 87
+                            break;
+                        case(TimerChange timelineRef):
+                            // TODO 88
+                            break;
+                        case(W3D.Event eventTriggerRef):
+                            // TODO 89
+                            break;
+                        case(MoveCave moveCave):
+                            // TODO 90
+                            break;
+                        case(Reference soundRef):
+                            // TODO 91
+                            break;
+                        default:
+                            if(xmlAction.Type == Actions.ActionTypes.Restart) {
+                                // TODO (92): Test for "Restart" type
+                            } else throw new Exception("TODO");
+                            break;
+                    }
                 }
                 link.SetRemainEnabled(methods, onClick, button);
             } else {

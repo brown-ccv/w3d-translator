@@ -460,6 +460,8 @@ namespace W3D
             [XmlEnum("Any")] Any,
             [XmlEnum("NumClicks")] Number,
         }
+
+        // public static DefaultClicks
     }
 
 
