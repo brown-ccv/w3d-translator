@@ -43,7 +43,7 @@ The Unity project settings and XRRig must be adjusted for VR to work:
 
 Check out [this tutorial](https://www.youtube.com/watch?v=5ZBkEYUyBWQ) for more information on VR with Unity and the XR Interaction Toolkit.
 
-**TODO**: How to do ray based interaction? (52)
+**TODO**: How to do ray based interaction? [(52)](https://github.com/brown-ccv/w3d-translator/issues/52)
 
 ### MiddleVR Settings
 
@@ -153,7 +153,7 @@ Note that even though the `<PlacementRoot>` is identical between projects each w
   - `<LookAt>`: Object is rotated to look at a specified point (in `Story` space)
     - `target`: The position the object is looking at
     - `up`: Which direction (world space) is considered up (+y)
-  - `<Normal>`: **(TODO #63)**: *Same as LookAt but with a normalized vector?*
+  - `<Normal>`: **(TODO [#63](https://github.com/brown-ccv/w3d-translator/issues/63))**: *Same as LookAt but with a normalized vector?*
     - `normal`: A normalized vector
     - `angle`: The rotation angle of the object, in degrees
   - Every rotation in Unity can be thought of as an `<Axis>` type
@@ -164,7 +164,7 @@ Note that even though the `<PlacementRoot>` is identical between projects each w
 - `<LookAt>` is calculated by generating a direction vector (`<Position> - target`)
   - Note that `target` must be converted to world space before calculating the direction vector
   - Unity has a built in `LookRotation()` function that takes the direction vector and `up`
-- `Normal` is calculated by **TODO: 63**
+- `Normal` is calculated by **TODO: [63](https://github.com/brown-ccv/w3d-translator/issues/63)**
 
 ## ObjectRoot
 
@@ -176,9 +176,9 @@ Each `<Object>...` inside `<ObjectRoot>` corresponds to a single GameObject in U
 - `<Color>`: gameObject.[content].color
   - Exactly how the color is applied
 - `<Visible>`: gameObject.active
-- `<Lighting>`: TODO (76)
-- `<ClickThrough>`: TODO (76)
-- `<AroundSelfAxis>`: TODO (76)
+- `<Lighting>`: TODO [(76)](https://github.com/brown-ccv/w3d-translator/issues/76)
+- `<ClickThrough>`: TODO [(76)](https://github.com/brown-ccv/w3d-translator/issues/76)
+- `<AroundSelfAxis>`: TODO [(76)](https://github.com/brown-ccv/w3d-translator/issues/76)
 - `<Scale>`: gameObject.localScale
   - Sent as a variable to `Placement.SetTransform()`
 - `<Content>`: An `<xs:choice>` between several content types, [see below](#content)
@@ -210,20 +210,20 @@ The vertex and material color (`.color` and `.faceColor`) of the TextMeshPro obj
 
 #### Image
 
-TODO 65
+TODO [65](https://github.com/brown-ccv/w3d-translator/issues/65)
 
 - `filename`: Path to the image file
 
 #### StereoImage
 
-TODO 66
+TODO [66](https://github.com/brown-ccv/w3d-translator/issues/66)
 
 - `left-image`: Path to the image file on the left side
 - `right-image`: Path to the image file on the right side
 
 #### Model
 
-TODO 67
+TODO [67](https://github.com/brown-ccv/w3d-translator/issues/67)
 
 - `filename`: Path to the 3d object file
 - `check-collisions`: Whether or not other objects can pass through
@@ -231,7 +231,7 @@ TODO 67
 
 #### Light
 
-TODO 68
+TODO [68](https://github.com/brown-ccv/w3d-translator/issues/68)
 
 - The kind of light is an `<xs:choice>` (Point, Directional, Spot)
   - `Point`:
@@ -246,7 +246,7 @@ TODO 68
 
 #### ParticleSystem
 
-TODO 69
+TODO [69](https://github.com/brown-ccv/w3d-translator/issues/69)
 
 - `max-particles`: The maximum number of particles that can be created
 - `actions-name`:
@@ -257,7 +257,7 @@ TODO 69
 
 ### Link
 
-TODO (74)
+TODO [74](https://github.com/brown-ccv/w3d-translator/issues/74)
 
 `<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object turns it into a clickable button
 
