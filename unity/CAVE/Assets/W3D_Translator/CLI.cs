@@ -51,10 +51,10 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     {
         try
         {
-            string[] args = System.Environment.GetCommandLineArgs();
+            string[] args = Environment.GetCommandLineArgs();
             for (int i = 0; i < args.Length; i++)
             {
-                if (args[i] == "--xmlPath") return args[++i];
+                if (args[i] == "--xmlPath") { return args[++i]; }
             }
             return null; // No Path given
         }
@@ -71,11 +71,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     {
         try
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Story));
-            using (XmlReader reader = XmlReader.Create(xmlPath))
-            {
-                return (Story)serializer.Deserialize(reader);
-            }
+            XmlSerializer serializer = new(typeof(Story));
+            using XmlReader reader = XmlReader.Create(xmlPath);
+            return (Story)serializer.Deserialize(reader);
         }
         catch (FileNotFoundException e)
         {
@@ -143,9 +141,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         // Update tracking settings for the Main Camera
         TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
-        bool allowRotation = xml.WandNavigation.AllowRotation;
-        bool allowMovement = xml.WandNavigation.AllowMovement;
-        switch (allowRotation, allowMovement)
+        switch (xml.WandNavigation.AllowRotation, xml.WandNavigation.AllowMovement)
         {
             case (true, true):
                 tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
@@ -162,6 +158,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 xrRig.GetComponent<XROrigin>().RequestedTrackingOriginMode =
                     XROrigin.TrackingOriginMode.Device;
                 break;
+            default: // Unreachable but fixes warning
         }
     }
 
@@ -179,11 +176,13 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         foreach (Placement placement in xml.PlacementRoot)
         {
             // Objects in the "Center" space are nested directly under Story
-            if (placement.Name == "Center") continue;
+            if (placement.Name == "Center") { continue; }
 
             // Create and position wall
-            GameObject wall = new GameObject();
-            wall.name = placement.Name;
+            GameObject wall = new()
+            {
+                name = placement.Name
+            };
             wall.SetActive(true);
             placement.SetTransform(wall.transform, 1f, storyT);
 
@@ -204,7 +203,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         List<W3D.Object> objectList, GameObject story
     )
     {
-        Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
+        Dictionary<string, GameObject> gameObjects = new();
         /** Object
             name: gameObject.name
             Visible: gameObject.active
@@ -216,8 +215,10 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         */
         foreach (W3D.Object xml in objectList)
         {
-            GameObject gameObject = new GameObject();
-            gameObject.name = xml.Name;
+            GameObject gameObject = new()
+            {
+                name = xml.Name
+            };
             xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
 
             // TODO 74: LinkRoot.Link -> Add a VRCanvas
