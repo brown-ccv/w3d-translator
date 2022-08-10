@@ -194,7 +194,7 @@ namespace W3D
                     Xml.ConvertColor(parent.ColorString)
                 ),
                 Image image => new GameObject(), // TODO (65)
-                StereoImage stereoImage => new GameObject(), // TODO (66)
+                StereoImage stereoImage => new(), // TODO (66)
                 Model model => new GameObject(), // TODO (67)
                 Light light => new GameObject(), // TODO (68)
                 ParticleSystem particleSystem => new GameObject(), // TODO (69)
