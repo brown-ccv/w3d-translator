@@ -220,7 +220,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             GameObject contentGO = xml.Content.Create(xml);
 
             // TODO (74): LinkRoot.Link -> Add a VRCanvas
-            if(xml.LinkRoot is not null)
+            if (xml.LinkRoot is not null)
             {
                 // Instantiate a new link prefab
                 GameObject prefab = Instantiate(Resources.Load<GameObject>("Prefabs/canvas"));
@@ -242,10 +242,14 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 // Set xml for button
                 button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
                 button.colors = link.SetColors(button.colors, xml.ColorString);
-                if(!link.RemainEnabled) {} // TODO: Disable button after click
+                if (!link.RemainEnabled)
+                { // TODO: Disable button after click
+                }
 
                 // TODO (83): Add button actions
-                foreach (LinkActions action in link.Actions) {}
+                foreach (LinkActions action in link.Actions)
+                {
+                }
             }
             else
             {
