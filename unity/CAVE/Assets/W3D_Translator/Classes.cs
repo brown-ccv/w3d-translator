@@ -4,7 +4,11 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using UnityEditor;
 using UnityEngine;
+using TMPro;
+
 
 namespace W3D
 {
@@ -122,7 +126,7 @@ namespace W3D
         public bool AroundSelfAxis;
 
         [XmlElement(ElementName="Scale")]
-        public double Scale;
+        public float Scale;
 
         [XmlElement(ElementName="SoundRef")]
         public string SoundRef;
@@ -186,33 +190,77 @@ namespace W3D
     [XmlRoot(ElementName="Text")]
     public class Text : Xml
     {
-
         [XmlElement(ElementName="text")]
-        public List<string> String;
+        public string String;
 
+        // Match TMPro.HorizontalAlignmentOptions
         [XmlAttribute(AttributeName="horiz-align")]
         public HorizontalAlignments HorizontalAlignment;
-        public enum HorizontalAlignments { 
-            None,
-            [XmlEnum(Name="left")] Left,
-            [XmlEnum(Name="center")] Center,
-            [XmlEnum(Name="right")] Right,
+        public enum HorizontalAlignments {
+            [XmlEnum(Name="left")] Left = 1,
+            [XmlEnum(Name="center")] Center = 2,
+            [XmlEnum(Name="right")] Right = 4,
         }
 
+        // Match TMPro.VerticalAlignmentOptions
         [XmlAttribute(AttributeName="vert-align")]
         public VerticalAlignments VerticalAlignment;
         public enum VerticalAlignments { 
-            None,
-            [XmlEnum(Name="top")] Top,
-            [XmlEnum(Name="center")] Center,
-            [XmlEnum(Name="bottom")] Bottom,
+            [XmlEnum(Name="top")] Top = 256,
+            [XmlEnum(Name="center")] Middle = 512,
+            [XmlEnum(Name="bottom")] Bottom = 1024,
         }
 
         [XmlAttribute(AttributeName="font")]
         public string Font;
 
         [XmlAttribute(AttributeName="depth")]
-        public double Depth;
+        public float Depth;
+
+        public void GenerateTMP(GameObject gameObject, Color color) {
+            TextMeshPro tmp = gameObject.AddComponent<TextMeshPro>();
+            
+            // Change TMP Defaults
+            tmp.autoSizeTextContainer = true;
+            // TODO (64): Validate default values (font size, wrapping, overflow, etc)
+            tmp.fontSize = 10;
+            tmp.enableWordWrapping = false;
+            tmp.overflowMode = TextOverflowModes.Truncate;
+
+            // Load font material
+            TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
+                "Materials/Fonts/" + 
+                Path.GetFileNameWithoutExtension(this.Font) + 
+                " SDF"
+            );
+            // Font material hasn't been created, attempt to load from ttf file
+            // TODO (72): More robust path checking
+            if(tmpFont == null) {
+                try {
+                    Font font = AssetDatabase.LoadAssetAtPath<Font>(this.Font);
+                    tmpFont = TMP_FontAsset.CreateFontAsset(font);
+                    tmpFont.name = Path.GetFileNameWithoutExtension(this.Font);
+                } catch(NullReferenceException e) {
+                    Debug.LogError($"Error loading font: {this.Font}");
+                    Debug.LogException(e);
+                }
+            }
+            // Add font to the TextMeshPro object
+            try { tmp.font = tmpFont; }
+            catch(NullReferenceException e) {
+                Debug.LogWarning($"{gameObject.name} {tmpFont.ToString()} {tmp.font.ToString()}");
+                Debug.LogError($"Error creating font asset {this.Font} for {gameObject.name}");
+                Debug.Log("Defaulting to fallback font LiberationSans SDF");
+                Debug.LogException(e);
+            }
+            
+            // Set object properties defined in the xml
+            tmp.SetText(this.String);
+            tmp.horizontalAlignment = (HorizontalAlignmentOptions)this.HorizontalAlignment;
+            tmp.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
+            tmp.color = color; // Vertex Color
+            tmp.faceColor = color; // Material color
+        }
     }
 
 
@@ -222,7 +270,6 @@ namespace W3D
     {
         [XmlAttribute(AttributeName="filename")]
         public string Filename;
-
     }
 
 
@@ -253,7 +300,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="ParticleSystem")]
-    // TODO: Unity has a ParticleSystem class (69)
+    // TODO (69): Unity has a ParticleSystem class
     public class ParticleSystem : Xml
     {
         [XmlAttribute(AttributeName="max-particles")]
@@ -278,7 +325,7 @@ namespace W3D
 
     [Serializable]
     [XmlRoot(ElementName="Light")]
-    // TODO: Unity has a Light class (68)
+    // TODO (68): Unity has a Light class
     public class Light : Xml
     {
         [XmlChoiceIdentifier("Type")]
@@ -844,7 +891,6 @@ namespace W3D
         public double Cutoff;
     }
 
-
     [Serializable]
     [XmlRoot(ElementName="Gravity")]
     public class Gravity : Xml
@@ -1081,16 +1127,17 @@ namespace W3D
             FloorWall
         }
 
+
         [XmlElement(ElementName="Position")]
         public string PositionString;
 
-        [XmlChoiceIdentifier("rotationType")]
+        [XmlChoiceIdentifier("RotationType")]
         [XmlElement(ElementName="Axis", Type=typeof(Axis))]
         [XmlElement(ElementName="LookAt", Type=typeof(LookAt))]
         [XmlElement(ElementName="Normal", Type=typeof(Normal))]
-        public object rotation;
-        public RotationType rotationType;
-        public enum RotationType {
+        public object Rotation;
+        public RotationTypes RotationType;
+        public enum RotationTypes {
             Null,
             [XmlEnum("Axis")] Axis,
             [XmlEnum("LookAt")] LookAt,
@@ -1102,9 +1149,7 @@ namespace W3D
 
         [XmlText]
         public string text;
-
-
-
+        
         /** Set parent GameObject and local transforms of gameObjectT
             relativeTo: [GameObject].transform.parent
             position: [GameObject].transform.localPosition
@@ -1122,7 +1167,7 @@ namespace W3D
             gameObjectT.localScale = Vector3.one * scale;
             gameObjectT.localPosition = Xml.ConvertVector3(this.PositionString);
 
-            switch(this.rotation) {
+            switch(this.Rotation) {
                 case(Axis rotation):
                     gameObjectT.localEulerAngles = 
                         Xml.ConvertVector3(rotation.RotationString) * rotation.Angle;
