@@ -241,16 +241,16 @@ namespace W3D
             // Instantiate TextMeshPro or TextMeshProUGUI prefab
             // TODO (64): Validate prefab settings
             GameObject gameObject = UnityEngine.Object.Instantiate(
-                Resources.Load<GameObject>("Prefabs/tmp" + (isLink ? "GUI" : ""))
+                Resources.Load<GameObject>("Prefabs/TmpText" + (isLink ? "GUI" : ""))
             );
-            TMP_Text tmp = gameObject.GetComponent<TMP_Text>();
+            TMP_Text tmpText = gameObject.GetComponent<TMP_Text>();
 
             // Set object properties defined in the xml
-            tmp.SetText(this.String);
-            tmp.horizontalAlignment = (HorizontalAlignmentOptions)this.HorizontalAlignment;
-            tmp.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
-            tmp.color = color; // Vertex Color
-            tmp.faceColor = color; // Material color
+            tmpText.SetText(this.String);
+            tmpText.horizontalAlignment = (HorizontalAlignmentOptions)this.HorizontalAlignment;
+            tmpText.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
+            tmpText.color = color; // Vertex Color
+            tmpText.faceColor = color; // Material color
 
             // Load font material
             // TODO (72): More robust path checking
@@ -272,9 +272,9 @@ namespace W3D
             }
 
             // Add font to the TextMeshPro object
-            try {tmp.font = tmpFont; }
+            try {tmpText.font = tmpFont; }
             catch(NullReferenceException e) {
-                Debug.LogWarning($"{gameObject.name} {tmpFont.ToString()} {tmp.font.ToString()}");
+                Debug.LogWarning($"{gameObject.name} {tmpFont.ToString()} {tmpText.font.ToString()}");
                 Debug.LogError($"Error creating font asset {this.Font} for {gameObject.name}");
                 Debug.Log("Defaulting to fallback font LiberationSans SDF");
                 Debug.LogException(e);
