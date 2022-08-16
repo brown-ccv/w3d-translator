@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:unity/CAVE/Assets/Resources/Prefabs.meta
 guid: ac120ba708de7634c928b7b058bec684
-========
-guid: cb6dcedd95273ca46beb6e9df64986f8
->>>>>>>> main:unity/CAVE/Assets/XR Interaction Toolkit/Presets.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
