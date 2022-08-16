@@ -335,7 +335,7 @@ namespace W3D
         [XmlAttribute("sequential")]
         public bool Sequential;
 
-        [XmlAttribute(AttributeName="speed")]
+        [XmlAttribute(AttributeName = "speed")]
         public float Speed;
     }
 
@@ -357,13 +357,13 @@ namespace W3D
         [XmlAttribute("specular")]
         public bool Specular;
 
-        [XmlAttribute(AttributeName="const_atten")]
+        [XmlAttribute(AttributeName = "const_atten")]
         public float ConstantAtten;
 
-        [XmlAttribute(AttributeName="lin_atten")]
+        [XmlAttribute(AttributeName = "lin_atten")]
         public float LinearAtten;
 
-        [XmlAttribute(AttributeName="quad_atten")]
+        [XmlAttribute(AttributeName = "quad_atten")]
         public float QuadraticAtten;
 
         public enum LightTypes
@@ -378,7 +378,7 @@ namespace W3D
     [XmlRoot("Spot")]
     public class Spot : Xml
     {
-        [XmlAttribute(AttributeName="angle")]
+        [XmlAttribute(AttributeName = "angle")]
         public float Angle;
     }
 
@@ -412,22 +412,22 @@ namespace W3D
             colors.disabledColor = ConvertColor(parentColorString);
             return colors;
         }
-<<<<<<< HEAD
 
         // Disables button after click if RemainEnabled is false
         public void SetRemainEnabled(
-            ActionMethods methods, 
-            Button.ButtonClickedEvent onClick, 
+            ActionMethods methods,
+            Button.ButtonClickedEvent onClick,
             Button button
-        ) {
-            if(this.RemainEnabled) return;
-            UnityEventTools.AddObjectPersistentListener<Button>(
-                onClick, 
-                new UnityAction<Button>(methods.DisableButton), 
+        )
+        {
+            if (RemainEnabled) { return; }
+            UnityEventTools.AddObjectPersistentListener(
+                onClick,
+                new UnityAction<Button>(methods.DisableButton),
                 button
             );
         }
-
+    }
     [Serializable]
     [XmlRoot("Actions")]
     public class LinkActions : Actions
