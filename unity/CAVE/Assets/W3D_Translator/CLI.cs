@@ -30,7 +30,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 #pragma warning disable IDE1006
     private static Story xml;
     private static GameObject story;
-    private static ObjDictionary gameObjects = new();
+    private static readonly ObjDictionary gameObjects = new();
 
     public static void Main()
     {
