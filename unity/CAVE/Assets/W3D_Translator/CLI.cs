@@ -22,10 +22,15 @@ using W3D;
 // TODO (94): Make (xml) a member variable
 // TODO (94): Make gameObjects a member variable
 
-# pragma warning disable RCS1110
+#pragma warning disable RCS1110
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
     private void Start() { Main(); } // TEMP: Execute script from Unity directly
+
+#pragma warning disable IDE1006
+    private static Story xml;
+    private static GameObject story;
+    private static ObjDictionary gameObjects = new();
 
     public static void Main()
     {
@@ -35,18 +40,18 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         // The path to the xml is send as a command line argument
         // const string xmlPath = GetXmlPathArg();
         const string xmlPath = "../../test/sample.xml";
-        Story xml = LoadStory(xmlPath);
+        LoadStory(xmlPath);
 
         // Create new scene and store the root GameObjects
         // InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
         // GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
-        // GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
+        // story = instantiatedScene.scene.GetRootGameObjects()[1];
         GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
-        GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
+        story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
 
-        ApplyGlobalSettings(xml.Global, xrRig, story);
-        BuildWalls(xml, story.transform);
-        ObjDictionary gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
+        ApplyGlobalSettings(xml.Global, xrRig);
+        BuildWalls(story.transform);
+        TranslateGameObjects(xml.ObjectRoot);
 
         // TODO (95): Generate the <Group>s
         // TODO (96): Generate the <Timeline>s
@@ -54,7 +59,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         // TODO (98): Generate the <Event>s
         // TODO (99): Generate the <ParticleAction>s
 
-        SetLinkActions(gameObjects, story);
+        SetLinkActions();
 
         // Save and quit
         // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
@@ -83,25 +88,23 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     }
 
     // Deserialize the xml file into a Story object
-    private static Story LoadStory(string xmlPath)
+    private static void LoadStory(string xmlPath)
     {
         try
         {
             XmlSerializer serializer = new(typeof(Story));
             using XmlReader reader = XmlReader.Create(xmlPath);
-            return (Story)serializer.Deserialize(reader);
+            xml = (Story)serializer.Deserialize(reader);
         }
         catch (FileNotFoundException e)
         {
             Debug.LogError($"ERROR: File at {xmlPath} not found");
             Debug.LogException(e);
-            return null;
         }
         catch (Exception e)
         {
             Debug.LogError($"Error: Deserialization of file at {xmlPath} failed.");
             Debug.LogException(e);
-            return null;
         }
     }
 
@@ -125,7 +128,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     }
 
     // Apply camera, lighting, and tracking settings from the xml
-    private static void ApplyGlobalSettings(Global xml, GameObject xrRig, GameObject story)
+    private static void ApplyGlobalSettings(Global xml, GameObject xrRig)
     {
         Transform mainCameraT = xrRig.transform.Find("Camera Offset").Find("Main Camera");
         Transform caveCameraT = story.transform.Find("Cave Camera");
@@ -178,7 +181,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     }
 
     // Create each <Placement> as an outlined GameObject 
-    private static void BuildWalls(Story xml, Transform storyT)
+    private static void BuildWalls(Transform storyT)
     {
         // Each wall is an 8" by 8" square
         Vector3[] points = {
@@ -210,13 +213,11 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             outline.positionCount = points.Length;
             outline.SetPositions(points);
         }
-        return;
     }
 
     // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
-    private static ObjDictionary TranslateGameObjects(List<W3D.Object> objectList, GameObject story)
+    private static void TranslateGameObjects(List<W3D.Object> objectList)
     {
-        ObjDictionary gameObjects = new();
         /** Object
             name: gameObject.name
             Visible: gameObject.active
@@ -259,10 +260,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             }
             gameObjects.Add(contentGO.name, (contentGO, xml));
         }
-        return gameObjects;
     }
 
-    private static void SetLinkActions(ObjDictionary gameObjects, GameObject story)
+    private static void SetLinkActions()
     {
         ActionMethods methods = story.GetComponent<ActionMethods>();
 
