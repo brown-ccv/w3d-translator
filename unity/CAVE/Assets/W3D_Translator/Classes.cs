@@ -1,14 +1,12 @@
 using System;
+using System.IO;
 using System.Xml;
-using System.Xml.Schema;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
-
 
 namespace W3D
 {
@@ -16,12 +14,12 @@ namespace W3D
     public class Xml
     {
         // Print the class as a Json object
-        public string pprint() { return JsonUtility.ToJson(this, true); }
+        public string Pprint() { return JsonUtility.ToJson(this, true); }
 
         // Converts "[int], [int], [int]" to a UnityEngine.Color object
-        static public Color ConvertColor(string colorString)
+        public static Color ConvertColor(string colorString)
         {
-            string[] strings = colorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
+            string[] strings = colorString.Trim(new[] { ' ', '(', ')' }).Split(",");
             return new Color(
                 float.Parse(strings[0]) / 255,
                 float.Parse(strings[1]) / 255,
@@ -30,9 +28,9 @@ namespace W3D
         }
 
         // Converts a "([float], [float], [float])" string to a UnityEngine.Vector3 object
-        static public Vector3 ConvertVector3(string vectorString)
+        public static Vector3 ConvertVector3(string vectorString)
         {
-            string[] strings = vectorString.Trim(new Char[] { ' ', '(', ')' }).Split(",");
+            string[] strings = vectorString.Trim(new[] { ' ', '(', ')' }).Split(",");
             return new Vector3(
                 float.Parse(strings[0]),
                 float.Parse(strings[1]),
@@ -43,138 +41,133 @@ namespace W3D
 
     /********** STORY            ***********/
 
-
     [Serializable]
-    [XmlRoot(ElementName="Story")]
+    [XmlRoot("Story")]
     public class Story : Xml
     {
-        [XmlArray(ElementName="ObjectRoot")]
-        [XmlArrayItem(ElementName="Object")] 
+        [XmlArray("ObjectRoot")]
+        [XmlArrayItem("Object")]
         public List<Object> ObjectRoot;
-    
-        [XmlArray(ElementName="GroupRoot")]
-        [XmlArrayItem(ElementName="Group")] 
+
+        [XmlArray("GroupRoot")]
+        [XmlArrayItem("Group")]
         public List<Group> GroupRoot;
 
-    	[XmlArray(ElementName="TimelineRoot")]
-        [XmlArrayItem(ElementName="Timeline")]
+        [XmlArray("TimelineRoot")]
+        [XmlArrayItem("Timeline")]
         public List<Timeline> TimelineRoot;
-    
-        [XmlArray(ElementName="PlacementRoot")]
-        [XmlArrayItem(ElementName="Placement")] 
+
+        [XmlArray("PlacementRoot")]
+        [XmlArrayItem("Placement")]
         public List<Placement> PlacementRoot;
-    
-        [XmlArray(ElementName="SoundRoot")]
-        [XmlArrayItem(ElementName="Sound")] 
+
+        [XmlArray("SoundRoot")]
+        [XmlArrayItem("Sound")]
         public List<Sound> SoundRoot;
 
-        [XmlArray(ElementName="EventRoot")]
-        [XmlArrayItem(ElementName="EventTrigger")]
+        [XmlArray("EventRoot")]
+        [XmlArrayItem("EventTrigger")]
         public List<EventTrigger> EventRoot;
-	    
-        [XmlArray(ElementName="ParticleActionRoot")]
-	    [XmlArrayItem(ElementName="ParticleActionList")] 
-	    public List<ParticleAction> ParticleActionRoot;
 
-        [XmlElement(ElementName="Global")]
+        [XmlArray("ParticleActionRoot")]
+        [XmlArrayItem("ParticleActionList")]
+        public List<ParticleAction> ParticleActionRoot;
+
+        [XmlElement("Global")]
         public Global Global;
 
-        [XmlElement(ElementName="About")]
+        [XmlElement("About")]
         public About About;
 
-        [XmlAttribute(AttributeName="version")]
+        [XmlAttribute("version")]
         public int Version;
 
-        [XmlAttribute(AttributeName="last_xpath")]
+        [XmlAttribute("last_xpath")]
         public string LastXpath;
 
         [XmlText]
-        public string text;
-
+        public string Text;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="About")]
+    [XmlRoot("About")]
     public class About : Xml
     {
-        [XmlAttribute(AttributeName="news")]
+        [XmlAttribute("news")]
         public string News;
     }
 
-
     /********** OBJECT            ***********/
 
-
     [Serializable]
-    [XmlRoot(ElementName="Object")]
+    [XmlRoot("Object")]
     public class Object : Xml
     {
-        [XmlElement(ElementName="Visible")]
+        [XmlElement("Visible")]
         public bool Visible;
 
-        [XmlElement(ElementName="Color")]
+        [XmlElement("Color")]
         public string ColorString;
 
-        [XmlElement(ElementName="Lighting")]
+        [XmlElement("Lighting")]
         public bool Lighting;
 
-        [XmlElement(ElementName="ClickThrough")]
+        [XmlElement("ClickThrough")]
         public bool ClickThrough;
 
-        [XmlElement(ElementName="AroundSelfAxis")]
+        [XmlElement("AroundSelfAxis")]
         public bool AroundSelfAxis;
 
-        [XmlElement(ElementName="Scale")]
+        [XmlElement("Scale")]
         public float Scale;
 
-        [XmlElement(ElementName="SoundRef")]
+        [XmlElement("SoundRef")]
         public string SoundRef;
 
-        [XmlElement(ElementName="Placement")]
+        [XmlElement("Placement")]
         public Placement Placement;
 
-        [XmlElement(ElementName="Content")]
+        [XmlElement("Content")]
         public Content Content;
 
-        [XmlElement(ElementName="LinkRoot")]
+        [XmlElement("LinkRoot")]
         public LinkRoot LinkRoot;
 
-        [XmlAttribute(AttributeName="name")]
+        [XmlAttribute("name")]
         public string Name;
 
         [XmlText]
-        public string text;
+        public string Text;
+
+        public Vector3 GetScale() { return Vector3.one * Scale; }
     }
 
-
-    [XmlRoot(ElementName = "LinkRoot")]
+    [XmlRoot("LinkRoot")]
     public class LinkRoot
     {
-        [XmlElement(ElementName = "Link")]
+        [XmlElement("Link")]
         public Link Link;
     }
 
-
     // OBJECT.CONTENT
 
-
     [Serializable]
-    [XmlRoot(ElementName="Content")]
+    [XmlRoot("Content")]
     public class Content : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="None", Type=null)]
-        [XmlElement(ElementName="Text", Type=typeof(Text))]
-        [XmlElement(ElementName="Image", Type=typeof(Image))]
-        [XmlElement(ElementName="StereoImage", Type=typeof(StereoImage))]
-        [XmlElement(ElementName="Model", Type=typeof(Model))]
-        [XmlElement(ElementName="Light", Type=typeof(Light))]
-        [XmlElement(ElementName="ParticleSystem", Type=typeof(ParticleSystem))]
+        [XmlElement("None", Type = null)]
+        [XmlElement("Text", Type = typeof(Text))]
+        [XmlElement("Image", Type = typeof(Image))]
+        [XmlElement("StereoImage", Type = typeof(StereoImage))]
+        [XmlElement("Model", Type = typeof(Model))]
+        [XmlElement("Light", Type = typeof(Light))]
+        [XmlElement("ParticleSystem", Type = typeof(ParticleSystem))]
         public object ContentData;
-        public ContentTypes Type; 
+        public ContentTypes Type;
 
-        public enum ContentTypes {
+        public enum ContentTypes
+        {
             [XmlEnum("None")] None,
             [XmlEnum("Text")] Text,
             [XmlEnum("Image")] Image,
@@ -182,470 +175,487 @@ namespace W3D
             [XmlEnum("Model")] Model,
             [XmlEnum("Light")] Light,
             [XmlEnum("ParticleSystem")] ParticleSystem,
-        }   
-    }   
+        }
 
+        public GameObject Create(Object parent)
+        {
+            GameObject gameObject = ContentData switch
+            {
+                Text text => text.GenerateTMP(
+                    parent.LinkRoot is not null,
+                    ConvertColor(parent.ColorString)
+                ),
+                Image image => new GameObject(), // TODO (65)
+                StereoImage stereoImage => new(), // TODO (66)
+                Model model => new GameObject(), // TODO (67)
+                Light light => new GameObject(), // TODO (68)
+                ParticleSystem particleSystem => new GameObject(), // TODO (69)
+                _ => new GameObject(), // TODO: - Shouldn't occur, throw error
+            };
+            gameObject.name = parent.Name;
+            return gameObject;
+        }
+    }
 
     [Serializable]
-    [XmlRoot(ElementName="Text")]
+    [XmlRoot("Text")]
     public class Text : Xml
     {
-        [XmlElement(ElementName="text")]
+        [XmlElement("text")]
         public string String;
 
         // Match TMPro.HorizontalAlignmentOptions
-        [XmlAttribute(AttributeName="horiz-align")]
+        [XmlAttribute("horiz-align")]
         public HorizontalAlignments HorizontalAlignment;
-        public enum HorizontalAlignments {
-            [XmlEnum(Name="left")] Left = 1,
-            [XmlEnum(Name="center")] Center = 2,
-            [XmlEnum(Name="right")] Right = 4,
+        public enum HorizontalAlignments
+        {
+            [XmlEnum(Name = "left")] Left = 1,
+            [XmlEnum(Name = "center")] Center = 2,
+            [XmlEnum(Name = "right")] Right = 4,
         }
 
         // Match TMPro.VerticalAlignmentOptions
-        [XmlAttribute(AttributeName="vert-align")]
+        [XmlAttribute("vert-align")]
         public VerticalAlignments VerticalAlignment;
-        public enum VerticalAlignments { 
-            [XmlEnum(Name="top")] Top = 256,
-            [XmlEnum(Name="center")] Middle = 512,
-            [XmlEnum(Name="bottom")] Bottom = 1024,
+        public enum VerticalAlignments
+        {
+            [XmlEnum(Name = "top")] Top = 256,
+            [XmlEnum(Name = "center")] Middle = 512,
+            [XmlEnum(Name = "bottom")] Bottom = 1024,
         }
 
-        [XmlAttribute(AttributeName="font")]
+        [XmlAttribute("font")]
         public string Font;
 
-        [XmlAttribute(AttributeName="depth")]
+        [XmlAttribute("depth")]
         public float Depth;
 
-        public void GenerateTMP(GameObject gameObject, Color color) {
-            TextMeshPro tmp = gameObject.AddComponent<TextMeshPro>();
-            
-            // Change TMP Defaults
-            tmp.autoSizeTextContainer = true;
-            // TODO (64): Validate default values (font size, wrapping, overflow, etc)
-            tmp.fontSize = 10;
-            tmp.enableWordWrapping = false;
-            tmp.overflowMode = TextOverflowModes.Truncate;
+        public GameObject GenerateTMP(bool isLink, Color color)
+        {
+            // Instantiate TextMeshPro or TextMeshProUGUI prefab
+            // TODO (64): Validate prefab settings
+            GameObject gameObject = UnityEngine.Object.Instantiate(
+                Resources.Load<GameObject>("Prefabs/TmpText" + (isLink ? "GUI" : ""))
+            );
+            TMP_Text tmpText = gameObject.GetComponent<TMP_Text>();
+
+            // Set object properties defined in the xml
+            tmpText.SetText(String);
+            tmpText.horizontalAlignment = (HorizontalAlignmentOptions)HorizontalAlignment;
+            tmpText.verticalAlignment = (VerticalAlignmentOptions)VerticalAlignment;
+            tmpText.color = color; // Vertex Color
+            tmpText.faceColor = color; // Material color
 
             // Load font material
+            // TODO (72): More robust path checking
             TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
-                "Materials/Fonts/" + 
-                Path.GetFileNameWithoutExtension(this.Font) + 
+                "Materials/Fonts/" +
+                Path.GetFileNameWithoutExtension(Font) +
                 " SDF"
             );
-            // Font material hasn't been created, attempt to load from ttf file
-            // TODO (72): More robust path checking
-            if(tmpFont == null) {
-                try {
-                    Font font = AssetDatabase.LoadAssetAtPath<Font>(this.Font);
+            if (tmpFont == null)
+            {
+                // Font material hasn't been created, attempt to load from ttf file
+                try
+                {
+                    Font font = AssetDatabase.LoadAssetAtPath<Font>(Font);
                     tmpFont = TMP_FontAsset.CreateFontAsset(font);
-                    tmpFont.name = Path.GetFileNameWithoutExtension(this.Font);
-                } catch(NullReferenceException e) {
-                    Debug.LogError($"Error loading font: {this.Font}");
+                    tmpFont.name = Path.GetFileNameWithoutExtension(Font);
+                }
+                catch (NullReferenceException e)
+                {
+                    Debug.LogError($"Error loading font: {Font}");
                     Debug.LogException(e);
                 }
             }
+
             // Add font to the TextMeshPro object
-            try { tmp.font = tmpFont; }
-            catch(NullReferenceException e) {
-                Debug.LogWarning($"{gameObject.name} {tmpFont.ToString()} {tmp.font.ToString()}");
-                Debug.LogError($"Error creating font asset {this.Font} for {gameObject.name}");
+            try { tmpText.font = tmpFont; }
+            catch (NullReferenceException e)
+            {
+                Debug.LogWarning($"{gameObject.name} {tmpFont} {tmpText.font}");
+                Debug.LogError($"Error creating font asset {Font} for {gameObject.name}");
                 Debug.Log("Defaulting to fallback font LiberationSans SDF");
                 Debug.LogException(e);
             }
-            
-            // Set object properties defined in the xml
-            tmp.SetText(this.String);
-            tmp.horizontalAlignment = (HorizontalAlignmentOptions)this.HorizontalAlignment;
-            tmp.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
-            tmp.color = color; // Vertex Color
-            tmp.faceColor = color; // Material color
+
+            return gameObject;
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Image")]
+    [XmlRoot("Image")]
     public class Image : Xml
     {
-        [XmlAttribute(AttributeName="filename")]
+        [XmlAttribute("filename")]
         public string Filename;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="StereoImage")]
+    [XmlRoot("StereoImage")]
     public class StereoImage : Xml
     {
-        [XmlAttribute(AttributeName="left-image")]
+        [XmlAttribute("left-image")]
         public string LeftImage;
 
-        [XmlAttribute(AttributeName="right-image")]
+        [XmlAttribute("right-image")]
         public string RightImage;
-
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Model")]
+    [XmlRoot("Model")]
     public class Model : Xml
     {
-        [XmlAttribute(AttributeName="filename")]
+        [XmlAttribute("filename")]
         public string Filename;
 
-        [XmlAttribute(AttributeName="check-collisions")]
+        [XmlAttribute("check-collisions")]
         public string CheckCollisions;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="ParticleSystem")]
+    [XmlRoot("ParticleSystem")]
     // TODO (69): Unity has a ParticleSystem class
     public class ParticleSystem : Xml
     {
-        [XmlAttribute(AttributeName="max-particles")]
+        [XmlAttribute("max-particles")]
         public int MaxParticles;
 
-        [XmlAttribute(AttributeName="actions-name")]
+        [XmlAttribute("actions-name")]
         public string ActionsName;
 
-        [XmlAttribute(AttributeName="particle-group")]
+        [XmlAttribute("particle-group")]
         public string ParticleGroup;
 
-        [XmlAttribute(AttributeName="look-at-camera")]
+        [XmlAttribute("look-at-camera")]
         public bool LookAtCamera;
 
-        [XmlAttribute(AttributeName="sequential")]
+        [XmlAttribute("sequential")]
         public bool Sequential;
 
-        [XmlAttribute(AttributeName="speed")]
+        [XmlAttribute("speed")]
         public double Speed;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Light")]
+    [XmlRoot("Light")]
     // TODO (68): Unity has a Light class
     public class Light : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="Point")]
-        [XmlElement(ElementName="Directional")]
-        [XmlElement(ElementName="Spot", Type=typeof(Spot))]
+        [XmlElement("Point")]
+        [XmlElement("Directional")]
+        [XmlElement("Spot", Type = typeof(Spot))]
         public object Data;
         public LightTypes Type;
 
-        [XmlAttribute(AttributeName="diffuse")]
+        [XmlAttribute("diffuse")]
         public bool Diffuse;
 
-        [XmlAttribute(AttributeName="specular")]
+        [XmlAttribute("specular")]
         public bool Specular;
 
-        [XmlAttribute(AttributeName="const_atten")]
+        [XmlAttribute("const_atten")]
         public double ConstAtten;
 
-        [XmlAttribute(AttributeName="lin_atten")]
+        [XmlAttribute("lin_atten")]
         public double LinAtten;
 
-        [XmlAttribute(AttributeName="quad_atten")]
+        [XmlAttribute("quad_atten")]
         public double QuadAtten;
 
-        public enum LightTypes {
+        public enum LightTypes
+        {
             [XmlEnum("Point")] Point,
             [XmlEnum("Directional")] Directional,
             [XmlEnum("Spot")] Spot,
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Spot")]
+    [XmlRoot("Spot")]
     public class Spot : Xml
     {
-        [XmlAttribute(AttributeName="angle")]
+        [XmlAttribute("angle")]
         public double Angle;
     }
 
-
     // LINK
 
-
     [Serializable]
-    [XmlRoot(ElementName="Link")]
+    [XmlRoot("Link")]
     public class Link : Xml
     {
-        [XmlElement(ElementName="Enabled")]
+        [XmlElement("Enabled")]
         public bool Enabled;
 
-        [XmlElement(ElementName="RemainEnabled")]
+        [XmlElement("RemainEnabled")]
         public bool RemainEnabled;
 
-        [XmlElement(ElementName="EnabledColor")]
+        [XmlElement("EnabledColor")]
         public string EnabledColorString;
 
-        [XmlElement(ElementName="SelectedColor")]
+        [XmlElement("SelectedColor")]
         public string SelectedColorString;
 
-        [XmlElement(ElementName="Actions")]
+        [XmlElement("Actions")]
         public List<LinkActions> Actions;
+
+        public ColorBlock SetColors(ColorBlock colors, string parentColorString)
+        {
+            colors.normalColor = colors.highlightedColor =
+                ConvertColor(EnabledColorString);
+            colors.pressedColor = colors.selectedColor =
+                ConvertColor(SelectedColorString);
+            colors.disabledColor = ConvertColor(parentColorString);
+            return colors;
+        }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Actions")]
+    [XmlRoot("Actions")]
     public class LinkActions : Actions
     {
-        [XmlElement(ElementName="Clicks")]
+        [XmlElement("Clicks")]
         public Clicks Clicks;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Clicks")]
+    [XmlRoot("Clicks")]
     public class Clicks : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="Any")]
-        [XmlElement(ElementName="NumClicks", Type=typeof(NumClicks))]
+        [XmlElement("Any")]
+        [XmlElement("NumClicks", Type = typeof(NumClicks))]
         public object Activation;
         public ActivationTypes Type;
 
-        public enum ActivationTypes {
+        public enum ActivationTypes
+        {
             [XmlEnum("Any")] Any,
             [XmlEnum("NumClicks")] Number,
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="NumClicks")]
+    [XmlRoot("NumClicks")]
     public class NumClicks : Xml
     {
-        [XmlAttribute(AttributeName="num_clicks")]
+        [XmlAttribute("num_clicks")]
         public uint Clicks;
 
-        [XmlAttribute(AttributeName="reset")]
+        [XmlAttribute("reset")]
         public bool Reset;
     }
 
-
     /********** GROUP            ***********/
 
-
     [Serializable]
-    [XmlRoot(ElementName="Group")]
+    [XmlRoot("Group")]
     public class Group : Xml
     {
         [XmlChoiceIdentifier("ReferenceTypes")]
-        [XmlElement(ElementName="Objects", Type=typeof(Reference))]
-        [XmlElement(ElementName="Groups", Type=typeof(Reference))]
+        [XmlElement("Objects", Type = typeof(Reference))]
+        [XmlElement("Groups", Type = typeof(Reference))]
         public Reference[] References;
         public ReferenceType[] ReferenceTypes;
 
-        [XmlAttribute(AttributeName="name")]
+        [XmlAttribute("name")]
         public string Name;
 
-        public enum ReferenceType {
+        public enum ReferenceType
+        {
             [XmlEnum("Objects")] Object,
             [XmlEnum("Groups")] Group
         }
     }
 
-
     /********** TIMELINE        ***********/
 
-
     [Serializable]
-    [XmlRoot(ElementName="Timeline")]
+    [XmlRoot("Timeline")]
     public class Timeline : Xml
     {
-        [XmlElement(ElementName="TimedActions")]
+        [XmlElement("TimedActions")]
         public List<TimedActions> TimedActions;
 
-        [XmlAttribute(AttributeName="name")]
+        [XmlAttribute("name")]
         public string Name;
 
-        [XmlAttribute(AttributeName="start-immediately")]
+        [XmlAttribute("start-immediately")]
         public bool StartImmediately;
 
         [XmlText]
-        public string text;
+        public string Text;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="TimedActions")]
+    [XmlRoot("TimedActions")]
     public class TimedActions : Actions
     {
-        [XmlAttribute(AttributeName="seconds-time")]
+        [XmlAttribute("seconds-time")]
         public double SecondsTime;
 
         [XmlText]
-        public string text;
+        public string Text;
     }
-
 
     /********** SOUND            ***********/
 
-
     [Serializable]
-    [XmlRoot(ElementName="Sound")]
+    [XmlRoot("Sound")]
     public class Sound : Xml
     {
-        [XmlElement(ElementName="Mode")]
+        [XmlElement("Mode")]
         public Mode Mode;
 
-        [XmlElement(ElementName="Repeat")]
+        [XmlElement("Repeat")]
         public Repeat Repeat;
 
-        [XmlElement(ElementName="Settings")]
+        [XmlElement("Settings")]
         public Settings Settings;
 
-        [XmlAttribute(AttributeName="action")]
+        [XmlAttribute("action")]
         public string Action;
 
-        [XmlAttribute(AttributeName="name")]
+        [XmlAttribute("name")]
         public string Name;
 
-        [XmlAttribute(AttributeName="filename")]
+        [XmlAttribute("filename")]
         public string Filename;
 
-        [XmlAttribute(AttributeName="autostart")]
+        [XmlAttribute("autostart")]
         public bool Autostart;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Mode")]
+    [XmlRoot("Mode")]
     public class Mode : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="Positional")]
-        [XmlElement(ElementName="Fixed")]
+        [XmlElement("Positional")]
+        [XmlElement("Fixed")]
         public object Data;
         public Modes Type;
 
-        public enum Modes {
+        public enum Modes
+        {
             [XmlEnum("Positional")] Positional,
             [XmlEnum("Fixed")] Fixed
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Repeat")]
+    [XmlRoot("Repeat")]
     public class Repeat : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="NoRepeat")]
-        [XmlElement(ElementName="RepeatForever")]
-        [XmlElement(ElementName="RepeatNum", Type=typeof(uint))]
+        [XmlElement("NoRepeat")]
+        [XmlElement("RepeatForever")]
+        [XmlElement("RepeatNum", Type = typeof(uint))]
         public object Data;
         public RepeatTypes Type;
-            
-        public enum RepeatTypes {
+
+        public enum RepeatTypes
+        {
             [XmlEnum("NoRepeat")] No,
             [XmlEnum("RepeatForever")] Forever,
             [XmlEnum("RepeatNum")] Number,
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Settings")]
+    [XmlRoot("Settings")]
     public class Settings : Xml
     {
-        [XmlAttribute(AttributeName="freq")]
+        [XmlAttribute("freq")]
         public double Frequency;
 
-        [XmlAttribute(AttributeName="volume")]
+        [XmlAttribute("volume")]
         public double Volume;
 
-        [XmlAttribute(AttributeName="pan")]
+        [XmlAttribute("pan")]
         public double Pan;
     }
 
-
     /********** EVENT TRIGGER       ***********/
 
-
     [Serializable]
-    [XmlRoot(ElementName="EventTrigger")]
+    [XmlRoot("EventTrigger")]
     public class EventTrigger : Xml
     {
         [XmlChoiceIdentifier("TrackType")]
-        [XmlElement(ElementName="HeadTrack", Type=typeof(HeadTrack))]
-        [XmlElement(ElementName="MoveTrack", Type=typeof(MoveTrack))]
+        [XmlElement("HeadTrack", Type = typeof(HeadTrack))]
+        [XmlElement("MoveTrack", Type = typeof(MoveTrack))]
         public object Tracking;
         public TrackTypes TrackType;
 
-        [XmlElement(ElementName="Actions")]
+        [XmlElement("Actions")]
         public List<Actions> Actions;
 
-        [XmlAttribute(AttributeName="enabled")]
+        [XmlAttribute("enabled")]
         public bool Enabled;
 
-        [XmlAttribute(AttributeName="name")]
+        [XmlAttribute("name")]
         public string Name;
 
-        [XmlAttribute(AttributeName="duration")]
+        [XmlAttribute("duration")]
         public double Duration;
 
-        [XmlAttribute(AttributeName="remain-enabled")]
+        [XmlAttribute("remain-enabled")]
         public bool RemainEnabled;
 
-        public enum TrackTypes {
+        public enum TrackTypes
+        {
             [XmlEnum("HeadTrack")] Head,
             [XmlEnum("MoveTrack")] Move,
         }
     }
 
-
     // HEAD TRACK
 
-
     [Serializable]
-    [XmlRoot(ElementName="HeadTrack")]
+    [XmlRoot("HeadTrack")]
     public class HeadTrack : Xml
     {
-        [XmlElement(ElementName="Position")]
+        [XmlElement("Position")]
         public TrackPosition Position;
 
-        [XmlElement(ElementName="Direction")]
+        [XmlElement("Direction")]
         public Direction Direction;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Position")]
+    [XmlRoot("Position")]
     public class TrackPosition : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="Anywhere")]
-        [XmlElement(ElementName="Box", Type=typeof(Box))]
+        [XmlElement("Anywhere")]
+        [XmlElement("Box", Type = typeof(Box))]
         public object Position;
         public PositionTypes Type;
 
-        public enum PositionTypes {
+        public enum PositionTypes
+        {
             [XmlEnum("Anywhere")] Anywhere,
             [XmlEnum("Box")] Box
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Direction")]
+    [XmlRoot("Direction")]
     public class Direction : Xml
     {
         [XmlChoiceIdentifier("TargetType")]
-        [XmlElement(ElementName="None")]
-        [XmlElement(ElementName="PointTarget", Type=typeof(PointTarget))]
-        [XmlElement(ElementName="DirectionTarget", Type=typeof(DirectionTarget))]
-        [XmlElement(ElementName="ObjectTarget", Type=typeof(Reference))]
+        [XmlElement("None")]
+        [XmlElement("PointTarget", Type = typeof(PointTarget))]
+        [XmlElement("DirectionTarget", Type = typeof(DirectionTarget))]
+        [XmlElement("ObjectTarget", Type = typeof(Reference))]
         public object Target;
         public Targets TargetType;
 
-        public enum Targets {
+        public enum Targets
+        {
             [XmlEnum("None")] None,
             [XmlEnum("PointTarget")] Point,
             [XmlEnum("DirectionTarget")] Direction,
@@ -653,190 +663,176 @@ namespace W3D
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="PointTarget")]
+    [XmlRoot("PointTarget")]
     public class PointTarget : Xml
     {
-        [XmlAttribute(AttributeName="point")]
+        [XmlAttribute("point")]
         public string PointString;
 
-        [XmlAttribute(AttributeName="angle")]
+        [XmlAttribute("angle")]
         public double Angle;
-
     }
-
 
     [Serializable]
-    [XmlRoot(ElementName="DirectionTarget")]
+    [XmlRoot("DirectionTarget")]
     public class DirectionTarget : Xml
     {
-        [XmlAttribute(AttributeName="direction")]
+        [XmlAttribute("direction")]
         public string DirectionString;
 
-        [XmlAttribute(AttributeName="angle")]
+        [XmlAttribute("angle")]
         public double Angle;
     }
-
 
     // MOVE TRACK
 
-
     [Serializable]
-    [XmlRoot(ElementName="MoveTrack")]
+    [XmlRoot("MoveTrack")]
     public class MoveTrack : Xml
     {
-        [XmlElement(ElementName="Source")]
+        [XmlElement("Source")]
         public Source Source;
 
-        [XmlElement(ElementName="Box")]
+        [XmlElement("Box")]
         public Box Box;
-
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Source")]
+    [XmlRoot("Source")]
     public class Source : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="ObjectRef", Type=typeof(Reference))]
-        [XmlElement(ElementName="GroupObj", Type=typeof(GroupSource))]
+        [XmlElement("ObjectRef", Type = typeof(Reference))]
+        [XmlElement("GroupObj", Type = typeof(GroupSource))]
         public object Data;
         public Sources Type;
 
-        public enum Sources {
+        public enum Sources
+        {
             [XmlEnum("ObjectRef")] Object,
             [XmlEnum("GroupObj")] Group,
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="GroupObj")]
+    [XmlRoot("GroupObj")]
     public class GroupSource : Reference
     {
-        [XmlAttribute(AttributeName="objects")]
+        [XmlAttribute("objects")]
         public Selections Selection;
-        public enum Selections { 
+        public enum Selections
+        {
             None,
-            [XmlEnum(Name="Any Object")] Any,
-            [XmlEnum(Name="All Objects")] All
+            [XmlEnum(Name = "Any Object")] Any,
+            [XmlEnum(Name = "All Objects")] All
         }
     }
 
-
     // BOX
 
-
     [Serializable]
-    [XmlRoot(ElementName="Box")]
+    [XmlRoot("Box")]
     public class Box : Xml
     {
-        [XmlElement(ElementName="Movement")]
+        [XmlElement("Movement")]
         public Movement Movement;
 
-        [XmlAttribute(AttributeName="ignore-Y")]
+        [XmlAttribute("ignore-Y")]
         public bool IgnoreY;
 
-        [XmlAttribute(AttributeName="corner1")]
+        [XmlAttribute("corner1")]
         public string Corner1String;
 
-        [XmlAttribute(AttributeName="corner2")]
+        [XmlAttribute("corner2")]
         public string Corner2String;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Movement")]
+    [XmlRoot("Movement")]
     public class Movement : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="Outside")]
-        [XmlElement(ElementName="Inside")]
+        [XmlElement("Outside")]
+        [XmlElement("Inside")]
         public object Data;
         public MovementTypes Type;
 
-        public enum MovementTypes {
+        public enum MovementTypes
+        {
             [XmlEnum("Outside")] Outside,
             [XmlEnum("Inside")] Inside
         }
     }
 
-
     /********** PARTICLE ACTION LIST     ***********/
 
-
     [Serializable]
-    [XmlRoot(ElementName="ParticleActionList")]
+    [XmlRoot("ParticleActionList")]
     public class ParticleActionList : Xml
     {
-
-        [XmlElement(ElementName="Source")]
+        [XmlElement("Source")]
         public ParticleSource Source;
 
-        [XmlElement(ElementName="Vel")]
+        [XmlElement("Vel")]
         public Vel Vel;
 
-        [XmlElement(ElementName="ParticleAction")]
+        [XmlElement("ParticleAction")]
         public List<ParticleAction> ParticleAction;
 
-        [XmlElement(ElementName="RemoveCondition")]
+        [XmlElement("RemoveCondition")]
         public RemoveCondition RemoveCondition;
 
-        [XmlAttribute(AttributeName="name")]
+        [XmlAttribute("name")]
         public string Name;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Source")]
+    [XmlRoot("Source")]
     public class ParticleSource : Xml
     {
-        [XmlElement(ElementName="ParticleDomain")]
+        [XmlElement("ParticleDomain")]
         public Particle Particle;
 
-        [XmlAttribute(AttributeName="rate")]
+        [XmlAttribute("rate")]
         public double Rate;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Vel")]
+    [XmlRoot("Vel")]
     public class Vel : Xml
     {
-        [XmlElement(ElementName="ParticleDomain")]
+        [XmlElement("ParticleDomain")]
         public Particle Particle;
     }
 
-
     // PARTICLE ACTION
 
-
     [Serializable]
-    [XmlRoot(ElementName="ParticleAction")]
+    [XmlRoot("ParticleAction")]
     public class ParticleAction : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="Avoid", Type=typeof(Avoid))]
-        [XmlElement(ElementName="Bounce", Type=typeof(Bounce))]
-        [XmlElement(ElementName="Gravity", Type=typeof(Gravity))]
-        [XmlElement(ElementName="Damping", Type=typeof(Damping))]
-        [XmlElement(ElementName="Gravitate", Type=typeof(Gravitate))]
-        [XmlElement(ElementName="Follow", Type=typeof(Follow))]
-        [XmlElement(ElementName="MatchVel", Type=typeof(MatchVel))]
-        [XmlElement(ElementName="OrbitPoint", Type=typeof(OrbitPoint))]
-        [XmlElement(ElementName="Jet", Type=typeof(Jet))]
-        [XmlElement(ElementName="RandomVel")]
-        [XmlElement(ElementName="RandomAccel")]
-        [XmlElement(ElementName="RandomDisplace")]
-        [XmlElement(ElementName="TargetColor", Type=typeof(TargetColor))]
-        [XmlElement(ElementName="TargetSize")]
-        [XmlElement(ElementName="TargetVel")]
+        [XmlElement("Avoid", Type = typeof(Avoid))]
+        [XmlElement("Bounce", Type = typeof(Bounce))]
+        [XmlElement("Gravity", Type = typeof(Gravity))]
+        [XmlElement("Damping", Type = typeof(Damping))]
+        [XmlElement("Gravitate", Type = typeof(Gravitate))]
+        [XmlElement("Follow", Type = typeof(Follow))]
+        [XmlElement("MatchVel", Type = typeof(MatchVel))]
+        [XmlElement("OrbitPoint", Type = typeof(OrbitPoint))]
+        [XmlElement("Jet", Type = typeof(Jet))]
+        [XmlElement("RandomVel")]
+        [XmlElement("RandomAccel")]
+        [XmlElement("RandomDisplace")]
+        [XmlElement("TargetColor", Type = typeof(TargetColor))]
+        [XmlElement("TargetSize")]
+        [XmlElement("TargetVel")]
         public object Action;
         public ParticleActionTypes Type;
 
-        public enum ParticleActionTypes {
+        public enum ParticleActionTypes
+        {
             [XmlEnum("Avoid")] Avoid,
             [XmlEnum("Bounce")] Bounce,
             [XmlEnum("Gravity")] Gravity,
@@ -855,271 +851,251 @@ namespace W3D
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Avoid")]
+    [XmlRoot("Avoid")]
     public class Avoid : Xml
     {
-        [XmlElement(ElementName="ParticleDomain")]
+        [XmlElement("ParticleDomain")]
         public Particle Particle;
 
-        [XmlAttribute(AttributeName="magnitude")]
+        [XmlAttribute("magnitude")]
         public double Magnitude;
 
-        [XmlAttribute(AttributeName="epsilon")]
+        [XmlAttribute("epsilon")]
         public double Epsilon;
 
-        [XmlAttribute(AttributeName="lookahead")]
+        [XmlAttribute("lookahead")]
         public double LookAhead;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Bounce")]
+    [XmlRoot("Bounce")]
     public class Bounce : Xml
     {
-        [XmlElement(ElementName="ParticleDomain")]
+        [XmlElement("ParticleDomain")]
         public Particle Particle;
 
-        [XmlAttribute(AttributeName="friction")]
+        [XmlAttribute("friction")]
         public double Friction;
 
-        [XmlAttribute(AttributeName="resilience")]
+        [XmlAttribute("resilience")]
         public double Resilience;
 
-        [XmlAttribute(AttributeName="cutoff")]
+        [XmlAttribute("cutoff")]
         public double Cutoff;
     }
 
     [Serializable]
-    [XmlRoot(ElementName="Gravity")]
+    [XmlRoot("Gravity")]
     public class Gravity : Xml
     {
-        [XmlAttribute(AttributeName="direction")]
+        [XmlAttribute("direction")]
         public string DirectionString;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Damping")]
+    [XmlRoot("Damping")]
     public class Damping : Xml
     {
-        [XmlAttribute(AttributeName="direction")]
+        [XmlAttribute("direction")]
         public string DirectionString;
 
-        [XmlAttribute(AttributeName="vel_low")]
+        [XmlAttribute("vel_low")]
         public double VelocityLow;
 
-        [XmlAttribute(AttributeName="vel_high")]
+        [XmlAttribute("vel_high")]
         public double VelocityHigh;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Gravitate")]
+    [XmlRoot("Gravitate")]
     public class Gravitate : Xml
     {
-        [XmlAttribute(AttributeName="magnitude")]
+        [XmlAttribute("magnitude")]
         public double Magnitude;
 
-        [XmlAttribute(AttributeName="epsilon")]
+        [XmlAttribute("epsilon")]
         public double Epsilon;
 
-        [XmlAttribute(AttributeName="max_radius")]
+        [XmlAttribute("max_radius")]
         public double MaxRadius;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Follow")]
+    [XmlRoot("Follow")]
     public class Follow : Xml
     {
-
-        [XmlAttribute(AttributeName="magnitude")]
+        [XmlAttribute("magnitude")]
         public double Magnitude;
 
-        [XmlAttribute(AttributeName="epsilon")]
+        [XmlAttribute("epsilon")]
         public double Epsilon;
 
-        [XmlAttribute(AttributeName="max_radius")]
+        [XmlAttribute("max_radius")]
         public double MaxRadius;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="MatchVel")]
+    [XmlRoot("MatchVel")]
     public class MatchVel : Xml
     {
-        [XmlAttribute(AttributeName="magnitude")]
+        [XmlAttribute("magnitude")]
         public double Magnitude;
 
-        [XmlAttribute(AttributeName="epsilon")]
+        [XmlAttribute("epsilon")]
         public double Epsilon;
 
-        [XmlAttribute(AttributeName="max_radius")]
+        [XmlAttribute("max_radius")]
         public double MaxRadius;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="OrbitPoint")]
+    [XmlRoot("OrbitPoint")]
     public class OrbitPoint : Xml
     {
-        [XmlAttribute(AttributeName="center")]
+        [XmlAttribute("center")]
         public string CenterString;
 
-        [XmlAttribute(AttributeName="magnitude")]
+        [XmlAttribute("magnitude")]
         public double Magnitude;
 
-        [XmlAttribute(AttributeName="epsilon")]
+        [XmlAttribute("epsilon")]
         public double Epsilon;
 
-        [XmlAttribute(AttributeName="max_radius")]
+        [XmlAttribute("max_radius")]
         public double MaxRadius;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Jet")]
+    [XmlRoot("Jet")]
     public class Jet : Xml
     {
-        [XmlElement(ElementName="ParticleDomain")]
+        [XmlElement("ParticleDomain")]
         public Particle Particle;
 
-        [XmlElement(ElementName="AccelDomain")]
+        [XmlElement("AccelDomain")]
         public Particle AccelDomain;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="TargetColor")]
+    [XmlRoot("TargetColor")]
     public class TargetColor : Xml
     {
-        [XmlAttribute(AttributeName="color")]
+        [XmlAttribute("color")]
         public string ColorString;
 
-        [XmlAttribute(AttributeName="alpha")]
+        [XmlAttribute("alpha")]
         public double Alpha;
 
-        [XmlAttribute(AttributeName="scale")]
+        [XmlAttribute("scale")]
         public double Scale;
     }
 
-
     // REMOVE CONDITION
 
-
     [Serializable]
-    [XmlRoot(ElementName="RemoveCondition")]
+    [XmlRoot("RemoveCondition")]
     public class RemoveCondition : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="Age", Type=typeof(Age))]
-        [XmlElement(ElementName="Position", Type=typeof(Remove))]
-        [XmlElement(ElementName="Velocity", Type=typeof(Remove))]
+        [XmlElement("Age", Type = typeof(Age))]
+        [XmlElement("Position", Type = typeof(Remove))]
+        [XmlElement("Velocity", Type = typeof(Remove))]
         public object Condition;
         public RemoveConditions Type;
 
-        public enum RemoveConditions {
+        public enum RemoveConditions
+        {
             [XmlEnum("Age")] Age,
             [XmlEnum("Position")] Position,
             [XmlEnum("Velocity")] Velocity
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Age")]
+    [XmlRoot("Age")]
     public class Age : Xml
     {
-        [XmlAttribute(AttributeName="age")]
+        [XmlAttribute("age")]
         public double Seconds;
 
-        [XmlAttribute(AttributeName="younger-than")]
+        [XmlAttribute("younger-than")]
         public bool YoungerThan;
     }
-
 
     [Serializable]
     public class Remove : Xml
     {
-        [XmlElement(ElementName="ParticleDomain")]
+        [XmlElement("ParticleDomain")]
         public Particle Particle;
 
-        [XmlAttribute(AttributeName="inside")]
+        [XmlAttribute("inside")]
         public bool Inside;
     }
 
-
     /********** GLOBAL              ***********/
 
-
     [Serializable]
-    [XmlRoot(ElementName="Global")]
+    [XmlRoot("Global")]
     public class Global : Xml
     {
-        [XmlElement(ElementName="CameraPos")]
+        [XmlElement("CameraPos")]
         public Camera Camera;
 
-        [XmlElement(ElementName="CaveCameraPos")]
+        [XmlElement("CaveCameraPos")]
         public Camera CaveCamera;
 
-        [XmlElement(ElementName="Background")]
+        [XmlElement("Background")]
         public Background Background;
 
-        [XmlElement(ElementName="WandNavigation")]
+        [XmlElement("WandNavigation")]
         public WandNavigation WandNavigation;
     }
-
 
     [Serializable]
     public class Camera : Xml
     {
-        [XmlElement(ElementName="Placement")]
+        [XmlElement("Placement")]
         public Placement Placement;
 
-        [XmlAttribute(AttributeName="far-clip")]
+        [XmlAttribute("far-clip")]
         public float FarClip;
 
         [XmlText]
-        public string text;
+        public string Text;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Background")]
+    [XmlRoot("Background")]
     public class Background : Xml
     {
-        [XmlAttribute(AttributeName="color")]
+        [XmlAttribute("color")]
         public string ColorString;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="WandNavigation")]
+    [XmlRoot("WandNavigation")]
     public class WandNavigation : Xml
     {
-        [XmlAttribute(AttributeName="allow-rotation")]
+        [XmlAttribute("allow-rotation")]
         public bool AllowRotation;
 
-        [XmlAttribute(AttributeName="allow-movement")]
+        [XmlAttribute("allow-movement")]
         public bool AllowMovement;
     }
 
-
     /********** COMPLEX TYPES    ***********/
-
 
     // PLACEMENT
 
-
     [Serializable]
-    [XmlRoot(ElementName="Placement")]
+    [XmlRoot("Placement")]
     public class Placement : Xml
     {
-        [XmlElement(ElementName="RelativeTo")]
+        [XmlElement("RelativeTo")]
         public PlacementTypes RelativeTo;
-        public enum PlacementTypes {
+        public enum PlacementTypes
+        {
             Center,
             FrontWall,
             LeftWall,
@@ -1127,124 +1103,143 @@ namespace W3D
             FloorWall
         }
 
-
-        [XmlElement(ElementName="Position")]
+        [XmlElement("Position")]
         public string PositionString;
 
         [XmlChoiceIdentifier("RotationType")]
-        [XmlElement(ElementName="Axis", Type=typeof(Axis))]
-        [XmlElement(ElementName="LookAt", Type=typeof(LookAt))]
-        [XmlElement(ElementName="Normal", Type=typeof(Normal))]
+        [XmlElement("Axis", Type = typeof(Axis))]
+        [XmlElement("LookAt", Type = typeof(LookAt))]
+        [XmlElement("Normal", Type = typeof(Normal))]
         public object Rotation;
         public RotationTypes RotationType;
-        public enum RotationTypes {
+        public enum RotationTypes
+        {
             Null,
             [XmlEnum("Axis")] Axis,
             [XmlEnum("LookAt")] LookAt,
             [XmlEnum("Normal")] Normal,
         }
 
-        [XmlAttribute(AttributeName="name")]
+        [XmlAttribute("name")]
         public string Name;
 
         [XmlText]
-        public string text;
-        
+        public string Text;
+
         /** Set parent GameObject and local transforms of gameObjectT
             relativeTo: [GameObject].transform.parent
             position: [GameObject].transform.localPosition
-            rotationType.Axis: Rotation angle around an axis 
+            rotationType.Axis: Rotation angle around an axis
             rotationType.LookAt: Rotate to look at target vector (world space)
             rotationType.Normal: Local rotation around a normalized vector
         */
-        public void SetTransform(Transform gameObjectT, float scale, Transform storyT) {
-            gameObjectT.SetParent(
-                this.RelativeTo == Placement.PlacementTypes.Center
-                    ? storyT // Nest under Story directly
-                    : storyT.Find(this.RelativeTo.ToString())
-                , false
-            );
-            gameObjectT.localScale = Vector3.one * scale;
-            gameObjectT.localPosition = Xml.ConvertVector3(this.PositionString);
+        // TODO (81): Split into separate functions that return their values
+        public void SetTransform(Transform gameObjectT, Vector3 scale, Transform storyT)
+        {
+            gameObjectT.SetParent(GetParent(storyT), false);
+            gameObjectT.localPosition = GetPosition();
+            gameObjectT.localScale = scale;
 
-            switch(this.Rotation) {
-                case(Axis rotation):
-                    gameObjectT.localEulerAngles = 
-                        Xml.ConvertVector3(rotation.RotationString) * rotation.Angle;
+            switch (Rotation)
+            {
+                case Axis rotation:
+                    gameObjectT.localEulerAngles = rotation.GetEuler();
                     break;
-                case(LookAt rotation):
-                    gameObjectT.rotation = Quaternion.LookRotation(
-                        gameObjectT.position - 
-                            storyT.TransformPoint(Xml.ConvertVector3(rotation.TargetString)),
-                        Xml.ConvertVector3(rotation.UpString)
-                    );
+                case LookAt rotation:
+                    gameObjectT.rotation = rotation.GetQuaternion(gameObjectT.position, storyT);
                     break;
-                case(Normal rotation):
-                    // TODO (63)
+                case Normal rotation:
+                    gameObjectT.localEulerAngles = rotation.GetEuler();
                     break;
-                case(null):
+                case null:
                     gameObjectT.localRotation = Quaternion.identity;
                     break;
                 default: break;
             }
             return;
         }
+
+        public Vector3 GetPosition() { return ConvertVector3(PositionString); }
+
+        public Transform GetParent(Transform storyT)
+        {
+            return RelativeTo == PlacementTypes.Center
+                    ? storyT // Nest under Story directly
+                    : storyT.Find(RelativeTo.ToString());
+        }
     }
 
     [Serializable]
-    [XmlRoot(ElementName="Axis")]
+    [XmlRoot("Axis")]
     public class Axis : Xml
     {
-        [XmlAttribute(AttributeName="rotation")]
+        [XmlAttribute("rotation")]
         public string RotationString;
 
-        [XmlAttribute(AttributeName="angle")]
+        [XmlAttribute("angle")]
         public float Angle;
+
+        public Vector3 GetEuler()
+        {
+            return ConvertVector3(RotationString) * Angle;
+        }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="LookAt")]
+    [XmlRoot("LookAt")]
     public class LookAt : Xml
     {
-        [XmlAttribute(AttributeName="target")]
+        [XmlAttribute("target")]
         public string TargetString;
 
-        [XmlAttribute(AttributeName="up")]
+        [XmlAttribute("up")]
         public string UpString;
-    }
 
+        public Quaternion GetQuaternion(Vector3 position, Transform storyT)
+        {
+            return Quaternion.LookRotation(
+                position -
+                    storyT.TransformPoint(ConvertVector3(TargetString)),
+                ConvertVector3(UpString)
+            );
+        }
+    }
 
     [Serializable]
-    [XmlRoot(ElementName="Normal")]
+    [XmlRoot("Normal")]
     public class Normal : Xml
     {
-        [XmlAttribute(AttributeName="normal")]
+        [XmlAttribute("normal")]
         public string NormalString;
 
-        [XmlAttribute(AttributeName="angle")]
-        public double Angle;
+        [XmlAttribute("angle")]
+        public float Angle;
+
+        public Vector3 GetEuler()
+        {
+            // TODO (63): Is this the correct logic?
+            return ConvertVector3(NormalString) * Angle;
+        }
     }
 
-
     // ACTIONS
-
 
     [Serializable]
     public class Actions : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="ObjectChange", Type=typeof(ObjectChange))]
-        [XmlElement(ElementName="GroupRef", Type=typeof(GroupRef))]
-        [XmlElement(ElementName="TimerChange", Type=typeof(TimerChange))]
-        [XmlElement(ElementName="SoundRef", Type=typeof(Reference))]
-        [XmlElement(ElementName="Event", Type=typeof(Event))]
-        [XmlElement(ElementName="MoveCave", Type=typeof(MoveCave))]
-        [XmlElement(ElementName="Restart")]
+        [XmlElement("ObjectChange", Type = typeof(ObjectChange))]
+        [XmlElement("GroupRef", Type = typeof(GroupRef))]
+        [XmlElement("TimerChange", Type = typeof(TimerChange))]
+        [XmlElement("SoundRef", Type = typeof(Reference))]
+        [XmlElement("Event", Type = typeof(Event))]
+        [XmlElement("MoveCave", Type = typeof(MoveCave))]
+        [XmlElement("Restart")]
         public object Action;
         public ActionTypes Type;
 
-        public enum ActionTypes {
+        public enum ActionTypes
+        {
             [XmlEnum("ObjectChange")] ObjectChange,
             [XmlEnum("GroupRef")] GroupReference,
             [XmlEnum("TimerChange")] TimerChange,
@@ -1255,51 +1250,50 @@ namespace W3D
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="ObjectChange")]
+    [XmlRoot("ObjectChange")]
     public class ObjectChange : Reference
     {
-        [XmlElement(ElementName="Transition")]
+        [XmlElement("Transition")]
         public Transition Transition;
 
         [XmlText]
-        public string text;
+        public string Text;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="GroupRef")]
+    [XmlRoot("GroupRef")]
     public class GroupRef : Reference
     {
-        [XmlElement(ElementName="Transition")]
+        [XmlElement("Transition")]
         public Transition Transition;
 
-        [XmlAttribute(AttributeName="random")]
+        [XmlAttribute("random")]
         public RandomTypes Random;
-        public enum RandomTypes { 
+        public enum RandomTypes
+        {
             None,
-            [XmlEnum(Name="Select One Randomly")] OneRandom,
+            [XmlEnum(Name = "Select One Randomly")] OneRandom,
         }
 
         [XmlText]
-        public string text;
+        public string Text;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="TimerChange")]
+    [XmlRoot("TimerChange")]
     public class TimerChange : Reference
-    {        
+    {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="start")]
-        [XmlElement(ElementName="stop")]
-        [XmlElement(ElementName="continue")]
-        [XmlElement(ElementName="start_if_not_started")]
+        [XmlElement("start")]
+        [XmlElement("stop")]
+        [XmlElement("continue")]
+        [XmlElement("start_if_not_started")]
         public object Change;
         public ChangeTypes Type;
 
-        public enum ChangeTypes {
+        public enum ChangeTypes
+        {
             [XmlEnum("start")] Start,
             [XmlEnum("stop")] Stop,
             [XmlEnum("continue")] Continue,
@@ -1308,64 +1302,63 @@ namespace W3D
     }
 
     [Serializable]
-    [XmlRoot(ElementName="Event")]
+    [XmlRoot("Event")]
     public class Event : Reference
     {
-        [XmlAttribute(AttributeName="enable")]
+        [XmlAttribute("enable")]
         public bool Enable;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="MoveCave")]
+    [XmlRoot("MoveCave")]
     public class MoveCave : Xml
     {
         [XmlChoiceIdentifier("OriginType")]
-        [XmlElement(ElementName="Relative")]
-        [XmlElement(ElementName="Absolute")]
+        [XmlElement("Relative")]
+        [XmlElement("Absolute")]
         public object Origin;
         public OriginTypes OriginType;
 
-        [XmlElement(ElementName="Placement")]
+        [XmlElement("Placement")]
         public Placement Placement;
 
-        [XmlAttribute(AttributeName="duration")]
-        public double duration;
+        [XmlAttribute("duration")]
+        public double Duration;
 
         [XmlText]
-        public string text;
+        public string Text;
 
-        public enum OriginTypes {
+        public enum OriginTypes
+        {
             [XmlEnum("Relative")] Relative,
             [XmlEnum("Absolute")] Absolute,
         }
     }
 
-
     // TRANSITION
 
- 
     [Serializable]
     public class Transition : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="Visible", Type=typeof(bool))]
-        [XmlElement(ElementName="Movement", Type=typeof(MovementTransition))]
-        [XmlElement(ElementName="MoveRel", Type=typeof(MoveRel))]
-        [XmlElement(ElementName="Color", Type=typeof(string))]
-        [XmlElement(ElementName="Scale", Type=typeof(double))]
-        [XmlElement(ElementName="Sound", Type=typeof(SoundTransition))]
-        [XmlElement(ElementName="LinkTransition", Type=typeof(LinkTransition))]
+        [XmlElement("Visible", Type = typeof(bool))]
+        [XmlElement("Movement", Type = typeof(MovementTransition))]
+        [XmlElement("MoveRel", Type = typeof(MoveRel))]
+        [XmlElement("Color", Type = typeof(string))]
+        [XmlElement("Scale", Type = typeof(double))]
+        [XmlElement("Sound", Type = typeof(SoundTransition))]
+        [XmlElement("LinkTransition", Type = typeof(LinkTransition))]
         public object Change;
         public TransitionType Type;
 
-        [XmlAttribute(AttributeName="duration")]
-        public double duration;
+        [XmlAttribute("duration")]
+        public double Duration;
 
         [XmlText]
-        public string text;
+        public string Text;
 
-        public enum TransitionType {
+        public enum TransitionType
+        {
             [XmlEnum("Visible")] Visible,
             [XmlEnum("Movement")] Movement,
             [XmlEnum("MoveRel")] MoveRelative,
@@ -1376,53 +1369,50 @@ namespace W3D
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Movement")]
+    [XmlRoot("Movement")]
     public class MovementTransition : Xml
     {
-        [XmlElement(ElementName="Placement")]
+        [XmlElement("Placement")]
         public Placement Placement;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="MoveRel")]
+    [XmlRoot("MoveRel")]
     public class MoveRel : Xml
     {
-        [XmlElement(ElementName="Placement")]
+        [XmlElement("Placement")]
         public Placement Placement;
-
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Sound")]
+    [XmlRoot("Sound")]
     public class SoundTransition : Xml
     {
-        [XmlAttribute(AttributeName="action")]
+        [XmlAttribute("action")]
         public Controls Control;
-        public enum Controls { 
+        public enum Controls
+        {
             None,
-            [XmlEnum(Name="Play Sound")] Play,
-            [XmlEnum(Name="Stop Sound")] Stop,
+            [XmlEnum(Name = "Play Sound")] Play,
+            [XmlEnum(Name = "Stop Sound")] Stop,
         }
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="LinkChange")]
+    [XmlRoot("LinkChange")]
     public class LinkTransition : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="link_on")]
-        [XmlElement(ElementName="link_off")]
-        [XmlElement(ElementName="activate")]
-        [XmlElement(ElementName="activate_if_on")]
+        [XmlElement("link_on")]
+        [XmlElement("link_off")]
+        [XmlElement("activate")]
+        [XmlElement("activate_if_on")]
         public object Transition;
         public LinkTransitionTypes Type;
 
-        public enum LinkTransitionTypes {
+        public enum LinkTransitionTypes
+        {
             [XmlEnum("link_on")] On,
             [XmlEnum("link_off")] Off,
             [XmlEnum("activate")] Activate,
@@ -1430,30 +1420,29 @@ namespace W3D
         }
     }
 
-
     // PARTICLE DOMAIN
 
-
     [Serializable]
-    [XmlRoot(ElementName="ParticleDomain")]
+    [XmlRoot("ParticleDomain")]
     public class Particle : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement(ElementName="Point", Type=typeof(Point))]
-        [XmlElement(ElementName="Line", Type=typeof(Line))]
-        [XmlElement(ElementName="Triangle", Type=typeof(Triangle))]
-        [XmlElement(ElementName="Plane", Type=typeof(Plane))]
-        [XmlElement(ElementName="Rect", Type=typeof(Rectangle))]
-        [XmlElement(ElementName="Box", Type=typeof(BoxParticle))]
-        [XmlElement(ElementName="Sphere", Type=typeof(Sphere))]
-        [XmlElement(ElementName="Cylinder", Type=typeof(Cylinder))]
-        [XmlElement(ElementName="Cone", Type=typeof(Cone))]
-        [XmlElement(ElementName="Blob", Type=typeof(Blob))]
-        [XmlElement(ElementName="Disc", Type=typeof(Disc))]
+        [XmlElement("Point", Type = typeof(Point))]
+        [XmlElement("Line", Type = typeof(Line))]
+        [XmlElement("Triangle", Type = typeof(Triangle))]
+        [XmlElement("Plane", Type = typeof(Plane))]
+        [XmlElement("Rect", Type = typeof(Rectangle))]
+        [XmlElement("Box", Type = typeof(BoxParticle))]
+        [XmlElement("Sphere", Type = typeof(Sphere))]
+        [XmlElement("Cylinder", Type = typeof(Cylinder))]
+        [XmlElement("Cone", Type = typeof(Cone))]
+        [XmlElement("Blob", Type = typeof(Blob))]
+        [XmlElement("Disc", Type = typeof(Disc))]
         public object Data;
         public ParticleTypes Type;
 
-        public enum ParticleTypes {
+        public enum ParticleTypes
+        {
             [XmlEnum("Point")] Point,
             [XmlEnum("Line")] Line,
             [XmlEnum("Triangle")] Triangle,
@@ -1466,170 +1455,158 @@ namespace W3D
             [XmlEnum("Blob")] Blob,
             [XmlEnum("Disc")] Disc,
         }
-   }
-
+    }
 
     [Serializable]
-    [XmlRoot(ElementName="Point")]
+    [XmlRoot("Point")]
     public class Point : Xml
     {
-        [XmlAttribute(AttributeName="point")]
+        [XmlAttribute("point")]
         public string PointString;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Line")]
+    [XmlRoot("Line")]
     public class Line : Xml
     {
-        [XmlAttribute(AttributeName="p1")]
+        [XmlAttribute("p1")]
         public string P1String;
 
-        [XmlAttribute(AttributeName="p2")]
+        [XmlAttribute("p2")]
         public string P2String;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Triangle")]
+    [XmlRoot("Triangle")]
     public class Triangle : Xml
     {
-        [XmlAttribute(AttributeName="p1")]
+        [XmlAttribute("p1")]
         public string P1String;
 
-        [XmlAttribute(AttributeName="p2")]
+        [XmlAttribute("p2")]
         public string P2String;
 
-        [XmlAttribute(AttributeName="p3")]
+        [XmlAttribute("p3")]
         public string P3String;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Plane")]
+    [XmlRoot("Plane")]
     public class Plane : Xml
     {
-        [XmlAttribute(AttributeName="point")]
+        [XmlAttribute("point")]
         public string PointString;
 
-        [XmlAttribute(AttributeName="normal")]
+        [XmlAttribute("normal")]
         public string NormalString;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Rectangle")]
+    [XmlRoot("Rectangle")]
     public class Rectangle : Xml
     {
-        [XmlAttribute(AttributeName="p1")]
+        [XmlAttribute("p1")]
         public string P1String;
 
-        [XmlAttribute(AttributeName="u-dir")]
+        [XmlAttribute("u-dir")]
         public string UString;
 
-        [XmlAttribute(AttributeName="v-dir")]
+        [XmlAttribute("v-dir")]
         public string VString;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Box")]
+    [XmlRoot("Box")]
     public class BoxParticle : Xml
     {
-        [XmlAttribute(AttributeName="p1")]
+        [XmlAttribute("p1")]
         public string P1String;
 
-        [XmlAttribute(AttributeName="p2")]
+        [XmlAttribute("p2")]
         public string P2String;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Sphere")]
+    [XmlRoot("Sphere")]
     public class Sphere : Xml
     {
-        [XmlAttribute(AttributeName="center")]
+        [XmlAttribute("center")]
         public string CenterString;
 
-        [XmlAttribute(AttributeName="radius")]
+        [XmlAttribute("radius")]
         public string RadiusString;
 
-        [XmlAttribute(AttributeName="radius-inner")]
+        [XmlAttribute("radius-inner")]
         public string InnerRadiusString;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Cylinder")]
+    [XmlRoot("Cylinder")]
     public class Cylinder : Xml
     {
-        [XmlAttribute(AttributeName="p1")]
+        [XmlAttribute("p1")]
         public string P1String;
 
-        [XmlAttribute(AttributeName="p2")]
+        [XmlAttribute("p2")]
         public string P2String;
 
-        [XmlAttribute(AttributeName="radius")]
+        [XmlAttribute("radius")]
         public double Radius;
 
-        [XmlAttribute(AttributeName="radius-inner")]
+        [XmlAttribute("radius-inner")]
         public double InnerRadius;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Cone")]
+    [XmlRoot("Cone")]
     public class Cone : Xml
     {
-        [XmlAttribute(AttributeName="base-center")]
+        [XmlAttribute("base-center")]
         public string BaseCenterString;
 
-        [XmlAttribute(AttributeName="apex")]
+        [XmlAttribute("apex")]
         public string ApexString;
 
-        [XmlAttribute(AttributeName="radius")]
+        [XmlAttribute("radius")]
         public double Radius;
 
-        [XmlAttribute(AttributeName="radius-inner")]
+        [XmlAttribute("radius-inner")]
         public double InnerRadius;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Blob")]
+    [XmlRoot("Blob")]
     public class Blob : Xml
     {
-        [XmlAttribute(AttributeName="center")]
+        [XmlAttribute("center")]
         public string CenterString;
 
-        [XmlAttribute(AttributeName="stdev")]
+        [XmlAttribute("stdev")]
         public double Deviation;
     }
 
-
     [Serializable]
-    [XmlRoot(ElementName="Disc")]
+    [XmlRoot("Disc")]
     public class Disc : Xml
     {
-        [XmlAttribute(AttributeName="center")]
+        [XmlAttribute("center")]
         public string CenterString;
 
-        [XmlAttribute(AttributeName="normal")]
+        [XmlAttribute("normal")]
         public string Normal;
 
-        [XmlAttribute(AttributeName="radius")]
+        [XmlAttribute("radius")]
         public float Radius;
 
-        [XmlAttribute(AttributeName="radius-inner")]
+        [XmlAttribute("radius-inner")]
         public double InnerRadius;
     }
-
 
     // Reference another class/object by name
     [Serializable]
     public class Reference : Xml
     {
-        [XmlAttribute(AttributeName="name")]
+        [XmlAttribute("name")]
         public string Name;
     }
 }

@@ -3,17 +3,20 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SpatialTracking;
+using UnityEngine.UI;
 using Unity.XR.CoreUtils;
 
 using W3D;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
 
+# pragma warning disable RCS1110
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
     private void Start() { Main(); } // TEMP: Execute script from Unity directly
@@ -24,11 +27,11 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Debug.Log("Running Unity CLI");
 
         // The path to the xml is send as a command line argument
-        // string xmlPath = GetXmlPathArg();
-        string xmlPath = "../../test/sample.xml";
+        // const string xmlPath = GetXmlPathArg();
+        const string xmlPath = "../../test/sample.xml";
         Story xml = LoadStory(xmlPath);
 
-        // Create new scene and load the root GameObjects
+        // Create new scene and store the root GameObjects
         // InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
         // GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
         // GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
@@ -44,7 +47,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Application.logMessageReceivedThreaded -= HandleLog;
         Application.Quit();
     }
-
 
     // Get command line arguments from Python
     private static string GetXmlPathArg()
@@ -62,7 +64,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         {
             Debug.Log("Error initializing command line arguments");
             Debug.LogException(e);
-            throw e;
+            return null;
         }
     }
 
@@ -79,13 +81,13 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         {
             Debug.LogError($"ERROR: File at {xmlPath} not found");
             Debug.LogException(e);
-            throw e;
+            return null;
         }
         catch (Exception e)
         {
             Debug.LogError($"Error: Deserialization of file at {xmlPath} failed.");
             Debug.LogException(e);
-            throw e;
+            return null;
         }
     }
 
@@ -104,9 +106,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         {
             Debug.LogError($"Error creating scene for {xmlPath}");
             Debug.LogException(e);
-            throw e;
+            return null;
         }
-
     }
 
     // Apply camera, lighting, and tracking settings from the xml
@@ -116,7 +117,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Transform caveCameraT = story.transform.Find("Cave Camera");
 
         // Load default lighting settings and delete skybox
-        UnityEditor.Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
+        Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
         RenderSettings.skybox = null;
 
         // Use color based lighting - <Background color="0, 0, 0" />
@@ -128,7 +129,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         UnityEngine.Camera caveCamera =
             caveCameraT.GetComponent<UnityEngine.Camera>();
         caveCamera.farClipPlane = xmlCaveCamera.FarClip;
-        xmlCaveCamera.Placement.SetTransform(caveCamera.transform, 1f, story.transform);
+        xmlCaveCamera.Placement.SetTransform(caveCamera.transform, Vector3.one, story.transform);
 
         // Update Camera inside of xrRig
         W3D.Camera xmlCamera = xml.Camera;
@@ -184,7 +185,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 name = placement.Name
             };
             wall.SetActive(true);
-            placement.SetTransform(wall.transform, 1f, storyT);
+            placement.SetTransform(wall.transform, Vector3.one, storyT);
 
             // Create outline
             LineRenderer outline = wall.AddComponent<LineRenderer>();
@@ -207,7 +208,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         /** Object
             name: gameObject.name
             Visible: gameObject.active
-            Color: gameObject.[content].color
+            Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
             Lighting: TODO (76)
             ClickThrough: TODO (76)
             AroundSelfAxis: TODO (76)
@@ -215,38 +216,46 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         */
         foreach (W3D.Object xml in objectList)
         {
-            GameObject gameObject = new()
-            {
-                name = xml.Name
-            };
-            xml.Placement.SetTransform(gameObject.transform, xml.Scale, story.transform);
+            GameObject contentGO = xml.Content.Create(xml);
 
-            // TODO 74: LinkRoot.Link -> Add a VRCanvas
-            if (xml.LinkRoot is not null) { }
-
-            // Add Content component(s)
-            switch (xml.Content.ContentData)
+            // TODO (74): LinkRoot.Link -> Add a VRCanvas
+            if (xml.LinkRoot is not null)
             {
-                case Text textContent:
-                    textContent.GenerateTMP(gameObject, Xml.ConvertColor(xml.ColorString));
-                    break;
-                case Image imageContent:
-                    break; // TODO (65)
-                case StereoImage stereoImageContent:
-                    break; // TODO (66)
-                case Model modelContent:
-                    break; // TODO (67)
-                case W3D.Light lightContent:
-                    break; // TODO (68)
-                case W3D.ParticleSystem particleSystemContent:
-                    break; // TODO (69)
-                default:
-                    // This should be caught in Python
-                    throw new ArgumentException($"The object {xml.Name}'s content is not a valid");
+                // Instantiate a new link prefab
+                GameObject prefab = Instantiate(Resources.Load<GameObject>("Prefabs/canvas"));
+                prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
+
+                // Set xml for canvas
+                prefab.name = xml.Name;
+                prefab.SetActive(xml.Visible);
+                xml.Placement.SetTransform(prefab.transform, xml.GetScale(), story.transform);
+                prefab.transform.localScale *= 0.1f;
+
+                Link link = xml.LinkRoot.Link;
+                GameObject buttonGO = prefab.transform.GetChild(0).gameObject;
+                Button button = buttonGO.GetComponent<Button>();
+
+                // Nest the original <Content> GameObject inside the prefab
+                contentGO.transform.SetParent(buttonGO.transform, false);
+
+                // Set xml for button
+                button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
+                button.colors = link.SetColors(button.colors, xml.ColorString);
+                if (!link.RemainEnabled)
+                { // TODO: Disable button after click
+                }
+
+                // TODO (83): Add button actions
+                foreach (LinkActions action in link.Actions)
+                {
+                }
             }
-
-            gameObject.SetActive(xml.Visible);
-            gameObjects.Add(gameObject.name, gameObject);
+            else
+            {
+                contentGO.SetActive(xml.Visible);
+                xml.Placement.SetTransform(contentGO.transform, xml.GetScale(), story.transform);
+            }
+            gameObjects.Add(contentGO.name, contentGO);
         }
         return gameObjects;
     }
@@ -254,8 +263,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     // Callback function when Debug.Log is called within the CLI script
     private static void HandleLog(string logString, string stackTrace, LogType type)
     {
-        // TODO 84: Update text with rich color        
-        // Prepend "LOG:", we check for this in the Python script
+        // TODO (84): Change string based on LogType (rich color)
+        // Prepending "LOG:" will print the line to the screen (checked in Python script)
+
         Console.WriteLine($"LOG:{logString}");
     }
 }
