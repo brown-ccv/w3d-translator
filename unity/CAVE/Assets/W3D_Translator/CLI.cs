@@ -46,7 +46,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
         BuildWalls(xml, story.transform);
-        ObjDictionary gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
+        Dictionary<string, W3D.Object> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
         // TODO (95): Generate the <Group>s
         // TODO (96): Generate the <Timeline>s
@@ -214,9 +214,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     }
 
     // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
-    private static ObjDictionary TranslateGameObjects(List<W3D.Object> objectList, GameObject story)
+    private static Dictionary<string, W3D.Object> TranslateGameObjects(List<W3D.Object> objectList, GameObject story)
     {
-        ObjDictionary gameObjects = new();
+        Dictionary<string, W3D.Object> gameObjects = new();
         /** Object
             name: gameObject.name
             Visible: gameObject.active
@@ -257,21 +257,22 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 contentGO.SetActive(xml.Visible);
                 xml.Placement.SetTransform(contentGO.transform, xml.GetScale(), story.transform);
             }
-            gameObjects.Add(contentGO.name, (contentGO, xml));
+            xml.GameObject = contentGO;
+            gameObjects.Add(contentGO.name, xml);
         }
         return gameObjects;
     }
 
-    private static void SetLinkActions(ObjDictionary gameObjects, GameObject story)
+    private static void SetLinkActions(Dictionary<string, W3D.Object> gameObjects, GameObject story)
     {
         ActionMethods methods = story.GetComponent<ActionMethods>();
 
-        foreach (KeyValuePair<string, (GameObject, W3D.Object)> pair in
-            gameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
+        foreach (KeyValuePair<string, W3D.Object> pair in
+            gameObjects.Where(pair => pair.Value.LinkRoot is not null)
         )
         {
-            (GameObject go, W3D.Object obj) = pair.Value;
-            GameObject buttonGO = go.transform.parent.gameObject;
+            W3D.Object obj = pair.Value;
+            GameObject buttonGO = obj.GameObject.transform.parent.gameObject;
             Button button = buttonGO.GetComponent<Button>();
             Link link = obj.LinkRoot.Link;
 
@@ -330,7 +331,3 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Console.WriteLine($"LOG:{logString}");
     }
 }
-
-// Custom Dictionary Type
-// TODO (100): Should the GameObject just be a property of W3D.Object?
-public class ObjDictionary : Dictionary<string, (GameObject, W3D.Object)> { }

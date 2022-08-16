@@ -141,6 +141,9 @@ namespace W3D
         [XmlText]
         public string Text;
 
+        [XmlIgnore]
+        public GameObject GameObject;
+
         public Vector3 GetScale() { return Vector3.one * Scale; }
     }
 
