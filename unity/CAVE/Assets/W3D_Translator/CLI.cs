@@ -16,6 +16,7 @@ using W3D;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
 
+# pragma warning disable RCS1110
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 {
     private void Start() { Main(); } // TEMP: Execute script from Unity directly
@@ -26,8 +27,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Debug.Log("Running Unity CLI");
 
         // The path to the xml is send as a command line argument
-        // string xmlPath = GetXmlPathArg();
-        string xmlPath = "../../test/sample.xml";
+        // const string xmlPath = GetXmlPathArg();
+        const string xmlPath = "../../test/sample.xml";
         Story xml = LoadStory(xmlPath);
 
         // Create new scene and store the root GameObjects
@@ -47,7 +48,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Application.Quit();
     }
 
-
     // Get command line arguments from Python
     private static string GetXmlPathArg()
     {
@@ -64,7 +64,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         {
             Debug.Log("Error initializing command line arguments");
             Debug.LogException(e);
-            throw e;
+            return null;
         }
     }
 
@@ -81,13 +81,13 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         {
             Debug.LogError($"ERROR: File at {xmlPath} not found");
             Debug.LogException(e);
-            throw e;
+            return null;
         }
         catch (Exception e)
         {
             Debug.LogError($"Error: Deserialization of file at {xmlPath} failed.");
             Debug.LogException(e);
-            throw e;
+            return null;
         }
     }
 
@@ -106,9 +106,8 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         {
             Debug.LogError($"Error creating scene for {xmlPath}");
             Debug.LogException(e);
-            throw e;
+            return null;
         }
-
     }
 
     // Apply camera, lighting, and tracking settings from the xml
