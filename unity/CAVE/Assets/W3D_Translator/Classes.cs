@@ -16,7 +16,7 @@ namespace W3D
     public class Xml
     {
         // Print the class as a Json object
-        public string pprint() { return JsonUtility.ToJson(this, true); }
+        public string Pprint() { return JsonUtility.ToJson(this, true); }
 
         // Converts "[int], [int], [int]" to a UnityEngine.Color object
         static public Color ConvertColor(string colorString)
@@ -49,11 +49,11 @@ namespace W3D
     public class Story : Xml
     {
         [XmlArray(ElementName="ObjectRoot")]
-        [XmlArrayItem(ElementName="Object")] 
+        [XmlArrayItem(ElementName="Object")]
         public List<Object> ObjectRoot;
-    
+
         [XmlArray(ElementName="GroupRoot")]
-        [XmlArrayItem(ElementName="Group")] 
+        [XmlArrayItem(ElementName="Group")]
         public List<Group> GroupRoot;
 
     	[XmlArray(ElementName="TimelineRoot")]
@@ -246,9 +246,9 @@ namespace W3D
             TMP_Text tmpText = gameObject.GetComponent<TMP_Text>();
 
             // Set object properties defined in the xml
-            tmpText.SetText(this.String);
-            tmpText.horizontalAlignment = (HorizontalAlignmentOptions)this.HorizontalAlignment;
-            tmpText.verticalAlignment = (VerticalAlignmentOptions)this.VerticalAlignment;
+            tmpText.SetText(String);
+            tmpText.horizontalAlignment = (HorizontalAlignmentOptions)HorizontalAlignment;
+            tmpText.verticalAlignment = (VerticalAlignmentOptions)VerticalAlignment;
             tmpText.color = color; // Vertex Color
             tmpText.faceColor = color; // Material color
 
@@ -256,17 +256,17 @@ namespace W3D
             // TODO (72): More robust path checking
             TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
                 "Materials/Fonts/" + 
-                Path.GetFileNameWithoutExtension(this.Font) + 
+                Path.GetFileNameWithoutExtension(Font) + 
                 " SDF"
             );
             if(tmpFont == null) {
                 // Font material hasn't been created, attempt to load from ttf file
                 try {
-                    Font font = AssetDatabase.LoadAssetAtPath<Font>(this.Font);
+                    Font font = AssetDatabase.LoadAssetAtPath<Font>(Font);
                     tmpFont = TMP_FontAsset.CreateFontAsset(font);
-                    tmpFont.name = Path.GetFileNameWithoutExtension(this.Font);
+                    tmpFont.name = Path.GetFileNameWithoutExtension(Font);
                 } catch(NullReferenceException e) {
-                    Debug.LogError($"Error loading font: {this.Font}");
+                    Debug.LogError($"Error loading font: {Font}");
                     Debug.LogException(e);
                 }
             }
@@ -274,8 +274,8 @@ namespace W3D
             // Add font to the TextMeshPro object
             try {tmpText.font = tmpFont; }
             catch(NullReferenceException e) {
-                Debug.LogWarning($"{gameObject.name} {tmpFont.ToString()} {tmpText.font.ToString()}");
-                Debug.LogError($"Error creating font asset {this.Font} for {gameObject.name}");
+                Debug.LogWarning($"{gameObject.name} {tmpFont} {tmpText.font}");
+                Debug.LogError($"Error creating font asset {Font} for {gameObject.name}");
                 Debug.Log("Defaulting to fallback font LiberationSans SDF");
                 Debug.LogException(e);
             }
