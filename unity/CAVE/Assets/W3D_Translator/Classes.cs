@@ -158,13 +158,13 @@ namespace W3D
     public class Content : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("None", Type = null)]
-        [XmlElement("Text", Type = typeof(Text))]
-        [XmlElement("Image", Type = typeof(Image))]
-        [XmlElement("StereoImage", Type = typeof(StereoImage))]
-        [XmlElement("Model", Type = typeof(Model))]
-        [XmlElement("Light", Type = typeof(Light))]
-        [XmlElement("ParticleSystem", Type = typeof(ParticleSystem))]
+        [XmlElement("None", null)]
+        [XmlElement("Text", typeof(Text))]
+        [XmlElement("Image", typeof(Image))]
+        [XmlElement("StereoImage", typeof(StereoImage))]
+        [XmlElement("Model", typeof(Model))]
+        [XmlElement("Light", typeof(Light))]
+        [XmlElement("ParticleSystem", typeof(ParticleSystem))]
         public object ContentData;
         public ContentTypes Type;
 
@@ -347,7 +347,7 @@ namespace W3D
         [XmlChoiceIdentifier("Type")]
         [XmlElement("Point")]
         [XmlElement("Directional")]
-        [XmlElement("Spot", Type = typeof(Spot))]
+        [XmlElement("Spot", typeof(Spot))]
         public object Data;
         public LightTypes Type;
 
@@ -442,7 +442,7 @@ namespace W3D
     {
         [XmlChoiceIdentifier("Type")]
         [XmlElement("Any")]
-        [XmlElement("NumClicks", Type = typeof(NumClicks))]
+        [XmlElement("NumClicks", typeof(NumClicks))]
         public object Activation;
         public ActivationTypes Type;
 
@@ -473,8 +473,8 @@ namespace W3D
     public class Group : Xml
     {
         [XmlChoiceIdentifier("ReferenceTypes")]
-        [XmlElement("Objects", Type = typeof(Reference))]
-        [XmlElement("Groups", Type = typeof(Reference))]
+        [XmlElement("Objects", typeof(Reference))]
+        [XmlElement("Groups", typeof(Reference))]
         public Reference[] References;
         public ReferenceType[] ReferenceTypes;
 
@@ -570,7 +570,7 @@ namespace W3D
         [XmlChoiceIdentifier("Type")]
         [XmlElement("NoRepeat")]
         [XmlElement("RepeatForever")]
-        [XmlElement("RepeatNum", Type = typeof(uint))]
+        [XmlElement("RepeatNum", typeof(uint))]
         public object Data;
         public RepeatTypes Type;
 
@@ -603,8 +603,8 @@ namespace W3D
     public class EventTrigger : Xml
     {
         [XmlChoiceIdentifier("TrackType")]
-        [XmlElement("HeadTrack", Type = typeof(HeadTrack))]
-        [XmlElement("MoveTrack", Type = typeof(MoveTrack))]
+        [XmlElement("HeadTrack", typeof(HeadTrack))]
+        [XmlElement("MoveTrack", typeof(MoveTrack))]
         public object Tracking;
         public TrackTypes TrackType;
 
@@ -649,7 +649,7 @@ namespace W3D
     {
         [XmlChoiceIdentifier("Type")]
         [XmlElement("Anywhere")]
-        [XmlElement("Box", Type = typeof(Box))]
+        [XmlElement("Box", typeof(Box))]
         public object Position;
         public PositionTypes Type;
 
@@ -666,9 +666,9 @@ namespace W3D
     {
         [XmlChoiceIdentifier("TargetType")]
         [XmlElement("None")]
-        [XmlElement("PointTarget", Type = typeof(PointTarget))]
-        [XmlElement("DirectionTarget", Type = typeof(DirectionTarget))]
-        [XmlElement("ObjectTarget", Type = typeof(Reference))]
+        [XmlElement("PointTarget", typeof(PointTarget))]
+        [XmlElement("DirectionTarget", typeof(DirectionTarget))]
+        [XmlElement("ObjectTarget", typeof(Reference))]
         public object Target;
         public Targets TargetType;
 
@@ -721,8 +721,8 @@ namespace W3D
     public class Source : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("ObjectRef", Type = typeof(Reference))]
-        [XmlElement("GroupObj", Type = typeof(GroupSource))]
+        [XmlElement("ObjectRef", typeof(Reference))]
+        [XmlElement("GroupObj", typeof(GroupSource))]
         public object Data;
         public Sources Type;
 
@@ -831,19 +831,19 @@ namespace W3D
     public class ParticleAction : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("Avoid", Type = typeof(Avoid))]
-        [XmlElement("Bounce", Type = typeof(Bounce))]
-        [XmlElement("Gravity", Type = typeof(Gravity))]
-        [XmlElement("Damping", Type = typeof(Damping))]
-        [XmlElement("Gravitate", Type = typeof(Gravitate))]
-        [XmlElement("Follow", Type = typeof(Follow))]
-        [XmlElement("MatchVel", Type = typeof(MatchVel))]
-        [XmlElement("OrbitPoint", Type = typeof(OrbitPoint))]
-        [XmlElement("Jet", Type = typeof(Jet))]
+        [XmlElement("Avoid", typeof(Avoid))]
+        [XmlElement("Bounce", typeof(Bounce))]
+        [XmlElement("Gravity", typeof(Gravity))]
+        [XmlElement("Damping", typeof(Damping))]
+        [XmlElement("Gravitate", typeof(Gravitate))]
+        [XmlElement("Follow", typeof(Follow))]
+        [XmlElement("MatchVel", typeof(MatchVel))]
+        [XmlElement("OrbitPoint", typeof(OrbitPoint))]
+        [XmlElement("Jet", typeof(Jet))]
         [XmlElement("RandomVel")]
         [XmlElement("RandomAccel")]
         [XmlElement("RandomDisplace")]
-        [XmlElement("TargetColor", Type = typeof(TargetColor))]
+        [XmlElement("TargetColor", typeof(TargetColor))]
         [XmlElement("TargetSize")]
         [XmlElement("TargetVel")]
         public object Action;
@@ -1016,9 +1016,9 @@ namespace W3D
     public class RemoveCondition : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("Age", Type = typeof(Age))]
-        [XmlElement("Position", Type = typeof(Remove))]
-        [XmlElement("Velocity", Type = typeof(Remove))]
+        [XmlElement("Age", typeof(Age))]
+        [XmlElement("Position", typeof(Remove))]
+        [XmlElement("Velocity", typeof(Remove))]
         public object Condition;
         public RemoveConditions Type;
 
@@ -1125,9 +1125,9 @@ namespace W3D
         public string PositionString;
 
         [XmlChoiceIdentifier("RotationType")]
-        [XmlElement("Axis", Type = typeof(Axis))]
-        [XmlElement("LookAt", Type = typeof(LookAt))]
-        [XmlElement("Normal", Type = typeof(Normal))]
+        [XmlElement("Axis", typeof(Axis))]
+        [XmlElement("LookAt", typeof(LookAt))]
+        [XmlElement("Normal", typeof(Normal))]
         public object Rotation;
         public RotationTypes RotationType;
         public enum RotationTypes
@@ -1246,12 +1246,12 @@ namespace W3D
     public class Actions : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("ObjectChange", Type = typeof(ObjectChange))]
-        [XmlElement("GroupRef", Type = typeof(GroupRef))]
-        [XmlElement("TimerChange", Type = typeof(TimerChange))]
-        [XmlElement("SoundRef", Type = typeof(Reference))]
-        [XmlElement("Event", Type = typeof(Event))]
-        [XmlElement("MoveCave", Type = typeof(MoveCave))]
+        [XmlElement("ObjectChange", typeof(ObjectChange))]
+        [XmlElement("GroupRef", typeof(GroupRef))]
+        [XmlElement("TimerChange", typeof(TimerChange))]
+        [XmlElement("SoundRef", typeof(Reference))]
+        [XmlElement("Event", typeof(Event))]
+        [XmlElement("MoveCave", typeof(MoveCave))]
         [XmlElement("Restart")]
         public object Action;
         public ActionTypes Type;
@@ -1359,13 +1359,13 @@ namespace W3D
     public class Transition : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("Visible", Type = typeof(bool))]
-        [XmlElement("Movement", Type = typeof(MovementTransition))]
-        [XmlElement("MoveRel", Type = typeof(MoveRel))]
-        [XmlElement("Color", Type = typeof(string))]
-        [XmlElement("Scale", Type = typeof(float))]
-        [XmlElement("Sound", Type = typeof(SoundTransition))]
-        [XmlElement("LinkTransition", Type = typeof(LinkTransition))]
+        [XmlElement("Visible", typeof(bool))]
+        [XmlElement("Movement", typeof(MovementTransition))]
+        [XmlElement("MoveRel", typeof(MoveRel))]
+        [XmlElement("Color", typeof(string))]
+        [XmlElement("Scale", typeof(float))]
+        [XmlElement("Sound", typeof(SoundTransition))]
+        [XmlElement("LinkTransition", typeof(LinkTransition))]
         public object Change;
         public TransitionType Type;
 
@@ -1445,17 +1445,17 @@ namespace W3D
     public class Particle : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("Point", Type = typeof(Point))]
-        [XmlElement("Line", Type = typeof(Line))]
-        [XmlElement("Triangle", Type = typeof(Triangle))]
-        [XmlElement("Plane", Type = typeof(Plane))]
-        [XmlElement("Rect", Type = typeof(Rectangle))]
-        [XmlElement("Box", Type = typeof(BoxParticle))]
-        [XmlElement("Sphere", Type = typeof(Sphere))]
-        [XmlElement("Cylinder", Type = typeof(Cylinder))]
-        [XmlElement("Cone", Type = typeof(Cone))]
-        [XmlElement("Blob", Type = typeof(Blob))]
-        [XmlElement("Disc", Type = typeof(Disc))]
+        [XmlElement("Point", typeof(Point))]
+        [XmlElement("Line", typeof(Line))]
+        [XmlElement("Triangle", typeof(Triangle))]
+        [XmlElement("Plane", typeof(Plane))]
+        [XmlElement("Rect", typeof(Rectangle))]
+        [XmlElement("Box", typeof(BoxParticle))]
+        [XmlElement("Sphere", typeof(Sphere))]
+        [XmlElement("Cylinder", typeof(Cylinder))]
+        [XmlElement("Cone", typeof(Cone))]
+        [XmlElement("Blob", typeof(Blob))]
+        [XmlElement("Disc", typeof(Disc))]
         public object Data;
         public ParticleTypes Type;
 

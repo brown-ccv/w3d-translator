@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -17,6 +18,8 @@ using Unity.XR.CoreUtils;
 using W3D;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
+// TODO: Make story (GO) global?
+// TODO: Make story (xml) global?
 
 # pragma warning disable RCS1110
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
@@ -43,6 +46,14 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         ApplyGlobalSettings(xml.Global, xrRig, story);
         BuildWalls(xml, story.transform);
         Dictionary<string, GameObject> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
+
+        // TODO: Generate the <Group>s
+        // TODO: Generate the <Timeline>s
+        // TODO: Generate the <Sound>s
+        // TODO: Generate the <Event>s
+        // TODO: Generate the <ParticleAction>s
+
+        SetLinkActions(gameObjects, story, xml);
 
         // Save and quit
         // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
@@ -202,11 +213,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     }
 
     // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
-    private static Dictionary<string, GameObject> TranslateGameObjects(
-        List<W3D.Object> objectList, GameObject story
-    )
+    private static Dictionary<string, GameObject>
+        TranslateGameObjects(List<W3D.Object> objectList, GameObject story)
     {
-        ActionMethods methods = story.GetComponent<ActionMethods>();
         Dictionary<string, GameObject> gameObjects = new();
         /** Object
             name: gameObject.name
@@ -244,57 +253,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 // Set xml for button
                 button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
                 button.colors = link.SetColors(button.colors, xml.ColorString);
-
-                // Add the <Action>s to onClick
-                Button.ButtonClickedEvent onClick = button.onClick;
-                foreach (LinkActions xmlAction in link.Actions)
-                {
-                    if (
-                        xmlAction.Clicks is not null &&
-                        xmlAction.Clicks.Type == Clicks.ActivationTypes.Number
-                    )
-                    {
-                        // Button is only activated after a certain number of clicks
-                    }
-
-                    // TODO: Each case wil add this persistent listener (class method)
-                    // UnityEventTools.AddObjectPersistentListener<Button>(
-                    //     onClick, 
-                    //     new UnityAction<Button>(methods.DisableButton),// Call class function
-                    //     button
-                    // );
-
-                    // TODO (83): Add button actions
-                    switch (xmlAction.Action)
-                    {
-                        case ObjectChange objectRef:
-                            // TODO 86
-                            break;
-                        case GroupRef groupRef:
-                            // TODO 87
-                            break;
-                        case TimerChange timelineRef:
-                            // TODO 88
-                            break;
-                        case W3D.Event eventTriggerRef:
-                            // TODO 89
-                            break;
-                        case MoveCave moveCave:
-                            // TODO 90
-                            break;
-                        case Reference soundRef:
-                            // TODO 91
-                            break;
-                        default:
-                            if (xmlAction.Type == Actions.ActionTypes.Restart)
-                            {
-                                // TODO (92): Test for "Restart" type
-                            }
-                            else { throw new Exception("TODO"); }
-                            break;
-                    }
-                }
-                link.SetRemainEnabled(methods, onClick, button);
             }
             else
             {
@@ -304,6 +262,79 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
             gameObjects.Add(contentGO.name, contentGO);
         }
         return gameObjects;
+    }
+
+    private static void
+        SetLinkActions(Dictionary<string, GameObject> gameObjects, GameObject story, Story xml)
+    {
+        ActionMethods methods = story.GetComponent<ActionMethods>();
+
+        // TODO: Filter gameObjects for only LinkObjects
+        foreach (KeyValuePair<string, GameObject> pair in 
+            gameObjects.Where(pair => xml.ObjectRoot.Find(obj => obj.Name == pair.Key).LinkRoot is not null)
+        )
+        {
+            Debug.Log(pair.Key);
+            W3D.Object obj = xml.ObjectRoot.Find(obj => obj.Name == pair.Key);
+
+            Link link = obj.LinkRoot.Link;
+            GameObject go = pair.Value;
+            GameObject buttonGO = go.transform.parent.gameObject;
+            Button button = buttonGO.GetComponent<Button>();
+
+            Debug.Log(go.GetComponents<Component>().Length);
+
+            // Add the <Action>s to onClick
+            Button.ButtonClickedEvent onClick = button.onClick;
+            foreach (LinkActions xmlAction in link.Actions)
+            {
+                if (
+                    xmlAction.Clicks is not null &&
+                    xmlAction.Clicks.Type == Clicks.ActivationTypes.Number
+                )
+                {
+                    // Button is only activated after a certain number of clicks
+                }
+
+                // TODO: Each case wil add this persistent listener (class method)
+                // UnityEventTools.AddObjectPersistentListener<Button>(
+                //     onClick, 
+                //     new UnityAction<Button>(methods.DisableButton),// Call class function
+                //     button
+                // );
+
+                // TODO (83): Add button actions
+                switch (xmlAction.Action)
+                {
+                    case ObjectChange objectRef:
+                        // TODO 86
+                        break;
+                    case GroupRef groupRef:
+                        // TODO 87
+                        break;
+                    case TimerChange timelineRef:
+                        // TODO 88
+                        break;
+                    case W3D.Event eventTriggerRef:
+                        // TODO 89
+                        break;
+                    case MoveCave moveCave:
+                        // TODO 90
+                        break;
+                    case Reference soundRef:
+                        // TODO 91
+                        break;
+                    default:
+                        if (xmlAction.Type == Actions.ActionTypes.Restart)
+                        {
+                            // TODO (92): Test for "Restart" type
+                        }
+                        else { throw new Exception("TODO"); }
+                        break;
+                }
+            }
+            link.SetRemainEnabled(methods, onClick, button);
+        }
     }
 
     // Callback function when Debug.Log is called within the CLI script
