@@ -101,9 +101,9 @@ The `<Background color>...` attribute sets the background color for BOTH `Main C
 
 - Everything that updates XRRig must convert the xml (feet) to Unity (meters) because it's not inside the `Story`.
 
-## PlacementRoot
+## Placement
 
-Each `<Placement>...` inside `PlacementRoot` is a reference point for the `<RelativeTo>` child. They are empty GameObjects in Unity, nested under story and moved to the correct position/rotation. PlacementRoot is the same for all projects (see [minimuim.xml](examples/cweditor/minimum.xml)):
+Each `<Placement>` inside `PlacementRoot` is a reference point for the `<RelativeTo>` child. They are empty GameObjects in Unity, nested under story and moved to the correct position/rotation. PlacementRoot is the same for all projects (see [minimuim.xml](examples/cweditor/minimum.xml)):
 
 ```xml
 <PlacementRoot>
@@ -144,10 +144,6 @@ Each `<Placement>...` inside `PlacementRoot` is a reference point for the `<Rela
 </PlacementRoot>
 ```
 
-Note that even though the `<PlacementRoot>` is identical between projects each wall is still instantiated from `CLI.cs`.
-
-### Placement
-
 - `RelativeTo`: Which wall inside `PlacementRoot` the object is a child of in the hierarchy  
   - Objects that are `<RelativeTo>Center</RelativeTo>` are children of `Story`.
 - `<Position>`: The local position of the object
@@ -171,11 +167,9 @@ Note that even though the `<PlacementRoot>` is identical between projects each w
   - Unity has a built in `LookRotation()` function that takes the direction vector and `up`
 - `Normal` is calculated by **TODO: [63](https://github.com/brown-ccv/w3d-translator/issues/63)**
 
-## ObjectRoot
+## Object
 
-Each `<Object>...` inside `<ObjectRoot>` corresponds to a single GameObject in Unity. The `<Placement>` is set using `Placement.SetTransform`, see [above](#placement).
-
-### Object
+Each `<Object>` inside `<ObjectRoot>` corresponds to a single GameObject in Unity. The `<Placement>` is set using `Placement.SetTransform`, see [above](#placement).
 
 - `name`: gameObject.name
 - `<Color>`: gameObject.[content].color
@@ -262,36 +256,83 @@ TODO [69](https://github.com/brown-ccv/w3d-translator/issues/69)
 
 ### Link
 
-`<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object turns it into a clickable button. A canvas (grandparent) and button (parent) object are added to the hierarchy. The canvas's name will match the objects.
-
-#### Canvas and UI Button
-
-- `Canvas Renderer -> Cull Transparent Mesh` must be turned off (button and `<Object>`)
-- The canvas and button are scaled to a hit box around the child `<Object>`
-- The `Tracked Device Graphic Raycaster` script must be added to the canvas
-  
-#### Parent xml
-
-- "Blocking Mask" is set by `<ClickThrough>` in the original object
-- The `<Object>`s `<Color>` tag sets Button.NormalColor
-  - Make sure "Target Graphic" is set to the original `<Object>`
-
-#### Link xml
+`<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object turns it into a clickable button. A canvas (grandparent) and button (parent) object are added to the hierarchy - they are instantiated from the canvas prefab. The canvas's name will match the object's.
 
 - `<Enabled>`: Button.Intractable
 - `<RemainEnabled>`: Whether or not the button remains enabled after being clicked
-  - true: Navigation.None
-  - false: Navigation.Automatic
-- `<EnabledColor>`: Button.NormalColor
-- `<SelectedColor>`: Button.SelectedColor
-- `<Actions>`: An action to complete once triggered (Button.OnClick)
-  - Choice of actions (ObjectChange, GroupChange, TimerChange, SoundRef, Event, MoveCave, Restart)
-  - `<NumClicks>`: The number of clicks required to trigger the actions
-  - *Note that there can be mulitiple `<Actions>` per `<Link>`*
+- `<EnabledColor>`: Button.NormalColor && Button.HighlightedColor
+- `<SelectedColor>`: Button.PressedColor && Button.SelectedColor
+- `<Actions>`: An action to complete once triggered, see [below](#link-actions)
+  
+*Note that there can be multiple `<Actions>` per `<Link>`*
 
-*What to do with highlighted color? disabled color?*
+#### Parent xml
+
+- "Blocking Mask" is set by `<ClickThrough>` in the original object
+- The `<Object>`s `<Color>` tag sets Button.DisabledColor
+
+#### Link Actions
+
+- The kind of Action is an `<xs:choice>` (See [Actions](#actions))
+- `<Clicks>`: How the link is activated
+  - Any: The button is activated every time it's clicked
+  - Number:  The button is activated based on `<NumClicks>`
+  - `<NumClicks>`
+    - `num_clicks`: The number of clicks it takes to activate
+    - `reset`: Whether or not the object is reset after its been activated
 
 ### Changes and Conversions (Object)
 
 - `<Scale>` is applied to every axis (e.g. `scale * Vector3(1, 1, 1)`)
 - The scale of the canvas is `0.1, 0.1, 0.1`
+
+## Actions
+
+`ActionsType` is a `<xs:complexType>` used to change properties of the scene during runtime. Each different type is a different function in [ActionMethods.cs](unity/CAVE/Assets/Resources/Scripts/ActionMethods.cs) and every `<Action>` is one of the following types:
+
+- `ObjectChange` changes a given `<Object>`
+- `GroupRef` changes a given `<Group>`
+- `TimerChange` changes a given `<Timeline>`
+- `SoundRef` changes a given `<Sound>`
+- `Event` changes a given `<EventTrigger>`
+- `MoveCave` moves the entire `<Story>` to a new position
+- `Restart` changes a given `<Object>`
+
+### Actions in Unity
+
+TODO [101](https://github.com/brown-ccv/w3d-translator/issues/101)
+
+### ObjectChange
+
+TODO [86](https://github.com/brown-ccv/w3d-translator/issues/86)
+
+### GroupRef
+
+TODO [87](https://github.com/brown-ccv/w3d-translator/issues/87)
+
+### TimerChange
+
+TODO [88](https://github.com/brown-ccv/w3d-translator/issues/88)
+
+### SoundRef
+
+TODO [89](https://github.com/brown-ccv/w3d-translator/issues/89)
+
+### Event
+
+TODO [90](https://github.com/brown-ccv/w3d-translator/issues/90)
+
+### MoveCave
+
+TODO [91](https://github.com/brown-ccv/w3d-translator/issues/91)
+
+### Restart
+
+TODO [92](https://github.com/brown-ccv/w3d-translator/issues/92)
+
+### Other Methods
+
+In addition to the available action types, there are a few methods in `ActionMethods.cs` that provide runtime functionality:
+
+- `DisableButton` stops a button from being interactable.
+  - Added when [`<RemainEnabled>`](#link) is false

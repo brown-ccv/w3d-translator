@@ -18,8 +18,9 @@ using Unity.XR.CoreUtils;
 using W3D;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
-// TODO: Make story (GO) global?
-// TODO: Make story (xml) global?
+// TODO (94): Make story (GO) a member variable
+// TODO (94): Make (xml) a member variable
+// TODO (94): Make gameObjects a member variable
 
 # pragma warning disable RCS1110
 public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
@@ -47,11 +48,11 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         BuildWalls(xml, story.transform);
         ObjDictionary gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
-        // TODO: Generate the <Group>s
-        // TODO: Generate the <Timeline>s
-        // TODO: Generate the <Sound>s
-        // TODO: Generate the <Event>s
-        // TODO: Generate the <ParticleAction>s
+        // TODO (95): Generate the <Group>s
+        // TODO (96): Generate the <Timeline>s
+        // TODO (97): Generate the <Sound>s
+        // TODO (98): Generate the <Event>s
+        // TODO (99): Generate the <ParticleAction>s
 
         SetLinkActions(gameObjects, story);
 
@@ -228,8 +229,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         foreach (W3D.Object xml in objectList)
         {
             GameObject contentGO = xml.Content.Create(xml);
-
-            // TODO (74): LinkRoot.Link -> Add a VRCanvas
             if (xml.LinkRoot is not null)
             {
                 // Instantiate a new link prefab
@@ -288,13 +287,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                     // Button is only activated after a certain number of clicks
                 }
 
-                // TODO: Each case wil add this persistent listener (class method)
-                // UnityEventTools.AddObjectPersistentListener<Button>(
-                //     onClick, 
-                //     new UnityAction<Button>(methods.DisableButton),// Call class function
-                //     button
-                // );
-
                 // TODO (83): Add button actions
                 switch (xmlAction.Action)
                 {
@@ -319,7 +311,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                     default:
                         if (xmlAction.Type == Actions.ActionTypes.Restart)
                         {
-                            // TODO (92): Test for "Restart" type
+                            // TODO 92
                         }
                         else { throw new Exception("TODO"); }
                         break;
@@ -340,4 +332,5 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 }
 
 // Custom Dictionary Type
+// TODO (100): Should the GameObject just be a property of W3D.Object?
 public class ObjDictionary : Dictionary<string, (GameObject, W3D.Object)> { }
