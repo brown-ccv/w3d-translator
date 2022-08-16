@@ -45,7 +45,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
 
         ApplyGlobalSettings(xml.Global, xrRig, story);
         BuildWalls(xml, story.transform);
-        Dictionary<string, GameObject> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
+        ObjDictionary gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
         // TODO: Generate the <Group>s
         // TODO: Generate the <Timeline>s
@@ -53,7 +53,7 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         // TODO: Generate the <Event>s
         // TODO: Generate the <ParticleAction>s
 
-        SetLinkActions(gameObjects, story, xml);
+        SetLinkActions(gameObjects, story);
 
         // Save and quit
         // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
@@ -213,10 +213,9 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
     }
 
     // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
-    private static Dictionary<string, GameObject>
-        TranslateGameObjects(List<W3D.Object> objectList, GameObject story)
+    private static ObjDictionary TranslateGameObjects(List<W3D.Object> objectList, GameObject story)
     {
-        Dictionary<string, GameObject> gameObjects = new();
+        ObjDictionary gameObjects = new();
         /** Object
             name: gameObject.name
             Visible: gameObject.active
@@ -259,30 +258,23 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
                 contentGO.SetActive(xml.Visible);
                 xml.Placement.SetTransform(contentGO.transform, xml.GetScale(), story.transform);
             }
-            gameObjects.Add(contentGO.name, contentGO);
+            gameObjects.Add(contentGO.name, (contentGO, xml));
         }
         return gameObjects;
     }
 
-    private static void
-        SetLinkActions(Dictionary<string, GameObject> gameObjects, GameObject story, Story xml)
+    private static void SetLinkActions(ObjDictionary gameObjects, GameObject story)
     {
         ActionMethods methods = story.GetComponent<ActionMethods>();
 
-        // TODO: Filter gameObjects for only LinkObjects
-        foreach (KeyValuePair<string, GameObject> pair in 
-            gameObjects.Where(pair => xml.ObjectRoot.Find(obj => obj.Name == pair.Key).LinkRoot is not null)
+        foreach (KeyValuePair<string, (GameObject, W3D.Object)> pair in
+            gameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
         )
         {
-            Debug.Log(pair.Key);
-            W3D.Object obj = xml.ObjectRoot.Find(obj => obj.Name == pair.Key);
-
-            Link link = obj.LinkRoot.Link;
-            GameObject go = pair.Value;
+            (GameObject go, W3D.Object obj) = pair.Value;
             GameObject buttonGO = go.transform.parent.gameObject;
             Button button = buttonGO.GetComponent<Button>();
-
-            Debug.Log(go.GetComponents<Component>().Length);
+            Link link = obj.LinkRoot.Link;
 
             // Add the <Action>s to onClick
             Button.ButtonClickedEvent onClick = button.onClick;
@@ -346,3 +338,6 @@ public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
         Console.WriteLine($"LOG:{logString}");
     }
 }
+
+// Custom Dictionary Type
+public class ObjDictionary : Dictionary<string, (GameObject, W3D.Object)> { }
