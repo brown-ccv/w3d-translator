@@ -414,20 +414,19 @@ namespace W3D
         }
 
         // Disables button after click if RemainEnabled is false
-        public void SetRemainEnabled(
-            ActionMethods methods,
-            Button.ButtonClickedEvent onClick,
-            Button button
-        )
+        public void SetRemainEnabled(ActionMethods methods, Button.ButtonClickedEvent onClick, Button button)
         {
-            if (RemainEnabled) { return; }
-            UnityEventTools.AddObjectPersistentListener(
-                onClick,
-                new UnityAction<Button>(methods.DisableButton),
-                button
-            );
+            if (!RemainEnabled)
+            {
+                UnityEventTools.AddObjectPersistentListener(
+                    onClick,
+                    new UnityAction<Button>(methods.DisableButton),
+                    button
+                );
+            }
         }
     }
+
     [Serializable]
     [XmlRoot("Actions")]
     public class LinkActions : Actions
