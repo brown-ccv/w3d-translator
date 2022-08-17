@@ -274,7 +274,8 @@ namespace W3D
                 gameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
             )
             {
-                (GameObject go, Object obj) = pair.Value;
+                // (GameObject go, Object obj) = pair.Value;
+                var (go, obj) = pair.Value;
                 GameObject buttonGO = go.transform.parent.gameObject;
                 Button button = buttonGO.GetComponent<Button>();
                 Link link = obj.LinkRoot.Link;
