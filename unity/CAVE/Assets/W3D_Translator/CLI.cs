@@ -15,10 +15,11 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Unity.XR.CoreUtils;
 
-// Custom Dictionary Type
+// Custom Type renaming
 // TODO (100): Should the GameObject just be a property of Object?
 using ObjDictionary = System.Collections.Generic.Dictionary
     <string, (UnityEngine.GameObject, W3D.Object)>;
+using TType = UnityEngine.SpatialTracking.TrackedPoseDriver.TrackingType;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
 // TODO (94): Make story (GO) a member variable
@@ -163,13 +164,13 @@ namespace W3D
             switch (xml.WandNavigation.AllowRotation, xml.WandNavigation.AllowMovement)
             {
                 case (true, true):
-                    tracking.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
+                    tracking.trackingType = TType.RotationAndPosition;
                     break;
                 case (true, false):
-                    tracking.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
+                    tracking.trackingType = TType.RotationOnly;
                     break;
                 case (false, true):
-                    tracking.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
+                    tracking.trackingType = TType.PositionOnly;
                     break;
                 case (false, false):
                     tracking.enabled = false;
