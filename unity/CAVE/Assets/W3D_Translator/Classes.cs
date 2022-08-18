@@ -4,7 +4,9 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Events;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
@@ -156,13 +158,13 @@ namespace W3D
     public class Content : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("None", Type = null)]
-        [XmlElement("Text", Type = typeof(Text))]
-        [XmlElement("Image", Type = typeof(Image))]
-        [XmlElement("StereoImage", Type = typeof(StereoImage))]
-        [XmlElement("Model", Type = typeof(Model))]
-        [XmlElement("Light", Type = typeof(Light))]
-        [XmlElement("ParticleSystem", Type = typeof(ParticleSystem))]
+        [XmlElement("None", null)]
+        [XmlElement("Text", typeof(Text))]
+        [XmlElement("Image", typeof(Image))]
+        [XmlElement("StereoImage", typeof(StereoImage))]
+        [XmlElement("Model", typeof(Model))]
+        [XmlElement("Light", typeof(Light))]
+        [XmlElement("ParticleSystem", typeof(ParticleSystem))]
         public object ContentData;
         public ContentTypes Type;
 
@@ -333,8 +335,8 @@ namespace W3D
         [XmlAttribute("sequential")]
         public bool Sequential;
 
-        [XmlAttribute("speed")]
-        public double Speed;
+        [XmlAttribute(AttributeName = "speed")]
+        public float Speed;
     }
 
     [Serializable]
@@ -345,7 +347,7 @@ namespace W3D
         [XmlChoiceIdentifier("Type")]
         [XmlElement("Point")]
         [XmlElement("Directional")]
-        [XmlElement("Spot", Type = typeof(Spot))]
+        [XmlElement("Spot", typeof(Spot))]
         public object Data;
         public LightTypes Type;
 
@@ -355,14 +357,14 @@ namespace W3D
         [XmlAttribute("specular")]
         public bool Specular;
 
-        [XmlAttribute("const_atten")]
-        public double ConstAtten;
+        [XmlAttribute(AttributeName = "const_atten")]
+        public float ConstantAtten;
 
-        [XmlAttribute("lin_atten")]
-        public double LinAtten;
+        [XmlAttribute(AttributeName = "lin_atten")]
+        public float LinearAtten;
 
-        [XmlAttribute("quad_atten")]
-        public double QuadAtten;
+        [XmlAttribute(AttributeName = "quad_atten")]
+        public float QuadraticAtten;
 
         public enum LightTypes
         {
@@ -376,8 +378,8 @@ namespace W3D
     [XmlRoot("Spot")]
     public class Spot : Xml
     {
-        [XmlAttribute("angle")]
-        public double Angle;
+        [XmlAttribute(AttributeName = "angle")]
+        public float Angle;
     }
 
     // LINK
@@ -410,6 +412,19 @@ namespace W3D
             colors.disabledColor = ConvertColor(parentColorString);
             return colors;
         }
+
+        // Disables button after click if RemainEnabled is false
+        public void SetRemainEnabled(ActionMethods methods, Button.ButtonClickedEvent onClick, Button button)
+        {
+            if (!RemainEnabled)
+            {
+                UnityEventTools.AddObjectPersistentListener(
+                    onClick,
+                    new UnityAction<Button>(methods.DisableButton),
+                    button
+                );
+            }
+        }
     }
 
     [Serializable]
@@ -426,7 +441,7 @@ namespace W3D
     {
         [XmlChoiceIdentifier("Type")]
         [XmlElement("Any")]
-        [XmlElement("NumClicks", Type = typeof(NumClicks))]
+        [XmlElement("NumClicks", typeof(NumClicks))]
         public object Activation;
         public ActivationTypes Type;
 
@@ -435,6 +450,8 @@ namespace W3D
             [XmlEnum("Any")] Any,
             [XmlEnum("NumClicks")] Number,
         }
+
+        // public static DefaultClicks
     }
 
     [Serializable]
@@ -455,8 +472,8 @@ namespace W3D
     public class Group : Xml
     {
         [XmlChoiceIdentifier("ReferenceTypes")]
-        [XmlElement("Objects", Type = typeof(Reference))]
-        [XmlElement("Groups", Type = typeof(Reference))]
+        [XmlElement("Objects", typeof(Reference))]
+        [XmlElement("Groups", typeof(Reference))]
         public Reference[] References;
         public ReferenceType[] ReferenceTypes;
 
@@ -494,7 +511,7 @@ namespace W3D
     public class TimedActions : Actions
     {
         [XmlAttribute("seconds-time")]
-        public double SecondsTime;
+        public float SecondsTime;
 
         [XmlText]
         public string Text;
@@ -552,7 +569,7 @@ namespace W3D
         [XmlChoiceIdentifier("Type")]
         [XmlElement("NoRepeat")]
         [XmlElement("RepeatForever")]
-        [XmlElement("RepeatNum", Type = typeof(uint))]
+        [XmlElement("RepeatNum", typeof(uint))]
         public object Data;
         public RepeatTypes Type;
 
@@ -569,13 +586,13 @@ namespace W3D
     public class Settings : Xml
     {
         [XmlAttribute("freq")]
-        public double Frequency;
+        public float Frequency;
 
         [XmlAttribute("volume")]
-        public double Volume;
+        public float Volume;
 
         [XmlAttribute("pan")]
-        public double Pan;
+        public float Pan;
     }
 
     /********** EVENT TRIGGER       ***********/
@@ -585,8 +602,8 @@ namespace W3D
     public class EventTrigger : Xml
     {
         [XmlChoiceIdentifier("TrackType")]
-        [XmlElement("HeadTrack", Type = typeof(HeadTrack))]
-        [XmlElement("MoveTrack", Type = typeof(MoveTrack))]
+        [XmlElement("HeadTrack", typeof(HeadTrack))]
+        [XmlElement("MoveTrack", typeof(MoveTrack))]
         public object Tracking;
         public TrackTypes TrackType;
 
@@ -600,7 +617,7 @@ namespace W3D
         public string Name;
 
         [XmlAttribute("duration")]
-        public double Duration;
+        public float Duration;
 
         [XmlAttribute("remain-enabled")]
         public bool RemainEnabled;
@@ -631,7 +648,7 @@ namespace W3D
     {
         [XmlChoiceIdentifier("Type")]
         [XmlElement("Anywhere")]
-        [XmlElement("Box", Type = typeof(Box))]
+        [XmlElement("Box", typeof(Box))]
         public object Position;
         public PositionTypes Type;
 
@@ -648,9 +665,9 @@ namespace W3D
     {
         [XmlChoiceIdentifier("TargetType")]
         [XmlElement("None")]
-        [XmlElement("PointTarget", Type = typeof(PointTarget))]
-        [XmlElement("DirectionTarget", Type = typeof(DirectionTarget))]
-        [XmlElement("ObjectTarget", Type = typeof(Reference))]
+        [XmlElement("PointTarget", typeof(PointTarget))]
+        [XmlElement("DirectionTarget", typeof(DirectionTarget))]
+        [XmlElement("ObjectTarget", typeof(Reference))]
         public object Target;
         public Targets TargetType;
 
@@ -671,7 +688,7 @@ namespace W3D
         public string PointString;
 
         [XmlAttribute("angle")]
-        public double Angle;
+        public float Angle;
     }
 
     [Serializable]
@@ -682,7 +699,7 @@ namespace W3D
         public string DirectionString;
 
         [XmlAttribute("angle")]
-        public double Angle;
+        public float Angle;
     }
 
     // MOVE TRACK
@@ -703,8 +720,8 @@ namespace W3D
     public class Source : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("ObjectRef", Type = typeof(Reference))]
-        [XmlElement("GroupObj", Type = typeof(GroupSource))]
+        [XmlElement("ObjectRef", typeof(Reference))]
+        [XmlElement("GroupObj", typeof(GroupSource))]
         public object Data;
         public Sources Type;
 
@@ -795,7 +812,7 @@ namespace W3D
         public Particle Particle;
 
         [XmlAttribute("rate")]
-        public double Rate;
+        public float Rate;
     }
 
     [Serializable]
@@ -813,19 +830,19 @@ namespace W3D
     public class ParticleAction : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("Avoid", Type = typeof(Avoid))]
-        [XmlElement("Bounce", Type = typeof(Bounce))]
-        [XmlElement("Gravity", Type = typeof(Gravity))]
-        [XmlElement("Damping", Type = typeof(Damping))]
-        [XmlElement("Gravitate", Type = typeof(Gravitate))]
-        [XmlElement("Follow", Type = typeof(Follow))]
-        [XmlElement("MatchVel", Type = typeof(MatchVel))]
-        [XmlElement("OrbitPoint", Type = typeof(OrbitPoint))]
-        [XmlElement("Jet", Type = typeof(Jet))]
+        [XmlElement("Avoid", typeof(Avoid))]
+        [XmlElement("Bounce", typeof(Bounce))]
+        [XmlElement("Gravity", typeof(Gravity))]
+        [XmlElement("Damping", typeof(Damping))]
+        [XmlElement("Gravitate", typeof(Gravitate))]
+        [XmlElement("Follow", typeof(Follow))]
+        [XmlElement("MatchVel", typeof(MatchVel))]
+        [XmlElement("OrbitPoint", typeof(OrbitPoint))]
+        [XmlElement("Jet", typeof(Jet))]
         [XmlElement("RandomVel")]
         [XmlElement("RandomAccel")]
         [XmlElement("RandomDisplace")]
-        [XmlElement("TargetColor", Type = typeof(TargetColor))]
+        [XmlElement("TargetColor", typeof(TargetColor))]
         [XmlElement("TargetSize")]
         [XmlElement("TargetVel")]
         public object Action;
@@ -859,13 +876,13 @@ namespace W3D
         public Particle Particle;
 
         [XmlAttribute("magnitude")]
-        public double Magnitude;
+        public float Magnitude;
 
         [XmlAttribute("epsilon")]
-        public double Epsilon;
+        public float Epsilon;
 
         [XmlAttribute("lookahead")]
-        public double LookAhead;
+        public float LookAhead;
     }
 
     [Serializable]
@@ -876,13 +893,13 @@ namespace W3D
         public Particle Particle;
 
         [XmlAttribute("friction")]
-        public double Friction;
+        public float Friction;
 
         [XmlAttribute("resilience")]
-        public double Resilience;
+        public float Resilience;
 
         [XmlAttribute("cutoff")]
-        public double Cutoff;
+        public float Cutoff;
     }
 
     [Serializable]
@@ -901,10 +918,10 @@ namespace W3D
         public string DirectionString;
 
         [XmlAttribute("vel_low")]
-        public double VelocityLow;
+        public float VelocityLow;
 
         [XmlAttribute("vel_high")]
-        public double VelocityHigh;
+        public float VelocityHigh;
     }
 
     [Serializable]
@@ -912,13 +929,13 @@ namespace W3D
     public class Gravitate : Xml
     {
         [XmlAttribute("magnitude")]
-        public double Magnitude;
+        public float Magnitude;
 
         [XmlAttribute("epsilon")]
-        public double Epsilon;
+        public float Epsilon;
 
         [XmlAttribute("max_radius")]
-        public double MaxRadius;
+        public float MaxRadius;
     }
 
     [Serializable]
@@ -926,13 +943,13 @@ namespace W3D
     public class Follow : Xml
     {
         [XmlAttribute("magnitude")]
-        public double Magnitude;
+        public float Magnitude;
 
         [XmlAttribute("epsilon")]
-        public double Epsilon;
+        public float Epsilon;
 
         [XmlAttribute("max_radius")]
-        public double MaxRadius;
+        public float MaxRadius;
     }
 
     [Serializable]
@@ -940,13 +957,13 @@ namespace W3D
     public class MatchVel : Xml
     {
         [XmlAttribute("magnitude")]
-        public double Magnitude;
+        public float Magnitude;
 
         [XmlAttribute("epsilon")]
-        public double Epsilon;
+        public float Epsilon;
 
         [XmlAttribute("max_radius")]
-        public double MaxRadius;
+        public float MaxRadius;
     }
 
     [Serializable]
@@ -957,13 +974,13 @@ namespace W3D
         public string CenterString;
 
         [XmlAttribute("magnitude")]
-        public double Magnitude;
+        public float Magnitude;
 
         [XmlAttribute("epsilon")]
-        public double Epsilon;
+        public float Epsilon;
 
         [XmlAttribute("max_radius")]
-        public double MaxRadius;
+        public float MaxRadius;
     }
 
     [Serializable]
@@ -985,10 +1002,10 @@ namespace W3D
         public string ColorString;
 
         [XmlAttribute("alpha")]
-        public double Alpha;
+        public float Alpha;
 
         [XmlAttribute("scale")]
-        public double Scale;
+        public float Scale;
     }
 
     // REMOVE CONDITION
@@ -998,9 +1015,9 @@ namespace W3D
     public class RemoveCondition : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("Age", Type = typeof(Age))]
-        [XmlElement("Position", Type = typeof(Remove))]
-        [XmlElement("Velocity", Type = typeof(Remove))]
+        [XmlElement("Age", typeof(Age))]
+        [XmlElement("Position", typeof(Remove))]
+        [XmlElement("Velocity", typeof(Remove))]
         public object Condition;
         public RemoveConditions Type;
 
@@ -1017,7 +1034,7 @@ namespace W3D
     public class Age : Xml
     {
         [XmlAttribute("age")]
-        public double Seconds;
+        public float Seconds;
 
         [XmlAttribute("younger-than")]
         public bool YoungerThan;
@@ -1107,9 +1124,9 @@ namespace W3D
         public string PositionString;
 
         [XmlChoiceIdentifier("RotationType")]
-        [XmlElement("Axis", Type = typeof(Axis))]
-        [XmlElement("LookAt", Type = typeof(LookAt))]
-        [XmlElement("Normal", Type = typeof(Normal))]
+        [XmlElement("Axis", typeof(Axis))]
+        [XmlElement("LookAt", typeof(LookAt))]
+        [XmlElement("Normal", typeof(Normal))]
         public object Rotation;
         public RotationTypes RotationType;
         public enum RotationTypes
@@ -1228,12 +1245,12 @@ namespace W3D
     public class Actions : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("ObjectChange", Type = typeof(ObjectChange))]
-        [XmlElement("GroupRef", Type = typeof(GroupRef))]
-        [XmlElement("TimerChange", Type = typeof(TimerChange))]
-        [XmlElement("SoundRef", Type = typeof(Reference))]
-        [XmlElement("Event", Type = typeof(Event))]
-        [XmlElement("MoveCave", Type = typeof(MoveCave))]
+        [XmlElement("ObjectChange", typeof(ObjectChange))]
+        [XmlElement("GroupRef", typeof(GroupRef))]
+        [XmlElement("TimerChange", typeof(TimerChange))]
+        [XmlElement("SoundRef", typeof(Reference))]
+        [XmlElement("Event", typeof(Event))]
+        [XmlElement("MoveCave", typeof(MoveCave))]
         [XmlElement("Restart")]
         public object Action;
         public ActionTypes Type;
@@ -1323,7 +1340,7 @@ namespace W3D
         public Placement Placement;
 
         [XmlAttribute("duration")]
-        public double Duration;
+        public float Duration;
 
         [XmlText]
         public string Text;
@@ -1341,18 +1358,18 @@ namespace W3D
     public class Transition : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("Visible", Type = typeof(bool))]
-        [XmlElement("Movement", Type = typeof(MovementTransition))]
-        [XmlElement("MoveRel", Type = typeof(MoveRel))]
-        [XmlElement("Color", Type = typeof(string))]
-        [XmlElement("Scale", Type = typeof(double))]
-        [XmlElement("Sound", Type = typeof(SoundTransition))]
-        [XmlElement("LinkTransition", Type = typeof(LinkTransition))]
+        [XmlElement("Visible", typeof(bool))]
+        [XmlElement("Movement", typeof(MovementTransition))]
+        [XmlElement("MoveRel", typeof(MoveRel))]
+        [XmlElement("Color", typeof(string))]
+        [XmlElement("Scale", typeof(float))]
+        [XmlElement("Sound", typeof(SoundTransition))]
+        [XmlElement("LinkTransition", typeof(LinkTransition))]
         public object Change;
         public TransitionType Type;
 
         [XmlAttribute("duration")]
-        public double Duration;
+        public float Duration;
 
         [XmlText]
         public string Text;
@@ -1427,17 +1444,17 @@ namespace W3D
     public class Particle : Xml
     {
         [XmlChoiceIdentifier("Type")]
-        [XmlElement("Point", Type = typeof(Point))]
-        [XmlElement("Line", Type = typeof(Line))]
-        [XmlElement("Triangle", Type = typeof(Triangle))]
-        [XmlElement("Plane", Type = typeof(Plane))]
-        [XmlElement("Rect", Type = typeof(Rectangle))]
-        [XmlElement("Box", Type = typeof(BoxParticle))]
-        [XmlElement("Sphere", Type = typeof(Sphere))]
-        [XmlElement("Cylinder", Type = typeof(Cylinder))]
-        [XmlElement("Cone", Type = typeof(Cone))]
-        [XmlElement("Blob", Type = typeof(Blob))]
-        [XmlElement("Disc", Type = typeof(Disc))]
+        [XmlElement("Point", typeof(Point))]
+        [XmlElement("Line", typeof(Line))]
+        [XmlElement("Triangle", typeof(Triangle))]
+        [XmlElement("Plane", typeof(Plane))]
+        [XmlElement("Rect", typeof(Rectangle))]
+        [XmlElement("Box", typeof(BoxParticle))]
+        [XmlElement("Sphere", typeof(Sphere))]
+        [XmlElement("Cylinder", typeof(Cylinder))]
+        [XmlElement("Cone", typeof(Cone))]
+        [XmlElement("Blob", typeof(Blob))]
+        [XmlElement("Disc", typeof(Disc))]
         public object Data;
         public ParticleTypes Type;
 
@@ -1551,10 +1568,10 @@ namespace W3D
         public string P2String;
 
         [XmlAttribute("radius")]
-        public double Radius;
+        public float Radius;
 
         [XmlAttribute("radius-inner")]
-        public double InnerRadius;
+        public float InnerRadius;
     }
 
     [Serializable]
@@ -1568,10 +1585,10 @@ namespace W3D
         public string ApexString;
 
         [XmlAttribute("radius")]
-        public double Radius;
+        public float Radius;
 
         [XmlAttribute("radius-inner")]
-        public double InnerRadius;
+        public float InnerRadius;
     }
 
     [Serializable]
@@ -1582,7 +1599,7 @@ namespace W3D
         public string CenterString;
 
         [XmlAttribute("stdev")]
-        public double Deviation;
+        public float Deviation;
     }
 
     [Serializable]
@@ -1599,7 +1616,7 @@ namespace W3D
         public float Radius;
 
         [XmlAttribute("radius-inner")]
-        public double InnerRadius;
+        public float InnerRadius;
     }
 
     // Reference another class/object by name
