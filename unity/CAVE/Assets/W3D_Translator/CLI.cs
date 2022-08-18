@@ -51,7 +51,7 @@ namespace W3D
 
             ApplyGlobalSettings(xml.Global, xrRig, story);
             BuildWalls(xml, story.transform);
-            ObjDictionary gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
+            Dictionary<string, Object> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
 
             // TODO (95): Generate the <Group>s
             // TODO (96): Generate the <Timeline>s
@@ -218,27 +218,27 @@ namespace W3D
             return;
         }
 
-    // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
-    private static Dictionary<string, W3D.Object> TranslateGameObjects(List<W3D.Object> objectList, GameObject story)
-    {
-        Dictionary<string, W3D.Object> gameObjects = new();
-        /** Object
-            name: gameObject.name
-            Visible: gameObject.active
-            Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
-            Lighting: TODO (76)
-            ClickThrough: TODO (76)
-            AroundSelfAxis: TODO (76)
-            Scale: gameObject.localScale (set in Placement.SetTransform)
-        */
-        foreach (W3D.Object xml in objectList)
+        // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
+        private static Dictionary<string, W3D.Object> TranslateGameObjects(List<W3D.Object> objectList, GameObject story)
         {
-            GameObject contentGO = xml.Content.Create(xml);
-            if (xml.LinkRoot is not null)
+            Dictionary<string, Object> gameObjects = new();
+            /** Object
+                name: gameObject.name
+                Visible: gameObject.active
+                Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
+                Lighting: TODO (76)
+                ClickThrough: TODO (76)
+                AroundSelfAxis: TODO (76)
+                Scale: gameObject.localScale (set in Placement.SetTransform)
+            */
+            foreach (Object xml in objectList)
             {
-                // Instantiate a new link prefab
-                GameObject prefab = Instantiate(Resources.Load<GameObject>("Prefabs/canvas"));
-                prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
+                GameObject contentGO = xml.Content.Create(xml);
+                if (xml.LinkRoot is not null)
+                {
+                    // Instantiate a new link prefab
+                    GameObject prefab = Instantiate(Resources.Load<GameObject>("Prefabs/canvas"));
+                    prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
 
                     // Set xml for canvas
                     prefab.name = xml.Name;
@@ -262,24 +262,24 @@ namespace W3D
                     contentGO.SetActive(xml.Visible);
                     xml.Placement.SetTransform(contentGO.transform, xml.GetScale(), story.transform);
                 }
-                gameObjects.Add(contentGO.name, (contentGO, xml));
+                xml.GameObject = contentGO;
+                gameObjects.Add(contentGO.name, xml);
             }
             return gameObjects;
         }
 
-        private static void SetLinkActions(ObjDictionary gameObjects, GameObject story)
+        private static void SetLinkActions(Dictionary<string, Object> gameObjects, GameObject story)
         {
             ActionMethods methods = story.GetComponent<ActionMethods>();
 
-            foreach (KeyValuePair<string, (GameObject, Object)> pair in
-                gameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
+            foreach (KeyValuePair<string, Object> pair in
+                gameObjects.Where(pair => pair.Value.LinkRoot is not null)
             )
             {
-                // (GameObject go, Object obj) = pair.Value;
-                var (go, obj) = pair.Value;
-                GameObject buttonGO = go.transform.parent.gameObject;
-                Button button = buttonGO.GetComponent<Button>();
+                Object obj = pair.Value;
                 Link link = obj.LinkRoot.Link;
+                GameObject buttonGO = obj.GameObject.transform.parent.gameObject;
+                Button button = buttonGO.GetComponent<Button>();
 
                 // Add the <Action>s to onClick
                 Button.ButtonClickedEvent onClick = button.onClick;
