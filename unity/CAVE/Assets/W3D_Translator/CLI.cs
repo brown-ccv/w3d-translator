@@ -16,9 +16,6 @@ using UnityEngine.Events;
 using Unity.XR.CoreUtils;
 
 // Custom Type renaming
-// TODO (100): Should the GameObject just be a property of Object?
-using ObjDictionary = System.Collections.Generic.Dictionary
-    <string, (UnityEngine.GameObject, W3D.Object)>;
 using TType = UnityEngine.SpatialTracking.TrackedPoseDriver.TrackingType;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
@@ -35,7 +32,7 @@ namespace W3D
 #pragma warning disable IDE1006
         private static Story xml;
         private static GameObject story;
-        private static readonly ObjDictionary gameObjects = new();
+        private static readonly Dictionary<string, (GameObject, Object)> gameObjects = new();
 
         public static void Main()
         {
@@ -279,8 +276,7 @@ namespace W3D
                 gameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
             )
             {
-                // (GameObject go, Object obj) = pair.Value;
-                var (go, obj) = pair.Value;
+                (GameObject go, Object obj) = pair.Value;
                 GameObject buttonGO = go.transform.parent.gameObject;
                 Button button = buttonGO.GetComponent<Button>();
                 Link link = obj.LinkRoot.Link;
