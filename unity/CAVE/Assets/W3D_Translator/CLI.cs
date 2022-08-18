@@ -90,25 +90,23 @@ namespace W3D
         }
 
         // Deserialize the xml file into a Story object
-        private static Story LoadStory(string xmlPath)
+        private static void LoadStory(string xmlPath)
         {
             try
             {
                 XmlSerializer serializer = new(typeof(Story));
                 using XmlReader reader = XmlReader.Create(xmlPath);
-                return (Story)serializer.Deserialize(reader);
+                xml = (Story)serializer.Deserialize(reader);
             }
             catch (FileNotFoundException e)
             {
                 Debug.LogError($"ERROR: File at {xmlPath} not found");
                 Debug.LogException(e);
-                return null;
             }
             catch (Exception e)
             {
                 Debug.LogError($"Error: Deserialization of file at {xmlPath} failed.");
                 Debug.LogException(e);
-                return null;
             }
         }
 
