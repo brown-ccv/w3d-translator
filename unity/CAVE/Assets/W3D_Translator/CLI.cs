@@ -33,9 +33,9 @@ namespace W3D
         private void Start() { Main(); } // TEMP: Execute script from Unity directly
 
 #pragma warning disable IDE1006
-    private static Story xml;
-    private static GameObject story;
-    private static readonly ObjDictionary gameObjects = new();
+        private static Story xml;
+        private static GameObject story;
+        private static readonly ObjDictionary gameObjects = new();
 
         public static void Main()
         {
@@ -64,7 +64,7 @@ namespace W3D
             // TODO (98): Generate the <Event>s
             // TODO (99): Generate the <ParticleAction>s
 
-        SetLinkActions();
+            SetLinkActions();
 
             // Save and quit
             // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
@@ -134,11 +134,11 @@ namespace W3D
             }
         }
 
-    // Apply camera, lighting, and tracking settings from the xml
-    private static void ApplyGlobalSettings(Global xml, GameObject xrRig)
-    {
-        Transform mainCameraT = xrRig.transform.Find("Camera Offset").Find("Main Camera");
-        Transform caveCameraT = story.transform.Find("Cave Camera");
+        // Apply camera, lighting, and tracking settings from the xml
+        private static void ApplyGlobalSettings(Global xml, GameObject xrRig)
+        {
+            Transform mainCameraT = xrRig.transform.Find("Camera Offset").Find("Main Camera");
+            Transform caveCameraT = story.transform.Find("Cave Camera");
 
             // Load default lighting settings and delete skybox
             Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
@@ -187,11 +187,11 @@ namespace W3D
             }
         }
 
-    // Create each <Placement> as an outlined GameObject 
-    private static void BuildWalls(Transform storyT)
-    {
-        // Each wall is an 8" by 8" square
-        Vector3[] points = {
+        // Create each <Placement> as an outlined GameObject 
+        private static void BuildWalls(Transform storyT)
+        {
+            // Each wall is an 8" by 8" square
+            Vector3[] points = {
             new Vector3(-4, 4, 0),
             new Vector3(4, 4, 0),
             new Vector3(4, -4, 0),
@@ -223,26 +223,26 @@ namespace W3D
             return;
         }
 
-    // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
-    private static void TranslateGameObjects(List<W3D.Object> objectList)
-    {
-        /** Object
-            name: gameObject.name
-            Visible: gameObject.active
-            Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
-            Lighting: TODO (76)
-            ClickThrough: TODO (76)
-            AroundSelfAxis: TODO (76)
-            Scale: gameObject.localScale (set in Placement.SetTransform)
-        */
-        foreach (W3D.Object xml in objectList)
+        // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
+        private static void TranslateGameObjects(List<W3D.Object> objectList)
         {
-            GameObject contentGO = xml.Content.Create(xml);
-            if (xml.LinkRoot is not null)
+            /** Object
+                name: gameObject.name
+                Visible: gameObject.active
+                Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
+                Lighting: TODO (76)
+                ClickThrough: TODO (76)
+                AroundSelfAxis: TODO (76)
+                Scale: gameObject.localScale (set in Placement.SetTransform)
+            */
+            foreach (W3D.Object xml in objectList)
             {
-                // Instantiate a new link prefab
-                GameObject prefab = Instantiate(Resources.Load<GameObject>("Prefabs/canvas"));
-                prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
+                GameObject contentGO = xml.Content.Create(xml);
+                if (xml.LinkRoot is not null)
+                {
+                    // Instantiate a new link prefab
+                    GameObject prefab = Instantiate(Resources.Load<GameObject>("Prefabs/canvas"));
+                    prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
 
                     // Set xml for canvas
                     prefab.name = xml.Name;
@@ -268,10 +268,10 @@ namespace W3D
                 }
                 gameObjects.Add(contentGO.name, (contentGO, xml));
             }
-            return gameObjects;
+            return;
         }
 
-        private static void SetLinkActions(ObjDictionary gameObjects, GameObject story)
+        private static void SetLinkActions()
         {
             ActionMethods methods = story.GetComponent<ActionMethods>();
 
