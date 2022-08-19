@@ -16,9 +16,6 @@ using UnityEngine.Events;
 using Unity.XR.CoreUtils;
 
 // Custom Type renaming
-// TODO (100): Should the GameObject just be a property of Object?
-using ObjDictionary = System.Collections.Generic.Dictionary
-    <string, (UnityEngine.GameObject, W3D.Object)>;
 using TType = UnityEngine.SpatialTracking.TrackedPoseDriver.TrackingType;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
@@ -32,6 +29,10 @@ namespace W3D
     {
         private void Start() { Main(); } // TEMP: Execute script from Unity directly
 
+        private static Story XML;
+        private static GameObject Story;
+        private static readonly Dictionary<string, (GameObject, Object)> GameObjects = new();
+
         public static void Main()
         {
             Application.logMessageReceivedThreaded += HandleLog;
@@ -40,18 +41,18 @@ namespace W3D
             // The path to the xml is send as a command line argument
             // const string xmlPath = GetXmlPathArg();
             const string xmlPath = "../../test/sample.xml";
-            Story xml = LoadStory(xmlPath);
+            LoadStory(xmlPath);
 
             // Create new scene and store the root GameObjects
             // InstantiationResult instantiatedScene = InstantiateScene(xmlPath);
             // GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
-            // GameObject story = instantiatedScene.scene.GetRootGameObjects()[1];
+            // story = instantiatedScene.scene.GetRootGameObjects()[1];
             GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
-            GameObject story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
+            Story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
 
-            ApplyGlobalSettings(xml.Global, xrRig, story);
-            BuildWalls(xml, story.transform);
-            Dictionary<string, Object> gameObjects = TranslateGameObjects(xml.ObjectRoot, story);
+            ApplyGlobalSettings(XML.Global, xrRig);
+            BuildWalls(Story.transform);
+            TranslateGameObjects(XML.ObjectRoot);
 
             // TODO (95): Generate the <Group>s
             // TODO (96): Generate the <Timeline>s
@@ -59,7 +60,7 @@ namespace W3D
             // TODO (98): Generate the <Event>s
             // TODO (99): Generate the <ParticleAction>s
 
-            SetLinkActions(gameObjects, story);
+            SetLinkActions();
 
             // Save and quit
             // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
@@ -88,25 +89,23 @@ namespace W3D
         }
 
         // Deserialize the xml file into a Story object
-        private static Story LoadStory(string xmlPath)
+        private static void LoadStory(string xmlPath)
         {
             try
             {
                 XmlSerializer serializer = new(typeof(Story));
                 using XmlReader reader = XmlReader.Create(xmlPath);
-                return (Story)serializer.Deserialize(reader);
+                XML = (Story)serializer.Deserialize(reader);
             }
             catch (FileNotFoundException e)
             {
                 Debug.LogError($"ERROR: File at {xmlPath} not found");
                 Debug.LogException(e);
-                return null;
             }
             catch (Exception e)
             {
                 Debug.LogError($"Error: Deserialization of file at {xmlPath} failed.");
                 Debug.LogException(e);
-                return null;
             }
         }
 
@@ -130,10 +129,10 @@ namespace W3D
         }
 
         // Apply camera, lighting, and tracking settings from the xml
-        private static void ApplyGlobalSettings(Global xml, GameObject xrRig, GameObject story)
+        private static void ApplyGlobalSettings(Global xml, GameObject xrRig)
         {
             Transform mainCameraT = xrRig.transform.Find("Camera Offset").Find("Main Camera");
-            Transform caveCameraT = story.transform.Find("Cave Camera");
+            Transform caveCameraT = Story.transform.Find("Cave Camera");
 
             // Load default lighting settings and delete skybox
             Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
@@ -148,7 +147,7 @@ namespace W3D
             UnityEngine.Camera caveCamera =
                 caveCameraT.GetComponent<UnityEngine.Camera>();
             caveCamera.farClipPlane = xmlCaveCamera.FarClip;
-            xmlCaveCamera.Placement.SetTransform(caveCamera.transform, Vector3.one, story.transform);
+            xmlCaveCamera.Placement.SetTransform(caveCamera.transform, Vector3.one, Story.transform);
 
             // Update Camera inside of xrRig
             Camera xmlCamera = xml.Camera;
@@ -183,7 +182,7 @@ namespace W3D
         }
 
         // Create each <Placement> as an outlined GameObject 
-        private static void BuildWalls(Story xml, Transform storyT)
+        private static void BuildWalls(Transform storyT)
         {
             // Each wall is an 8" by 8" square
             Vector3[] points = {
@@ -193,7 +192,7 @@ namespace W3D
             new Vector3(-4, -4, 0),
         };
 
-            foreach (Placement placement in xml.PlacementRoot)
+            foreach (Placement placement in XML.PlacementRoot)
             {
                 // Objects in the "Center" space are nested directly under Story
                 if (placement.Name == "Center") { continue; }
@@ -219,9 +218,8 @@ namespace W3D
         }
 
         // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
-        private static Dictionary<string, W3D.Object> TranslateGameObjects(List<W3D.Object> objectList, GameObject story)
+        private static void TranslateGameObjects(List<Object> objectList)
         {
-            Dictionary<string, Object> gameObjects = new();
             /** Object
                 name: gameObject.name
                 Visible: gameObject.active
@@ -243,7 +241,7 @@ namespace W3D
                     // Set xml for canvas
                     prefab.name = xml.Name;
                     prefab.SetActive(xml.Visible);
-                    xml.Placement.SetTransform(prefab.transform, xml.GetScale(), story.transform);
+                    xml.Placement.SetTransform(prefab.transform, xml.GetScale(), Story.transform);
                     prefab.transform.localScale *= 0.1f;
 
                     Link link = xml.LinkRoot.Link;
@@ -260,20 +258,20 @@ namespace W3D
                 else
                 {
                     contentGO.SetActive(xml.Visible);
-                    xml.Placement.SetTransform(contentGO.transform, xml.GetScale(), story.transform);
+                    xml.Placement.SetTransform(contentGO.transform, xml.GetScale(), Story.transform);
                 }
                 xml.GameObject = contentGO;
-                gameObjects.Add(contentGO.name, xml);
+                GameObjects.Add(contentGO.name, xml);
             }
-            return gameObjects;
+            return;
         }
 
-        private static void SetLinkActions(Dictionary<string, Object> gameObjects, GameObject story)
+        private static void SetLinkActions()
         {
-            ActionMethods methods = story.GetComponent<ActionMethods>();
+            ActionMethods methods = Story.GetComponent<ActionMethods>();
 
             foreach (KeyValuePair<string, Object> pair in
-                gameObjects.Where(pair => pair.Value.LinkRoot is not null)
+                GameObjects.Where(pair => pair.Value.LinkRoot is not null)
             )
             {
                 Object obj = pair.Value;
