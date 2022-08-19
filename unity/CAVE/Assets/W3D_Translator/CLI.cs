@@ -31,7 +31,7 @@ namespace W3D
 
         private static Story XML;
         private static GameObject Story;
-        private static readonly Dictionary<string, (GameObject, Object)> GameObjects = new();
+        private static readonly Dictionary<string, Object> GameObjects = new();
 
         public static void Main()
         {
@@ -261,7 +261,7 @@ namespace W3D
                     xml.Placement.SetTransform(contentGO.transform, xml.GetScale(), Story.transform);
                 }
                 xml.GameObject = contentGO;
-                GameObjects.Add(contentGO.name, xml);
+                GameObjects.Add(xml.Name, xml);
             }
             return;
         }
