@@ -159,6 +159,7 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             + f"[cyan]{project_dir.name}/{xml_path.name}[/cyan] "
             + "translated successfully\n"
         )
+    # TODO 113: Remove Assets/W3D_Translator from output project
 
 
 def main(
