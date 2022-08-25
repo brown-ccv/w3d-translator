@@ -25,7 +25,7 @@ namespace W3D
     [ExecuteInEditMode]
     public static class CLI // TEMP: MonoBehavior can be removed?
     {
-        // private void Start() { Main(); } // TEMP: Execute script from Unity directly
+        // public static ProjectPath;
 
         private static Root RootX;
         private static GameObject Root;
@@ -33,6 +33,7 @@ namespace W3D
 
         private static readonly Dictionary<string, (GameObject, XML.Object)> GameObjects = new();
 
+        [MenuItem("Custom/CLI %g")]
         public static void Main()
         {
             Application.logMessageReceivedThreaded += HandleLog;
@@ -44,11 +45,9 @@ namespace W3D
             LoadStory(projectPath);
 
             // Create new scene and store the root GameObjects
-            // InstantiationResult instantiatedScene = InstantiateScene(projectPath);
-            // GameObject xrRig = instantiatedScene.scene.GetRootGameObjects()[0];
-            // story = instantiatedScene.scene.GetRootGameObjects()[1];
-            XrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
-            Root = SceneManager.GetActiveScene().GetRootGameObjects()[1];
+            InstantiationResult instantiatedScene = InstantiateScene(projectPath);
+            XrRig = instantiatedScene.scene.GetRootGameObjects()[0];
+            Root = instantiatedScene.scene.GetRootGameObjects()[1];
 
             ApplyGlobalSettings();
             BuildWalls();
