@@ -15,8 +15,8 @@ using Unity.XR.CoreUtils;
 
 using XML;
 
-// Custom Type renaming
-using TType = UnityEngine.SpatialTracking.TrackedPoseDriver.TrackingType;
+using static UnityEngine.SpatialTracking.TrackedPoseDriver;
+using static UnityEditor.Events.UnityEventTools;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
 
@@ -162,13 +162,13 @@ namespace W3D
             switch (globalX.WandNavigation.AllowRotation, globalX.WandNavigation.AllowMovement)
             {
                 case (true, true):
-                    tracking.trackingType = TType.RotationAndPosition;
+                    tracking.trackingType = TrackingType.RotationAndPosition;
                     break;
                 case (true, false):
-                    tracking.trackingType = TType.RotationOnly;
+                    tracking.trackingType = TrackingType.RotationOnly;
                     break;
                 case (false, true):
-                    tracking.trackingType = TType.PositionOnly;
+                    tracking.trackingType = TrackingType.PositionOnly;
                     break;
                 case (false, false):
                     tracking.enabled = false;
@@ -251,62 +251,76 @@ namespace W3D
 
         private static void SetLinkActions()
         {
-            foreach (KeyValuePair<string, (GameObject, XML.Object)> pair in
+            foreach (
+                KeyValuePair<string, (GameObject, XML.Object)> pair in
                 GameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
             )
             {
                 (GameObject go, XML.Object obj) = pair.Value;
+                Link link = obj.LinkRoot.Link;
                 GameObject buttonGO = go.transform.parent.gameObject;
                 Button button = buttonGO.GetComponent<Button>();
-                Link link = obj.LinkRoot.Link;
+                ButtonManager bm = button.GetComponent<ButtonManager>();
+                Button.ButtonClickedEvent onClick = button.onClick;
+
+                // Add actions
+                AddVoidPersistentListener(onClick, new UnityAction(bm.Counter));
+                AddVoidPersistentListener(onClick, new UnityAction(bm.ExecuteActions));
 
                 // Add the <Action>s to onClick
-                Button.ButtonClickedEvent onClick = button.onClick;
                 foreach (LinkActions linkActionX in link.Actions)
                 {
-                    Clicks clicksX = linkActionX.Clicks;
-                    if (clicksX is not null && clicksX.Type == Clicks.ActivationTypes.Number)
-                    {
-                        // Button is only activated after a certain number of clicks
-                    }
-
-                    // TODO (83): Add button actions
-                    switch (linkActionX.Action)
-                    {
-                        case ObjectChange objectRef:
-                            // TODO 86
-                            break;
-                        case GroupRef groupRef:
-                            // TODO 87
-                            break;
-                        case TimerChange timelineRef:
-                            // TODO 88
-                            break;
-                        case XML.Event eventTriggerRef:
-                            // TODO 89
-                            break;
-                        case MoveCave moveCave:
-                            // TODO 90
-                            break;
-                        case Reference soundRef:
-                            // TODO 91
-                            break;
-                        default:
-                            if (linkActionX.Type == Actions.ActionTypes.Restart)
-                            {
-                                // TODO 92
-                            }
-                            else { throw new Exception("TODO"); }
-                            break;
-                    }
+                    AddAction(linkActionX, bm.ActionEvent);
                 }
                 if (!link.RemainEnabled)
                 {
-                    UnityEventTools.AddVoidPersistentListener(
+                    AddVoidPersistentListener(
                         onClick,
-                        new UnityAction(button.GetComponent<ButtonManager>().DisableButton)
+                        new UnityAction(button.GetComponent<ButtonManager>().Disable)
                     );
                 }
+            }
+        }
+
+        private static void AddAction(LinkActions linkActionX, ActionEvent actionEvent)
+        {
+            GameObject reference;
+
+            switch (linkActionX.Action)
+            {
+                case ObjectChange objChange:
+                    // TODO: 86
+                    reference = GameObjects[objChange.Name].Item1;
+
+                    // TEMP - just test with Visible
+                    // TODO build object based on Transition type
+                    VisibleTransition parameters = new();
+                    // AddObjectPersistentListener(
+                    //     actionEvent,
+                    //     new UnityAction<Action>(
+                    //         reference.GetComponent<ObjectManager>().VisibleTransition
+                    //     ),
+                    //     parameters
+                    // );
+                    break;
+                case GroupChange groupChange:
+                    // TODO: 87
+                    break;
+                case TimerChange timerChange:
+                    // TODO: 88
+                    break;
+                case EventChange eventChange:
+                    // TODO: 89
+                    break;
+                case MoveCave moveCave:
+                    // TODO: 90
+                    break;
+                case Reference soundChange:
+                    // TODO: 91
+                    break;
+                case null:
+                    // TODO: 92
+                    break;
             }
         }
 

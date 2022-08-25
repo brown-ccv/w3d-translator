@@ -1234,10 +1234,10 @@ namespace XML
     {
         [XmlChoiceIdentifier("Type")]
         [XmlElement("ObjectChange", typeof(ObjectChange))]
-        [XmlElement("GroupRef", typeof(GroupRef))]
+        [XmlElement("GroupRef", typeof(GroupChange))]
         [XmlElement("TimerChange", typeof(TimerChange))]
         [XmlElement("SoundRef", typeof(Reference))]
-        [XmlElement("Event", typeof(Event))]
+        [XmlElement("Event", typeof(EventChange))]
         [XmlElement("MoveCave", typeof(MoveCave))]
         [XmlElement("Restart")]
         public object Action;
@@ -1268,7 +1268,7 @@ namespace XML
 
     [Serializable]
     [XmlRoot("GroupRef")]
-    public class GroupRef : Reference
+    public class GroupChange : Reference
     {
         [XmlElement("Transition")]
         public Transition Transition;
@@ -1308,7 +1308,7 @@ namespace XML
 
     [Serializable]
     [XmlRoot("Event")]
-    public class Event : Reference
+    public class EventChange : Reference
     {
         [XmlAttribute("enable")]
         public bool Enable;
