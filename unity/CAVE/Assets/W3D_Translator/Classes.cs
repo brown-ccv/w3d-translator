@@ -142,6 +142,28 @@ namespace XML
         public string Text;
 
         public Vector3 GetScale() { return Vector3.one * Scale; }
+
+        public GameObject Create()
+        {
+            // GameObject gameObject = new(); // Prefab
+            GameObject gameObject = Content.ContentData switch
+            {
+                Text text => text.GenerateTMP(
+                    LinkRoot is not null,
+                    ConvertColor(ColorString)
+                ),
+                Image image => new GameObject(), // TODO (65)
+                StereoImage stereoImage => new(), // TODO (66)
+                Model model => new GameObject(), // TODO (67)
+                Light light => new GameObject(), // TODO (68)
+                ParticleSystem particleSystem => new GameObject(), // TODO (69)
+                _ => new GameObject(), // TODO: - Shouldn't occur, throw error
+            };
+            gameObject.name = Name;
+            gameObject.tag = "Object";
+            _ = gameObject.AddComponent<W3D.ObjectManager>();
+            return gameObject;
+        }
     }
 
     [XmlRoot("LinkRoot")]
@@ -177,25 +199,6 @@ namespace XML
             [XmlEnum("Model")] Model,
             [XmlEnum("Light")] Light,
             [XmlEnum("ParticleSystem")] ParticleSystem,
-        }
-
-        public GameObject Create(Object parent)
-        {
-            GameObject gameObject = ContentData switch
-            {
-                Text text => text.GenerateTMP(
-                    parent.LinkRoot is not null,
-                    ConvertColor(parent.ColorString)
-                ),
-                Image image => new GameObject(), // TODO (65)
-                StereoImage stereoImage => new(), // TODO (66)
-                Model model => new GameObject(), // TODO (67)
-                Light light => new GameObject(), // TODO (68)
-                ParticleSystem particleSystem => new GameObject(), // TODO (69)
-                _ => new GameObject(), // TODO: - Shouldn't occur, throw error
-            };
-            gameObject.name = parent.Name;
-            return gameObject;
         }
     }
 

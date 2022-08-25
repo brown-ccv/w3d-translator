@@ -51,7 +51,7 @@ namespace W3D
 
             ApplyGlobalSettings();
             BuildWalls();
-            TranslateGameObjects();
+            BuildGameObjects();
 
             // TODO (95): Generate the <Group>s
             // TODO (96): Generate the <Timeline>s
@@ -197,7 +197,7 @@ namespace W3D
         }
 
         // Build the <Object>s and save them in a dictionary of {name: GameObject} pairs
-        private static void TranslateGameObjects()
+        private static void BuildGameObjects()
         {
             /** Object
                 name: gameObject.name
@@ -210,7 +210,7 @@ namespace W3D
             */
             foreach (XML.Object objectX in RootX.ObjectRoot)
             {
-                GameObject contentGO = objectX.Content.Create(objectX);
+                GameObject contentGO = objectX.Create();
                 if (objectX.LinkRoot is not null)
                 {
                     // Instantiate a new link prefab

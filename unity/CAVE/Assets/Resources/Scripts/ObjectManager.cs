@@ -1,5 +1,12 @@
 using UnityEngine;
 
-public class ObjectManager : MonoBehaviour {
-    
+namespace W3D
+{
+    public class ObjectManager : MonoBehaviour
+    {
+        public void temp()
+        {
+
+        }
+    }
 }
