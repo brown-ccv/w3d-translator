@@ -263,7 +263,6 @@ namespace W3D
                 }
                 GameObjects.Add(contentGO.name, (contentGO, xml));
             }
-            return;
         }
 
         private static void SetLinkActions()
@@ -319,15 +318,13 @@ namespace W3D
                             break;
                     }
                 }
-                // link.SetRemainEnabled(methods, onClick, button);
-                // if (!RemainEnabled)
-                // {
-                //     UnityEventTools.AddObjectPersistentListener(
-                //         onClick,
-                //         new UnityAction<Button>(methods.DisableButton),
-                //         button
-                //     );
-                // }
+                if (!link.RemainEnabled)
+                {
+                    UnityEventTools.AddVoidPersistentListener(
+                        onClick,
+                        new UnityAction(button.GetComponent<ButtonManager>().DisableButton)
+                    );
+                }
             }
         }
 
