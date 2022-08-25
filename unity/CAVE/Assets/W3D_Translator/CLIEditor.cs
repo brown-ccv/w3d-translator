@@ -2,28 +2,28 @@ using UnityEngine;
 using UnityEditor;
 
 /** TEMPORARY FILE
-
-    This class is a temporary file for running CLI.cs directly from the 
+    This class is a temporary file for running CLI.cs directly from the Unity Editor Window
 
 */
 namespace W3D
 {
-
-    [CustomEditor(typeof(CLI))]
-    public class CLIEditor : Editor
+    public class CLI_GUI : EditorWindow
     {
-        public override void OnInspectorGUI()
+        [MenuItem("Custom/CLI")]
+        private static void Init()
         {
-            base.OnInspectorGUI();
+            EditorWindow window = GetWindow(typeof(CLI_GUI));
+            window.Show();
+        }
 
-            // CLI cli = (CLI)LoadAssetAtPath("W3D_Translator/CLI.cs", typeof(CLI));
+        private void OnGUI()
+        {
+            if (CLI.ProjectPath is null) { CLI.ProjectPath = "../../test/sample.xml"; }
 
-            CLI.Main();
+            CLI.ProjectPath = EditorGUILayout.TextField("Path: ", CLI.ProjectPath);
 
-            // THis becomes CLI.path
-            // myTarget.experience = EditorGUILayout.IntField("Experience", myTarget.experience);
-            // EditorGUILayout.LabelField("Level", myTarget.Level.ToString());
-
+            if (GUILayout.Button("CLI.Main")) { CLI.Main(); }
+            Repaint();
         }
     }
 }

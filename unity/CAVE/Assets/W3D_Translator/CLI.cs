@@ -25,29 +25,29 @@ namespace W3D
     [ExecuteInEditMode]
     public static class CLI // TEMP: MonoBehavior can be removed?
     {
-        // public static ProjectPath;
+        public static string ProjectPath;
 
         private static Root RootX;
         private static GameObject Root;
         private static GameObject XrRig;
 
-        private static readonly Dictionary<string, (GameObject, XML.Object)> GameObjects = new();
+        private static Dictionary<string, (GameObject, XML.Object)> GameObjects;
 
-        [MenuItem("Custom/CLI %g")]
+        [MenuItem("Custom/CLI.Main %g")]
         public static void Main()
         {
             Application.logMessageReceivedThreaded += HandleLog;
             Debug.Log("Running Unity CLI");
 
             // The path to the xml file is sent as a command line argument
-            // const string projectPath = GetXmlPathArg();
-            const string projectPath = "../../test/sample.xml";
-            LoadStory(projectPath);
+            GetXmlPathArg();
+            LoadStory();
 
             // Create new scene and store the root GameObjects
-            InstantiationResult instantiatedScene = InstantiateScene(projectPath);
+            InstantiationResult instantiatedScene = InstantiateScene();
             XrRig = instantiatedScene.scene.GetRootGameObjects()[0];
             Root = instantiatedScene.scene.GetRootGameObjects()[1];
+            GameObjects = new Dictionary<string, (GameObject, XML.Object)>();
 
             ApplyGlobalSettings();
             BuildWalls();
@@ -68,60 +68,62 @@ namespace W3D
         }
 
         // Get command line arguments from Python
-        private static string GetXmlPathArg()
+        private static void GetXmlPathArg()
         {
-            try
+            if (UnityEditorInternal.InternalEditorUtility.inBatchMode)
             {
-                string[] args = Environment.GetCommandLineArgs();
-                for (int i = 0; i < args.Length; i++)
+                try
                 {
-                    if (args[i] == "--projectPath") { return args[++i]; }
+                    string[] args = Environment.GetCommandLineArgs();
+                    for (int i = 0; i < args.Length; i++)
+                    {
+                        if (args[i] == "--projectPath") { ProjectPath = args[++i]; }
+                    }
                 }
-                return null; // No Path given
+                catch (Exception e)
+                {
+                    Debug.Log("Error initializing command line arguments");
+                    Debug.LogException(e);
+                }
             }
-            catch (Exception e)
-            {
-                Debug.Log("Error initializing command line arguments");
-                Debug.LogException(e);
-                return null;
-            }
+            // TODO: Need to catch if ProjectPath is still null
         }
 
         // Deserialize the xml file
-        private static void LoadStory(string projectPath)
+        private static void LoadStory()
         {
             try
             {
                 System.Xml.Serialization.XmlSerializer serializer = new(typeof(Root));
-                using var reader = System.Xml.XmlReader.Create(projectPath);
+                using var reader = System.Xml.XmlReader.Create(ProjectPath);
                 RootX = (Root)serializer.Deserialize(reader);
             }
             catch (FileNotFoundException e)
             {
-                Debug.LogError($"ERROR: File at {projectPath} not found");
+                Debug.LogError($"ERROR: File at {ProjectPath} not found");
                 Debug.LogException(e);
             }
             catch (Exception e)
             {
-                Debug.LogError($"Error: Deserialization of file at {projectPath} failed.");
+                Debug.LogError($"Error: Deserialization of file at {ProjectPath} failed.");
                 Debug.LogException(e);
             }
         }
 
         // Create a new scene in Unity
-        private static InstantiationResult InstantiateScene(string projectPath)
+        private static InstantiationResult InstantiateScene()
         {
             try
             {
                 return SceneTemplateService.Instantiate(
                     Resources.Load<SceneTemplateAsset>("CAVE"),
                     false,
-                    $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(projectPath)}.unity"
+                    $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(ProjectPath)}.unity"
                 );
             }
             catch (Exception e)
             {
-                Debug.LogError($"Error creating scene for {projectPath}");
+                Debug.LogError($"Error creating scene for {ProjectPath}");
                 Debug.LogException(e);
                 return null;
             }
@@ -283,7 +285,7 @@ namespace W3D
                 foreach (LinkActions linkActionX in link.Actions)
                 {
                     Clicks clicksX = linkActionX.Clicks;
-                    if (clicksX is not null &&clicksX.Type == Clicks.ActivationTypes.Number)
+                    if (clicksX is not null && clicksX.Type == Clicks.ActivationTypes.Number)
                     {
                         // Button is only activated after a certain number of clicks
                     }
