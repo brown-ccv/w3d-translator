@@ -182,33 +182,15 @@ namespace W3D
         // Create each <Placement> as an outlined GameObject 
         private static void BuildWalls()
         {
-            // Each wall is an 8" by 8" square
-            Vector3[] points = {
-                new Vector3(-4, 4, 0),
-                new Vector3(4, 4, 0),
-                new Vector3(4, -4, 0),
-                new Vector3(-4, -4, 0),
-            };
-
-            foreach (Placement placement in RootX.PlacementRoot)
+            foreach (Placement placement in XML.PlacementRoot)
             {
                 // Objects in the "Center" space are nested directly under Root
                 if (placement.Name == "Center") { continue; }
 
                 // Create and position wall
-                GameObject wall = new() { name = placement.Name };
-                // TODO: TEST
-                // wall.SetActive(true); 
-                placement.SetTransform(wall.transform, Vector3.one, Root.transform);
-
-                // Create outline
-                LineRenderer outline = wall.AddComponent<LineRenderer>();
-                outline.material = (Material)Resources.Load("Materials/EmitWhite", typeof(Material));
-                outline.widthMultiplier = 0.01f;
-                outline.useWorldSpace = false;
-                outline.loop = true;
-                outline.positionCount = points.Length;
-                outline.SetPositions(points);
+                GameObject wall = Instantiate(Resources.Load<GameObject>("Prefabs/wall"));
+                wall.name = placement.Name;
+                placement.SetTransform(wall.transform, Vector3.one, storyT);
             }
         }
 
