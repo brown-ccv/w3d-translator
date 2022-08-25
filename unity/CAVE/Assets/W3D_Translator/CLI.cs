@@ -37,7 +37,7 @@ namespace W3D
         public static void Main()
         {
             Application.logMessageReceivedThreaded += HandleLog;
-            Debug.Log("Running Unity CLI");
+            Debug.Log($"Running Unity CLI {ProjectPath}");
 
             // The path to the xml file is sent as a command line argument
             GetXmlPathArg();
@@ -98,15 +98,15 @@ namespace W3D
                 using var reader = System.Xml.XmlReader.Create(ProjectPath);
                 RootX = (Root)serializer.Deserialize(reader);
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
                 Debug.LogError($"ERROR: File at {ProjectPath} not found");
-                Debug.LogException(e);
+                throw;
             }
-            catch (Exception e)
+            catch
             {
                 Debug.LogError($"Error: Deserialization of file at {ProjectPath} failed.");
-                Debug.LogException(e);
+                throw;
             }
         }
 
