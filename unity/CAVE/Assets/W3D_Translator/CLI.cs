@@ -22,9 +22,10 @@ using TType = UnityEngine.SpatialTracking.TrackedPoseDriver.TrackingType;
 
 namespace W3D
 {
-    public class CLI : MonoBehaviour // TEMP: MonoBehavior can be removed?
+    [ExecuteInEditMode]
+    public static class CLI // TEMP: MonoBehavior can be removed?
     {
-        private void Start() { Main(); } // TEMP: Execute script from Unity directly
+        // private void Start() { Main(); } // TEMP: Execute script from Unity directly
 
         private static Root RootX;
         private static GameObject Root;
@@ -232,7 +233,9 @@ namespace W3D
                 if (objectX.LinkRoot is not null)
                 {
                     // Instantiate a new link prefab
-                    GameObject prefab = Instantiate(Resources.Load<GameObject>("Prefabs/canvas"));
+                    GameObject prefab = (GameObject)PrefabUtility.InstantiatePrefab(
+                        Resources.Load<GameObject>("Prefabs/canvas")
+                    );
                     prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
 
                     // Initialize canvas
