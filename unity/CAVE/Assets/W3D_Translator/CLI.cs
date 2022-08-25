@@ -203,10 +203,10 @@ namespace W3D
 
                 // Create outline
                 LineRenderer outline = wall.AddComponent<LineRenderer>();
+                outline.material = (Material)Resources.Load("Materials/EmitWhite", typeof(Material));
                 outline.widthMultiplier = 0.01f;
                 outline.useWorldSpace = false;
                 outline.loop = true;
-                outline.material.SetColor("_EmissionColor", Color.white);
                 outline.positionCount = points.Length;
                 outline.SetPositions(points);
             }
