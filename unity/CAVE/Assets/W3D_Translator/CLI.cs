@@ -70,23 +70,19 @@ namespace W3D
         // Get command line arguments from Python
         private static void GetXmlPathArg()
         {
-            if (UnityEditorInternal.InternalEditorUtility.inBatchMode)
+            try
             {
-                try
+                string[] args = Environment.GetCommandLineArgs();
+                for (int i = 0; i < args.Length; i++)
                 {
-                    string[] args = Environment.GetCommandLineArgs();
-                    for (int i = 0; i < args.Length; i++)
-                    {
-                        if (args[i] == "--projectPath") { ProjectPath = args[++i]; }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.Log("Error initializing command line arguments");
-                    Debug.LogException(e);
+                    if (args[i] == "--projectPath") { ProjectPath = args[++i]; }
                 }
             }
-            // TODO: Need to catch if ProjectPath is still null
+            catch (Exception e)
+            {
+                Debug.Log("Error initializing command line arguments");
+                Debug.LogException(e);
+            }
         }
 
         // Deserialize the xml file
