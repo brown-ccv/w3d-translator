@@ -4,7 +4,7 @@ using UnityEngine;
 // TODO: Make XML namespace
 namespace W3D
 {
-    public class ButtonAction : MonoBehaviour
+    public class ButtonManager : MonoBehaviour
     {
         public void DisableButton()
         {
