@@ -182,15 +182,17 @@ namespace W3D
         // Create each <Placement> as an outlined GameObject 
         private static void BuildWalls()
         {
-            foreach (Placement placement in XML.PlacementRoot)
+            foreach (Placement placement in RootX.PlacementRoot)
             {
                 // Objects in the "Center" space are nested directly under Root
                 if (placement.Name == "Center") { continue; }
 
                 // Create and position wall
-                GameObject wall = Instantiate(Resources.Load<GameObject>("Prefabs/wall"));
+                GameObject wall = (GameObject)PrefabUtility.InstantiatePrefab(
+                    Resources.Load<GameObject>("Prefabs/wall")
+                );
                 wall.name = placement.Name;
-                placement.SetTransform(wall.transform, Vector3.one, storyT);
+                placement.SetTransform(wall.transform, Vector3.one, Root.transform);
             }
         }
 
