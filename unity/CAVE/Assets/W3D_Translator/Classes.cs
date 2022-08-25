@@ -45,7 +45,7 @@ namespace XML
 
     [Serializable]
     [XmlRoot("Story")]
-    public class Story : Xml
+    public class Root : Xml
     {
         [XmlArray("ObjectRoot")]
         [XmlArrayItem("Object")]
