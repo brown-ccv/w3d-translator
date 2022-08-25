@@ -161,7 +161,7 @@ namespace XML
             };
             gameObject.name = Name;
             gameObject.tag = "Object";
-            _ = gameObject.AddComponent<W3D.ObjectManager>();
+            gameObject.AddComponent<W3D.ObjectManager>();
             return gameObject;
         }
     }
