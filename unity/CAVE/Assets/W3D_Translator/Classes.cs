@@ -246,7 +246,7 @@ namespace XML
             tmpText.horizontalAlignment = (HorizontalAlignmentOptions)HorizontalAlignment;
             tmpText.verticalAlignment = (VerticalAlignmentOptions)VerticalAlignment;
             tmpText.color = color; // Vertex Color
-            
+
             // Load font material
             // TODO (72): More robust path checking
             TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
