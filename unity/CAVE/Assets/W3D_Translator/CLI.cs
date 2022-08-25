@@ -1,7 +1,5 @@
 using System;
 using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEditor;
@@ -94,8 +92,8 @@ namespace W3D
         {
             try
             {
-                XmlSerializer serializer = new(typeof(Story));
-                using XmlReader reader = XmlReader.Create(projectPath);
+                System.Xml.Serialization.XmlSerializer serializer = new(typeof(Story));
+                using var reader = System.Xml.XmlReader.Create(projectPath);
                 StoryX = (Story)serializer.Deserialize(reader);
             }
             catch (FileNotFoundException e)
