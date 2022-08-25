@@ -15,13 +15,14 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Unity.XR.CoreUtils;
 
+using XML;
+
 // Custom Type renaming
 using TType = UnityEngine.SpatialTracking.TrackedPoseDriver.TrackingType;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
-// TODO (94): Make story (GO) a member variable
-// TODO (94): Make (xml) a member variable
-// TODO (94): Make gameObjects a member variable
+
+// TODO: Get rid of all the xml names, no help
 
 namespace W3D
 {
@@ -29,9 +30,9 @@ namespace W3D
     {
         private void Start() { Main(); } // TEMP: Execute script from Unity directly
 
-        private static Story XML;
+        private static Story original;
         private static GameObject Story;
-        private static readonly Dictionary<string, (GameObject, Object)> GameObjects = new();
+        private static readonly Dictionary<string, (GameObject, XML.Object)> GameObjects = new();
 
         public static void Main()
         {
@@ -50,9 +51,9 @@ namespace W3D
             GameObject xrRig = SceneManager.GetActiveScene().GetRootGameObjects()[0];
             Story = SceneManager.GetActiveScene().GetRootGameObjects()[1];
 
-            ApplyGlobalSettings(XML.Global, xrRig);
+            ApplyGlobalSettings(original.Global, xrRig);
             BuildWalls(Story.transform);
-            TranslateGameObjects(XML.ObjectRoot);
+            TranslateGameObjects(original.ObjectRoot);
 
             // TODO (95): Generate the <Group>s
             // TODO (96): Generate the <Timeline>s
@@ -95,7 +96,7 @@ namespace W3D
             {
                 XmlSerializer serializer = new(typeof(Story));
                 using XmlReader reader = XmlReader.Create(xmlPath);
-                XML = (Story)serializer.Deserialize(reader);
+                original = (Story)serializer.Deserialize(reader);
             }
             catch (FileNotFoundException e)
             {
@@ -143,14 +144,14 @@ namespace W3D
             RenderSettings.ambientLight = Xml.ConvertColor(xml.Background.ColorString);
 
             // Update CaveCamera inside of story
-            Camera xmlCaveCamera = xml.CaveCamera;
+            XML.Camera xmlCaveCamera = xml.CaveCamera;
             UnityEngine.Camera caveCamera =
                 caveCameraT.GetComponent<UnityEngine.Camera>();
             caveCamera.farClipPlane = xmlCaveCamera.FarClip;
             xmlCaveCamera.Placement.SetTransform(caveCamera.transform, Vector3.one, Story.transform);
 
             // Update Camera inside of xrRig
-            Camera xmlCamera = xml.Camera;
+            XML.Camera xmlCamera = xml.Camera;
             UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
             camera.farClipPlane = xmlCamera.FarClip;
             xrRig.transform.position =
@@ -192,7 +193,7 @@ namespace W3D
             new Vector3(-4, -4, 0),
         };
 
-            foreach (Placement placement in XML.PlacementRoot)
+            foreach (Placement placement in original.PlacementRoot)
             {
                 // Objects in the "Center" space are nested directly under Story
                 if (placement.Name == "Center") { continue; }
@@ -218,7 +219,7 @@ namespace W3D
         }
 
         // Convert Story.ObjectRoot to a dictionary of {name: GameObject} pairs
-        private static void TranslateGameObjects(List<Object> objectList)
+        private static void TranslateGameObjects(List<XML.Object> objectList)
         {
             /** Object
                 name: gameObject.name
@@ -229,7 +230,7 @@ namespace W3D
                 AroundSelfAxis: TODO (76)
                 Scale: gameObject.localScale (set in Placement.SetTransform)
             */
-            foreach (Object xml in objectList)
+            foreach (XML.Object xml in objectList)
             {
                 GameObject contentGO = xml.Content.Create(xml);
                 if (xml.LinkRoot is not null)
@@ -244,7 +245,7 @@ namespace W3D
                     xml.Placement.SetTransform(prefab.transform, xml.GetScale(), Story.transform);
                     prefab.transform.localScale *= 0.1f;
 
-                    Link link = xml.LinkRoot.Link;
+                    XML.Link link = xml.LinkRoot.Link;
                     GameObject buttonGO = prefab.transform.GetChild(0).gameObject;
                     Button button = buttonGO.GetComponent<Button>();
 
@@ -267,13 +268,11 @@ namespace W3D
 
         private static void SetLinkActions()
         {
-            ActionMethods methods = Story.GetComponent<ActionMethods>();
-
-            foreach (KeyValuePair<string, (GameObject, Object)> pair in
+            foreach (KeyValuePair<string, (GameObject, XML.Object)> pair in
                 GameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
             )
             {
-                (GameObject go, Object obj) = pair.Value;
+                (GameObject go, XML.Object obj) = pair.Value;
                 GameObject buttonGO = go.transform.parent.gameObject;
                 Button button = buttonGO.GetComponent<Button>();
                 Link link = obj.LinkRoot.Link;
@@ -302,7 +301,7 @@ namespace W3D
                         case TimerChange timelineRef:
                             // TODO 88
                             break;
-                        case Event eventTriggerRef:
+                        case XML.Event eventTriggerRef:
                             // TODO 89
                             break;
                         case MoveCave moveCave:
@@ -320,7 +319,15 @@ namespace W3D
                             break;
                     }
                 }
-                link.SetRemainEnabled(methods, onClick, button);
+                // link.SetRemainEnabled(methods, onClick, button);
+                // if (!RemainEnabled)
+                // {
+                //     UnityEventTools.AddObjectPersistentListener(
+                //         onClick,
+                //         new UnityAction<Button>(methods.DisableButton),
+                //         button
+                //     );
+                // }
             }
         }
 

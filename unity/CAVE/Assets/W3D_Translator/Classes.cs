@@ -10,7 +10,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
-namespace W3D
+namespace XML
 {
     [Serializable]
     public class Xml
@@ -411,19 +411,6 @@ namespace W3D
                 ConvertColor(SelectedColorString);
             colors.disabledColor = ConvertColor(parentColorString);
             return colors;
-        }
-
-        // Disables button after click if RemainEnabled is false
-        public void SetRemainEnabled(ActionMethods methods, Button.ButtonClickedEvent onClick, Button button)
-        {
-            if (!RemainEnabled)
-            {
-                UnityEventTools.AddObjectPersistentListener(
-                    onClick,
-                    new UnityAction<Button>(methods.DisableButton),
-                    button
-                );
-            }
         }
     }
 
