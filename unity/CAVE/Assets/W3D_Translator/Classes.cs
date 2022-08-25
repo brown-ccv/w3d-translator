@@ -1137,9 +1137,9 @@ namespace XML
             rotationType.Normal: Local rotation around a normalized vector
         */
         // TODO (81): Split into separate functions that return their values
-        public void SetTransform(Transform gameObjectT, Vector3 scale, Transform storyT)
+        public void SetTransform(Transform gameObjectT, Vector3 scale, Transform rootT)
         {
-            gameObjectT.SetParent(GetParent(storyT), false);
+            gameObjectT.SetParent(GetParent(rootT), false);
             gameObjectT.localPosition = GetPosition();
             gameObjectT.localScale = scale;
 
@@ -1149,7 +1149,7 @@ namespace XML
                     gameObjectT.localEulerAngles = rotation.GetEuler();
                     break;
                 case LookAt rotation:
-                    gameObjectT.rotation = rotation.GetQuaternion(gameObjectT.position, storyT);
+                    gameObjectT.rotation = rotation.GetQuaternion(gameObjectT.position, rootT);
                     break;
                 case Normal rotation:
                     gameObjectT.localEulerAngles = rotation.GetEuler();
@@ -1159,16 +1159,15 @@ namespace XML
                     break;
                 default: break;
             }
-            return;
         }
 
         public Vector3 GetPosition() { return ConvertVector3(PositionString); }
 
-        public Transform GetParent(Transform storyT)
+        public Transform GetParent(Transform rootT)
         {
             return RelativeTo == PlacementTypes.Center
-                    ? storyT // Nest under Story directly
-                    : storyT.Find(RelativeTo.ToString());
+                    ? rootT // Nest under Root directly
+                    : rootT.Find(RelativeTo.ToString());
         }
     }
 
@@ -1198,11 +1197,11 @@ namespace XML
         [XmlAttribute("up")]
         public string UpString;
 
-        public Quaternion GetQuaternion(Vector3 position, Transform storyT)
+        public Quaternion GetQuaternion(Vector3 position, Transform rootT)
         {
             return Quaternion.LookRotation(
                 position -
-                    storyT.TransformPoint(ConvertVector3(TargetString)),
+                    rootT.TransformPoint(ConvertVector3(TargetString)),
                 ConvertVector3(UpString)
             );
         }
