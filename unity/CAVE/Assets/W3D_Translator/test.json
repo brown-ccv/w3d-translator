@@ -1,0 +1,11 @@
+{
+    "buttonName (path? Globally unique?)" : [
+        {
+            "GameObject" : "nameOfGameObject (path? Globally unique?)",
+            "type" : "ActionType",
+            "action" : {
+                
+            }
+        }
+    ]
+}
