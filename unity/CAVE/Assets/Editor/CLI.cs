@@ -309,11 +309,19 @@ namespace CLI
 
                     // TODO
                     // UnityEvent for each type of Action/Transition (ButtonManager)
-                    // Need to figure out how to instantiate the Action & Transition
+                    // Does the Action inside of LinkAction have to be a scriptable object? Transition?
+                    // Try to make struct
+                    ObjectAction action = ScriptableObject.CreateInstance(typeof(ObjectAction)) as ObjectAction;
 
-                    linkAction.Action = (ObjectAction)linkAction.Action;
-                    ObjectAction action = (ObjectAction)linkAction.Action;
+                    // TODO: Make switch
+                    VisibleTransition transition;
+                    if (objChange.Transition.Type == XML.Transition.TransitionType.Visible)
+                    {
+                        transition = ScriptableObject.CreateInstance(typeof(VisibleTransition)) as VisibleTransition;
+                        action.Transition = transition;
+                    }
 
+                    linkAction.Action = action;
                     break;
                 case GroupChange groupChange:
                     // TODO: 87
