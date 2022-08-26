@@ -23,7 +23,7 @@ using static UnityEditor.Events.UnityEventTools;
 namespace W3D
 {
     [ExecuteInEditMode]
-    public static class CLI // TEMP: MonoBehavior can be removed?
+    public static class CLI
     {
         public static string ProjectPath;
 
@@ -31,13 +31,14 @@ namespace W3D
         private static GameObject Root;
         private static GameObject XrRig;
 
+        // TODO: Better to just find all objects with an "Object" tag?
         private static Dictionary<string, (GameObject, XML.Object)> GameObjects;
 
         [MenuItem("Custom/CLI.Main %g")]
         public static void Main()
         {
             Application.logMessageReceivedThreaded += HandleLog;
-            Debug.Log($"Running Unity CLI {ProjectPath}");
+            Debug.Log("Running Unity CLI");
 
             // The path to the xml file is sent as a command line argument
             GetXmlPathArg();
