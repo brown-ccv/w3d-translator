@@ -3,24 +3,27 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
+using UnityEditor;
+using UnityEditor.Events;
+using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEditor;
-using UnityEditor.SceneTemplate;
 
 using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 using static UnityEditor.Events.UnityEventTools;
 using static UnityEditor.SceneManagement.EditorSceneManager;
 
 using XML;
+using W3D;
+
+using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
 
-namespace W3D
+namespace CLI
 {
-    [ExecuteInEditMode]
     public static class CLI
     {
         public static string ProjectPath;
