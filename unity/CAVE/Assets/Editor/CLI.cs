@@ -290,42 +290,42 @@ namespace W3D
             ButtonManager bm = button.GetComponent<ButtonManager>();
             Button.ButtonClickedEvent onClick = button.onClick;
 
-            GameObject reference;
-            LinkAction action = new(linkActionX);
-            switch (linkActionX.Action)
-            {
-                case ObjectChange objChange:
-                    // Get referenced GameObject and initialize Transition
-                    reference = GameObjects[objChange.Name].Item1;
-                    action.Transition = new Transition(objChange.Transition);
+            // GameObject reference;
+            // LinkAction action = new(linkActionX);
+            // switch (linkActionX.Action)
+            // {
+            //     case ObjectChange objChange:
+            //         // Get referenced GameObject and initialize Transition
+            //         reference = GameObjects[objChange.Name].Item1;
+            //         action.Transition = new Transition(objChange.Transition);
 
-                    // Add delegate based on transition
-                    action.Delegate = action.Transition.GetDelegate(objChange.Transition.Change, reference);
+            //         // Add delegate based on transition
+            //         action.Delegate = action.Transition.GetDelegate(objChange.Transition.Change, reference);
 
-                    break;
-                case GroupChange groupChange:
-                    // TODO: 87
-                    break;
-                case TimerChange timerChange:
-                    // TODO: 88
-                    break;
-                case EventChange eventChange:
-                    // TODO: 89
-                    break;
-                case MoveCave moveCave:
-                    // TODO: 90
-                    break;
-                case Reference soundChange:
-                    // TODO: 91
-                    break;
-                case null:
-                    // TODO: 92
-                    break;
-                default: break; // All cases covered
-            }
+            //         break;
+            //     case GroupChange groupChange:
+            //         // TODO: 87
+            //         break;
+            //     case TimerChange timerChange:
+            //         // TODO: 88
+            //         break;
+            //     case EventChange eventChange:
+            //         // TODO: 89
+            //         break;
+            //     case MoveCave moveCave:
+            //         // TODO: 90
+            //         break;
+            //     case Reference soundChange:
+            //         // TODO: 91
+            //         break;
+            //     case null:
+            //         // TODO: 92
+            //         break;
+            //     default: break; // All cases covered
+            // }
             // TODO: Store action class and delegate function? 
             // Store actions and create delegates on start?
-            bm.Actions.Add(action);
+            // bm.Actions.Add(action);
         }
 
         // Callback function when Debug.Log is called within the CLI script

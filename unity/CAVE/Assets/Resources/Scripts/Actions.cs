@@ -1,11 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-using XML;
-
-using static XML.Actions;
-using static XML.Transition;
-
 namespace W3D
 {
     // TODO: Should these be structs or are classes okay?
@@ -18,6 +13,17 @@ namespace W3D
         internal Action(ActionTypes type) { Type = type; }
     }
 
+    public enum ActionTypes
+    {
+        ObjectChange,
+        GroupReference,
+        TimerChange,
+        SoundReference,
+        EventReference,
+        MoveCave,
+        Restart,
+    }
+
     public class LinkAction : Action
     {
         public uint NumClicks = 1;
@@ -25,16 +31,16 @@ namespace W3D
 
         public LinkAction(ActionTypes type) : base(type) { }
 
-        public LinkAction(LinkActions xml) : base(xml.Type)
-        {
-            Clicks clicks = xml.Clicks;
-            if (clicks is not null && clicks.Type == Clicks.ActivationTypes.Number)
-            {
-                NumClicks activation = (NumClicks)clicks.Activation;
-                NumClicks = activation.Clicks;
-                Reset = activation.Reset;
-            }
-        }
+        // public LinkAction(LinkActions xml) : base(xml.Type)
+        // {
+        //     Clicks clicks = xml.Clicks;
+        //     if (clicks is not null && clicks.Type == Clicks.ActivationTypes.Number)
+        //     {
+        //         NumClicks activation = (NumClicks)clicks.Activation;
+        //         NumClicks = activation.Clicks;
+        //         Reset = activation.Reset;
+        //     }
+        // }
     }
 
     public class Transition
@@ -48,21 +54,32 @@ namespace W3D
             Type = type;
         }
 
-        public Transition(XML.Transition transition)
-        {
-            Duration = transition.Duration;
-            Type = transition.Type;
-        }
+        // public Transition(XML.Transition transition)
+        // {
+        //     Duration = transition.Duration;
+        //     Type = transition.Type;
+        // }
 
-        public UnityAction GetDelegate(object change, GameObject reference)
+        // public UnityAction GetDelegate(object change, GameObject reference)
+        // {
+        //     ObjectManager om = reference.GetComponent<ObjectManager>();
+        //     return change switch
+        //     {
+        //         bool visible => delegate { om.VisibleTransition(visible, Duration); }
+        //         ,
+        //         _ => delegate { Debug.Log("TODO"); }
+        //     };
+        // }
+
+        public enum TransitionType
         {
-            ObjectManager om = reference.GetComponent<ObjectManager>();
-            return change switch
-            {
-                bool visible => delegate { om.VisibleTransition(visible, Duration); }
-                ,
-                _ => delegate { Debug.Log("TODO"); }
-            };
+            Visible,
+            Movement,
+            MoveRelative,
+            Color,
+            Scale,
+            Sound,
+            Link,
         }
     }
 }
