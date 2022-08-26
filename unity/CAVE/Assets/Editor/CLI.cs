@@ -2,28 +2,25 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEditor.Events;
 using UnityEditor.SceneTemplate;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.SpatialTracking;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using Unity.XR.CoreUtils;
 
 using XML;
+using W3D;
 
-// Custom Type renaming
-using TType = UnityEngine.SpatialTracking.TrackedPoseDriver.TrackingType;
+using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
 
-namespace W3D
+namespace CLI
 {
-    [ExecuteInEditMode]
-    public static class CLI // TEMP: MonoBehavior can be removed?
+    public static class CLI
     {
         public static string ProjectPath;
 
@@ -162,13 +159,13 @@ namespace W3D
             switch (globalX.WandNavigation.AllowRotation, globalX.WandNavigation.AllowMovement)
             {
                 case (true, true):
-                    tracking.trackingType = TType.RotationAndPosition;
+                    tracking.trackingType = TrackingType.RotationAndPosition;
                     break;
                 case (true, false):
-                    tracking.trackingType = TType.RotationOnly;
+                    tracking.trackingType = TrackingType.RotationOnly;
                     break;
                 case (false, true):
-                    tracking.trackingType = TType.PositionOnly;
+                    tracking.trackingType = TrackingType.PositionOnly;
                     break;
                 case (false, false):
                     tracking.enabled = false;

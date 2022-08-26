@@ -1,11 +1,8 @@
 using UnityEngine;
 using UnityEditor;
 
-/** Custom window for running CLI.cs directly from the Unity Editor
-
-    This is a temporary file that should be deleted from the output projects 
-*/
-namespace W3D
+#pragma warning disable IDE0051, RCS1213
+namespace CLI
 {
     // Creates 
     public class CLI_GUI : EditorWindow
