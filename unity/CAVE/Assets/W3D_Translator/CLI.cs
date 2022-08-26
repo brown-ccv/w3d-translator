@@ -267,7 +267,7 @@ namespace W3D
 
         private static void SetLinkActions()
         {
-            ActionMethods methods = Story.GetComponent<ActionMethods>();
+            // ActionMethods methods = Story.GetComponent<ActionMethods>();
 
             foreach (KeyValuePair<string, (GameObject, Object)> pair in
                 GameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
@@ -320,7 +320,7 @@ namespace W3D
                             break;
                     }
                 }
-                link.SetRemainEnabled(methods, onClick, button);
+                // link.SetRemainEnabled(methods, onClick, button);
             }
         }
 
