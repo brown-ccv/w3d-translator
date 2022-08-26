@@ -54,7 +54,7 @@ namespace W3D
             Type = transition.Type;
         }
 
-        public static UnityAction GetDelegate(object change, GameObject reference)
+        public UnityAction GetDelegate(object change, GameObject reference)
         {
             ObjectManager om = reference.GetComponent<ObjectManager>();
             return change switch

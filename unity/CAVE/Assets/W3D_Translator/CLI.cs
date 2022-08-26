@@ -300,7 +300,7 @@ namespace W3D
                     action.Transition = new Transition(objChange.Transition);
 
                     // Add delegate based on transition
-                    action.Delegate = Transition.GetDelegate(objChange.Transition.Change, reference);
+                    action.Delegate = action.Transition.GetDelegate(objChange.Transition.Change, reference);
 
                     break;
                 case GroupChange groupChange:
