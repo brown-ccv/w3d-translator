@@ -280,7 +280,6 @@ namespace CLI
                 {
                     AddAction(linkActionX, button);
                 }
-                Debug.Log(bm.Actions.Count);
             }
         }
 
