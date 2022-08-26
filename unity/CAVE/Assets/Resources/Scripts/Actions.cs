@@ -56,21 +56,13 @@ namespace W3D
 
         public static UnityAction GetDelegate(object change, GameObject reference)
         {
+            ObjectManager om = reference.GetComponent<ObjectManager>();
             return change switch
             {
-                bool visible => delegate { VisibleTransition(reference, visible); }
+                bool visible => delegate { om.VisibleTransition(visible, Duration); }
                 ,
                 _ => delegate { Debug.Log("TODO"); }
             };
-        }
-
-        public static void VisibleTransition(GameObject reference, bool visible)
-        {
-            Debug.Log($"VisibleT {reference.name} {visible}");
-            // Fade In/Out and enable/disable the GameObject
-            // https://owlcation.com/stem/How-to-fade-out-a-GameObject-in-Unity
-
-            // reference.SetActive(false); // parameters.visible
         }
     }
 }
