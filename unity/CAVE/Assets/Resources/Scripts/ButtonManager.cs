@@ -2,20 +2,16 @@ using System;
 using System.Collections.Generic;
 
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
-using UnityEditor;
+using UnityEngine.Events;
 
 namespace W3D
 {
     [Serializable]
-    public class ActionEvent : UnityEvent<Action> { }
-
-    [Serializable]
     public class ButtonManager : MonoBehaviour
     {
         [SerializeField]
-        public ActionEvent ActionEvent;
+        public List<LinkAction> Actions = new();
         private int clickCount = 0;
 
         // Increase clickCount
@@ -29,9 +25,9 @@ namespace W3D
         public void Disable() { GetComponent<Button>().interactable = false; }
 
         // Loop through the actions in Actions, check against NumClicks and call
-        // public class ActionEvent : UnityEvent<Action> {}
         public void ExecuteActions()
         {
+            foreach (LinkAction action in Actions) { action.Delegate.Invoke(); }
         }
     }
 }

@@ -176,7 +176,7 @@ namespace W3D
                     // Using device based tracking adds the hard-coded camera offset
                     xrOrigin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Device;
                     break;
-                default: // Unreachable but fixes warning
+                default: // All cases covered
             }
         }
 
@@ -267,12 +267,6 @@ namespace W3D
                 // Add actions
                 AddVoidPersistentListener(onClick, new UnityAction(bm.Counter));
                 AddVoidPersistentListener(onClick, new UnityAction(bm.ExecuteActions));
-
-                // Add the <Action>s to onClick
-                foreach (LinkActions linkActionX in link.Actions)
-                {
-                    AddAction(linkActionX, bm.ActionEvent);
-                }
                 if (!link.RemainEnabled)
                 {
                     AddVoidPersistentListener(
@@ -280,29 +274,34 @@ namespace W3D
                         new UnityAction(button.GetComponent<ButtonManager>().Disable)
                     );
                 }
+
+                // Add the <Action>s to onClick
+                bm.Actions = new();
+                foreach (LinkActions linkActionX in link.Actions)
+                {
+                    AddAction(linkActionX, button);
+                }
+                Debug.Log(bm.Actions.Count);
             }
         }
 
-        private static void AddAction(LinkActions linkActionX, ActionEvent actionEvent)
+        private static void AddAction(LinkActions linkActionX, Button button)
         {
-            GameObject reference;
+            ButtonManager bm = button.GetComponent<ButtonManager>();
+            Button.ButtonClickedEvent onClick = button.onClick;
 
+            GameObject reference;
+            LinkAction action = new(linkActionX);
             switch (linkActionX.Action)
             {
                 case ObjectChange objChange:
-                    // TODO: 86
+                    // Get referenced GameObject and initialize Transition
                     reference = GameObjects[objChange.Name].Item1;
+                    action.Transition = new Transition(objChange.Transition);
 
-                    // TEMP - just test with Visible
-                    // TODO build object based on Transition type
-                    VisibleTransition parameters = new();
-                    // AddObjectPersistentListener(
-                    //     actionEvent,
-                    //     new UnityAction<Action>(
-                    //         reference.GetComponent<ObjectManager>().VisibleTransition
-                    //     ),
-                    //     parameters
-                    // );
+                    // Add delegate based on transition
+                    action.Delegate = Transition.GetDelegate(objChange.Transition.Change, reference);
+
                     break;
                 case GroupChange groupChange:
                     // TODO: 87
@@ -322,7 +321,11 @@ namespace W3D
                 case null:
                     // TODO: 92
                     break;
+                default: break; // All cases covered
             }
+            // TODO: Store action class and delegate function? 
+            // Store actions and create delegates on start?
+            bm.Actions.Add(action);
         }
 
         // Callback function when Debug.Log is called within the CLI script
