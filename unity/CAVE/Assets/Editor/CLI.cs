@@ -288,42 +288,51 @@ namespace CLI
             ButtonManager bm = button.GetComponent<ButtonManager>();
             Button.ButtonClickedEvent onClick = button.onClick;
 
-            // GameObject reference;
-            // LinkAction action = new(linkActionX);
-            // switch (linkActionX.Action)
-            // {
-            //     case ObjectChange objChange:
-            //         // Get referenced GameObject and initialize Transition
-            //         reference = GameObjects[objChange.Name].Item1;
-            //         action.Transition = new Transition(objChange.Transition);
+            // Initialize action
+            LinkAction linkAction = ScriptableObject.CreateInstance(typeof(LinkAction)) as LinkAction;
+            linkAction.Type = (ActionTypes)linkActionX.Type;
+            if (linkActionX.Clicks is not null && linkActionX.Clicks.Type == Clicks.ActivationTypes.Number)
+            {
+                NumClicks activation = (NumClicks)linkActionX.Clicks.Activation;
+                linkAction.NumClicks = activation.Clicks;
+                linkAction.Reset = activation.Reset;
+            }
 
-            //         // Add delegate based on transition
-            //         action.Delegate = action.Transition.GetDelegate(objChange.Transition.Change, reference);
+            GameObject reference;
+            switch (linkActionX.Action)
+            {
+                case ObjectChange objChange:
+                    // Get referenced GameObject and initialize Transition
+                    reference = GameObjects[objChange.Name].Item1;
 
-            //         break;
-            //     case GroupChange groupChange:
-            //         // TODO: 87
-            //         break;
-            //     case TimerChange timerChange:
-            //         // TODO: 88
-            //         break;
-            //     case EventChange eventChange:
-            //         // TODO: 89
-            //         break;
-            //     case MoveCave moveCave:
-            //         // TODO: 90
-            //         break;
-            //     case Reference soundChange:
-            //         // TODO: 91
-            //         break;
-            //     case null:
-            //         // TODO: 92
-            //         break;
-            //     default: break; // All cases covered
-            // }
-            // TODO: Store action class and delegate function? 
-            // Store actions and create delegates on start?
-            // bm.Actions.Add(action);
+                    linkAction.Action = (ObjectAction)linkAction.Action;
+
+                    // TODO
+                    // Action class inherits from ScriptableObject
+
+                    break;
+                case GroupChange groupChange:
+                    // TODO: 87
+                    break;
+                case TimerChange timerChange:
+                    // TODO: 88
+                    break;
+                case EventChange eventChange:
+                    // TODO: 89
+                    break;
+                case MoveCave moveCave:
+                    // TODO: 90
+                    break;
+                case Reference soundChange:
+                    // TODO: 91
+                    break;
+                case null:
+                    // TODO: 92
+                    break;
+                default: break; // All cases covered
+            }
+            // TODO: Need to save linkAction
+            bm.Actions.Add(linkAction);
         }
 
         // Callback function when Debug.Log is called within the CLI script
@@ -331,7 +340,6 @@ namespace CLI
         {
             // TODO (84): Change string based on LogType (rich color)
             // Prepending "LOG:" will print the line to the screen (checked in Python script)
-
             Console.WriteLine($"LOG:{logString}");
         }
     }

@@ -26,7 +26,7 @@ namespace W3D
         // Loop through the actions in Actions, check against NumClicks and call
         public void ExecuteActions()
         {
-            foreach (LinkAction action in Actions) { action.Delegate.Invoke(); }
+            foreach (LinkAction action in Actions) { }
         }
     }
 }
