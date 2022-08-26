@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEditor;
 
-#pragma warning disable IDE0051, RCS1213
 namespace CLI
 {
     // Creates 
