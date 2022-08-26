@@ -1,29 +1,24 @@
+using System;
+
 using UnityEngine;
 
 namespace W3D
 {
-    [CreateAssetMenu(fileName = "Transition", menuName = "CAVE/Transition", order = 0)]
-    public class Transition : ScriptableObject
+    [CreateAssetMenu(fileName = "Transition", menuName = "W3D/Transition/Transition", order = 0)]
+    [Serializable]
+    public abstract class Transition : ScriptableObject
     {
-
-        public float Duration;
-        public TransitionType Type;
-
-        public Transition(TransitionType type, float duration)
-        {
-            Duration = duration;
-            Type = type;
-        }
+        [SerializeField] public float Duration;
     }
 
-    public enum TransitionType
-    {
-        Visible,
-        Movement,
-        MoveRelative,
-        Color,
-        Scale,
-        Sound,
-        Link,
-    }
+    // public enum TransitionType
+    // {
+    //     Visible,
+    //     Movement,
+    //     MoveRelative,
+    //     Color,
+    //     Scale,
+    //     Sound,
+    //     Link,
+    // }
 }

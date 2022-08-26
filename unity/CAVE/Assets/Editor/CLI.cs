@@ -290,13 +290,15 @@ namespace CLI
 
             // Initialize action
             LinkAction linkAction = ScriptableObject.CreateInstance(typeof(LinkAction)) as LinkAction;
-            linkAction.Type = (ActionTypes)linkActionX.Type;
             if (linkActionX.Clicks is not null && linkActionX.Clicks.Type == Clicks.ActivationTypes.Number)
             {
                 NumClicks activation = (NumClicks)linkActionX.Clicks.Activation;
                 linkAction.NumClicks = activation.Clicks;
                 linkAction.Reset = activation.Reset;
             }
+
+            // TODO: ButtonManager gets an event for every action/transition type (static)
+            // TODO: Need to find a way to save the 
 
             GameObject reference;
             switch (linkActionX.Action)
@@ -305,10 +307,12 @@ namespace CLI
                     // Get referenced GameObject and initialize Transition
                     reference = GameObjects[objChange.Name].Item1;
 
-                    linkAction.Action = (ObjectAction)linkAction.Action;
-
                     // TODO
-                    // Action class inherits from ScriptableObject
+                    // UnityEvent for each type of Action/Transition (ButtonManager)
+                    // Need to figure out how to instantiate the Action & Transition
+
+                    linkAction.Action = (ObjectAction)linkAction.Action;
+                    ObjectAction action = (ObjectAction)linkAction.Action;
 
                     break;
                 case GroupChange groupChange:

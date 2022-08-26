@@ -1,16 +1,16 @@
+using System;
+
 using UnityEngine;
 
 namespace W3D
 {
-    [CreateAssetMenu(fileName = "LinkAction", menuName = "CAVE/LinkAction", order = 0)]
+    [CreateAssetMenu(fileName = "LinkAction", menuName = "W3D/LinkAction", order = 0)]
+    [Serializable]
     public class LinkAction : ScriptableObject
     {
-        public ActionTypes Type;
-        public Action Action;
+        [SerializeField] public Action Action;
 
-        public uint NumClicks = 1;
-        public bool Reset; // Initialized as false
-
-        public LinkAction(ActionTypes type) { Type = type; }
+        [SerializeField] public uint NumClicks = 1;
+        [SerializeField] public bool Reset; // Initialized as false
     }
 }
