@@ -18,8 +18,6 @@ using static UnityEditor.SceneManagement.EditorSceneManager;
 using XML;
 using W3D;
 
-using static UnityEngine.SpatialTracking.TrackedPoseDriver;
-
 // TODO (80): Should ConvertVector3 invert z axis always?
 
 namespace CLI
