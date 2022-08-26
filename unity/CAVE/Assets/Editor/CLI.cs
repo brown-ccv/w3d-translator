@@ -2,21 +2,19 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.SceneManagement;
-using UnityEditor.Events;
-using UnityEditor.SceneTemplate;
+using Unity.XR.CoreUtils;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.SpatialTracking;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using Unity.XR.CoreUtils;
-
-using XML;
+using UnityEditor;
+using UnityEditor.SceneTemplate;
 
 using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 using static UnityEditor.Events.UnityEventTools;
+using static UnityEditor.SceneManagement.EditorSceneManager;
+
+using XML;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
 
@@ -63,7 +61,7 @@ namespace W3D
             SetLinkActions();
 
             // Save and quit
-            // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+            SaveScene(instantiatedScene.scene);
             Application.logMessageReceivedThreaded -= HandleLog;
             Application.Quit();
         }
