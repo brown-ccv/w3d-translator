@@ -142,7 +142,7 @@ namespace Writing3D
                 RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
                 RenderSettings.ambientLight = ConvertColor(globalX.Background.ColorString);
 
-                // Update CaveCamera inside of story
+                // Update CaveCamera inside of root
                 Xml.Camera CaveCameraX = globalX.CaveCamera;
                 UnityEngine.Camera caveCamera =
                     caveCameraT.GetComponent<UnityEngine.Camera>();

@@ -58,8 +58,7 @@ namespace Writing3D
             // public static void SetTransform(Transform gameObjectT, Placement xmlPlacement, Vector3 scale)
             public static void SetTransform(Transform gameObjectT, Placement xmlPlacement, float scale = 1)
             {
-                Transform rootTransform = gameObjectT.root;
-                Debug.Log("ROOT " + rootTransform.name);
+                Transform rootTransform = GameObject.Find("/Root").transform;
 
                 gameObjectT.SetParent(
                     xmlPlacement.RelativeTo == Placement.PlacementTypes.Center
