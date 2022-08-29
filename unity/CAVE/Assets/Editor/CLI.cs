@@ -29,7 +29,7 @@ namespace Writing3D
         {
             public static string ProjectPath;
 
-            private static Root RootX;
+            private static Root XmlRoot;
             private static GameObject Root;
             private static GameObject XrRig;
 
@@ -94,7 +94,7 @@ namespace Writing3D
                 {
                     System.Xml.Serialization.XmlSerializer serializer = new(typeof(Root));
                     using var reader = System.Xml.XmlReader.Create(ProjectPath);
-                    RootX = (Root)serializer.Deserialize(reader);
+                    XmlRoot = (Root)serializer.Deserialize(reader);
                 }
                 catch (FileNotFoundException)
                 {
@@ -130,7 +130,7 @@ namespace Writing3D
             // Apply camera, lighting, and tracking settings
             private static void ApplyGlobalSettings()
             {
-                Global globalX = RootX.Global;
+                Global xmlGlobal = XmlRoot.Global;
                 Transform mainCameraT = XrRig.transform.Find("Camera Offset").Find("Main Camera");
                 Transform caveCameraT = Root.transform.Find("Cave Camera");
 
@@ -140,28 +140,28 @@ namespace Writing3D
 
                 // Use color based lighting - <Background color="0, 0, 0" />
                 RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-                RenderSettings.ambientLight = ConvertColor(globalX.Background.ColorString);
+                RenderSettings.ambientLight = ConvertColor(xmlGlobal.Background.ColorString);
 
                 // Update CaveCamera inside of root
-                Xml.Camera CaveCameraX = globalX.CaveCamera;
+                Xml.Camera xmlCaveCamera = xmlGlobal.CaveCamera;
                 UnityEngine.Camera caveCamera =
                     caveCameraT.GetComponent<UnityEngine.Camera>();
-                caveCamera.farClipPlane = CaveCameraX.FarClip;
-                SetTransform(caveCamera.transform, CaveCameraX.Placement);
+                caveCamera.farClipPlane = xmlCaveCamera.FarClip;
+                SetTransform(caveCamera.transform, xmlCaveCamera.Placement);
 
                 // Update Camera inside of xrRig
-                Xml.Camera CameraX = globalX.Camera;
+                Xml.Camera xmlCamera = xmlGlobal.Camera;
                 UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
-                camera.farClipPlane = CameraX.FarClip;
+                camera.farClipPlane = xmlCamera.FarClip;
                 XrRig.transform.position =
                     // CameraX is really the player's position - update xrRig directly
                     // xrRig is outside the Root object so we must convert to meters
-                    ConvertVector3(CameraX.Placement.PositionString) * 0.3048f;
+                    ConvertVector3(xmlCamera.Placement.PositionString) * 0.3048f;
 
                 // Update tracking settings for the Main Camera
                 TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
                 XROrigin xrOrigin = XrRig.GetComponent<XROrigin>();
-                switch (globalX.WandNavigation.AllowRotation, globalX.WandNavigation.AllowMovement)
+                switch (xmlGlobal.WandNavigation.AllowRotation, xmlGlobal.WandNavigation.AllowMovement)
                 {
                     case (true, true):
                         tracking.trackingType = TrackingType.RotationAndPosition;
@@ -192,7 +192,7 @@ namespace Writing3D
                     new Vector3(-4, -4, 0),
                 };
 
-                foreach (Placement xmlPlacement in RootX.PlacementRoot)
+                foreach (Placement xmlPlacement in XmlRoot.PlacementRoot)
                 {
                     // Objects in the "Center" space are nested directly under Root
                     if (xmlPlacement.Name == "Center") { continue; }
@@ -227,7 +227,7 @@ namespace Writing3D
                     AroundSelfAxis: TODO (76)
                     Scale: gameObject.localScale (set in Placement.SetTransform)
                 */
-                foreach (Xml.Object xmlObject in RootX.ObjectRoot)
+                foreach (Xml.Object xmlObject in XmlRoot.ObjectRoot)
                 {
                     GameObject contentGO = CreateGameObject(xmlObject);
                     if (xmlObject.LinkRoot is not null)
@@ -275,44 +275,45 @@ namespace Writing3D
                     GameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
                 )
                 {
-                    (GameObject go, Xml.Object obj) = pair.Value;
+                    (GameObject go, Xml.Object xmlObject) = pair.Value;
                     GameObject buttonGO = go.transform.parent.gameObject;
                     Button button = buttonGO.GetComponent<Button>();
-                    Link link = obj.LinkRoot.Link;
+                    Link xmlLink = xmlObject.LinkRoot.Link;
 
                     // Add the <Action>s to onClick
                     Button.ButtonClickedEvent onClick = button.onClick;
-                    foreach (LinkActions linkActionX in link.Actions)
+                    foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
-                        Clicks clicksX = linkActionX.Clicks;
+                        Clicks clicksX = xmlLinkAction.Clicks;
                         if (clicksX is not null && clicksX.Type == Clicks.ActivationTypes.Number)
                         {
                             // Button is only activated after a certain number of clicks
                         }
 
                         // TODO (83): Add button actions
-                        switch (linkActionX.Action)
+                        switch (xmlLinkAction.Action)
                         {
-                            case ObjectChange objectRef:
+                            case ObjectChange xmlObjectC:
                                 // TODO 86
                                 break;
-                            case GroupRef groupRef:
+                            case GroupChange xmlGroupC:
                                 // TODO 87
                                 break;
-                            case TimerChange timelineRef:
+                            case TimerChange xmlTimerC:
                                 // TODO 88
                                 break;
-                            case Xml.Event eventTriggerRef:
-                                // TODO 89
-                                break;
-                            case MoveCave moveCave:
-                                // TODO 90
-                                break;
-                            case Reference soundRef:
+                            case SoundChange xmlSoundC:
                                 // TODO 91
                                 break;
+                            case EventChange xmlEventC:
+                                // TODO 89
+                                break;
+                            case MoveCave xmlMoveCave:
+                                // TODO 90
+                                break;
+
                             default:
-                                if (linkActionX.Type == Actions.ActionTypes.Restart)
+                                if (xmlLinkAction.Type == Actions.ActionTypes.Restart)
                                 {
                                     // TODO 92
                                 }
@@ -320,7 +321,7 @@ namespace Writing3D
                                 break;
                         }
                     }
-                    if (!link.RemainEnabled)
+                    if (!xmlLink.RemainEnabled)
                     {
                         UnityEventTools.AddVoidPersistentListener(
                             onClick,
