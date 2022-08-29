@@ -15,239 +15,264 @@ using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 using static UnityEditor.Events.UnityEventTools;
 using static UnityEditor.SceneManagement.EditorSceneManager;
 
-using XML;
-using W3D;
+using Writing3D;
+using Writing3D.Xml;
+
+using static Writing3D.Translation.Helpers;
+using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
 
-namespace CLI
-{
-    public static class CLI
-    {
-        public static string ProjectPath;
+// TODO: Naming scheme (prepend Xml)
 
-        private static Root RootX;
-        private static GameObject Root;
-        private static GameObject XrRig;
+namespace Writing3D
+{
+    namespace Translation
+    {
+        public static class CLI
+        {
+            public static string ProjectPath;
+
+            private static Root XmlRoot;
+            private static GameObject Root;
+            private static GameObject XrRig;
 
         // TODO: Better to just find all objects with an "Object" tag?
-        private static Dictionary<string, (GameObject, XML.Object)> GameObjects;
+            private static Dictionary<string, (GameObject, Xml.Object)> GameObjects;
 
-        [MenuItem("Custom/CLI.Main %g")]
-        public static void Main()
-        {
-            Application.logMessageReceivedThreaded += HandleLog;
-            Debug.Log("Running Unity CLI");
-
-            // The path to the xml file is sent as a command line argument
-            GetXmlPathArg();
-            LoadStory();
-
-            // Create new scene and store the root GameObjects
-            InstantiationResult instantiatedScene = InstantiateScene();
-            XrRig = instantiatedScene.scene.GetRootGameObjects()[0];
-            Root = instantiatedScene.scene.GetRootGameObjects()[1];
-            GameObjects = new Dictionary<string, (GameObject, XML.Object)>();
-
-            ApplyGlobalSettings();
-            BuildWalls();
-            BuildGameObjects();
-
-            // TODO (95): Generate the <Group>s
-            // TODO (96): Generate the <Timeline>s
-            // TODO (97): Generate the <Sound>s
-            // TODO (98): Generate the <Event>s
-            // TODO (99): Generate the <ParticleAction>s
-
-            SetLinkActions();
-
-            // Save and quit
-            SaveScene(instantiatedScene.scene);
-            Application.logMessageReceivedThreaded -= HandleLog;
-            Application.Quit();
-        }
-
-        // Get command line arguments from Python
-        private static void GetXmlPathArg()
-        {
-            try
+            [MenuItem("Custom/CLI.Main %g")]
+            public static void Main()
             {
-                string[] args = Environment.GetCommandLineArgs();
-                for (int i = 0; i < args.Length; i++)
+                Application.logMessageReceivedThreaded += HandleLog;
+                Debug.Log($"Running Unity CLI {ProjectPath}");
+
+                // The path to the xml file is sent as a command line argument
+                GetXmlPathArg();
+                LoadStory();
+
+                // Create new scene and store the root GameObjects
+                InstantiationResult instantiatedScene = InstantiateScene();
+                XrRig = instantiatedScene.scene.GetRootGameObjects()[0];
+                Root = instantiatedScene.scene.GetRootGameObjects()[1];
+                GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
+
+                ApplyGlobalSettings();
+                BuildWalls();
+                TranslateGameObjects();
+
+                // TODO (95): Generate the <Group>s
+                // TODO (96): Generate the <Timeline>s
+                // TODO (97): Generate the <Sound>s
+                // TODO (98): Generate the <Event>s
+                // TODO (99): Generate the <ParticleAction>s
+
+                SetLinkActions();
+
+                // Save and quit
+                // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+                Application.logMessageReceivedThreaded -= HandleLog;
+                Application.Quit();
+            }
+
+            // Get command line arguments from Python
+            private static void GetXmlPathArg()
+            {
+                try
                 {
-                    if (args[i] == "--projectPath") { ProjectPath = args[++i]; }
+                    string[] args = Environment.GetCommandLineArgs();
+                    for (int i = 0; i < args.Length; i++)
+                    {
+                        if (args[i] == "--projectPath") { ProjectPath = args[++i]; }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("Error initializing command line arguments");
+                    Debug.LogException(e);
                 }
             }
-            catch (Exception e)
+
+            // Deserialize the xml file
+            private static void LoadStory()
             {
-                Debug.Log("Error initializing command line arguments");
-                Debug.LogException(e);
-            }
-        }
-
-        // Deserialize the xml file
-        private static void LoadStory()
-        {
-            try
-            {
-                System.Xml.Serialization.XmlSerializer serializer = new(typeof(Root));
-                using var reader = System.Xml.XmlReader.Create(ProjectPath);
-                RootX = (Root)serializer.Deserialize(reader);
-            }
-            catch (FileNotFoundException)
-            {
-                Debug.LogError($"ERROR: File at {ProjectPath} not found");
-                throw;
-            }
-            catch
-            {
-                Debug.LogError($"Error: Deserialization of file at {ProjectPath} failed.");
-                throw;
-            }
-        }
-
-        // Create a new scene in Unity
-        private static InstantiationResult InstantiateScene()
-        {
-            try
-            {
-                return SceneTemplateService.Instantiate(
-                    Resources.Load<SceneTemplateAsset>("CAVE"),
-                    false,
-                    $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(ProjectPath)}.unity"
-                );
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"Error creating scene for {ProjectPath}");
-                Debug.LogException(e);
-                return null;
-            }
-        }
-
-        // Apply camera, lighting, and tracking settings
-        private static void ApplyGlobalSettings()
-        {
-            Global globalX = RootX.Global;
-            Transform mainCameraT = XrRig.transform.Find("Camera Offset").Find("Main Camera");
-            Transform caveCameraT = Root.transform.Find("Cave Camera");
-
-            // Load default lighting settings and delete skybox
-            Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
-            RenderSettings.skybox = null;
-
-            // Use color based lighting - <Background color="0, 0, 0" />
-            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-            RenderSettings.ambientLight = Xml.ConvertColor(globalX.Background.ColorString);
-
-            // Update CaveCamera inside of story
-            XML.Camera CaveCameraX = globalX.CaveCamera;
-            UnityEngine.Camera caveCamera =
-                caveCameraT.GetComponent<UnityEngine.Camera>();
-            caveCamera.farClipPlane = CaveCameraX.FarClip;
-            CaveCameraX.Placement.SetTransform(caveCamera.transform, Vector3.one, Root.transform);
-
-            // Update Camera inside of xrRig
-            XML.Camera CameraX = globalX.Camera;
-            UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
-            camera.farClipPlane = CameraX.FarClip;
-            XrRig.transform.position =
-                // CameraX is really the player's position - update xrRig directly
-                // xrRig is outside the Root object so we must convert to meters
-                Xml.ConvertVector3(CameraX.Placement.PositionString) * 0.3048f;
-
-            // Update tracking settings for the Main Camera
-            TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
-            XROrigin xrOrigin = XrRig.GetComponent<XROrigin>();
-            switch (globalX.WandNavigation.AllowRotation, globalX.WandNavigation.AllowMovement)
-            {
-                case (true, true):
-                    tracking.trackingType = TrackingType.RotationAndPosition;
-                    break;
-                case (true, false):
-                    tracking.trackingType = TrackingType.RotationOnly;
-                    break;
-                case (false, true):
-                    tracking.trackingType = TrackingType.PositionOnly;
-                    break;
-                case (false, false):
-                    tracking.enabled = false;
-                    // Using device based tracking adds the hard-coded camera offset
-                    xrOrigin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Device;
-                    break;
-                default: // All cases covered
-            }
-        }
-
-        // Create each <Placement> as an outlined GameObject 
-        private static void BuildWalls()
-        {
-            foreach (Placement placement in RootX.PlacementRoot)
-            {
-                // Objects in the "Center" space are nested directly under Root
-                if (placement.Name == "Center") { continue; }
-
-                // Create and position wall
-                GameObject wall = (GameObject)PrefabUtility.InstantiatePrefab(
-                    Resources.Load<GameObject>("Prefabs/wall")
-                );
-                wall.name = placement.Name;
-                placement.SetTransform(wall.transform, Vector3.one, Root.transform);
-            }
-        }
-
-        // Build the <Object>s and save them in a dictionary of {name: GameObject} pairs
-        private static void BuildGameObjects()
-        {
-            /** Object
-                name: gameObject.name
-                Visible: gameObject.active
-                Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
-                Lighting: TODO (76)
-                ClickThrough: TODO (76)
-                AroundSelfAxis: TODO (76)
-                Scale: gameObject.localScale (set in Placement.SetTransform)
-            */
-            foreach (XML.Object objectX in RootX.ObjectRoot)
-            {
-                GameObject contentGO = objectX.Create();
-                if (objectX.LinkRoot is not null)
+                try
                 {
-                    // Instantiate a new link prefab
-                    GameObject prefab = (GameObject)PrefabUtility.InstantiatePrefab(
-                        Resources.Load<GameObject>("Prefabs/canvas")
-                    );
-                    prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
+                    System.Xml.Serialization.XmlSerializer serializer = new(typeof(Root));
+                    using var reader = System.Xml.XmlReader.Create(ProjectPath);
+                    XmlRoot = (Root)serializer.Deserialize(reader);
+                }
+                catch (FileNotFoundException)
+                {
+                    Debug.LogError($"ERROR: File at {ProjectPath} not found");
+                    throw;
+                }
+                catch
+                {
+                    Debug.LogError($"Error: Deserialization of file at {ProjectPath} failed.");
+                    throw;
+                }
+            }
 
-                    // Initialize canvas
-                    prefab.name = objectX.Name;
-                    prefab.SetActive(objectX.Visible);
-                    objectX.Placement.SetTransform(
-                        prefab.transform,
-                        objectX.GetScale(),
-                        Root.transform
-                    );
-                    prefab.transform.localScale *= 0.1f;
-
-                    GameObject buttonGO = prefab.transform.GetChild(0).gameObject;
-                    Button button = buttonGO.GetComponent<Button>();
-
-                    // Nest the <Content> inside the prefab and initialize button
-                    contentGO.transform.SetParent(buttonGO.transform, false);
-                    button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
-                    button.colors = objectX.LinkRoot.Link.SetColors(
-                        button.colors,
-                        objectX.ColorString
+            // Create a new scene in Unity
+            private static InstantiationResult InstantiateScene()
+            {
+                try
+                {
+                    return SceneTemplateService.Instantiate(
+                        Resources.Load<SceneTemplateAsset>("CAVE"),
+                        false,
+                        $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(ProjectPath)}.unity"
                     );
                 }
-                else
+                catch (Exception e)
                 {
-                    contentGO.SetActive(objectX.Visible);
-                    objectX.Placement.SetTransform(contentGO.transform, objectX.GetScale(), Root.transform);
+                    Debug.LogError($"Error creating scene for {ProjectPath}");
+                    Debug.LogException(e);
+                    return null;
                 }
-                GameObjects.Add(contentGO.name, (contentGO, objectX));
             }
-        }
+
+            // Apply camera, lighting, and tracking settings
+            private static void ApplyGlobalSettings()
+            {
+                Global xmlGlobal = XmlRoot.Global;
+                Transform mainCameraT = XrRig.transform.Find("Camera Offset").Find("Main Camera");
+                Transform caveCameraT = Root.transform.Find("Cave Camera");
+
+                // Load default lighting settings and delete skybox
+                Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
+                RenderSettings.skybox = null;
+
+                // Use color based lighting - <Background color="0, 0, 0" />
+                RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+                RenderSettings.ambientLight = ConvertColor(xmlGlobal.Background.ColorString);
+
+                // Update CaveCamera inside of root
+                Xml.Camera xmlCaveCamera = xmlGlobal.CaveCamera;
+                UnityEngine.Camera caveCamera =
+                    caveCameraT.GetComponent<UnityEngine.Camera>();
+                caveCamera.farClipPlane = xmlCaveCamera.FarClip;
+                SetTransform(caveCamera.transform, xmlCaveCamera.Placement);
+
+                // Update Camera inside of xrRig
+                Xml.Camera xmlCamera = xmlGlobal.Camera;
+                UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
+                camera.farClipPlane = xmlCamera.FarClip;
+                XrRig.transform.position =
+                    // CameraX is really the player's position - update xrRig directly
+                    // xrRig is outside the Root object so we must convert to meters
+                    ConvertVector3(xmlCamera.Placement.PositionString) * 0.3048f;
+
+                // Update tracking settings for the Main Camera
+                TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
+                XROrigin xrOrigin = XrRig.GetComponent<XROrigin>();
+                switch (xmlGlobal.WandNavigation.AllowRotation, xmlGlobal.WandNavigation.AllowMovement)
+                {
+                    case (true, true):
+                        tracking.trackingType = TrackingType.RotationAndPosition;
+                        break;
+                    case (true, false):
+                        tracking.trackingType = TrackingType.RotationOnly;
+                        break;
+                    case (false, true):
+                        tracking.trackingType = TrackingType.PositionOnly;
+                        break;
+                    case (false, false):
+                        tracking.enabled = false;
+                        // Using device based tracking adds the hard-coded camera offset
+                        xrOrigin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Device;
+                        break;
+                    default: // Unreachable but fixes warning
+                }
+            }
+
+            // Create each <Placement> as an outlined GameObject 
+            private static void BuildWalls()
+            {
+                // Each wall is an 8" by 8" square
+                Vector3[] points = {
+                    new Vector3(-4, 4, 0),
+                    new Vector3(4, 4, 0),
+                    new Vector3(4, -4, 0),
+                    new Vector3(-4, -4, 0),
+                };
+
+                foreach (Placement xmlPlacement in XmlRoot.PlacementRoot)
+                {
+                    // Objects in the "Center" space are nested directly under Root
+                    if (xmlPlacement.Name == "Center") { continue; }
+
+                    // Create and position wall
+                    GameObject wall = new() { name = xmlPlacement.Name };
+                    SetTransform(wall.transform, xmlPlacement);
+
+                    // Create outline
+                    LineRenderer outline = wall.AddComponent<LineRenderer>();
+                    outline.material = (Material)Resources.Load(
+                        "Materials/EmitWhite",
+                        typeof(Material)
+                    );
+                    outline.widthMultiplier = 0.01f;
+                    outline.useWorldSpace = false;
+                    outline.loop = true;
+                    outline.positionCount = points.Length;
+                    outline.SetPositions(points);
+                }
+            }
+
+            // Build the <Object>s and save them in a dictionary of {name: GameObject} pairs
+            private static void TranslateGameObjects()
+            {
+                /** Object
+                    name: gameObject.name
+                    Visible: gameObject.active
+                    Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
+                    Lighting: TODO (76)
+                    ClickThrough: TODO (76)
+                    AroundSelfAxis: TODO (76)
+                    Scale: gameObject.localScale (set in Placement.SetTransform)
+                */
+                foreach (Xml.Object xmlObject in XmlRoot.ObjectRoot)
+                {
+                    GameObject contentGO = CreateGameObject(xmlObject);
+                    if (xmlObject.LinkRoot is not null)
+                    {
+                        Link xmlLink = xmlObject.LinkRoot.Link;
+
+                        // Instantiate a new link prefab
+                        GameObject prefab = (GameObject)PrefabUtility.InstantiatePrefab(
+                            Resources.Load<GameObject>("Prefabs/canvas")
+                        );
+                        prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
+
+                        // Initialize canvas
+                        prefab.name = xmlObject.Name;
+                        prefab.SetActive(xmlObject.Visible);
+                        SetTransform(prefab.transform, xmlObject.Placement, xmlObject.Scale);
+                        prefab.transform.localScale *= 0.1f;
+
+                        GameObject buttonGO = prefab.transform.GetChild(0).gameObject;
+                        Button button = buttonGO.GetComponent<Button>();
+                        ColorBlock colors = button.colors;
+
+                        // Nest the <Content> inside the prefab and initialize button
+                        contentGO.transform.SetParent(buttonGO.transform, false);
+                        button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
+
+                        colors.normalColor = colors.highlightedColor =
+                            ConvertColor(xmlLink.EnabledColorString);
+                        colors.pressedColor = colors.selectedColor =
+                            ConvertColor(xmlLink.SelectedColorString);
+                        colors.disabledColor = ConvertColor(xmlObject.ColorString);
+                    }
+                    else
+                    {
+                        contentGO.SetActive(xmlObject.Visible);
+                        SetTransform(contentGO.transform, xmlObject.Placement, xmlObject.Scale);
+                    }
+                    GameObjects.Add(contentGO.name, (contentGO, xmlObject));
+                }
+            }
 
         private static void SetLinkActions()
         {
@@ -274,18 +299,18 @@ namespace CLI
                     );
                 }
 
-                // Add the <Action>s to onClick
-                bm.Actions = new();
-                foreach (LinkActions linkActionX in link.Actions)
-                {
-                    AddAction(linkActionX, button);
-                }
+                    // Add the <Action>s to onClick
+                    bm.Actions = new();
+                    foreach (LinkActions xmlLinkAction in xmlLink.Actions)
+                    {
+                        AddAction(xmlLinkAction, button);
+                    }
             }
         }
 
         private static void AddAction(LinkActions linkActionX, Button button)
-        {
-            ButtonManager bm = button.GetComponent<ButtonManager>();
+            {
+                ButtonManager bm = button.GetComponent<ButtonManager>();
             Button.ButtonClickedEvent onClick = button.onClick;
 
             // Initialize action
@@ -295,7 +320,7 @@ namespace CLI
                 NumClicks activation = (NumClicks)linkActionX.Clicks.Activation;
                 linkAction.NumClicks = activation.Clicks;
                 linkAction.Reset = activation.Reset;
-            }
+                }
 
             // TODO: ButtonManager gets an event for every action/transition type (static)
             // TODO: Need to find a way to save the 
@@ -354,5 +379,7 @@ namespace CLI
             // Prepending "LOG:" will print the line to the screen (checked in Python script)
             Console.WriteLine($"LOG:{logString}");
         }
+        }
+>>>>>>> editor
     }
 }

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace W3d
+namespace Writing3D
 {
-    public class W3D : MonoBehaviour
+    public class SceneManager : MonoBehaviour
     {
         private void Update()
         {

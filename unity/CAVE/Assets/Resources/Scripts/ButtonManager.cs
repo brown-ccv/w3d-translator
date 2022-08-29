@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace W3D
+namespace Writing3D
 {
     [Serializable]
     public class ButtonManager : MonoBehaviour
