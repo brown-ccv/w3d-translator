@@ -9,9 +9,9 @@ from validate import validate_project, validate_xml
 from errors import ValidationError, UnityError, XmlError
 
 # TODO: Hard coded paths won't work on others' machines?
-UNITY_VERSION = "2021.3.0f1"
+UNITY_VERSION = "2021.3.8f1"
 UNITY_PATH = Path(
-    "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe"
+    f"C:\\Program Files\\Unity\\Hub\\Editor\\{UNITY_VERSION}\\Editor\\Unity.exe" # noqa
 )
 STARTER_PROJECT = Path("unity/CAVE")
 LOG_FLAG = "LOG:"  # Flag to send prints from the CLI script onto the console
@@ -159,6 +159,7 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             + f"[cyan]{project_dir.name}/{xml_path.name}[/cyan] "
             + "translated successfully\n"
         )
+    # TODO 113: Remove Assets/W3D_Translator from output project
 
 
 def main(

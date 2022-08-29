@@ -6,3 +6,4 @@ __pycache__/
 
 # Output folders used during development
 out/
+unity/CAVE/Assets/Resources/Scenes/*
