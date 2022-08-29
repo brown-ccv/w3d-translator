@@ -203,13 +203,13 @@ namespace Writing3D
                         // TODO: LinkAction is a ScriptableObject
                         // Everything else is just a basic class (struct?)
 
-                        ObjectAction action = ScriptableObject.CreateInstance(typeof(ObjectAction)) as ObjectAction;
+                        // ObjectAction action = ScriptableObject.CreateInstance(typeof(ObjectAction)) as ObjectAction;
+                        ObjectAction action = new();
 
-                        // TODO: Make switch
-                        VisibleTransition transition;
+                        // TODO: Make switch (separate function)
                         if (xmlAction.Transition.Type == Xml.Transition.TransitionType.Visible)
                         {
-                            transition = ScriptableObject.CreateInstance(typeof(VisibleTransition)) as VisibleTransition;
+                            VisibleTransition transition = new();
                             action.Transition = transition;
                         }
 
@@ -237,6 +237,7 @@ namespace Writing3D
                     default: break; // All cases covered
                 }
                 // TODO: Need to save linkAction
+                Debug.Log(linkAction.Action.GetType());
                 bm.Actions.Add(linkAction);
             }
         }

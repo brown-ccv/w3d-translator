@@ -2,11 +2,17 @@ using System;
 
 using UnityEngine;
 
+// TODO: If these don't have to be scriptable, consolidate all to Actions.cs
 namespace Writing3D
 {
-    [CreateAssetMenu(fileName = "Action", menuName = "W3D/Action/Action", order = 0)]
     [Serializable]
-    public abstract class Action : ScriptableObject { }
+    public abstract class Action { }
+
+    [Serializable]
+    public class ObjectAction : Action
+    {
+        [SerializeField] public Transition Transition;
+    }
 
     // public enum ActionTypes
     // {

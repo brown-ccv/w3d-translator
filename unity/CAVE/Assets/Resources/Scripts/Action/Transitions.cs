@@ -4,11 +4,16 @@ using UnityEngine;
 
 namespace Writing3D
 {
-    [CreateAssetMenu(fileName = "Transition", menuName = "W3D/Transition/Transition", order = 0)]
     [Serializable]
-    public abstract class Transition : ScriptableObject
+    public class Transition
     {
         [SerializeField] public float Duration;
+    }
+
+    [Serializable]
+    public class VisibleTransition : Transition
+    {
+        [SerializeField] public bool Visible;
     }
 
     // public enum TransitionType
