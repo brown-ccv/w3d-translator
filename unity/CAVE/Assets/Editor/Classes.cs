@@ -1061,10 +1061,10 @@ namespace Writing3D
         {
             [XmlChoiceIdentifier("Type")]
             [XmlElement("ObjectChange", typeof(ObjectChange))]
-            [XmlElement("GroupRef", typeof(GroupRef))]
+            [XmlElement("GroupRef", typeof(GroupChange))]
             [XmlElement("TimerChange", typeof(TimerChange))]
-            [XmlElement("SoundRef", typeof(Reference))]
-            [XmlElement("Event", typeof(Event))]
+            [XmlElement("SoundRef", typeof(SoundChange))]
+            [XmlElement("Event", typeof(EventChange))]
             [XmlElement("MoveCave", typeof(MoveCave))]
             [XmlElement("Restart")]
             public object Action;
@@ -1095,7 +1095,7 @@ namespace Writing3D
 
         [Serializable]
         [XmlRoot("GroupRef")]
-        public class GroupRef : Reference
+        public class GroupChange : Reference
         {
             [XmlElement("Transition")]
             public Transition Transition;
@@ -1134,8 +1134,12 @@ namespace Writing3D
         }
 
         [Serializable]
+        [XmlRoot("SoundRef")]
+        public class SoundChange : Reference { }
+
+        [Serializable]
         [XmlRoot("Event")]
-        public class Event : Reference
+        public class EventChange : Reference
         {
             [XmlAttribute("enable")]
             public bool Enable;
