@@ -51,7 +51,7 @@ namespace W3D
 
             ApplyGlobalSettings();
             BuildWalls();
-            TranslateGameObjects();
+            BuildGameObjects();
 
             // TODO (95): Generate the <Group>s
             // TODO (96): Generate the <Timeline>s
@@ -215,7 +215,7 @@ namespace W3D
         }
 
         // Build the <Object>s and save them in a dictionary of {name: GameObject} pairs
-        private static void TranslateGameObjects()
+        private static void BuildGameObjects()
         {
             /** Object
                 name: gameObject.name
