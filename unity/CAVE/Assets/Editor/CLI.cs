@@ -11,15 +11,12 @@ using UnityEngine.SpatialTracking;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-using static UnityEngine.SpatialTracking.TrackedPoseDriver;
-using static UnityEditor.Events.UnityEventTools;
-using static UnityEditor.SceneManagement.EditorSceneManager;
-
 using Writing3D;
 using Writing3D.Xml;
 
-using static Writing3D.Translation.Helpers;
 using static UnityEngine.SpatialTracking.TrackedPoseDriver;
+using static UnityEditor.Events.UnityEventTools;
+using static Writing3D.Translation.Helpers;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
 
@@ -37,7 +34,7 @@ namespace Writing3D
             private static GameObject Root;
             private static GameObject XrRig;
 
-        // TODO: Better to just find all objects with an "Object" tag?
+            // TODO: Better to just find all objects with an "Object" tag?
             private static Dictionary<string, (GameObject, Xml.Object)> GameObjects;
 
             [MenuItem("Custom/CLI.Main %g")]
@@ -274,30 +271,30 @@ namespace Writing3D
                 }
             }
 
-        private static void SetLinkActions()
-        {
-            foreach (
-                KeyValuePair<string, (GameObject, XML.Object)> pair in
-                GameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
-            )
+            private static void SetLinkActions()
             {
-                (GameObject go, XML.Object obj) = pair.Value;
-                Link link = obj.LinkRoot.Link;
-                GameObject buttonGO = go.transform.parent.gameObject;
-                Button button = buttonGO.GetComponent<Button>();
-                ButtonManager bm = button.GetComponent<ButtonManager>();
-                Button.ButtonClickedEvent onClick = button.onClick;
-
-                // Add actions
-                AddVoidPersistentListener(onClick, new UnityAction(bm.Counter));
-                AddVoidPersistentListener(onClick, new UnityAction(bm.ExecuteActions));
-                if (!link.RemainEnabled)
+                foreach (
+                    KeyValuePair<string, (GameObject, Xml.Object)> pair in
+                    GameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
+                )
                 {
-                    AddVoidPersistentListener(
-                        onClick,
-                        new UnityAction(button.GetComponent<ButtonManager>().Disable)
-                    );
-                }
+                    (GameObject go, Xml.Object XmlObject) = pair.Value;
+                    Link xmlLink = XmlObject.LinkRoot.Link;
+                    GameObject buttonGO = go.transform.parent.gameObject;
+                    Button button = buttonGO.GetComponent<Button>();
+                    ButtonManager bm = button.GetComponent<ButtonManager>();
+                    Button.ButtonClickedEvent onClick = button.onClick;
+
+                    // Add actions
+                    AddVoidPersistentListener(onClick, new UnityAction(bm.Counter));
+                    AddVoidPersistentListener(onClick, new UnityAction(bm.ExecuteActions));
+                    if (!xmlLink.RemainEnabled)
+                    {
+                        AddVoidPersistentListener(
+                            onClick,
+                            new UnityAction(button.GetComponent<ButtonManager>().Disable)
+                        );
+                    }
 
                     // Add the <Action>s to onClick
                     bm.Actions = new();
@@ -305,81 +302,83 @@ namespace Writing3D
                     {
                         AddAction(xmlLinkAction, button);
                     }
+                }
             }
-        }
 
-        private static void AddAction(LinkActions linkActionX, Button button)
+            private static void AddAction(LinkActions xmlLinkAction, Button button)
             {
                 ButtonManager bm = button.GetComponent<ButtonManager>();
-            Button.ButtonClickedEvent onClick = button.onClick;
+                Button.ButtonClickedEvent onClick = button.onClick;
 
-            // Initialize action
-            LinkAction linkAction = ScriptableObject.CreateInstance(typeof(LinkAction)) as LinkAction;
-            if (linkActionX.Clicks is not null && linkActionX.Clicks.Type == Clicks.ActivationTypes.Number)
-            {
-                NumClicks activation = (NumClicks)linkActionX.Clicks.Activation;
-                linkAction.NumClicks = activation.Clicks;
-                linkAction.Reset = activation.Reset;
+                // Initialize action
+                LinkAction linkAction = ScriptableObject.CreateInstance(typeof(LinkAction))
+                                        as LinkAction;
+                if (xmlLinkAction.Clicks is not null &&
+                    xmlLinkAction.Clicks.Type == Clicks.ActivationTypes.Number)
+                {
+                    NumClicks activation = (NumClicks)xmlLinkAction.Clicks.Activation;
+                    linkAction.NumClicks = activation.Clicks;
+                    linkAction.Reset = activation.Reset;
                 }
 
-            // TODO: ButtonManager gets an event for every action/transition type (static)
-            // TODO: Need to find a way to save the 
+                // TODO: ButtonManager gets an event for every action/transition type (static)
+                // TODO: Need to find a way to save the 
 
-            GameObject reference;
-            switch (linkActionX.Action)
-            {
-                case ObjectChange objChange:
-                    // Get referenced GameObject and initialize Transition
-                    reference = GameObjects[objChange.Name].Item1;
+                GameObject reference;
+                switch (xmlLinkAction.Action)
+                {
+                    case ObjectChange xmlAction:
+                        // Get referenced GameObject and initialize Transition
+                        reference = GameObjects[xmlAction.Name].Item1;
 
-                    // TODO
-                    // UnityEvent for each type of Action/Transition (ButtonManager)
-                    // Does the Action inside of LinkAction have to be a scriptable object? Transition?
-                    // Try to make struct
-                    ObjectAction action = ScriptableObject.CreateInstance(typeof(ObjectAction)) as ObjectAction;
+                        // TODO
+                        // UnityEvent for each type of Action/Transition (ButtonManager)
+                        // Does the Action inside of LinkAction have to be a scriptable object? Transition?
+                        // Try to make struct
+                        ObjectAction action = ScriptableObject.CreateInstance(typeof(ObjectAction)) as ObjectAction;
 
-                    // TODO: Make switch
-                    VisibleTransition transition;
-                    if (objChange.Transition.Type == XML.Transition.TransitionType.Visible)
-                    {
-                        transition = ScriptableObject.CreateInstance(typeof(VisibleTransition)) as VisibleTransition;
-                        action.Transition = transition;
-                    }
+                        // TODO: Make switch
+                        VisibleTransition transition;
+                        if (xmlAction.Transition.Type == Xml.Transition.TransitionType.Visible)
+                        {
+                            transition = ScriptableObject.CreateInstance(typeof(VisibleTransition)) as VisibleTransition;
+                            action.Transition = transition;
+                        }
 
-                    linkAction.Action = action;
-                    break;
-                case GroupChange groupChange:
-                    // TODO: 87
-                    break;
-                case TimerChange timerChange:
-                    // TODO: 88
-                    break;
-                case EventChange eventChange:
-                    // TODO: 89
-                    break;
-                case MoveCave moveCave:
-                    // TODO: 90
-                    break;
-                case Reference soundChange:
-                    // TODO: 91
-                    break;
-                case null:
-                    // TODO: 92
-                    break;
-                default: break; // All cases covered
+                        linkAction.Action = action;
+                        break;
+                    case GroupChange xmlAction:
+                        // TODO: 87
+                        break;
+                    case TimerChange xmlAction:
+                        // TODO: 88
+                        break;
+                    case SoundChange xmlAction:
+                        // TODO: 91
+                        break;
+                    case EventChange xmlAction:
+                        // TODO: 89
+                        break;
+                    case MoveCave xmlAction:
+                        // TODO: 90
+                        break;
+
+                    case null:
+                        // TODO: 92 (Restart)
+                        break;
+                    default: break; // All cases covered
+                }
+                // TODO: Need to save linkAction
+                bm.Actions.Add(linkAction);
             }
-            // TODO: Need to save linkAction
-            bm.Actions.Add(linkAction);
-        }
 
-        // Callback function when Debug.Log is called within the CLI script
-        private static void HandleLog(string logString, string stackTrace, LogType type)
-        {
-            // TODO (84): Change string based on LogType (rich color)
-            // Prepending "LOG:" will print the line to the screen (checked in Python script)
-            Console.WriteLine($"LOG:{logString}");
+            // Callback function when Debug.Log is called within the CLI script
+            private static void HandleLog(string logString, string stackTrace, LogType type)
+            {
+                // TODO (84): Change string based on LogType (rich color)
+                // Prepending "LOG:" will print the line to the screen (checked in Python script)
+                Console.WriteLine($"LOG:{logString}");
+            }
         }
-        }
->>>>>>> editor
     }
 }

@@ -2,7 +2,7 @@ using System;
 
 using UnityEngine;
 
-namespace W3D
+namespace Writing3D
 {
     [CreateAssetMenu(fileName = "LinkAction", menuName = "W3D/LinkAction", order = 0)]
     [Serializable]

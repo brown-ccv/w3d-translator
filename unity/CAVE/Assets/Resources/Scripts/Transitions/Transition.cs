@@ -2,7 +2,7 @@ using System;
 
 using UnityEngine;
 
-namespace W3D
+namespace Writing3D
 {
     [CreateAssetMenu(fileName = "Transition", menuName = "W3D/Transition/Transition", order = 0)]
     [Serializable]

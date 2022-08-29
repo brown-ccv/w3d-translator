@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace W3D
+namespace Writing3D
 {
     public class ObjectManager : MonoBehaviour
     {
