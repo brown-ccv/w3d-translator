@@ -14,11 +14,12 @@ using UnityEngine.Events;
 using Writing3D;
 using Writing3D.Xml;
 
-using static Writing3D.Xml.Xml;
 using static Writing3D.Translation.Helpers;
 using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
+
+// TODO: Naming scheme (prepend Xml)
 
 namespace Writing3D
 {
@@ -146,7 +147,7 @@ namespace Writing3D
                 UnityEngine.Camera caveCamera =
                     caveCameraT.GetComponent<UnityEngine.Camera>();
                 caveCamera.farClipPlane = CaveCameraX.FarClip;
-                CaveCameraX.Placement.SetTransform(caveCamera.transform, Vector3.one, Root.transform);
+                SetTransform(caveCamera.transform, CaveCameraX.Placement);
 
                 // Update Camera inside of xrRig
                 Xml.Camera CameraX = globalX.Camera;
@@ -185,22 +186,20 @@ namespace Writing3D
             {
                 // Each wall is an 8" by 8" square
                 Vector3[] points = {
-                new Vector3(-4, 4, 0),
-                new Vector3(4, 4, 0),
-                new Vector3(4, -4, 0),
-                new Vector3(-4, -4, 0),
-            };
+                    new Vector3(-4, 4, 0),
+                    new Vector3(4, 4, 0),
+                    new Vector3(4, -4, 0),
+                    new Vector3(-4, -4, 0),
+                };
 
-                foreach (Placement placement in RootX.PlacementRoot)
+                foreach (Placement xmlPlacement in RootX.PlacementRoot)
                 {
                     // Objects in the "Center" space are nested directly under Root
-                    if (placement.Name == "Center") { continue; }
+                    if (xmlPlacement.Name == "Center") { continue; }
 
                     // Create and position wall
-                    GameObject wall = new() { name = placement.Name };
-                    // TODO: TEST
-                    // wall.SetActive(true); 
-                    placement.SetTransform(wall.transform, Vector3.one, Root.transform);
+                    GameObject wall = new() { name = xmlPlacement.Name };
+                    SetTransform(wall.transform, xmlPlacement);
 
                     // Create outline
                     LineRenderer outline = wall.AddComponent<LineRenderer>();
@@ -228,11 +227,13 @@ namespace Writing3D
                     AroundSelfAxis: TODO (76)
                     Scale: gameObject.localScale (set in Placement.SetTransform)
                 */
-                foreach (Xml.Object objectX in RootX.ObjectRoot)
+                foreach (Xml.Object xmlObject in RootX.ObjectRoot)
                 {
-                    GameObject contentGO = objectX.Content.Create(objectX);
-                    if (objectX.LinkRoot is not null)
+                    GameObject contentGO = CreateGameObject(xmlObject);
+                    if (xmlObject.LinkRoot is not null)
                     {
+                        Link xmlLink = xmlObject.LinkRoot.Link;
+
                         // Instantiate a new link prefab
                         GameObject prefab = (GameObject)PrefabUtility.InstantiatePrefab(
                             Resources.Load<GameObject>("Prefabs/canvas")
@@ -240,36 +241,31 @@ namespace Writing3D
                         prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
 
                         // Initialize canvas
-                        prefab.name = objectX.Name;
-                        prefab.SetActive(objectX.Visible);
-                        objectX.Placement.SetTransform(
-                            prefab.transform,
-                            objectX.GetScale(),
-                            Root.transform
-                        );
+                        prefab.name = xmlObject.Name;
+                        prefab.SetActive(xmlObject.Visible);
+                        SetTransform(prefab.transform, xmlObject.Placement, xmlObject.Scale);
                         prefab.transform.localScale *= 0.1f;
 
                         GameObject buttonGO = prefab.transform.GetChild(0).gameObject;
                         Button button = buttonGO.GetComponent<Button>();
+                        ColorBlock colors = button.colors;
 
                         // Nest the <Content> inside the prefab and initialize button
                         contentGO.transform.SetParent(buttonGO.transform, false);
                         button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
-                        button.colors = objectX.LinkRoot.Link.SetColors(
-                            button.colors,
-                            objectX.ColorString
-                        );
+
+                        colors.normalColor = colors.highlightedColor =
+                            ConvertColor(xmlLink.EnabledColorString);
+                        colors.pressedColor = colors.selectedColor =
+                            ConvertColor(xmlLink.SelectedColorString);
+                        colors.disabledColor = ConvertColor(xmlObject.ColorString);
                     }
                     else
                     {
-                        contentGO.SetActive(objectX.Visible);
-                        objectX.Placement.SetTransform(
-                            contentGO.transform,
-                            objectX.GetScale(),
-                            Root.transform
-                        );
+                        contentGO.SetActive(xmlObject.Visible);
+                        SetTransform(contentGO.transform, xmlObject.Placement, xmlObject.Scale);
                     }
-                    GameObjects.Add(contentGO.name, (contentGO, objectX));
+                    GameObjects.Add(contentGO.name, (contentGO, xmlObject));
                 }
             }
 

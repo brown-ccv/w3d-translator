@@ -3,14 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.Events;
-using UnityEngine;
-using UnityEngine.UI;
-
-using TMPro;
-
-// TODO: Whats a good name? XML | OG  | Classes
+// using UnityEngine;
 
 namespace Writing3D
 {
@@ -20,29 +13,7 @@ namespace Writing3D
         public class Xml
         {
             // Print the class as a Json object
-            public string Pprint() { return JsonUtility.ToJson(this, true); }
-
-            // Converts "[int], [int], [int]" to a UnityEngine.Color object
-            public static Color ConvertColor(string colorString)
-            {
-                string[] strings = colorString.Trim(new[] { ' ', '(', ')' }).Split(",");
-                return new Color(
-                    float.Parse(strings[0]) / 255,
-                    float.Parse(strings[1]) / 255,
-                    float.Parse(strings[2]) / 255
-                );
-            }
-
-            // Converts a "([float], [float], [float])" string to a UnityEngine.Vector3 object
-            public static Vector3 ConvertVector3(string vectorString)
-            {
-                string[] strings = vectorString.Trim(new[] { ' ', '(', ')' }).Split(",");
-                return new Vector3(
-                    float.Parse(strings[0]),
-                    float.Parse(strings[1]),
-                    float.Parse(strings[2]) * -1
-                );
-            }
+            // public string Pprint() { return JsonUtility.ToJson(this, true); }
         }
 
         /********** STORY            ***********/
@@ -144,8 +115,6 @@ namespace Writing3D
 
             [XmlText]
             public string Text;
-
-            public Vector3 GetScale() { return Vector3.one * Scale; }
         }
 
         [XmlRoot("LinkRoot")]
@@ -182,25 +151,6 @@ namespace Writing3D
                 [XmlEnum("Light")] Light,
                 [XmlEnum("ParticleSystem")] ParticleSystem,
             }
-
-            public GameObject Create(Object parent)
-            {
-                GameObject gameObject = ContentData switch
-                {
-                    Text text => text.GenerateTMP(
-                        parent.LinkRoot is not null,
-                        ConvertColor(parent.ColorString)
-                    ),
-                    Image image => new GameObject(), // TODO (65)
-                    StereoImage stereoImage => new(), // TODO (66)
-                    Model model => new GameObject(), // TODO (67)
-                    Light light => new GameObject(), // TODO (68)
-                    ParticleSystem particleSystem => new GameObject(), // TODO (69)
-                    _ => new GameObject(), // TODO: - Shouldn't occur, throw error
-                };
-                gameObject.name = parent.Name;
-                return gameObject;
-            }
         }
 
         [Serializable]
@@ -235,57 +185,6 @@ namespace Writing3D
 
             [XmlAttribute("depth")]
             public float Depth;
-
-            public GameObject GenerateTMP(bool isLink, Color color)
-            {
-                // Instantiate TextMeshPro or TextMeshProUGUI prefab
-                // TODO (64): Validate prefab settings
-                GameObject gameObject = UnityEngine.Object.Instantiate(
-                    Resources.Load<GameObject>("Prefabs/TmpText" + (isLink ? "GUI" : ""))
-                );
-                TMP_Text tmpText = gameObject.GetComponent<TMP_Text>();
-
-                // Set object properties defined in the xml
-                tmpText.SetText(String);
-                tmpText.horizontalAlignment = (HorizontalAlignmentOptions)HorizontalAlignment;
-                tmpText.verticalAlignment = (VerticalAlignmentOptions)VerticalAlignment;
-                tmpText.color = color; // Vertex Color
-
-                // Load font material
-                // TODO (72): More robust path checking
-                TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
-                    "Materials/Fonts/" +
-                    Path.GetFileNameWithoutExtension(Font) +
-                    " SDF"
-                );
-                if (tmpFont == null)
-                {
-                    // Font material hasn't been created, attempt to load from ttf file
-                    try
-                    {
-                        Font font = AssetDatabase.LoadAssetAtPath<Font>(Font);
-                        tmpFont = TMP_FontAsset.CreateFontAsset(font);
-                        tmpFont.name = Path.GetFileNameWithoutExtension(Font);
-                    }
-                    catch (NullReferenceException e)
-                    {
-                        Debug.LogError($"Error loading font: {Font}");
-                        Debug.LogException(e);
-                    }
-                }
-
-                // Add font to the TextMeshPro object
-                try { tmpText.font = tmpFont; }
-                catch (NullReferenceException e)
-                {
-                    Debug.LogWarning($"{gameObject.name} {tmpFont} {tmpText.font}");
-                    Debug.LogError($"Error creating font asset {Font} for {gameObject.name}");
-                    Debug.Log("Defaulting to fallback font LiberationSans SDF");
-                    Debug.LogException(e);
-                }
-
-                return gameObject;
-            }
         }
 
         [Serializable]
@@ -405,16 +304,6 @@ namespace Writing3D
 
             [XmlElement("Actions")]
             public List<LinkActions> Actions;
-
-            public ColorBlock SetColors(ColorBlock colors, string parentColorString)
-            {
-                colors.normalColor = colors.highlightedColor =
-                    ConvertColor(EnabledColorString);
-                colors.pressedColor = colors.selectedColor =
-                    ConvertColor(SelectedColorString);
-                colors.disabledColor = ConvertColor(parentColorString);
-                return colors;
-            }
         }
 
         [Serializable]
@@ -440,8 +329,6 @@ namespace Writing3D
                 [XmlEnum("Any")] Any,
                 [XmlEnum("NumClicks")] Number,
             }
-
-            // public static DefaultClicks
         }
 
         [Serializable]
@@ -1132,47 +1019,6 @@ namespace Writing3D
 
             [XmlText]
             public string Text;
-
-            /** Set parent GameObject and local transforms of gameObjectT
-                relativeTo: [GameObject].transform.parent
-                position: [GameObject].transform.localPosition
-                rotationType.Axis: Rotation angle around an axis
-                rotationType.LookAt: Rotate to look at target vector (world space)
-                rotationType.Normal: Local rotation around a normalized vector
-            */
-            // TODO (81): Split into separate functions that return their values
-            public void SetTransform(Transform gameObjectT, Vector3 scale, Transform rootT)
-            {
-                gameObjectT.SetParent(GetParent(rootT), false);
-                gameObjectT.localPosition = GetPosition();
-                gameObjectT.localScale = scale;
-
-                switch (Rotation)
-                {
-                    case Axis rotation:
-                        gameObjectT.localEulerAngles = rotation.GetEuler();
-                        break;
-                    case LookAt rotation:
-                        gameObjectT.rotation = rotation.GetQuaternion(gameObjectT.position, rootT);
-                        break;
-                    case Normal rotation:
-                        gameObjectT.localEulerAngles = rotation.GetEuler();
-                        break;
-                    case null:
-                        gameObjectT.localRotation = Quaternion.identity;
-                        break;
-                    default: break;
-                }
-            }
-
-            public Vector3 GetPosition() { return ConvertVector3(PositionString); }
-
-            public Transform GetParent(Transform rootT)
-            {
-                return RelativeTo == PlacementTypes.Center
-                        ? rootT // Nest under Root directly
-                        : rootT.Find(RelativeTo.ToString());
-            }
         }
 
         [Serializable]
@@ -1184,11 +1030,6 @@ namespace Writing3D
 
             [XmlAttribute("angle")]
             public float Angle;
-
-            public Vector3 GetEuler()
-            {
-                return ConvertVector3(RotationString) * Angle;
-            }
         }
 
         [Serializable]
@@ -1200,15 +1041,6 @@ namespace Writing3D
 
             [XmlAttribute("up")]
             public string UpString;
-
-            public Quaternion GetQuaternion(Vector3 position, Transform rootT)
-            {
-                return Quaternion.LookRotation(
-                    position -
-                        rootT.TransformPoint(ConvertVector3(TargetString)),
-                    ConvertVector3(UpString)
-                );
-            }
         }
 
         [Serializable]
@@ -1220,12 +1052,6 @@ namespace Writing3D
 
             [XmlAttribute("angle")]
             public float Angle;
-
-            public Vector3 GetEuler()
-            {
-                // TODO (63): Is this the correct logic?
-                return ConvertVector3(NormalString) * Angle;
-            }
         }
 
         // ACTIONS
