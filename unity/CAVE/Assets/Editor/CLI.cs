@@ -248,17 +248,19 @@ namespace Writing3D
 
                         GameObject buttonGO = prefab.transform.GetChild(0).gameObject;
                         Button button = buttonGO.GetComponent<Button>();
-                        ColorBlock colors = button.colors;
 
                         // Nest the <Content> inside the prefab and initialize button
                         contentGO.transform.SetParent(buttonGO.transform, false);
                         button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
 
-                        colors.normalColor = colors.highlightedColor =
+                        // Set state colors
+                        ColorBlock newColors = button.colors;
+                        newColors.normalColor = newColors.highlightedColor =
                             ConvertColor(xmlLink.EnabledColorString);
-                        colors.pressedColor = colors.selectedColor =
+                        newColors.pressedColor = newColors.selectedColor =
                             ConvertColor(xmlLink.SelectedColorString);
-                        colors.disabledColor = ConvertColor(xmlObject.ColorString);
+                        newColors.disabledColor = ConvertColor(xmlObject.ColorString);
+                        button.colors = newColors;
                     }
                     else
                     {
