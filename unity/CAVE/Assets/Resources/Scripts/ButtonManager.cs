@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace W3D
+namespace Writing3D
 {
     public class ButtonManager : MonoBehaviour
     {

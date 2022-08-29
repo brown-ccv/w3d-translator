@@ -1,26 +1,29 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace CLI
+namespace Writing3D
 {
-    // Creates 
-    public class CLI_GUI : EditorWindow
+    namespace Translation
     {
-        [MenuItem("Custom/CLI Window")]
-        private static void Init()
+        // Creates 
+        public class CLI_GUI : EditorWindow
         {
-            EditorWindow window = GetWindow(typeof(CLI_GUI));
-            window.Show();
-        }
+            [MenuItem("Custom/CLI Window")]
+            private static void Init()
+            {
+                EditorWindow window = GetWindow(typeof(CLI_GUI));
+                window.Show();
+            }
 
-        private void OnGUI()
-        {
-            if (CLI.ProjectPath is null) { CLI.ProjectPath = "../../test/sample.xml"; }
+            private void OnGUI()
+            {
+                if (CLI.ProjectPath is null) { CLI.ProjectPath = "../../test/sample.xml"; }
 
-            CLI.ProjectPath = EditorGUILayout.TextField("Path: ", CLI.ProjectPath);
+                CLI.ProjectPath = EditorGUILayout.TextField("Path: ", CLI.ProjectPath);
 
-            if (GUILayout.Button("CLI.Main")) { CLI.Main(); }
-            Repaint();
+                if (GUILayout.Button("CLI.Main")) { CLI.Main(); }
+                Repaint();
+            }
         }
     }
 }
