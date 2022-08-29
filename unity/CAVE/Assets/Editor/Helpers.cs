@@ -1,7 +1,9 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 using Writing3D.Xml;
@@ -99,17 +101,16 @@ namespace Writing3D
 
             /********** OBJECT ROOT    ***********/
 
-            // public static GameObject CreateGameObject(Xml.Object parent, Content content)
             public static GameObject CreateGameObject(Xml.Object xmlObject)
             {
                 GameObject gameObject = xmlObject.Content.ContentData switch
                 {
-                    Text xmlText => CreateText(
+                    Xml.Text xmlText => CreateText(
                         xmlText,
                         xmlObject.LinkRoot is not null,
                         xmlObject.ColorString
                     ),
-                    Image xmlImage => new GameObject(), // TODO (65)
+                    Xml.Image xmlImage => new GameObject(), // TODO (65)
                     StereoImage xmlStereoImage => new(), // TODO (66)
                     Model xmlModel => new GameObject(), // TODO (67)
                     Xml.Light xmlLight => new GameObject(), // TODO (68)
@@ -120,7 +121,7 @@ namespace Writing3D
                 return gameObject;
             }
 
-            public static GameObject CreateText(Text xmlText, bool isLink, string colorString)
+            public static GameObject CreateText(Xml.Text xmlText, bool isLink, string colorString)
             {
                 // Instantiate TextMeshPro or TextMeshProUGUI prefab
                 // TODO (64): Validate prefab settings
@@ -169,6 +170,74 @@ namespace Writing3D
                 }
 
                 return gameObject;
+            }
+
+            /********** ACTIONS    ***********/
+
+            public static void AddAction(LinkActions xmlLinkAction, Button button, Dictionary<string, (GameObject, Xml.Object)> GameObjects)
+            {
+                ButtonManager bm = button.GetComponent<ButtonManager>();
+                Button.ButtonClickedEvent onClick = button.onClick;
+
+                // Initialize action
+                LinkAction linkAction = ScriptableObject.CreateInstance(typeof(LinkAction))
+                                        as LinkAction;
+                if (xmlLinkAction.Clicks is not null &&
+                    xmlLinkAction.Clicks.Type == Clicks.ActivationTypes.Number)
+                {
+                    NumClicks activation = (NumClicks)xmlLinkAction.Clicks.Activation;
+                    linkAction.NumClicks = activation.Clicks;
+                    linkAction.Reset = activation.Reset;
+                }
+
+                // TODO: ButtonManager gets an event for every action/transition type (static)
+                // TODO: Need to find a way to save the 
+
+                GameObject reference;
+                switch (xmlLinkAction.Action)
+                {
+                    case ObjectChange xmlAction:
+                        // Get referenced GameObject and initialize Transition
+                        reference = GameObjects[xmlAction.Name].Item1;
+
+                        // TODO: LinkAction is a ScriptableObject
+                        // Everything else is just a basic class (struct?)
+
+                        ObjectAction action = ScriptableObject.CreateInstance(typeof(ObjectAction)) as ObjectAction;
+
+                        // TODO: Make switch
+                        VisibleTransition transition;
+                        if (xmlAction.Transition.Type == Xml.Transition.TransitionType.Visible)
+                        {
+                            transition = ScriptableObject.CreateInstance(typeof(VisibleTransition)) as VisibleTransition;
+                            action.Transition = transition;
+                        }
+
+                        linkAction.Action = action;
+                        break;
+                    case GroupChange xmlAction:
+                        // TODO: 87
+                        break;
+                    case TimerChange xmlAction:
+                        // TODO: 88
+                        break;
+                    case SoundChange xmlAction:
+                        // TODO: 91
+                        break;
+                    case EventChange xmlAction:
+                        // TODO: 89
+                        break;
+                    case MoveCave xmlAction:
+                        // TODO: 90
+                        break;
+
+                    case null:
+                        // TODO: 92 (Restart)
+                        break;
+                    default: break; // All cases covered
+                }
+                // TODO: Need to save linkAction
+                bm.Actions.Add(linkAction);
             }
         }
     }

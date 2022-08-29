@@ -300,76 +300,9 @@ namespace Writing3D
                     bm.Actions = new();
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
-                        AddAction(xmlLinkAction, button);
+                        AddAction(xmlLinkAction, button, GameObjects);
                     }
                 }
-            }
-
-            private static void AddAction(LinkActions xmlLinkAction, Button button)
-            {
-                ButtonManager bm = button.GetComponent<ButtonManager>();
-                Button.ButtonClickedEvent onClick = button.onClick;
-
-                // Initialize action
-                LinkAction linkAction = ScriptableObject.CreateInstance(typeof(LinkAction))
-                                        as LinkAction;
-                if (xmlLinkAction.Clicks is not null &&
-                    xmlLinkAction.Clicks.Type == Clicks.ActivationTypes.Number)
-                {
-                    NumClicks activation = (NumClicks)xmlLinkAction.Clicks.Activation;
-                    linkAction.NumClicks = activation.Clicks;
-                    linkAction.Reset = activation.Reset;
-                }
-
-                // TODO: ButtonManager gets an event for every action/transition type (static)
-                // TODO: Need to find a way to save the 
-
-                GameObject reference;
-                switch (xmlLinkAction.Action)
-                {
-                    case ObjectChange xmlAction:
-                        // Get referenced GameObject and initialize Transition
-                        reference = GameObjects[xmlAction.Name].Item1;
-
-                        // TODO
-                        // UnityEvent for each type of Action/Transition (ButtonManager)
-                        // Does the Action inside of LinkAction have to be a scriptable object? Transition?
-                        // Try to make struct
-                        ObjectAction action = ScriptableObject.CreateInstance(typeof(ObjectAction)) as ObjectAction;
-
-                        // TODO: Make switch
-                        VisibleTransition transition;
-                        if (xmlAction.Transition.Type == Xml.Transition.TransitionType.Visible)
-                        {
-                            transition = ScriptableObject.CreateInstance(typeof(VisibleTransition)) as VisibleTransition;
-                            action.Transition = transition;
-                        }
-
-                        linkAction.Action = action;
-                        break;
-                    case GroupChange xmlAction:
-                        // TODO: 87
-                        break;
-                    case TimerChange xmlAction:
-                        // TODO: 88
-                        break;
-                    case SoundChange xmlAction:
-                        // TODO: 91
-                        break;
-                    case EventChange xmlAction:
-                        // TODO: 89
-                        break;
-                    case MoveCave xmlAction:
-                        // TODO: 90
-                        break;
-
-                    case null:
-                        // TODO: 92 (Restart)
-                        break;
-                    default: break; // All cases covered
-                }
-                // TODO: Need to save linkAction
-                bm.Actions.Add(linkAction);
             }
 
             // Callback function when Debug.Log is called within the CLI script
