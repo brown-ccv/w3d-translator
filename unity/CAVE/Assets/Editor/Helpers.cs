@@ -197,7 +197,8 @@ namespace Writing3D
                 // TODO: ButtonManager gets an event for every action/transition type (static)
                 // TODO: Need to find a way to save the 
 
-                GameObject reference = null; // TEMP - no initialization needed
+                GameObject reference; // TEMP - no initialization needed
+                UnityAction<LinkAction> unityAction;
                 switch (xmlLinkAction.Action)
                 {
                     case ObjectChange xmlAction:
@@ -212,47 +213,51 @@ namespace Writing3D
                         action.Transition = new Transition();
 
                         // TODO: Make switch (separate function)
-                        // if (xmlAction.Transition.Type == Xml.Transition.TransitionType.Visible)
-                        // {
-                        //     VisibleTransition transition = new();
-                        //     action.Transition = transition;
-                        // }
+                        if (xmlAction.Transition.Type == Xml.Transition.TransitionType.Visible)
+                        {
+                            VisibleTransition transition = new();
+                            action.Transition = transition;
+
+                            unityAction = new(reference.GetComponent<ObjectManager>().VisibleTransition);
+                            Debug.Log(unityAction.Method + " " + unityAction.Target);
+
+                            // unityAction.Method = 
+                        }
+                        else { unityAction = null; } // TEMP
 
                         linkAction.Action = action;
 
-                        // TODO: Can move to bottom of switch
-                        Debug.Log(bm.Actions);
-                        Debug.Log(linkAction.GetType());
-                        // Debug.Log(reference.GetComponent<ObjectManager>().GetType());
-                        Debug.Log(reference.name + " " + reference.tag);
+                        // TODO: Can move to bottom of switch (?)
 
-                        UnityEventTools.AddObjectPersistentListener(
-                            bm.Actions,
-                            new UnityAction<LinkAction>(reference.GetComponent<ObjectManager>().VisibleTransition),
-                            linkAction
-                        );
                         break;
-                    case GroupChange xmlAction:
-                        // TODO: 87
-                        break;
-                    case TimerChange xmlAction:
-                        // TODO: 88
-                        break;
-                    case SoundChange xmlAction:
-                        // TODO: 91
-                        break;
-                    case EventChange xmlAction:
-                        // TODO: 89
-                        break;
-                    case MoveCave xmlAction:
-                        // TODO: 90
-                        break;
+                    // case GroupChange xmlAction:
+                    //     // TODO: 87
+                    //     break;
+                    // case TimerChange xmlAction:
+                    //     // TODO: 88
+                    //     break;
+                    // case SoundChange xmlAction:
+                    //     // TODO: 91
+                    //     break;
+                    // case EventChange xmlAction:
+                    //     // TODO: 89
+                    //     break;
+                    // case MoveCave xmlAction:
+                    //     // TODO: 90
+                    //     break;
 
-                    case null:
-                        // TODO: 92 (Restart)
-                        break;
-                    default: break; // All cases covered
+                    // case null:
+                    //     // TODO: 92 (Restart)
+                    //     break;
+                    default:
+                        unityAction = null; // TEMP
+                        break; // All cases covered
                 }
+                UnityEventTools.AddObjectPersistentListener(
+                    bm.Actions,
+                    unityAction,
+                    linkAction
+                );
             }
         }
     }
