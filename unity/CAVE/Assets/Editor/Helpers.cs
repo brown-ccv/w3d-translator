@@ -202,7 +202,6 @@ namespace Writing3D
                 switch (xmlLinkAction.Action)
                 {
                     case ObjectChange xmlAction:
-                        linkAction.Type = Action.Types.Object;
                         ObjectAction action = new();
 
                         // Get referenced GameObject and initialize Transition
@@ -244,43 +243,26 @@ namespace Writing3D
                 );
             }
 
-            public static Transition CreateTransition(Xml.Transition xmlTransition)
+            public static dynamic CreateTransition(Xml.Transition xmlTransition)
             {
                 // TODO: Return the action, not the Transition. Update transition
                     // unityAction = new(reference.GetComponent<ObjectManager>().VisibleTransition);
                     // Debug.Log(unityAction.Method + " " + unityAction.Target);
 
-                Transition transition = new();
-                switch (xmlTransition.Change)
+
+                dynamic transition = xmlTransition.Change switch
                 {
-                    case bool visible:
-                        // transition = Convert.ChangeType(transition, typeof(VisibleTransition));
-                        transition = Convert.ChangeType(transition, typeof(VisibleTransition));
-                        transition.Visible = visible;
+                    bool visible => new VisibleTransition(visible),
+                    MovementTransition placement => new MoveTransition(),
+                    MoveRel placement => new RelativeMoveTransition(),
+                    string color => new ColorTransition(ConvertColor(color)),
+                    float scale => new ScaleTransition(scale),
+                    Xml.SoundTransition operation => new SoundTransition(),
+                    Xml.LinkTransition operation => new LinkTransition(),
+                    _ => null,
+                };
 
-                        return transition;
-                    case MovementTransition temp:
-                        transition = Convert.ChangeType(transition, typeof(MoveTransition));
-                        return transition;
-                    case MoveRel temp:
-                        transition = Convert.ChangeType(transition, typeof(RelativeMoveTransition));
-                        return transition;
-                    case string temp:
-                        transition = Convert.ChangeType(transition, typeof(ColorTransition));
-                        return transition;
-                    case float temp:
-                        transition = Convert.ChangeType(transition, typeof(ScaleTransition));
-                        return transition;
-                    case SoundTransition temp:
-                        transition = Convert.ChangeType(transition, typeof(SoundTransition));
-                        return transition;
-                    case LinkTransition temp:
-                        transition = Convert.ChangeType(transition, typeof(LinkTransition));
-                        return transition;
-                    default:
-                        return null;
-                }
-
+                return transition; // TEMP
             }
         }
     }

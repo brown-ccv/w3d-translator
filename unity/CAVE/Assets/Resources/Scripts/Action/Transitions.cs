@@ -18,6 +18,8 @@ namespace Writing3D
     public class VisibleTransition : Transition
     {
         [SerializeField] public bool Visible;
+
+        public VisibleTransition(bool visible) { Visible = visible; }
     }
 
     [Serializable]
@@ -36,12 +38,16 @@ namespace Writing3D
     public class ColorTransition : Transition
     {
         [SerializeField] public Color Color;
+
+        public ColorTransition(Color color) { Color = color; }
     }
 
     [Serializable]
     public class ScaleTransition : Transition
     {
         [SerializeField] public float Scale;
+
+        public ScaleTransition(float scale) { Scale = scale; }
     }
 
     [Serializable]
