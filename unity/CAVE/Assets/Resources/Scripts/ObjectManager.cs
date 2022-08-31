@@ -8,7 +8,8 @@ namespace Writing3D
         // TODO: Private function to cast action/transition
         public void VisibleTransition(LinkAction linkAction)
         {
-            VisibleTransition transition = (VisibleTransition)(linkAction.Action as ObjectAction)?.Transition;
+            ObjectAction action = (ObjectAction)linkAction.Action;
+            VisibleTransition transition = (VisibleTransition)action.Transition;
             Debug.Log($"VisibleT {gameObject.name} {transition.Visible}");
 
             // Fade In/Out and enable/disable the GameObject
@@ -19,37 +20,43 @@ namespace Writing3D
 
         public void MoveTransition(LinkAction linkAction)
         {
-            MoveTransition transition = (MoveTransition)(linkAction.Action as ObjectAction)?.Transition;
-            Debug.Log($"VisibleT {gameObject.name} {linkAction.Type}");
+            ObjectAction action = (ObjectAction)linkAction.Action;
+            MoveTransition transition = (MoveTransition)action.Transition;
+            Debug.Log($"VisibleT {gameObject.name}");
         }
 
         public void RelativeMoveTransition(LinkAction linkAction)
         {
-            MoveTransition transition = (MoveTransition)(linkAction.Action as ObjectAction)?.Transition;
-            Debug.Log($"VisibleT {gameObject.name} {linkAction.Type}");
+            ObjectAction action = (ObjectAction)linkAction.Action;
+            RelativeMoveTransition transition = (RelativeMoveTransition)action.Transition;
+            Debug.Log($"VisibleT {gameObject.name}");
         }
 
         public void ColorTransition(LinkAction linkAction)
         {
-            ColorTransition transition = (ColorTransition)(linkAction.Action as ObjectAction)?.Transition;
+            ObjectAction action = (ObjectAction)linkAction.Action;
+            ColorTransition transition = (ColorTransition)action.Transition;
             Debug.Log($"VisibleT {gameObject.name} {transition.Color}");
         }
 
         public void ScaleTransition(LinkAction linkAction)
         {
-            ScaleTransition transition = (ScaleTransition)(linkAction.Action as ObjectAction)?.Transition;
+            ObjectAction action = (ObjectAction)linkAction.Action;
+            ScaleTransition transition = (ScaleTransition)action.Transition;
             Debug.Log($"VisibleT {gameObject.name} {transition.Scale}");
         }
 
         public void SoundTransition(LinkAction linkAction)
         {
-            SoundTransition transition = (SoundTransition)(linkAction.Action as ObjectAction)?.Transition;
+            ObjectAction action = (ObjectAction)linkAction.Action;
+            SoundTransition transition = (SoundTransition)action.Transition;
             Debug.Log($"VisibleT {gameObject.name} {transition.Operation}");
         }
 
         public void LinkTransition(LinkAction linkAction)
         {
-            LinkTransition transition = (LinkTransition)(linkAction.Action as ObjectAction)?.Transition;
+            ObjectAction action = (ObjectAction)linkAction.Action;
+            LinkTransition transition = (LinkTransition)action.Transition;
             Debug.Log($"VisibleT {gameObject.name} {transition.Operation}");
         }
     }

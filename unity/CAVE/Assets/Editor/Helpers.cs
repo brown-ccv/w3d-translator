@@ -194,22 +194,19 @@ namespace Writing3D
                     linkAction.Reset = activation.Reset;
                 }
 
-                // TODO: ButtonManager gets an event for every action/transition type (static)
-                // TODO: Need to find a way to save the 
-
-                GameObject reference; // TEMP - no initialization needed
+                GameObject reference;
                 UnityAction<LinkAction> unityAction;
                 switch (xmlLinkAction.Action)
                 {
                     case ObjectChange xmlAction:
                         ObjectAction action = new();
 
-                        // Get referenced GameObject and initialize Transition
+                        // Get referenced GameObject
                         reference = GameObjects[xmlAction.Name].Item1;
 
-
-
-                        action.Transition = CreateTransition(xmlAction.Transition);
+                        // Initialize the transition and action
+                        action.Transition = GetTransition(xmlAction.Transition);
+                        unityAction = GetUnityAction(action.Transition, reference);
                         linkAction.Action = action;
                         break;
                     // case GroupChange xmlAction:
@@ -243,14 +240,9 @@ namespace Writing3D
                 );
             }
 
-            public static dynamic CreateTransition(Xml.Transition xmlTransition)
+            public static Transition GetTransition(Xml.Transition xmlTransition)
             {
-                // TODO: Return the action, not the Transition. Update transition
-                    // unityAction = new(reference.GetComponent<ObjectManager>().VisibleTransition);
-                    // Debug.Log(unityAction.Method + " " + unityAction.Target);
-
-
-                dynamic transition = xmlTransition.Change switch
+                return xmlTransition.Change switch
                 {
                     bool visible => new VisibleTransition(visible),
                     MovementTransition placement => new MoveTransition(),
@@ -259,10 +251,24 @@ namespace Writing3D
                     float scale => new ScaleTransition(scale),
                     Xml.SoundTransition operation => new SoundTransition(),
                     Xml.LinkTransition operation => new LinkTransition(),
-                    _ => null,
+                    _ => null, // force error
                 };
+            }
 
-                return transition; // TEMP
+            public static UnityAction<LinkAction> GetUnityAction(Transition transition, GameObject reference)
+            {
+                ObjectManager script = reference.GetComponent<ObjectManager>();
+                return transition switch
+                {
+                    VisibleTransition => new UnityAction<LinkAction>(script.VisibleTransition),
+                    MoveTransition => new UnityAction<LinkAction>(script.MoveTransition),
+                    RelativeMoveTransition => new UnityAction<LinkAction>(script.RelativeMoveTransition),
+                    ColorTransition => new UnityAction<LinkAction>(script.ColorTransition),
+                    ScaleTransition => new UnityAction<LinkAction>(script.ScaleTransition),
+                    SoundTransition => new UnityAction<LinkAction>(script.SoundTransition),
+                    LinkTransition => new UnityAction<LinkAction>(script.LinkTransition),
+                    _ => null, // force error
+                };
             }
         }
     }
