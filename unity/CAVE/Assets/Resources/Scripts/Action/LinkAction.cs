@@ -9,8 +9,7 @@ namespace Writing3D
     [Serializable]
     public class LinkAction : ScriptableObject
     {
-        [SerializeField] public Action Action;
-        [SerializeField] public Action.Types Type;
+        [SerializeField] public dynamic Action;
 
         [SerializeField] public uint NumClicks = 1;
         [SerializeField] public bool Reset; // Initialized as false

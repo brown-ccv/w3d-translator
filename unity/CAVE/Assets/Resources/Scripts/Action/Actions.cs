@@ -13,6 +13,6 @@ namespace Writing3D
     [Serializable]
     public class ObjectAction : Action
     {
-        [SerializeField] public Transition Transition;
+        [SerializeField] public dynamic Transition;
     }
 }
