@@ -9,7 +9,6 @@ namespace Writing3D
     [Serializable]
     public class ButtonManager : MonoBehaviour
     {
-        // [SerializeField] public List<LinkAction> Actions = new();
         [SerializeField] public LinkActionEvent Actions = new();
         private int clickCount = 0;
 

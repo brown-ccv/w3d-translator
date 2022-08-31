@@ -82,10 +82,10 @@ namespace Writing3D
                         if (args[i] == "--projectPath") { ProjectPath = args[++i]; }
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Debug.Log("Error initializing command line arguments");
-                    Debug.LogException(e);
+                    Debug.LogError("Error initializing command line arguments");
+                    throw;
                 }
             }
 
@@ -121,11 +121,10 @@ namespace Writing3D
                         $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(ProjectPath)}.unity"
                     );
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Debug.LogError($"Error creating scene for {ProjectPath}");
-                    Debug.LogException(e);
-                    return null;
+                    throw;
                 }
             }
 
@@ -280,8 +279,8 @@ namespace Writing3D
                     GameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
                 )
                 {
-                    (GameObject go, Xml.Object XmlObject) = pair.Value;
-                    Link xmlLink = XmlObject.LinkRoot.Link;
+                    (GameObject go, Xml.Object xmlObject) = pair.Value;
+                    Link xmlLink = xmlObject.LinkRoot.Link;
                     GameObject buttonGO = go.transform.parent.gameObject;
                     Button button = buttonGO.GetComponent<Button>();
                     ButtonManager bm = button.GetComponent<ButtonManager>();
@@ -302,7 +301,15 @@ namespace Writing3D
                     bm.Actions = new();
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
-                        AddAction(xmlLinkAction, button, GameObjects);
+                        try { AddAction(xmlLinkAction, button, GameObjects); }
+                        catch (Exception)
+                        {
+                            Debug.LogError(
+                                "Unable to create action for " + xmlObject.Name +
+                                ": " + JsonUtility.ToJson(xmlLinkAction)
+                            );
+                            throw;
+                        }
                     }
                 }
             }

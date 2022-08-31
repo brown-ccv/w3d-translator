@@ -1,9 +1,7 @@
 using System;
-using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-// using UnityEngine;
 
 namespace Writing3D
 {
@@ -12,8 +10,6 @@ namespace Writing3D
         [Serializable]
         public class Xml
         {
-            // Print the class as a Json object
-            // public string Pprint() { return JsonUtility.ToJson(this, true); }
         }
 
         /********** STORY            ***********/
