@@ -2,7 +2,9 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Events;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
@@ -101,7 +103,7 @@ namespace Writing3D
 
             /********** OBJECT ROOT    ***********/
 
-            public static GameObject CreateGameObject(Xml.Object xmlObject)
+            public static GameObject CreateObject(Xml.Object xmlObject)
             {
                 GameObject gameObject = xmlObject.Content.ContentData switch
                 {
@@ -118,6 +120,8 @@ namespace Writing3D
                     _ => new GameObject(), // TODO: - Shouldn't occur, throw error
                 };
                 gameObject.name = xmlObject.Name;
+                gameObject.tag = "Object";
+                gameObject.AddComponent<ObjectManager>();
                 return gameObject;
             }
 
@@ -193,27 +197,40 @@ namespace Writing3D
                 // TODO: ButtonManager gets an event for every action/transition type (static)
                 // TODO: Need to find a way to save the 
 
-                GameObject reference;
+                GameObject reference = null; // TEMP - no initialization needed
                 switch (xmlLinkAction.Action)
                 {
                     case ObjectChange xmlAction:
+                        linkAction.Type = Action.Types.Object;
+
                         // Get referenced GameObject and initialize Transition
                         reference = GameObjects[xmlAction.Name].Item1;
 
                         // TODO: LinkAction is a ScriptableObject
                         // Everything else is just a basic class (struct?)
-
-                        // ObjectAction action = ScriptableObject.CreateInstance(typeof(ObjectAction)) as ObjectAction;
                         ObjectAction action = new();
+                        action.Transition = new Transition();
 
                         // TODO: Make switch (separate function)
-                        if (xmlAction.Transition.Type == Xml.Transition.TransitionType.Visible)
-                        {
-                            VisibleTransition transition = new();
-                            action.Transition = transition;
-                        }
+                        // if (xmlAction.Transition.Type == Xml.Transition.TransitionType.Visible)
+                        // {
+                        //     VisibleTransition transition = new();
+                        //     action.Transition = transition;
+                        // }
 
                         linkAction.Action = action;
+
+                        // TODO: Can move to bottom of switch
+                        Debug.Log(bm.Actions);
+                        Debug.Log(linkAction.GetType());
+                        // Debug.Log(reference.GetComponent<ObjectManager>().GetType());
+                        Debug.Log(reference.name + " " + reference.tag);
+
+                        UnityEventTools.AddObjectPersistentListener(
+                            bm.Actions,
+                            new UnityAction<LinkAction>(reference.GetComponent<ObjectManager>().VisibleTransition),
+                            linkAction
+                        );
                         break;
                     case GroupChange xmlAction:
                         // TODO: 87
@@ -236,9 +253,6 @@ namespace Writing3D
                         break;
                     default: break; // All cases covered
                 }
-                // TODO: Need to save linkAction
-                Debug.Log(linkAction.Action.GetType());
-                bm.Actions.Add(linkAction);
             }
         }
     }

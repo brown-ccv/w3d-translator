@@ -231,7 +231,7 @@ namespace Writing3D
                 */
                 foreach (Xml.Object xmlObject in XmlRoot.ObjectRoot)
                 {
-                    GameObject contentGO = CreateGameObject(xmlObject);
+                    GameObject contentGO = CreateObject(xmlObject);
                     if (xmlObject.LinkRoot is not null)
                     {
                         Link xmlLink = xmlObject.LinkRoot.Link;

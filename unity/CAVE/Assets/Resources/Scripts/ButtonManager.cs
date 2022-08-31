@@ -9,8 +9,8 @@ namespace Writing3D
     [Serializable]
     public class ButtonManager : MonoBehaviour
     {
-        [SerializeField]
-        public List<LinkAction> Actions = new();
+        // [SerializeField] public List<LinkAction> Actions = new();
+        [SerializeField] public LinkActionEvent Actions = new();
         private int clickCount = 0;
 
         // Increase clickCount
@@ -26,7 +26,7 @@ namespace Writing3D
         // Loop through the actions in Actions, check against NumClicks and call
         public void ExecuteActions()
         {
-            foreach (LinkAction action in Actions) { }
+            // foreach (LinkAction action in Actions) { }
         }
     }
 }

@@ -4,10 +4,11 @@ namespace Writing3D
 {
     public class ObjectManager : MonoBehaviour
     {
-        // Move to ObjectManager
-        public void VisibleTransition(bool visible, float duration)
+        // TODO: Pass action directly?
+        public void VisibleTransition(LinkAction linkAction)
         {
-            Debug.Log($"VisibleT {gameObject.name} {visible} {duration}");
+            Debug.Log($"VisibleT {gameObject.name} {linkAction.Type}");
+            
             // Fade In/Out and enable/disable the GameObject
             // https://owlcation.com/stem/How-to-fade-out-a-GameObject-in-Unity
 

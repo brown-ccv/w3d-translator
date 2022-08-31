@@ -1105,7 +1105,7 @@ namespace Writing3D
             public enum RandomTypes
             {
                 None,
-                [XmlEnum(Name = "Select One Randomly")] OneRandom,
+                [XmlEnum("Select One Randomly")] OneRandom,
             }
 
             [XmlText]
