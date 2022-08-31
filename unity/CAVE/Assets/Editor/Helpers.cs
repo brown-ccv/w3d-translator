@@ -203,32 +203,15 @@ namespace Writing3D
                 {
                     case ObjectChange xmlAction:
                         linkAction.Type = Action.Types.Object;
+                        ObjectAction action = new();
 
                         // Get referenced GameObject and initialize Transition
                         reference = GameObjects[xmlAction.Name].Item1;
 
-                        // TODO: LinkAction is a ScriptableObject
-                        // Everything else is just a basic class (struct?)
-                        ObjectAction action = new();
-                        action.Transition = new Transition();
 
-                        // TODO: Make switch (separate function)
-                        if (xmlAction.Transition.Type == Xml.Transition.TransitionType.Visible)
-                        {
-                            VisibleTransition transition = new();
-                            action.Transition = transition;
 
-                            unityAction = new(reference.GetComponent<ObjectManager>().VisibleTransition);
-                            Debug.Log(unityAction.Method + " " + unityAction.Target);
-
-                            // unityAction.Method = 
-                        }
-                        else { unityAction = null; } // TEMP
-
+                        action.Transition = CreateTransition(xmlAction.Transition);
                         linkAction.Action = action;
-
-                        // TODO: Can move to bottom of switch (?)
-
                         break;
                     // case GroupChange xmlAction:
                     //     // TODO: 87
@@ -250,14 +233,54 @@ namespace Writing3D
                     //     // TODO: 92 (Restart)
                     //     break;
                     default:
-                        unityAction = null; // TEMP
-                        break; // All cases covered
+                        // Force AddObjectPersistentListener error, caught in CLI.cs
+                        unityAction = null;
+                        break;
                 }
                 UnityEventTools.AddObjectPersistentListener(
                     bm.Actions,
                     unityAction,
                     linkAction
                 );
+            }
+
+            public static Transition CreateTransition(Xml.Transition xmlTransition)
+            {
+                // TODO: Return the action, not the Transition. Update transition
+                    // unityAction = new(reference.GetComponent<ObjectManager>().VisibleTransition);
+                    // Debug.Log(unityAction.Method + " " + unityAction.Target);
+
+                Transition transition = new();
+                switch (xmlTransition.Change)
+                {
+                    case bool visible:
+                        // transition = Convert.ChangeType(transition, typeof(VisibleTransition));
+                        transition = Convert.ChangeType(transition, typeof(VisibleTransition));
+                        transition.Visible = visible;
+
+                        return transition;
+                    case MovementTransition temp:
+                        transition = Convert.ChangeType(transition, typeof(MoveTransition));
+                        return transition;
+                    case MoveRel temp:
+                        transition = Convert.ChangeType(transition, typeof(RelativeMoveTransition));
+                        return transition;
+                    case string temp:
+                        transition = Convert.ChangeType(transition, typeof(ColorTransition));
+                        return transition;
+                    case float temp:
+                        transition = Convert.ChangeType(transition, typeof(ScaleTransition));
+                        return transition;
+                    case SoundTransition temp:
+                        transition = Convert.ChangeType(transition, typeof(SoundTransition));
+                        return transition;
+                    case LinkTransition temp:
+                        transition = Convert.ChangeType(transition, typeof(LinkTransition));
+                        return transition;
+                    default:
+                        return null;
+                }
+
             }
         }
     }
