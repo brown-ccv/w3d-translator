@@ -8,6 +8,17 @@ namespace Writing3D
     public class Transition
     {
         [SerializeField] public float Duration;
+
+        public enum Types
+        {
+            Visible,
+            Move,
+            RelativeMove,
+            Color,
+            Scale,
+            Sound,
+            Link,
+        }
     }
 
     [Serializable]
@@ -15,15 +26,4 @@ namespace Writing3D
     {
         [SerializeField] public bool Visible;
     }
-
-    // public enum TransitionType
-    // {
-    //     Visible,
-    //     Movement,
-    //     MoveRelative,
-    //     Color,
-    //     Scale,
-    //     Sound,
-    //     Link,
-    // }
 }

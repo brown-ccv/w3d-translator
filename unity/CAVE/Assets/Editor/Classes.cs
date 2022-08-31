@@ -1073,10 +1073,10 @@ namespace Writing3D
             public enum ActionTypes
             {
                 [XmlEnum("ObjectChange")] ObjectChange,
-                [XmlEnum("GroupRef")] GroupReference,
+                [XmlEnum("GroupRef")] GroupChange,
                 [XmlEnum("TimerChange")] TimerChange,
-                [XmlEnum("SoundRef")] SoundReference,
-                [XmlEnum("Event")] EventReference,
+                [XmlEnum("SoundRef")] SoundChange,
+                [XmlEnum("Event")] EventChange,
                 [XmlEnum("MoveCave")] MoveCave,
                 [XmlEnum("Restart")] Restart,
             }

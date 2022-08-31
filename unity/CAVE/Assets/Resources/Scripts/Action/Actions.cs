@@ -6,22 +6,24 @@ using UnityEngine;
 namespace Writing3D
 {
     [Serializable]
-    public abstract class Action { }
+    public abstract class Action
+    {
+        public enum Types
+        {
+            Object,
+            Group,
+            Timer,
+            Sound,
+            Event,
+            MoveCave,
+            Restart,
+        }
+    }
 
     [Serializable]
     public class ObjectAction : Action
     {
         [SerializeField] public Transition Transition;
+        [SerializeField] public Transition.Types TransitionType;
     }
-
-    // public enum ActionTypes
-    // {
-    //     ObjectChange,
-    //     GroupReference,
-    //     TimerChange,
-    //     SoundReference,
-    //     EventReference,
-    //     MoveCave,
-    //     Restart,
-    // }
 }
