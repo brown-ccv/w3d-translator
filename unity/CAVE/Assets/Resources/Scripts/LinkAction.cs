@@ -9,13 +9,12 @@ namespace Writing3D
     [Serializable]
     public class LinkAction : ScriptableObject
     {
-        [SerializeField] public object Action; // base: Action
+        [SerializeField] public Actions.Action Action; // base: Action
 
         [SerializeField] public uint NumClicks = 1;
         [SerializeField] public bool Reset; // Initialized as false
     }
 
     [Serializable]
-    // public class LinkActionEvent : UnityEvent<LinkAction> { }
     public class LinkActionEvent : UnityEvent { }
 }

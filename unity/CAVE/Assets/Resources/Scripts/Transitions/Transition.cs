@@ -4,15 +4,14 @@ using UnityEngine;
 
 namespace Writing3D
 {
-    // TODO: Should all of these be in the same class? Same namespace?
+    // TODO: Add namespace, separate files
+    // TODO: Visible, Move, Color
 
     [Serializable]
     public class Transition
     {
         [SerializeField] public float Duration;
     }
-
-    // TODO: Visible, Move, Color
 
     [Serializable]
     public class VisibleTransition : Transition

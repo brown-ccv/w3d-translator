@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using TMPro;
 
 using Writing3D.Xml;
+using Writing3D.Actions;
 
 namespace Writing3D
 {
@@ -198,7 +199,9 @@ namespace Writing3D
                 switch (xmlLinkAction.Action)
                 {
                     case ObjectChange xmlAction:
-                        ObjectAction action = new();
+                        ObjectAction action = (ObjectAction)ScriptableObject.CreateInstance(
+                            typeof(ObjectAction)
+                        );
 
                         // Get referenced GameObject
                         reference = GameObjects[xmlAction.Name].Item1;
@@ -207,9 +210,6 @@ namespace Writing3D
                         action.Transition = GetTransition(xmlAction.Transition);
                         unityAction = GetUnityAction(action.Transition, reference);
                         linkAction.Action = action;
-                        Debug.Log(linkAction.Action);
-                        Debug.Log(action);
-                        Debug.Log(" ");
                         break;
                     // case GroupChange xmlAction:
                     //     // TODO: 87
@@ -258,7 +258,7 @@ namespace Writing3D
                 };
             }
 
-            public static UnityAction<LinkAction> GetUnityAction(Transition transition, GameObject reference)
+            public static UnityAction<LinkAction> GetUnityAction(object transition, GameObject reference)
             {
                 ObjectManager script = reference.GetComponent<ObjectManager>();
                 return transition switch
