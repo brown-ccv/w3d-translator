@@ -19,24 +19,14 @@ namespace Writing3D
         // Disable the Button on the GameObject this script is attached to
         public void Disable() { GetComponent<Button>().interactable = false; }
 
-        // Loop through the actions in Actions, check against NumClicks and call
+        // Execute the inner event if NumClicks has been reached
         public void ExecuteAction(LinkAction linkAction)
         {
-            // TODO: If I link by I I should be able to call the method in that other way?
-            // foreach (LinkActionEvent action in LinkActions)
-            // {
-            //     // TODO: Only execute if NumClicks <= clickCount
-            //     Debug.Log($"EXECUTE {action.GetType()} {action.NumClicks} {action.Reset}");
-            //     UnityEngine.Object targetObject = action.GetPersistentTarget(0);
-            //     System.Reflection.MethodInfo method = targetObject.GetType().GetMethod(action.GetPersistentMethodName(0));
-            //     Debug.Log(method.GetParameters()[0]);
-            //     action.Invoke();
-            // }
-            // for (int i = 0; i < Actions.GetPersistentEventCount(); i++)
-            // {
-            //     Debug.Log("Invoking action " + i);
-            //     Actions.Invoke(clickCount);
-            // }
+            Debug.Log($"ExecuteAction {clickCount} {linkAction.NumClicks}");
+            if (clickCount >= linkAction.NumClicks)
+            {
+                Debug.Log("Invoke: " + linkAction.ActionEvent.GetType());
+            }
         }
     }
 }
