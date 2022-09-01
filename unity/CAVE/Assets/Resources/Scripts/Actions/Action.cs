@@ -1,6 +1,7 @@
 using System;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Writing3D
 {
@@ -8,5 +9,8 @@ namespace Writing3D
     {
         [Serializable]
         public class Action : ScriptableObject { }
+
+        [Serializable]
+        public class ActionEvent : UnityEvent { }
     }
 }

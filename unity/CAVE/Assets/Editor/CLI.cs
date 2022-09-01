@@ -269,17 +269,8 @@ namespace Writing3D
 
                     // Add actions
                     AddVoidPersistentListener(onClick, new UnityAction(bm.Counter));
-                    AddVoidPersistentListener(onClick, new UnityAction(bm.ExecuteActions));
-                    if (!xmlLink.RemainEnabled)
-                    {
-                        AddVoidPersistentListener(
-                            onClick,
-                            new UnityAction(button.GetComponent<ButtonManager>().Disable)
-                        );
-                    }
 
-                    // Add the <Action>s to onClick
-                    bm.Actions = new();
+                    // Add the <Action>s wrapper to onClick
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
                         try { AddAction(xmlLinkAction, button, GameObjects); }
@@ -291,6 +282,14 @@ namespace Writing3D
                             );
                             throw;
                         }
+                    }
+
+                    if (!xmlLink.RemainEnabled)
+                    {
+                        AddVoidPersistentListener(
+                            onClick,
+                            new UnityAction(button.GetComponent<ButtonManager>().Disable)
+                        );
                     }
                 }
             }

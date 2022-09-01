@@ -1,15 +1,16 @@
 using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.Events;
 
 namespace Writing3D
 {
     [Serializable]
     public class ButtonManager : MonoBehaviour
     {
-        [SerializeField] public LinkActionEvent Actions = new();
+        // [SerializeField] public List<LinkActionEvent> LinkActions = new();
+        [SerializeField] public LinkActionEvent LinkActionEvent = new();
         private int clickCount = 0;
 
         // Increase clickCount
@@ -19,17 +20,23 @@ namespace Writing3D
         public void Disable() { GetComponent<Button>().interactable = false; }
 
         // Loop through the actions in Actions, check against NumClicks and call
-        public void ExecuteActions()
+        public void ExecuteAction(LinkAction linkAction)
         {
-            // foreach (LinkAction action in Actions) { }
-            Debug.Log(Actions.GetPersistentEventCount());
-            for (int i = 0; i < Actions.GetPersistentEventCount(); i++)
-            {
-                Debug.Log($"{Actions.GetPersistentListenerState(i)} {Actions.GetPersistentMethodName(i)} {Actions.GetPersistentTarget(i)}");
-            }
-            // TODO: I need this to invoke with the LinkAction already defined
-            // TODO: onClick works okay with just an Invoke? What's the type?
-            // Actions.Invoke();
+            // TODO: If I link by I I should be able to call the method in that other way?
+            // foreach (LinkActionEvent action in LinkActions)
+            // {
+            //     // TODO: Only execute if NumClicks <= clickCount
+            //     Debug.Log($"EXECUTE {action.GetType()} {action.NumClicks} {action.Reset}");
+            //     UnityEngine.Object targetObject = action.GetPersistentTarget(0);
+            //     System.Reflection.MethodInfo method = targetObject.GetType().GetMethod(action.GetPersistentMethodName(0));
+            //     Debug.Log(method.GetParameters()[0]);
+            //     action.Invoke();
+            // }
+            // for (int i = 0; i < Actions.GetPersistentEventCount(); i++)
+            // {
+            //     Debug.Log("Invoking action " + i);
+            //     Actions.Invoke(clickCount);
+            // }
         }
     }
 }

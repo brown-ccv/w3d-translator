@@ -195,7 +195,8 @@ namespace Writing3D
                 }
 
                 GameObject reference;
-                UnityAction<LinkAction> unityAction;
+                // UnityAction<LinkAction> unityAction;
+                UnityAction<Actions.Action> unityAction;
                 switch (xmlLinkAction.Action)
                 {
                     case ObjectChange xmlAction:
@@ -209,7 +210,12 @@ namespace Writing3D
                         // Initialize the transition and action
                         action.Transition = GetTransition(xmlAction.Transition);
                         unityAction = GetUnityAction(action.Transition, reference);
-                        linkAction.Action = action;
+
+                        // UnityEventTools.AddObjectPersistentListener(
+                        //     linkAction.ActionEvent,
+                        //     unityAction,
+                        //     action
+                        // );
                         break;
                     // case GroupChange xmlAction:
                     //     // TODO: 87
@@ -235,10 +241,16 @@ namespace Writing3D
                         unityAction = null;
                         break;
                 }
-                // Debug.Log((linkAction.Action as ObjectAction).Transition.Duration);
+                // TODO: Add linkAction to bm.onClick (InvokeAction function)
+                // TODO: Add unityAction to linkAction.Event (linkAction.Action is the argument)
+                // UnityEventTools.AddObjectPersistentListener(
+                //     bm.Actions,
+                //     unityAction,
+                //     linkAction
+                // );
                 UnityEventTools.AddObjectPersistentListener(
-                    bm.Actions,
-                    unityAction,
+                    button.onClick,
+                    new UnityAction<LinkAction>(bm.ExecuteAction),
                     linkAction
                 );
             }
@@ -258,18 +270,30 @@ namespace Writing3D
                 };
             }
 
-            public static UnityAction<LinkAction> GetUnityAction(object transition, GameObject reference)
+            // public static UnityAction<LinkAction> GetUnityAction(object transition, GameObject reference)
+            public static UnityAction<Actions.Action> GetUnityAction(object transition, GameObject reference)
             {
                 ObjectManager script = reference.GetComponent<ObjectManager>();
+                // return transition switch
+                // {
+                //     VisibleTransition => new UnityAction<LinkAction>(script.VisibleTransition),
+                //     MoveTransition => new UnityAction<LinkAction>(script.MoveTransition),
+                //     RelativeMoveTransition => new UnityAction<LinkAction>(script.RelativeMoveTransition),
+                //     ColorTransition => new UnityAction<LinkAction>(script.ColorTransition),
+                //     ScaleTransition => new UnityAction<LinkAction>(script.ScaleTransition),
+                //     SoundTransition => new UnityAction<LinkAction>(script.SoundTransition),
+                //     LinkTransition => new UnityAction<LinkAction>(script.LinkTransition),
+                //     _ => null, // force error
+                // };
                 return transition switch
                 {
-                    VisibleTransition => new UnityAction<LinkAction>(script.VisibleTransition),
-                    MoveTransition => new UnityAction<LinkAction>(script.MoveTransition),
-                    RelativeMoveTransition => new UnityAction<LinkAction>(script.RelativeMoveTransition),
-                    ColorTransition => new UnityAction<LinkAction>(script.ColorTransition),
-                    ScaleTransition => new UnityAction<LinkAction>(script.ScaleTransition),
-                    SoundTransition => new UnityAction<LinkAction>(script.SoundTransition),
-                    LinkTransition => new UnityAction<LinkAction>(script.LinkTransition),
+                    VisibleTransition => new UnityAction<Actions.Action>(script.VisibleTransition),
+                    MoveTransition => new UnityAction<Actions.Action>(script.MoveTransition),
+                    RelativeMoveTransition => new UnityAction<Actions.Action>(script.RelativeMoveTransition),
+                    ColorTransition => new UnityAction<Actions.Action>(script.ColorTransition),
+                    ScaleTransition => new UnityAction<Actions.Action>(script.ScaleTransition),
+                    SoundTransition => new UnityAction<Actions.Action>(script.SoundTransition),
+                    LinkTransition => new UnityAction<Actions.Action>(script.LinkTransition),
                     _ => null, // force error
                 };
             }
