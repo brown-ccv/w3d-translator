@@ -1222,8 +1222,8 @@ namespace Writing3D
         public class SoundTransition : Xml
         {
             [XmlAttribute("action")]
-            public Controls Control;
-            public enum Controls
+            public SoundTransitionTypes Type;
+            public enum SoundTransitionTypes
             {
                 None,
                 [XmlEnum(Name = "Play Sound")] Play,

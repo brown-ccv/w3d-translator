@@ -11,6 +11,8 @@ using TMPro;
 using Writing3D.Xml;
 using Writing3D.Actions;
 
+using static UnityEngine.ScriptableObject;
+
 namespace Writing3D
 {
     namespace Translation
@@ -184,7 +186,7 @@ namespace Writing3D
                 Button.ButtonClickedEvent onClick = button.onClick;
 
                 // Initialize action
-                LinkAction linkAction = ScriptableObject.CreateInstance(typeof(LinkAction))
+                LinkAction linkAction = CreateInstance(typeof(LinkAction))
                                         as LinkAction;
                 if (xmlLinkAction.Clicks is not null &&
                     xmlLinkAction.Clicks.Type == Clicks.ActivationTypes.Number)
@@ -199,7 +201,7 @@ namespace Writing3D
                 {
                     case ObjectChange xmlAction:
                         UnityAction<ObjectAction> unityAction;
-                        ObjectAction action = (ObjectAction)ScriptableObject.CreateInstance(
+                        ObjectAction action = (ObjectAction)CreateInstance(
                             typeof(ObjectAction)
                         );
 
@@ -249,17 +251,50 @@ namespace Writing3D
 
             public static Transition GetTransition(Xml.Transition xmlTransition)
             {
-                return xmlTransition.Change switch
+                switch (xmlTransition.Change)
                 {
-                    bool visible => new VisibleTransition(visible),
-                    MovementTransition placement => new MoveTransition(),
-                    MoveRel placement => new RelativeMoveTransition(),
-                    string color => new ColorTransition(ConvertColor(color)),
-                    float scale => new ScaleTransition(scale),
-                    Xml.SoundTransition operation => new SoundTransition(),
-                    Xml.LinkTransition operation => new LinkTransition(),
-                    _ => null, // force error
-                };
+                    case bool visible:
+                        VisibleTransition visibleT = (VisibleTransition)CreateInstance(
+                            typeof(VisibleTransition)
+                        );
+                        visibleT.Visible = visible;
+                        return visibleT;
+                    case MovementTransition placement:
+                        MoveTransition moveT = (MoveTransition)CreateInstance(
+                            typeof(MoveTransition)
+                        );
+                        return moveT;
+                    case MoveRel placement:
+                        RelativeMoveTransition relativeMoveT = (RelativeMoveTransition)CreateInstance(
+                            typeof(RelativeMoveTransition)
+                        );
+                        return relativeMoveT;
+                    case string color:
+                        ColorTransition colorT = (ColorTransition)CreateInstance(
+                            typeof(ColorTransition)
+                        );
+                        colorT.Color = ConvertColor(color);
+                        return colorT;
+                    case float scale:
+                        ScaleTransition scaleT = (ScaleTransition)CreateInstance(
+                            typeof(ScaleTransition)
+                        );
+                        scaleT.Scale = scale;
+                        return scaleT;
+                    case Xml.SoundTransition operation:
+                        SoundTransition soundTransition = (SoundTransition)CreateInstance(
+                            typeof(SoundTransition)
+                        );
+                        soundTransition.Operation = (SoundTransition.Controls)operation.Type;
+                        return soundTransition;
+                    case Xml.LinkTransition operation:
+                        LinkTransition linkT = (LinkTransition)CreateInstance(
+                            typeof(LinkTransition)
+                        );
+                        linkT.Operation = (LinkTransition.Controls)operation.Type;
+                        return linkT;
+                    default: return null; // force error
+                }
             }
 
             public static UnityAction<ObjectAction> GetUnityAction(object transition, GameObject reference)
