@@ -59,7 +59,6 @@ namespace Writing3D
                 rotationType.LookAt: Rotate to look at target vector (world space)
                 rotationType.Normal: Local rotation around a normalized vector
             */
-            // public static void SetTransform(Transform gameObjectT, Placement xmlPlacement, Vector3 scale)
             public static void SetTransform(Transform gameObjectT, Placement xmlPlacement, float scale = 1)
             {
                 Transform rootTransform = GameObject.Find("/Root").transform;
@@ -208,6 +207,9 @@ namespace Writing3D
                         action.Transition = GetTransition(xmlAction.Transition);
                         unityAction = GetUnityAction(action.Transition, reference);
                         linkAction.Action = action;
+                        Debug.Log(linkAction.Action);
+                        Debug.Log(action);
+                        Debug.Log(" ");
                         break;
                     // case GroupChange xmlAction:
                     //     // TODO: 87
@@ -233,6 +235,7 @@ namespace Writing3D
                         unityAction = null;
                         break;
                 }
+                // Debug.Log((linkAction.Action as ObjectAction).Transition.Duration);
                 UnityEventTools.AddObjectPersistentListener(
                     bm.Actions,
                     unityAction,

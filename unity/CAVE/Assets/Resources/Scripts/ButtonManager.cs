@@ -29,7 +29,7 @@ namespace Writing3D
             }
             // TODO: I need this to invoke with the LinkAction already defined
             // TODO: onClick works okay with just an Invoke? What's the type?
-            // Actions.Invoke();
+            Actions.Invoke();
             // GetComponent<Button>().onClick.Invoke();
         }
     }

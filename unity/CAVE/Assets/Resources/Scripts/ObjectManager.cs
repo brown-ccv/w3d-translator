@@ -20,7 +20,9 @@ namespace Writing3D
 
         public void MoveTransition(LinkAction linkAction)
         {
+            Debug.Log($"MoveTransition {linkAction.NumClicks} {linkAction.Reset}");
             ObjectAction action = (ObjectAction)linkAction.Action;
+            Debug.Log("MoveTransition " + action.ToString());
             MoveTransition transition = (MoveTransition)action.Transition;
             Debug.Log($"VisibleT {gameObject.name}");
         }
