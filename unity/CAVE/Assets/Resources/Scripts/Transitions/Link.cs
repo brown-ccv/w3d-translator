@@ -6,6 +6,11 @@ namespace Writing3D
 {
     namespace Transitions
     {
+        [CreateAssetMenu(
+            fileName = "Transition",
+            menuName = "W3D/Transitions/Transition",
+            order = 7
+        )]
         [Serializable]
         public class Link : Transition
         {

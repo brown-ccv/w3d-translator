@@ -1,6 +1,5 @@
 using UnityEngine;
 
-using Writing3D.Actions;
 using Writing3D.Transitions;
 
 namespace Writing3D
@@ -9,7 +8,7 @@ namespace Writing3D
     {
         // TODO: Pass action directly? For all functions
         // TODO: Private function to cast action/transition
-        public void VisibleTransition(ObjectAction action)
+        public void VisibleTransition(Actions.Object action)
         {
             Visible transition = (Visible)action.Transition;
             Debug.Log($"VisibleT {gameObject.name} {transition.Enabled}");
@@ -20,42 +19,42 @@ namespace Writing3D
             // gameObject.SetActive(transition.Visible);
         }
 
-        public void MoveTransition(ObjectAction action)
+        public void MoveTransition(Actions.Object action)
         {
             Move transition = (Move)action.Transition;
             Debug.Log($"MoveT {gameObject.name}");
         }
 
-        public void RelativeMoveTransition(ObjectAction action)
+        public void RelativeMoveTransition(Actions.Object action)
         {
-            // ObjectAction action = (ObjectAction)linkAction.Action;
+            // Actions.Object action = (Actions.Object)linkAction.Action;
             // RelativeMoveTransition transition = (RelativeMoveTransition)action.Transition;
             // Debug.Log($"RelativeMoveT {gameObject.name}");
         }
 
-        public void ColorTransition(ObjectAction action)
+        public void ColorTransition(Actions.Object action)
         {
             Transitions.Color transition = (Transitions.Color)action.Transition;
             Debug.Log($"ColorT {gameObject.name} {transition.NewColor}");
         }
 
-        public void ScaleTransition(ObjectAction action)
+        public void ScaleTransition(Actions.Object action)
         {
-            // ObjectAction action = (ObjectAction)linkAction.Action;
+            // Actions.Object action = (Actions.Object)linkAction.Action;
             // ScaleTransition transition = (ScaleTransition)action.Transition;
             // Debug.Log($"ScaleT {gameObject.name} {transition.Scale}");
         }
 
-        public void SoundTransition(ObjectAction action)
+        public void SoundTransition(Actions.Object action)
         {
-            // ObjectAction action = (ObjectAction)linkAction.Action;
+            // Actions.Object action = (Actions.Object)linkAction.Action;
             // SoundTransition transition = (SoundTransition)action.Transition;
             // Debug.Log($"SoundT {gameObject.name} {transition.Operation}");
         }
 
-        public void LinkTransition(ObjectAction action)
+        public void LinkTransition(Actions.Object action)
         {
-            // ObjectAction action = (ObjectAction)linkAction.Action;
+            // Actions.Object action = (Actions.Object)linkAction.Action;
             // LinkTransition transition = (LinkTransition)action.Transition;
             // Debug.Log($"LinkT {gameObject.name} {transition.Operation}");
         }

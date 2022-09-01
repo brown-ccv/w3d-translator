@@ -187,8 +187,7 @@ namespace Writing3D
                 Button.ButtonClickedEvent onClick = button.onClick;
 
                 // Initialize action
-                LinkAction linkAction = CreateInstance(typeof(LinkAction))
-                                        as LinkAction;
+                LinkAction linkAction = CreateInstance(typeof(LinkAction)) as LinkAction;
                 if (xmlLinkAction.Clicks is not null &&
                     xmlLinkAction.Clicks.Type == Clicks.ActivationTypes.Number)
                 {
@@ -201,14 +200,15 @@ namespace Writing3D
                 switch (xmlLinkAction.Action)
                 {
                     case ObjectChange xmlAction:
-                        UnityAction<ObjectAction> unityAction;
-                        ObjectAction action = (ObjectAction)CreateInstance(typeof(ObjectAction));
+                        UnityAction<Actions.Object> unityAction;
+                        Actions.Object action = (Actions.Object)CreateInstance(typeof(Actions.Object));
 
                         // Get referenced GameObject
                         reference = GameObjects[xmlAction.Name].Item1;
 
                         // Initialize the transition and action
                         action.Transition = GetTransition(xmlAction.Transition);
+                        action.Transition.Duration = xmlAction.Transition.Duration;
                         unityAction = action.Transition.GetUnityAction(reference);
 
                         UnityEventTools.AddObjectPersistentListener(

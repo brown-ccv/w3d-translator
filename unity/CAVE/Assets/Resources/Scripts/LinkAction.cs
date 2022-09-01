@@ -6,7 +6,6 @@ using Writing3D.Actions;
 
 namespace Writing3D
 {
-    // TODO: Add CreateAssetMenu to all of the ScriptableObject types
     [CreateAssetMenu(fileName = "LinkAction", menuName = "W3D/LinkAction", order = 0)]
     [Serializable]
     public class LinkAction : ScriptableObject
