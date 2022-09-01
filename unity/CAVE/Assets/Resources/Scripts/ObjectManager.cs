@@ -6,8 +6,10 @@ namespace Writing3D
 {
     public class ObjectManager : MonoBehaviour
     {
-        // TODO: Pass action directly? For all functions
-        // TODO: Private function to cast action/transition
+        // TODO: Static function for if gameObject is a link (use tag?)
+        // Need to enabled/disable the parent and children
+        // TODO: Static function to figure out Content
+        // e.g. ColorTransition should set text color
         public void VisibleTransition(Actions.Object action)
         {
             Visible transition = (Visible)action.Transition;
@@ -16,7 +18,7 @@ namespace Writing3D
             // Fade In/Out and enable/disable the GameObject
             // https://owlcation.com/stem/How-to-fade-out-a-GameObject-in-Unity
 
-            // gameObject.SetActive(transition.Visible);
+            gameObject.SetActive(transition.Enabled);
         }
 
         public void MoveTransition(Actions.Object action)

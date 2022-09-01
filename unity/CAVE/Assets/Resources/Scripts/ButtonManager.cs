@@ -22,11 +22,7 @@ namespace Writing3D
         // Execute the inner event if NumClicks has been reached
         public void ExecuteAction(LinkAction linkAction)
         {
-            Debug.Log($"ExecuteAction {clickCount} {linkAction.NumClicks}");
-            if (clickCount >= linkAction.NumClicks)
-            {
-                Debug.Log("Invoke: " + linkAction.ActionEvent.GetType());
-            }
+            if (clickCount >= linkAction.NumClicks) { linkAction.ActionEvent.Invoke(); }
         }
     }
 }
