@@ -2,6 +2,8 @@ using System;
 
 using UnityEngine;
 
+using Writing3D.Transitions;
+
 namespace Writing3D
 {
     namespace Actions
@@ -9,7 +11,7 @@ namespace Writing3D
         [Serializable]
         public class ObjectAction : Action
         {
-            [SerializeField] public object Transition; // base: Transition
+            [SerializeField] public Transition Transition; // base: Transition
         }
     }
 }

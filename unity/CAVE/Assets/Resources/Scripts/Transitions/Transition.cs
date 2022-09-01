@@ -1,78 +1,37 @@
 using System;
 
 using UnityEngine;
+using UnityEngine.Events;
+
+using Writing3D.Actions;
 
 namespace Writing3D
 {
     // TODO: Add namespace, separate files
     // TODO: Visible, Move, Color
-
-    [Serializable]
-    public class Transition : ScriptableObject
+    namespace Transitions
     {
-        [SerializeField] public float Duration;
-    }
-
-    [Serializable]
-    public class VisibleTransition : Transition
-    {
-        [SerializeField] public bool Visible;
-
-        public VisibleTransition(bool visible) { Visible = visible; }
-    }
-
-    [Serializable]
-    public class MoveTransition : Transition
-    {
-        // TODO: Placement struct? Use to update transform
-    }
-
-    [Serializable]
-    public class RelativeMoveTransition : Transition
-    {
-        // TODO: Placement struct? Use to update transform
-    }
-
-    [Serializable]
-    public class ColorTransition : Transition
-    {
-        [SerializeField] public Color Color;
-
-        public ColorTransition(Color color) { Color = color; }
-    }
-
-    [Serializable]
-    public class ScaleTransition : Transition
-    {
-        [SerializeField] public float Scale;
-
-        public ScaleTransition(float scale) { Scale = scale; }
-    }
-
-    [Serializable]
-    public class SoundTransition : Transition
-    {
-        [SerializeField] public Controls Operation;
-
-        public enum Controls
+        [Serializable]
+        public class Transition : ScriptableObject
         {
-            None,
-            Play,
-            Stop,
-        }
-    }
+            [SerializeField] public float Duration;
 
-    [Serializable]
-    public class LinkTransition : Transition
-    {
-        [SerializeField] public Controls Operation;
-
-        public enum Controls
-        {
-            On,
-            Off,
-            Activate,
-            ActivateIfOn,
+            public UnityAction<ObjectAction> GetUnityAction(GameObject reference)
+            {
+                ObjectManager script = reference.GetComponent<ObjectManager>();
+                Debug.Log("CreateAction " + this);
+                return this switch
+                {
+                    Visible => new UnityAction<ObjectAction>(script.VisibleTransition),
+                    Move => new UnityAction<ObjectAction>(script.MoveTransition),
+                    RelativeMove => new UnityAction<ObjectAction>(script.RelativeMoveTransition),
+                    Color => new UnityAction<ObjectAction>(script.ColorTransition),
+                    Scale => new UnityAction<ObjectAction>(script.ScaleTransition),
+                    Sound => new UnityAction<ObjectAction>(script.SoundTransition),
+                    Link => new UnityAction<ObjectAction>(script.LinkTransition),
+                    _ => null, // force error
+                };
+            }
         }
     }
 }

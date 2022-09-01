@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using Writing3D.Actions;
+using Writing3D.Transitions;
 
 namespace Writing3D
 {
@@ -10,8 +11,8 @@ namespace Writing3D
         // TODO: Private function to cast action/transition
         public void VisibleTransition(ObjectAction action)
         {
-            VisibleTransition transition = (VisibleTransition)action.Transition;
-            Debug.Log($"VisibleT {gameObject.name} {transition.Visible}");
+            Visible transition = (Visible)action.Transition;
+            Debug.Log($"VisibleT {gameObject.name} {transition.Enabled}");
 
             // Fade In/Out and enable/disable the GameObject
             // https://owlcation.com/stem/How-to-fade-out-a-GameObject-in-Unity
@@ -21,7 +22,7 @@ namespace Writing3D
 
         public void MoveTransition(ObjectAction action)
         {
-            MoveTransition transition = (MoveTransition)action.Transition;
+            Move transition = (Move)action.Transition;
             Debug.Log($"MoveT {gameObject.name}");
         }
 
@@ -34,8 +35,8 @@ namespace Writing3D
 
         public void ColorTransition(ObjectAction action)
         {
-            ColorTransition transition = (ColorTransition)action.Transition;
-            Debug.Log($"ColorT {gameObject.name} {transition.Color}");
+            Transitions.Color transition = (Transitions.Color)action.Transition;
+            Debug.Log($"ColorT {gameObject.name} {transition.NewColor}");
         }
 
         public void ScaleTransition(ObjectAction action)
