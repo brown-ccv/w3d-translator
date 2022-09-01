@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor.Events;
 
 namespace Writing3D
 {
@@ -13,11 +13,7 @@ namespace Writing3D
         private int clickCount = 0;
 
         // Increase clickCount
-        public void Counter()
-        {
-            clickCount++;
-            Debug.Log($"CLICKED {clickCount}");
-        }
+        public void Counter() { clickCount++; }
 
         // Disable the Button on the GameObject this script is attached to
         public void Disable() { GetComponent<Button>().interactable = false; }
@@ -26,6 +22,15 @@ namespace Writing3D
         public void ExecuteActions()
         {
             // foreach (LinkAction action in Actions) { }
+            Debug.Log(Actions.GetPersistentEventCount());
+            for (int i = 0; i < Actions.GetPersistentEventCount(); i++)
+            {
+                Debug.Log($"{Actions.GetPersistentListenerState(i)} {Actions.GetPersistentMethodName(i)} {Actions.GetPersistentTarget(i)}");
+            }
+            // TODO: I need this to invoke with the LinkAction already defined
+            // TODO: onClick works okay with just an Invoke? What's the type?
+            // Actions.Invoke();
+            // GetComponent<Button>().onClick.Invoke();
         }
     }
 }
