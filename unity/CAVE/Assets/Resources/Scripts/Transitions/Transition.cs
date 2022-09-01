@@ -8,7 +8,7 @@ namespace Writing3D
     // TODO: Visible, Move, Color
 
     [Serializable]
-    public class Transition
+    public class Transition : ScriptableObject
     {
         [SerializeField] public float Duration;
     }

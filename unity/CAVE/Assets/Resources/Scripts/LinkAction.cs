@@ -14,7 +14,7 @@ namespace Writing3D
         [SerializeField] public uint NumClicks = 1;
         [SerializeField] public bool Reset; // Initialized as false
 
-        [SerializeField] public ActionEvent ActionEvent;
+        [SerializeField] public ActionEvent ActionEvent = new();
     }
 
     [Serializable]
