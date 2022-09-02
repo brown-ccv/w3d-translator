@@ -29,7 +29,6 @@ namespace Writing3D
             private static GameObject Root;
             private static GameObject XrRig;
 
-            private static Dictionary<string, GameObject> Walls;
             private static Dictionary<string, (GameObject, Xml.Object)> GameObjects;
 
             [MenuItem("Custom/CLI.Main %g")]
@@ -180,7 +179,7 @@ namespace Writing3D
             // Create each <Placement> as an outlined GameObject 
             private static void BuildWalls()
             {
-                foreach (Placement xmlPlacement in XmlRoot.PlacementRoot)
+                foreach (Xml.Placement xmlPlacement in XmlRoot.PlacementRoot)
                 {
                     // Objects in the "Center" space are nested directly under Root
                     if (xmlPlacement.Name == "Center") { continue; }
@@ -189,7 +188,6 @@ namespace Writing3D
                     GameObject wall = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/wall"));
                     wall.name = xmlPlacement.Name;
                     SetTransform(wall.transform, xmlPlacement);
-                    Walls.Add(wall.name, wall);
                 }
             }
 

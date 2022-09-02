@@ -14,7 +14,7 @@ namespace Writing3D
         [Serializable]
         public class RelativeMove : Transition
         {
-            // TODO: Placement struct? Use to update transform
+            public Placement Placement;
         }
     }
 }

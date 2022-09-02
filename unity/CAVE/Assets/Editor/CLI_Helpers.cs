@@ -64,16 +64,11 @@ namespace Writing3D
                 rotationType.LookAt: Rotate to look at target vector (world space)
                 rotationType.Normal: Local rotation around a normalized vector
             */
-            public static void SetTransform(Transform gameObjectT, Placement xmlPlacement, float scale = 1)
+            public static void SetTransform(Transform gameObjectT, Xml.Placement xmlPlacement, float scale = 1)
             {
                 Transform rootTransform = Root.transform;
 
-                gameObjectT.SetParent(
-                    xmlPlacement.RelativeTo == Placement.PlacementTypes.Center
-                        ? rootTransform // Nest under Root directly
-                        : rootTransform.Find(xmlPlacement.RelativeTo.ToString()),
-                    false
-                );
+                gameObjectT.SetParent(GetParent(xmlPlacement), false);
                 gameObjectT.localPosition = ConvertVector3(xmlPlacement.PositionString);
                 gameObjectT.localScale = ConvertScale(scale);
 
@@ -103,6 +98,13 @@ namespace Writing3D
                         break;
                     default: break;
                 }
+            }
+
+            public static Transform GetParent(Xml.Placement xmlPlacement)
+            {
+                return xmlPlacement.RelativeTo == Xml.Placement.PlacementTypes.Center
+                        ? Root.transform // Nest under Root directly
+                        : Root.transform.Find(xmlPlacement.RelativeTo.ToString());
             }
 
             /********** OBJECT ROOT    ***********/
