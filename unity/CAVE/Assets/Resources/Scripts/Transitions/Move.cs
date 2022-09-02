@@ -14,7 +14,9 @@ namespace Writing3D
         [Serializable]
         public class Move : Transition
         {
-            public Placement Placement;
+            public Transform Parent;
+            public Vector3 LocalPosition;
+            // TODO: Does <Action> ever set rotation?
         }
     }
 }

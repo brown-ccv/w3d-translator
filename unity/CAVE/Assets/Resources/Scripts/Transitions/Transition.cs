@@ -25,8 +25,8 @@ namespace Writing3D
                 return this switch
                 {
                     Visible => new UnityAction<Transition>(script.VisibleTransition),
-                    Move => new UnityAction<Transition>(script.MoveTransition),
                     RelativeMove => new UnityAction<Transition>(script.RelativeMoveTransition),
+                    Move => new UnityAction<Transition>(script.MoveTransition),
                     Color => new UnityAction<Transition>(script.ColorTransition),
                     Scale => new UnityAction<Transition>(script.ScaleTransition),
                     Sound => new UnityAction<Transition>(script.SoundTransition),

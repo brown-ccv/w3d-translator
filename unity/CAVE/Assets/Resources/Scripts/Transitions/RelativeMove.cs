@@ -12,9 +12,8 @@ namespace Writing3D
             order = 3
         )]
         [Serializable]
-        public class RelativeMove : Transition
+        public class RelativeMove : Move
         {
-            public Placement Placement;
         }
     }
 }

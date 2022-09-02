@@ -10,13 +10,4 @@ namespace Writing3D
             if (Input.GetKeyDown(KeyCode.Escape)) { Application.Quit(); }
         }
     }
-
-    /** Type definitions */
-
-    public struct Placement
-    {
-        public Transform Parent;
-        public Vector3 LocalPosition;
-        // public Vector3 LocalRotation; // TODO: Does <Action> ever set rotation?
-    }
 }
