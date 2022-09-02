@@ -18,7 +18,7 @@ namespace Writing3D
 {
     namespace Translation
     {
-        public static class Helpers
+        public static partial class CLI
         {
             /********** Writing3D.Xml to Unity conversions    ***********/
 
@@ -182,7 +182,8 @@ namespace Writing3D
 
             /********** ACTIONS    ***********/
 
-            public static void AddAction(LinkActions xmlLinkAction, Button button, Dictionary<string, (GameObject, Xml.Object)> GameObjects)
+            // public static void AddAction(LinkActions xmlLinkAction, Button button, Dictionary<string, (GameObject, Xml.Object)> GameObjects)
+            public static void AddAction(LinkActions xmlLinkAction, Button button)
             {
                 ButtonManager bm = button.GetComponent<ButtonManager>();
                 Button.ButtonClickedEvent onClick = button.onClick;

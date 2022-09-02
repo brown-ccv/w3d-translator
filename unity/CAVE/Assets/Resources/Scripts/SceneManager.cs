@@ -10,4 +10,8 @@ namespace Writing3D
             if (Input.GetKeyDown(KeyCode.Escape)) { Application.Quit(); }
         }
     }
+
+    /** Type definitions */
+
+
 }

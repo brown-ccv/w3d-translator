@@ -14,7 +14,6 @@ using Writing3D.Xml;
 
 using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 using static UnityEditor.Events.UnityEventTools;
-using static Writing3D.Translation.Helpers;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
 
@@ -22,7 +21,7 @@ namespace Writing3D
 {
     namespace Translation
     {
-        public static class CLI
+        public static partial class CLI
         {
             public static string ProjectPath;
 
@@ -268,7 +267,8 @@ namespace Writing3D
                     // Add the <Action>s wrapper to onClick
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
-                        try { AddAction(xmlLinkAction, button, GameObjects); }
+                        // try { AddAction(xmlLinkAction, button, GameObjects); }
+                        try { AddAction(xmlLinkAction, button); }
                         catch (Exception)
                         {
                             Debug.LogError(
