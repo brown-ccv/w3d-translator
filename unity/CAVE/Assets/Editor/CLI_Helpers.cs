@@ -66,7 +66,7 @@ namespace Writing3D
             */
             public static void SetTransform(Transform gameObjectT, Placement xmlPlacement, float scale = 1)
             {
-                Transform rootTransform = GameObject.Find("/Root").transform;
+                Transform rootTransform = Root.transform;
 
                 gameObjectT.SetParent(
                     xmlPlacement.RelativeTo == Placement.PlacementTypes.Center
@@ -182,7 +182,6 @@ namespace Writing3D
 
             /********** ACTIONS    ***********/
 
-            // public static void AddAction(LinkActions xmlLinkAction, Button button, Dictionary<string, (GameObject, Xml.Object)> GameObjects)
             public static void AddAction(LinkActions xmlLinkAction, Button button)
             {
                 ButtonManager bm = button.GetComponent<ButtonManager>();

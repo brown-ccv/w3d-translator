@@ -29,6 +29,7 @@ namespace Writing3D
             private static GameObject Root;
             private static GameObject XrRig;
 
+            private static Dictionary<string, GameObject> Walls;
             private static Dictionary<string, (GameObject, Xml.Object)> GameObjects;
 
             [MenuItem("Custom/CLI.Main %g")]
@@ -188,6 +189,7 @@ namespace Writing3D
                     GameObject wall = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/wall"));
                     wall.name = xmlPlacement.Name;
                     SetTransform(wall.transform, xmlPlacement);
+                    Walls.Add(wall.name, wall);
                 }
             }
 
@@ -267,7 +269,6 @@ namespace Writing3D
                     // Add the <Action>s wrapper to onClick
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
-                        // try { AddAction(xmlLinkAction, button, GameObjects); }
                         try { AddAction(xmlLinkAction, button); }
                         catch (Exception)
                         {
