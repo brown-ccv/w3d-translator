@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,8 +8,6 @@ namespace Writing3D
     [Serializable]
     public class ButtonManager : MonoBehaviour
     {
-        // [SerializeField] public List<LinkActionEvent> LinkActions = new();
-        [SerializeField] public LinkActionEvent LinkActionEvent = new();
         private int clickCount = 0;
 
         // Increase clickCount

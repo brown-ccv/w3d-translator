@@ -8,9 +8,7 @@ namespace Writing3D
     namespace Xml
     {
         [Serializable]
-        public class Xml
-        {
-        }
+        public class Xml { }
 
         /********** STORY            ***********/
 

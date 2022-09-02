@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.Events;
 using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
@@ -11,7 +10,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Unity.XR.CoreUtils;
 
-using Writing3D;
 using Writing3D.Xml;
 
 using static UnityEngine.SpatialTracking.TrackedPoseDriver;
@@ -19,8 +17,6 @@ using static UnityEditor.Events.UnityEventTools;
 using static Writing3D.Translation.Helpers;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
-
-// TODO: Naming scheme (prepend Xml)
 
 namespace Writing3D
 {
@@ -34,7 +30,6 @@ namespace Writing3D
             private static GameObject Root;
             private static GameObject XrRig;
 
-            // TODO: Better to just find all objects with an "Object" tag?
             private static Dictionary<string, (GameObject, Xml.Object)> GameObjects;
 
             [MenuItem("Custom/CLI.Main %g")]

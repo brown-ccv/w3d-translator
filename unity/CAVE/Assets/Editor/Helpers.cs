@@ -49,6 +49,7 @@ namespace Writing3D
 
             /********** Unity simple types    ***********/
 
+            // Converts a "([float], [float], [float])" string and an angle to a Euler angle
             public static Vector3 CreateEuler(string rotationString, float Angle)
             {
                 return ConvertVector3(rotationString) * Angle;
@@ -200,7 +201,8 @@ namespace Writing3D
                 switch (xmlLinkAction.Action)
                 {
                     case ObjectChange xmlAction:
-                        UnityAction<Actions.Object> unityAction;
+                        // UnityAction<Actions.Object> unityAction;
+                        UnityAction<Transitions.Transition> unityAction;
                         Actions.Object action = (Actions.Object)CreateInstance(typeof(Actions.Object));
 
                         // Get referenced GameObject
@@ -214,7 +216,7 @@ namespace Writing3D
                         UnityEventTools.AddObjectPersistentListener(
                             linkAction.ActionEvent,
                             unityAction,
-                            action
+                            action.Transition
                         );
                         break;
                     case GroupChange xmlAction:

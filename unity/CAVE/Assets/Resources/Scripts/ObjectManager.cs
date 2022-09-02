@@ -10,55 +10,52 @@ namespace Writing3D
         // Need to enabled/disable the parent and children
         // TODO: Static function to figure out Content
         // e.g. ColorTransition should set text color
-        public void VisibleTransition(Actions.Object action)
+        // public void VisibleTransition(Transition transition)
+        public void VisibleTransition(Transition transition)
         {
-            Visible transition = (Visible)action.Transition;
-            Debug.Log($"VisibleT {gameObject.name} {transition.Enabled}");
+            Visible visibleT = (Visible)transition;
+            Debug.Log($"VisibleT {gameObject.name} {visibleT.Enabled}");
 
             // Fade In/Out and enable/disable the GameObject
             // https://owlcation.com/stem/How-to-fade-out-a-GameObject-in-Unity
 
-            gameObject.SetActive(transition.Enabled);
+            gameObject.SetActive(visibleT.Enabled);
         }
 
-        public void MoveTransition(Actions.Object action)
+        public void MoveTransition(Transition transition)
         {
-            Move transition = (Move)action.Transition;
+            Move moveT = (Move)transition;
             Debug.Log($"MoveT {gameObject.name}");
         }
 
-        public void RelativeMoveTransition(Actions.Object action)
+        public void RelativeMoveTransition(Transition transition)
         {
-            // Actions.Object action = (Actions.Object)linkAction.Action;
-            // RelativeMoveTransition transition = (RelativeMoveTransition)action.Transition;
-            // Debug.Log($"RelativeMoveT {gameObject.name}");
+            RelativeMove relativeMoveT = (RelativeMove)transition;
+            Debug.Log($"RelativeMoveT {gameObject.name}");
         }
 
-        public void ColorTransition(Actions.Object action)
+        public void ColorTransition(Transition transition)
         {
-            Transitions.Color transition = (Transitions.Color)action.Transition;
-            Debug.Log($"ColorT {gameObject.name} {transition.NewColor}");
+            Transitions.Color colorT = (Transitions.Color)transition;
+            Debug.Log($"ColorT {gameObject.name} {colorT.NewColor}");
         }
 
-        public void ScaleTransition(Actions.Object action)
+        public void ScaleTransition(Transition transition)
         {
-            // Actions.Object action = (Actions.Object)linkAction.Action;
-            // ScaleTransition transition = (ScaleTransition)action.Transition;
-            // Debug.Log($"ScaleT {gameObject.name} {transition.Scale}");
+            Scale scaleT = (Scale)transition;
+            Debug.Log($"ScaleT {gameObject.name} {scaleT.NewScale}");
         }
 
-        public void SoundTransition(Actions.Object action)
+        public void SoundTransition(Transition transition)
         {
-            // Actions.Object action = (Actions.Object)linkAction.Action;
-            // SoundTransition transition = (SoundTransition)action.Transition;
-            // Debug.Log($"SoundT {gameObject.name} {transition.Operation}");
+            Sound soundT = (Sound)transition;
+            Debug.Log($"SoundT {gameObject.name} {soundT.Operation}");
         }
 
-        public void LinkTransition(Actions.Object action)
+        public void LinkTransition(Transition transition)
         {
-            // Actions.Object action = (Actions.Object)linkAction.Action;
-            // LinkTransition transition = (LinkTransition)action.Transition;
-            // Debug.Log($"LinkT {gameObject.name} {transition.Operation}");
+            Link linkT = (Link)transition;
+            Debug.Log($"LinkT {gameObject.name} {linkT.Operation}");
         }
     }
 }
