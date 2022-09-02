@@ -201,22 +201,19 @@ namespace Writing3D
                 switch (xmlLinkAction.Action)
                 {
                     case ObjectChange xmlAction:
-                        // UnityAction<Actions.Object> unityAction;
-                        UnityAction<Transitions.Transition> unityAction;
-                        Actions.Object action = (Actions.Object)CreateInstance(typeof(Actions.Object));
-
                         // Get referenced GameObject
                         reference = GameObjects[xmlAction.Name].Item1;
 
                         // Initialize the transition and action
-                        action.Transition = GetTransition(xmlAction.Transition);
-                        action.Transition.Duration = xmlAction.Transition.Duration;
-                        unityAction = action.Transition.GetUnityAction(reference);
+                        UnityAction<Transitions.Transition> unityAction;
+                        Transitions.Transition transition = GetTransition(xmlAction.Transition);
+                        transition.Duration = xmlAction.Transition.Duration;
+                        unityAction = transition.GetUnityAction(reference);
 
                         UnityEventTools.AddObjectPersistentListener(
                             linkAction.ActionEvent,
                             unityAction,
-                            action.Transition
+                            transition
                         );
                         break;
                     case GroupChange xmlAction:

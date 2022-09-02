@@ -10,9 +10,6 @@ namespace Writing3D
     {
         [CreateAssetMenu(fileName = "Object", menuName = "W3D/Actions/Object", order = 1)]
         [Serializable]
-        public class Object : Action
-        {
-            [SerializeField] public Transition Transition;
-        }
+        public class Object : Action { } // Transition is added directly to the ActionEvent
     }
 }
