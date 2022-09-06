@@ -212,6 +212,7 @@ namespace Writing3D
                         transition.Duration = xmlAction.Transition.Duration;
                         unityAction = transition.GetUnityAction(reference);
 
+                        // Add the Transition action directly 
                         UnityEventTools.AddObjectPersistentListener(
                             linkAction.ActionEvent,
                             unityAction,
