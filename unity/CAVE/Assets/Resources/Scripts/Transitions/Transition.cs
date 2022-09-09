@@ -17,6 +17,12 @@ namespace Writing3D
         {
             [SerializeField] public float Duration;
 
+            public Transition Init(float duration)
+            {
+                Duration = duration;
+                return this;
+            }
+
             public UnityAction<Transition> GetUnityAction(GameObject reference)
             {
                 ObjectManager script = reference.GetComponent<ObjectManager>();

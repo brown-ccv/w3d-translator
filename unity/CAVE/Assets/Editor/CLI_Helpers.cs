@@ -201,7 +201,7 @@ namespace Writing3D
                         // Initialize the transition and action
                         UnityAction<Transitions.Transition> unityAction;
                         Transitions.Transition transition = GetTransition(xmlAction.Transition);
-                        transition.Duration = xmlAction.Transition.Duration;
+                        transition.Init(xmlAction.Transition.Duration);
                         unityAction = transition.GetUnityAction(reference);
 
                         // Add the Transition action directly 
