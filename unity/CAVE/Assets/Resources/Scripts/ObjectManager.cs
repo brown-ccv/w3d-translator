@@ -6,11 +6,10 @@ namespace Writing3D
 {
     public class ObjectManager : MonoBehaviour
     {
-        // TODO: Static function for if gameObject is a link (use tag?)
-        // Need to enabled/disable the parent and children
-        // TODO: Static function to figure out Content
+        // TODO: ObjectManager functions (121)
+        // Static function for determining content and/or link?
         // e.g. ColorTransition should set text color
-        // public void VisibleTransition(Transition transition)
+
         public void VisibleTransition(Transition transition)
         {
             Visible visibleT = (Visible)transition;

@@ -16,7 +16,7 @@ namespace Writing3D
         {
             public Transform Parent;
             public Vector3 LocalPosition;
-            // TODO: Does <Action> ever set rotation?
+            // TODO: Data and logic for MoveTransition (122)
         }
     }
 }

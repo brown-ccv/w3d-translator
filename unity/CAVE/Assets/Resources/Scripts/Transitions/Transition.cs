@@ -5,8 +5,6 @@ using UnityEngine.Events;
 
 namespace Writing3D
 {
-    // TODO: Add namespace, separate files
-    // TODO: Visible, Move, Color
     namespace Transitions
     {
         [CreateAssetMenu(
