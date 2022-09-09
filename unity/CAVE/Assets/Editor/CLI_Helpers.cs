@@ -244,37 +244,26 @@ namespace Writing3D
 
             public static Transitions.Transition GetTransition(Xml.Transition xmlTransition)
             {
-                // TODO: Add Init function to each class - return this
-                switch (xmlTransition.Change)
+                // TODO: Init for Move and RelativeMove
+                return xmlTransition.Change switch
                 {
-                    case bool visible:
-                        Visible visibleT = CreateInstance<Visible>();
-                        visibleT.Enabled = visible;
-                        return visibleT;
-                    case MovementTransition placement:
-                        Move moveT = CreateInstance<Move>();
-                        return moveT;
-                    case MoveRel placement:
-                        RelativeMove relativeMoveT = CreateInstance<RelativeMove>();
-                        return relativeMoveT;
-                    case string color:
-                        Transitions.Color colorT = CreateInstance<Transitions.Color>();
-                        colorT.NewColor = ConvertColor(color);
-                        return colorT;
-                    case float scale:
-                        Scale scaleT = CreateInstance<Scale>();
-                        scaleT.NewScale = scale;
-                        return scaleT;
-                    case SoundTransition operation:
-                        Transitions.Sound sound = CreateInstance<Transitions.Sound>();
-                        sound.Operation = (Transitions.Sound.Controls)operation.Type;
-                        return sound;
-                    case LinkTransition operation:
-                        Transitions.Link linkT = CreateInstance<Transitions.Link>();
-                        linkT.Operation = (Transitions.Link.Controls)operation.Type;
-                        return linkT;
-                    default: return null; // force error
-                }
+                    bool visible => CreateInstance<Visible>().Init(visible),
+                    MovementTransition placement => CreateInstance<Move>(),
+                    // TODO: Init
+                    MoveRel placement => CreateInstance<RelativeMove>(),
+                    // TODO: Init
+                    string color => CreateInstance<Transitions.Color>().Init(
+                            ConvertColor(color)
+                        ),
+                    float scale => CreateInstance<Scale>().Init(scale),
+                    SoundTransition operation => CreateInstance<Transitions.Sound>().Init(
+                            (Transitions.Sound.Controls)operation.Type
+                        ),
+                    LinkTransition operation => CreateInstance<Transitions.Link>().Init(
+                            (Transitions.Link.Controls)operation.Type
+                        ),
+                    _ => null // force error
+                };
             }
         }
     }

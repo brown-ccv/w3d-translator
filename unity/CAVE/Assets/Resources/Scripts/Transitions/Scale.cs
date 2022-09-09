@@ -15,6 +15,11 @@ namespace Writing3D
         public class Scale : Transition
         {
             [SerializeField] public float NewScale;
+
+            public Scale Init(float scale){
+                NewScale = scale;
+                return this;
+            }
         }
     }
 }

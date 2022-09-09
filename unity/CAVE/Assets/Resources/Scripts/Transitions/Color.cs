@@ -15,6 +15,12 @@ namespace Writing3D
         public class Color : Transition
         {
             [SerializeField] public UnityEngine.Color NewColor;
+
+            public Color Init(UnityEngine.Color color)
+            {
+                NewColor = color;
+                return this;
+            }
         }
     }
 }

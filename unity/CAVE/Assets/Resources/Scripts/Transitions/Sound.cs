@@ -16,6 +16,12 @@ namespace Writing3D
         {
             [SerializeField] public Controls Operation;
 
+            public Sound Init(Controls operation)
+            {
+                Operation = operation;
+                return this;
+            }
+
             public enum Controls
             {
                 None,
