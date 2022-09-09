@@ -12,6 +12,7 @@ using Writing3D.Actions;
 using Writing3D.Transitions;
 
 using static UnityEngine.ScriptableObject;
+using static UnityEngine.Object;
 
 namespace Writing3D
 {
@@ -108,7 +109,7 @@ namespace Writing3D
 
             /********** OBJECT ROOT    ***********/
 
-            public static GameObject CreateObject(Xml.Object xmlObject)
+            public static GameObject CreateContent(Xml.Object xmlObject)
             {
                 GameObject gameObject = xmlObject.Content.ContentData switch
                 {
@@ -124,9 +125,6 @@ namespace Writing3D
                     Xml.ParticleSystem xmlParticleSystem => new GameObject(), // TODO (69)
                     _ => new GameObject(), // TODO: - Shouldn't occur, throw error
                 };
-                gameObject.name = xmlObject.Name;
-                gameObject.tag = "Object";
-                gameObject.AddComponent<ObjectManager>();
                 return gameObject;
             }
 
@@ -134,8 +132,8 @@ namespace Writing3D
             {
                 // Instantiate TextMeshPro or TextMeshProUGUI prefab
                 // TODO (64): Validate prefab settings
-                GameObject gameObject = UnityEngine.Object.Instantiate(
-                    Resources.Load<GameObject>("Prefabs/TmpText" + (isLink ? "GUI" : ""))
+                GameObject gameObject = Instantiate(
+                    Resources.Load<GameObject>("Prefabs/text")
                 );
                 TMP_Text tmpText = gameObject.GetComponent<TMP_Text>();
 
@@ -177,6 +175,8 @@ namespace Writing3D
                     Debug.Log("Defaulting to fallback font LiberationSans SDF");
                     Debug.LogException(e);
                 }
+
+                // TODO Add BoxCollider to prefab, resize here
 
                 return gameObject;
             }
