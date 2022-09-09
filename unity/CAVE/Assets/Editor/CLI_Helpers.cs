@@ -187,8 +187,9 @@ namespace Writing3D
                     xmlLinkAction.Clicks.Type == Clicks.ActivationTypes.Number)
                 {
                     NumClicks activation = (NumClicks)xmlLinkAction.Clicks.Activation;
-                    linkAction.NumClicks = activation.Clicks;
-                    linkAction.Reset = activation.Reset;
+                    // linkAction.NumClicks = ;
+                    // linkAction.Reset = activation.Reset;
+                    linkAction.Init(activation.Clicks, activation.Reset);
                 }
 
                 GameObject reference;

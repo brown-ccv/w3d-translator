@@ -2,6 +2,7 @@ using System;
 
 using UnityEngine;
 using UnityEngine.Events;
+
 using Writing3D.Actions;
 
 namespace Writing3D
@@ -12,8 +13,14 @@ namespace Writing3D
     {
         [SerializeField] public uint NumClicks = 1;
         [SerializeField] public bool Reset; // Initialized as false
-
         [SerializeField] public ActionEvent ActionEvent = new();
+
+        public LinkAction Init(uint numClicks, bool reset)
+        {
+            NumClicks = numClicks;
+            Reset = reset;
+            return this;
+        }
     }
 
     [Serializable]
