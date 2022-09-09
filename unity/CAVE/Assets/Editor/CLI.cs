@@ -47,6 +47,20 @@ namespace Writing3D
                 Root = instantiatedScene.scene.GetRootGameObjects()[1];
                 GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
 
+                if (!UnityEditorInternal.InternalEditorUtility.inBatchMode)
+                {
+                    // Testing - Instantiate the device simulator and set at top of hierarchy
+                    UnityEngine.Object.Instantiate(
+                        AssetDatabase.LoadAssetAtPath(
+                            "Assets/XR Interaction Toolkit/XR Device Simulator/" +
+                            "XR Device Simulator.prefab",
+                            typeof(GameObject)
+                        ) as GameObject,
+                        XrRig.transform.position,
+                        XrRig.transform.rotation
+                    ).transform.SetAsFirstSibling();
+                }
+
                 ApplyGlobalSettings();
                 BuildWalls();
                 TranslateGameObjects();
