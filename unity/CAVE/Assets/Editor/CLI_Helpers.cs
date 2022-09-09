@@ -4,7 +4,6 @@ using UnityEditor;
 using UnityEditor.Events;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using TMPro;
 
 using Writing3D.Xml;
@@ -13,6 +12,7 @@ using Writing3D.Transitions;
 
 using static UnityEngine.ScriptableObject;
 using static UnityEngine.Object;
+using static UnityEditor.Events.UnityEventTools;
 
 namespace Writing3D
 {
@@ -102,7 +102,7 @@ namespace Writing3D
 
             public static Transform GetParent(Placement xmlPlacement)
             {
-                return xmlPlacement.RelativeTo == Xml.Placement.PlacementTypes.Center
+                return xmlPlacement.RelativeTo == Placement.PlacementTypes.Center
                         ? Root.transform // Nest under Root directly
                         : Root.transform.Find(xmlPlacement.RelativeTo.ToString());
             }
@@ -111,24 +111,19 @@ namespace Writing3D
 
             public static GameObject CreateContent(Xml.Object xmlObject)
             {
-                GameObject gameObject = xmlObject.Content.ContentData switch
+                return xmlObject.Content.ContentData switch
                 {
-                    Xml.Text xmlText => CreateText(
-                        xmlText,
-                        xmlObject.LinkRoot is not null,
-                        xmlObject.ColorString
-                    ),
-                    Xml.Image xmlImage => new GameObject(), // TODO (65)
+                    Text xmlText => CreateText(xmlText, xmlObject.ColorString),
+                    Image xmlImage => new GameObject(), // TODO (65)
                     StereoImage xmlStereoImage => new(), // TODO (66)
                     Model xmlModel => new GameObject(), // TODO (67)
                     Xml.Light xmlLight => new GameObject(), // TODO (68)
                     Xml.ParticleSystem xmlParticleSystem => new GameObject(), // TODO (69)
                     _ => new GameObject(), // TODO: - Shouldn't occur, throw error
                 };
-                return gameObject;
             }
 
-            public static GameObject CreateText(Xml.Text xmlText, bool isLink, string colorString)
+            public static GameObject CreateText(Text xmlText, string colorString)
             {
                 // Instantiate TextMeshPro or TextMeshProUGUI prefab
                 // TODO (64): Validate prefab settings
@@ -184,11 +179,8 @@ namespace Writing3D
 
             /********** ACTIONS    ***********/
 
-            public static void AddAction(LinkActions xmlLinkAction, Button button)
+            public static void AddAction(LinkActions xmlLinkAction, LinkManager lm)
             {
-                LinkManager lm = button.GetComponent<LinkManager>();
-                Button.ButtonClickedEvent onClick = button.onClick;
-
                 // Initialize action
                 LinkAction linkAction = CreateInstance<LinkAction>();
                 if (xmlLinkAction.Clicks is not null &&
@@ -213,7 +205,7 @@ namespace Writing3D
                         unityAction = transition.GetUnityAction(reference);
 
                         // Add the Transition action directly 
-                        UnityEventTools.AddObjectPersistentListener(
+                        AddObjectPersistentListener(
                             linkAction.ActionEvent,
                             unityAction,
                             transition
@@ -243,15 +235,16 @@ namespace Writing3D
                         unityAction = null;
                         break;
                 }
-                // UnityEventTools.AddObjectPersistentListener(
-                    // button.onClick,
-                    // new UnityAction<LinkAction>(bm.ExecuteAction),
-                    // linkAction
-                // );
+                AddObjectPersistentListener(
+                    lm.activated,
+                    new UnityAction<LinkAction>(lm.ExecuteAction),
+                    linkAction
+                );
             }
 
             public static Transitions.Transition GetTransition(Xml.Transition xmlTransition)
             {
+                // TODO: Add Init function to each class - return this
                 switch (xmlTransition.Change)
                 {
                     case bool visible:

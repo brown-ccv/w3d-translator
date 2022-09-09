@@ -213,33 +213,33 @@ namespace Writing3D
                     Visible: gameObject.active
                     Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
                     Lighting: TODO (76)
-                    ClickThrough: TODO (76)
+                    ClickThrough: gameObject<Collider>.enabled (opposite)
                     AroundSelfAxis: TODO (76)
                     Scale: gameObject.localScale (set in Placement.SetTransform)
                 */
                 foreach (Xml.Object xmlObject in XmlRoot.ObjectRoot)
                 {
+                    // TODO: Use IBuilder syntax to build the object
                     GameObject go = CreateContent(xmlObject);
+                    go.name = xmlObject.Name;
+                    go.tag = "Object";
+                    SetTransform(go.transform, xmlObject.Placement, xmlObject.Scale);
+                    go.SetActive(xmlObject.Visible);
+                    go.AddComponent<ObjectManager>();
+                    go.GetComponent<BoxCollider>().enabled = !xmlObject.ClickThrough;
+
                     if (xmlObject.LinkRoot is not null)
                     {
                         Link xmlLink = xmlObject.LinkRoot.Link;
 
-                        // TODO: Add LinkManager script and set colors
-
-                        // Set state colors
-                        // ColorBlock newColors = button.colors;
-                        // newColors.normalColor = newColors.highlightedColor =
-                        //     ConvertColor(xmlLink.EnabledColorString);
-                        // newColors.pressedColor = newColors.selectedColor =
-                        //     ConvertColor(xmlLink.SelectedColorString);
-                        // newColors.disabledColor = ConvertColor(xmlObject.ColorString);
-                        // button.colors = newColors;
+                        // Add LinkManager and initialize
+                        LinkManager lm = go.AddComponent<LinkManager>();
+                        lm.DisabledColor = ConvertColor(xmlObject.ColorString);
+                        lm.EnabledColor = ConvertColor(xmlLink.EnabledColorString);
+                        lm.ActiveColor = ConvertColor(xmlLink.SelectedColorString);
+                        if (xmlLink.Enabled) { lm.EnableLink(); }
+                        else { lm.DisableLink(); }
                     }
-                    go.name = xmlObject.Name;
-                    go.tag = "Object";
-                    go.AddComponent<ObjectManager>();
-                    go.SetActive(xmlObject.Visible);
-                    SetTransform(go.transform, xmlObject.Placement, xmlObject.Scale);
                     GameObjects.Add(go.name, (go, xmlObject));
                 }
             }
@@ -253,34 +253,28 @@ namespace Writing3D
                 {
                     (GameObject go, Xml.Object xmlObject) = pair.Value;
                     Link xmlLink = xmlObject.LinkRoot.Link;
-                    // Refactor: Use linkManager script
-                    // ButtonManager bm = button.GetComponent<ButtonManager>();
-                    // Button.ButtonClickedEvent onClick = button.onClick;
-
-                    // Add actions
-                    // AddVoidPersistentListener(onClick, new UnityAction(bm.Counter));
+                    LinkManager lm = go.GetComponent<LinkManager>();
 
                     // Add the <Action>s wrapper to onClick
-                    // foreach (LinkActions xmlLinkAction in xmlLink.Actions)
-                    // {
-                    //     try { AddAction(xmlLinkAction, button); }
-                    //     catch (Exception)
-                    //     {
-                    //         Debug.LogError(
-                    //             "Unable to create action for " + xmlObject.Name +
-                    //             ": " + JsonUtility.ToJson(xmlLinkAction)
-                    //         );
-                    //         throw;
-                    //     }
-                    // }
+                    foreach (LinkActions xmlLinkAction in xmlLink.Actions)
+                    {
+                        try { AddAction(xmlLinkAction, lm); }
+                        catch (Exception)
+                        {
+                            Debug.LogError(
+                                "Unable to create action for " + xmlObject.Name +
+                                ": " + JsonUtility.ToJson(xmlLinkAction)
+                            );
+                            throw;
+                        }
+                    }
 
-                    // if (!xmlLink.RemainEnabled)
-                    // {
-                    //     AddVoidPersistentListener(
-                    //         onClick,
-                    //         new UnityAction(button.GetComponent<ButtonManager>().Disable)
-                    //     );
-                    // }
+                    // Add the <Action>'s on deactivate (stop clicking)
+                    AddVoidPersistentListener(lm.deactivated, new UnityAction(lm.Deactivate));
+                    if (!xmlLink.RemainEnabled)
+                    {
+                        AddVoidPersistentListener(lm.deactivated, new UnityAction(lm.DisableLink));
+                    }
                 }
             }
 
