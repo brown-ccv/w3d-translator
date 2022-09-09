@@ -185,7 +185,7 @@ namespace Writing3D
 
             public static void AddAction(LinkActions xmlLinkAction, Button button)
             {
-                ButtonManager bm = button.GetComponent<ButtonManager>();
+                LinkManager lm = button.GetComponent<LinkManager>();
                 Button.ButtonClickedEvent onClick = button.onClick;
 
                 // Initialize action
@@ -242,11 +242,11 @@ namespace Writing3D
                         unityAction = null;
                         break;
                 }
-                UnityEventTools.AddObjectPersistentListener(
-                    button.onClick,
-                    new UnityAction<LinkAction>(bm.ExecuteAction),
-                    linkAction
-                );
+                // UnityEventTools.AddObjectPersistentListener(
+                    // button.onClick,
+                    // new UnityAction<LinkAction>(bm.ExecuteAction),
+                    // linkAction
+                // );
             }
 
             public static Transitions.Transition GetTransition(Xml.Transition xmlTransition)

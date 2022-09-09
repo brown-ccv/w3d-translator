@@ -6,6 +6,15 @@ namespace Writing3D
 {
     public class ObjectManager : MonoBehaviour
     {
+        // Update the GameObject's color
+        public void SetColor(UnityEngine.Color color)
+        {
+            // TODO: Switch based on <Content>
+            GetComponent<TMPro.TextMeshPro>().color = color;
+        }
+
+        /* Transitions */
+
         // TODO: ObjectManager functions (121)
         // Static function for determining content and/or link?
         // e.g. ColorTransition should set text color
