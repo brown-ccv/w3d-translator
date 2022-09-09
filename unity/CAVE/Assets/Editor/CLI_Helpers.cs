@@ -176,8 +176,9 @@ namespace Writing3D
                     Debug.LogException(e);
                 }
 
-                // TODO Add BoxCollider to prefab, resize here
-
+                // Resize BoxCollider to the text
+                gameObject.GetComponent<BoxCollider>().size =
+                    new Vector3(tmpText.preferredWidth, tmpText.preferredHeight, 0);
                 return gameObject;
             }
 
