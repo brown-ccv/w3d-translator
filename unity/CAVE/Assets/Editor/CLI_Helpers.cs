@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Events;
 using UnityEngine;
@@ -64,7 +63,7 @@ namespace Writing3D
                 rotationType.LookAt: Rotate to look at target vector (world space)
                 rotationType.Normal: Local rotation around a normalized vector
             */
-            public static void SetTransform(Transform gameObjectT, Xml.Placement xmlPlacement, float scale = 1)
+            public static void SetTransform(Transform gameObjectT, Placement xmlPlacement, float scale = 1)
             {
                 Transform rootTransform = Root.transform;
 
@@ -100,7 +99,7 @@ namespace Writing3D
                 }
             }
 
-            public static Transform GetParent(Xml.Placement xmlPlacement)
+            public static Transform GetParent(Placement xmlPlacement)
             {
                 return xmlPlacement.RelativeTo == Xml.Placement.PlacementTypes.Center
                         ? Root.transform // Nest under Root directly
@@ -190,7 +189,7 @@ namespace Writing3D
                 Button.ButtonClickedEvent onClick = button.onClick;
 
                 // Initialize action
-                LinkAction linkAction = CreateInstance(typeof(LinkAction)) as LinkAction;
+                LinkAction linkAction = CreateInstance<LinkAction>();
                 if (xmlLinkAction.Clicks is not null &&
                     xmlLinkAction.Clicks.Type == Clicks.ActivationTypes.Number)
                 {
@@ -250,36 +249,34 @@ namespace Writing3D
                 );
             }
 
-            // TODO: Helper function for creating instances
-
             public static Transitions.Transition GetTransition(Xml.Transition xmlTransition)
             {
                 switch (xmlTransition.Change)
                 {
                     case bool visible:
-                        Visible visibleT = (Visible)CreateInstance(typeof(Visible));
+                        Visible visibleT = CreateInstance<Visible>();
                         visibleT.Enabled = visible;
                         return visibleT;
                     case MovementTransition placement:
-                        Move moveT = (Move)CreateInstance(typeof(Move));
+                        Move moveT = CreateInstance<Move>();
                         return moveT;
                     case MoveRel placement:
-                        RelativeMove relativeMoveT = (RelativeMove)CreateInstance(typeof(RelativeMove));
+                        RelativeMove relativeMoveT = CreateInstance<RelativeMove>();
                         return relativeMoveT;
                     case string color:
-                        Transitions.Color colorT = (Transitions.Color)CreateInstance(typeof(Transitions.Color));
+                        Transitions.Color colorT = CreateInstance<Transitions.Color>();
                         colorT.NewColor = ConvertColor(color);
                         return colorT;
                     case float scale:
-                        Scale scaleT = (Scale)CreateInstance(typeof(Scale));
+                        Scale scaleT = CreateInstance<Scale>();
                         scaleT.NewScale = scale;
                         return scaleT;
                     case SoundTransition operation:
-                        Transitions.Sound sound = (Transitions.Sound)CreateInstance(typeof(Transitions.Sound));
+                        Transitions.Sound sound = CreateInstance<Transitions.Sound>();
                         sound.Operation = (Transitions.Sound.Controls)operation.Type;
                         return sound;
                     case LinkTransition operation:
-                        Transitions.Link linkT = (Transitions.Link)CreateInstance(typeof(Transitions.Link));
+                        Transitions.Link linkT = CreateInstance<Transitions.Link>();
                         linkT.Operation = (Transitions.Link.Controls)operation.Type;
                         return linkT;
                     default: return null; // force error
