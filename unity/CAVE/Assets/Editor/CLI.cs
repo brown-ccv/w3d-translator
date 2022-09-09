@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using Unity.XR.CoreUtils;
 using UnityEditor;
 using UnityEditor.Events;
 using UnityEditor.SceneTemplate;
@@ -10,6 +9,7 @@ using UnityEngine;
 using UnityEngine.SpatialTracking;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Unity.XR.CoreUtils;
 
 using Writing3D;
 using Writing3D.Xml;
@@ -184,34 +184,15 @@ namespace Writing3D
             // Create each <Placement> as an outlined GameObject 
             private static void BuildWalls()
             {
-                // Each wall is an 8" by 8" square
-                Vector3[] points = {
-                    new Vector3(-4, 4, 0),
-                    new Vector3(4, 4, 0),
-                    new Vector3(4, -4, 0),
-                    new Vector3(-4, -4, 0),
-                };
-
                 foreach (Placement xmlPlacement in XmlRoot.PlacementRoot)
                 {
                     // Objects in the "Center" space are nested directly under Root
                     if (xmlPlacement.Name == "Center") { continue; }
 
                     // Create and position wall
-                    GameObject wall = new() { name = xmlPlacement.Name };
+                    GameObject wall = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/wall"));
+                    wall.name = xmlPlacement.Name;
                     SetTransform(wall.transform, xmlPlacement);
-
-                    // Create outline
-                    LineRenderer outline = wall.AddComponent<LineRenderer>();
-                    outline.material = (Material)Resources.Load(
-                        "Materials/EmitWhite",
-                        typeof(Material)
-                    );
-                    outline.widthMultiplier = 0.01f;
-                    outline.useWorldSpace = false;
-                    outline.loop = true;
-                    outline.positionCount = points.Length;
-                    outline.SetPositions(points);
                 }
             }
 
