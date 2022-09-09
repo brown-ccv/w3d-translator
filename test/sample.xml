@@ -295,6 +295,6 @@
             </Placement>
         </CaveCameraPos>
         <Background color="0, 0, 0" />
-        <WandNavigation allow-rotation="false" allow-movement="false" />
+        <WandNavigation allow-rotation="true" allow-movement="true" />
     </Global>
 </Story>
