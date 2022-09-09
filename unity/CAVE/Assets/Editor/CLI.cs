@@ -256,6 +256,7 @@ namespace Writing3D
                     LinkManager lm = go.GetComponent<LinkManager>();
 
                     // Add the <Action>s wrapper to onClick
+                    AddVoidPersistentListener(lm.activated, new UnityAction(lm.Activate));
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
                         try { AddAction(xmlLinkAction, lm); }
