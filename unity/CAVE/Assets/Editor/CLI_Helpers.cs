@@ -232,7 +232,7 @@ namespace Writing3D
                         break;
                 }
                 AddObjectPersistentListener(
-                    lm.activated,
+                    lm.deactivated,
                     new UnityAction<LinkAction>(lm.ExecuteAction),
                     linkAction
                 );
