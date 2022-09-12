@@ -16,7 +16,6 @@ namespace Writing3D
         {
             [SerializeField] public float NewScale;
 
-            // TODO: Make sure this function is different from Transition.Init
             public Scale Init(float scale, float duration)
             {
                 NewScale = scale;

@@ -9,17 +9,17 @@ namespace Writing3D
         // Update the GameObject's color
         public void SetColor(UnityEngine.Color color)
         {
-            // TODO: Switch based on <Content>
+            // TODO 125: Switch based on <Content>
             GetComponent<TMPro.TextMeshPro>().color = color;
         }
 
         /* Transitions */
 
-        // TODO: ObjectManager functions (121)
+        // TODO 121: ObjectManager functions
         // Static function for determining content and/or link?
         // e.g. ColorTransition should set text color
 
-        // TODO: Pass derived class directly? Would have to change GetUnityAction
+        // TODO 126: Pass derived class directly? Would have to change GetUnityAction
         public void VisibleTransition(Transition transition)
         {
             Visible visibleT = (Visible)transition;

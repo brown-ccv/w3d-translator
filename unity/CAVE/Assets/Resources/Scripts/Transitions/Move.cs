@@ -17,7 +17,7 @@ namespace Writing3D
             public Transform Parent;
             public Vector3 LocalPosition;
             public Quaternion LocalRotation;
-            // TODO: Data and logic for MoveTransition (122)
+            // TODO 122: Data and logic for MoveTransition
 
             public Move Init(Transform parent, Vector3 localPosition, Quaternion localRotation, float duration)
             {

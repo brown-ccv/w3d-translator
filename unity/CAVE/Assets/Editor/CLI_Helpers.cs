@@ -114,19 +114,19 @@ namespace Writing3D
                 return xmlObject.Content.ContentData switch
                 {
                     Text xmlText => CreateText(xmlText, xmlObject.ColorString),
-                    Image xmlImage => new GameObject(), // TODO (65)
-                    StereoImage xmlStereoImage => new(), // TODO (66)
-                    Model xmlModel => new GameObject(), // TODO (67)
-                    Xml.Light xmlLight => new GameObject(), // TODO (68)
-                    Xml.ParticleSystem xmlParticleSystem => new GameObject(), // TODO (69)
-                    _ => new GameObject(), // TODO: - Shouldn't occur, throw error
+                    Image xmlImage => new GameObject(), // TODO 65
+                    StereoImage xmlStereoImage => new(), // TODO 66
+                    Model xmlModel => new GameObject(), // TODO 67
+                    Xml.Light xmlLight => new GameObject(), // TODO 68
+                    Xml.ParticleSystem xmlParticleSystem => new GameObject(), // TODO 69
+                    _ => null, // Force error
                 };
             }
 
             public static GameObject CreateText(Text xmlText, string colorString)
             {
                 // Instantiate TextMeshPro or TextMeshProUGUI prefab
-                // TODO (64): Validate prefab settings
+                // TODO 64: Validate prefab settings
                 GameObject gameObject = Instantiate(
                     Resources.Load<GameObject>("Prefabs/text")
                 );
@@ -139,7 +139,7 @@ namespace Writing3D
                 tmpText.color = ConvertColor(colorString); // Vertex Color
 
                 // Load font material
-                // TODO (72): More robust path checking
+                // TODO 72: More robust path checking
                 TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
                     "Materials/Fonts/" +
                     Path.GetFileNameWithoutExtension(xmlText.Font) +
@@ -209,23 +209,23 @@ namespace Writing3D
                         );
                         break;
                     case GroupChange xmlAction:
-                        // TODO: 87
+                        // TODO 87:
                         break;
                     case TimerChange xmlAction:
-                        // TODO: 88
+                        // TODO 88:
                         break;
                     case SoundChange xmlAction:
-                        // TODO: 91
+                        // TODO 91:
                         break;
                     case EventChange xmlAction:
-                        // TODO: 89
+                        // TODO 89:
                         break;
                     case MoveCave xmlAction:
-                        // TODO: 90
+                        // TODO 90:
                         break;
 
                     case null:
-                        // TODO: 92 (Restart)
+                        // TODO 92: (Restart)
                         break;
                     default:
                         linkAction = null; // Force error below, caught in CLI.cs
@@ -240,7 +240,7 @@ namespace Writing3D
 
             public static Transitions.Transition GetTransition(Xml.Transition xmlTransition, float duration)
             {
-                // TODO: Init for Move and RelativeMove
+                // TODO 122: Init for Move and RelativeMove
                 return xmlTransition.Change switch
                 {
                     bool visible => CreateInstance<Visible>().Init(visible, duration),

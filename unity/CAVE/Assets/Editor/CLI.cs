@@ -15,8 +15,6 @@ using Writing3D.Xml;
 using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 using static UnityEditor.Events.UnityEventTools;
 
-// TODO (80): Should ConvertVector3 invert z axis always?
-
 namespace Writing3D
 {
     namespace Translation
@@ -65,11 +63,11 @@ namespace Writing3D
                 BuildWalls();
                 TranslateGameObjects();
 
-                // TODO (95): Generate the <Group>s
-                // TODO (96): Generate the <Timeline>s
-                // TODO (97): Generate the <Sound>s
-                // TODO (98): Generate the <Event>s
-                // TODO (99): Generate the <ParticleAction>s
+                // TODO 95: Generate the <Group>s
+                // TODO 96: Generate the <Timeline>s
+                // TODO 97: Generate the <Sound>s
+                // TODO 98: Generate the <Event>s
+                // TODO 99: Generate the <ParticleAction>s
 
                 SetLinkActions();
 
@@ -193,7 +191,7 @@ namespace Writing3D
             // Create each <Placement> as an outlined GameObject 
             private static void BuildWalls()
             {
-                foreach (Xml.Placement xmlPlacement in XmlRoot.PlacementRoot)
+                foreach (Placement xmlPlacement in XmlRoot.PlacementRoot)
                 {
                     // Objects in the "Center" space are nested directly under Root
                     if (xmlPlacement.Name == "Center") { continue; }
@@ -212,14 +210,14 @@ namespace Writing3D
                     name: gameObject.name
                     Visible: gameObject.active
                     Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
-                    Lighting: TODO (76)
+                    Lighting: (TODO 76)
                     ClickThrough: gameObject<Collider>.enabled (opposite)
-                    AroundSelfAxis: TODO (76)
+                    AroundSelfAxis: (TODO 76)
                     Scale: gameObject.localScale (set in Placement.SetTransform)
                 */
                 foreach (Xml.Object xmlObject in XmlRoot.ObjectRoot)
                 {
-                    // TODO: Use IBuilder syntax to build the object
+                    // TODO 124: Use IBuilder syntax to build the object
                     GameObject go = CreateContent(xmlObject);
                     go.name = xmlObject.Name;
                     go.tag = "Object";
@@ -227,7 +225,7 @@ namespace Writing3D
                     go.AddComponent<ObjectManager>();
                     go.GetComponent<Renderer>().enabled = xmlObject.Visible;
                     go.GetComponent<Collider>().enabled =
-                        // TODO: Collider always disabled if object isn't visible?
+                        // TODO 123: Collider always disabled if object isn't visible?
                         !xmlObject.ClickThrough && xmlObject.Visible;
 
                     if (xmlObject.LinkRoot is not null)
@@ -284,7 +282,7 @@ namespace Writing3D
             // Callback function when Debug.Log is called within the CLI script
             private static void HandleLog(string logString, string stackTrace, LogType type)
             {
-                // TODO (84): Change string based on LogType (rich color)
+                // TODO 84: Change string based on LogType (rich color)
                 // Prepending "LOG:" will print the line to the screen (checked in Python script)
                 Console.WriteLine($"LOG:{logString}");
             }
