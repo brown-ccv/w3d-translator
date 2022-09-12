@@ -39,7 +39,7 @@
             <LinkRoot>
                 <Link>
                     <Enabled>true</Enabled>
-                    <RemainEnabled>false</RemainEnabled>
+                    <RemainEnabled>true</RemainEnabled>
                     <EnabledColor>0,128,255</EnabledColor>
                     <SelectedColor>255,0,0</SelectedColor>
                     <Actions>

@@ -224,8 +224,8 @@ namespace Writing3D
                     go.name = xmlObject.Name;
                     go.tag = "Object";
                     SetTransform(go.transform, xmlObject.Placement, xmlObject.Scale);
-                    go.SetActive(xmlObject.Visible);
                     go.AddComponent<ObjectManager>();
+                    go.GetComponent<Renderer>().enabled = xmlObject.Visible;
                     go.GetComponent<BoxCollider>().enabled = !xmlObject.ClickThrough;
 
                     if (xmlObject.LinkRoot is not null)

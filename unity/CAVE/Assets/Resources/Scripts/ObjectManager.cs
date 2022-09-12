@@ -19,6 +19,7 @@ namespace Writing3D
         // Static function for determining content and/or link?
         // e.g. ColorTransition should set text color
 
+        // TODO: Pass derived class directly? Would have to change GetUnityAction
         public void VisibleTransition(Transition transition)
         {
             Visible visibleT = (Visible)transition;
@@ -26,8 +27,8 @@ namespace Writing3D
 
             // Fade In/Out and enable/disable the GameObject
             // https://owlcation.com/stem/How-to-fade-out-a-GameObject-in-Unity
-
-            gameObject.SetActive(visibleT.Enabled);
+            
+            GetComponent<Renderer>().enabled = visibleT.Enabled;
         }
 
         public void MoveTransition(Transition transition)

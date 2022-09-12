@@ -12,7 +12,7 @@ namespace Writing3D
     public class LinkAction : ScriptableObject
     {
         [SerializeField] public uint NumClicks = 1;
-        [SerializeField] public bool Reset; // Initialized as false
+        [SerializeField] public bool Reset;
         [SerializeField] public ActionEvent ActionEvent = new();
 
         public LinkAction Init(uint numClicks, bool reset)

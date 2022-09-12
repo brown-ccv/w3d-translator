@@ -197,19 +197,14 @@ namespace Writing3D
                         // Get referenced GameObject
                         reference = GameObjects[xmlAction.Name].Item1;
 
-                        // Initialize the transition and action
-                        UnityAction<Transitions.Transition> unityAction;
+                        // Initialize the transition and add to LinkActionEvent
                         Transitions.Transition transition = GetTransition(
                             xmlAction.Transition,
                             xmlAction.Transition.Duration
                         );
-                        // transition.Init(xmlAction.Transition.Duration);
-                        unityAction = transition.GetUnityAction(reference);
-
-                        // Add the Transition action directly 
                         AddObjectPersistentListener(
                             linkAction.ActionEvent,
-                            unityAction,
+                            transition.GetUnityAction(reference),
                             transition
                         );
                         break;
@@ -233,8 +228,7 @@ namespace Writing3D
                         // TODO: 92 (Restart)
                         break;
                     default:
-                        // Force AddObjectPersistentListener error, caught in CLI.cs
-                        unityAction = null;
+                        linkAction = null; // Force error below, caught in CLI.cs
                         break;
                 }
                 AddObjectPersistentListener(
