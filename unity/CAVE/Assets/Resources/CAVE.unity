@@ -534,7 +534,7 @@ MonoBehaviour:
   m_RaycastTriggerInteraction: 1
   m_HitClosestOnly: 0
   m_HoverToSelect: 1
-  m_HoverTimeToSelect: 0.25
+  m_HoverTimeToSelect: 0.1
   m_EnableUIInteraction: 1
   m_AllowAnchorControl: 1
   m_UseForceGrab: 1
