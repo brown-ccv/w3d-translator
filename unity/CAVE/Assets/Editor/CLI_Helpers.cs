@@ -187,8 +187,6 @@ namespace Writing3D
                     xmlLinkAction.Clicks.Type == Clicks.ActivationTypes.Number)
                 {
                     NumClicks activation = (NumClicks)xmlLinkAction.Clicks.Activation;
-                    // linkAction.NumClicks = ;
-                    // linkAction.Reset = activation.Reset;
                     linkAction.Init(activation.Clicks, activation.Reset);
                 }
 
@@ -201,8 +199,11 @@ namespace Writing3D
 
                         // Initialize the transition and action
                         UnityAction<Transitions.Transition> unityAction;
-                        Transitions.Transition transition = GetTransition(xmlAction.Transition);
-                        transition.Init(xmlAction.Transition.Duration);
+                        Transitions.Transition transition = GetTransition(
+                            xmlAction.Transition,
+                            xmlAction.Transition.Duration
+                        );
+                        // transition.Init(xmlAction.Transition.Duration);
                         unityAction = transition.GetUnityAction(reference);
 
                         // Add the Transition action directly 
@@ -243,26 +244,21 @@ namespace Writing3D
                 );
             }
 
-            public static Transitions.Transition GetTransition(Xml.Transition xmlTransition)
+            public static Transitions.Transition GetTransition(Xml.Transition xmlTransition, float duration)
             {
                 // TODO: Init for Move and RelativeMove
                 return xmlTransition.Change switch
                 {
-                    bool visible => CreateInstance<Visible>().Init(visible),
+                    bool visible => CreateInstance<Visible>().Init(visible, duration),
                     MovementTransition placement => CreateInstance<Move>(),
-                    // TODO: Init
                     MoveRel placement => CreateInstance<RelativeMove>(),
-                    // TODO: Init
-                    string color => CreateInstance<Transitions.Color>().Init(
-                            ConvertColor(color)
-                        ),
+                    string color => CreateInstance<Transitions.Color>()
+                        .Init(ConvertColor(color), duration),
                     float scale => CreateInstance<Scale>().Init(scale),
-                    SoundTransition operation => CreateInstance<Transitions.Sound>().Init(
-                            (Transitions.Sound.Controls)operation.Type
-                        ),
-                    LinkTransition operation => CreateInstance<Transitions.Link>().Init(
-                            (Transitions.Link.Controls)operation.Type
-                        ),
+                    SoundTransition operation => CreateInstance<Transitions.Sound>()
+                        .Init((Transitions.Sound.Controls)operation.Type, duration),
+                    LinkTransition operation => CreateInstance<Transitions.Link>()
+                        .Init((Transitions.Link.Controls)operation.Type, duration),
                     _ => null // force error
                 };
             }

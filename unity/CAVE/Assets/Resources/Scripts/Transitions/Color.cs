@@ -16,9 +16,10 @@ namespace Writing3D
         {
             [SerializeField] public UnityEngine.Color NewColor;
 
-            public Color Init(UnityEngine.Color color)
+            public Color Init(UnityEngine.Color color, float duration)
             {
                 NewColor = color;
+                Duration = duration;
                 return this;
             }
         }

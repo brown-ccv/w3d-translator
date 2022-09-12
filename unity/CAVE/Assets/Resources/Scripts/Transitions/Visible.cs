@@ -16,9 +16,10 @@ namespace Writing3D
         {
             [SerializeField] public bool Enabled;
 
-            public Visible Init(bool enabled)
+            public Visible Init(bool enabled, float duration)
             {
                 Enabled = enabled;
+                Duration = duration;
                 return this;
             }
         }

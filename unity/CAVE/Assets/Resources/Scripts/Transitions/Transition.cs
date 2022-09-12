@@ -17,7 +17,7 @@ namespace Writing3D
         {
             [SerializeField] public float Duration;
 
-            public Transition Init(float duration)
+            public virtual Transition Init(float duration)
             {
                 Duration = duration;
                 return this;
