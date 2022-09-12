@@ -27,8 +27,7 @@ namespace Writing3D
 
             // Fade In/Out and enable/disable the GameObject
             // https://owlcation.com/stem/How-to-fade-out-a-GameObject-in-Unity
-            
-            GetComponent<Renderer>().enabled = visibleT.Enabled;
+            GetComponent<Renderer>().enabled = GetComponent<Collider>().enabled = visibleT.Enabled;
         }
 
         public void MoveTransition(Transition transition)

@@ -226,7 +226,9 @@ namespace Writing3D
                     SetTransform(go.transform, xmlObject.Placement, xmlObject.Scale);
                     go.AddComponent<ObjectManager>();
                     go.GetComponent<Renderer>().enabled = xmlObject.Visible;
-                    go.GetComponent<BoxCollider>().enabled = !xmlObject.ClickThrough;
+                    go.GetComponent<Collider>().enabled =
+                        // TODO: Collider always disabled if object isn't visible?
+                        !xmlObject.ClickThrough && xmlObject.Visible;
 
                     if (xmlObject.LinkRoot is not null)
                     {
