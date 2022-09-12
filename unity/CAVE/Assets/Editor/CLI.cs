@@ -255,8 +255,10 @@ namespace Writing3D
                     Link xmlLink = xmlObject.LinkRoot.Link;
                     LinkManager lm = go.GetComponent<LinkManager>();
 
-                    // Add the <Action>s wrapper to onClick
+                    // Add the <Action>s wrapper on activated (onTriggerDown)
                     AddVoidPersistentListener(lm.activated, new UnityAction(lm.Activate));
+
+                    // Add the <Action>'s on deactivated (onTriggerUp)
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
                         try { AddAction(xmlLinkAction, lm); }
@@ -269,13 +271,12 @@ namespace Writing3D
                             throw;
                         }
                     }
-
-                    // Add the <Action>'s on deactivate (stop clicking)
-                    AddVoidPersistentListener(lm.deactivated, new UnityAction(lm.Deactivate));
-                    if (!xmlLink.RemainEnabled)
-                    {
-                        AddVoidPersistentListener(lm.deactivated, new UnityAction(lm.DisableLink));
-                    }
+                    AddVoidPersistentListener(
+                        lm.deactivated,
+                        xmlLink.RemainEnabled
+                            ? new UnityAction(lm.Deactivate)
+                            : new UnityAction(lm.DisableLink)
+                    );
                 }
             }
 
