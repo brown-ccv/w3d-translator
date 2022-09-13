@@ -3,15 +3,14 @@ using UnityEditor;
 
 namespace Writing3D
 {
-    namespace Translation
+    namespace Editor
     {
-        // Creates 
-        public class CLI_GUI : EditorWindow
+        public class CLIEditor : EditorWindow
         {
             [MenuItem("Custom/CLI Window")]
             private static void Init()
             {
-                EditorWindow window = GetWindow(typeof(CLI_GUI));
+                EditorWindow window = GetWindow(typeof(CLIEditor));
                 window.Show();
             }
 

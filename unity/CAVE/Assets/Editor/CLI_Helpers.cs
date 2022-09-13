@@ -16,7 +16,7 @@ using static UnityEditor.Events.UnityEventTools;
 
 namespace Writing3D
 {
-    namespace Translation
+    namespace Editor
     {
         public static partial class CLI
         {
