@@ -32,6 +32,8 @@ namespace Writing3D
 
         public void MoveTransition(Transition transition)
         {
+            // Update parent
+            // MoveTowards && RotateTowards in local space (parent space?)
             Move moveT = (Move)transition;
             Debug.Log($"MoveT {gameObject.name}");
         }
