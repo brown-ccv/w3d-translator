@@ -57,6 +57,21 @@ namespace Writing3D
 
             /********** PLACEMENT ROOT    ***********/
 
+            // TODO: Refactor to use Walls?
+            // Get the transform of the wall xmlPlacement is to be nested under
+            private static Transform GetParent(Placement xmlPlacement)
+            {
+                return xmlPlacement.RelativeTo == Placement.PlacementTypes.Center
+                        ? Root.transform // Nest under Root directly
+                        : Root.transform.Find(xmlPlacement.RelativeTo.ToString());
+            }
+
+            // Gets the converted position element from xmlPlacement
+            private static Vector3 GetPosition(Placement xmlPlacement)
+            {
+                return ConvertVector3(xmlPlacement.PositionString);
+            }
+
             /** Set parent GameObject and local transforms of gameObjectT
                 relativeTo: [GameObject].transform.parent
                 position: [GameObject].transform.localPosition
@@ -68,7 +83,7 @@ namespace Writing3D
             {
                 gameObjectT.localScale = ConvertScale(scale);
                 gameObjectT.SetParent(GetParent(xmlPlacement), false);
-                gameObjectT.localPosition = ConvertVector3(xmlPlacement.PositionString);
+                gameObjectT.localPosition = GetPosition(xmlPlacement);
                 switch (xmlPlacement.Rotation)
                 {
                     case Axis xmlAxis:
@@ -94,44 +109,6 @@ namespace Writing3D
                         gameObjectT.localRotation = Quaternion.identity;
                         break;
                 }
-            }
-
-            private static Transform GetParent(Placement xmlPlacement)
-            {
-                return xmlPlacement.RelativeTo == Placement.PlacementTypes.Center
-                        ? Root.transform // Nest under Root directly
-                        : Root.transform.Find(xmlPlacement.RelativeTo.ToString());
-            }
-
-            private static Vector3 GetPosition(Placement xmlPlacement)
-            {
-                return ConvertVector3(xmlPlacement.PositionString);
-            }
-
-            private static Move.RotationTypes GetRotationType(Placement xmlPlacement)
-            {
-                return xmlPlacement.RotationType switch
-                {
-                    Placement.RotationTypes.Null => Move.RotationTypes.None,
-                    Placement.RotationTypes.Axis => Move.RotationTypes.Euler,
-                    Placement.RotationTypes.LookAt => Move.RotationTypes.LookAt,
-                    Placement.RotationTypes.Normal => Move.RotationTypes.Euler,
-                    _ => throw new Exception("Invalid rotation type")
-                };
-            }
-
-            private static object GetRotation(Placement xmlPlacement)
-            {
-                return xmlPlacement.Rotation switch
-                {
-                    Axis xmlAxis => CreateEuler(xmlAxis.RotationString, xmlAxis.Angle),
-                    LookAt xmlLookAt => new Move.LookAtRotation(
-                        ConvertVector3(xmlLookAt.TargetString),
-                        ConvertVector3(xmlLookAt.UpString)
-                    ),
-                    Normal xmlNormal => CreateEuler(xmlNormal.NormalString, xmlNormal.Angle),
-                    _ => null
-                };
             }
 
             /********** OBJECT ROOT    ***********/
@@ -293,6 +270,34 @@ namespace Writing3D
                     LinkTransition operation => CreateInstance<Transitions.Link>()
                         .Init((Transitions.Link.Controls)operation.Type, duration),
                     _ => throw new Exception("Invalid transition type")
+                };
+            }
+
+            // Get the rotation type of a Move/RelativeMove transition
+            private static Move.RotationTypes GetRotationType(Placement xmlPlacement)
+            {
+                return xmlPlacement.RotationType switch
+                {
+                    Placement.RotationTypes.Null => Move.RotationTypes.None,
+                    Placement.RotationTypes.Axis => Move.RotationTypes.Euler,
+                    Placement.RotationTypes.LookAt => Move.RotationTypes.LookAt,
+                    Placement.RotationTypes.Normal => Move.RotationTypes.Euler,
+                    _ => throw new Exception("Invalid rotation type")
+                };
+            }
+
+            // Get the rotation of a Move/RelativeMove transition
+            private static object GetRotation(Placement xmlPlacement)
+            {
+                return xmlPlacement.Rotation switch
+                {
+                    Axis xmlAxis => CreateEuler(xmlAxis.RotationString, xmlAxis.Angle),
+                    LookAt xmlLookAt => new Move.LookAtRotation(
+                        ConvertVector3(xmlLookAt.TargetString),
+                        ConvertVector3(xmlLookAt.UpString)
+                    ),
+                    Normal xmlNormal => CreateEuler(xmlNormal.NormalString, xmlNormal.Angle),
+                    _ => null
                 };
             }
         }
