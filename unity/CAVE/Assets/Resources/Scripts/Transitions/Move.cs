@@ -14,7 +14,7 @@ namespace Writing3D
         [Serializable]
         public class Move : Transition
         {
-            public Placement Placement;
+            // public Placement Placement;
 
             // TODO 128: GUI should change Euler/Look Rotation based on Type
             public Transform Parent;
@@ -24,12 +24,12 @@ namespace Writing3D
             public Vector3 EulerRotation;
             public LookAtRotation LookRotation;
 
-            public Move Init(Placement placement, float duration)
-            {
-                Placement = placement;
-                Duration = duration;
-                return this;
-            }
+            // public Move Init(Placement placement, float duration)
+            // {
+            //     // Placement = placement;
+            //     Duration = duration;
+            //     return this;
+            // }
 
             public Move Init(
                 Transform parent, Vector3 position,
@@ -69,8 +69,6 @@ namespace Writing3D
             {
                 public Vector3 Target;
                 public Vector3 Up;
-
-                public LookAtRotation() { }
 
                 public LookAtRotation(Vector3 target, Vector3 up)
                 {
