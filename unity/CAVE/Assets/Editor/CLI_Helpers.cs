@@ -124,13 +124,6 @@ namespace Writing3D
                             ConvertVector3(xmlLookAt.TargetString),
                             ConvertVector3(xmlLookAt.UpString)
                         );
-
-                        // TODO: placement.Rotation as LookAtRotation
-                        // gameObjectT.rotation = Quaternion.LookRotation(
-                        //     gameObjectT.position -
-                        //         Root.transform.TransformPoint(ConvertVector3(xmlLookAt.TargetString)),
-                        //     ConvertVector3(xmlLookAt.UpString)
-                        // );
                         break;
                     case Normal xmlNormal:
                         placement.RotationType = Placement.Type.Euler;
@@ -278,12 +271,13 @@ namespace Writing3D
 
             public static Transitions.Transition GetTransition(Xml.Transition xmlTransition, float duration)
             {
-                // TODO 122: Init for Move and RelativeMove
                 return xmlTransition.Change switch
                 {
                     bool visible => CreateInstance<Visible>().Init(visible, duration),
-                    MovementTransition placement => CreateInstance<Move>(),
-                    MoveRel placement => CreateInstance<RelativeMove>(),
+                    MovementTransition move => CreateInstance<Move>()
+                        .Init(GetPlacement(move.Placement), duration),
+                    MoveRel move => CreateInstance<RelativeMove>()
+                        .Init(GetPlacement(move.Placement), duration),
                     string color => CreateInstance<Transitions.Color>()
                         .Init(ConvertColor(color), duration),
                     float scale => CreateInstance<Scale>().Init(scale),

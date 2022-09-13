@@ -16,6 +16,7 @@ namespace Writing3D
     [Serializable]
     public class Placement
     {
+        // TODO: GUI should change Rot
         public Transform Parent;
         public Vector3 Position;
         public object Rotation; // Euler (Type.Euler) or LookAtRotation (Type.LookAt)

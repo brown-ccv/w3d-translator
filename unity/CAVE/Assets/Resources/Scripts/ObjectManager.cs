@@ -34,14 +34,14 @@ namespace Writing3D
         {
             // Update parent
             // MoveTowards && RotateTowards in local space (parent space?)
-            Move moveT = (Move)transition;
-            Debug.Log($"MoveT {gameObject.name}");
+            Placement placement = (transition as Move)?.Placement;
+            Debug.Log($"RelativeMoveT {gameObject.name} {placement.Parent.name} {placement.Position}");
         }
 
         public void RelativeMoveTransition(Transition transition)
         {
-            RelativeMove relativeMoveT = (RelativeMove)transition;
-            Debug.Log($"RelativeMoveT {gameObject.name}");
+            Placement placement = (transition as RelativeMove)?.Placement;
+            Debug.Log($"RelativeMoveT {gameObject.name} {placement.Parent.name} {placement.Position}");
         }
 
         public void ColorTransition(Transition transition)
