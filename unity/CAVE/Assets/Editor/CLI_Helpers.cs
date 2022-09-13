@@ -69,7 +69,6 @@ namespace Writing3D
                 gameObjectT.localScale = ConvertScale(scale);
                 gameObjectT.SetParent(GetParent(xmlPlacement), false);
                 gameObjectT.localPosition = ConvertVector3(xmlPlacement.PositionString);
-
                 switch (xmlPlacement.Rotation)
                 {
                     case Axis xmlAxis:
