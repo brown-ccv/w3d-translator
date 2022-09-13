@@ -24,35 +24,59 @@ namespace Writing3D
             public Vector3 EulerRotation;
             public LookAtRotation LookRotation;
 
-            // public Move Init(Placement placement, float duration)
-            // {
-            //     // Placement = placement;
-            //     Duration = duration;
-            //     return this;
-            // }
-
             public Move Init(
-                Transform parent, Vector3 position,
-                RotationTypes rotationType, Vector3 rotation
+                Transform parent,
+                Vector3 position,
+                RotationTypes rotationType,
+                object rotation,
+                float duration
             )
             {
                 Parent = parent;
                 Position = position;
                 RotationType = rotationType;
-                EulerRotation = rotation;
-                LookRotation = null;
+                Duration = duration;
+
+                switch (rotationType)
+                {
+                    case RotationTypes.Euler:
+                        EulerRotation = (Vector3)rotation;
+                        break;
+                    case RotationTypes.LookAt:
+                        LookRotation = (LookAtRotation)rotation;
+                        break;
+                    case RotationTypes.None:
+                    default:
+                        break;
+                }
                 return this;
             }
 
             public Move Init(
                 Transform parent, Vector3 position,
-                RotationTypes rotationType, LookAtRotation rotation
+                // RotationTypes rotationType, Vector3 rotation
+                (RotationTypes, Vector3) rotation, float duration
             )
             {
                 Parent = parent;
                 Position = position;
-                RotationType = rotationType;
-                LookRotation = rotation;
+                RotationType = rotation.Item1;
+                EulerRotation = rotation.Item2;
+                Duration = duration;
+                return this;
+            }
+
+            public Move Init(
+                Transform parent, Vector3 position,
+                // RotationTypes rotationType, LookAtRotation rotation
+                (RotationTypes, LookAtRotation) rotation, float duration
+            )
+            {
+                Parent = parent;
+                Position = position;
+                RotationType = rotation.Item1;
+                LookRotation = rotation.Item2;
+                Duration = duration;
                 return this;
             }
 

@@ -64,7 +64,7 @@ namespace Writing3D
                 rotationType.LookAt: Rotate to look at target vector (world space)
                 rotationType.Normal: Local rotation around a normalized vector
             */
-            private static void SetTransform(Transform gameObjectT, Xml.Placement xmlPlacement, float scale = 1)
+            private static void SetTransform(Transform gameObjectT, Placement xmlPlacement, float scale = 1)
             {
                 gameObjectT.localScale = ConvertScale(scale);
                 gameObjectT.SetParent(GetParent(xmlPlacement), false);
@@ -96,47 +96,43 @@ namespace Writing3D
                 }
             }
 
-            private static Transform GetParent(Xml.Placement xmlPlacement)
+            private static Transform GetParent(Placement xmlPlacement)
             {
-                return xmlPlacement.RelativeTo == Xml.Placement.PlacementTypes.Center
+                return xmlPlacement.RelativeTo == Placement.PlacementTypes.Center
                         ? Root.transform // Nest under Root directly
                         : Root.transform.Find(xmlPlacement.RelativeTo.ToString());
             }
 
-            private static Vector3 GetPosition(Xml.Placement xmlPlacement)
+            private static Vector3 GetPosition(Placement xmlPlacement)
             {
                 return ConvertVector3(xmlPlacement.PositionString);
             }
 
-            // private static 
-            // public static Placement GetPlacement(Xml.Placement xmlPlacement)
-            // {
-            //     Placement placement = new(GetParent(xmlPlacement), GetPosition(xmlPlacement));
-            //     switch (xmlPlacement.Rotation)
-            //     {
-            //         case Axis xmlAxis:
-            //             placement.RotationType = Placement.Type.Euler;
-            //             placement.EulerRotation =
-            //                 CreateEuler(xmlAxis.RotationString, xmlAxis.Angle);
-            //             break;
-            //         case LookAt xmlLookAt:
-            //             placement.RotationType = Placement.Type.LookAt;
-            //             placement.LookRotation = new Placement.LookAtRotation(
-            //                 ConvertVector3(xmlLookAt.TargetString),
-            //                 ConvertVector3(xmlLookAt.UpString)
-            //             );
-            //             break;
-            //         case Normal xmlNormal:
-            //             placement.RotationType = Placement.Type.Euler;
-            //             placement.EulerRotation =
-            //                 CreateEuler(xmlNormal.NormalString, xmlNormal.Angle);
-            //             break;
-            //         default:
-            //             placement.RotationType = Placement.Type.None;
-            //             break;
-            //     }
-            //     return placement;
-            // }
+            private static Move.RotationTypes GetRotationType(Placement xmlPlacement)
+            {
+                return xmlPlacement.RotationType switch
+                {
+                    Placement.RotationTypes.Null => Move.RotationTypes.None,
+                    Placement.RotationTypes.Axis => Move.RotationTypes.Euler,
+                    Placement.RotationTypes.LookAt => Move.RotationTypes.LookAt,
+                    Placement.RotationTypes.Normal => Move.RotationTypes.Euler,
+                    _ => throw new Exception("Invalid rotation type")
+                };
+            }
+
+            private static object GetRotation(Placement xmlPlacement)
+            {
+                return xmlPlacement.Rotation switch
+                {
+                    Axis xmlAxis => CreateEuler(xmlAxis.RotationString, xmlAxis.Angle),
+                    LookAt xmlLookAt => new Move.LookAtRotation(
+                        ConvertVector3(xmlLookAt.TargetString),
+                        ConvertVector3(xmlLookAt.UpString)
+                    ),
+                    Normal xmlNormal => CreateEuler(xmlNormal.NormalString, xmlNormal.Angle),
+                    _ => null
+                };
+            }
 
             /********** OBJECT ROOT    ***********/
 
@@ -273,16 +269,22 @@ namespace Writing3D
                 return xmlTransition.Change switch
                 {
                     bool visible => CreateInstance<Visible>().Init(visible, duration),
-                    // MovementTransition move => CreateInstance<Move>()
-                    //     .Init(
-                    //         // GetPlacement(move.Placement),
-                    //         GetParent(move.Placement),
-                    //         GetPosition(move.Placement),
-                            
-                    //         duration
-                    //     ),
-                    // MoveRel move => CreateInstance<RelativeMove>()
-                    //     .Init(GetPlacement(move.Placement), duration),
+                    MovementTransition move => CreateInstance<Move>()
+                        .Init(
+                            GetParent(move.Placement),
+                            GetPosition(move.Placement),
+                            GetRotationType(move.Placement),
+                            GetRotation(move.Placement),
+                            duration
+                        ),
+                    MoveRel move => CreateInstance<RelativeMove>()
+                        .Init(
+                            GetParent(move.Placement),
+                            GetPosition(move.Placement),
+                            GetRotationType(move.Placement),
+                            GetRotation(move.Placement),
+                            duration
+                        ),
                     string color => CreateInstance<Transitions.Color>()
                         .Init(ConvertColor(color), duration),
                     float scale => CreateInstance<Scale>().Init(scale),
