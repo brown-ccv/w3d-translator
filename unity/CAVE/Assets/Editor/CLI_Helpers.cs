@@ -116,26 +116,25 @@ namespace Writing3D
                 {
                     case Axis xmlAxis:
                         placement.RotationType = Placement.Type.Euler;
-                        placement.Rotation = CreateEuler(xmlAxis.RotationString, xmlAxis.Angle);
+                        placement.EulerRotation =
+                            CreateEuler(xmlAxis.RotationString, xmlAxis.Angle);
                         break;
                     case LookAt xmlLookAt:
                         placement.RotationType = Placement.Type.LookAt;
-                        placement.Rotation = new Placement.LookAtRotation(
+                        placement.LookRotation = new Placement.LookAtRotation(
                             ConvertVector3(xmlLookAt.TargetString),
                             ConvertVector3(xmlLookAt.UpString)
                         );
                         break;
                     case Normal xmlNormal:
                         placement.RotationType = Placement.Type.Euler;
-                        placement.Rotation = CreateEuler(xmlNormal.NormalString, xmlNormal.Angle);
+                        placement.EulerRotation =
+                            CreateEuler(xmlNormal.NormalString, xmlNormal.Angle);
                         break;
                     default:
                         placement.RotationType = Placement.Type.None;
                         break;
                 }
-
-
-
                 return placement;
             }
 

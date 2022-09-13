@@ -16,12 +16,12 @@ namespace Writing3D
     [Serializable]
     public class Placement
     {
-        // TODO: GUI should change Rot
+        // TODO 128: GUI should change Euler/Look Rotation based on Type
         public Transform Parent;
         public Vector3 Position;
-        public object Rotation; // Euler (Type.Euler) or LookAtRotation (Type.LookAt)
-
         public Type RotationType;
+        public Vector3 EulerRotation; // (Type.Euler)
+        public LookAtRotation LookRotation; //(Type.LookAt)        
 
         public Placement(Transform parent, Vector3 position)
         {
