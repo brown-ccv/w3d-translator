@@ -68,42 +68,57 @@ namespace Writing3D
         public void VisibleTransition(Ts.Transition transition)
         {
             var component = GetColorComponent();
-            StartCoroutine(
-                (bool)(transition as Ts.Visible)?.Enabled
-                ? FadeIn() : FadeOut());
+            // StartCoroutine(
+            //     (bool)(transition as Ts.Visible)?.Enabled ? FadeIn() : FadeOut()
+            // );
+
+            if ((bool)(transition as Ts.Visible)?.Enabled)
+            {
+                GetComponent<Renderer>().enabled = true;
+                StartCoroutine(FadeIn());
+                GetComponent<Collider>().enabled = true;
+            }
+            else
+            {
+                GetComponent<Collider>().enabled = false;
+                StartCoroutine(FadeOut());
+                GetComponent<Renderer>().enabled = false;
+            }
 
             IEnumerator FadeIn()
             {
-                GetComponent<Renderer>().enabled = true;
-
-                var startColor = component.color;
+                // Make sure color starts transparent
+                var startColor = component.color = new Color(
+                    component.color.r,
+                    component.color.g,
+                    component.color.b,
+                    0
+                );
                 var endColor = new Color(startColor.r, startColor.g, startColor.b, 1);
-                float t = 0;
-                while (t < 1)
+                for (float t = 0; t < 1; t += Time.deltaTime / transition.Duration)
                 {
-                    t += Time.deltaTime / transition.Duration;
-                    component.color = Color.Lerp(startColor, endColor, t);
+                    component.color = Color.Lerp(
+                        startColor,
+                        endColor,
+                        t
+                    );
                     yield return null;
                 }
-
-                GetComponent<Collider>().enabled = true;
             }
 
             IEnumerator FadeOut()
             {
-                GetComponent<Collider>().enabled = false;
-
                 var startColor = component.color;
                 var endColor = new Color(startColor.r, startColor.g, startColor.b, 0);
-                float t = 0;
-                while (t < 1)
+                for (float t = 0; t < 1; t += Time.deltaTime / transition.Duration)
                 {
-                    t += Time.deltaTime / transition.Duration;
-                    component.color = Color.Lerp(startColor, endColor, t);
+                    component.color = Color.Lerp(
+                        startColor,
+                        endColor,
+                        t
+                    );
                     yield return null;
                 }
-
-                GetComponent<Renderer>().enabled = false;
             }
         }
 

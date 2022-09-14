@@ -256,6 +256,10 @@ namespace Writing3D
                     AddVoidPersistentListener(lm.activated, new UnityAction(lm.Activate));
 
                     // Add the <Action>'s on deactivated (onTriggerUp)
+                    AddVoidPersistentListener(
+                        lm.deactivated,
+                        new UnityAction(lm.Deactivate)
+                    );
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
                         try { AddAction(xmlLinkAction, lm); }
@@ -268,12 +272,13 @@ namespace Writing3D
                             throw;
                         }
                     }
-                    AddVoidPersistentListener(
-                        lm.deactivated,
-                        xmlLink.RemainEnabled
-                            ? new UnityAction(lm.Deactivate)
-                            : new UnityAction(lm.DisableLink)
-                    );
+                    if (!xmlLink.RemainEnabled)
+                    {
+                        AddVoidPersistentListener(
+                            lm.deactivated,
+                            new UnityAction(lm.DisableLink)
+                        );
+                    }
                 }
             }
 
