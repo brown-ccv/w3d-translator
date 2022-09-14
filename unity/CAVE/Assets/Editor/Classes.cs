@@ -1,20 +1,14 @@
 using System;
-using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-// using UnityEngine;
 
 namespace Writing3D
 {
     namespace Xml
     {
         [Serializable]
-        public class Xml
-        {
-            // Print the class as a Json object
-            // public string Pprint() { return JsonUtility.ToJson(this, true); }
-        }
+        public class Xml { }
 
         /********** STORY            ***********/
 
@@ -1073,10 +1067,10 @@ namespace Writing3D
             public enum ActionTypes
             {
                 [XmlEnum("ObjectChange")] ObjectChange,
-                [XmlEnum("GroupRef")] GroupReference,
+                [XmlEnum("GroupRef")] GroupChange,
                 [XmlEnum("TimerChange")] TimerChange,
-                [XmlEnum("SoundRef")] SoundReference,
-                [XmlEnum("Event")] EventReference,
+                [XmlEnum("SoundRef")] SoundChange,
+                [XmlEnum("Event")] EventChange,
                 [XmlEnum("MoveCave")] MoveCave,
                 [XmlEnum("Restart")] Restart,
             }
@@ -1105,7 +1099,7 @@ namespace Writing3D
             public enum RandomTypes
             {
                 None,
-                [XmlEnum(Name = "Select One Randomly")] OneRandom,
+                [XmlEnum("Select One Randomly")] OneRandom,
             }
 
             [XmlText]
@@ -1226,8 +1220,8 @@ namespace Writing3D
         public class SoundTransition : Xml
         {
             [XmlAttribute("action")]
-            public Controls Control;
-            public enum Controls
+            public SoundTransitionTypes Type;
+            public enum SoundTransitionTypes
             {
                 None,
                 [XmlEnum(Name = "Play Sound")] Play,

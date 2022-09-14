@@ -9,6 +9,7 @@ dotnet_diagnostic.IDE0008.severity = none
 dotnet_diagnostic.IDE1006.severity = none
 dotnet_diagnostic.IDE0051.severity = none
 dotnet_diagnostic.RCS1213.severity = none
+dotnet_diagnostic.IDE0058.severity = none
 
 ########### DEFAULTS (dotnet new editorconfig)
 

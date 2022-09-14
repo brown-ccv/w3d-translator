@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.Events;
 using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
@@ -11,21 +10,18 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Unity.XR.CoreUtils;
 
-using Writing3D;
 using Writing3D.Xml;
 
-using static Writing3D.Translation.Helpers;
 using static UnityEngine.SpatialTracking.TrackedPoseDriver;
+using static UnityEditor.Events.UnityEventTools;
 
 // TODO (80): Should ConvertVector3 invert z axis always?
-
-// TODO: Naming scheme (prepend Xml)
 
 namespace Writing3D
 {
     namespace Translation
     {
-        public static class CLI
+        public static partial class CLI
         {
             public static string ProjectPath;
 
@@ -80,10 +76,10 @@ namespace Writing3D
                         if (args[i] == "--projectPath") { ProjectPath = args[++i]; }
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Debug.Log("Error initializing command line arguments");
-                    Debug.LogException(e);
+                    Debug.LogError("Error initializing command line arguments");
+                    throw;
                 }
             }
 
@@ -119,11 +115,10 @@ namespace Writing3D
                         $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(ProjectPath)}.unity"
                     );
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Debug.LogError($"Error creating scene for {ProjectPath}");
-                    Debug.LogException(e);
-                    return null;
+                    throw;
                 }
             }
 
@@ -184,7 +179,7 @@ namespace Writing3D
             // Create each <Placement> as an outlined GameObject 
             private static void BuildWalls()
             {
-                foreach (Placement xmlPlacement in XmlRoot.PlacementRoot)
+                foreach (Xml.Placement xmlPlacement in XmlRoot.PlacementRoot)
                 {
                     // Objects in the "Center" space are nested directly under Root
                     if (xmlPlacement.Name == "Center") { continue; }
@@ -210,7 +205,7 @@ namespace Writing3D
                 */
                 foreach (Xml.Object xmlObject in XmlRoot.ObjectRoot)
                 {
-                    GameObject contentGO = CreateGameObject(xmlObject);
+                    GameObject contentGO = CreateObject(xmlObject);
                     if (xmlObject.LinkRoot is not null)
                     {
                         Link xmlLink = xmlObject.LinkRoot.Link;
@@ -254,61 +249,40 @@ namespace Writing3D
 
             private static void SetLinkActions()
             {
-                foreach (KeyValuePair<string, (GameObject, Xml.Object)> pair in
+                foreach (
+                    KeyValuePair<string, (GameObject, Xml.Object)> pair in
                     GameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
                 )
                 {
                     (GameObject go, Xml.Object xmlObject) = pair.Value;
+                    Link xmlLink = xmlObject.LinkRoot.Link;
                     GameObject buttonGO = go.transform.parent.gameObject;
                     Button button = buttonGO.GetComponent<Button>();
-                    Link xmlLink = xmlObject.LinkRoot.Link;
-
-                    // Add the <Action>s to onClick
+                    ButtonManager bm = button.GetComponent<ButtonManager>();
                     Button.ButtonClickedEvent onClick = button.onClick;
+
+                    // Add actions
+                    AddVoidPersistentListener(onClick, new UnityAction(bm.Counter));
+
+                    // Add the <Action>s wrapper to onClick
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
-                        Clicks clicksX = xmlLinkAction.Clicks;
-                        if (clicksX is not null && clicksX.Type == Clicks.ActivationTypes.Number)
+                        try { AddAction(xmlLinkAction, button); }
+                        catch (Exception)
                         {
-                            // Button is only activated after a certain number of clicks
-                        }
-
-                        // TODO (83): Add button actions
-                        switch (xmlLinkAction.Action)
-                        {
-                            case ObjectChange xmlObjectC:
-                                // TODO 86
-                                break;
-                            case GroupChange xmlGroupC:
-                                // TODO 87
-                                break;
-                            case TimerChange xmlTimerC:
-                                // TODO 88
-                                break;
-                            case SoundChange xmlSoundC:
-                                // TODO 91
-                                break;
-                            case EventChange xmlEventC:
-                                // TODO 89
-                                break;
-                            case MoveCave xmlMoveCave:
-                                // TODO 90
-                                break;
-
-                            default:
-                                if (xmlLinkAction.Type == Actions.ActionTypes.Restart)
-                                {
-                                    // TODO 92
-                                }
-                                else { throw new Exception("TODO"); }
-                                break;
+                            Debug.LogError(
+                                "Unable to create action for " + xmlObject.Name +
+                                ": " + JsonUtility.ToJson(xmlLinkAction)
+                            );
+                            throw;
                         }
                     }
+
                     if (!xmlLink.RemainEnabled)
                     {
-                        UnityEventTools.AddVoidPersistentListener(
+                        AddVoidPersistentListener(
                             onClick,
-                            new UnityAction(button.GetComponent<ButtonManager>().DisableButton)
+                            new UnityAction(button.GetComponent<ButtonManager>().Disable)
                         );
                     }
                 }
@@ -318,8 +292,7 @@ namespace Writing3D
             private static void HandleLog(string logString, string stackTrace, LogType type)
             {
                 // TODO (84): Change string based on LogType (rich color)
-                // Prepending "LOG:" will print the line to the screen in Python script)
-
+                // Prepending "LOG:" will print the line to the screen (checked in Python script)
                 Console.WriteLine($"LOG:{logString}");
             }
         }
