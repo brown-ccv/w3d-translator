@@ -190,7 +190,7 @@ namespace Writing3D
             // Create each <Placement> as an outlined GameObject 
             private static void BuildWalls()
             {
-                foreach (Xml.Placement xmlPlacement in XmlRoot.PlacementRoot)
+                foreach (Placement xmlPlacement in XmlRoot.PlacementRoot)
                 {
                     // Objects in the "Center" space are nested directly under Root
                     if (xmlPlacement.Name == "Center") { continue; }
