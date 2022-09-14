@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-using Writing3D;
+using Ts = Writing3D.Transitions;
 
 namespace Writing3D
 {
@@ -62,44 +62,76 @@ namespace Writing3D
         /* Transitions */
 
         // TODO 121: ObjectManager functions
-        // Static function for determining content and/or link?
-        // e.g. ColorTransition should set text color
-
+        // Update TODOs for each specific function
         // TODO 126: Pass derived class directly? Would have to change GetUnityAction
-        public void VisibleTransition(Transitions.Transition transition)
+
+        public void VisibleTransition(Ts.Transition transition)
         {
-            var visible = transition as Transitions.Visible;
-            // Debug.Log($"Visible {gameObject.name} {visible.Enabled}");
+            var component = GetColorComponent();
+            StartCoroutine(
+                (bool)(transition as Ts.Visible)?.Enabled
+                ? FadeIn() : FadeOut());
 
-            // Fade In/Out and enable/disable the GameObject
-            // https://owlcation.com/stem/How-to-fade-out-a-GameObject-in-Unity
-            GetComponent<Renderer>().enabled = GetComponent<Collider>().enabled = visible.Enabled;
-        }
-
-        public void MoveTransition(Transitions.Transition transition)
-        {
-            // MoveTowards && RotateTowards in local space (parent space?)
-            StartCoroutine(Move(transition as Transitions.Move));
-
-            IEnumerator Move(Transitions.Move transition)
+            IEnumerator FadeIn()
             {
-                Debug.Log($"RelativeMove {gameObject.name} {transition.Parent.name} {transition.Position}");
-                var transform = GetComponent<Transform>();
-                transform.SetParent(transition.Parent, true);
-                var startPosition = transform.localPosition;
-                var startRotation =
-                    transition.RotationType == Transitions.Move.RotationTypes.LookAt
-                    ? transform.rotation
-                    : transform.localRotation;
+                GetComponent<Renderer>().enabled = true;
+
+                var startColor = component.color;
+                var endColor = new Color(startColor.r, startColor.g, startColor.b, 1);
                 float t = 0;
                 while (t < 1)
                 {
                     t += Time.deltaTime / transition.Duration;
+                    component.color = Color.Lerp(startColor, endColor, t);
+                    yield return null;
+                }
+
+                GetComponent<Collider>().enabled = true;
+            }
+
+            IEnumerator FadeOut()
+            {
+                GetComponent<Collider>().enabled = false;
+
+                var startColor = component.color;
+                var endColor = new Color(startColor.r, startColor.g, startColor.b, 0);
+                float t = 0;
+                while (t < 1)
+                {
+                    t += Time.deltaTime / transition.Duration;
+                    component.color = Color.Lerp(startColor, endColor, t);
+                    yield return null;
+                }
+
+                GetComponent<Renderer>().enabled = false;
+            }
+        }
+
+        public void MoveTransition(Ts.Transition transition)
+        {
+            StartCoroutine(Move(transition as Ts.Move));
+
+            IEnumerator Move(Ts.Move transition)
+            {
+                var transform = GetComponent<Transform>();
+                transform.SetParent(transition.Parent, true); // Update hierarchy
+                var startPosition = transform.localPosition;
+                var startRotation =
+                    transition.RotationType == Ts.Move.RotationTypes.LookAt
+                        ? transform.rotation
+                        : transform.localRotation;
+                float t = 0;
+                while (t < 1)
+                {
+                    t += Time.deltaTime / transition.Duration;
+
+                    // Move position
                     transform.localPosition = Vector3.Lerp(startPosition, transition.Position, t);
 
-                    if (transition.RotationType == Transitions.Move.RotationTypes.LookAt)
+                    // Move rotation
+                    if (transition.RotationType == Ts.Move.RotationTypes.LookAt)
                     {
-                        Transitions.Move.LookAtRotation lookRotation = transition.LookRotation;
+                        Ts.Move.LookAtRotation lookRotation = transition.LookRotation;
                         transform.rotation = Quaternion.Slerp(
                             startRotation,
                             Quaternion.LookRotation(
@@ -123,17 +155,17 @@ namespace Writing3D
             }
         }
 
-        public void RelativeMoveTransition(Transitions.Transition transition)
+        public void RelativeMoveTransition(Ts.Transition transition)
         {
-            var move = transition as Transitions.RelativeMove;
+            var move = transition as Ts.RelativeMove;
             // Debug.Log($"RelativeMove {gameObject.name} {move.Parent.name} {move.Position}");
         }
 
-        public void ColorTransition(Transitions.Transition transition)
+        public void ColorTransition(Ts.Transition transition)
         {
-            StartCoroutine(ChangeColor(transition as Transitions.Color));
+            StartCoroutine(ChangeColor(transition as Ts.Color));
 
-            IEnumerator ChangeColor(Transitions.Color transition)
+            IEnumerator ChangeColor(Ts.Color transition)
             {
                 var component = GetColorComponent();
                 var startColor = component.color;
@@ -147,21 +179,21 @@ namespace Writing3D
             }
         }
 
-        public void ScaleTransition(Transitions.Transition transition)
+        public void ScaleTransition(Ts.Transition transition)
         {
-            var scale = transition as Transitions.Scale;
+            var scale = transition as Ts.Scale;
             // Debug.Log($"Scale {gameObject.name} {scale.NewScale}");
         }
 
-        public void SoundTransition(Transitions.Transition transition)
+        public void SoundTransition(Ts.Transition transition)
         {
-            var sound = transition as Transitions.Sound;
+            var sound = transition as Ts.Sound;
             // Debug.Log($"Sound {gameObject.name} {sound.Operation}");
         }
 
-        public void LinkTransition(Transitions.Transition transition)
+        public void LinkTransition(Ts.Transition transition)
         {
-            var link = transition as Transitions.Link;
+            var link = transition as Ts.Link;
             // Debug.Log($"Link {gameObject.name} {link.Operation}");
         }
     }
