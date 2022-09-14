@@ -78,10 +78,49 @@ namespace Writing3D
 
         public void MoveTransition(Transitions.Transition transition)
         {
-            // Update parent
             // MoveTowards && RotateTowards in local space (parent space?)
-            var move = transition as Transitions.Move;
-            // Debug.Log($"RelativeMove {gameObject.name} {move.Parent.name} {move.Position}");
+            StartCoroutine(Move(transition as Transitions.Move));
+
+            IEnumerator Move(Transitions.Move transition)
+            {
+                Debug.Log($"RelativeMove {gameObject.name} {transition.Parent.name} {transition.Position}");
+                var transform = GetComponent<Transform>();
+                transform.SetParent(transition.Parent, true);
+                var startPosition = transform.localPosition;
+                var startRotation =
+                    transition.RotationType == Transitions.Move.RotationTypes.LookAt
+                    ? transform.rotation
+                    : transform.localRotation;
+                float t = 0;
+                while (t < 1)
+                {
+                    t += Time.deltaTime / transition.Duration;
+                    transform.localPosition = Vector3.Lerp(startPosition, transition.Position, t);
+
+                    if (transition.RotationType == Transitions.Move.RotationTypes.LookAt)
+                    {
+                        Transitions.Move.LookAtRotation lookRotation = transition.LookRotation;
+                        transform.rotation = Quaternion.Slerp(
+                            startRotation,
+                            Quaternion.LookRotation(
+                                transform.position -
+                                    transform.root.TransformPoint(lookRotation.Target),
+                                lookRotation.Up
+                            ),
+                            t
+                        );
+                    }
+                    else
+                    {
+                        transform.localRotation = Quaternion.Slerp(
+                            startRotation,
+                            Quaternion.Euler(transition.EulerRotation),
+                            t
+                        );
+                    }
+                    yield return null;
+                }
+            }
         }
 
         public void RelativeMoveTransition(Transitions.Transition transition)

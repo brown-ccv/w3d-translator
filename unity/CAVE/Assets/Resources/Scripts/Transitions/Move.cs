@@ -14,9 +14,6 @@ namespace Writing3D
         [Serializable]
         public class Move : Transition
         {
-            // public Placement Placement;
-
-            // TODO 128: GUI should change Euler/Look Rotation based on Type
             public Transform Parent;
             public Vector3 Position;
 
@@ -54,7 +51,6 @@ namespace Writing3D
 
             public Move Init(
                 Transform parent, Vector3 position,
-                // RotationTypes rotationType, Vector3 rotation
                 (RotationTypes, Vector3) rotation, float duration
             )
             {
@@ -68,7 +64,6 @@ namespace Writing3D
 
             public Move Init(
                 Transform parent, Vector3 position,
-                // RotationTypes rotationType, LookAtRotation rotation
                 (RotationTypes, LookAtRotation) rotation, float duration
             )
             {
@@ -80,7 +75,7 @@ namespace Writing3D
                 return this;
             }
 
-            // TODO: Make enum nullable instead od None type (check)
+            // TODO: Make enum nullable instead of None type (check)
             public enum RotationTypes
             {
                 None,
