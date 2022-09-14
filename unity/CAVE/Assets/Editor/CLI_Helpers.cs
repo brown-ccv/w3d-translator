@@ -115,6 +115,9 @@ namespace Writing3D
 
             private static GameObject CreateContent(Xml.Object xmlObject)
             {
+                // TODO: Need to generate some sort of base object
+                if (xmlObject.Content is null) { return new GameObject() { tag = "Object" }; }
+                
                 return xmlObject.Content.ContentData switch
                 {
                     Text xmlText => CreateText(xmlText, xmlObject.ColorString),

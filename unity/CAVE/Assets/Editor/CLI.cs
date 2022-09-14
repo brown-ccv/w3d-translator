@@ -219,9 +219,7 @@ namespace Writing3D
                     // TODO 124: Use IBuilder syntax to build the object
                     GameObject go = CreateContent(xmlObject);
                     go.name = xmlObject.Name;
-                    go.tag = "Object";
                     SetTransform(go.transform, xmlObject.Placement, xmlObject.Scale);
-                    go.AddComponent<ObjectManager>();
                     go.GetComponent<Renderer>().enabled = xmlObject.Visible;
                     go.GetComponent<Collider>().enabled =
                         // TODO 123: Collider always disabled if object isn't visible?

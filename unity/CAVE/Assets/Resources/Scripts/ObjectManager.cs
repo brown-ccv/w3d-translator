@@ -6,11 +6,26 @@ namespace Writing3D
 {
     public class ObjectManager : MonoBehaviour
     {
+        public ContentTypes Type;
+
         // Update the GameObject's color
         public void SetColor(UnityEngine.Color color)
         {
-            // TODO 125: Switch based on <Content>
-            GetComponent<TMPro.TextMeshPro>().color = color;
+            switch (Type)
+            {
+                case ContentTypes.Text:
+                    GetComponent<TMPro.TextMeshPro>().color = color;
+                    break;
+                case ContentTypes.Image: // TODO 65
+                case ContentTypes.StereoImage: // TODO 66
+                case ContentTypes.Model: // TODO 67
+                case ContentTypes.Light: // TODO 68
+                case ContentTypes.ParticleSystem: // TODO 69
+                case ContentTypes.Object: // TODO
+                default:
+                    Debug.LogError($"Unable to change color for {tag} object");
+                    break;
+            }
         }
 
         /* Transitions */
@@ -22,50 +37,61 @@ namespace Writing3D
         // TODO 126: Pass derived class directly? Would have to change GetUnityAction
         public void VisibleTransition(Transition transition)
         {
-            Visible visibleT = (Visible)transition;
-            Debug.Log($"VisibleT {gameObject.name} {visibleT.Enabled}");
+            var visible = transition as Visible;
+            Debug.Log($"Visible {gameObject.name} {visible.Enabled}");
 
             // Fade In/Out and enable/disable the GameObject
             // https://owlcation.com/stem/How-to-fade-out-a-GameObject-in-Unity
-            GetComponent<Renderer>().enabled = GetComponent<Collider>().enabled = visibleT.Enabled;
+            GetComponent<Renderer>().enabled = GetComponent<Collider>().enabled = visible.Enabled;
         }
 
         public void MoveTransition(Transition transition)
         {
             // Update parent
             // MoveTowards && RotateTowards in local space (parent space?)
-            Move move = transition as Move;
-            Debug.Log($"RelativeMoveT {gameObject.name} {move.Parent.name} {move.Position}");
+            var move = transition as Move;
+            Debug.Log($"RelativeMove {gameObject.name} {move.Parent.name} {move.Position}");
         }
 
         public void RelativeMoveTransition(Transition transition)
         {
             RelativeMove move = transition as RelativeMove;
-            Debug.Log($"RelativeMoveT {gameObject.name} {move.Parent.name} {move.Position}");
+            Debug.Log($"RelativeMove {gameObject.name} {move.Parent.name} {move.Position}");
         }
 
         public void ColorTransition(Transition transition)
         {
-            Transitions.Color colorT = (Transitions.Color)transition;
-            Debug.Log($"ColorT {gameObject.name} {colorT.NewColor}");
+            var color = transition as Transitions.Color;
+            Debug.Log($"Color {gameObject.name} {color.NewColor}");
         }
 
         public void ScaleTransition(Transition transition)
         {
-            Scale scaleT = (Scale)transition;
-            Debug.Log($"ScaleT {gameObject.name} {scaleT.NewScale}");
+            var scale = transition as Scale;
+            Debug.Log($"Scale {gameObject.name} {scale.NewScale}");
         }
 
         public void SoundTransition(Transition transition)
         {
-            Sound soundT = (Sound)transition;
-            Debug.Log($"SoundT {gameObject.name} {soundT.Operation}");
+            var sound = transition as Sound;
+            Debug.Log($"Sound {gameObject.name} {sound.Operation}");
         }
 
         public void LinkTransition(Transition transition)
         {
-            Link linkT = (Link)transition;
-            Debug.Log($"LinkT {gameObject.name} {linkT.Operation}");
+            var link = transition as Link;
+            Debug.Log($"Link {gameObject.name} {link.Operation}");
+        }
+
+        public enum ContentTypes
+        {
+            Object, // None
+            Text,
+            Image,
+            StereoImage,
+            Model,
+            Light,
+            ParticleSystem,
         }
     }
 }
