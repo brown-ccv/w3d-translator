@@ -11,6 +11,7 @@ namespace Writing3D
         // Update the GameObject's color
         public void SetColor(UnityEngine.Color color)
         {
+            Debug.Log($"{name} {Type}");
             switch (Type)
             {
                 case ContentTypes.Text:
