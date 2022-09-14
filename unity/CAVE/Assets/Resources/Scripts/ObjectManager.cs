@@ -63,30 +63,16 @@ namespace Writing3D
 
         // TODO 121: ObjectManager functions
         // Update TODOs for each specific function
-        // TODO 126: Pass derived class directly? Would have to change GetUnityAction
 
         public void VisibleTransition(Ts.Transition transition)
         {
             var component = GetColorComponent();
-            // StartCoroutine(
-            //     (bool)(transition as Ts.Visible)?.Enabled ? FadeIn() : FadeOut()
-            // );
-
-            if ((bool)(transition as Ts.Visible)?.Enabled)
-            {
-                GetComponent<Renderer>().enabled = true;
-                StartCoroutine(FadeIn());
-                GetComponent<Collider>().enabled = true;
-            }
-            else
-            {
-                GetComponent<Collider>().enabled = false;
-                StartCoroutine(FadeOut());
-                GetComponent<Renderer>().enabled = false;
-            }
+            StartCoroutine((bool)(transition as Ts.Visible)?.Enabled ? FadeIn() : FadeOut());
 
             IEnumerator FadeIn()
             {
+                GetComponent<Renderer>().enabled = true;
+
                 // Make sure color starts transparent
                 var startColor = component.color = new Color(
                     component.color.r,
@@ -97,28 +83,23 @@ namespace Writing3D
                 var endColor = new Color(startColor.r, startColor.g, startColor.b, 1);
                 for (float t = 0; t < 1; t += Time.deltaTime / transition.Duration)
                 {
-                    component.color = Color.Lerp(
-                        startColor,
-                        endColor,
-                        t
-                    );
+                    component.color = Color.Lerp(startColor, endColor, t);
                     yield return null;
                 }
+                GetComponent<Collider>().enabled = true;
             }
 
             IEnumerator FadeOut()
             {
+                GetComponent<Collider>().enabled = false;
                 var startColor = component.color;
                 var endColor = new Color(startColor.r, startColor.g, startColor.b, 0);
                 for (float t = 0; t < 1; t += Time.deltaTime / transition.Duration)
                 {
-                    component.color = Color.Lerp(
-                        startColor,
-                        endColor,
-                        t
-                    );
+                    component.color = Color.Lerp(startColor, endColor, t);
                     yield return null;
                 }
+                GetComponent<Renderer>().enabled = false;
             }
         }
 
@@ -135,15 +116,10 @@ namespace Writing3D
                     transition.RotationType == Ts.Move.RotationTypes.LookAt
                         ? transform.rotation
                         : transform.localRotation;
-                float t = 0;
-                while (t < 1)
+
+                for (float t = 0; t < 1; t += Time.deltaTime / transition.Duration)
                 {
-                    t += Time.deltaTime / transition.Duration;
-
-                    // Move position
                     transform.localPosition = Vector3.Lerp(startPosition, transition.Position, t);
-
-                    // Move rotation
                     if (transition.RotationType == Ts.Move.RotationTypes.LookAt)
                     {
                         Ts.Move.LookAtRotation lookRotation = transition.LookRotation;
@@ -184,10 +160,8 @@ namespace Writing3D
             {
                 var component = GetColorComponent();
                 var startColor = component.color;
-                float t = 0;
-                while (t < 1)
+                for (float t = 0; t < 1; t += Time.deltaTime / transition.Duration)
                 {
-                    t += Time.deltaTime / transition.Duration;
                     component.color = Color.Lerp(startColor, transition.NewColor, t);
                     yield return null;
                 }

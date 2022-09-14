@@ -39,6 +39,7 @@ namespace Writing3D
         // Called on trigger release
         public void Deactivate()
         {
+            Debug.Log("DEACTIVATE " + gameObject.name);
             SetColor(EnabledColor);
         }
 
