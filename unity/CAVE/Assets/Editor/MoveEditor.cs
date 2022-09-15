@@ -10,11 +10,7 @@ namespace Writing3D
         public class MoveEditor : UnityEditor.Editor
         {
             private Move Move;
-
-            private void OnEnable()
-            {
-                Move = target as Move;
-            }
+            private void OnEnable() { Move = target as Move; }
 
             public override void OnInspectorGUI()
             {
@@ -26,12 +22,14 @@ namespace Writing3D
                     "Rotation",
                     "LookRotation"
                 );
-
                 EditorGUILayout.Space(); EditorGUILayout.Space();
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("RotationType"));
 
+                // Hide unused rotation type(s)
                 switch (Move.RotationType)
                 {
+                    case Move.RotationTypes.None:
+                        break;
                     case Move.RotationTypes.Rotation:
                         EditorGUILayout.PropertyField(
                             serializedObject.FindProperty("Rotation")
@@ -41,9 +39,6 @@ namespace Writing3D
                         EditorGUILayout.PropertyField(
                             serializedObject.FindProperty("LookRotation")
                         );
-                        break;
-                    case Move.RotationTypes.None:
-                    default:
                         break;
                 }
                 serializedObject.ApplyModifiedProperties();
