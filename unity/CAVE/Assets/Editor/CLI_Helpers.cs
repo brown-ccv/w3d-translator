@@ -57,13 +57,10 @@ namespace Writing3D
 
             /********** PLACEMENT ROOT    ***********/
 
-            // TODO: Refactor to use Walls?
             // Get the transform of the wall xmlPlacement is to be nested under
             private static Transform GetParent(Placement xmlPlacement)
             {
-                return xmlPlacement.RelativeTo == Placement.PlacementTypes.Center
-                        ? Root.transform // Nest under Root directly
-                        : Root.transform.Find(xmlPlacement.RelativeTo.ToString());
+                return Walls[xmlPlacement.RelativeTo.ToString()];
             }
 
             // Gets the converted position element from xmlPlacement
@@ -216,23 +213,22 @@ namespace Writing3D
                         );
                         break;
                     case GroupChange xmlAction:
-                        // TODO 87:
+                        // TODO 87
                         break;
                     case TimerChange xmlAction:
-                        // TODO 88:
+                        // TODO 88
                         break;
                     case SoundChange xmlAction:
-                        // TODO 91:
+                        // TODO 91
                         break;
                     case EventChange xmlAction:
-                        // TODO 89:
+                        // TODO 89
                         break;
                     case MoveCave xmlAction:
-                        // TODO 90:
+                        // TODO 90
                         break;
-
                     case null:
-                        // TODO 92: (Restart)
+                        // TODO 92: Restart
                         break;
                     default:
                         throw new Exception("Invalid action type");

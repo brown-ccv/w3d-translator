@@ -37,6 +37,7 @@ namespace Writing3D
                 switch (rotationType)
                 {
                     case RotationTypes.None:
+                        Rotation = Quaternion.identity;
                         break;
                     case RotationTypes.Rotation:
                         Rotation = Quaternion.Euler((Vector3)rotation);
