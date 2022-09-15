@@ -10,11 +10,7 @@ namespace Writing3D
         public class MoveEditor : UnityEditor.Editor
         {
             private Move Move;
-
-            private void OnEnable()
-            {
-                Move = target as Move;
-            }
+            private void OnEnable() { Move = target as Move; }
 
             public override void OnInspectorGUI()
             {
@@ -23,27 +19,26 @@ namespace Writing3D
                 DrawPropertiesExcluding(
                     serializedObject,
                     "RotationType",
-                    "EulerRotation",
+                    "Rotation",
                     "LookRotation"
                 );
-
                 EditorGUILayout.Space(); EditorGUILayout.Space();
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("RotationType"));
 
+                // Hide unused rotation type(s)
                 switch (Move.RotationType)
                 {
-                    case Move.RotationTypes.Euler:
+                    case Move.RotationTypes.None:
+                        break;
+                    case Move.RotationTypes.Rotation:
                         EditorGUILayout.PropertyField(
-                            serializedObject.FindProperty("EulerRotation")
+                            serializedObject.FindProperty("Rotation")
                         );
                         break;
                     case Move.RotationTypes.LookAt:
                         EditorGUILayout.PropertyField(
                             serializedObject.FindProperty("LookRotation")
                         );
-                        break;
-                    case Move.RotationTypes.None:
-                    default:
                         break;
                 }
                 serializedObject.ApplyModifiedProperties();

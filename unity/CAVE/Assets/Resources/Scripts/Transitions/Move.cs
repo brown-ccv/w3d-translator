@@ -18,8 +18,8 @@ namespace Writing3D
             public Vector3 Position;
 
             public RotationTypes RotationType;
-            public Vector3 EulerRotation;
-            public LookAtRotation LookRotation;
+            public Quaternion Rotation;
+            public LookAt LookRotation;
 
             public Move Init(
                 Transform parent,
@@ -36,60 +36,33 @@ namespace Writing3D
 
                 switch (rotationType)
                 {
-                    case RotationTypes.Euler:
-                        EulerRotation = (Vector3)rotation;
+                    case RotationTypes.None:
+                        break;
+                    case RotationTypes.Rotation:
+                        Rotation = Quaternion.Euler((Vector3)rotation);
                         break;
                     case RotationTypes.LookAt:
-                        LookRotation = (LookAtRotation)rotation;
+                        LookRotation = (LookAt)rotation;
                         break;
-                    case RotationTypes.None:
-                    default:
-                        break;
+                    default: throw new Exception("Invalid rotation type");
                 }
                 return this;
             }
 
-            public Move Init(
-                Transform parent, Vector3 position,
-                (RotationTypes, Vector3) rotation, float duration
-            )
-            {
-                Parent = parent;
-                Position = position;
-                RotationType = rotation.Item1;
-                EulerRotation = rotation.Item2;
-                Duration = duration;
-                return this;
-            }
-
-            public Move Init(
-                Transform parent, Vector3 position,
-                (RotationTypes, LookAtRotation) rotation, float duration
-            )
-            {
-                Parent = parent;
-                Position = position;
-                RotationType = rotation.Item1;
-                LookRotation = rotation.Item2;
-                Duration = duration;
-                return this;
-            }
-
-            // TODO: Make enum nullable instead of None type (check)
             public enum RotationTypes
             {
                 None,
-                Euler,
+                Rotation,
                 LookAt
             }
 
             [Serializable]
-            public class LookAtRotation
+            public class LookAt
             {
                 public Vector3 Target;
                 public Vector3 Up;
 
-                public LookAtRotation(Vector3 target, Vector3 up)
+                public LookAt(Vector3 target, Vector3 up)
                 {
                     Target = target;
                     Up = up;
