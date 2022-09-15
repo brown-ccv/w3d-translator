@@ -279,9 +279,9 @@ namespace Writing3D
                 return xmlPlacement.RotationType switch
                 {
                     Placement.RotationTypes.Null => Move.RotationTypes.None,
-                    Placement.RotationTypes.Axis => Move.RotationTypes.Euler,
+                    Placement.RotationTypes.Axis => Move.RotationTypes.Rotation,
                     Placement.RotationTypes.LookAt => Move.RotationTypes.LookAt,
-                    Placement.RotationTypes.Normal => Move.RotationTypes.Euler,
+                    Placement.RotationTypes.Normal => Move.RotationTypes.Rotation,
                     _ => throw new Exception("Invalid rotation type")
                 };
             }
@@ -292,7 +292,7 @@ namespace Writing3D
                 return xmlPlacement.Rotation switch
                 {
                     Axis xmlAxis => CreateEuler(xmlAxis.RotationString, xmlAxis.Angle),
-                    LookAt xmlLookAt => new Move.LookAtRotation(
+                    LookAt xmlLookAt => new Move.LookAt(
                         ConvertVector3(xmlLookAt.TargetString),
                         ConvertVector3(xmlLookAt.UpString)
                     ),

@@ -23,7 +23,7 @@ namespace Writing3D
                 DrawPropertiesExcluding(
                     serializedObject,
                     "RotationType",
-                    "EulerRotation",
+                    "Rotation",
                     "LookRotation"
                 );
 
@@ -32,9 +32,9 @@ namespace Writing3D
 
                 switch (Move.RotationType)
                 {
-                    case Move.RotationTypes.Euler:
+                    case Move.RotationTypes.Rotation:
                         EditorGUILayout.PropertyField(
-                            serializedObject.FindProperty("EulerRotation")
+                            serializedObject.FindProperty("Rotation")
                         );
                         break;
                     case Move.RotationTypes.LookAt:
