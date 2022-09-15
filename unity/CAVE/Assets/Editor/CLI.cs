@@ -217,6 +217,7 @@ namespace Writing3D
                 foreach (Xml.Object xmlObject in XmlRoot.ObjectRoot)
                 {
                     // TODO 124: Use IBuilder syntax to build the object
+                    // Separate content, transform, components, link, actions
                     GameObject go = CreateContent(xmlObject);
                     go.name = xmlObject.Name;
                     SetTransform(go.transform, xmlObject.Placement, xmlObject.Scale);
