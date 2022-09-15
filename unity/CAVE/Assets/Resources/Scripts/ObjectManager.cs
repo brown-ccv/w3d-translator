@@ -25,27 +25,10 @@ namespace Writing3D
         }
 
         // Update the GameObject's color
-        public void SetColor(Color color)
-        {
-            switch (Type)
-            {
-                case ContentTypes.Text:
-                    GetComponent<TextMeshPro>().color = color;
-                    break;
-                case ContentTypes.Image: // TODO 65
-                case ContentTypes.StereoImage: // TODO 66
-                case ContentTypes.Model: // TODO 67
-                case ContentTypes.Light: // TODO 68
-                case ContentTypes.ParticleSystem: // TODO 69
-                case ContentTypes.Object: // TODO
-                default:
-                    Debug.LogError($"Unable to change color for {tag} object");
-                    break;
-            }
-        }
+        public void SetColor(Color color) { GetColorComponent().color = color; }
 
         // Find the correct color component to change
-        public dynamic GetColorComponent()
+        private dynamic GetColorComponent()
         {
             return Type switch
             {

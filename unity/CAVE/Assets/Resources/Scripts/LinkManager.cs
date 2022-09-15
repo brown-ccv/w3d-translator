@@ -37,11 +37,7 @@ namespace Writing3D
         }
 
         // Called on trigger release
-        public void Deactivate()
-        {
-            Debug.Log("DEACTIVATE " + gameObject.name);
-            SetColor(EnabledColor);
-        }
+        public void Deactivate() { SetColor(EnabledColor); }
 
         // Execute the inner event if NumClicks has been reached
         public void ExecuteAction(LinkAction linkAction)
