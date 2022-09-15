@@ -93,6 +93,7 @@ namespace Writing3D
             IEnumerator FadeOut()
             {
                 GetComponent<Collider>().enabled = false;
+
                 var startColor = component.color;
                 var endColor = new Color(startColor.r, startColor.g, startColor.b, 0);
                 for (float t = 0; t < 1; t += Time.deltaTime / transition.Duration)
