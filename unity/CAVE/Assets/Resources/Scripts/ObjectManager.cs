@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 
 using Ts = Writing3D.Transitions;
+using RTypes = Writing3D.Transitions.Move.RotationTypes;
 
 namespace Writing3D
 {
@@ -113,33 +114,32 @@ namespace Writing3D
                 transform.SetParent(transition.Parent, true); // Update hierarchy
                 var startPosition = transform.localPosition;
                 var startRotation =
-                    transition.RotationType == Ts.Move.RotationTypes.LookAt
+                    transition.RotationType == RTypes.LookAt
                         ? transform.rotation
                         : transform.localRotation;
 
                 for (float t = 0; t < 1; t += Time.deltaTime / transition.Duration)
                 {
                     transform.localPosition = Vector3.Lerp(startPosition, transition.Position, t);
-                    if (transition.RotationType == Ts.Move.RotationTypes.LookAt)
+
+                    switch (transition.RotationType)
                     {
-                        Ts.Move.LookAtRotation lookRotation = transition.LookRotation;
-                        transform.rotation = Quaternion.Slerp(
-                            startRotation,
-                            Quaternion.LookRotation(
+                        case RTypes.None:
+                            transform.localRotation =
+                                Quaternion.Slerp(startRotation, Quaternion.identity, t);
+                            break;
+                        case RTypes.Rotation:
+                            transform.localRotation =
+                                Quaternion.Slerp(startRotation, transition.Rotation, t);
+                            break;
+                        case RTypes.LookAt:
+                            Quaternion endRotation = Quaternion.LookRotation(
                                 transform.position -
-                                    transform.root.TransformPoint(lookRotation.Target),
-                                lookRotation.Up
-                            ),
-                            t
-                        );
-                    }
-                    else
-                    {
-                        transform.localRotation = Quaternion.Slerp(
-                            startRotation,
-                            Quaternion.Euler(transition.EulerRotation),
-                            t
-                        );
+                                    transform.root.TransformPoint(transition.LookRotation.Target),
+                                 transition.LookRotation.Up
+                            );
+                            transform.rotation = Quaternion.Slerp(startRotation, endRotation, t);
+                            break;
                     }
                     yield return null;
                 }
