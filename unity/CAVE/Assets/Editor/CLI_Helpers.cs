@@ -57,13 +57,10 @@ namespace Writing3D
 
             /********** PLACEMENT ROOT    ***********/
 
-            // TODO: Refactor to use Walls?
             // Get the transform of the wall xmlPlacement is to be nested under
             private static Transform GetParent(Placement xmlPlacement)
             {
-                return xmlPlacement.RelativeTo == Placement.PlacementTypes.Center
-                        ? Root.transform // Nest under Root directly
-                        : Root.transform.Find(xmlPlacement.RelativeTo.ToString());
+                return Walls[xmlPlacement.RelativeTo.ToString()];
             }
 
             // Gets the converted position element from xmlPlacement
