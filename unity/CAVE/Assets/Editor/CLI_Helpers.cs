@@ -239,23 +239,22 @@ namespace Writing3D
                         );
                         break;
                     case GroupChange xmlAction:
-                        // TODO 87:
+                        // TODO 87
                         break;
                     case TimerChange xmlAction:
-                        // TODO 88:
+                        // TODO 88
                         break;
                     case SoundChange xmlAction:
-                        // TODO 91:
+                        // TODO 91
                         break;
                     case EventChange xmlAction:
-                        // TODO 89:
+                        // TODO 89
                         break;
                     case MoveCave xmlAction:
-                        // TODO 90:
+                        // TODO 90
                         break;
-
                     case null:
-                        // TODO 92: (Restart)
+                        // TODO 92: Restart
                         break;
                     default:
                         throw new Exception("Invalid action type");
