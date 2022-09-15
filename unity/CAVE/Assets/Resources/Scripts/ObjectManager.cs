@@ -45,9 +45,6 @@ namespace Writing3D
 
         /* Transitions */
 
-        // TODO 121: ObjectManager functions
-        // Update TODOs for each specific function
-
         public void VisibleTransition(Ts.Transition transition)
         {
             var component = GetColorComponent();
