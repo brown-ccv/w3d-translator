@@ -123,24 +123,22 @@ namespace Writing3D
                 {
                     transform.localPosition = Vector3.Lerp(startPosition, transition.Position, t);
 
-                    switch (transition.RotationType)
+                    if (transition.RotationType == RTypes.LookAt)
                     {
-                        case RTypes.None:
-                            transform.localRotation =
-                                Quaternion.Slerp(startRotation, Quaternion.identity, t);
-                            break;
-                        case RTypes.Rotation:
-                            transform.localRotation =
-                                Quaternion.Slerp(startRotation, transition.Rotation, t);
-                            break;
-                        case RTypes.LookAt:
-                            Quaternion endRotation = Quaternion.LookRotation(
+                        transform.rotation = Quaternion.Slerp(
+                            startRotation,
+                            Quaternion.LookRotation(
                                 transform.position -
                                     transform.root.TransformPoint(transition.LookRotation.Target),
                                  transition.LookRotation.Up
-                            );
-                            transform.rotation = Quaternion.Slerp(startRotation, endRotation, t);
-                            break;
+                            ),
+                            t
+                        );
+                    }
+                    else
+                    {
+                        transform.localRotation =
+                            Quaternion.Slerp(startRotation, transition.Rotation, t);
                     }
                     yield return null;
                 }
