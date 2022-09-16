@@ -15,6 +15,13 @@ namespace Writing3D
         public class Visible : Transition
         {
             [SerializeField] public bool Enabled;
+
+            public Visible Init(bool enabled, float duration)
+            {
+                Enabled = enabled;
+                Duration = duration;
+                return this;
+            }
         }
     }
 }

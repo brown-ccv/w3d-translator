@@ -16,6 +16,13 @@ namespace Writing3D
         {
             [SerializeField] public Controls Operation;
 
+            public Link Init(Controls operation, float duration)
+            {
+                Operation = operation;
+                Duration = duration;
+                return this;
+            }
+
             public enum Controls
             {
                 On,

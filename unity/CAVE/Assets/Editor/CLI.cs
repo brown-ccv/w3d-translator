@@ -15,8 +15,6 @@ using Writing3D.Xml;
 using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 using static UnityEditor.Events.UnityEventTools;
 
-// TODO (80): Should ConvertVector3 invert z axis always?
-
 namespace Writing3D
 {
     namespace Translation
@@ -65,11 +63,11 @@ namespace Writing3D
                 BuildWalls();
                 TranslateGameObjects();
 
-                // TODO (95): Generate the <Group>s
-                // TODO (96): Generate the <Timeline>s
-                // TODO (97): Generate the <Sound>s
-                // TODO (98): Generate the <Event>s
-                // TODO (99): Generate the <ParticleAction>s
+                // TODO 95: Generate the <Group>s
+                // TODO 96: Generate the <Timeline>s
+                // TODO 97: Generate the <Sound>s
+                // TODO 98: Generate the <Event>s
+                // TODO 99: Generate the <ParticleAction>s
 
                 SetLinkActions();
 
@@ -193,7 +191,7 @@ namespace Writing3D
             // Create each <Placement> as an outlined GameObject 
             private static void BuildWalls()
             {
-                foreach (Xml.Placement xmlPlacement in XmlRoot.PlacementRoot)
+                foreach (Placement xmlPlacement in XmlRoot.PlacementRoot)
                 {
                     // Objects in the "Center" space are nested directly under Root
                     if (xmlPlacement.Name == "Center") { continue; }
@@ -212,52 +210,37 @@ namespace Writing3D
                     name: gameObject.name
                     Visible: gameObject.active
                     Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
-                    Lighting: TODO (76)
-                    ClickThrough: TODO (76)
-                    AroundSelfAxis: TODO (76)
+                    Lighting: (TODO 76)
+                    ClickThrough: gameObject<Collider>.enabled (opposite)
+                    AroundSelfAxis: (TODO 76)
                     Scale: gameObject.localScale (set in Placement.SetTransform)
                 */
                 foreach (Xml.Object xmlObject in XmlRoot.ObjectRoot)
                 {
-                    GameObject contentGO = CreateObject(xmlObject);
+                    // TODO 124: Use IBuilder syntax to build the object
+                    GameObject go = CreateContent(xmlObject);
+                    go.name = xmlObject.Name;
+                    go.tag = "Object";
+                    SetTransform(go.transform, xmlObject.Placement, xmlObject.Scale);
+                    go.AddComponent<ObjectManager>();
+                    go.GetComponent<Renderer>().enabled = xmlObject.Visible;
+                    go.GetComponent<Collider>().enabled =
+                        // TODO 123: Collider always disabled if object isn't visible?
+                        !xmlObject.ClickThrough && xmlObject.Visible;
+
                     if (xmlObject.LinkRoot is not null)
                     {
                         Link xmlLink = xmlObject.LinkRoot.Link;
 
-                        // Instantiate a new link prefab
-                        GameObject prefab = (GameObject)PrefabUtility.InstantiatePrefab(
-                            Resources.Load<GameObject>("Prefabs/canvas")
-                        );
-                        prefab.GetComponent<Canvas>().worldCamera = UnityEngine.Camera.main;
-
-                        // Initialize canvas
-                        prefab.name = xmlObject.Name;
-                        prefab.SetActive(xmlObject.Visible);
-                        SetTransform(prefab.transform, xmlObject.Placement, xmlObject.Scale);
-                        prefab.transform.localScale *= 0.1f;
-
-                        GameObject buttonGO = prefab.transform.GetChild(0).gameObject;
-                        Button button = buttonGO.GetComponent<Button>();
-
-                        // Nest the <Content> inside the prefab and initialize button
-                        contentGO.transform.SetParent(buttonGO.transform, false);
-                        button.targetGraphic = contentGO.GetComponent<Graphic>(); // Text, Image, etc.
-
-                        // Set state colors
-                        ColorBlock newColors = button.colors;
-                        newColors.normalColor = newColors.highlightedColor =
-                            ConvertColor(xmlLink.EnabledColorString);
-                        newColors.pressedColor = newColors.selectedColor =
-                            ConvertColor(xmlLink.SelectedColorString);
-                        newColors.disabledColor = ConvertColor(xmlObject.ColorString);
-                        button.colors = newColors;
+                        // Add LinkManager and initialize
+                        LinkManager lm = go.AddComponent<LinkManager>();
+                        lm.DisabledColor = ConvertColor(xmlObject.ColorString);
+                        lm.EnabledColor = ConvertColor(xmlLink.EnabledColorString);
+                        lm.ActiveColor = ConvertColor(xmlLink.SelectedColorString);
+                        if (xmlLink.Enabled) { lm.EnableLink(); }
+                        else { lm.DisableLink(); }
                     }
-                    else
-                    {
-                        contentGO.SetActive(xmlObject.Visible);
-                        SetTransform(contentGO.transform, xmlObject.Placement, xmlObject.Scale);
-                    }
-                    GameObjects.Add(contentGO.name, (contentGO, xmlObject));
+                    GameObjects.Add(go.name, (go, xmlObject));
                 }
             }
 
@@ -270,18 +253,15 @@ namespace Writing3D
                 {
                     (GameObject go, Xml.Object xmlObject) = pair.Value;
                     Link xmlLink = xmlObject.LinkRoot.Link;
-                    GameObject buttonGO = go.transform.parent.gameObject;
-                    Button button = buttonGO.GetComponent<Button>();
-                    ButtonManager bm = button.GetComponent<ButtonManager>();
-                    Button.ButtonClickedEvent onClick = button.onClick;
+                    LinkManager lm = go.GetComponent<LinkManager>();
 
-                    // Add actions
-                    AddVoidPersistentListener(onClick, new UnityAction(bm.Counter));
+                    // Add the <Action>s wrapper on activated (onTriggerDown)
+                    AddVoidPersistentListener(lm.activated, new UnityAction(lm.Activate));
 
-                    // Add the <Action>s wrapper to onClick
+                    // Add the <Action>'s on deactivated (onTriggerUp)
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
-                        try { AddAction(xmlLinkAction, button); }
+                        try { AddAction(xmlLinkAction, lm); }
                         catch (Exception)
                         {
                             Debug.LogError(
@@ -291,21 +271,19 @@ namespace Writing3D
                             throw;
                         }
                     }
-
-                    if (!xmlLink.RemainEnabled)
-                    {
-                        AddVoidPersistentListener(
-                            onClick,
-                            new UnityAction(button.GetComponent<ButtonManager>().Disable)
-                        );
-                    }
+                    AddVoidPersistentListener(
+                        lm.deactivated,
+                        xmlLink.RemainEnabled
+                            ? new UnityAction(lm.Deactivate)
+                            : new UnityAction(lm.DisableLink)
+                    );
                 }
             }
 
             // Callback function when Debug.Log is called within the CLI script
             private static void HandleLog(string logString, string stackTrace, LogType type)
             {
-                // TODO (84): Change string based on LogType (rich color)
+                // TODO 84: Change string based on LogType (rich color)
                 // Prepending "LOG:" will print the line to the screen (checked in Python script)
                 Console.WriteLine($"LOG:{logString}");
             }

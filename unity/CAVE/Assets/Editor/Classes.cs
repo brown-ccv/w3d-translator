@@ -213,7 +213,7 @@ namespace Writing3D
 
         [Serializable]
         [XmlRoot("ParticleSystem")]
-        // TODO (69): Unity has a ParticleSystem class
+        // TODO 69: Unity has a ParticleSystem class
         public class ParticleSystem : Xml
         {
             [XmlAttribute("max-particles")]
@@ -237,7 +237,7 @@ namespace Writing3D
 
         [Serializable]
         [XmlRoot("Light")]
-        // TODO (68): Unity has a Light class
+        // TODO 68: Unity has a Light class
         public class Light : Xml
         {
             [XmlChoiceIdentifier("Type")]

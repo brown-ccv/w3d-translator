@@ -4,7 +4,6 @@ using UnityEditor;
 using UnityEditor.Events;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using TMPro;
 
 using Writing3D.Xml;
@@ -12,6 +11,8 @@ using Writing3D.Actions;
 using Writing3D.Transitions;
 
 using static UnityEngine.ScriptableObject;
+using static UnityEngine.Object;
+using static UnityEditor.Events.UnityEventTools;
 
 namespace Writing3D
 {
@@ -101,41 +102,33 @@ namespace Writing3D
 
             public static Transform GetParent(Placement xmlPlacement)
             {
-                return xmlPlacement.RelativeTo == Xml.Placement.PlacementTypes.Center
+                return xmlPlacement.RelativeTo == Placement.PlacementTypes.Center
                         ? Root.transform // Nest under Root directly
                         : Root.transform.Find(xmlPlacement.RelativeTo.ToString());
             }
 
             /********** OBJECT ROOT    ***********/
 
-            public static GameObject CreateObject(Xml.Object xmlObject)
+            public static GameObject CreateContent(Xml.Object xmlObject)
             {
-                GameObject gameObject = xmlObject.Content.ContentData switch
+                return xmlObject.Content.ContentData switch
                 {
-                    Xml.Text xmlText => CreateText(
-                        xmlText,
-                        xmlObject.LinkRoot is not null,
-                        xmlObject.ColorString
-                    ),
-                    Xml.Image xmlImage => new GameObject(), // TODO (65)
-                    StereoImage xmlStereoImage => new(), // TODO (66)
-                    Model xmlModel => new GameObject(), // TODO (67)
-                    Xml.Light xmlLight => new GameObject(), // TODO (68)
-                    Xml.ParticleSystem xmlParticleSystem => new GameObject(), // TODO (69)
-                    _ => new GameObject(), // TODO: - Shouldn't occur, throw error
+                    Text xmlText => CreateText(xmlText, xmlObject.ColorString),
+                    Image xmlImage => new GameObject(), // TODO 65
+                    StereoImage xmlStereoImage => new(), // TODO 66
+                    Model xmlModel => new GameObject(), // TODO 67
+                    Xml.Light xmlLight => new GameObject(), // TODO 68
+                    Xml.ParticleSystem xmlParticleSystem => new GameObject(), // TODO 69
+                    _ => null, // Force error
                 };
-                gameObject.name = xmlObject.Name;
-                gameObject.tag = "Object";
-                gameObject.AddComponent<ObjectManager>();
-                return gameObject;
             }
 
-            public static GameObject CreateText(Xml.Text xmlText, bool isLink, string colorString)
+            public static GameObject CreateText(Text xmlText, string colorString)
             {
                 // Instantiate TextMeshPro or TextMeshProUGUI prefab
-                // TODO (64): Validate prefab settings
-                GameObject gameObject = UnityEngine.Object.Instantiate(
-                    Resources.Load<GameObject>("Prefabs/TmpText" + (isLink ? "GUI" : ""))
+                // TODO 64: Validate prefab settings
+                GameObject gameObject = Instantiate(
+                    Resources.Load<GameObject>("Prefabs/text")
                 );
                 TMP_Text tmpText = gameObject.GetComponent<TMP_Text>();
 
@@ -146,7 +139,7 @@ namespace Writing3D
                 tmpText.color = ConvertColor(colorString); // Vertex Color
 
                 // Load font material
-                // TODO (72): More robust path checking
+                // TODO 72: More robust path checking
                 TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
                     "Materials/Fonts/" +
                     Path.GetFileNameWithoutExtension(xmlText.Font) +
@@ -178,24 +171,23 @@ namespace Writing3D
                     Debug.LogException(e);
                 }
 
+                // Resize BoxCollider to the text
+                gameObject.GetComponent<BoxCollider>().size =
+                    new Vector3(tmpText.preferredWidth, tmpText.preferredHeight, 0);
                 return gameObject;
             }
 
             /********** ACTIONS    ***********/
 
-            public static void AddAction(LinkActions xmlLinkAction, Button button)
+            public static void AddAction(LinkActions xmlLinkAction, LinkManager lm)
             {
-                ButtonManager bm = button.GetComponent<ButtonManager>();
-                Button.ButtonClickedEvent onClick = button.onClick;
-
                 // Initialize action
                 LinkAction linkAction = CreateInstance<LinkAction>();
                 if (xmlLinkAction.Clicks is not null &&
                     xmlLinkAction.Clicks.Type == Clicks.ActivationTypes.Number)
                 {
                     NumClicks activation = (NumClicks)xmlLinkAction.Clicks.Activation;
-                    linkAction.NumClicks = activation.Clicks;
-                    linkAction.Reset = activation.Reset;
+                    linkAction.Init(activation.Clicks, activation.Reset);
                 }
 
                 GameObject reference;
@@ -205,82 +197,64 @@ namespace Writing3D
                         // Get referenced GameObject
                         reference = GameObjects[xmlAction.Name].Item1;
 
-                        // Initialize the transition and action
-                        UnityAction<Transitions.Transition> unityAction;
-                        Transitions.Transition transition = GetTransition(xmlAction.Transition);
-                        transition.Duration = xmlAction.Transition.Duration;
-                        unityAction = transition.GetUnityAction(reference);
-
-                        // Add the Transition action directly 
-                        UnityEventTools.AddObjectPersistentListener(
+                        // Initialize the transition and add to LinkActionEvent
+                        Transitions.Transition transition = GetTransition(
+                            xmlAction.Transition,
+                            xmlAction.Transition.Duration
+                        );
+                        AddObjectPersistentListener(
                             linkAction.ActionEvent,
-                            unityAction,
+                            transition.GetUnityAction(reference),
                             transition
                         );
                         break;
                     case GroupChange xmlAction:
-                        // TODO: 87
+                        // TODO 87:
                         break;
                     case TimerChange xmlAction:
-                        // TODO: 88
+                        // TODO 88:
                         break;
                     case SoundChange xmlAction:
-                        // TODO: 91
+                        // TODO 91:
                         break;
                     case EventChange xmlAction:
-                        // TODO: 89
+                        // TODO 89:
                         break;
                     case MoveCave xmlAction:
-                        // TODO: 90
+                        // TODO 90:
                         break;
 
                     case null:
-                        // TODO: 92 (Restart)
+                        // TODO 92: (Restart)
                         break;
                     default:
-                        // Force AddObjectPersistentListener error, caught in CLI.cs
-                        unityAction = null;
+                        linkAction = null; // Force error below, caught in CLI.cs
                         break;
                 }
-                UnityEventTools.AddObjectPersistentListener(
-                    button.onClick,
-                    new UnityAction<LinkAction>(bm.ExecuteAction),
+                AddObjectPersistentListener(
+                    lm.deactivated,
+                    new UnityAction<LinkAction>(lm.ExecuteAction),
                     linkAction
                 );
             }
 
-            public static Transitions.Transition GetTransition(Xml.Transition xmlTransition)
+            public static Transitions.Transition GetTransition(Xml.Transition xmlTransition, float duration)
             {
-                switch (xmlTransition.Change)
+                // TODO 122: Init for Move and RelativeMove
+                return xmlTransition.Change switch
                 {
-                    case bool visible:
-                        Visible visibleT = CreateInstance<Visible>();
-                        visibleT.Enabled = visible;
-                        return visibleT;
-                    case MovementTransition placement:
-                        Move moveT = CreateInstance<Move>();
-                        return moveT;
-                    case MoveRel placement:
-                        RelativeMove relativeMoveT = CreateInstance<RelativeMove>();
-                        return relativeMoveT;
-                    case string color:
-                        Transitions.Color colorT = CreateInstance<Transitions.Color>();
-                        colorT.NewColor = ConvertColor(color);
-                        return colorT;
-                    case float scale:
-                        Scale scaleT = CreateInstance<Scale>();
-                        scaleT.NewScale = scale;
-                        return scaleT;
-                    case SoundTransition operation:
-                        Transitions.Sound sound = CreateInstance<Transitions.Sound>();
-                        sound.Operation = (Transitions.Sound.Controls)operation.Type;
-                        return sound;
-                    case LinkTransition operation:
-                        Transitions.Link linkT = CreateInstance<Transitions.Link>();
-                        linkT.Operation = (Transitions.Link.Controls)operation.Type;
-                        return linkT;
-                    default: return null; // force error
-                }
+                    bool visible => CreateInstance<Visible>().Init(visible, duration),
+                    MovementTransition placement => CreateInstance<Move>(),
+                    MoveRel placement => CreateInstance<RelativeMove>(),
+                    string color => CreateInstance<Transitions.Color>()
+                        .Init(ConvertColor(color), duration),
+                    float scale => CreateInstance<Scale>().Init(scale),
+                    SoundTransition operation => CreateInstance<Transitions.Sound>()
+                        .Init((Transitions.Sound.Controls)operation.Type, duration),
+                    LinkTransition operation => CreateInstance<Transitions.Link>()
+                        .Init((Transitions.Link.Controls)operation.Type, duration),
+                    _ => null // force error
+                };
             }
         }
     }
