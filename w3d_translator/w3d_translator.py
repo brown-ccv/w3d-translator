@@ -1,4 +1,3 @@
-import sys
 import typer
 import shutil
 from pathlib import Path
@@ -10,7 +9,7 @@ from errors import ValidationError, UnityError, XmlError
 
 UNITY_VERSION = "2021.3.8f1"
 UNITY_PATH = Path(
-    f"C:\\Program Files\\Unity\\Hub\\Editor\\{UNITY_VERSION}\\Editor\\Unity.exe" # noqa
+    f"C:\\Program Files\\Unity\\Hub\\Editor\\{UNITY_VERSION}\\Editor\\Unity.exe"  # noqa
 )
 STARTER_PROJECT = Path("unity/CAVE")
 LOG_FLAG = "LOG:"  # Flag to send prints from the CLI script onto the console
@@ -54,33 +53,53 @@ def create_out(out_dir: Path, force: bool):
     except FileNotFoundError:
         raise ValidationError("Error: OUTPUT directory is not valid")
     except ValidationError as e:
-        err_console.print(e, file=sys.stderr, style="red")
+        err_console.print(e, style="red")
         exit(1)
 
 
 # Copy files from the project directory to the Unity output directory
 def copy_files(project_dir: Path, unity_dir: Path, unity_copy: Path):
     try:
-        shutil.copytree(str(STARTER_PROJECT), str(unity_dir))
-        shutil.copytree(
-            project_dir,
-            unity_copy,
+        with console.status("Copying files"):
+            shutil.copytree(str(STARTER_PROJECT), str(unity_dir))
+            shutil.copytree(
+                project_dir,
+                unity_copy,
+            )
+    except (ValidationError, UnityError, Exception) as e:
+        err_console.print(e, style="red")
+    else:
+        console.print(f"Copied files from '{project_dir}' to '{unity_dir}'")
+
+
+# Translate valid xml files (ignore invalid)
+def translate_files(unity_dir: Path, unity_copy: Path):
+    try:
+        for xml_path in unity_copy.rglob("*.xml"):
+            with console.status(
+                "Translating file: "
+                + f"[cyan]{unity_copy.name}/{xml_path.name}[/cyan]"
+            ):
+                try:
+                    validate_xml(xml_path)
+                except XmlError as e:
+                    err_console.print(e, style="red")
+                else:
+                    console.print(f"'{xml_path.name}' is valid")
+                    translate_file(unity_dir, xml_path)
+    except (ValidationError, UnityError) as e:
+        err_console.print(e, style="red")
+    else:
+        # TODO 54, 55: Change message if some files aren't translated correctly
+        console.print(
+            ":white_check_mark: "
+            + f"[cyan]{unity_dir.name}/[/cyan] "
+            + "translated successfully\n"
         )
-    except Exception as e:
-        # TODO 55: Catch this exception (skip file)
-        err_console.print(e, file=sys.stderr, style="red")
 
 
 # Translate an XML file using Unity's CLI
-def translate_file(unity_dir: Path, xml_path: Path, filename: str):
-    try:
-        validate_xml(xml_path)
-    except XmlError as e:
-        err_console.print(e, file=sys.stderr, style="red")
-    else:
-        console.print(f"'{filename}' is valid")
-
-    # Run Unity CLI
+def translate_file(unity_dir: Path, xml_path: Path):
     with Popen(
         [
             f"{UNITY_PATH}",
@@ -91,7 +110,8 @@ def translate_file(unity_dir: Path, xml_path: Path, filename: str):
             "-logFile",
             "-",
             "-executeMethod",
-            "CLI.Main",
+            # "CLI.Main",
+            "Writing3D.Translation.CLI.Main"
             "--xmlPath",
             Path(*xml_path.parts[2:]),  # Path relative to unity_dir
         ],
@@ -122,43 +142,31 @@ def translate_file(unity_dir: Path, xml_path: Path, filename: str):
 
 # Translate a single project from W3D to Unity
 def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
-    console.print(f"Translating project: [cyan]{project_dir.name}[/cyan]")
+    console.print(f"Translating project: [cyan]{project_dir.name}/[/cyan]")
 
+    # Validate project
     try:
-        # Validate project
         with console.status("Validating project"):
             validate_project(project_dir)
-        console.print(f"'{project_dir}' is valid")
-
-        # Create the Unity project
-        if not dev:
-            unity_dir = Path(out_dir, project_dir.name)
-            unity_copy = Path(
-                unity_dir, "Assets", "Resources", "Original Project"
-            )
-
-            with console.status("Copying files"):
-                copy_files(project_dir, unity_dir, unity_copy)
-            console.print(
-                f"Copied files from '{project_dir}' to '{unity_dir}'"
-            )
-
-            # Translate valid .xml files (skip invalid)
-            for xml_path in unity_copy.rglob("*.xml"):
-                with console.status(
-                    "Translating file: "
-                    + f"[cyan]{project_dir.name}/{xml_path.name}[/cyan]"
-                ):
-                    translate_file(unity_dir, xml_path, xml_path.name)
     except (ValidationError, UnityError) as e:
-        err_console.print(e, file=sys.stderr, style="red")
+        err_console.print(e, style="red")
     else:
-        console.print(
-            ":white_check_mark: "
-            + f"[cyan]{project_dir.name}/{xml_path.name}[/cyan] "
-            + "translated successfully\n"
-        )
-    # TODO 113: Remove Assets/W3D_Translator from output project
+        console.print(f"[cyan]{project_dir}/[/cyan] is valid")
+
+    if dev:
+        # Validate the xml files
+        for xml_path in project_dir.rglob("*.xml"):
+            try:
+                validate_xml(xml_path)
+            except XmlError as e:
+                err_console.print(e, style="red")
+            else:
+                console.print(f"'{xml_path.name}' is valid")
+    else:
+        unity_dir = Path(out_dir, project_dir.name)
+        unity_copy = Path(unity_dir, "Assets", "Resources", "Original Project")
+        copy_files(project_dir, unity_dir, unity_copy)
+        translate_files(unity_dir, unity_copy)
 
 
 def main(

@@ -44,7 +44,7 @@
                     <SelectedColor>255,0,0</SelectedColor>
                     <Actions>
                         <ObjectChange name="movingtext">
-                            <Transition duration="1.0">
+                            <Transition duration="-10.0">
                                 <Movement>
                                     <Placement>
                                         <RelativeTo>FrontWall</RelativeTo>
