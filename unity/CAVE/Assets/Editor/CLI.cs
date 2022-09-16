@@ -84,10 +84,10 @@ namespace Writing3D
                     string[] args = Environment.GetCommandLineArgs();
                     for (int i = 0; i < args.Length; i++)
                     {
-                        // TODO: Validate --projectPath and --xmlPath to get xml
-                        Debug.Log(args[i]);
+                        // TODO: Validate --xmlPath to get xml
                         if (args[i] == "--xmlPath") { XmlPath = args[++i]; }
                     }
+                    Debug.Log("XML Path " + XmlPath);
                 }
                 catch (Exception)
                 {

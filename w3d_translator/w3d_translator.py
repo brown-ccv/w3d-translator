@@ -97,6 +97,7 @@ def translate_files(unity_dir: Path, unity_copy: Path):
 
 # Translate an XML file using Unity's CLI
 def translate_file(unity_dir: Path, xml_path: Path):
+    # TODO: Catch Errors
     with Popen(
         [
             f"{UNITY_PATH}",
@@ -104,9 +105,11 @@ def translate_file(unity_dir: Path, xml_path: Path):
             "-quit",
             "-logFile",
             "-",
-            # "--projectPath",
-            # f"{unity_dir}",
             "--xmlPath",
+            # TODO: Fix xml path
+            # TODO: Unity still thinks it's in the old folder? For the full path?
+            # Currently "C:\Users\Rob\ROOT\CCV\W3D Translator\unity\CAVE\Assets\Resources\Original Project\everything.xml" # noqa
+            # Need "C:\Users\Rob\ROOT\CCV\W3D Translator\[out]\Assets\Resources\Original Project\everything.xml" # noqa
             Path(*xml_path.parts[2:]),  # Path relative to unity_dir
             "-executeMethod",
             "Writing3D.Translation.CLI.Main"
