@@ -6,7 +6,6 @@ using UnityEditor;
 using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
-using UnityEngine.UI;
 using UnityEngine.Events;
 using Unity.XR.CoreUtils;
 
@@ -33,7 +32,7 @@ namespace Writing3D
             public static void Main()
             {
                 Application.logMessageReceivedThreaded += HandleLog;
-                Debug.Log($"Running Unity CLI {ProjectPath}");
+                Debug.Log($"Running Unity CLI");
 
                 // The path to the xml file is sent as a command line argument
                 GetXmlPathArg();
@@ -72,7 +71,7 @@ namespace Writing3D
                 SetLinkActions();
 
                 // Save and quit
-                // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+                // EditorSceneManager.SaveScene(instantiatedScene.scene);
                 Application.logMessageReceivedThreaded -= HandleLog;
                 Application.Quit();
             }
@@ -85,6 +84,8 @@ namespace Writing3D
                     string[] args = Environment.GetCommandLineArgs();
                     for (int i = 0; i < args.Length; i++)
                     {
+                        // TODO: Validate --projectPath and --xmlPath to get xml
+                        Debug.Log(args[i]);
                         if (args[i] == "--projectPath") { ProjectPath = args[++i]; }
                     }
                 }

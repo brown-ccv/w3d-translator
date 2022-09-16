@@ -76,10 +76,7 @@ def copy_files(project_dir: Path, unity_dir: Path, unity_copy: Path):
 def translate_files(unity_dir: Path, unity_copy: Path):
     try:
         for xml_path in unity_copy.rglob("*.xml"):
-            with console.status(
-                "Translating file: "
-                + f"[cyan]{unity_copy.name}/{xml_path.name}[/cyan]"
-            ):
+            with console.status(f"Translating file: '{xml_path.name}'"):
                 try:
                     validate_xml(xml_path)
                 except XmlError as e:
@@ -105,15 +102,14 @@ def translate_file(unity_dir: Path, xml_path: Path):
             f"{UNITY_PATH}",
             "-batchmode",
             "-quit",
-            "-projectPath",
-            f"{unity_dir}",
             "-logFile",
             "-",
-            "-executeMethod",
-            # "CLI.Main",
-            "Writing3D.Translation.CLI.Main"
+            "--projectPath",
+            f"{unity_dir}",
             "--xmlPath",
             Path(*xml_path.parts[2:]),  # Path relative to unity_dir
+            "-executeMethod",
+            "Writing3D.Translation.CLI.Main"
         ],
         bufsize=1,
         stdout=PIPE,
