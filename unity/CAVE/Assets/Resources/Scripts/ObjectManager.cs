@@ -125,6 +125,7 @@ namespace Writing3D
             }
         }
 
+        // TODO 132
         public void RelativeMoveTransition(Ts.Transition transition)
         {
             var move = transition as Ts.RelativeMove;
@@ -147,18 +148,21 @@ namespace Writing3D
             }
         }
 
+        // TODO 133
         public void ScaleTransition(Ts.Transition transition)
         {
             var scale = transition as Ts.Scale;
             // Debug.Log($"Scale {gameObject.name} {scale.NewScale}");
         }
 
+        // TODO 134
         public void SoundTransition(Ts.Transition transition)
         {
             var sound = transition as Ts.Sound;
             // Debug.Log($"Sound {gameObject.name} {sound.Operation}");
         }
-
+        
+        // TODO 135
         public void LinkTransition(Ts.Transition transition)
         {
             var link = transition as Ts.Link;
