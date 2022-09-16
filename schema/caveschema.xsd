@@ -531,7 +531,7 @@
       <xs:attribute name="start-immediately" type="xs:boolean" default="true" />
     </xs:complexType>
   </xs:element>
-  
+
   <!-- <Sound> -->
   <xs:element name="Sound">
     <xs:complexType>
@@ -684,7 +684,15 @@
       </xs:sequence>
       <xs:attribute name="enabled" type="xs:boolean" default="true" />
       <xs:attribute name="name" type="xs:string" use="required" />
-      <xs:attribute name="duration" type="xs:double" default="0.0" />
+      <!-- <xs:attribute name="duration" type="xs:double" default="0.0" /> -->
+      <!-- TODO: Validate this xsd change asserts value is greater than 0 -->
+      <xs:attribute name="duration" default="0.0">
+        <xs:simpleType>
+          <xs:restriction base="xs:double">
+            <xs:minInclusive value="0.0" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
       <xs:attribute name="remain-enabled" type="xs:boolean" default="true" />
     </xs:complexType>
   </xs:element>
@@ -953,7 +961,15 @@
             </xs:choice>
             <xs:element name="Placement" type="PlacementType" />
           </xs:sequence>
-          <xs:attribute name="duration" type="xs:double" default="0.0" />
+          <!-- TODO: Validate this xsd change asserts value is greater than 0 -->
+          <!-- <xs:attribute name="duration" type="xs:double" default="0.0" /> -->
+          <xs:attribute name="duration" default="0.0">
+            <xs:simpleType>
+              <xs:restriction base="xs:double">
+                <xs:minInclusive value="0.0" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
         </xs:complexType>
       </xs:element>
       <xs:element name="Restart">
@@ -1011,7 +1027,15 @@
         </xs:complexType>
       </xs:element>
     </xs:choice>
-    <xs:attribute name="duration" type="xs:double" default="1.0" />
+    <!-- <xs:attribute name="duration" type="xs:double" default="1.0" /> -->
+    <!-- TODO: Validate this xsd change asserts value is greater than 0 -->
+    <xs:attribute name="duration" default="0.0">
+      <xs:simpleType>
+        <xs:restriction base="xs:double">
+          <xs:minInclusive value="0.0" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
   </xs:complexType>
   <xs:complexType name="ParticleDomainType">
     <xs:choice>
