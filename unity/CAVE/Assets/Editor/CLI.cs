@@ -20,7 +20,7 @@ namespace Writing3D
     {
         public static partial class CLI
         {
-            public static string ProjectPath;
+            public static string XmlPath;
 
             private static Root XmlRoot;
             private static GameObject Root;
@@ -86,7 +86,7 @@ namespace Writing3D
                     {
                         // TODO: Validate --projectPath and --xmlPath to get xml
                         Debug.Log(args[i]);
-                        if (args[i] == "--projectPath") { ProjectPath = args[++i]; }
+                        if (args[i] == "--xmlPath") { XmlPath = args[++i]; }
                     }
                 }
                 catch (Exception)
@@ -102,17 +102,17 @@ namespace Writing3D
                 try
                 {
                     System.Xml.Serialization.XmlSerializer serializer = new(typeof(Root));
-                    using var reader = System.Xml.XmlReader.Create(ProjectPath);
+                    using var reader = System.Xml.XmlReader.Create(XmlPath);
                     XmlRoot = (Root)serializer.Deserialize(reader);
                 }
                 catch (FileNotFoundException)
                 {
-                    Debug.LogError($"ERROR: File at {ProjectPath} not found");
+                    Debug.LogError($"ERROR: File at {XmlPath} not found");
                     throw;
                 }
                 catch
                 {
-                    Debug.LogError($"Error: Deserialization of file at {ProjectPath} failed.");
+                    Debug.LogError($"Error: Deserialization of file at {XmlPath} failed.");
                     throw;
                 }
             }
@@ -125,12 +125,12 @@ namespace Writing3D
                     return SceneTemplateService.Instantiate(
                         Resources.Load<SceneTemplateAsset>("CAVE"),
                         false,
-                        $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(ProjectPath)}.unity"
+                        $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(XmlPath)}.unity"
                     );
                 }
                 catch (Exception)
                 {
-                    Debug.LogError($"Error creating scene for {ProjectPath}");
+                    Debug.LogError($"Error creating scene for {XmlPath}");
                     throw;
                 }
             }

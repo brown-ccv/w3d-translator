@@ -104,8 +104,8 @@ def translate_file(unity_dir: Path, xml_path: Path):
             "-quit",
             "-logFile",
             "-",
-            "--projectPath",
-            f"{unity_dir}",
+            # "--projectPath",
+            # f"{unity_dir}",
             "--xmlPath",
             Path(*xml_path.parts[2:]),  # Path relative to unity_dir
             "-executeMethod",
