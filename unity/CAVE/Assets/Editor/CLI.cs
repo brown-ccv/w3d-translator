@@ -36,7 +36,6 @@ namespace Writing3D
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
                 {
-
                     Debug.Log($"Running Unity CLI at '{Application.dataPath}'");
 
                     // The path to the xml file is sent as a command line argument
@@ -82,7 +81,6 @@ namespace Writing3D
                     // Save and quit
                     EditorSceneManager.SaveScene(InstantiatedScene.scene);
                     Application.logMessageReceivedThreaded -= HandleLog;
-                    AssetDatabase.Refresh();
                     EditorApplication.Exit(0);
                 }
                 catch (Exception e)
@@ -91,7 +89,6 @@ namespace Writing3D
                     File.Delete(InstantiatedScene.scene.path);
                     Debug.LogException(e);
                     Application.logMessageReceivedThreaded -= HandleLog;
-                    AssetDatabase.Refresh();
                     EditorApplication.Exit(1);
                 }
             }
