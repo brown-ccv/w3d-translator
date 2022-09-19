@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneTemplate;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
 using UnityEngine.Events;
@@ -32,19 +33,20 @@ namespace Writing3D
             public static void Main()
             {
                 Application.logMessageReceivedThreaded += HandleLog;
-                Debug.Log($"Running Unity CLI");
+                Debug.Log($"Running Unity CLI at '{Application.dataPath}'");
 
                 // The path to the xml file is sent as a command line argument
                 GetXmlPathArg();
-                LoadStory();
+                LoadXml();
 
                 // Create new scene and store the root GameObjects
+                Debug.Log("Instantiating scene");
                 InstantiationResult instantiatedScene = InstantiateScene();
                 XrRig = instantiatedScene.scene.GetRootGameObjects()[0];
                 Root = instantiatedScene.scene.GetRootGameObjects()[1];
                 GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
 
-                if (!UnityEditorInternal.InternalEditorUtility.inBatchMode)
+                if (!Application.isBatchMode)
                 {
                     // Testing - Instantiate the device simulator and set at top of hierarchy
                     UnityEngine.Object.Instantiate(
@@ -58,8 +60,10 @@ namespace Writing3D
                     ).transform.SetAsFirstSibling();
                 }
 
+                Debug.Log("Applying settings");
                 ApplyGlobalSettings();
                 BuildWalls();
+                Debug.Log("Building Objects");
                 TranslateGameObjects();
 
                 // TODO 95: Generate the <Group>s
@@ -68,10 +72,11 @@ namespace Writing3D
                 // TODO 98: Generate the <Event>s
                 // TODO 99: Generate the <ParticleAction>s
 
+                Debug.Log("Applying actions");
                 SetLinkActions();
 
                 // Save and quit
-                // EditorSceneManager.SaveScene(instantiatedScene.scene);
+                EditorSceneManager.SaveScene(instantiatedScene.scene);
                 Application.logMessageReceivedThreaded -= HandleLog;
                 Application.Quit();
             }
@@ -87,7 +92,6 @@ namespace Writing3D
                         // TODO: Validate --xmlPath to get xml
                         if (args[i] == "--xmlPath") { XmlPath = args[++i]; }
                     }
-                    Debug.Log("XML Path " + XmlPath);
                 }
                 catch (Exception)
                 {
@@ -97,7 +101,7 @@ namespace Writing3D
             }
 
             // Deserialize the xml file
-            private static void LoadStory()
+            private static void LoadXml()
             {
                 try
                 {
@@ -284,9 +288,14 @@ namespace Writing3D
             // Callback function when Debug.Log is called within the CLI script
             private static void HandleLog(string logString, string stackTrace, LogType type)
             {
-                // TODO 84: Change string based on LogType (rich color)
-                // Prepending "LOG:" will print the line to the screen (checked in Python script)
-                Console.WriteLine($"LOG:{logString}");
+                // Prepending "LOG:" will print the line to the screen (Python script)
+                string color = type switch
+                {
+                    LogType.Log => "white",
+                    LogType.Warning => "yellow",
+                    _ => "red",
+                };
+                Console.WriteLine($"LOG:[{color}]{logString}[/{color}]");
             }
         }
     }

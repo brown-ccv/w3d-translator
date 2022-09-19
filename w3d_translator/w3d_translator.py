@@ -14,7 +14,7 @@ UNITY_PATH = Path(
 STARTER_PROJECT = Path("unity/CAVE")
 LOG_FLAG = "LOG:"  # Flag to send prints from the CLI script onto the console
 console = Console()
-err_console = Console(stderr=True)
+err_console = Console(stderr=True, style="bold red")
 
 
 # Opening message
@@ -53,7 +53,7 @@ def create_out(out_dir: Path, force: bool):
     except FileNotFoundError:
         raise ValidationError("Error: OUTPUT directory is not valid")
     except ValidationError as e:
-        err_console.print(e, style="red")
+        err_console.print(e)
         exit(1)
 
 
@@ -67,37 +67,50 @@ def copy_files(project_dir: Path, unity_dir: Path, unity_copy: Path):
                 unity_copy,
             )
     except (ValidationError, UnityError, Exception) as e:
-        err_console.print(e, style="red")
+        err_console.print(e)
     else:
-        console.print(f"Copied files from '{project_dir}' to '{unity_dir}'")
+        console.print(
+            f"Copied files from [cyan]{project_dir}/[/cyan]"
+            + f" to [cyan]{unity_dir}\\"
+        )
 
 
 # Translate valid xml files (ignore invalid)
 def translate_files(unity_dir: Path, unity_copy: Path):
-    try:
-        for xml_path in unity_copy.rglob("*.xml"):
-            with console.status(f"Translating file: '{xml_path.name}'"):
-                try:
-                    validate_xml(xml_path)
-                except XmlError as e:
-                    err_console.print(e, style="red")
-                else:
-                    console.print(f"'{xml_path.name}' is valid")
-                    translate_file(unity_dir, xml_path)
-    except (ValidationError, UnityError) as e:
-        err_console.print(e, style="red")
-    else:
-        # TODO 54, 55: Change message if some files aren't translated correctly
+    # TODO: Use a live progress group to keep track of the different files
+    # TODO: Launch each file in its own process
+    all_good = True
+    for xml_path in unity_copy.rglob("*.xml"):
+        console.print(f"Translating file: '{xml_path.name}'")
+        try:
+            validate_xml(xml_path)
+            console.print(f"'{xml_path.name}' is valid")
+            translate_file(unity_dir, xml_path)
+        except (XmlError, UnityError) as e:
+            err_console.print(e)
+            all_good = False
+            # TODO: Delete scene file if translated with errors
+
+    # TODO 54, 55: Change message if some files aren't translated correctly
+    if all_good:
         console.print(
             ":white_check_mark: "
-            + f"[cyan]{unity_dir.name}/[/cyan] "
-            + "translated successfully\n"
+            + f"[cyan]{unity_dir.name}/ "
+            + "translated successfully[/cyan]\n"
+        )
+    else:
+        console.print(
+            f"[yellow]{unity_dir.name}/ "
+            + "translated with some errors [/yellow]\n"
         )
 
 
 # Translate an XML file using Unity's CLI
+# TODO: Return bool for if it ran correctly, change print in translate_files
 def translate_file(unity_dir: Path, xml_path: Path):
+    # TODO: Change rich print type to see latest status
     # TODO: Catch Errors
+    # Try to run, catch error
     with Popen(
         [
             f"{UNITY_PATH}",
@@ -105,19 +118,17 @@ def translate_file(unity_dir: Path, xml_path: Path):
             "-quit",
             "-logFile",
             "-",
+            "-projectPath",
+            f"{unity_dir}",
             "--xmlPath",
-            # TODO: Fix xml path
-            # TODO: Unity still thinks it's in the old folder? For the full path?
-            # Currently "C:\Users\Rob\ROOT\CCV\W3D Translator\unity\CAVE\Assets\Resources\Original Project\everything.xml" # noqa
-            # Need "C:\Users\Rob\ROOT\CCV\W3D Translator\[out]\Assets\Resources\Original Project\everything.xml" # noqa
-            Path(*xml_path.parts[2:]),  # Path relative to unity_dir
+            Path(*xml_path.parts[2:]),
             "-executeMethod",
-            "Writing3D.Translation.CLI.Main"
+            "Writing3D.Translation.CLI.Main",
         ],
-        bufsize=1,
         stdout=PIPE,
         stderr=PIPE,
         universal_newlines=True,
+        bufsize=1,
     ) as sp, open(
         Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log"), "w"
     ) as logfile:
@@ -125,18 +136,19 @@ def translate_file(unity_dir: Path, xml_path: Path):
         for line in sp.stdout:
             if line.startswith(LOG_FLAG):
                 # Send prints from CLI script to console
-                console.print(line.strip(LOG_FLAG), end="")
+                console.log(line.strip(LOG_FLAG).strip())
             else:
-                # Send Unity logs to a the log file
+                # Send Unity logs to the log file
                 logfile.write(line)
 
-        # Check clean exit
-        if sp.poll() != 0:
-            raise UnityError(
-                "Error: Unity CLI exited with return code "
-                + f"{sp.returncode}.\n"
-                + f"See '{logfile.name}' for more details."
-            )
+    if sp.returncode != 0:
+        # TODO: Make hyperlink to log file
+        console.print(xml_path)
+        raise UnityError(
+            "Translation failed. " + f"See '{logfile.name}'for more details."
+        )
+    else:
+        console.print(f"'{xml_path.name}' translated successfully")
 
 
 # Translate a single project from W3D to Unity
@@ -145,10 +157,9 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
 
     # Validate project
     try:
-        with console.status("Validating project"):
-            validate_project(project_dir)
+        validate_project(project_dir)
     except (ValidationError, UnityError) as e:
-        err_console.print(e, style="red")
+        err_console.print(e)
     else:
         console.print(f"[cyan]{project_dir}/[/cyan] is valid")
 
@@ -158,7 +169,7 @@ def translate_project(project_dir: Path, out_dir: Path, dev: bool = False):
             try:
                 validate_xml(xml_path)
             except XmlError as e:
-                err_console.print(e, style="red")
+                err_console.print(e)
             else:
                 console.print(f"'{xml_path.name}' is valid")
     else:
