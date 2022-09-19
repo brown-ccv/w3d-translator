@@ -143,7 +143,6 @@ def translate_file(unity_dir: Path, xml_path: Path):
 
     if sp.returncode != 0:
         # TODO: Make hyperlink to log file
-        console.print(xml_path)
         raise UnityError(
             "Translation failed. " + f"See '{logfile.name}'for more details."
         )

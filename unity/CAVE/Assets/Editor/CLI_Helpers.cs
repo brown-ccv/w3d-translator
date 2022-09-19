@@ -140,6 +140,7 @@ namespace Writing3D
 
                 // Load font material
                 // TODO 72: More robust path checking
+                // TODO: Don't have to worry about re-throwing exceptions if handled in main
                 TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
                     "Materials/Fonts/" +
                     Path.GetFileNameWithoutExtension(xmlText.Font) +

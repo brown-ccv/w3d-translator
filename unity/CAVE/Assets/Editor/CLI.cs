@@ -22,6 +22,7 @@ namespace Writing3D
         public static partial class CLI
         {
             public static string XmlPath;
+            private static InstantiationResult InstantiatedScene;
 
             private static Root XmlRoot;
             private static GameObject Root;
@@ -33,52 +34,66 @@ namespace Writing3D
             public static void Main()
             {
                 Application.logMessageReceivedThreaded += HandleLog;
-                Debug.Log($"Running Unity CLI at '{Application.dataPath}'");
-
-                // The path to the xml file is sent as a command line argument
-                GetXmlPathArg();
-                LoadXml();
-
-                // Create new scene and store the root GameObjects
-                Debug.Log("Instantiating scene");
-                InstantiationResult instantiatedScene = InstantiateScene();
-                XrRig = instantiatedScene.scene.GetRootGameObjects()[0];
-                Root = instantiatedScene.scene.GetRootGameObjects()[1];
-                GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
-
-                if (!Application.isBatchMode)
+                try
                 {
-                    // Testing - Instantiate the device simulator and set at top of hierarchy
-                    UnityEngine.Object.Instantiate(
-                        AssetDatabase.LoadAssetAtPath(
-                            "Assets/XR Interaction Toolkit/XR Device Simulator/" +
-                            "XR Device Simulator.prefab",
-                            typeof(GameObject)
-                        ) as GameObject,
-                        XrRig.transform.position,
-                        XrRig.transform.rotation
-                    ).transform.SetAsFirstSibling();
+
+                    Debug.Log($"Running Unity CLI at '{Application.dataPath}'");
+
+                    // The path to the xml file is sent as a command line argument
+                    GetXmlPathArg();
+                    LoadXml();
+
+                    // Create new scene and store the root GameObjects
+                    Debug.Log("Instantiating scene");
+                    InstantiatedScene = InstantiateScene();
+                    XrRig = InstantiatedScene.scene.GetRootGameObjects()[0];
+                    Root = InstantiatedScene.scene.GetRootGameObjects()[1];
+                    GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
+
+                    if (!Application.isBatchMode)
+                    {
+                        // Testing - Instantiate the device simulator and set at top of hierarchy
+                        UnityEngine.Object.Instantiate(
+                            AssetDatabase.LoadAssetAtPath(
+                                "Assets/XR Interaction Toolkit/XR Device Simulator/" +
+                                "XR Device Simulator.prefab",
+                                typeof(GameObject)
+                            ) as GameObject,
+                            XrRig.transform.position,
+                            XrRig.transform.rotation
+                        ).transform.SetAsFirstSibling();
+                    }
+
+                    Debug.Log("Applying settings");
+                    ApplyGlobalSettings();
+                    BuildWalls();
+                    Debug.Log("Building Objects");
+                    TranslateGameObjects();
+
+                    // TODO 95: Generate the <Group>s
+                    // TODO 96: Generate the <Timeline>s
+                    // TODO 97: Generate the <Sound>s
+                    // TODO 98: Generate the <Event>s
+                    // TODO 99: Generate the <ParticleAction>s
+
+                    Debug.Log("Applying actions");
+                    SetLinkActions();
+
+                    // Save and quit
+                    EditorSceneManager.SaveScene(InstantiatedScene.scene);
+                    Application.logMessageReceivedThreaded -= HandleLog;
+                    AssetDatabase.Refresh();
+                    EditorApplication.Exit(0);
                 }
-
-                Debug.Log("Applying settings");
-                ApplyGlobalSettings();
-                BuildWalls();
-                Debug.Log("Building Objects");
-                TranslateGameObjects();
-
-                // TODO 95: Generate the <Group>s
-                // TODO 96: Generate the <Timeline>s
-                // TODO 97: Generate the <Sound>s
-                // TODO 98: Generate the <Event>s
-                // TODO 99: Generate the <ParticleAction>s
-
-                Debug.Log("Applying actions");
-                SetLinkActions();
-
-                // Save and quit
-                EditorSceneManager.SaveScene(instantiatedScene.scene);
-                Application.logMessageReceivedThreaded -= HandleLog;
-                Application.Quit();
+                catch (Exception e)
+                {
+                    // Exit with error
+                    File.Delete(InstantiatedScene.scene.path);
+                    Debug.LogException(e);
+                    Application.logMessageReceivedThreaded -= HandleLog;
+                    AssetDatabase.Refresh();
+                    EditorApplication.Exit(1);
+                }
             }
 
             // Get command line arguments from Python
@@ -89,7 +104,6 @@ namespace Writing3D
                     string[] args = Environment.GetCommandLineArgs();
                     for (int i = 0; i < args.Length; i++)
                     {
-                        // TODO: Validate --xmlPath to get xml
                         if (args[i] == "--xmlPath") { XmlPath = args[++i]; }
                     }
                 }
@@ -111,12 +125,12 @@ namespace Writing3D
                 }
                 catch (FileNotFoundException)
                 {
-                    Debug.LogError($"ERROR: File at {XmlPath} not found");
+                    Debug.LogError($"File at {XmlPath} not found");
                     throw;
                 }
                 catch
                 {
-                    Debug.LogError($"Error: Deserialization of file at {XmlPath} failed.");
+                    Debug.LogError($"Deserialization of file at {XmlPath} failed.");
                     throw;
                 }
             }
@@ -134,7 +148,7 @@ namespace Writing3D
                 }
                 catch (Exception)
                 {
-                    Debug.LogError($"Error creating scene for {XmlPath}");
+                    Debug.LogError($"Unable to create scene for {XmlPath}");
                     throw;
                 }
             }
