@@ -71,7 +71,8 @@ In addition to the Unity XRRig, a root MiddleVR package needs to be added in ord
 ### Camera and CaveCamera
 
 - The main camera is located within the XRRig hierarchy (`XRRig -> Camera Offset -> Main Camera`).
-  - `<CameraPos></CameraPos><Placement>...` sets the transform of the XRRig directly.
+  - `<CameraPos><Placement>...</CameraPos>` sets the transform of the XRRig directly.
+    - Everything that updates XRRig must convert the xml (feet) to Unity (meters) because it's not inside the `Story`.
   - The cameras have a "Clipping Planes" setting.
     - `<CameraPos far-clip="100.0">` sets the "far clip" value.
 - `<CaveCameraPos>` adds a secondary camera to the scene, named `Cave Camera`.
@@ -96,10 +97,6 @@ The `<Background color>...` attribute sets the background color for BOTH `Main C
   - R: `<WandNavigation allow-rotation="true" allow-movement="false" />`
   - P: `<WandNavigation allow-rotation="false" allow-movement="true" />`
   - If `<WandNavigation allow-rotation="false" allow-movement="false" />`, disable `Tracked Pose Driver` and set `XR Origin` (a script attached directly to XRRig) origin mode to "Device"
-
-### Changes and Conversions (Global)
-
-- Everything that updates XRRig must convert the xml (feet) to Unity (meters) because it's not inside the `Story`.
 
 ## Placement
 
@@ -173,16 +170,15 @@ Each `<Object>` inside `<ObjectRoot>` corresponds to a single GameObject in Unit
 
 - `name`: gameObject.name
 - `<Color>`: gameObject.[content].color
-  - Exactly how the color is applied
+  - Exactly how the color is applied will change (e.g. this is DisabledColor for a link object)
 - `<Visible>`: gameObject.active
 - `<Lighting>`: TODO [(76)](https://github.com/brown-ccv/w3d-translator/issues/76)
-- `<ClickThrough>`: TODO [(76)](https://github.com/brown-ccv/w3d-translator/issues/76)
+- `<ClickThrough>`: gameObject[BoxCollider] (enable/disable attached component)
 - `<AroundSelfAxis>`: TODO [(76)](https://github.com/brown-ccv/w3d-translator/issues/76)
 - `<Scale>`: gameObject.localScale
-  - Sent as a variable to `Placement.SetTransform()`
+  - `scale * Vector3(1, 1, 1)`
 - `<Content>`: An `<xs:choice>` between several content types, [see below](#content)
-- `<LinkRoot>`: Adds a `Button` parent to `<Content>` in Unity with a list of defined actions (optional)
-  - A "link" in the original project acts the same as a `Button` in Unity
+- `<LinkRoot>`: Adds a `LinkManager` script to the gameObject [see below](#link)
 
 ### Content
 
@@ -255,8 +251,8 @@ TODO [69](https://github.com/brown-ccv/w3d-translator/issues/69)
 - `speed`: How fast the particles move
 
 ### Link
-
-`<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object turns it into a clickable button. A canvas (grandparent) and button (parent) object are added to the hierarchy - they are instantiated from the canvas prefab. The canvas's name will match the object's.
+<!-- TODO -->
+`<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object makes it interactable with the controller's raycast. This is done inside [LinkManager.cs](unity\CAVE\Assets\Resources\Scripts\LinkManager.cs)
 
 - `<Enabled>`: Button.Intractable
 - `<RemainEnabled>`: Whether or not the button remains enabled after being clicked
@@ -266,13 +262,14 @@ TODO [69](https://github.com/brown-ccv/w3d-translator/issues/69)
   
 *Note that there can be multiple `<Actions>` per `<Link>`*
 
-#### Parent xml
+#### Other Methods
 
-- "Blocking Mask" is set by `<ClickThrough>` in the original object
-- The `<Object>`s `<Color>` tag sets Button.DisabledColor
+In addition to the available action types, there are a few methods in `LinkManager.cs` that provide runtime functionality:
+
+<!-- TODO -->
 
 #### Link Actions
-
+<!-- TODO -->
 - The kind of Action is an `<xs:choice>` (See [Actions](#actions))
 - `<Clicks>`: How the link is activated
   - Any: The button is activated every time it's clicked
@@ -281,14 +278,9 @@ TODO [69](https://github.com/brown-ccv/w3d-translator/issues/69)
     - `num_clicks`: The number of clicks it takes to activate
     - `reset`: Whether or not the object is reset after its been activated
 
-### Changes and Conversions (Object)
-
-- `<Scale>` is applied to every axis (e.g. `scale * Vector3(1, 1, 1)`)
-- The scale of the canvas is `0.1, 0.1, 0.1`
-
 ## Actions
 
-`ActionsType` is a `<xs:complexType>` used to change properties of the scene during runtime. Each different type is a different function in [ActionMethods.cs](unity/CAVE/Assets/Resources/Scripts/ActionMethods.cs) and every `<Action>` is one of the following types:
+`ActionsType` is a `<xs:complexType>` used to change properties of the scene during runtime. Each different type is a different function in [Actions/](unity/CAVE/Assets/Resources/Scripts/Actions/) and every `<Action>` is one of the following types:
 
 - `ObjectChange` changes a given `<Object>`
 - `GroupRef` changes a given `<Group>`
@@ -298,7 +290,10 @@ TODO [69](https://github.com/brown-ccv/w3d-translator/issues/69)
 - `MoveCave` moves the entire `<Story>` to a new position
 - `Restart` changes a given `<Object>`
 
-### Actions in Unity
+### UnityEvents and UnityActions
+
+<!-- TODO -->
+Be sure to reference this from [actions](#actions) and [link-actions](#link-actions)
 
 TODO [101](https://github.com/brown-ccv/w3d-translator/issues/101)
 
@@ -330,9 +325,6 @@ TODO [91](https://github.com/brown-ccv/w3d-translator/issues/91)
 
 TODO [92](https://github.com/brown-ccv/w3d-translator/issues/92)
 
-### Other Methods
+## Transitions
 
-In addition to the available action types, there are a few methods in `ActionMethods.cs` that provide runtime functionality:
-
-- `DisableButton` stops a button from being interactable.
-  - Added when [`<RemainEnabled>`](#link) is false
+<!-- TODO -->
