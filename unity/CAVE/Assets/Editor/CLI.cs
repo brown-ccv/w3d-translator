@@ -36,8 +36,6 @@ namespace Writing3D
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
                 {
-                    Debug.Log($"Running Unity CLI at '{Application.dataPath}'");
-
                     GetXmlPathArg();
                     LoadXml();
 

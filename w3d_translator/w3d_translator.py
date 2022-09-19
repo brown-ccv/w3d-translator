@@ -129,7 +129,9 @@ def translate_file(unity_dir: Path, xml_path: Path):
         bufsize=1,
     ) as sp, open(
         Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log"), "w"
-    ) as logfile:
+    ) as logfile, console.status(
+        "Running Unity CLI"
+    ):
         # Process stdout and stderr as it's written to
         for line in sp.stdout:
             if line.startswith(LOG_FLAG):
@@ -140,7 +142,7 @@ def translate_file(unity_dir: Path, xml_path: Path):
                 logfile.write(line)
 
     if sp.returncode != 0:
-        # TODO: Make hyperlink
+        # TODO 139: Make hyperlink
         raise UnityError(
             "Translation failed. " + f"See '{logfile.name}'for more details."
         )

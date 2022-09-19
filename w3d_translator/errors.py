@@ -19,7 +19,4 @@ class XmlError(Exception):
         super().__init__(f"{filename} does not conform to the defined schema")
 
     def __str__(self):
-        return (
-            f"{self.filename} does not match schema\n"
-            + self.error
-        )
+        return f"{self.filename} does not match schema\n" + self.error
