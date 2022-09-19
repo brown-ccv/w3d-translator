@@ -16,6 +16,8 @@ LOG_FLAG = "LOG:"  # Flag to send prints from the CLI script onto the console
 console = Console()
 err_console = Console(stderr=True, style="bold red")
 
+# TODO 137: Clean up rich colors (folder, file, warning, error, etc)
+
 
 # Opening message
 def greeting(in_dir: Path, out_dir: Path):
@@ -77,21 +79,17 @@ def copy_files(project_dir: Path, unity_dir: Path, unity_copy: Path):
 
 # Translate valid xml files (ignore invalid)
 def translate_files(unity_dir: Path, unity_copy: Path):
-    # TODO: Use a live progress group to keep track of the different files
-    # TODO: Launch each file in its own process
+    # TODO 138: Use a live progress group to keep track of the different files
+    # TODO 3: Launch each file in its own process
     all_good = True
     for xml_path in unity_copy.rglob("*.xml"):
         console.print(f"Translating file: '{xml_path.name}'")
         try:
-            validate_xml(xml_path)
-            console.print(f"'{xml_path.name}' is valid")
             translate_file(unity_dir, xml_path)
         except (XmlError, UnityError) as e:
             err_console.print(e)
             all_good = False
-            # TODO: Delete scene file if translated with errors
 
-    # TODO 54, 55: Change message if some files aren't translated correctly
     if all_good:
         console.print(
             ":white_check_mark: "
@@ -106,11 +104,11 @@ def translate_files(unity_dir: Path, unity_copy: Path):
 
 
 # Translate an XML file using Unity's CLI
-# TODO: Return bool for if it ran correctly, change print in translate_files
 def translate_file(unity_dir: Path, xml_path: Path):
-    # TODO: Change rich print type to see latest status
-    # TODO: Catch Errors
-    # Try to run, catch error
+    validate_xml(xml_path)
+    console.print(f"'{xml_path.name}' is valid")
+
+    # Run Unity CLI
     with Popen(
         [
             f"{UNITY_PATH}",
@@ -142,7 +140,7 @@ def translate_file(unity_dir: Path, xml_path: Path):
                 logfile.write(line)
 
     if sp.returncode != 0:
-        # TODO: Make hyperlink to log file
+        # TODO: Make hyperlink
         raise UnityError(
             "Translation failed. " + f"See '{logfile.name}'for more details."
         )

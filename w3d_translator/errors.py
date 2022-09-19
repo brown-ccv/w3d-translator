@@ -22,6 +22,4 @@ class XmlError(Exception):
         return (
             f"{self.filename} does not match schema\n"
             + self.error
-            + "\n"
-            + f"Skipping {self.filename}\n"
         )

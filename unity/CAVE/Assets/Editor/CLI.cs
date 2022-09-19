@@ -107,7 +107,7 @@ namespace Writing3D
                         if (args[i] == "--xmlPath") { XmlPath = args[++i]; }
                     }
                 }
-                catch (Exception)
+                catch
                 {
                     Debug.LogError("Error initializing command line arguments");
                     throw;
@@ -146,7 +146,7 @@ namespace Writing3D
                         $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(XmlPath)}.unity"
                     );
                 }
-                catch (Exception)
+                catch
                 {
                     Debug.LogError($"Unable to create scene for {XmlPath}");
                     throw;
@@ -281,7 +281,7 @@ namespace Writing3D
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
                         try { AddAction(xmlLinkAction, lm); }
-                        catch (Exception)
+                        catch
                         {
                             Debug.LogError(
                                 "Unable to create action for " + xmlObject.Name +
@@ -307,7 +307,9 @@ namespace Writing3D
                 {
                     LogType.Log => "white",
                     LogType.Warning => "yellow",
-                    _ => "red",
+                    LogType.Error => "red",
+                    LogType.Exception => "bold red",
+                    _ => "white"
                 };
                 Console.WriteLine($"LOG:[{color}]{logString}[/{color}]");
             }
