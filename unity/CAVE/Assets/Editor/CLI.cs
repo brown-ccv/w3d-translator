@@ -38,7 +38,6 @@ namespace Writing3D
                 {
                     Debug.Log($"Running Unity CLI at '{Application.dataPath}'");
 
-                    // The path to the xml file is sent as a command line argument
                     GetXmlPathArg();
                     LoadXml();
 
@@ -49,9 +48,9 @@ namespace Writing3D
                     Root = InstantiatedScene.scene.GetRootGameObjects()[1];
                     GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
 
+                    // Testing - Instantiate the device simulator and set at top of hierarchy
                     if (!Application.isBatchMode)
                     {
-                        // Testing - Instantiate the device simulator and set at top of hierarchy
                         UnityEngine.Object.Instantiate(
                             AssetDatabase.LoadAssetAtPath(
                                 "Assets/XR Interaction Toolkit/XR Device Simulator/" +
