@@ -141,6 +141,7 @@ namespace Writing3D
 
                 // Load font material
                 // TODO 72: More robust path checking
+                // TODO: Don't have to worry about re-throwing exceptions if handled in main
                 TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
                     "Materials/Fonts/" +
                     Path.GetFileNameWithoutExtension(xmlText.Font) +
@@ -155,21 +156,18 @@ namespace Writing3D
                         tmpFont = TMP_FontAsset.CreateFontAsset(font);
                         tmpFont.name = Path.GetFileNameWithoutExtension(xmlText.Font);
                     }
-                    catch (NullReferenceException e)
+                    catch (NullReferenceException)
                     {
-                        Debug.LogError($"Error loading font: {xmlText.Font}");
-                        Debug.LogException(e);
+                        Debug.LogWarning($"Font {xmlText.Font} failed to load");
                     }
                 }
 
                 // Add font to the TextMeshPro object
                 try { tmpText.font = tmpFont; }
-                catch (NullReferenceException e)
+                catch (NullReferenceException)
                 {
-                    Debug.LogWarning($"{gameObject.name} {tmpFont} {tmpText.font}");
-                    Debug.LogError($"Error creating font asset {xmlText.Font} for {gameObject.name}");
-                    Debug.Log("Defaulting to fallback font LiberationSans SDF");
-                    Debug.LogException(e);
+                    Debug.LogWarning($"Error creating font asset {xmlText.Font} for {gameObject.name}");
+                    Debug.LogWarning("Defaulting to fallback font: LiberationSans SDF");
                 }
 
                 // Resize BoxCollider to the text

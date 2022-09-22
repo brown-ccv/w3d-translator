@@ -684,8 +684,6 @@
       </xs:sequence>
       <xs:attribute name="enabled" type="xs:boolean" default="true" />
       <xs:attribute name="name" type="xs:string" use="required" />
-      <!-- <xs:attribute name="duration" type="xs:double" default="0.0" /> -->
-      <!-- TODO: Validate this xsd change asserts value is greater than 0 -->
       <xs:attribute name="duration" default="0.0">
         <xs:simpleType>
           <xs:restriction base="xs:double">
@@ -961,8 +959,6 @@
             </xs:choice>
             <xs:element name="Placement" type="PlacementType" />
           </xs:sequence>
-          <!-- TODO: Validate this xsd change asserts value is greater than 0 -->
-          <!-- <xs:attribute name="duration" type="xs:double" default="0.0" /> -->
           <xs:attribute name="duration" default="0.0">
             <xs:simpleType>
               <xs:restriction base="xs:double">
@@ -1027,8 +1023,6 @@
         </xs:complexType>
       </xs:element>
     </xs:choice>
-    <!-- <xs:attribute name="duration" type="xs:double" default="1.0" /> -->
-    <!-- TODO: Validate this xsd change asserts value is greater than 0 -->
     <xs:attribute name="duration" default="0.0">
       <xs:simpleType>
         <xs:restriction base="xs:double">
