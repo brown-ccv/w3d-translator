@@ -17,9 +17,9 @@ namespace Writing3D
 
             private void OnGUI()
             {
-                if (CLI.ProjectPath is null) { CLI.ProjectPath = "../../test/sample.xml"; }
+                if (CLI.XmlPath is null) { CLI.XmlPath = "../../test/sample.xml"; }
 
-                CLI.ProjectPath = EditorGUILayout.TextField("Path: ", CLI.ProjectPath);
+                CLI.XmlPath = EditorGUILayout.TextField("Path: ", CLI.XmlPath);
 
                 if (GUILayout.Button("CLI.Main")) { CLI.Main(); }
                 Repaint();
