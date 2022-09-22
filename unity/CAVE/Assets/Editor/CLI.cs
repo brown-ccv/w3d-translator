@@ -46,7 +46,7 @@ namespace Writing3D
                     XrRig = InstantiatedScene.scene.GetRootGameObjects()[0];
                     Root = InstantiatedScene.scene.GetRootGameObjects()[1];
                     GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
-                Walls = new Dictionary<string, Transform>() { { "Center", Root.transform } };
+                    Walls = new Dictionary<string, Transform>() { { "Center", Root.transform } };
 
                     // Testing - Instantiate the device simulator and set at top of hierarchy
                     if (!Application.isBatchMode)
