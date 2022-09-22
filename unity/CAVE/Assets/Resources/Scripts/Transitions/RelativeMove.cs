@@ -12,9 +12,6 @@ namespace Writing3D
             order = 3
         )]
         [Serializable]
-        public class RelativeMove : Move
-        {
-            // TODO 122: Data and logic for RelativeMoveTransition
-        }
+        public class RelativeMove : Move { }
     }
 }
