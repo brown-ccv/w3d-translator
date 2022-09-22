@@ -1,11 +1,11 @@
 using System;
 using System.IO;
 using UnityEditor;
-using UnityEditor.Events;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
+using Writing3D;
 using Writing3D.Xml;
 using Writing3D.Actions;
 using Writing3D.Transitions;
@@ -64,14 +64,11 @@ namespace Writing3D
                 rotationType.LookAt: Rotate to look at target vector (world space)
                 rotationType.Normal: Local rotation around a normalized vector
             */
-            public static void SetTransform(Transform gameObjectT, Placement xmlPlacement, float scale = 1)
+            public static void SetTransform(Transform gameObjectT, Xml.Placement xmlPlacement, float scale = 1)
             {
-                Transform rootTransform = Root.transform;
-
+                gameObjectT.localScale = ConvertScale(scale);
                 gameObjectT.SetParent(GetParent(xmlPlacement), false);
                 gameObjectT.localPosition = ConvertVector3(xmlPlacement.PositionString);
-                gameObjectT.localScale = ConvertScale(scale);
-
                 switch (xmlPlacement.Rotation)
                 {
                     case Axis xmlAxis:
@@ -83,7 +80,7 @@ namespace Writing3D
                     case LookAt xmlLookAt:
                         gameObjectT.rotation = Quaternion.LookRotation(
                             gameObjectT.position -
-                                rootTransform.TransformPoint(ConvertVector3(xmlLookAt.TargetString)),
+                                Root.transform.TransformPoint(ConvertVector3(xmlLookAt.TargetString)),
                             ConvertVector3(xmlLookAt.UpString)
                         );
                         break;
@@ -93,18 +90,51 @@ namespace Writing3D
                             xmlNormal.Angle
                         );
                         break;
-                    case null:
+                    default:
                         gameObjectT.localRotation = Quaternion.identity;
                         break;
-                    default: break;
                 }
             }
 
-            public static Transform GetParent(Placement xmlPlacement)
+            public static Transform GetParent(Xml.Placement xmlPlacement)
             {
-                return xmlPlacement.RelativeTo == Placement.PlacementTypes.Center
+                return xmlPlacement.RelativeTo == Xml.Placement.PlacementTypes.Center
                         ? Root.transform // Nest under Root directly
                         : Root.transform.Find(xmlPlacement.RelativeTo.ToString());
+            }
+
+            public static Vector3 GetPosition(Xml.Placement xmlPlacement)
+            {
+                return ConvertVector3(xmlPlacement.PositionString);
+            }
+
+            public static Placement GetPlacement(Xml.Placement xmlPlacement)
+            {
+                Placement placement = new(GetParent(xmlPlacement), GetPosition(xmlPlacement));
+                switch (xmlPlacement.Rotation)
+                {
+                    case Axis xmlAxis:
+                        placement.RotationType = Placement.Type.Euler;
+                        placement.EulerRotation =
+                            CreateEuler(xmlAxis.RotationString, xmlAxis.Angle);
+                        break;
+                    case LookAt xmlLookAt:
+                        placement.RotationType = Placement.Type.LookAt;
+                        placement.LookRotation = new Placement.LookAtRotation(
+                            ConvertVector3(xmlLookAt.TargetString),
+                            ConvertVector3(xmlLookAt.UpString)
+                        );
+                        break;
+                    case Normal xmlNormal:
+                        placement.RotationType = Placement.Type.Euler;
+                        placement.EulerRotation =
+                            CreateEuler(xmlNormal.NormalString, xmlNormal.Angle);
+                        break;
+                    default:
+                        placement.RotationType = Placement.Type.None;
+                        break;
+                }
+                return placement;
             }
 
             /********** OBJECT ROOT    ***********/
@@ -119,7 +149,7 @@ namespace Writing3D
                     Model xmlModel => new GameObject(), // TODO 67
                     Xml.Light xmlLight => new GameObject(), // TODO 68
                     Xml.ParticleSystem xmlParticleSystem => new GameObject(), // TODO 69
-                    _ => null, // Force error
+                    _ => throw new Exception("Invalid content type"), // Force error
                 };
             }
 
@@ -207,27 +237,25 @@ namespace Writing3D
                         );
                         break;
                     case GroupChange xmlAction:
-                        // TODO 87:
+                        // TODO 87
                         break;
                     case TimerChange xmlAction:
-                        // TODO 88:
+                        // TODO 88
                         break;
                     case SoundChange xmlAction:
-                        // TODO 91:
+                        // TODO 91
                         break;
                     case EventChange xmlAction:
-                        // TODO 89:
+                        // TODO 89
                         break;
                     case MoveCave xmlAction:
-                        // TODO 90:
+                        // TODO 90
                         break;
-
                     case null:
-                        // TODO 92: (Restart)
+                        // TODO 92: Restart
                         break;
                     default:
-                        linkAction = null; // Force error below, caught in CLI.cs
-                        break;
+                        throw new Exception("Invalid action type");
                 }
                 AddObjectPersistentListener(
                     lm.deactivated,
@@ -238,12 +266,13 @@ namespace Writing3D
 
             public static Transitions.Transition GetTransition(Xml.Transition xmlTransition, float duration)
             {
-                // TODO 122: Init for Move and RelativeMove
                 return xmlTransition.Change switch
                 {
                     bool visible => CreateInstance<Visible>().Init(visible, duration),
-                    MovementTransition placement => CreateInstance<Move>(),
-                    MoveRel placement => CreateInstance<RelativeMove>(),
+                    MovementTransition move => CreateInstance<Move>()
+                        .Init(GetPlacement(move.Placement), duration),
+                    MoveRel move => CreateInstance<RelativeMove>()
+                        .Init(GetPlacement(move.Placement), duration),
                     string color => CreateInstance<Transitions.Color>()
                         .Init(ConvertColor(color), duration),
                     float scale => CreateInstance<Scale>().Init(scale),
@@ -251,7 +280,7 @@ namespace Writing3D
                         .Init((Transitions.Sound.Controls)operation.Type, duration),
                     LinkTransition operation => CreateInstance<Transitions.Link>()
                         .Init((Transitions.Link.Controls)operation.Type, duration),
-                    _ => null // force error
+                    _ => throw new Exception("Invalid transition type")
                 };
             }
         }

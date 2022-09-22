@@ -14,16 +14,11 @@ namespace Writing3D
         [Serializable]
         public class Move : Transition
         {
-            public Transform Parent;
-            public Vector3 LocalPosition;
-            public Quaternion LocalRotation;
-            // TODO 122: Data and logic for MoveTransition
+            public Placement Placement;
 
-            public Move Init(Transform parent, Vector3 localPosition, Quaternion localRotation, float duration)
+            public Move Init(Placement placement, float duration)
             {
-                Parent = parent;
-                LocalPosition = localPosition;
-                LocalRotation = localRotation;
+                Placement = placement;
                 Duration = duration;
                 return this;
             }
