@@ -120,7 +120,7 @@ namespace Writing3D
                     Model xmlModel => new GameObject(), // TODO 67
                     Xml.Light xmlLight => new GameObject(), // TODO 68
                     Xml.ParticleSystem xmlParticleSystem => new GameObject(), // TODO 69
-                    _ => throw new Exception("Invalid content type"), // Force error
+                    _ => new GameObject(),
                 };
             }
 
