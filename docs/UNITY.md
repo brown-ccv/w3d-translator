@@ -292,32 +292,39 @@ Each action added to these events consists of three parts - the referenced GameO
 In this example the action is calling the `ObjectManager.VisibleTransition` function on the `frontlink` object with the parameter `(Visible)`. Because we are adding persistent listeners the parameters must be sent as a [Scriptable Object](https://docs.unity3d.com/Manual/class-ScriptableObject.html).
 
 ### Link Actions
-<!-- TODO -->
-- The kind of Action is an `<xs:choice>` (See [Actions](#actions))
+
+Every [Link](#link) contains one or more Link Actions. Every `<LinkAction>` is translated into a scriptable object of the same name in Unity. These are added to the `Deactivated` event of the LinkManager script - this way pressing and holding the trigger just changes the objects color.
+
+- The kind of Action is an `<xs:choice>` (See [Action Types](#action-types))
 - `<Clicks>`: How the link is activated
-  - Any: The button is activated every time it's clicked
+  - Any: The button is activated every time it's clicked (`NumClicks = 1`)
   - Number:  The button is activated based on `<NumClicks>`
-  - `<NumClicks>`
-    - `num_clicks`: The number of clicks it takes to activate
-    - `reset`: Whether or not the object is reset after its been activated
+  - `<NumClicks>`: `LinkAction.NumClicks`
+    - `num_clicks`: `NumClicks`
+    - `reset`: `Reset`
+
+Every `LinkAction` consists of an `ActionEvent` onto which the Action is added. `LinkAction` is essentially a wrapper to make sure the inner action is only clicked after `NumClicks` has been reached.
+
+![Link Action](./Link%20Action.png)
 
 ### Action Types
 
 `ActionsType` is a `<xs:complexType>` used to change properties of the scene during runtime. Each different type is a different function in [Actions/](unity/CAVE/Assets/Resources/Scripts/Actions/) and every `<Action>` is one of the following types:
 
-- `ObjectChange` changes a given `<Object>`
-- `GroupRef` changes a given `<Group>`
-- `TimerChange` changes a given `<Timeline>`
-- `SoundRef` changes a given `<Sound>`
-- `Event` changes a given `<EventTrigger>`
-- `MoveCave` moves the entire `<Story>` to a new position
-- `Restart` changes a given `<Object>`
-
-TODO [101](https://github.com/brown-ccv/w3d-translator/issues/101)
+- `<ObjectChange>` changes a given `<Object>`
+- `<GroupRef>` changes a given `<Group>`
+- `<TimerChange>` changes a given `<Timeline>`
+- `<SoundRef>` changes a given `<Sound>`
+- `<Event>` changes a given `<EventTrigger>`
+- `<MoveCave>` moves the entire `<Story>` to a new position
+- `<Restart>` changes a given `<Object>`
 
 ### ObjectChange
 
-TODO [86](https://github.com/brown-ccv/w3d-translator/issues/86)
+`ObjectChange` will always reference a given `ObjectManager` script attached to an `<Object>`. The underlying transition is attached to the `LinkAction`'s `ActionEvent` directly.
+
+- `<Transition>`: The underlying [Transition](#transitions) action to be applied
+- `name`: The name of the referenced GameObject onto which the transition is applied
 
 ### GroupRef
 
@@ -343,6 +350,22 @@ TODO [91](https://github.com/brown-ccv/w3d-translator/issues/91)
 
 TODO [92](https://github.com/brown-ccv/w3d-translator/issues/92)
 
-## Transitions
+### Transitions
 
-<!-- TODO -->
+Each transition is a Unity Action as described [above](#unityevents-and-unityactions). They are scriptable objects that alter a GameObject in some way.
+
+- The kind of Action is an `<xs:choice>`
+  - `<Visible>`: Fades the object int/out and sets `gameObject[Renderer].enabled`
+  - `<Movement>`: Moves the object to a new [placement](#placement)
+  - `<MoveRel>`: Moves the object by a [placement](#placement), relative to its current position 
+  - `<Color>`: Changes the color of the object
+  - `<Scale>`: Changes the scale of the object
+  - `<Sound>`: Plays or stops the sound attached to the object
+    - `Play`
+    - `Stop`
+  - `<LinkChange>`: Manipulates the LinkManager script attached to the GameObject
+    - `<link_on>`: `LinkManager.enabled = true`
+    - `<link_off>`: `LinkManager.enabled = false`
+    - `<activate>`: `LinkManager.enabled = true` and execute `Deactivated` event
+    - `<activate_if_on>`: execute `Deactivated` event
+- `duration`: How long it takes for the action to complete
