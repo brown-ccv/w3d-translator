@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneTemplate;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
 using UnityEngine.Events;
@@ -20,7 +21,8 @@ namespace Writing3D
     {
         public static partial class CLI
         {
-            public static string ProjectPath;
+            public static string XmlPath;
+            private static InstantiationResult InstantiatedScene;
 
             private static Root XmlRoot;
             private static GameObject Root;
@@ -33,49 +35,61 @@ namespace Writing3D
             public static void Main()
             {
                 Application.logMessageReceivedThreaded += HandleLog;
-                Debug.Log($"Running Unity CLI {ProjectPath}");
-
-                // The path to the xml file is sent as a command line argument
-                GetXmlPathArg();
-                LoadStory();
-
-                // Create new scene and store the root GameObjects
-                InstantiationResult instantiatedScene = InstantiateScene();
-                XrRig = instantiatedScene.scene.GetRootGameObjects()[0];
-                Root = instantiatedScene.scene.GetRootGameObjects()[1];
-                GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
-                Walls = new Dictionary<string, Transform>() { { "Center", Root.transform } };
-
-                if (!UnityEditorInternal.InternalEditorUtility.inBatchMode)
+                try
                 {
+                    GetXmlPathArg();
+                    LoadXml();
+
+                    // Create new scene and store the root GameObjects
+                    Debug.Log("Instantiating scene");
+                    InstantiatedScene = InstantiateScene();
+                    XrRig = InstantiatedScene.scene.GetRootGameObjects()[0];
+                    Root = InstantiatedScene.scene.GetRootGameObjects()[1];
+                    GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
+                    Walls = new Dictionary<string, Transform>() { { "Center", Root.transform } };
+
                     // Testing - Instantiate the device simulator and set at top of hierarchy
-                    UnityEngine.Object.Instantiate(
-                        AssetDatabase.LoadAssetAtPath(
-                            "Assets/XR Interaction Toolkit/XR Device Simulator/" +
-                            "XR Device Simulator.prefab",
-                            typeof(GameObject)
-                        ) as GameObject,
-                        XrRig.transform.position,
-                        XrRig.transform.rotation
-                    ).transform.SetAsFirstSibling();
+                    if (!Application.isBatchMode)
+                    {
+                        UnityEngine.Object.Instantiate(
+                            AssetDatabase.LoadAssetAtPath(
+                                "Assets/XR Interaction Toolkit/XR Device Simulator/" +
+                                "XR Device Simulator.prefab",
+                                typeof(GameObject)
+                            ) as GameObject,
+                            XrRig.transform.position,
+                            XrRig.transform.rotation
+                        ).transform.SetAsFirstSibling();
+                    }
+
+                    Debug.Log("Applying settings");
+                    ApplyGlobalSettings();
+                    BuildWalls();
+                    Debug.Log("Building Objects");
+                    TranslateGameObjects();
+
+                    // TODO 95: Generate the <Group>s
+                    // TODO 96: Generate the <Timeline>s
+                    // TODO 97: Generate the <Sound>s
+                    // TODO 98: Generate the <Event>s
+                    // TODO 99: Generate the <ParticleAction>s
+
+                    Debug.Log("Applying actions");
+                    SetLinkActions();
+
+                    // Save and quit
+                    EditorSceneManager.SaveScene(InstantiatedScene.scene);
+                    Application.logMessageReceivedThreaded -= HandleLog;
+                    EditorApplication.Exit(0);
                 }
-
-                ApplyGlobalSettings();
-                BuildWalls();
-                TranslateGameObjects();
-
-                // TODO 95: Generate the <Group>s
-                // TODO 96: Generate the <Timeline>s
-                // TODO 97: Generate the <Sound>s
-                // TODO 98: Generate the <Event>s
-                // TODO 99: Generate the <ParticleAction>s
-
-                SetLinkActions();
-
-                // Save and quit
-                // EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
-                Application.logMessageReceivedThreaded -= HandleLog;
-                Application.Quit();
+                catch (Exception e)
+                {
+                    // Exit with error
+                    File.Delete(InstantiatedScene.scene.path);
+                    Debug.LogException(e);
+                    Application.logMessageReceivedThreaded -= HandleLog;
+                    EditorApplication.Exit(1);
+                }
             }
 
             // Get command line arguments from Python
@@ -86,10 +100,10 @@ namespace Writing3D
                     string[] args = Environment.GetCommandLineArgs();
                     for (int i = 0; i < args.Length; i++)
                     {
-                        if (args[i] == "--projectPath") { ProjectPath = args[++i]; }
+                        if (args[i] == "--xmlPath") { XmlPath = args[++i]; }
                     }
                 }
-                catch (Exception)
+                catch
                 {
                     Debug.LogError("Error initializing command line arguments");
                     throw;
@@ -97,22 +111,22 @@ namespace Writing3D
             }
 
             // Deserialize the xml file
-            private static void LoadStory()
+            private static void LoadXml()
             {
                 try
                 {
                     System.Xml.Serialization.XmlSerializer serializer = new(typeof(Root));
-                    using var reader = System.Xml.XmlReader.Create(ProjectPath);
+                    using var reader = System.Xml.XmlReader.Create(XmlPath);
                     XmlRoot = (Root)serializer.Deserialize(reader);
                 }
                 catch (FileNotFoundException)
                 {
-                    Debug.LogError($"ERROR: File at {ProjectPath} not found");
+                    Debug.LogError($"File at {XmlPath} not found");
                     throw;
                 }
                 catch
                 {
-                    Debug.LogError($"Error: Deserialization of file at {ProjectPath} failed.");
+                    Debug.LogError($"Deserialization of file at {XmlPath} failed.");
                     throw;
                 }
             }
@@ -125,12 +139,12 @@ namespace Writing3D
                     return SceneTemplateService.Instantiate(
                         Resources.Load<SceneTemplateAsset>("CAVE"),
                         false,
-                        $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(ProjectPath)}.unity"
+                        $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(XmlPath)}.unity"
                     );
                 }
-                catch (Exception)
+                catch
                 {
-                    Debug.LogError($"Error creating scene for {ProjectPath}");
+                    Debug.LogError($"Unable to create scene for {XmlPath}");
                     throw;
                 }
             }
@@ -266,7 +280,7 @@ namespace Writing3D
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
                         try { AddAction(xmlLinkAction, lm); }
-                        catch (Exception)
+                        catch
                         {
                             Debug.LogError(
                                 "Unable to create action for " + xmlObject.Name +
@@ -287,9 +301,16 @@ namespace Writing3D
             // Callback function when Debug.Log is called within the CLI script
             private static void HandleLog(string logString, string stackTrace, LogType type)
             {
-                // TODO 84: Change string based on LogType (rich color)
-                // Prepending "LOG:" will print the line to the screen (checked in Python script)
-                Console.WriteLine($"LOG:{logString}");
+                // Prepending "LOG:" will print the line to the screen (Python script)
+                string color = type switch
+                {
+                    LogType.Log => "white",
+                    LogType.Warning => "yellow",
+                    LogType.Error => "red",
+                    LogType.Exception => "bold red",
+                    _ => "white"
+                };
+                Console.WriteLine($"LOG:[{color}]{logString}[/{color}]");
             }
         }
     }

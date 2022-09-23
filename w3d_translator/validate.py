@@ -8,7 +8,6 @@ SCHEMA = etree.XMLSchema(file="schema/caveschema.xsd")
 
 # Validate directory
 def validate_project(dir: Path):
-
     # Path must be a directory
     if not dir.is_dir():
         raise ValidationError(f"Error: Project is not a directory: {dir}")
