@@ -174,6 +174,7 @@ Each `<Object>` inside `<ObjectRoot>` corresponds to a single GameObject in Unit
 - `<Visible>`: gameObject.active
 - `<Lighting>`: TODO [(76)](https://github.com/brown-ccv/w3d-translator/issues/76)
 - `<ClickThrough>`: gameObject[BoxCollider] (enable/disable attached component)
+  - These are opposites - the component is disabled if ClickThrough is false
 - `<AroundSelfAxis>`: TODO [(76)](https://github.com/brown-ccv/w3d-translator/issues/76)
 - `<Scale>`: gameObject.localScale
   - `scale * Vector3(1, 1, 1)`
@@ -251,13 +252,13 @@ TODO [69](https://github.com/brown-ccv/w3d-translator/issues/69)
 - `speed`: How fast the particles move
 
 ### Link
-<!-- TODO -->
-`<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object makes it interactable with the controller's raycast. This is done inside [LinkManager.cs](unity\CAVE\Assets\Resources\Scripts\LinkManager.cs)
 
-- `<Enabled>`: Button.Intractable
-- `<RemainEnabled>`: Whether or not the button remains enabled after being clicked
-- `<EnabledColor>`: Button.NormalColor && Button.HighlightedColor
-- `<SelectedColor>`: Button.PressedColor && Button.SelectedColor
+`<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object makes it interactable with the controller's raycast. This is done inside [LinkManager.cs](unity\CAVE\Assets\Resources\Scripts\LinkManager.cs) - the class inherits from `XRBaseInteractable` which handles the interaction with the controller.
+
+- `<Enabled>`: LinkManager.Enabled, use EnabledColor or the object's original color
+- `<RemainEnabled>`: If false, adds `DisableLink` action to the script
+- `<EnabledColor>`: LinkManager.EnabledColor
+- `<SelectedColor>`: LinkManager.ActiveColor
 - `<Actions>`: An action to complete once triggered, see [below](#link-actions)
   
 *Note that there can be multiple `<Actions>` per `<Link>`*
@@ -266,9 +267,31 @@ TODO [69](https://github.com/brown-ccv/w3d-translator/issues/69)
 
 In addition to the available action types, there are a few methods in `LinkManager.cs` that provide runtime functionality:
 
-<!-- TODO -->
+- `EnableLink` sets the color to EnabledColor and enables LinkManger
+- `DisableLink` sets the color to DisabledColor and disabled LinkManager
+- `Activate` sets the color to ActiveColor and updates the script's click counter
+- `Deactivate` sets the color back to `ActiveColor`
 
-#### Link Actions
+These functions are added to the Activate event (enable link, activate) or Deactivate event (deactivate), more information about the setup can be found in the [UnityEvents and UnityActions](#unityevents-and-unityactions) section.
+
+## Actions
+
+### UnityEvents and UnityActions
+
+A [Unity Event](https://docs.unity3d.com/ScriptReference/Events.UnityEvent.html) and [Unity Action](https://docs.unity3d.com/ScriptReference/Events.UnityAction.html) are a common way to cause change during runtime in Unity. This is especially true for our purposes - clicking on and interacting with objects using a mouse or controller.
+
+An event can be thought of as "a thing that occurs" and an action as "the things to do when an event occurs". A given event (a button is clicked, a scene is loaded, etc) can have *many* actions that are executed when that event occurs. For example, the LinkManager script (see [Link](#link)) keeps track of many events, two of which we care about.
+
+- `Activated`: Called when hovering over the object and the trigger is pressed (think "on trigger down")
+- `Deactivated`: Called when the trigger is released after activation (think "on trigger up")
+
+Each action added to these events consists of three parts - the referenced GameObject, the function to be called, and the parameter to that function. These listeners can be done in code but are added as persistent listeners so appear in the GUI for future users to see.
+
+![Unity Actions](./Unity%20Action.png)
+
+In this example the action is calling the `ObjectManager.VisibleTransition` function on the `frontlink` object with the parameter `(Visible)`. Because we are adding persistent listeners the parameters must be sent as a [Scriptable Object](https://docs.unity3d.com/Manual/class-ScriptableObject.html).
+
+### Link Actions
 <!-- TODO -->
 - The kind of Action is an `<xs:choice>` (See [Actions](#actions))
 - `<Clicks>`: How the link is activated
@@ -278,7 +301,7 @@ In addition to the available action types, there are a few methods in `LinkManag
     - `num_clicks`: The number of clicks it takes to activate
     - `reset`: Whether or not the object is reset after its been activated
 
-## Actions
+### Action Types
 
 `ActionsType` is a `<xs:complexType>` used to change properties of the scene during runtime. Each different type is a different function in [Actions/](unity/CAVE/Assets/Resources/Scripts/Actions/) and every `<Action>` is one of the following types:
 
@@ -289,11 +312,6 @@ In addition to the available action types, there are a few methods in `LinkManag
 - `Event` changes a given `<EventTrigger>`
 - `MoveCave` moves the entire `<Story>` to a new position
 - `Restart` changes a given `<Object>`
-
-### UnityEvents and UnityActions
-
-<!-- TODO -->
-Be sure to reference this from [actions](#actions) and [link-actions](#link-actions)
 
 TODO [101](https://github.com/brown-ccv/w3d-translator/issues/101)
 
