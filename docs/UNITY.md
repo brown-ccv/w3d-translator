@@ -71,7 +71,8 @@ In addition to the Unity XRRig, a root MiddleVR package needs to be added in ord
 ### Camera and CaveCamera
 
 - The main camera is located within the XRRig hierarchy (`XRRig -> Camera Offset -> Main Camera`).
-  - `<CameraPos></CameraPos><Placement>...` sets the transform of the XRRig directly.
+  - `<CameraPos><Placement>...</CameraPos>` sets the transform of the XRRig directly.
+    - Everything that updates XRRig must convert the xml (feet) to Unity (meters) because it's not inside the `Story`.
   - The cameras have a "Clipping Planes" setting.
     - `<CameraPos far-clip="100.0">` sets the "far clip" value.
 - `<CaveCameraPos>` adds a secondary camera to the scene, named `Cave Camera`.
@@ -96,10 +97,6 @@ The `<Background color>...` attribute sets the background color for BOTH `Main C
   - R: `<WandNavigation allow-rotation="true" allow-movement="false" />`
   - P: `<WandNavigation allow-rotation="false" allow-movement="true" />`
   - If `<WandNavigation allow-rotation="false" allow-movement="false" />`, disable `Tracked Pose Driver` and set `XR Origin` (a script attached directly to XRRig) origin mode to "Device"
-
-### Changes and Conversions (Global)
-
-- Everything that updates XRRig must convert the xml (feet) to Unity (meters) because it's not inside the `Story`.
 
 ## Placement
 
@@ -173,16 +170,16 @@ Each `<Object>` inside `<ObjectRoot>` corresponds to a single GameObject in Unit
 
 - `name`: gameObject.name
 - `<Color>`: gameObject.[content].color
-  - Exactly how the color is applied
+  - Exactly how the color is applied will change (e.g. this is DisabledColor for a link object)
 - `<Visible>`: gameObject.active
 - `<Lighting>`: TODO [(76)](https://github.com/brown-ccv/w3d-translator/issues/76)
-- `<ClickThrough>`: TODO [(76)](https://github.com/brown-ccv/w3d-translator/issues/76)
+- `<ClickThrough>`: gameObject[BoxCollider] (enable/disable attached component)
+  - These are opposites - the component is disabled if ClickThrough is false
 - `<AroundSelfAxis>`: TODO [(76)](https://github.com/brown-ccv/w3d-translator/issues/76)
 - `<Scale>`: gameObject.localScale
-  - Sent as a variable to `Placement.SetTransform()`
+  - `scale * Vector3(1, 1, 1)`
 - `<Content>`: An `<xs:choice>` between several content types, [see below](#content)
-- `<LinkRoot>`: Adds a `Button` parent to `<Content>` in Unity with a list of defined actions (optional)
-  - A "link" in the original project acts the same as a `Button` in Unity
+- `<LinkRoot>`: Adds a `LinkManager` script to the gameObject [see below](#link)
 
 ### Content
 
@@ -256,55 +253,78 @@ TODO [69](https://github.com/brown-ccv/w3d-translator/issues/69)
 
 ### Link
 
-`<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object turns it into a clickable button. A canvas (grandparent) and button (parent) object are added to the hierarchy - they are instantiated from the canvas prefab. The canvas's name will match the object's.
+`<LinkRoot>` contains exactly one child, `Link`. Adding the `<LinkRoot>` child to an object makes it interactable with the controller's raycast. This is done inside [LinkManager.cs](unity\CAVE\Assets\Resources\Scripts\LinkManager.cs) - the class inherits from `XRBaseInteractable` which handles the interaction with the controller.
 
-- `<Enabled>`: Button.Intractable
-- `<RemainEnabled>`: Whether or not the button remains enabled after being clicked
-- `<EnabledColor>`: Button.NormalColor && Button.HighlightedColor
-- `<SelectedColor>`: Button.PressedColor && Button.SelectedColor
+- `<Enabled>`: LinkManager.Enabled, use EnabledColor or the object's original color
+- `<RemainEnabled>`: If false, adds `DisableLink` action to the script
+- `<EnabledColor>`: LinkManager.EnabledColor
+- `<SelectedColor>`: LinkManager.ActiveColor
 - `<Actions>`: An action to complete once triggered, see [below](#link-actions)
   
 *Note that there can be multiple `<Actions>` per `<Link>`*
 
-#### Parent xml
+#### Other Methods
 
-- "Blocking Mask" is set by `<ClickThrough>` in the original object
-- The `<Object>`s `<Color>` tag sets Button.DisabledColor
+In addition to the available action types, there are a few methods in `LinkManager.cs` that provide runtime functionality:
 
-#### Link Actions
+- `EnableLink` sets the color to EnabledColor and enables LinkManger
+- `DisableLink` sets the color to DisabledColor and disabled LinkManager
+- `Activate` sets the color to ActiveColor and updates the script's click counter
+- `Deactivate` sets the color back to `ActiveColor`
 
-- The kind of Action is an `<xs:choice>` (See [Actions](#actions))
-- `<Clicks>`: How the link is activated
-  - Any: The button is activated every time it's clicked
-  - Number:  The button is activated based on `<NumClicks>`
-  - `<NumClicks>`
-    - `num_clicks`: The number of clicks it takes to activate
-    - `reset`: Whether or not the object is reset after its been activated
-
-### Changes and Conversions (Object)
-
-- `<Scale>` is applied to every axis (e.g. `scale * Vector3(1, 1, 1)`)
-- The scale of the canvas is `0.1, 0.1, 0.1`
+These functions are added to the Activate event (enable link, activate) or Deactivate event (deactivate), more information about the setup can be found in the [UnityEvents and UnityActions](#unityevents-and-unityactions) section.
 
 ## Actions
 
-`ActionsType` is a `<xs:complexType>` used to change properties of the scene during runtime. Each different type is a different function in [ActionMethods.cs](unity/CAVE/Assets/Resources/Scripts/ActionMethods.cs) and every `<Action>` is one of the following types:
+### UnityEvents and UnityActions
 
-- `ObjectChange` changes a given `<Object>`
-- `GroupRef` changes a given `<Group>`
-- `TimerChange` changes a given `<Timeline>`
-- `SoundRef` changes a given `<Sound>`
-- `Event` changes a given `<EventTrigger>`
-- `MoveCave` moves the entire `<Story>` to a new position
-- `Restart` changes a given `<Object>`
+A [Unity Event](https://docs.unity3d.com/ScriptReference/Events.UnityEvent.html) and [Unity Action](https://docs.unity3d.com/ScriptReference/Events.UnityAction.html) are a common way to cause change during runtime in Unity. This is especially true for our purposes - clicking on and interacting with objects using a mouse or controller.
 
-### Actions in Unity
+An event can be thought of as "a thing that occurs" and an action as "the things to do when an event occurs". A given event (a button is clicked, a scene is loaded, etc) can have *many* actions that are executed when that event occurs. For example, the LinkManager script (see [Link](#link)) keeps track of many events, two of which we care about.
 
-TODO [101](https://github.com/brown-ccv/w3d-translator/issues/101)
+- `Activated`: Called when hovering over the object and the trigger is pressed (think "on trigger down")
+- `Deactivated`: Called when the trigger is released after activation (think "on trigger up")
+
+Each action added to these events consists of three parts - the referenced GameObject, the function to be called, and the parameter to that function. These listeners can be done in code but are added as persistent listeners so appear in the GUI for future users to see.
+
+![Unity Actions](./Unity%20Action.png)
+
+In this example the action is calling the `ObjectManager.VisibleTransition` function on the `frontlink` object with the parameter `(Visible)`. Because we are adding persistent listeners the parameters must be sent as a [Scriptable Object](https://docs.unity3d.com/Manual/class-ScriptableObject.html).
+
+### Link Actions
+
+Every [Link](#link) contains one or more Link Actions. Every `<LinkAction>` is translated into a scriptable object of the same name in Unity. These are added to the `Deactivated` event of the LinkManager script - this way pressing and holding the trigger just changes the objects color.
+
+- The kind of Action is an `<xs:choice>` (See [Action Types](#action-types))
+- `<Clicks>`: How the link is activated
+  - Any: The button is activated every time it's clicked (`NumClicks = 1`)
+  - Number:  The button is activated based on `<NumClicks>`
+  - `<NumClicks>`: `LinkAction.NumClicks`
+    - `num_clicks`: `NumClicks`
+    - `reset`: `Reset`
+
+Every `LinkAction` consists of an `ActionEvent` onto which the Action is added. `LinkAction` is essentially a wrapper to make sure the inner action is only clicked after `NumClicks` has been reached.
+
+![Link Action](./Link%20Action.png)
+
+### Action Types
+
+`ActionsType` is a `<xs:complexType>` used to change properties of the scene during runtime. Each different type is a different function in [Actions/](unity/CAVE/Assets/Resources/Scripts/Actions/) and every `<Action>` is one of the following types:
+
+- `<ObjectChange>` changes a given `<Object>`
+- `<GroupRef>` changes a given `<Group>`
+- `<TimerChange>` changes a given `<Timeline>`
+- `<SoundRef>` changes a given `<Sound>`
+- `<Event>` changes a given `<EventTrigger>`
+- `<MoveCave>` moves the entire `<Story>` to a new position
+- `<Restart>` changes a given `<Object>`
 
 ### ObjectChange
 
-TODO [86](https://github.com/brown-ccv/w3d-translator/issues/86)
+`ObjectChange` will always reference a given `ObjectManager` script attached to an `<Object>`. The underlying transition is attached to the `LinkAction`'s `ActionEvent` directly.
+
+- `<Transition>`: The underlying [Transition](#transitions) action to be applied
+- `name`: The name of the referenced GameObject onto which the transition is applied
 
 ### GroupRef
 
@@ -330,9 +350,22 @@ TODO [91](https://github.com/brown-ccv/w3d-translator/issues/91)
 
 TODO [92](https://github.com/brown-ccv/w3d-translator/issues/92)
 
-### Other Methods
+### Transitions
 
-In addition to the available action types, there are a few methods in `ActionMethods.cs` that provide runtime functionality:
+Each transition is a Unity Action as described [above](#unityevents-and-unityactions). They are scriptable objects that alter a GameObject in some way.
 
-- `DisableButton` stops a button from being interactable.
-  - Added when [`<RemainEnabled>`](#link) is false
+- The kind of Action is an `<xs:choice>`
+  - `<Visible>`: Fades the object int/out and sets `gameObject[Renderer].enabled`
+  - `<Movement>`: Moves the object to a new [placement](#placement)
+  - `<MoveRel>`: Moves the object by a [placement](#placement), relative to its current position 
+  - `<Color>`: Changes the color of the object
+  - `<Scale>`: Changes the scale of the object
+  - `<Sound>`: Plays or stops the sound attached to the object
+    - `Play`
+    - `Stop`
+  - `<LinkChange>`: Manipulates the LinkManager script attached to the GameObject
+    - `<link_on>`: `LinkManager.enabled = true`
+    - `<link_off>`: `LinkManager.enabled = false`
+    - `<activate>`: `LinkManager.enabled = true` and execute `Deactivated` event
+    - `<activate_if_on>`: execute `Deactivated` event
+- `duration`: How long it takes for the action to complete
