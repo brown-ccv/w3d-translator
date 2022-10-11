@@ -17,7 +17,7 @@ using static UnityEditor.Events.UnityEventTools;
 
 namespace Writing3D
 {
-    namespace Translation
+    namespace Editor
     {
         public static partial class CLI
         {
@@ -28,6 +28,7 @@ namespace Writing3D
             private static GameObject Root;
             private static GameObject XrRig;
 
+            private static Dictionary<string, Transform> Walls;
             private static Dictionary<string, (GameObject, Xml.Object)> GameObjects;
 
             [MenuItem("Custom/CLI.Main %g")]
@@ -45,6 +46,7 @@ namespace Writing3D
                     XrRig = InstantiatedScene.scene.GetRootGameObjects()[0];
                     Root = InstantiatedScene.scene.GetRootGameObjects()[1];
                     GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
+                    Walls = new Dictionary<string, Transform>() { { "Center", Root.transform } };
 
                     // Testing - Instantiate the device simulator and set at top of hierarchy
                     if (!Application.isBatchMode)
@@ -204,15 +206,18 @@ namespace Writing3D
             // Create each <Placement> as an outlined GameObject 
             private static void BuildWalls()
             {
-                foreach (Xml.Placement xmlPlacement in XmlRoot.PlacementRoot)
+                foreach (Placement xmlPlacement in XmlRoot.PlacementRoot)
                 {
+                    string name = xmlPlacement.Name;
+
                     // Objects in the "Center" space are nested directly under Root
-                    if (xmlPlacement.Name == "Center") { continue; }
+                    if (name == "Center") { continue; }
 
                     // Create and position wall
                     GameObject wall = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/wall"));
-                    wall.name = xmlPlacement.Name;
+                    wall.name = name;
                     SetTransform(wall.transform, xmlPlacement);
+                    Walls.Add(name, wall.transform);
                 }
             }
 

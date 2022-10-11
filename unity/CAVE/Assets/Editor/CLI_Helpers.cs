@@ -16,14 +16,14 @@ using static UnityEditor.Events.UnityEventTools;
 
 namespace Writing3D
 {
-    namespace Translation
+    namespace Editor
     {
         public static partial class CLI
         {
             /********** Writing3D.Xml to Unity conversions    ***********/
 
             // Converts "[int], [int], [int]" to a UnityEngine.Color object
-            public static UnityEngine.Color ConvertColor(string colorString)
+            private static UnityEngine.Color ConvertColor(string colorString)
             {
                 string[] strings = colorString.Trim(new[] { ' ', '(', ')' }).Split(",");
                 return new UnityEngine.Color(
@@ -34,7 +34,7 @@ namespace Writing3D
             }
 
             // Converts a "([float], [float], [float])" string to a UnityEngine.Vector3 object
-            public static Vector3 ConvertVector3(string vectorString)
+            private static Vector3 ConvertVector3(string vectorString)
             {
                 string[] strings = vectorString.Trim(new[] { ' ', '(', ')' }).Split(",");
                 return new Vector3(
@@ -45,17 +45,29 @@ namespace Writing3D
             }
 
             // Converts a float to a UnityEngine.Vector3 object
-            public static Vector3 ConvertScale(float scale) { return Vector3.one * scale; }
+            private static Vector3 ConvertScale(float scale) { return Vector3.one * scale; }
 
             /********** Unity simple types    ***********/
 
             // Converts a "([float], [float], [float])" string and an angle to a Euler angle
-            public static Vector3 CreateEuler(string rotationString, float Angle)
+            private static Vector3 CreateEuler(string rotationString, float Angle)
             {
                 return ConvertVector3(rotationString) * Angle;
             }
 
             /********** PLACEMENT ROOT    ***********/
+
+            // Get the transform of the wall xmlPlacement is to be nested under
+            private static Transform GetParent(Placement xmlPlacement)
+            {
+                return Walls[xmlPlacement.RelativeTo.ToString()];
+            }
+
+            // Gets the converted position element from xmlPlacement
+            private static Vector3 GetPosition(Placement xmlPlacement)
+            {
+                return ConvertVector3(xmlPlacement.PositionString);
+            }
 
             /** Set parent GameObject and local transforms of gameObjectT
                 relativeTo: [GameObject].transform.parent
@@ -64,11 +76,11 @@ namespace Writing3D
                 rotationType.LookAt: Rotate to look at target vector (world space)
                 rotationType.Normal: Local rotation around a normalized vector
             */
-            public static void SetTransform(Transform gameObjectT, Xml.Placement xmlPlacement, float scale = 1)
+            private static void SetTransform(Transform gameObjectT, Placement xmlPlacement, float scale = 1)
             {
                 gameObjectT.localScale = ConvertScale(scale);
                 gameObjectT.SetParent(GetParent(xmlPlacement), false);
-                gameObjectT.localPosition = ConvertVector3(xmlPlacement.PositionString);
+                gameObjectT.localPosition = GetPosition(xmlPlacement);
                 switch (xmlPlacement.Rotation)
                 {
                     case Axis xmlAxis:
@@ -96,50 +108,9 @@ namespace Writing3D
                 }
             }
 
-            public static Transform GetParent(Xml.Placement xmlPlacement)
-            {
-                return xmlPlacement.RelativeTo == Xml.Placement.PlacementTypes.Center
-                        ? Root.transform // Nest under Root directly
-                        : Root.transform.Find(xmlPlacement.RelativeTo.ToString());
-            }
-
-            public static Vector3 GetPosition(Xml.Placement xmlPlacement)
-            {
-                return ConvertVector3(xmlPlacement.PositionString);
-            }
-
-            public static Placement GetPlacement(Xml.Placement xmlPlacement)
-            {
-                Placement placement = new(GetParent(xmlPlacement), GetPosition(xmlPlacement));
-                switch (xmlPlacement.Rotation)
-                {
-                    case Axis xmlAxis:
-                        placement.RotationType = Placement.Type.Euler;
-                        placement.EulerRotation =
-                            CreateEuler(xmlAxis.RotationString, xmlAxis.Angle);
-                        break;
-                    case LookAt xmlLookAt:
-                        placement.RotationType = Placement.Type.LookAt;
-                        placement.LookRotation = new Placement.LookAtRotation(
-                            ConvertVector3(xmlLookAt.TargetString),
-                            ConvertVector3(xmlLookAt.UpString)
-                        );
-                        break;
-                    case Normal xmlNormal:
-                        placement.RotationType = Placement.Type.Euler;
-                        placement.EulerRotation =
-                            CreateEuler(xmlNormal.NormalString, xmlNormal.Angle);
-                        break;
-                    default:
-                        placement.RotationType = Placement.Type.None;
-                        break;
-                }
-                return placement;
-            }
-
             /********** OBJECT ROOT    ***********/
 
-            public static GameObject CreateContent(Xml.Object xmlObject)
+            private static GameObject CreateContent(Xml.Object xmlObject)
             {
                 return xmlObject.Content.ContentData switch
                 {
@@ -153,7 +124,7 @@ namespace Writing3D
                 };
             }
 
-            public static GameObject CreateText(Text xmlText, string colorString)
+            private static GameObject CreateText(Text xmlText, string colorString)
             {
                 // Instantiate TextMeshPro or TextMeshProUGUI prefab
                 // TODO 64: Validate prefab settings
@@ -207,7 +178,7 @@ namespace Writing3D
 
             /********** ACTIONS    ***********/
 
-            public static void AddAction(LinkActions xmlLinkAction, LinkManager lm)
+            private static void AddAction(LinkActions xmlLinkAction, LinkManager lm)
             {
                 // Initialize action
                 LinkAction linkAction = CreateInstance<LinkAction>();
@@ -264,15 +235,27 @@ namespace Writing3D
                 );
             }
 
-            public static Transitions.Transition GetTransition(Xml.Transition xmlTransition, float duration)
+            private static Transitions.Transition GetTransition(Xml.Transition xmlTransition, float duration)
             {
                 return xmlTransition.Change switch
                 {
                     bool visible => CreateInstance<Visible>().Init(visible, duration),
                     MovementTransition move => CreateInstance<Move>()
-                        .Init(GetPlacement(move.Placement), duration),
+                        .Init(
+                            GetParent(move.Placement),
+                            GetPosition(move.Placement),
+                            GetRotationType(move.Placement),
+                            GetRotation(move.Placement),
+                            duration
+                        ),
                     MoveRel move => CreateInstance<RelativeMove>()
-                        .Init(GetPlacement(move.Placement), duration),
+                        .Init(
+                            GetParent(move.Placement),
+                            GetPosition(move.Placement),
+                            GetRotationType(move.Placement),
+                            GetRotation(move.Placement),
+                            duration
+                        ),
                     string color => CreateInstance<Transitions.Color>()
                         .Init(ConvertColor(color), duration),
                     float scale => CreateInstance<Scale>().Init(scale),
@@ -281,6 +264,34 @@ namespace Writing3D
                     LinkTransition operation => CreateInstance<Transitions.Link>()
                         .Init((Transitions.Link.Controls)operation.Type, duration),
                     _ => throw new Exception("Invalid transition type")
+                };
+            }
+
+            // Get the rotation type of a Move/RelativeMove transition
+            private static Move.RotationTypes GetRotationType(Placement xmlPlacement)
+            {
+                return xmlPlacement.RotationType switch
+                {
+                    Placement.RotationTypes.Null => Move.RotationTypes.None,
+                    Placement.RotationTypes.Axis => Move.RotationTypes.Rotation,
+                    Placement.RotationTypes.LookAt => Move.RotationTypes.LookAt,
+                    Placement.RotationTypes.Normal => Move.RotationTypes.Rotation,
+                    _ => throw new Exception("Invalid rotation type")
+                };
+            }
+
+            // Get the rotation of a Move/RelativeMove transition
+            private static object GetRotation(Placement xmlPlacement)
+            {
+                return xmlPlacement.Rotation switch
+                {
+                    Axis xmlAxis => CreateEuler(xmlAxis.RotationString, xmlAxis.Angle),
+                    LookAt xmlLookAt => new Move.LookAt(
+                        ConvertVector3(xmlLookAt.TargetString),
+                        ConvertVector3(xmlLookAt.UpString)
+                    ),
+                    Normal xmlNormal => CreateEuler(xmlNormal.NormalString, xmlNormal.Angle),
+                    _ => null
                 };
             }
         }
