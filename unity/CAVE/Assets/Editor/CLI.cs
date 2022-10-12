@@ -41,7 +41,7 @@ namespace Writing3D
                     LoadXml();
 
                     // Create new scene and store the root GameObjects
-                    Debug.Log("Instantiating scene");
+                    Debug.Log("Instantiating Scene");
                     InstantiatedScene = InstantiateScene();
                     XrRig = InstantiatedScene.scene.GetRootGameObjects()[0];
                     Root = InstantiatedScene.scene.GetRootGameObjects()[1];

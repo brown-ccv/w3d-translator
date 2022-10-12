@@ -98,8 +98,7 @@ def translate_files(unity_dir: Path, unity_copy: Path):
         )
     else:
         console.print(
-            f"[yellow]{unity_dir.name}/ "
-            + "translated with some errors [/yellow]\n"
+            f"[yellow]{unity_dir.name}/ " + "translated with some errors [/yellow]\n"
         )
 
 
@@ -107,6 +106,10 @@ def translate_files(unity_dir: Path, unity_copy: Path):
 def translate_file(unity_dir: Path, xml_path: Path):
     validate_xml(xml_path)
     console.print(f"'{xml_path.name}' is valid")
+
+    log = Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log")
+    log.parent.mkdir(exist_ok=True)
+    # log.touch(exist_ok=True)
 
     # Run Unity CLI
     with Popen(
@@ -121,17 +124,13 @@ def translate_file(unity_dir: Path, xml_path: Path):
             "--xmlPath",
             Path(*xml_path.parts[2:]),
             "-executeMethod",
-            "Writing3D.Translation.CLI.Main",
+            "Writing3D.Editor.CLI.Main",
         ],
         stdout=PIPE,
         stderr=PIPE,
         universal_newlines=True,
         bufsize=1,
-    ) as sp, open(
-        Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log"), "w+"
-    ) as logfile, console.status(
-        "Running Unity CLI"
-    ):
+    ) as sp, log.open("w+") as logfile, console.status("Running Unity CLI"):
         # Process stdout and stderr as it's written to
         for line in sp.stdout:
             if line.startswith(LOG_FLAG):
