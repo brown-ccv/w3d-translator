@@ -98,7 +98,8 @@ def translate_files(unity_dir: Path, unity_copy: Path):
         )
     else:
         console.print(
-            f"[yellow]{unity_dir.name}/ " + "translated with some errors [/yellow]\n"
+            f"[yellow]{unity_dir.name}/ "
+            + "translated with some errors [/yellow]\n"
         )
 
 
@@ -109,7 +110,6 @@ def translate_file(unity_dir: Path, xml_path: Path):
 
     log = Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log")
     log.parent.mkdir(exist_ok=True)
-    # log.touch(exist_ok=True)
 
     # Run Unity CLI
     with Popen(

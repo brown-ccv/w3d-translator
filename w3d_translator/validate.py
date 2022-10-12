@@ -15,7 +15,9 @@ def validate_project(dir: Path):
     # Project must contain an xml file
     xml_files = list(filter(lambda file: file.suffix == ".xml", dir.iterdir()))
     if not len(xml_files):
-        raise ValidationError(f"Error: Project does not contain an xml file: {dir}")
+        raise ValidationError(
+            f"Error: Project does not contain an xml file: {dir}"
+        )
 
 
 # Validate xml file against caveschema.xsd
@@ -26,7 +28,10 @@ def validate_xml(file: Path):
     except etree.DocumentInvalid as error:
         # Display Validation errors
         error_list = "\n".join(
-            [f"{e.filename}:{e.line}:{e.column}:  {e.message}" for e in error.error_log]
+            [
+                f"{e.filename}:{e.line}:{e.column}:  {e.message}"
+                for e in error.error_log
+            ]
         )
         raise XmlError(file.name, error_list)
 
