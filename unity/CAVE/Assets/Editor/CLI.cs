@@ -80,6 +80,7 @@ namespace Writing3D
                     // Save and build scene
                     EditorSceneManager.SaveScene(InstantiatedScene.scene);
                     // TODO: Build the scene
+                    BuildScene();
 
                     // Quit
                     Application.logMessageReceivedThreaded -= HandleLog;
@@ -303,6 +304,27 @@ namespace Writing3D
                         );
                     }
                 }
+            }
+
+            private static void BuildScene()
+            {
+                Debug.Log($"Building scene {InstantiatedScene.scene}");
+                // Need to build for VR and for the CAVE
+
+                // Need path to build folder
+                const string buildPath = "";
+                string[] scenes = new string[] { InstantiatedScene.scene.path };
+
+                // TODO: Are there custom Build options to use?
+                // TODo: Can I make VR/CAVE a custom build options?
+                // Add README file?
+                // Pass build target? Or is it safe to always be windows?
+                BuildPipeline.BuildPlayer(
+                    scenes,
+                    $"{buildPath}/{InstantiatedScene.scene.name}.exe",
+                    BuildTarget.StandaloneWindows,
+                    BuildOptions.None
+                );
             }
 
             // Callback function when Debug.Log is called within the CLI script
