@@ -236,11 +236,10 @@ namespace Writing3D
                 foreach (Xml.Object xmlObject in XmlRoot.ObjectRoot)
                 {
                     // TODO 124: Use IBuilder syntax to build the object
+                    // Separate content, transform, components, link, actions
                     GameObject go = CreateContent(xmlObject);
                     go.name = xmlObject.Name;
-                    go.tag = "Object";
                     SetTransform(go.transform, xmlObject.Placement, xmlObject.Scale);
-                    go.AddComponent<ObjectManager>();
                     go.GetComponent<Renderer>().enabled = xmlObject.Visible;
                     go.GetComponent<Collider>().enabled =
                         // TODO 123: Collider always disabled if object isn't visible?
@@ -277,6 +276,10 @@ namespace Writing3D
                     AddVoidPersistentListener(lm.activated, new UnityAction(lm.Activate));
 
                     // Add the <Action>'s on deactivated (onTriggerUp)
+                    AddVoidPersistentListener(
+                        lm.deactivated,
+                        new UnityAction(lm.Deactivate)
+                    );
                     foreach (LinkActions xmlLinkAction in xmlLink.Actions)
                     {
                         try { AddAction(xmlLinkAction, lm); }
@@ -289,12 +292,13 @@ namespace Writing3D
                             throw;
                         }
                     }
-                    AddVoidPersistentListener(
-                        lm.deactivated,
-                        xmlLink.RemainEnabled
-                            ? new UnityAction(lm.Deactivate)
-                            : new UnityAction(lm.DisableLink)
-                    );
+                    if (!xmlLink.RemainEnabled)
+                    {
+                        AddVoidPersistentListener(
+                            lm.deactivated,
+                            new UnityAction(lm.DisableLink)
+                        );
+                    }
                 }
             }
 
