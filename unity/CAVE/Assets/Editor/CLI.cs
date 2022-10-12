@@ -77,8 +77,11 @@ namespace Writing3D
                     Debug.Log("Applying actions");
                     SetLinkActions();
 
-                    // Save and quit
+                    // Save and build scene
                     EditorSceneManager.SaveScene(InstantiatedScene.scene);
+                    // TODO: Build the scene
+
+                    // Quit
                     Application.logMessageReceivedThreaded -= HandleLog;
                     EditorApplication.Exit(0);
                 }
