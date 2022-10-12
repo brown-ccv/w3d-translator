@@ -318,7 +318,7 @@ namespace Writing3D
                 // TODO: Are there custom Build options to use?
                 // TODo: Can I make VR/CAVE a custom build options?
                 // Add README file?
-                // Pass build target? Or is it safe to always be windows?
+                // Pass build target? Or is it safe to always be windows?  
                 BuildPipeline.BuildPlayer(
                     scenes,
                     $"{buildPath}/{InstantiatedScene.scene.name}.exe",

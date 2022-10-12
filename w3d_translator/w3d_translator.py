@@ -128,7 +128,7 @@ def translate_file(unity_dir: Path, xml_path: Path):
         universal_newlines=True,
         bufsize=1,
     ) as sp, open(
-        Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log"), "w"
+        Path(unity_dir, "Logs", f"cli_{xml_path.stem}.log"), "w+"
     ) as logfile, console.status(
         "Running Unity CLI"
     ):
