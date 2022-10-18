@@ -41,6 +41,7 @@ namespace Writing3D
                             serializedObject.FindProperty("LookRotation")
                         );
                         break;
+                    default: break;
                 }
                 serializedObject.ApplyModifiedProperties();
             }
