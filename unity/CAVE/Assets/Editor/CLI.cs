@@ -8,6 +8,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
 using UnityEngine.Events;
+using UnityEditor.Build.Reporting;
 using Unity.XR.CoreUtils;
 
 using Writing3D.Xml;
@@ -84,7 +85,7 @@ namespace Writing3D
                     // Save and build scene
                     Debug.Log("Building Scene");
                     EditorSceneManager.SaveScene(InstantiatedScene.scene);
-                    // BuildScene();
+                    BuildScene();
 
                     Application.logMessageReceivedThreaded -= HandleLog;
                 }
@@ -310,24 +311,26 @@ namespace Writing3D
 
             private static void BuildScene()
             {
-                Debug.Log($"Building scene {InstantiatedScene.scene}");
-                // Need to build for VR and for the CAVE
+                // TODO: Need to build for VR and for the CAVE
 
-                // Need path to build folder
-                const string buildPath = "";
-                string[] scenes = new string[] { InstantiatedScene.scene.path };
+                BuildPlayerOptions options = new()
+                {
+                    locationPathName = $"Builds/{InstantiatedScene.scene.name}/{InstantiatedScene.scene.name}.exe",
+                    options = BuildOptions.None,
+                    target = BuildTarget.StandaloneWindows64,
+                    scenes = new string[] { InstantiatedScene.scene.path },
+                };
 
                 // TODO: Are there custom Build options to use?
                 // TODo: Can I make VR/CAVE a custom build options?
                 // Add README file?
-                // Pass build target? Or is it safe to always be windows?  
-                Debug.Log($"{buildPath}/{InstantiatedScene.scene.name}.exe");
-                // BuildPipeline.BuildPlayer(
-                //     scenes,
-                //     $"{buildPath}/{InstantiatedScene.scene.name}.exe",
-                //     BuildTarget.StandaloneWindows,
-                //     BuildOptions.None
-                // );
+                // Pass build target? Or is it safe to always be windows?
+                Debug.Log($"Building at {options.locationPathName}");
+                BuildReport report = BuildPipeline.BuildPlayer(options);
+                if (report.summary.result == BuildResult.Succeeded)
+                {
+                    Debug.Log("Build succeeded");
+                } else { Debug.Log("Build failed"); }
             }
 
             // Callback function when Debug.Log is called within the CLI script
