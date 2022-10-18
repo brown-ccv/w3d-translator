@@ -38,20 +38,19 @@ namespace Writing3D
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
                 {
+                    // Load xml file
                     GetXmlPathArg();
                     LoadXml();
 
                     // Create new scene and store the root GameObjects
                     Debug.Log("Instantiating Scene");
                     InstantiatedScene = InstantiateScene();
-                    Debug.Log("Instantiated Scene");
                     XrRig = InstantiatedScene.scene.GetRootGameObjects()[0];
                     Root = InstantiatedScene.scene.GetRootGameObjects()[1];
                     GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
                     Walls = new Dictionary<string, Transform>() { { "Center", Root.transform } };
-                    Debug.Log("Global variables set");
 
-                    // Testing - Instantiate the device simulator and set at top of hierarchy
+                    // Instantiate the device simulator while testing
                     if (!Application.isBatchMode)
                     {
                         UnityEngine.Object.Instantiate(
@@ -70,7 +69,6 @@ namespace Writing3D
 
                     Debug.Log("Building Objects");
                     BuildWalls(); // TODO: Only build if desired?
-
                     TranslateGameObjects();
 
                     // TODO 95: Generate the <Group>s
@@ -85,7 +83,8 @@ namespace Writing3D
                     // Save and build scene
                     Debug.Log("Building Scene");
                     EditorSceneManager.SaveScene(InstantiatedScene.scene);
-                    BuildScene();
+                    BuildReport report = BuildScene();
+                    Debug.Log($"Build {report.summary.result}");
 
                     Application.logMessageReceivedThreaded -= HandleLog;
                 }
@@ -309,28 +308,19 @@ namespace Writing3D
                 }
             }
 
-            private static void BuildScene()
+            private static BuildReport BuildScene()
             {
                 // TODO: Need to build for VR and for the CAVE
-
-                BuildPlayerOptions options = new()
-                {
-                    locationPathName = $"Builds/{InstantiatedScene.scene.name}/{InstantiatedScene.scene.name}.exe",
-                    options = BuildOptions.None,
-                    target = BuildTarget.StandaloneWindows64,
-                    scenes = new string[] { InstantiatedScene.scene.path },
-                };
-
-                // TODO: Are there custom Build options to use?
-                // TODo: Can I make VR/CAVE a custom build options?
                 // Add README file?
-                // Pass build target? Or is it safe to always be windows?
-                Debug.Log($"Building at {options.locationPathName}");
-                BuildReport report = BuildPipeline.BuildPlayer(options);
-                if (report.summary.result == BuildResult.Succeeded)
-                {
-                    Debug.Log("Build succeeded");
-                } else { Debug.Log("Build failed"); }
+
+                string sceneName = InstantiatedScene.scene.name;
+                string scenePath = InstantiatedScene.scene.path;
+                return BuildPipeline.BuildPlayer(
+                    new string[] { scenePath },             // Scenes to build
+                    $"Builds/{sceneName}/{sceneName}.exe",  // Output path
+                    BuildTarget.StandaloneWindows64,
+                    BuildOptions.None
+                );
             }
 
             // Callback function when Debug.Log is called within the CLI script
