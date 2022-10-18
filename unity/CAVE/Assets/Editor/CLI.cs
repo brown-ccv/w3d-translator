@@ -43,10 +43,12 @@ namespace Writing3D
                     // Create new scene and store the root GameObjects
                     Debug.Log("Instantiating Scene");
                     InstantiatedScene = InstantiateScene();
+                    Debug.Log("Instantiated Scene");
                     XrRig = InstantiatedScene.scene.GetRootGameObjects()[0];
                     Root = InstantiatedScene.scene.GetRootGameObjects()[1];
                     GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
                     Walls = new Dictionary<string, Transform>() { { "Center", Root.transform } };
+                    Debug.Log("Global variables set");
 
                     // Testing - Instantiate the device simulator and set at top of hierarchy
                     if (!Application.isBatchMode)
@@ -62,10 +64,12 @@ namespace Writing3D
                         ).transform.SetAsFirstSibling();
                     }
 
-                    Debug.Log("Applying settings");
+                    Debug.Log("Applying global settings");
                     ApplyGlobalSettings();
-                    BuildWalls();
+
                     Debug.Log("Building Objects");
+                    BuildWalls(); // TODO: Only build if desired?
+
                     TranslateGameObjects();
 
                     // TODO 95: Generate the <Group>s
@@ -78,13 +82,11 @@ namespace Writing3D
                     SetLinkActions();
 
                     // Save and build scene
+                    Debug.Log("Building Scene");
                     EditorSceneManager.SaveScene(InstantiatedScene.scene);
-                    // TODO: Build the scene
-                    BuildScene();
+                    // BuildScene();
 
-                    // Quit
                     Application.logMessageReceivedThreaded -= HandleLog;
-                    EditorApplication.Exit(0);
                 }
                 catch (Exception e)
                 {
@@ -319,12 +321,13 @@ namespace Writing3D
                 // TODo: Can I make VR/CAVE a custom build options?
                 // Add README file?
                 // Pass build target? Or is it safe to always be windows?  
-                BuildPipeline.BuildPlayer(
-                    scenes,
-                    $"{buildPath}/{InstantiatedScene.scene.name}.exe",
-                    BuildTarget.StandaloneWindows,
-                    BuildOptions.None
-                );
+                Debug.Log($"{buildPath}/{InstantiatedScene.scene.name}.exe");
+                // BuildPipeline.BuildPlayer(
+                //     scenes,
+                //     $"{buildPath}/{InstantiatedScene.scene.name}.exe",
+                //     BuildTarget.StandaloneWindows,
+                //     BuildOptions.None
+                // );
             }
 
             // Callback function when Debug.Log is called within the CLI script
