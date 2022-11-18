@@ -4,32 +4,37 @@ Translate Writing3D xml projects into Unity projects. Each scene file is automat
 
 ## Install
 
-```console
+```sh
 poetry install
 ```
 
 ### Unity
 
+<!-- TODO: Update version number -->
+
 The translator uses Unity version 2021.3.0f1. Please ensure the `Unity.exe` file is in`C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe`. You can download the version from [Unity's archives](https://unity3d.com/get-unity/download/archive).
-
-### Linting
-
-```console
-poetry run black . -l 79
-```
 
 ## Usage
 
-`poetry run python w3d_translator.py [OPTIONS] IN_DIR OUT_DIR`
+`poetry run python w3d_translator.py IN_DIR OUT_DIR [OPTIONS]`
 
 * `IN_DIR`: Input folder containing the xml project(s)
 * `OUT_DIR`: Output folder for the translated project(s)
 
 ### Options
 
-* `--multiple`: Translate multiple projects, `IN_DIR` is the parent folder of the individual projects. Default: `False`
-* `--force`: Overwrite `OUT_DIR`. Default: `False`
-* `--dev`: Development flag - Unity subprocess is not called. Default: `False`.  
+* `--multiple`: Translate multiple projects, `IN_DIR` is a parent folder and each individual project lives inside its own folder
+  * Default: `False`
+* `--force`: Overwrites `OUT_DIR` without any warnings.
+  * Default: `False`
+* `--dev`: Development flag. Unity subprocess is not called when used.
+  * Default: `False`.
+
+### Linting
+
+```sh
+poetry run black . -l 79
+```
 
 ## Folders & Files
 
@@ -124,4 +129,4 @@ Three different student projects are found in the `projects` folder. These are c
 
 ### test
 
-Input folder used during development.
+`IN_DIR` folder used during development. Please make a copy of any files you put in this folder to prevent data loss.
