@@ -1,1 +1,1 @@
-git -c "user.name=" -c "user.email=" commit -a -m "chore: test commit"
+git -c "user.name=" -c "user.email=" commit -a -m ""
