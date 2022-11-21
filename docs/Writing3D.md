@@ -105,7 +105,7 @@ Each `<Placement>` inside `PlacementRoot` is a reference point for the `<Relativ
 </PlacementRoot>
 ```
 
-- `RelativeTo`: Which wall inside `PlacementRoot` the object is a child of in the hierarchy  
+- `RelativeTo`: Which wall inside `PlacementRoot` the object is a child of in the hierarchy
   - Objects that are `<RelativeTo>Center</RelativeTo>` are children of `Story`.
 - `<Position>`: The local position of the object
 - Rotation is an `<xs:choice>` (Axis, LookAt, Normal)
@@ -115,7 +115,7 @@ Each `<Placement>` inside `PlacementRoot` is a reference point for the `<Relativ
   - `<LookAt>`: Object is rotated to look at a specified point (in `Story` space)
     - `target`: The position the object is looking at
     - `up`: Which direction (world space) is considered up (+y)
-  - `<Normal>`: **(TODO [#63](https://github.com/brown-ccv/w3d-translator/issues/63))**: *Same as LookAt but with a normalized vector?*
+  - `<Normal>`: **(TODO [#63](https://github.com/brown-ccv/w3d-translator/issues/63))**: _Same as LookAt but with a normalized vector?_
     - `normal`: A normalized vector
     - `angle`: The rotation angle of the object, in degrees
   - Every rotation in Unity can be thought of as an `<Axis>` type
@@ -224,8 +224,8 @@ TODO [69](https://github.com/brown-ccv/w3d-translator/issues/69)
 - `<EnabledColor>`: LinkManager.EnabledColor
 - `<SelectedColor>`: LinkManager.ActiveColor
 - `<Actions>`: An action to complete once triggered, see [below](#link-actions)
-  
-*Note that there can be multiple `<Actions>` per `<Link>`*
+
+_Note that there can be multiple `<Actions>` per `<Link>`_
 
 #### Other Methods
 
@@ -244,7 +244,7 @@ These functions are added to the Activate event (enable link, activate) or Deact
 
 A [Unity Event](https://docs.unity3d.com/ScriptReference/Events.UnityEvent.html) and [Unity Action](https://docs.unity3d.com/ScriptReference/Events.UnityAction.html) are a common way to cause change during runtime in Unity. This is especially true for our purposes - clicking on and interacting with objects using a mouse or controller.
 
-An event can be thought of as "a thing that occurs" and an action as "the things to do when an event occurs". A given event (a button is clicked, a scene is loaded, etc) can have *many* actions that are executed when that event occurs. For example, the LinkManager script (see [Link](#link)) keeps track of many events, two of which we care about.
+An event can be thought of as "a thing that occurs" and an action as "the things to do when an event occurs". A given event (a button is clicked, a scene is loaded, etc) can have _many_ actions that are executed when that event occurs. For example, the LinkManager script (see [Link](#link)) keeps track of many events, two of which we care about.
 
 - `Activated`: Called when hovering over the object and the trigger is pressed (think "on trigger down")
 - `Deactivated`: Called when the trigger is released after activation (think "on trigger up")
@@ -262,7 +262,7 @@ Every [Link](#link) contains one or more Link Actions. Every `<LinkAction>` is t
 - The kind of Action is an `<xs:choice>` (See [Action Types](#action-types))
 - `<Clicks>`: How the link is activated
   - Any: The button is activated every time it's clicked (`NumClicks = 1`)
-  - Number:  The button is activated based on `<NumClicks>`
+  - Number: The button is activated based on `<NumClicks>`
   - `<NumClicks>`: `LinkAction.NumClicks`
     - `num_clicks`: `NumClicks`
     - `reset`: `Reset`
@@ -321,7 +321,7 @@ Each transition is a Unity Action as described [above](#unityevents-and-unityact
 - The kind of Action is an `<xs:choice>`
   - `<Visible>`: Fades the object int/out and sets `gameObject[Renderer].enabled`
   - `<Movement>`: Moves the object to a new [placement](#placement)
-  - `<MoveRel>`: Moves the object by a [placement](#placement), relative to its current position 
+  - `<MoveRel>`: Moves the object by a [placement](#placement), relative to its current position
   - `<Color>`: Changes the color of the object
   - `<Scale>`: Changes the scale of the object
   - `<Sound>`: Plays or stops the sound attached to the object

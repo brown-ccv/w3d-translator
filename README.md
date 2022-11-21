@@ -129,4 +129,4 @@ Three different student projects are found in the `projects` folder. These are c
 
 ### test
 
-`IN_DIR` folder used during development. Please make a copy of any files you put in this folder to prevent data loss.
+Input folder used during development.
