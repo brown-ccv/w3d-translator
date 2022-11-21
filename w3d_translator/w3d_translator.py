@@ -121,7 +121,7 @@ def translate_file(unity_dir: Path, xml_path: Path):
             "--xmlPath",
             Path(*xml_path.parts[2:]),
             "-executeMethod",
-            "Writing3D.Translation.CLI.Main",
+            "Writing3D.Editor.CLI.Main",
         ],
         stdout=PIPE,
         stderr=PIPE,
