@@ -1,6 +1,6 @@
 # Unity Setup for VR Deployment
 
-## Starter Assests
+## Starter Assets
 
 - The starter `XRRig` stays as a root object of the project. Keep defaults.
 
