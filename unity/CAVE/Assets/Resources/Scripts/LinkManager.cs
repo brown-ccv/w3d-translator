@@ -13,7 +13,24 @@ namespace Writing3D
         public Color DisabledColor;
         private int _ClickCount = 0;
 
-        private void SetColor(Color color) { GetComponent<ObjectManager>().SetColor(color); }
+        public void HandleMVRInteraction(int button, bool isPressed)
+        {
+            Debug.Log($"MVR Interaction {button} {isPressed}");
+        }
+
+        protected void OnMVRWandButtonPressed(MVRSelection iSelection)
+        {
+            Debug.Log(iSelection + ": OnMVRWandButtonPressed.");
+            activated.Invoke(null);
+        }
+
+        protected void OnMVRWandButtonReleased(MVRSelection iSelection)
+        {
+            Debug.Log(iSelection + ": OnMVRWandButtonReleased.");
+            deactivated.Invoke(null);
+        }
+
+        /* ACTION FUNCTIONS */
 
         // Enable the GameObject as a clickable object
         public void EnableLink()
@@ -44,5 +61,9 @@ namespace Writing3D
         {
             if (_ClickCount >= linkAction.NumClicks) { linkAction.ActionEvent.Invoke(); }
         }
+
+        /* HELPER FUNCTIONS */
+
+        private void SetColor(Color color) { GetComponent<ObjectManager>().SetColor(color); }
     }
 }
