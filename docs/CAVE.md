@@ -46,7 +46,9 @@ Our CAVE uses an ASUS EEE Stick as our wand. It's position is tracked in Motive 
 
 MVR Manager will apply a template camera to all of the cameras in the scene. This should be loosely based on `"Main Camera"` from XR right but certain properties are different.
 
-- `Background`: This is the `<Background color="">` given by the XR project. Default should be black.
+- `Background`: This is the `<Background color="">` given by the XR project.
+  - The alpha MUST be set to `0`
+  - Default to black, `(0, 0, 0, 0)`
 - `Clipping Planes`: {`near`: 0.3, `far`: 100}
 
 ### Settings
