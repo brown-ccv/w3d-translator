@@ -31,4 +31,3 @@ The Unity project settings and XRRig must be adjusted for VR to work:
     - The color/style of the ray can be changed here
 
 Check out [this tutorial](https://www.youtube.com/watch?v=5ZBkEYUyBWQ) for more information on VR with Unity and the XR Interaction Toolkit.
-
