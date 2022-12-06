@@ -13,11 +13,6 @@ namespace Writing3D
         public Color DisabledColor;
         private int _ClickCount = 0;
 
-        public void HandleMVRInteraction(int button, bool isPressed)
-        {
-            Debug.Log($"MVR Interaction {button} {isPressed}");
-        }
-
         /* ACTION FUNCTIONS */
 
         // Enable the GameObject as a clickable object
