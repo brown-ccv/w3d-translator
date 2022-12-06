@@ -81,10 +81,10 @@ namespace Writing3D
                     SetLinkActions();
 
                     // Save and build scene
-                    Debug.Log("Building Scene");
+                    // Debug.Log("Building Scene");
                     EditorSceneManager.SaveScene(InstantiatedScene.scene);
-                    BuildReport report = BuildScene();
-                    Debug.Log($"Build {report.summary.result}");
+                    // BuildReport report = BuildScene();
+                    // Debug.Log($"Build {report.summary.result}");
 
                     Application.logMessageReceivedThreaded -= HandleLog;
                 }
