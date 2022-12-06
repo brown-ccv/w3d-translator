@@ -23,32 +23,12 @@ namespace Writing3D
             switch (button)
             {
                 case 0:
-                    if (isPressed)
-                    {
-                        Debug.Log("Activated");
-                        //_LinkManager.activated.Invoke(new ActivateEventArgs());
-                        _LinkManager.activated.Invoke(null);
-                    }
-                    else
-                    {
-                        Debug.Log("Deactivated");
-                        //_LinkManager.deactivated.Invoke(new DeactivateEventArgs());
-                        _LinkManager.deactivated.Invoke(null);
-                    }
+                    if (isPressed) { _LinkManager.activated.Invoke(null); }
+                    else { _LinkManager.deactivated.Invoke(null); }
                     break;
                 case 1:
-                    if (isPressed)
-                    {
-                        Debug.Log("Selected");
-                        //_LinkManager.selectEntered.Invoke(new SelectEnterEventArgs());
-                        _LinkManager.selectEntered.Invoke(null);
-                    }
-                    else
-                    {
-                        Debug.Log("Deselected");
-                        //_LinkManager.selectExited.Invoke(new SelectExitEventArgs());
-                        _LinkManager.selectExited.Invoke(null);
-                    }
+                    if (isPressed) { _LinkManager.selectEntered.Invoke(null); }
+                    else { _LinkManager.selectExited.Invoke(null); }
                     break;
                 case 2:
                     Debug.Log("Left Button");

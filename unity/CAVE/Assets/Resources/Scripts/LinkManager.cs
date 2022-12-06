@@ -18,18 +18,6 @@ namespace Writing3D
             Debug.Log($"MVR Interaction {button} {isPressed}");
         }
 
-        protected void OnMVRWandButtonPressed(MVRSelection iSelection)
-        {
-            Debug.Log(iSelection + ": OnMVRWandButtonPressed.");
-            activated.Invoke(null);
-        }
-
-        protected void OnMVRWandButtonReleased(MVRSelection iSelection)
-        {
-            Debug.Log(iSelection + ": OnMVRWandButtonReleased.");
-            deactivated.Invoke(null);
-        }
-
         /* ACTION FUNCTIONS */
 
         // Enable the GameObject as a clickable object
