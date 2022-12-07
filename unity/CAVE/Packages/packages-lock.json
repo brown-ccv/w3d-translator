@@ -6,7 +6,14 @@
       "source": "local-tarball",
       "dependencies": {}
     },
+    "com.middlevr": {
+      "version": "file:C:/Program Files/MiddleVR2/unity_packages/com.middlevr.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.unity.collab-proxy": {
+      "version": "1.17.7",
       "version": "1.17.6",
       "depth": 0,
       "source": "registry",
@@ -23,7 +30,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ext.nunit": {
-      "version": "1.0.6",
+      "version": "2.0.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -54,6 +61,7 @@
     },
     "com.unity.ide.rider": {
       "version": "3.0.15",
+      "depth": 1,
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -132,7 +140,7 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.ext.nunit": "1.0.6",
+        "com.unity.ext.nunit": "2.0.3",
         "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       },

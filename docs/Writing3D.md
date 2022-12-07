@@ -1,6 +1,6 @@
-# CAVE Unity Project
+# Writing3D Script - Notes and Documentation
 
-## Unity Development
+## Development Notes
 
 - The origin is the middle of all objects
 - Nested objects will assume the local transform of the parent object
@@ -11,54 +11,18 @@
 
 ### Unity Starter Assets
 
+<!-- TODO: Update this based on creating from scratch not VR Template -->
+
 - Base project uses the "VR Project" template project that Unity provides
 - Delete the Skybox (`Lighting -> Environment -> Skybox Material`)
   - Set "Environment Lighting" to "Color"
   - Set "Ambient Color" to white (255, 255, 255)
 - The starter DirectionalLight can be deleted
-- The starter `XRRig` stays as a root object of the project. Keep defaults.
 - The entire xml project lives inside the `Story` empty game object
-- An `EventSystem` object must be added to the scene - use `XR -> UI EventSystem`
-  - This will add `XR UI Input Module` script, make sure it's present
-  - The object can be left in the root of the hierarchy, preferably at the bottom of the list
-
-### VR Settings
-
-The Unity project settings and XRRig must be adjusted for VR to work:
-
-- The "XR Plugin Management" package should be installed by virtue of the "VR Project" template. **Version 4.2.1**. In the "XR Plug-In Management" section of the Project Settings:
-  - Add the "Oculus Touch Controller Profile" to the `OpenXR -> Interaction Profiles` list
-    - _HTC, Microsoft, Valve, etc support can also be enabled here_
-- The "XR Interaction toolkit" package must be added by name - `com.unity.xr.interaction.toolkit`. **Version 2.0.2**
-  - Download the "Starter Assets" from the samples download. This downloads the needed presets for VR interaction.
-    - I moved the starter assets to the `ExampleAssets/XR InteractionToolkit` folder
-- Add the "XR Origin" script to the `XRRig` component
-  - Set the base GameObject, floor offset, and Camera GameObject from the XRRig hierarchy
-  - Set the "Camera Y Offset" of the tracking to 1.36144
-  - Set the Requested Tracking Mode to "Floor"
-  - _This may be added by default but be sure the settings are adjusted correctly_
-- Add the "Input Action Manager" script to the `XRRig` component
-  - Add the "XRI Default Input Actions" preset to the "Action Assets" list
-    - Note that this is what maps the software actions to the different hardware buttons
-- Add the "XR Interaction Manager" script to the `XRRig` component
-- Add the "XR Controller (Action Based)" script to each controller
-  - "XRI Default Left Controller" preset for the `LeftController` object
-  - "XRI Default Right Controller" preset for the `RightController` object
-  - Add the "XR Ray Interactor" script to `RightController`
-    - This will automatically add the "LineRenderer" component and "XR Interactor Line Visual" script to `RightController`
-    - The color/style of the ray can be changed here
-
-Check out [this tutorial](https://www.youtube.com/watch?v=5ZBkEYUyBWQ) for more information on VR with Unity and the XR Interaction Toolkit.
-
-### MiddleVR Settings
-
-In addition to the Unity XRRig, a root MiddleVR package needs to be added in order for the project to work with MiddleVR and the CAVE.
-
-_More info to come._
 
 ### Changes and Conversions
 
-- The entire project lives inside the `Story` empty game object
+- The `Story` GameObject is positioned to center the scene within the CAVE
   - Scale is 0.3048 to covert feet to meters
   - Set Y to 1.2192 so floor sits at 0, 0, 0.
 - The z axis is flipped for all objects (`W3D.Xml.ConvertVector3`)

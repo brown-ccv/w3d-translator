@@ -161,7 +161,7 @@ namespace Writing3D
             var sound = transition as Ts.Sound;
             // Debug.Log($"Sound {gameObject.name} {sound.Operation}");
         }
-        
+
         // TODO 135
         public void LinkTransition(Ts.Transition transition)
         {

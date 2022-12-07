@@ -8,6 +8,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
 using UnityEngine.Events;
+using UnityEditor.Build.Reporting;
 using Unity.XR.CoreUtils;
 
 using Writing3D.Xml;
@@ -37,18 +38,19 @@ namespace Writing3D
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
                 {
+                    // Load xml file
                     GetXmlPathArg();
                     LoadXml();
 
                     // Create new scene and store the root GameObjects
-                    Debug.Log("Instantiating scene");
+                    Debug.Log("Instantiating Scene");
                     InstantiatedScene = InstantiateScene();
                     XrRig = InstantiatedScene.scene.GetRootGameObjects()[0];
                     Root = InstantiatedScene.scene.GetRootGameObjects()[1];
                     GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
                     Walls = new Dictionary<string, Transform>() { { "Center", Root.transform } };
 
-                    // Testing - Instantiate the device simulator and set at top of hierarchy
+                    // Instantiate the device simulator while testing
                     if (!Application.isBatchMode)
                     {
                         UnityEngine.Object.Instantiate(
@@ -62,10 +64,11 @@ namespace Writing3D
                         ).transform.SetAsFirstSibling();
                     }
 
-                    Debug.Log("Applying settings");
+                    Debug.Log("Applying global settings");
                     ApplyGlobalSettings();
-                    BuildWalls();
+
                     Debug.Log("Building Objects");
+                    BuildWalls(); // TODO: Only build if desired?
                     TranslateGameObjects();
 
                     // TODO 95: Generate the <Group>s
@@ -77,10 +80,13 @@ namespace Writing3D
                     Debug.Log("Applying actions");
                     SetLinkActions();
 
-                    // Save and quit
+                    // Save and build scene
+                    // Debug.Log("Building Scene");
                     EditorSceneManager.SaveScene(InstantiatedScene.scene);
+                    // BuildReport report = BuildScene();
+                    // Debug.Log($"Build {report.summary.result}");
+
                     Application.logMessageReceivedThreaded -= HandleLog;
-                    EditorApplication.Exit(0);
                 }
                 catch (Exception e)
                 {
@@ -300,6 +306,21 @@ namespace Writing3D
                         );
                     }
                 }
+            }
+
+            private static BuildReport BuildScene()
+            {
+                // TODO: Need to build for VR and for the CAVE
+                // Add README file?
+
+                string sceneName = InstantiatedScene.scene.name;
+                string scenePath = InstantiatedScene.scene.path;
+                return BuildPipeline.BuildPlayer(
+                    new string[] { scenePath },             // Scenes to build
+                    $"Builds/{sceneName}/{sceneName}.exe",  // Output path
+                    BuildTarget.StandaloneWindows64,
+                    BuildOptions.None
+                );
             }
 
             // Callback function when Debug.Log is called within the CLI script
