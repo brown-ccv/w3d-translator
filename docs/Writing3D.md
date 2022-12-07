@@ -1,6 +1,6 @@
-# CAVE Unity Project
+# Writing3D Script - Notes and Documentation
 
-## Unity Development
+## Development Notes
 
 - The origin is the middle of all objects
 - Nested objects will assume the local transform of the parent object
@@ -11,54 +11,18 @@
 
 ### Unity Starter Assets
 
+<!-- TODO: Update this based on creating from scratch not VR Template -->
+
 - Base project uses the "VR Project" template project that Unity provides
 - Delete the Skybox (`Lighting -> Environment -> Skybox Material`)
   - Set "Environment Lighting" to "Color"
   - Set "Ambient Color" to white (255, 255, 255)
 - The starter DirectionalLight can be deleted
-- The starter `XRRig` stays as a root object of the project. Keep defaults.
 - The entire xml project lives inside the `Story` empty game object
-- An `EventSystem` object must be added to the scene - use `XR -> UI EventSystem`
-  - This will add `XR UI Input Module` script, make sure it's present
-  - The object can be left in the root of the hierarchy, preferably at the bottom of the list
-
-### VR Settings
-
-The Unity project settings and XRRig must be adjusted for VR to work:
-
-- The "XR Plugin Management" package should be installed by virtue of the "VR Project" template. **Version 4.2.1**. In the "XR Plug-In Management" section of the Project Settings:
-  - Add the "Oculus Touch Controller Profile" to the `OpenXR -> Interaction Profiles` list
-    - *HTC, Microsoft, Valve, etc support can also be enabled here*
-- The "XR Interaction toolkit" package must be added by name - `com.unity.xr.interaction.toolkit`. **Version 2.0.2**
-  - Download the "Starter Assets" from the samples download. This downloads the needed presets for VR interaction.
-    - I moved the starter assets to the `ExampleAssets/XR InteractionToolkit` folder
-- Add the "XR Origin" script to the `XRRig` component
-  - Set the base GameObject, floor offset, and Camera GameObject from the XRRig hierarchy
-  - Set the "Camera Y Offset" of the tracking to 1.36144
-  - Set the Requested Tracking Mode to "Floor"
-  - *This may be added by default but be sure the settings are adjusted correctly*
-- Add the "Input Action Manager" script to the `XRRig` component
-  - Add the "XRI Default Input Actions" preset to the "Action Assets" list
-    - Note that this is what maps the software actions to the different hardware buttons
-- Add the "XR Interaction Manager" script to the `XRRig` component
-- Add the "XR Controller (Action Based)" script to each controller
-  - "XRI Default Left Controller" preset for the `LeftController` object
-  - "XRI Default Right Controller" preset for the `RightController` object
-  - Add the "XR Ray Interactor" script to `RightController`
-    - This will automatically add the "LineRenderer" component and "XR Interactor Line Visual" script to `RightController`
-    - The color/style of the ray can be changed here
-
-Check out [this tutorial](https://www.youtube.com/watch?v=5ZBkEYUyBWQ) for more information on VR with Unity and the XR Interaction Toolkit.
-
-### MiddleVR Settings
-
-In addition to the Unity XRRig, a root MiddleVR package needs to be added in order for the project to work with MiddleVR and the CAVE.
-
-*More info to come.*
 
 ### Changes and Conversions
 
-- The entire project lives inside the `Story` empty game object
+- The `Story` GameObject is positioned to center the scene within the CAVE
   - Scale is 0.3048 to covert feet to meters
   - Set Y to 1.2192 so floor sits at 0, 0, 0.
 - The z axis is flipped for all objects (`W3D.Xml.ConvertVector3`)
@@ -141,7 +105,7 @@ Each `<Placement>` inside `PlacementRoot` is a reference point for the `<Relativ
 </PlacementRoot>
 ```
 
-- `RelativeTo`: Which wall inside `PlacementRoot` the object is a child of in the hierarchy  
+- `RelativeTo`: Which wall inside `PlacementRoot` the object is a child of in the hierarchy
   - Objects that are `<RelativeTo>Center</RelativeTo>` are children of `Story`.
 - `<Position>`: The local position of the object
 - Rotation is an `<xs:choice>` (Axis, LookAt, Normal)
@@ -151,7 +115,7 @@ Each `<Placement>` inside `PlacementRoot` is a reference point for the `<Relativ
   - `<LookAt>`: Object is rotated to look at a specified point (in `Story` space)
     - `target`: The position the object is looking at
     - `up`: Which direction (world space) is considered up (+y)
-  - `<Normal>`: **(TODO [#63](https://github.com/brown-ccv/w3d-translator/issues/63))**: *Same as LookAt but with a normalized vector?*
+  - `<Normal>`: **(TODO [#63](https://github.com/brown-ccv/w3d-translator/issues/63))**: _Same as LookAt but with a normalized vector?_
     - `normal`: A normalized vector
     - `angle`: The rotation angle of the object, in degrees
   - Every rotation in Unity can be thought of as an `<Axis>` type
@@ -260,8 +224,8 @@ TODO [69](https://github.com/brown-ccv/w3d-translator/issues/69)
 - `<EnabledColor>`: LinkManager.EnabledColor
 - `<SelectedColor>`: LinkManager.ActiveColor
 - `<Actions>`: An action to complete once triggered, see [below](#link-actions)
-  
-*Note that there can be multiple `<Actions>` per `<Link>`*
+
+_Note that there can be multiple `<Actions>` per `<Link>`_
 
 #### Other Methods
 
@@ -280,7 +244,7 @@ These functions are added to the Activate event (enable link, activate) or Deact
 
 A [Unity Event](https://docs.unity3d.com/ScriptReference/Events.UnityEvent.html) and [Unity Action](https://docs.unity3d.com/ScriptReference/Events.UnityAction.html) are a common way to cause change during runtime in Unity. This is especially true for our purposes - clicking on and interacting with objects using a mouse or controller.
 
-An event can be thought of as "a thing that occurs" and an action as "the things to do when an event occurs". A given event (a button is clicked, a scene is loaded, etc) can have *many* actions that are executed when that event occurs. For example, the LinkManager script (see [Link](#link)) keeps track of many events, two of which we care about.
+An event can be thought of as "a thing that occurs" and an action as "the things to do when an event occurs". A given event (a button is clicked, a scene is loaded, etc) can have _many_ actions that are executed when that event occurs. For example, the LinkManager script (see [Link](#link)) keeps track of many events, two of which we care about.
 
 - `Activated`: Called when hovering over the object and the trigger is pressed (think "on trigger down")
 - `Deactivated`: Called when the trigger is released after activation (think "on trigger up")
@@ -298,7 +262,7 @@ Every [Link](#link) contains one or more Link Actions. Every `<LinkAction>` is t
 - The kind of Action is an `<xs:choice>` (See [Action Types](#action-types))
 - `<Clicks>`: How the link is activated
   - Any: The button is activated every time it's clicked (`NumClicks = 1`)
-  - Number:  The button is activated based on `<NumClicks>`
+  - Number: The button is activated based on `<NumClicks>`
   - `<NumClicks>`: `LinkAction.NumClicks`
     - `num_clicks`: `NumClicks`
     - `reset`: `Reset`
@@ -357,7 +321,7 @@ Each transition is a Unity Action as described [above](#unityevents-and-unityact
 - The kind of Action is an `<xs:choice>`
   - `<Visible>`: Fades the object int/out and sets `gameObject[Renderer].enabled`
   - `<Movement>`: Moves the object to a new [placement](#placement)
-  - `<MoveRel>`: Moves the object by a [placement](#placement), relative to its current position 
+  - `<MoveRel>`: Moves the object by a [placement](#placement), relative to its current position
   - `<Color>`: Changes the color of the object
   - `<Scale>`: Changes the scale of the object
   - `<Sound>`: Plays or stops the sound attached to the object
