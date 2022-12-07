@@ -2,6 +2,7 @@
 
 ## Writing3D Notes
 
+- MiddleVR references themselves and their scripts as `MVR`
 - Root object needs to move to be the first in the hierarchy
 - Add MVR Interactable script whenever I add a LinkManager
 
