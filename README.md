@@ -2,6 +2,8 @@
 
 Translate Writing3D xml projects into Unity projects. Each scene file is automatically generated.
 
+Please note that the script currently only works on Windows due to difference in the Unity install
+
 ## Install
 
 ```sh
@@ -10,25 +12,23 @@ poetry install
 
 ### Unity
 
-<!-- TODO: Update version number -->
-
-The translator uses Unity version 2021.3.0f1. Please ensure the `Unity.exe` file is in`C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.0f1\\Editor\\Unity.exe`. You can download the version from [Unity's archives](https://unity3d.com/get-unity/download/archive).
+The translator uses Unity version 2022.1.21f1. Please ensure the `Unity.exe` file is in`C:\\Program Files\\Unity\\Hub\\Editor\\2022.1.21f1\\Editor\\Unity.exe`. You can download the version from [Unity's archives](https://unity3d.com/get-unity/download/archive).
 
 ## Usage
 
 `poetry run python w3d_translator.py IN_DIR OUT_DIR [OPTIONS]`
 
-* `IN_DIR`: Input folder containing the xml project(s)
-* `OUT_DIR`: Output folder for the translated project(s)
+- `IN_DIR`: Input folder containing the xml project(s)
+- `OUT_DIR`: Output folder for the translated project(s)
 
 ### Options
 
-* `--multiple`: Translate multiple projects, `IN_DIR` is a parent folder and each individual project lives inside its own folder
-  * Default: `False`
-* `--force`: Overwrites `OUT_DIR` without any warnings.
-  * Default: `False`
-* `--dev`: Development flag. Unity subprocess is not called when used.
-  * Default: `False`.
+- `--multiple`: Translate multiple projects, `IN_DIR` is a parent folder and each individual project lives inside its own folder
+  - Default: `False`
+- `--force`: Overwrites `OUT_DIR` without any warnings.
+  - Default: `False`
+- `--dev`: Development flag. Unity subprocess is not called when used.
+  - Default: `False`.
 
 ### Linting
 
@@ -38,22 +38,22 @@ poetry run black . -l 79
 
 ## Folders & Files
 
-* `examples/`: Example .xml files
-* `in/`: Input folder with test projects
-* `schema/`: XML schema files for writing3D, pulled from the original project
-* `unity/`: Unity Yaml file for example scenes.
-* `w3d_translator/`: Python module containing the source code
+- `examples/`: Example .xml files
+- `in/`: Input folder with test projects
+- `schema/`: XML schema files for writing3D, pulled from the original project
+- `unity/`: Unity Yaml file for example scenes.
+- `w3d_translator/`: Python module containing the source code
 
 ## Example Projects
 
 Multiple example projects are included in this repo in the `examples` folder, any changes to the original xml (as found in the old `CaveWriting` project) are noted in comments. More detail is given below but here's a tldr overview:
 
-* `cweditor/minimum.xml` contains the minimum structure of a valid project
-* `cweditor/maximum.xml` contains at least one of every valid tag
-* The `sample.xml`, `sample_image.xml`, `sample_light.xml`, and `sample_model.xml` files (`cw2_samples`) showcase the basic file types.
-* The `samples/particles` folder contains 2 projects highlighting how ParticleActions
-* `samples/vr_movement.xml` file enables player movement within the CAVE.
-* Several of the projects in `samples` are updated (and/or slightly changed) versions of projects in `cw2_samples`.
+- `cweditor/minimum.xml` contains the minimum structure of a valid project
+- `cweditor/maximum.xml` contains at least one of every valid tag
+- The `sample.xml`, `sample_image.xml`, `sample_light.xml`, and `sample_model.xml` files (`cw2_samples`) showcase the basic file types.
+- The `samples/particles` folder contains 2 projects highlighting how ParticleActions
+- `samples/vr_movement.xml` file enables player movement within the CAVE.
+- Several of the projects in `samples` are updated (and/or slightly changed) versions of projects in `cw2_samples`.
 
 ### cweditor
 
@@ -67,7 +67,7 @@ Example projects from the cweditor java program. cweditor enabled CaveWriting pr
 
 Example projects broken down by object type. Many of the projects contain multiple objects but each is used to highlight a different object type and how they can be used.
 
-**sample.xml** displays a piece of text and several text links. The links move the text object  to different walls.
+**sample.xml** displays a piece of text and several text links. The links move the text object to different walls.
 
 **sample_image.xml** displays a single image and several text links. The different links move the image onto a given wall.
 
@@ -77,7 +77,7 @@ Example projects broken down by object type. Many of the projects contain multip
 
 **sample_move.xml** displays several links. Clicking each link moves or rotates the link. One uses `MoveCave` to move the entire cave and the last link restarts the position of everything.
 
-**sample_fountain.xml** highlights the usage of  `ParticleActionList`s rather than a specific object. It adds a bunch of particles inside the CAVE that float around some centered letters.
+**sample_fountain.xml** highlights the usage of `ParticleActionList`s rather than a specific object. It adds a bunch of particles inside the CAVE that float around some centered letters.
 
 **sample_random.xml** highlights the usage of `Timeline`s rather than a specific object. It randomly selects one of 3 objects and moves them up or down. Note that this project uses `<Story version="5">` and must be translated to version 8 usage the `.xslt` files.
 
