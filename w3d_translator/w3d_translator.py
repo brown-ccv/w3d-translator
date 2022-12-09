@@ -7,6 +7,7 @@ from rich.console import Console
 from validate import validate_project, validate_xml
 from errors import ValidationError, UnityError, XmlError
 
+# TODO: Mac support (/Applications/Unity/Hub/Editor/2021.3.0f1/Unity.app)
 UNITY_VERSION = "2022.1.21f1"
 UNITY_PATH = Path(
     f"C:\\Program Files\\Unity\\Hub\\Editor\\{UNITY_VERSION}\\Editor\\Unity.exe"  # noqa
