@@ -1,20 +1,25 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.SceneTemplate;
-using UnityEditor.SceneManagement;
-using UnityEngine;
-using UnityEngine.SpatialTracking;
-using UnityEngine.Events;
-using UnityEditor.Build.Reporting;
+using System.Reflection;
+
 using Unity.XR.CoreUtils;
 
-using Writing3D.Xml;
+using UnityEditor;
+using UnityEditor.Build.Reporting;
+using UnityEditor.SceneManagement;
+using UnityEditor.SceneTemplate;
 
-using static UnityEngine.SpatialTracking.TrackedPoseDriver;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem.XR;
+
+using Writing3D;
+
 using static UnityEditor.Events.UnityEventTools;
+using static UnityEngine.InputSystem.XR.TrackedPoseDriver;
+
 
 namespace Writing3D
 {
@@ -25,9 +30,9 @@ namespace Writing3D
             public static string XmlPath;
             private static InstantiationResult InstantiatedScene;
 
-            private static Root XmlRoot;
+            private static Xml.Root XmlRoot;
             private static GameObject Root;
-            private static GameObject XrRig;
+            private static GameObject XROrigin;
 
             private static Dictionary<string, Transform> Walls;
             private static Dictionary<string, (GameObject, Xml.Object)> GameObjects;
@@ -38,6 +43,8 @@ namespace Writing3D
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
                 {
+                    if (!Application.isBatchMode) ClearConsole();
+
                     // Load xml file
                     GetXmlPathArg();
                     LoadXml();
@@ -45,32 +52,23 @@ namespace Writing3D
                     // Create new scene and store the root GameObjects
                     Debug.Log("Instantiating Scene");
                     InstantiatedScene = InstantiateScene();
-                    XrRig = InstantiatedScene.scene.GetRootGameObjects()[0];
-                    Root = InstantiatedScene.scene.GetRootGameObjects()[1];
+
+                    Root = InstantiatedScene.scene.GetRootGameObjects()[0];
+                    XROrigin = InstantiatedScene.scene.GetRootGameObjects()[1].transform.Find("XR Origin").gameObject;
+
                     GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
                     Walls = new Dictionary<string, Transform>() { { "Center", Root.transform } };
 
                     // Instantiate the device simulator while testing
                     Debug.Log("Instantiate Device Simulator");
-                    if (!Application.isBatchMode)
-                    {
-                        UnityEngine.Object.Instantiate(
-                            AssetDatabase.LoadAssetAtPath(
-                                "Assets/Samples/XR Interaction Toolkit/2.2.0/XR Device Simulator/" +
-                                "XR Device Simulator.prefab",
-                                typeof(GameObject)
-                            ) as GameObject,
-                            XrRig.transform.position,
-                            XrRig.transform.rotation
-                        ).transform.SetAsFirstSibling();
-                    }
+                    if (!Application.isBatchMode) InstantiateSimulator();
 
                     Debug.Log("Applying global settings");
                     ApplyGlobalSettings();
 
-                    //Debug.Log("Building Objects");
-                    //BuildWalls(); // TODO: Only build if desired?
-                    //TranslateGameObjects();
+                    Debug.Log("Building Objects");
+                    BuildWalls(); // TODO: Only build if desired?
+                    TranslateGameObjects();
 
                     // TODO 95: Generate the <Group>s
                     // TODO 96: Generate the <Timeline>s
@@ -79,27 +77,29 @@ namespace Writing3D
                     // TODO 99: Generate the <ParticleAction>s
 
                     //Debug.Log("Applying actions");
-                    //SetLinkActions();
+                    SetLinkActions();
 
                     // Save and build scene
-                    // Debug.Log("Building Scene");
+                    Debug.Log("Building Scene");
                     EditorSceneManager.SaveScene(InstantiatedScene.scene);
                     // BuildReport report = BuildScene();
                     // Debug.Log($"Build {report.summary.result}");
-
-                    Application.logMessageReceivedThreaded -= HandleLog;
                 }
                 catch (Exception e)
                 {
-                    // Exit with error
-                    Debug.LogError("CLI.cs encountered an error");
                     Debug.LogException(e);
-
-                    // TODO: The files are a folder right now? Not a file
-                    // Definitely need to delete meta file too
-                    File.Delete(InstantiatedScene.scene.path);
-                    Application.logMessageReceivedThreaded -= HandleLog;
+                    File.Delete(InstantiatedScene.scene.path); // TODO: Is this deleting the meta file?
                 }
+                finally { Application.logMessageReceivedThreaded -= HandleLog; }
+            }
+
+            // Clear the editor console
+            private static void ClearConsole()
+            {
+                Assembly assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
+                Type type = assembly.GetType("UnityEditor.LogEntries");
+                MethodBase method = type.GetMethod("Clear");
+                method.Invoke(new object(), null);
             }
 
             // Get command line arguments from Python
@@ -125,9 +125,9 @@ namespace Writing3D
             {
                 try
                 {
-                    System.Xml.Serialization.XmlSerializer serializer = new(typeof(Root));
+                    System.Xml.Serialization.XmlSerializer serializer = new(typeof(Xml.Root));
                     using var reader = System.Xml.XmlReader.Create(XmlPath);
-                    XmlRoot = (Root)serializer.Deserialize(reader);
+                    XmlRoot = (Xml.Root)serializer.Deserialize(reader);
                 }
                 catch (FileNotFoundException)
                 {
@@ -159,11 +159,33 @@ namespace Writing3D
                 }
             }
 
+            // Add the XR Device simulator
+            private static void InstantiateSimulator()
+            {
+                try
+                {
+                    UnityEngine.Object.Instantiate(
+                        AssetDatabase.LoadAssetAtPath(
+                            "Assets/Samples/XR Interaction Toolkit/2.2.0/XR Device Simulator/" +
+                            "XR Device Simulator.prefab",
+                            typeof(GameObject)
+                        ) as GameObject,
+                        XROrigin.transform.position,
+                        XROrigin.transform.rotation
+                    ).transform.SetAsLastSibling();
+                }
+                catch
+                {
+                    Debug.LogError($"Unable to instantiate headset simulator");
+                    throw;
+                }
+            }
+
             // Apply camera, lighting, and tracking settings
             private static void ApplyGlobalSettings()
             {
-                Global xmlGlobal = XmlRoot.Global;
-                Transform mainCameraT = XrRig.transform.Find("Camera Offset").Find("Main Camera");
+                Xml.Global xmlGlobal = XmlRoot.Global;
+                Transform mainCameraT = XROrigin.transform.Find("CameraOffset").Find("Main Camera");
                 Transform caveCameraT = Root.transform.Find("Cave Camera");
 
                 // Load default lighting settings and delete skybox
@@ -176,24 +198,23 @@ namespace Writing3D
 
                 // Update CaveCamera inside of root
                 Xml.Camera xmlCaveCamera = xmlGlobal.CaveCamera;
-                UnityEngine.Camera caveCamera =
-                    caveCameraT.GetComponent<UnityEngine.Camera>();
+                UnityEngine.Camera caveCamera = caveCameraT.GetComponent<UnityEngine.Camera>();
                 caveCamera.farClipPlane = xmlCaveCamera.FarClip;
                 SetTransform(caveCamera.transform, xmlCaveCamera.Placement);
 
-                // Update Camera inside of xrRig
+                // Update Camera inside of XROrigin
                 Xml.Camera xmlCamera = xmlGlobal.Camera;
                 UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
                 camera.farClipPlane = xmlCamera.FarClip;
-                XrRig.transform.position =
-                    // CameraX is really the player's position - update xrRig directly
-                    // xrRig is outside the Root object so we must convert to meters
+                XROrigin.transform.position =
+                    // CameraX is really the player's position - update XROrigin directly
+                    // XROrigin is outside the Root object so we must convert to meters
                     ConvertVector3(xmlCamera.Placement.PositionString) * 0.3048f;
 
                 // Update tracking settings for the Main Camera
                 TrackedPoseDriver tracking = mainCameraT.GetComponent<TrackedPoseDriver>();
-                XROrigin xrOrigin = XrRig.GetComponent<XROrigin>();
-                switch (xmlGlobal.WandNavigation.AllowRotation, xmlGlobal.WandNavigation.AllowMovement)
+                Xml.WandNavigation wand = xmlGlobal.WandNavigation;
+                switch (wand.AllowRotation, wand.AllowMovement)
                 {
                     case (true, true):
                         tracking.trackingType = TrackingType.RotationAndPosition;
@@ -206,8 +227,9 @@ namespace Writing3D
                         break;
                     case (false, false):
                         tracking.enabled = false;
-                        // Using device based tracking adds the hard-coded camera offset
-                        xrOrigin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Device;
+                        XROrigin.GetComponent<XROrigin>().RequestedTrackingOriginMode
+                            // Using device based tracking adds the hard-coded camera offset
+                            = Unity.XR.CoreUtils.XROrigin.TrackingOriginMode.Device;
                         break;
                     default: // Unreachable but fixes warning
                 }
@@ -216,7 +238,7 @@ namespace Writing3D
             // Create each <Placement> as an outlined GameObject 
             private static void BuildWalls()
             {
-                foreach (Placement xmlPlacement in XmlRoot.PlacementRoot)
+                foreach (Xml.Placement xmlPlacement in XmlRoot.PlacementRoot)
                 {
                     string name = xmlPlacement.Name;
 
@@ -257,7 +279,7 @@ namespace Writing3D
 
                     if (xmlObject.LinkRoot is not null)
                     {
-                        Link xmlLink = xmlObject.LinkRoot.Link;
+                        Xml.Link xmlLink = xmlObject.LinkRoot.Link;
 
                         // Add LinkManager and initialize
                         LinkManager lm = go.AddComponent<LinkManager>();
@@ -279,7 +301,7 @@ namespace Writing3D
                 )
                 {
                     (GameObject go, Xml.Object xmlObject) = pair.Value;
-                    Link xmlLink = xmlObject.LinkRoot.Link;
+                    Xml.Link xmlLink = xmlObject.LinkRoot.Link;
                     LinkManager lm = go.GetComponent<LinkManager>();
 
                     // Add the <Action>s wrapper on activated (onTriggerDown)
@@ -290,7 +312,7 @@ namespace Writing3D
                         lm.deactivated,
                         new UnityAction(lm.Deactivate)
                     );
-                    foreach (LinkActions xmlLinkAction in xmlLink.Actions)
+                    foreach (Xml.LinkActions xmlLinkAction in xmlLink.Actions)
                     {
                         try { AddAction(xmlLinkAction, lm); }
                         catch

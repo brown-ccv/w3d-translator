@@ -20,7 +20,7 @@ namespace Writing3D
     {
         public static partial class CLI
         {
-            /********** Writing3D.Xml to Unity conversions    ***********/
+            /********** Writing3D.Xml TO UNITY CONVERSIONS    ***********/
 
             // Converts "[int], [int], [int]" to a UnityEngine.Color object
             private static UnityEngine.Color ConvertColor(string colorString)
@@ -47,7 +47,7 @@ namespace Writing3D
             // Converts a float to a UnityEngine.Vector3 object
             private static Vector3 ConvertScale(float scale) { return Vector3.one * scale; }
 
-            /********** Unity simple types    ***********/
+            /********** UNITY SIMPLE TYPES    ***********/
 
             // Converts a "([float], [float], [float])" string and an angle to a Euler angle
             private static Vector3 CreateEuler(string rotationString, float Angle)
