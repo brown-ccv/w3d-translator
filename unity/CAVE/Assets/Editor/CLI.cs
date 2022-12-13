@@ -15,11 +15,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem.XR;
 
-using Writing3D;
-
 using static UnityEditor.Events.UnityEventTools;
 using static UnityEngine.InputSystem.XR.TrackedPoseDriver;
-
 
 namespace Writing3D
 {
