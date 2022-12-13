@@ -51,7 +51,8 @@ namespace Writing3D
                     _InstantiatedScene = InstantiateScene();
 
                     _Root = _InstantiatedScene.scene.GetRootGameObjects()[0];
-                    _XROrigin = _InstantiatedScene.scene.GetRootGameObjects()[1].transform.Find("XR Origin").gameObject;
+                    _XROrigin
+                        = _InstantiatedScene.scene.GetRootGameObjects()[1].GetNamedChild("XR Origin");
 
                     _ObjectDict = new Dictionary<string, (GameObject, Xml.Object)>();
                     _WallsDict = new Dictionary<string, Transform>() { { "Center", _Root.transform } };
@@ -73,11 +74,11 @@ namespace Writing3D
                     // TODO 98: Generate the <Event>s
                     // TODO 99: Generate the <ParticleAction>s
 
-                    //Debug.Log("Applying actions");
+                    Debug.Log("Applying actions");
                     SetLinkActions();
 
                     // Save and build scene
-                    Debug.Log("Building Scene");
+                    //Debug.Log("Building Scene");
                     EditorSceneManager.SaveScene(_InstantiatedScene.scene);
                     // BuildReport report = BuildScene();
                     // Debug.Log($"Build {report.summary.result}");
@@ -93,10 +94,8 @@ namespace Writing3D
             // Clear the editor console
             private static void ClearConsole()
             {
-                Assembly assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
-                Type type = assembly.GetType("UnityEditor.LogEntries");
-                MethodBase method = type.GetMethod("Clear");
-                method.Invoke(new object(), null);
+                var type = Assembly.GetAssembly(typeof(UnityEditor.Editor)).GetType("UnityEditor.LogEntries");
+                type.GetMethod("Clear").Invoke(new object(), null);
             }
 
             // Get command line arguments from Python
@@ -143,11 +142,10 @@ namespace Writing3D
             {
                 try
                 {
-                    return SceneTemplateService.Instantiate(
-                        Resources.Load<SceneTemplateAsset>("CAVE"),
-                        false,
-                        $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(_XmlPath)}.unity"
-                    );
+                    var caveScene = Resources.Load<SceneTemplateAsset>("CAVE");
+                    string scenePath
+                        = $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(_XmlPath)}.unity";
+                    return SceneTemplateService.Instantiate(caveScene, false, scenePath);
                 }
                 catch
                 {
@@ -161,15 +159,15 @@ namespace Writing3D
             {
                 try
                 {
-                    UnityEngine.Object.Instantiate(
-                        AssetDatabase.LoadAssetAtPath(
-                            "Assets/Samples/XR Interaction Toolkit/2.2.0/XR Device Simulator/" +
-                            "XR Device Simulator.prefab",
-                            typeof(GameObject)
-                        ) as GameObject,
+                    string simPrefabPath
+                        = "Assets/Samples/XR Interaction Toolkit/2.2.0/XR Device Simulator/"
+                        + "XR Device Simulator.prefab";
+                    GameObject sim = UnityEngine.Object.Instantiate(
+                        AssetDatabase.LoadAssetAtPath(simPrefabPath, typeof(GameObject)) as GameObject,
                         _XROrigin.transform.position,
                         _XROrigin.transform.rotation
-                    ).transform.SetAsLastSibling();
+                    );
+                    sim.transform.SetAsLastSibling();
                 }
                 catch
                 {

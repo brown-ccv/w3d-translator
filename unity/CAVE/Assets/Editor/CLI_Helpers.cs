@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
+//TODO: Figure out better imports to clean up Xml types
 using Writing3D.Xml;
 using Writing3D.Transitions;
 
@@ -43,7 +44,10 @@ namespace Writing3D
             }
 
             // Converts a float to a UnityEngine.Vector3 object
-            private static Vector3 ConvertScale(float scale) { return Vector3.one * scale; }
+            private static Vector3 ConvertScale(float scale)
+            {
+                return Vector3.one * scale;
+            }
 
             /********** UNITY SIMPLE TYPES    ***********/
 
@@ -56,6 +60,7 @@ namespace Writing3D
             /********** PLACEMENT ROOT    ***********/
 
             // Get the transform of the wall xmlPlacement is to be nested under
+            // TODO: This is really GetWall, not GetParent
             private static Transform GetParent(Placement xmlPlacement)
             {
                 return _WallsDict[xmlPlacement.RelativeTo.ToString()];
@@ -130,9 +135,7 @@ namespace Writing3D
             {
                 // Instantiate TextMeshPro or TextMeshProUGUI prefab
                 // TODO 64: Validate prefab settings
-                GameObject gameObject = Instantiate(
-                    Resources.Load<GameObject>("Prefabs/text")
-                );
+                GameObject gameObject = Instantiate(Resources.Load<GameObject>("Prefabs/text"));
                 TMP_Text tmpText = gameObject.GetComponent<TMP_Text>();
 
                 // Set object properties defined in the xml
@@ -143,7 +146,6 @@ namespace Writing3D
 
                 // Load font material
                 // TODO 72: More robust path checking
-                // TODO: Don't have to worry about re-throwing exceptions if handled in main
                 TMP_FontAsset tmpFont = Resources.Load<TMP_FontAsset>(
                     "Materials/Fonts/" +
                     Path.GetFileNameWithoutExtension(xmlText.Font) +
@@ -236,33 +238,38 @@ namespace Writing3D
                 );
             }
 
-            private static Transitions.Transition GetTransition(Xml.Transition xmlTransition, float duration)
+            private static Transitions.Transition GetTransition(
+                Xml.Transition xmlTransition,
+                float duration
+            )
             {
                 return xmlTransition.Change switch
                 {
                     bool visible => CreateInstance<Visible>().Init(visible, duration),
-                    MovementTransition move => CreateInstance<Move>()
-                        .Init(
+                    MovementTransition move =>
+                        CreateInstance<Move>().Init(
                             GetParent(move.Placement),
                             GetPosition(move.Placement),
                             GetRotationType(move.Placement),
                             GetRotation(move.Placement),
                             duration
                         ),
-                    MoveRel move => CreateInstance<RelativeMove>()
-                        .Init(
+                    MoveRel move =>
+                        CreateInstance<RelativeMove>().Init(
                             GetParent(move.Placement),
                             GetPosition(move.Placement),
                             GetRotationType(move.Placement),
                             GetRotation(move.Placement),
                             duration
                         ),
-                    string color => CreateInstance<Transitions.Color>()
-                        .Init(ConvertColor(color), duration),
+                    string color =>
+                        CreateInstance<Transitions.Color>().Init(ConvertColor(color), duration),
                     float scale => CreateInstance<Scale>().Init(scale),
-                    SoundTransition operation => CreateInstance<Transitions.Sound>()
+                    SoundTransition operation =>
+                        CreateInstance<Transitions.Sound>()
                         .Init((Transitions.Sound.Controls)operation.Type, duration),
-                    LinkTransition operation => CreateInstance<Transitions.Link>()
+                    LinkTransition operation =>
+                        CreateInstance<Transitions.Link>()
                         .Init((Transitions.Link.Controls)operation.Type, duration),
                     _ => throw new Exception("Invalid transition type")
                 };
@@ -287,10 +294,11 @@ namespace Writing3D
                 return xmlPlacement.Rotation switch
                 {
                     Axis xmlAxis => CreateEuler(xmlAxis.RotationString, xmlAxis.Angle),
-                    LookAt xmlLookAt => new Move.LookAt(
-                        ConvertVector3(xmlLookAt.TargetString),
-                        ConvertVector3(xmlLookAt.UpString)
-                    ),
+                    LookAt xmlLookAt =>
+                        new Move.LookAt(
+                            ConvertVector3(xmlLookAt.TargetString),
+                            ConvertVector3(xmlLookAt.UpString)
+                        ),
                     Normal xmlNormal => CreateEuler(xmlNormal.NormalString, xmlNormal.Angle),
                     _ => null
                 };
