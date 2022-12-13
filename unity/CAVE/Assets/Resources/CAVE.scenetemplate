@@ -17,40 +17,55 @@ MonoBehaviour:
   description: Instantiates the empty CAVE scene
   preview: {fileID: 0}
   dependencies:
-  - dependency: {fileID: 749118204716703131, guid: 57fcf76e5b4da854e821fa74ac0475fb,
+  - dependency: {fileID: 8758423527188247893, guid: 1392f805216c47742996d4742c80721c,
+      type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 919132149155446097, guid: 11cd62256b1d470f922b2c8e6446cc77,
       type: 3}
     instantiationMode: 0
   - dependency: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-    instantiationMode: 1
-  - dependency: {fileID: 2100000, guid: 3d2e36aacd7dc084b96e0755f1af4137, type: 2}
-    instantiationMode: 1
+    instantiationMode: 0
+  - dependency: {fileID: 8748868027195207512, guid: 893219773891c784ab469a39151879b4,
+      type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 2800000, guid: 7b8bfaee8f8631c4789ac62373cbc2d4, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 919132149155446097, guid: be3083a5f26d4e859d594ecbe632f87e,
+      type: 3}
+    instantiationMode: 0
   - dependency: {fileID: 4890085278179872738, guid: f5fca80d99e9a9a448925f1041b7d9c7,
       type: 2}
-    instantiationMode: 1
-  - dependency: {fileID: 2800000, guid: 2fd6421f253b4ef1a19526541f9ffc0c, type: 3}
     instantiationMode: 0
-  - dependency: {fileID: 8758423527188247893, guid: 5b158b94c373d4b4f9e98cdb92789343,
+  - dependency: {fileID: 919132149155446097, guid: f077c919501a44778a0c2edb6eb1a54a,
       type: 3}
-    instantiationMode: 1
-  - dependency: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
     instantiationMode: 0
-  - dependency: {fileID: 919132149155446097, guid: 2d10b9b89f2474de9800b152c3d00004,
+  - dependency: {fileID: 8841706926471734270, guid: 2fd3e07afe5b461490fb8e314976b1b0,
       type: 3}
-    instantiationMode: 1
-  - dependency: {fileID: 2800000, guid: ee148e281f3c41c5b4ff5f8a5afe5a6c, type: 3}
     instantiationMode: 0
-  - dependency: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    instantiationMode: 0
-  - dependency: {fileID: 919132149155446097, guid: e48d18018a0ba46c283d9fd9c227e578,
+  - dependency: {fileID: 3177232254315139758, guid: a3fde713df4d99042a0403c4be9eea32,
       type: 3}
-    instantiationMode: 1
-  - dependency: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
     instantiationMode: 0
-  - dependency: {fileID: 4283425761326543017, guid: 1f4d373a613d0466fbd8849470265852,
+  - dependency: {fileID: 919132149155446097, guid: ab3a79eba4de4be0ad5fead9fb858190,
       type: 3}
-    instantiationMode: 1
+    instantiationMode: 0
+  - dependency: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2,
+      type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
+      type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 1787346994484839025, guid: ad818c36731146e994540a1896ad8f24,
+      type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 4283425761326543017, guid: 9f3369e30fbd31f4bb596b1a99babe83,
+      type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 2761784063978902507, guid: c1800acf6366418a9b5f610249000331,
+      type: 3}
+    instantiationMode: 0
   templatePipeline: {fileID: 11500000, guid: d28376cb34da807439fec93356edd887, type: 3}
+  badge: {fileID: 0}
   addToDefaults: 0
 --- !u!28 &4220884676663841889
 Texture2D:

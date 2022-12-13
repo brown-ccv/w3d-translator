@@ -51,11 +51,12 @@ namespace Writing3D
                     Walls = new Dictionary<string, Transform>() { { "Center", Root.transform } };
 
                     // Instantiate the device simulator while testing
+                    Debug.Log("Instantiate Device Simulator");
                     if (!Application.isBatchMode)
                     {
                         UnityEngine.Object.Instantiate(
                             AssetDatabase.LoadAssetAtPath(
-                                "Assets/XR Interaction Toolkit/XR Device Simulator/" +
+                                "Assets/Samples/XR Interaction Toolkit/2.2.0/XR Device Simulator/" +
                                 "XR Device Simulator.prefab",
                                 typeof(GameObject)
                             ) as GameObject,
@@ -67,9 +68,9 @@ namespace Writing3D
                     Debug.Log("Applying global settings");
                     ApplyGlobalSettings();
 
-                    Debug.Log("Building Objects");
-                    BuildWalls(); // TODO: Only build if desired?
-                    TranslateGameObjects();
+                    //Debug.Log("Building Objects");
+                    //BuildWalls(); // TODO: Only build if desired?
+                    //TranslateGameObjects();
 
                     // TODO 95: Generate the <Group>s
                     // TODO 96: Generate the <Timeline>s
@@ -77,8 +78,8 @@ namespace Writing3D
                     // TODO 98: Generate the <Event>s
                     // TODO 99: Generate the <ParticleAction>s
 
-                    Debug.Log("Applying actions");
-                    SetLinkActions();
+                    //Debug.Log("Applying actions");
+                    //SetLinkActions();
 
                     // Save and build scene
                     // Debug.Log("Building Scene");
@@ -91,10 +92,13 @@ namespace Writing3D
                 catch (Exception e)
                 {
                     // Exit with error
-                    File.Delete(InstantiatedScene.scene.path);
+                    Debug.LogError("CLI.cs encountered an error");
                     Debug.LogException(e);
+
+                    // TODO: The files are a folder right now? Not a file
+                    // Definitely need to delete meta file too
+                    File.Delete(InstantiatedScene.scene.path);
                     Application.logMessageReceivedThreaded -= HandleLog;
-                    EditorApplication.Exit(1);
                 }
             }
 
