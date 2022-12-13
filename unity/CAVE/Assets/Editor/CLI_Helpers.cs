@@ -5,9 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-using Writing3D;
 using Writing3D.Xml;
-using Writing3D.Actions;
 using Writing3D.Transitions;
 
 using static UnityEngine.ScriptableObject;
@@ -60,7 +58,7 @@ namespace Writing3D
             // Get the transform of the wall xmlPlacement is to be nested under
             private static Transform GetParent(Placement xmlPlacement)
             {
-                return Walls[xmlPlacement.RelativeTo.ToString()];
+                return _WallsDict[xmlPlacement.RelativeTo.ToString()];
             }
 
             // Gets the converted position element from xmlPlacement
@@ -76,7 +74,11 @@ namespace Writing3D
                 rotationType.LookAt: Rotate to look at target vector (world space)
                 rotationType.Normal: Local rotation around a normalized vector
             */
-            private static void SetTransform(Transform gameObjectT, Placement xmlPlacement, float scale = 1)
+            private static void SetTransform(
+                Transform gameObjectT,
+                Placement xmlPlacement,
+                float scale = 1
+            )
             {
                 gameObjectT.localScale = ConvertScale(scale);
                 gameObjectT.SetParent(GetParent(xmlPlacement), false);
@@ -92,7 +94,7 @@ namespace Writing3D
                     case LookAt xmlLookAt:
                         gameObjectT.rotation = Quaternion.LookRotation(
                             gameObjectT.position -
-                                Root.transform.TransformPoint(ConvertVector3(xmlLookAt.TargetString)),
+                                _Root.transform.TransformPoint(ConvertVector3(xmlLookAt.TargetString)),
                             ConvertVector3(xmlLookAt.UpString)
                         );
                         break;
@@ -182,8 +184,7 @@ namespace Writing3D
             {
                 // Initialize action
                 LinkAction linkAction = CreateInstance<LinkAction>();
-                if (xmlLinkAction.Clicks is not null &&
-                    xmlLinkAction.Clicks.Type == Clicks.ActivationTypes.Number)
+                if (xmlLinkAction.Clicks?.Type == Clicks.ActivationTypes.Number)
                 {
                     NumClicks activation = (NumClicks)xmlLinkAction.Clicks.Activation;
                     linkAction.Init(activation.Clicks, activation.Reset);
@@ -194,7 +195,7 @@ namespace Writing3D
                 {
                     case ObjectChange xmlAction:
                         // Get referenced GameObject
-                        reference = GameObjects[xmlAction.Name].Item1;
+                        reference = _ObjectDict[xmlAction.Name].Item1;
 
                         // Initialize the transition and add to LinkActionEvent
                         Transitions.Transition transition = GetTransition(

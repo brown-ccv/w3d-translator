@@ -24,15 +24,15 @@ namespace Writing3D
     {
         public static partial class CLI
         {
-            public static string XmlPath;
-            private static InstantiationResult InstantiatedScene;
+            public static string _XmlPath;
+            private static InstantiationResult _InstantiatedScene;
 
-            private static Xml.Root XmlRoot;
-            private static GameObject Root;
-            private static GameObject XROrigin;
+            private static Xml.Root _XmlRoot;
+            private static GameObject _Root;
+            private static GameObject _XROrigin;
 
-            private static Dictionary<string, Transform> Walls;
-            private static Dictionary<string, (GameObject, Xml.Object)> GameObjects;
+            private static Dictionary<string, Transform> _WallsDict;
+            private static Dictionary<string, (GameObject, Xml.Object)> _ObjectDict;
 
             [MenuItem("Custom/CLI.Main %g")]
             public static void Main()
@@ -43,18 +43,18 @@ namespace Writing3D
                     if (!Application.isBatchMode) ClearConsole();
 
                     // Load xml file
-                    GetXmlPathArg();
+                    Get_XmlPathArg();
                     LoadXml();
 
                     // Create new scene and store the root GameObjects
                     Debug.Log("Instantiating Scene");
-                    InstantiatedScene = InstantiateScene();
+                    _InstantiatedScene = InstantiateScene();
 
-                    Root = InstantiatedScene.scene.GetRootGameObjects()[0];
-                    XROrigin = InstantiatedScene.scene.GetRootGameObjects()[1].transform.Find("XR Origin").gameObject;
+                    _Root = _InstantiatedScene.scene.GetRootGameObjects()[0];
+                    _XROrigin = _InstantiatedScene.scene.GetRootGameObjects()[1].transform.Find("XR Origin").gameObject;
 
-                    GameObjects = new Dictionary<string, (GameObject, Xml.Object)>();
-                    Walls = new Dictionary<string, Transform>() { { "Center", Root.transform } };
+                    _ObjectDict = new Dictionary<string, (GameObject, Xml.Object)>();
+                    _WallsDict = new Dictionary<string, Transform>() { { "Center", _Root.transform } };
 
                     // Instantiate the device simulator while testing
                     Debug.Log("Instantiate Device Simulator");
@@ -64,7 +64,7 @@ namespace Writing3D
                     ApplyGlobalSettings();
 
                     Debug.Log("Building Objects");
-                    BuildWalls(); // TODO: Only build if desired?
+                    Build_WallsDict(); // TODO: Only build if desired?
                     TranslateGameObjects();
 
                     // TODO 95: Generate the <Group>s
@@ -78,14 +78,14 @@ namespace Writing3D
 
                     // Save and build scene
                     Debug.Log("Building Scene");
-                    EditorSceneManager.SaveScene(InstantiatedScene.scene);
+                    EditorSceneManager.SaveScene(_InstantiatedScene.scene);
                     // BuildReport report = BuildScene();
                     // Debug.Log($"Build {report.summary.result}");
                 }
                 catch (Exception e)
                 {
                     Debug.LogException(e);
-                    File.Delete(InstantiatedScene.scene.path); // TODO: Is this deleting the meta file?
+                    File.Delete(_InstantiatedScene.scene.path); // TODO: Is this deleting the meta file?
                 }
                 finally { Application.logMessageReceivedThreaded -= HandleLog; }
             }
@@ -100,14 +100,14 @@ namespace Writing3D
             }
 
             // Get command line arguments from Python
-            private static void GetXmlPathArg()
+            private static void Get_XmlPathArg()
             {
                 try
                 {
                     string[] args = Environment.GetCommandLineArgs();
                     for (int i = 0; i < args.Length; i++)
                     {
-                        if (args[i] == "--xmlPath") { XmlPath = args[++i]; }
+                        if (args[i] == "--xmlPath") { _XmlPath = args[++i]; }
                     }
                 }
                 catch
@@ -123,17 +123,17 @@ namespace Writing3D
                 try
                 {
                     System.Xml.Serialization.XmlSerializer serializer = new(typeof(Xml.Root));
-                    using var reader = System.Xml.XmlReader.Create(XmlPath);
-                    XmlRoot = (Xml.Root)serializer.Deserialize(reader);
+                    using var reader = System.Xml.XmlReader.Create(_XmlPath);
+                    _XmlRoot = (Xml.Root)serializer.Deserialize(reader);
                 }
                 catch (FileNotFoundException)
                 {
-                    Debug.LogError($"File at {XmlPath} not found");
+                    Debug.LogError($"File at {_XmlPath} not found");
                     throw;
                 }
                 catch
                 {
-                    Debug.LogError($"Deserialization of file at {XmlPath} failed.");
+                    Debug.LogError($"Deserialization of file at {_XmlPath} failed.");
                     throw;
                 }
             }
@@ -146,12 +146,12 @@ namespace Writing3D
                     return SceneTemplateService.Instantiate(
                         Resources.Load<SceneTemplateAsset>("CAVE"),
                         false,
-                        $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(XmlPath)}.unity"
+                        $"Assets/Resources/Scenes/{Path.GetFileNameWithoutExtension(_XmlPath)}.unity"
                     );
                 }
                 catch
                 {
-                    Debug.LogError($"Unable to create scene for {XmlPath}");
+                    Debug.LogError($"Unable to create scene for {_XmlPath}");
                     throw;
                 }
             }
@@ -167,8 +167,8 @@ namespace Writing3D
                             "XR Device Simulator.prefab",
                             typeof(GameObject)
                         ) as GameObject,
-                        XROrigin.transform.position,
-                        XROrigin.transform.rotation
+                        _XROrigin.transform.position,
+                        _XROrigin.transform.rotation
                     ).transform.SetAsLastSibling();
                 }
                 catch
@@ -181,9 +181,9 @@ namespace Writing3D
             // Apply camera, lighting, and tracking settings
             private static void ApplyGlobalSettings()
             {
-                Xml.Global xmlGlobal = XmlRoot.Global;
-                Transform mainCameraT = XROrigin.transform.Find("CameraOffset").Find("Main Camera");
-                Transform caveCameraT = Root.transform.Find("Cave Camera");
+                Xml.Global xmlGlobal = _XmlRoot.Global;
+                Transform mainCameraT = _XROrigin.transform.Find("CameraOffset").Find("Main Camera");
+                Transform caveCameraT = _Root.transform.Find("Cave Camera");
 
                 // Load default lighting settings and delete skybox
                 Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
@@ -199,13 +199,13 @@ namespace Writing3D
                 caveCamera.farClipPlane = xmlCaveCamera.FarClip;
                 SetTransform(caveCamera.transform, xmlCaveCamera.Placement);
 
-                // Update Camera inside of XROrigin
+                // Update Camera inside of _XROrigin
                 Xml.Camera xmlCamera = xmlGlobal.Camera;
                 UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
                 camera.farClipPlane = xmlCamera.FarClip;
-                XROrigin.transform.position =
-                    // CameraX is really the player's position - update XROrigin directly
-                    // XROrigin is outside the Root object so we must convert to meters
+                _XROrigin.transform.position =
+                    // CameraX is really the player's position - update _XROrigin directly
+                    // _XROrigin is outside the _Root object so we must convert to meters
                     ConvertVector3(xmlCamera.Placement.PositionString) * 0.3048f;
 
                 // Update tracking settings for the Main Camera
@@ -224,29 +224,29 @@ namespace Writing3D
                         break;
                     case (false, false):
                         tracking.enabled = false;
-                        XROrigin.GetComponent<XROrigin>().RequestedTrackingOriginMode
+                        _XROrigin.GetComponent<XROrigin>().RequestedTrackingOriginMode
                             // Using device based tracking adds the hard-coded camera offset
-                            = Unity.XR.CoreUtils.XROrigin.TrackingOriginMode.Device;
+                            = XROrigin.TrackingOriginMode.Device;
                         break;
                     default: // Unreachable but fixes warning
                 }
             }
 
             // Create each <Placement> as an outlined GameObject 
-            private static void BuildWalls()
+            private static void Build_WallsDict()
             {
-                foreach (Xml.Placement xmlPlacement in XmlRoot.PlacementRoot)
+                foreach (Xml.Placement xmlPlacement in _XmlRoot.PlacementRoot)
                 {
                     string name = xmlPlacement.Name;
 
-                    // Objects in the "Center" space are nested directly under Root
+                    // Objects in the "Center" space are nested directly under _Root
                     if (name == "Center") { continue; }
 
                     // Create and position wall
                     GameObject wall = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/wall"));
                     wall.name = name;
                     SetTransform(wall.transform, xmlPlacement);
-                    Walls.Add(name, wall.transform);
+                    _WallsDict.Add(name, wall.transform);
                 }
             }
 
@@ -256,13 +256,13 @@ namespace Writing3D
                 /** Object
                     name: gameObject.name
                     Visible: gameObject.active
-                    Color: gameObject.[content].color (disabledColor if <LinkRoot> is present)
+                    Color: gameObject.[content].color (disabledColor if <Link_Root> is present)
                     Lighting: (TODO 76)
                     ClickThrough: gameObject<Collider>.enabled (opposite)
                     AroundSelfAxis: (TODO 76)
                     Scale: gameObject.localScale (set in Placement.SetTransform)
                 */
-                foreach (Xml.Object xmlObject in XmlRoot.ObjectRoot)
+                foreach (Xml.Object xmlObject in _XmlRoot.ObjectRoot)
                 {
                     // TODO 124: Use IBuilder syntax to build the object
                     // Separate content, transform, components, link, actions
@@ -286,7 +286,7 @@ namespace Writing3D
                         if (xmlLink.Enabled) { lm.EnableLink(); }
                         else { lm.DisableLink(); }
                     }
-                    GameObjects.Add(go.name, (go, xmlObject));
+                    _ObjectDict.Add(go.name, (go, xmlObject));
                 }
             }
 
@@ -294,7 +294,7 @@ namespace Writing3D
             {
                 foreach (
                     KeyValuePair<string, (GameObject, Xml.Object)> pair in
-                    GameObjects.Where(pair => pair.Value.Item2.LinkRoot is not null)
+                    _ObjectDict.Where(pair => pair.Value.Item2.LinkRoot is not null)
                 )
                 {
                     (GameObject go, Xml.Object xmlObject) = pair.Value;
@@ -336,8 +336,8 @@ namespace Writing3D
                 // TODO: Need to build for VR and for the CAVE
                 // Add README file?
 
-                string sceneName = InstantiatedScene.scene.name;
-                string scenePath = InstantiatedScene.scene.path;
+                string sceneName = _InstantiatedScene.scene.name;
+                string scenePath = _InstantiatedScene.scene.path;
                 return BuildPipeline.BuildPlayer(
                     new string[] { scenePath },             // Scenes to build
                     $"Builds/{sceneName}/{sceneName}.exe",  // Output path
