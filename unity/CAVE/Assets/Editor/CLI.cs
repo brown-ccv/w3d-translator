@@ -43,7 +43,7 @@ namespace Writing3D
                     if (!Application.isBatchMode) ClearConsole();
 
                     // Load xml file
-                    Get_XmlPathArg();
+                    GetXmlPathArg();
                     LoadXml();
 
                     // Create new scene and store the root GameObjects
@@ -64,7 +64,7 @@ namespace Writing3D
                     ApplyGlobalSettings();
 
                     Debug.Log("Building Objects");
-                    Build_WallsDict(); // TODO: Only build if desired?
+                    BuildWallsDict(); // TODO: Only build if desired?
                     TranslateGameObjects();
 
                     // TODO 95: Generate the <Group>s
@@ -100,7 +100,7 @@ namespace Writing3D
             }
 
             // Get command line arguments from Python
-            private static void Get_XmlPathArg()
+            private static void GetXmlPathArg()
             {
                 try
                 {
@@ -195,13 +195,13 @@ namespace Writing3D
 
                 // Update CaveCamera inside of root
                 Xml.Camera xmlCaveCamera = xmlGlobal.CaveCamera;
-                UnityEngine.Camera caveCamera = caveCameraT.GetComponent<UnityEngine.Camera>();
+                Camera caveCamera = caveCameraT.GetComponent<Camera>();
                 caveCamera.farClipPlane = xmlCaveCamera.FarClip;
                 SetTransform(caveCamera.transform, xmlCaveCamera.Placement);
 
                 // Update Camera inside of _XROrigin
                 Xml.Camera xmlCamera = xmlGlobal.Camera;
-                UnityEngine.Camera camera = mainCameraT.GetComponent<UnityEngine.Camera>();
+                Camera camera = mainCameraT.GetComponent<Camera>();
                 camera.farClipPlane = xmlCamera.FarClip;
                 _XROrigin.transform.position =
                     // CameraX is really the player's position - update _XROrigin directly
@@ -233,7 +233,7 @@ namespace Writing3D
             }
 
             // Create each <Placement> as an outlined GameObject 
-            private static void Build_WallsDict()
+            private static void BuildWallsDict()
             {
                 foreach (Xml.Placement xmlPlacement in _XmlRoot.PlacementRoot)
                 {
