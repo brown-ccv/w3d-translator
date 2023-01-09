@@ -51,6 +51,17 @@ namespace Writing3D
                     Debug.Log("Instantiating Scene");
                     _InstantiatedScene = InstantiateScene();
 
+                    // TODO: Add MiddleVR Manager to CAVE
+                    // Make sure the index is correct? Root, Complete XR Origin, MiddleVR Manager
+                    // Create TemplateCamera prefab with the correct background color, Clipping Panes (?)
+                    // Folder of Template Cameras(?) Update CaveCamera in scene and use that?
+                    // Add TemplateCamera to MVR Manager
+                    // Add MVR Interactable to interactable objects
+                    // Add HandleMVRInteraction function to MVR Wand Button event
+                    // How do I update the PlayerSettings? Is it neccesary?
+
+
+
                     _Root = _InstantiatedScene.scene.GetRootGameObjects()[0];
                     _XROrigin
                         = _InstantiatedScene.scene.GetRootGameObjects()[1].GetNamedChild("XR Origin");
