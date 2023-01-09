@@ -40,7 +40,8 @@ namespace Writing3D
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
                 {
-                    if (!Application.isBatchMode) ClearConsole();
+                    // Clear console if testing
+                    if (!Application.isBatchMode) { ClearConsole(); }
 
                     // Load xml file
                     GetXmlPathArg();
@@ -57,9 +58,9 @@ namespace Writing3D
                     _ObjectDict = new Dictionary<string, (GameObject, Xml.Object)>();
                     _WallsDict = new Dictionary<string, Transform>() { { "Center", _Root.transform } };
 
-                    // Instantiate the device simulator while testing
-                    Debug.Log("Instantiate Device Simulator");
-                    if (!Application.isBatchMode) InstantiateSimulator();
+                    // Instantiate the device simulator if testing
+                    Debug.Log("Instantiating Device Simulator");
+                    if (!Application.isBatchMode) { InstantiateSimulator(); }
 
                     Debug.Log("Applying global settings");
                     ApplyGlobalSettings();
