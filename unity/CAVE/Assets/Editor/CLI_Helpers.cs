@@ -1,17 +1,20 @@
 using System;
 using System.IO;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.Events;
+
 using TMPro;
 
+using UnityEditor;
+
+using UnityEngine;
+using UnityEngine.Events;
+
+using Writing3D.Transitions;
 //TODO: Figure out better imports to clean up Xml types
 using Writing3D.Xml;
-using Writing3D.Transitions;
 
-using static UnityEngine.ScriptableObject;
-using static UnityEngine.Object;
 using static UnityEditor.Events.UnityEventTools;
+using static UnityEngine.Object;
+using static UnityEngine.ScriptableObject;
 
 namespace Writing3D
 {

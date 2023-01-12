@@ -1,10 +1,6 @@
 using System;
 
-using MiddleVR;
-using MiddleVR.Unity;
-
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Writing3D
 {

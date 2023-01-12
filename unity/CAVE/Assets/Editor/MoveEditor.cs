@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEditor;
 
 using Writing3D.Transitions;
