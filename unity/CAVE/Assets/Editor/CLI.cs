@@ -52,23 +52,11 @@ namespace Writing3D
                     Debug.Log("Instantiating Scene");
                     _InstantiatedScene = InstantiateScene();
 
-                    // TODO: Add MiddleVR Manager to CAVE
-                    // ClippingPane might have to be default
 
-                    // Use some default configuration file? Not sure if that makes a difference outside of IDE
-                    //What position is best for MVR to start at? 
-                    //Reapply player settings?
-
-
-                    // Folder of Template Cameras(?) Update CaveCamera in scene and use that?
-
-
-                    // Add TemplateCamera to MVR Manager
-                    // Add MVR Interactable to interactable objects
-                    // Add HandleMVRInteraction function to MVR Wand Button event
-                    // How do I update the PlayerSettings? Is it neccesary?
-
-
+                    // TODO: Don't copy assets when instantiating the new scene (MVR)
+                    // Leave CaveCamera clippingPane as default? (farClip: 1000)
+                    // TODO: Apply Player Settings? MiddleVR -> Editor -> MVRCustomEditor.cs (ApplyMVRSettings)
+                    // What position is best for MVR to start at? How does it pick up tracking?
 
                     _Root = _InstantiatedScene.scene.GetRootGameObjects()[0];
                     _XROrigin
@@ -86,7 +74,7 @@ namespace Writing3D
                     ApplyGlobalSettings();
 
                     Debug.Log("Building Objects");
-                    BuildWallsDict(); // TODO: Only build if desired?
+                    BuildWalls(); // TODO: Only build if desired?
                     TranslateGameObjects();
 
                     // TODO 95: Generate the <Group>s
@@ -219,12 +207,10 @@ namespace Writing3D
                 Xml.Camera xmlCaveCamera = xmlGlobal.CaveCamera;
                 Camera caveCamera = caveCameraT.GetComponent<Camera>();
                 caveCamera.farClipPlane = xmlCaveCamera.FarClip; // TODO: Remove?
-                // MVR needs the background color with an alpha of 0
                 caveCamera.backgroundColor = ConvertColor(xmlGlobal.Background.ColorString, 0);
                 SetTransform(caveCamera.transform, xmlCaveCamera.Placement);
-                
 
-                //Use caveCamera as the template for MVR
+                // Use CaveCamera as a template for MVR
                 MVRManagerScript mvrScript = _MVRManager.GetComponent<MVRManagerScript>();
                 mvrScript.advancedProperties.TemplateCamera = caveCameraT.gameObject;
 
@@ -262,7 +248,7 @@ namespace Writing3D
             }
 
             // Create each <Placement> as an outlined GameObject 
-            private static void BuildWallsDict()
+            private static void BuildWalls()
             {
                 foreach (Xml.Placement xmlPlacement in _XmlRoot.PlacementRoot)
                 {
@@ -314,6 +300,10 @@ namespace Writing3D
                         lm.ActiveColor = ConvertColor(xmlLink.SelectedColorString);
                         if (xmlLink.Enabled) { lm.EnableLink(); }
                         else { lm.DisableLink(); }
+
+                        // Add MVRInteractable and initialize
+                        MVRInteractable mvi = go.AddComponent<MVRInteractable>();
+                        AddPersistentListener(mvi.MVRWandButton, mvi.HandleMVRInteraction);
                     }
                     _ObjectDict.Add(go.name, (go, xmlObject));
                 }
