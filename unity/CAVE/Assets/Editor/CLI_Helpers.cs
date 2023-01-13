@@ -25,13 +25,14 @@ namespace Writing3D
             /********** Writing3D.Xml TO UNITY CONVERSIONS    ***********/
 
             // Converts "[int], [int], [int]" to a UnityEngine.Color object
-            private static UnityEngine.Color ConvertColor(string colorString)
+            private static UnityEngine.Color ConvertColor(string colorString, float alpha = 1)
             {
                 string[] strings = colorString.Trim(new[] { ' ', '(', ')' }).Split(",");
                 return new UnityEngine.Color(
                     float.Parse(strings[0]) / 255,
                     float.Parse(strings[1]) / 255,
-                    float.Parse(strings[2]) / 255
+                    float.Parse(strings[2]) / 255,
+                    alpha
                 );
             }
 

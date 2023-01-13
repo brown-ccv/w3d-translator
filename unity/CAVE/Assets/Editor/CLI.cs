@@ -30,6 +30,7 @@ namespace Writing3D
             private static Xml.Root _XmlRoot;
             private static GameObject _Root;
             private static GameObject _XROrigin;
+            private static GameObject _MVRManager;
 
             private static Dictionary<string, Transform> _WallsDict;
             private static Dictionary<string, (GameObject, Xml.Object)> _ObjectDict;
@@ -52,9 +53,16 @@ namespace Writing3D
                     _InstantiatedScene = InstantiateScene();
 
                     // TODO: Add MiddleVR Manager to CAVE
-                    // Make sure the index is correct? Root, Complete XR Origin, MiddleVR Manager
-                    // Create TemplateCamera prefab with the correct background color, Clipping Panes (?)
+                    // ClippingPane might have to be default
+
+                    // Use some default configuration file? Not sure if that makes a difference outside of IDE
+                    //What position is best for MVR to start at? 
+                    //Reapply player settings?
+
+
                     // Folder of Template Cameras(?) Update CaveCamera in scene and use that?
+
+
                     // Add TemplateCamera to MVR Manager
                     // Add MVR Interactable to interactable objects
                     // Add HandleMVRInteraction function to MVR Wand Button event
@@ -65,6 +73,7 @@ namespace Writing3D
                     _Root = _InstantiatedScene.scene.GetRootGameObjects()[0];
                     _XROrigin
                         = _InstantiatedScene.scene.GetRootGameObjects()[1].GetNamedChild("XR Origin");
+                    _MVRManager = _InstantiatedScene.scene.GetRootGameObjects()[2];
 
                     _ObjectDict = new Dictionary<string, (GameObject, Xml.Object)>();
                     _WallsDict = new Dictionary<string, Transform>() { { "Center", _Root.transform } };
@@ -195,6 +204,9 @@ namespace Writing3D
                 Transform mainCameraT = _XROrigin.transform.Find("CameraOffset").Find("Main Camera");
                 Transform caveCameraT = _Root.transform.Find("Cave Camera");
 
+                Debug.Log(ConvertColor(xmlGlobal.Background.ColorString));
+                Debug.Log(ConvertColor(xmlGlobal.Background.ColorString, 0));
+
                 // Load default lighting settings and delete skybox
                 Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
                 RenderSettings.skybox = null;
@@ -206,8 +218,15 @@ namespace Writing3D
                 // Update CaveCamera inside of root
                 Xml.Camera xmlCaveCamera = xmlGlobal.CaveCamera;
                 Camera caveCamera = caveCameraT.GetComponent<Camera>();
-                caveCamera.farClipPlane = xmlCaveCamera.FarClip;
+                caveCamera.farClipPlane = xmlCaveCamera.FarClip; // TODO: Remove?
+                // MVR needs the background color with an alpha of 0
+                caveCamera.backgroundColor = ConvertColor(xmlGlobal.Background.ColorString, 0);
                 SetTransform(caveCamera.transform, xmlCaveCamera.Placement);
+                
+
+                //Use caveCamera as the template for MVR
+                MVRManagerScript mvrScript = _MVRManager.GetComponent<MVRManagerScript>();
+                mvrScript.advancedProperties.TemplateCamera = caveCameraT.gameObject;
 
                 // Update Camera inside of _XROrigin
                 Xml.Camera xmlCamera = xmlGlobal.Camera;
@@ -366,6 +385,7 @@ namespace Writing3D
                     LogType.Warning => "yellow",
                     LogType.Error => "red",
                     LogType.Exception => "bold red",
+                    LogType.Assert => "blue",
                     _ => "white"
                 };
                 Console.WriteLine($"LOG:[{color}]{logString}[/{color}]");
