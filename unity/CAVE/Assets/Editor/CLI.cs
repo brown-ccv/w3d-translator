@@ -52,8 +52,6 @@ namespace Writing3D
                     Debug.Log("Instantiating Scene");
                     _InstantiatedScene = InstantiateScene();
 
-
-                    // TODO: Don't copy assets when instantiating the new scene (MVR)
                     // Leave CaveCamera clippingPane as default? (farClip: 1000)
                     // TODO: Apply Player Settings? MiddleVR -> Editor -> MVRCustomEditor.cs (ApplyMVRSettings)
                     // What position is best for MVR to start at? How does it pick up tracking?
@@ -240,7 +238,7 @@ namespace Writing3D
                             // Using device based tracking adds the hard-coded camera offset
                             = XROrigin.TrackingOriginMode.Device;
                         break;
-                    default: // Unreachable but fixes warning
+                    default:
                 }
             }
 
@@ -300,6 +298,8 @@ namespace Writing3D
 
                         // Add MVRInteractable and initialize
                         MVRInteractable mvi = go.AddComponent<MVRInteractable>();
+                        mvi.Grabable = false;
+                        mvi.AddCollider = false;
                         AddPersistentListener(mvi.MVRWandButton, mvi.HandleMVRInteraction);
                     }
                     _ObjectDict.Add(go.name, (go, xmlObject));
