@@ -39,7 +39,8 @@ namespace Writing3D
             public static void Main()
             {
                 // Leave CaveCamera clippingPane as default? (farClip: 1000)
-                // TODO: Apply Player Settings? MiddleVR -> Editor -> MVRCustomEditor.cs (ApplyMVRSettings)
+                // TODO: Apply Player Settings? 
+                    // MiddleVR -> Editor -> MVRCustomEditor.cs (ApplyMVRSettings)
                 // What position is best for MVR to start at? How does it pick up tracking?
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
@@ -52,34 +53,36 @@ namespace Writing3D
                     LoadXml();
 
                     // Create new scene and store the root GameObjects
-                    // TODO: Create new scene and clone prefabs?
                     Debug.Log("Instantiating Scene");
                     _InstantiatedScene = InstantiateScene();
                     _Root = _InstantiatedScene.scene.GetRootGameObjects()[0];
                     _XROrigin
-                        = _InstantiatedScene.scene.GetRootGameObjects()[1].GetNamedChild("XR Origin");
+                        = _InstantiatedScene.scene.GetRootGameObjects()[1]
+                                                  .GetNamedChild("XR Origin");
                     _MVRManager = _InstantiatedScene.scene.GetRootGameObjects()[2];
 
                     _ObjectDict = new Dictionary<string, (GameObject, Xml.Object)>();
-                    _WallsDict = new Dictionary<string, Transform>() { { "Center", _Root.transform } };
+                    _WallsDict = new Dictionary<string, Transform>() {
+                        { "Center", _Root.transform }
+                    };
 
                     // Instantiate the device simulator if testing
                     // TEMP - Not using simulator
-                    //Debug.Log("Instantiating Device Simulator");
+                    // Debug.Log("Instantiating Device Simulator");
                     //if (!Application.isBatchMode) { InstantiateSimulator(); }
 
                     Debug.Log("Applying global settings");
                     ApplyGlobalSettings();
 
                     Debug.Log("Building Objects");
-                    BuildWalls(); // TODO: Only build if desired?
+                    BuildWalls(); // TODO: CLI option - only build if desired
                     TranslateGameObjects();
 
-                    // TODO 95: Generate the <Group>s
-                    // TODO 96: Generate the <Timeline>s
-                    // TODO 97: Generate the <Sound>s
-                    // TODO 98: Generate the <Event>s
-                    // TODO 99: Generate the <ParticleAction>s
+                    // TODO 95: Build the <Group>s
+                    // TODO 96: Build the <Timeline>s
+                    // TODO 97: Build the <Sound>s
+                    // TODO 98: Build the <Event>s
+                    // TODO 99: Build the <ParticleAction>s
 
                     Debug.Log("Applying actions");
                     SetLinkActions();
@@ -93,7 +96,8 @@ namespace Writing3D
                 catch (Exception e)
                 {
                     Debug.LogException(e);
-                    File.Delete(_InstantiatedScene.scene.path); // TODO: Is this deleting the meta file?
+                    // TODO: Is this deleting the meta file?
+                    File.Delete(_InstantiatedScene.scene.path);
                 }
                 finally { Application.logMessageReceivedThreaded -= HandleLog; }
             }
@@ -101,7 +105,8 @@ namespace Writing3D
             // Clear the editor console
             private static void ClearConsole()
             {
-                var type = Assembly.GetAssembly(typeof(UnityEditor.Editor)).GetType("UnityEditor.LogEntries");
+                var type = Assembly.GetAssembly(typeof(UnityEditor.Editor))
+                                   .GetType("UnityEditor.LogEntries");
                 type.GetMethod("Clear").Invoke(new object(), null);
             }
 
@@ -198,21 +203,18 @@ namespace Writing3D
                 RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
                 RenderSettings.ambientLight = ConvertColor(xmlGlobal.Background.ColorString);
 
-                // Update CaveCamera inside of root
+                // Update CaveCamera inside of root (TemplateCamera for MVR)
                 Xml.Camera xmlCaveCamera = xmlGlobal.CaveCamera;
                 Camera caveCamera = caveCameraT.GetComponent<Camera>();
                 caveCamera.farClipPlane = xmlCaveCamera.FarClip; // TODO: Remove?
                 caveCamera.backgroundColor = ConvertColor(xmlGlobal.Background.ColorString, 0);
                 SetTransform(caveCamera.transform, xmlCaveCamera.Placement);
 
-                // Use CaveCamera as a template for MVR
-                MVRManagerScript mvrScript = _MVRManager.GetComponent<MVRManagerScript>();
-                //mvrScript.advancedProperties.TemplateCamera = caveCameraT.gameObject;
-
                 // Update Camera inside of _XROrigin
                 Xml.Camera xmlCamera = xmlGlobal.Camera;
                 Camera camera = mainCameraT.GetComponent<Camera>();
                 camera.farClipPlane = xmlCamera.FarClip;
+                camera.backgroundColor = ConvertColor(xmlGlobal.Background.ColorString, 0);
                 _XROrigin.transform.position =
                     // CameraX is really the player's position - update _XROrigin directly
                     // _XROrigin is outside the _Root object so we must convert to meters
