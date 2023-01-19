@@ -38,6 +38,9 @@ namespace Writing3D
             [MenuItem("Custom/CLI.Main %g")]
             public static void Main()
             {
+                // Leave CaveCamera clippingPane as default? (farClip: 1000)
+                // TODO: Apply Player Settings? MiddleVR -> Editor -> MVRCustomEditor.cs (ApplyMVRSettings)
+                // What position is best for MVR to start at? How does it pick up tracking?
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
                 {
@@ -49,13 +52,9 @@ namespace Writing3D
                     LoadXml();
 
                     // Create new scene and store the root GameObjects
+                    // TODO: Create new scene and clone prefabs?
                     Debug.Log("Instantiating Scene");
                     _InstantiatedScene = InstantiateScene();
-
-                    // Leave CaveCamera clippingPane as default? (farClip: 1000)
-                    // TODO: Apply Player Settings? MiddleVR -> Editor -> MVRCustomEditor.cs (ApplyMVRSettings)
-                    // What position is best for MVR to start at? How does it pick up tracking?
-
                     _Root = _InstantiatedScene.scene.GetRootGameObjects()[0];
                     _XROrigin
                         = _InstantiatedScene.scene.GetRootGameObjects()[1].GetNamedChild("XR Origin");
@@ -65,8 +64,9 @@ namespace Writing3D
                     _WallsDict = new Dictionary<string, Transform>() { { "Center", _Root.transform } };
 
                     // Instantiate the device simulator if testing
-                    Debug.Log("Instantiating Device Simulator");
-                    if (!Application.isBatchMode) { InstantiateSimulator(); }
+                    // TEMP - Not using simulator
+                    //Debug.Log("Instantiating Device Simulator");
+                    //if (!Application.isBatchMode) { InstantiateSimulator(); }
 
                     Debug.Log("Applying global settings");
                     ApplyGlobalSettings();
@@ -207,7 +207,7 @@ namespace Writing3D
 
                 // Use CaveCamera as a template for MVR
                 MVRManagerScript mvrScript = _MVRManager.GetComponent<MVRManagerScript>();
-                mvrScript.advancedProperties.TemplateCamera = caveCameraT.gameObject;
+                //mvrScript.advancedProperties.TemplateCamera = caveCameraT.gameObject;
 
                 // Update Camera inside of _XROrigin
                 Xml.Camera xmlCamera = xmlGlobal.Camera;

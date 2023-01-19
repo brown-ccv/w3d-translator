@@ -329,6 +329,11 @@ PrefabInstance:
       propertyPath: AttachToCamera
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6135451243996062281, guid: 683bb1f3c53577240a10a66a2cf5cd2b,
+        type: 3}
+      propertyPath: advancedProperties.TemplateCamera
+      value: 
+      objectReference: {fileID: 1326487535}
     - target: {fileID: 6135451243996062282, guid: 683bb1f3c53577240a10a66a2cf5cd2b,
         type: 3}
       propertyPath: m_RootOrder
