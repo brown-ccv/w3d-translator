@@ -40,7 +40,7 @@ namespace Writing3D
             {
                 // Leave CaveCamera clippingPane as default? (farClip: 1000)
                 // TODO: Apply Player Settings? 
-                    // MiddleVR -> Editor -> MVRCustomEditor.cs (ApplyMVRSettings)
+                // MiddleVR -> Editor -> MVRCustomEditor.cs (ApplyMVRSettings)
                 // What position is best for MVR to start at? How does it pick up tracking?
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
@@ -88,10 +88,10 @@ namespace Writing3D
                     SetLinkActions();
 
                     // Save and build scene
-                    //Debug.Log("Building Scene");
+                    Debug.Log("Building Scene");
                     EditorSceneManager.SaveScene(_InstantiatedScene.scene);
-                    // BuildReport report = BuildScene();
-                    // Debug.Log($"Build {report.summary.result}");
+                    BuildReport report = BuildScene();
+                    Debug.Log($"Build {report.summary.result}");
                 }
                 catch (Exception e)
                 {
@@ -351,16 +351,19 @@ namespace Writing3D
 
             private static BuildReport BuildScene()
             {
-                // TODO: Need to build for VR and for the CAVE
-                // Add README file?
+                // TODO: Add README file?
 
+                // TODO: Build path (Builds/{sceneName}) must be created first
+                // TODO: Include project name in exe (currently just {sceneName}.exe)
                 string sceneName = _InstantiatedScene.scene.name;
                 string scenePath = _InstantiatedScene.scene.path;
                 return BuildPipeline.BuildPlayer(
                     new string[] { scenePath },             // Scenes to build
                     $"Builds/{sceneName}/{sceneName}.exe",  // Output path
                     BuildTarget.StandaloneWindows64,
-                    BuildOptions.None
+                    BuildOptions.Development
+                    | BuildOptions.ConnectWithProfiler
+                    | BuildOptions.AllowDebugging
                 );
             }
 
