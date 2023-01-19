@@ -192,9 +192,6 @@ namespace Writing3D
                 Transform mainCameraT = _XROrigin.transform.Find("CameraOffset").Find("Main Camera");
                 Transform caveCameraT = _Root.transform.Find("Cave Camera");
 
-                Debug.Log(ConvertColor(xmlGlobal.Background.ColorString));
-                Debug.Log(ConvertColor(xmlGlobal.Background.ColorString, 0));
-
                 // Load default lighting settings and delete skybox
                 Lightmapping.lightingSettings = Resources.Load<LightingSettings>("CAVE");
                 RenderSettings.skybox = null;
