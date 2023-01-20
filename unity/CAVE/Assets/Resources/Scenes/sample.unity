@@ -190,6 +190,36 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 237404872857613473, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 775737198855817747, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588901344631454954, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898952635531086629, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364550393595313139, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2397774472267029389, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2397774472747891701, guid: 3ce10ba5b66e2424c9922690807783dc,
         type: 3}
       propertyPath: m_BackGroundColor.b
@@ -205,10 +235,45 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2397774472845728626, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2397774473297115014, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2500468768751744133, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_InteractionManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3353041960273841443, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4116587450030112104, guid: 3ce10ba5b66e2424c9922690807783dc,
         type: 3}
       propertyPath: m_Name
       value: Complete XR Origin Set Up Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750060240326256939, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342983392383223939, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6046298040107593215, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
         type: 3}
@@ -264,6 +329,56 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060504794764696520, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_SmoothTurnEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060504794764696520, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_SmoothMotionEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100986794916538041, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287315139269242399, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303767523633806026, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446447619527173903, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591095496386682901, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591095496386682905, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760973051692210996, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981351342062213285, guid: 3ce10ba5b66e2424c9922690807783dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -1278,7 +1393,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294934528
   m_fontColor: {r: 0, g: 0.5019608, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2020,7 +2135,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294934528
   m_fontColor: {r: 0, g: 0.5019608, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2426,7 +2541,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294934528
   m_fontColor: {r: 0, g: 0.5019608, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2983,7 +3098,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294934528
   m_fontColor: {r: 0, g: 0.5019608, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3300,7 +3415,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4288256409
   m_fontColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3467,6 +3582,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135451243996062281, guid: 683bb1f3c53577240a10a66a2cf5cd2b,
         type: 3}
+      propertyPath: EditorConfigFile
+      value: C:/Program Files/MiddleVR2/data/Config/Standard/MultiDisplay.vrx
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135451243996062281, guid: 683bb1f3c53577240a10a66a2cf5cd2b,
+        type: 3}
       propertyPath: advancedProperties.TemplateCamera
       value: 
       objectReference: {fileID: 1326487535}
@@ -3529,6 +3649,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MVRManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135451243996062287, guid: 683bb1f3c53577240a10a66a2cf5cd2b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135451244529030069, guid: 683bb1f3c53577240a10a66a2cf5cd2b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

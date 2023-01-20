@@ -38,10 +38,14 @@ namespace Writing3D
             [MenuItem("Custom/CLI.Main %g")]
             public static void Main()
             {
-                // Leave CaveCamera clippingPane as default? (farClip: 1000)
-                // TODO: Apply Player Settings? 
-                // MiddleVR -> Editor -> MVRCustomEditor.cs (ApplyMVRSettings)
-                // What position is best for MVR to start at? How does it pick up tracking?
+                // TODO: Programmatically apply MVR settings?  MiddleVR -> Editor -> MVRCustomEditor.cs -> ApplyMVRSettings
+                // TODO: Leave CaveCamera clippingPane as default? (farClip: 1000)
+                // TODO: Starting position for MVR before it receives data?
+                // TODO: Disable MVR on play mode (?)
+                // TODO: Disable XR Origin when MVR is running
+                // TODO: Lighting settings
+                // TODO 180: Disable XR gravity (on prefab)
+                // TODO 181: Disable teleport line renderer (on prefab)
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
                 {
@@ -351,9 +355,8 @@ namespace Writing3D
 
             private static BuildReport BuildScene()
             {
-                // TODO: Add README file?
 
-                // TODO: Build path (Builds/{sceneName}) must be created first
+                // TODO: Build path (Builds/{sceneName}/) must be created first
                 // TODO: Include project name in exe (currently just {sceneName}.exe)
                 string sceneName = _InstantiatedScene.scene.name;
                 string scenePath = _InstantiatedScene.scene.path;

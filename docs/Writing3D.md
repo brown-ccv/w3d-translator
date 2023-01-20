@@ -9,9 +9,36 @@
   - CAVE walls are 8' (96") squares -> 2.4384 meters
   - 1ft = 0.3048m, 1m = 3.28084ft
 
-### Unity Starter Assets
+### Complete XR Origin Set Up
 
-<!-- TODO: Update this based on creating from scratch not VR Template -->
+A prefab variant of the "Complete XR Origin Set Up" prefab (sample asset provided by XRI) is used in the base CAVE scene. A prefab variant of the "XR Origin" child was also created. This is done so changes can be made without altering the original prefab from XRI. The following changes were made to the prefab variant for the purposes of Writing3D:
+
+- Some miscellaneous reorganization of components
+- Gravity is turned off
+  - XR Origin -> Dynamic Move Provider -> `Use Gravity`
+- Grab Movement is disabled
+  - XR Origin -> Two-Handed Grab Move Provider
+  - XR Origin/CameraOffset/LeftHand (Smooth locomotion) -> Grab Move Provider
+  - XR Origin/CameraOffset/RightHand (Teleport locomotion) -> Grab Move Provider
+  - _Note that each of these scripts has a `Use Garvity` flag that, if used, would need to be turned off to disable gravity as well_
+- Teleportation is disabled
+  - XR Origin -> Teleportation Provider
+  - XR Origin/CameraOffset/LeftHand (Smooth locomotion)/Teleport Interactor
+  - XR Origin/CameraOffset/RightHand (Teleport locomotion)/Teleport Interactor
+- Direct interaction is disabled
+  - XR Origin/CameraOffset/LeftHand (Smooth locomotion)/Direct Interactor
+  - XR Origin/CameraOffset/RightHand (Teleport locomotion)/Direct Interactor
+- Smooth turn is enabled for the right hand
+  - XR Origin/CameraOffset/RightHand (Teleport locomotion) -> Action Based Controller Manager -> `Smooth Turn Enabled`
+- Raycast Interaction allows hovered activate
+  - XR Origin/CameraOffset/LeftHand (Smooth locomotion)/Ray Interactor -> XR Ray Interactor -> `Allow Hovered Activate`
+  - XR Origin/CameraOffset/RightHand (Teleport locomotion)/Ray Interactor -> XR Ray Interactor -> `Allow Hovered Activate`
+
+Note that GameObjects and components are turned off as opposed to being deleted in the prefab variant. This is used for personal reference as I learn how the components work - the unused objects/components can be deleted without changing functionality.
+
+<!-- TODO: Update everything below this based on creating from scratch not VR Template -->
+
+### Unity Starter Assets
 
 - Base project uses the "VR Project" template project that Unity provides
 - Delete the Skybox (`Lighting -> Environment -> Skybox Material`)
