@@ -182,219 +182,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Duration: 1
   Enabled: 1
---- !u!1001 &320299496
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 2
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 237404872857613473, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 775737198855817747, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1588901344631454954, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1898952635531086629, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2364550393595313139, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2397774472267029389, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2397774472747891701, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2397774472747891701, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2397774472747891701, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2397774472845728626, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2397774473297115014, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2500468768751744133, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_InteractionManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3353041960273841443, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4116587450030112104, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_Name
-      value: Complete XR Origin Set Up Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 4750060240326256939, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5342983392383223939, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046298040107593215, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295524704356439286, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8060504794764696520, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_SmoothTurnEnabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8060504794764696520, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_SmoothMotionEnabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8100986794916538041, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8287315139269242399, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8303767523633806026, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8446447619527173903, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591095496386682901, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591095496386682905, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8760973051692210996, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8981351342062213285, guid: 3ce10ba5b66e2424c9922690807783dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3ce10ba5b66e2424c9922690807783dc, type: 3}
---- !u!114 &320299497 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8591095497909569391, guid: 3ce10ba5b66e2424c9922690807783dc,
-    type: 3}
-  m_PrefabInstance: {fileID: 320299496}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e4e6cca11330d4088d729ab4fc9d9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &428454037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,7 +1006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b699cbe09439348946504fc81501f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 320299497}
+  m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
@@ -1749,6 +1536,77 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1001 &1365254271
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8422049579990225761, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_Name
+      value: Complete XR Origin Set Up Variant 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 542a65968a2b3e54d981bf5280fd472f, type: 3}
 --- !u!114 &1366258653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1948,7 +1806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b699cbe09439348946504fc81501f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 320299497}
+  m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
@@ -2367,7 +2225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b699cbe09439348946504fc81501f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 320299497}
+  m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
@@ -2924,7 +2782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b699cbe09439348946504fc81501f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 320299497}
+  m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2

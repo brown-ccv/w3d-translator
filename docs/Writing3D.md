@@ -20,7 +20,7 @@ A prefab variant of the "Complete XR Origin Set Up" prefab (sample asset provide
   - XR Origin -> Two-Handed Grab Move Provider
   - XR Origin/CameraOffset/LeftHand (Smooth locomotion) -> Grab Move Provider
   - XR Origin/CameraOffset/RightHand (Teleport locomotion) -> Grab Move Provider
-  - _Note that each of these scripts has a `Use Garvity` flag that, if used, would need to be turned off to disable gravity as well_
+  - _Note that each of these scripts has a `Use Gravity` flag that, if used, would need to be turned off to disable gravity as well_
 - Teleportation is disabled
   - XR Origin -> Teleportation Provider
   - XR Origin/CameraOffset/LeftHand (Smooth locomotion)/Teleport Interactor
