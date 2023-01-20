@@ -5,13 +5,24 @@
 - The origin is the middle of all objects
 - Nested objects will assume the local transform of the parent object
   - Position of the object itself is still in the parent's space
-- UNITY USES METERS FOR UNITS (CAVE uses ft)
+- Unity uses meters as its unity of measurement, Writing3D uses feet
   - CAVE walls are 8' (96") squares -> 2.4384 meters
   - 1ft = 0.3048m, 1m = 3.28084ft
+- The z axis is flipped for all objects when converting to Unity (`W3D.Xml.ConvertVector3`)
+  - _I'm not sure why this is the case? Seems like it's supposed to be this way?_
+
+## Base Scene
+
+Every W3D project builds off of the `CAVE.unity` scene in `Assets/Resources/`. This scene utilizes modified versions of some sample assets provided by the packages in use.
+
+- `Complete XR Origin Set Up` provides player functionality in HMDs
+- `MVRManager` provides player functionality in the CAVE.
+
+A prefab variant has been created for each, stored in `Assets/Resources/Prefabs/`. This is done so changes can be made without altering the original asset provided by the given package.
 
 ### Complete XR Origin Set Up
 
-A prefab variant of the "Complete XR Origin Set Up" prefab (sample asset provided by XRI) is used in the base CAVE scene. A prefab variant of the "XR Origin" child was also created. This is done so changes can be made without altering the original prefab from XRI. The following changes were made to the prefab variant for the purposes of Writing3D:
+The "Complete XR Origin Set Up" prefab is a sample asset provided by XR Interaction Toolkit. It forms the base player in XR for Head Mounted Displays. The following changes were made to the prefab variant for the purposes of Writing3D:
 
 - Some miscellaneous reorganization of components
 - Gravity is turned off
@@ -36,24 +47,25 @@ A prefab variant of the "Complete XR Origin Set Up" prefab (sample asset provide
 
 Note that GameObjects and components are turned off as opposed to being deleted in the prefab variant. This is used for personal reference as I learn how the components work - the unused objects/components can be deleted without changing functionality.
 
-<!-- TODO: Update everything below this based on creating from scratch not VR Template -->
+### MVRManager
 
-### Unity Starter Assets
+The "MVRManager" prefab is a sample asset provided by MiddleVR. It forms the base player in XR for our CAVE. The following changes were made to the prefab variant for the purposes of Writing3D:
 
-- Base project uses the "VR Project" template project that Unity provides
-- Delete the Skybox (`Lighting -> Environment -> Skybox Material`)
-  - Set "Environment Lighting" to "Color"
-  - Set "Ambient Color" to white (255, 255, 255)
-- The starter DirectionalLight can be deleted
-- The entire xml project lives inside the `Story` empty game object
+- [space]
 
-### Changes and Conversions
+<!-- TODO: Is this the reason it's starting weirdly? -->
 
-- The `Story` GameObject is positioned to center the scene within the CAVE
-  - Scale is 0.3048 to covert feet to meters
-  - Set Y to 1.2192 so floor sits at 0, 0, 0.
-- The z axis is flipped for all objects (`W3D.Xml.ConvertVector3`)
-  - I'm not sure why this is the case? Seems like it's supposed to be this way?
+The MVRManager component is located at `(0, 0, -1.2192)` to account for the difference in Origin in MiddleVR compared to XR.
+
+### Root
+
+At the top of the hierarchy is an empty GameObject named `Root`. The entire Writing3D project lives inside this object - akin to `<Story>` in the original xml.
+
+`Root` is used to scale the original project's unity of measurement (feet) into Unity's (meters). The changed scale means the position & scale values of objects inside of `Root` are exactly as they appeared in the original project and, moreover, they are still correctly displayed in 3D space. _Note that `Root`'s scale value is `(0.3048, 0.3048, 0.3048)`_
+
+`Root` is positioned at `(0, 1.2192, 0)` to exactly fit the measurements of our physical CAVE. The center of the floor sits at Unity's origin. MiddleVR handles the conversion of that origin to what is seen in our Motive tracking software.
+
+<!-- TODO: Everything below needs to be updated -->
 
 ## Globals
 
