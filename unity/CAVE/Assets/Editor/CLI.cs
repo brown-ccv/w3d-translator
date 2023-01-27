@@ -38,14 +38,10 @@ namespace Writing3D
             [MenuItem("Custom/CLI.Main %g")]
             public static void Main()
             {
-                // TODO: Programmatically apply MVR settings?  MiddleVR -> Editor -> MVRCustomEditor.cs -> ApplyMVRSettings
                 // TODO: Leave CaveCamera clippingPane as default? (farClip: 1000)
                 // TODO: Starting position for MVR before it receives data?
                 // TODO: Disable MVR on play mode (?)
                 // TODO: Disable XR Origin when MVR is running
-                // TODO: Lighting settings
-                // TODO 180: Disable XR gravity (on prefab)
-                // TODO 181: Disable teleport line renderer (on prefab)
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
                 {
