@@ -30,6 +30,7 @@ namespace Writing3D
             private static Xml.Root _XmlRoot;
             private static GameObject _Root;
             private static GameObject _XROrigin;
+            private static GameObject _MVRManager;
 
             private static Dictionary<string, Transform> _WallsDict;
             private static Dictionary<string, (GameObject, Xml.Object)> _ObjectDict;
@@ -37,6 +38,10 @@ namespace Writing3D
             [MenuItem("Custom/CLI.Main %g")]
             public static void Main()
             {
+                // Leave CaveCamera clippingPane as default? (farClip: 1000)
+                // TODO: Apply Player Settings? 
+                // MiddleVR -> Editor -> MVRCustomEditor.cs (ApplyMVRSettings)
+                // What position is best for MVR to start at? How does it pick up tracking?
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
                 {
@@ -50,44 +55,49 @@ namespace Writing3D
                     // Create new scene and store the root GameObjects
                     Debug.Log("Instantiating Scene");
                     _InstantiatedScene = InstantiateScene();
-
                     _Root = _InstantiatedScene.scene.GetRootGameObjects()[0];
                     _XROrigin
-                        = _InstantiatedScene.scene.GetRootGameObjects()[1].GetNamedChild("XR Origin");
+                        = _InstantiatedScene.scene.GetRootGameObjects()[1]
+                                                  .GetNamedChild("XR Origin");
+                    _MVRManager = _InstantiatedScene.scene.GetRootGameObjects()[2];
 
                     _ObjectDict = new Dictionary<string, (GameObject, Xml.Object)>();
-                    _WallsDict = new Dictionary<string, Transform>() { { "Center", _Root.transform } };
+                    _WallsDict = new Dictionary<string, Transform>() {
+                        { "Center", _Root.transform }
+                    };
 
                     // Instantiate the device simulator if testing
-                    Debug.Log("Instantiating Device Simulator");
-                    if (!Application.isBatchMode) { InstantiateSimulator(); }
+                    // TEMP - Not using simulator
+                    // Debug.Log("Instantiating Device Simulator");
+                    //if (!Application.isBatchMode) { InstantiateSimulator(); }
 
                     Debug.Log("Applying global settings");
                     ApplyGlobalSettings();
 
                     Debug.Log("Building Objects");
-                    BuildWallsDict(); // TODO: Only build if desired?
+                    BuildWalls(); // TODO: CLI option - only build if desired
                     TranslateGameObjects();
 
-                    // TODO 95: Generate the <Group>s
-                    // TODO 96: Generate the <Timeline>s
-                    // TODO 97: Generate the <Sound>s
-                    // TODO 98: Generate the <Event>s
-                    // TODO 99: Generate the <ParticleAction>s
+                    // TODO 95: Build the <Group>s
+                    // TODO 96: Build the <Timeline>s
+                    // TODO 97: Build the <Sound>s
+                    // TODO 98: Build the <Event>s
+                    // TODO 99: Build the <ParticleAction>s
 
                     Debug.Log("Applying actions");
                     SetLinkActions();
 
                     // Save and build scene
-                    //Debug.Log("Building Scene");
+                    Debug.Log("Building Scene");
                     EditorSceneManager.SaveScene(_InstantiatedScene.scene);
-                    // BuildReport report = BuildScene();
-                    // Debug.Log($"Build {report.summary.result}");
+                    BuildReport report = BuildScene();
+                    Debug.Log($"Build {report.summary.result}");
                 }
                 catch (Exception e)
                 {
                     Debug.LogException(e);
-                    File.Delete(_InstantiatedScene.scene.path); // TODO: Is this deleting the meta file?
+                    // TODO: Is this deleting the meta file?
+                    File.Delete(_InstantiatedScene.scene.path);
                 }
                 finally { Application.logMessageReceivedThreaded -= HandleLog; }
             }
@@ -95,7 +105,8 @@ namespace Writing3D
             // Clear the editor console
             private static void ClearConsole()
             {
-                var type = Assembly.GetAssembly(typeof(UnityEditor.Editor)).GetType("UnityEditor.LogEntries");
+                var type = Assembly.GetAssembly(typeof(UnityEditor.Editor))
+                                   .GetType("UnityEditor.LogEntries");
                 type.GetMethod("Clear").Invoke(new object(), null);
             }
 
@@ -192,16 +203,18 @@ namespace Writing3D
                 RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
                 RenderSettings.ambientLight = ConvertColor(xmlGlobal.Background.ColorString);
 
-                // Update CaveCamera inside of root
+                // Update CaveCamera inside of root (TemplateCamera for MVR)
                 Xml.Camera xmlCaveCamera = xmlGlobal.CaveCamera;
                 Camera caveCamera = caveCameraT.GetComponent<Camera>();
-                caveCamera.farClipPlane = xmlCaveCamera.FarClip;
+                caveCamera.farClipPlane = xmlCaveCamera.FarClip; // TODO: Remove?
+                caveCamera.backgroundColor = ConvertColor(xmlGlobal.Background.ColorString, 0);
                 SetTransform(caveCamera.transform, xmlCaveCamera.Placement);
 
                 // Update Camera inside of _XROrigin
                 Xml.Camera xmlCamera = xmlGlobal.Camera;
                 Camera camera = mainCameraT.GetComponent<Camera>();
                 camera.farClipPlane = xmlCamera.FarClip;
+                camera.backgroundColor = ConvertColor(xmlGlobal.Background.ColorString, 0);
                 _XROrigin.transform.position =
                     // CameraX is really the player's position - update _XROrigin directly
                     // _XROrigin is outside the _Root object so we must convert to meters
@@ -227,12 +240,12 @@ namespace Writing3D
                             // Using device based tracking adds the hard-coded camera offset
                             = XROrigin.TrackingOriginMode.Device;
                         break;
-                    default: // Unreachable but fixes warning
+                    default:
                 }
             }
 
             // Create each <Placement> as an outlined GameObject 
-            private static void BuildWallsDict()
+            private static void BuildWalls()
             {
                 foreach (Xml.Placement xmlPlacement in _XmlRoot.PlacementRoot)
                 {
@@ -284,6 +297,12 @@ namespace Writing3D
                         lm.ActiveColor = ConvertColor(xmlLink.SelectedColorString);
                         if (xmlLink.Enabled) { lm.EnableLink(); }
                         else { lm.DisableLink(); }
+
+                        // Add MVRInteractable and initialize
+                        MVRInteractable mvi = go.AddComponent<MVRInteractable>();
+                        mvi.Grabable = false;
+                        mvi.AddCollider = false;
+                        AddPersistentListener(mvi.MVRWandButton, mvi.HandleMVRInteraction);
                     }
                     _ObjectDict.Add(go.name, (go, xmlObject));
                 }
@@ -332,16 +351,19 @@ namespace Writing3D
 
             private static BuildReport BuildScene()
             {
-                // TODO: Need to build for VR and for the CAVE
-                // Add README file?
+                // TODO: Add README file?
 
+                // TODO: Build path (Builds/{sceneName}) must be created first
+                // TODO: Include project name in exe (currently just {sceneName}.exe)
                 string sceneName = _InstantiatedScene.scene.name;
                 string scenePath = _InstantiatedScene.scene.path;
                 return BuildPipeline.BuildPlayer(
                     new string[] { scenePath },             // Scenes to build
                     $"Builds/{sceneName}/{sceneName}.exe",  // Output path
                     BuildTarget.StandaloneWindows64,
-                    BuildOptions.None
+                    BuildOptions.Development
+                    | BuildOptions.ConnectWithProfiler
+                    | BuildOptions.AllowDebugging
                 );
             }
 
@@ -355,6 +377,7 @@ namespace Writing3D
                     LogType.Warning => "yellow",
                     LogType.Error => "red",
                     LogType.Exception => "bold red",
+                    LogType.Assert => "blue",
                     _ => "white"
                 };
                 Console.WriteLine($"LOG:[{color}]{logString}[/{color}]");

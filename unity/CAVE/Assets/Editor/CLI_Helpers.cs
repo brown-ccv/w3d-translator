@@ -1,17 +1,20 @@
 using System;
 using System.IO;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.Events;
+
 using TMPro;
 
+using UnityEditor;
+
+using UnityEngine;
+using UnityEngine.Events;
+
+using Writing3D.Transitions;
 //TODO: Figure out better imports to clean up Xml types
 using Writing3D.Xml;
-using Writing3D.Transitions;
 
-using static UnityEngine.ScriptableObject;
-using static UnityEngine.Object;
 using static UnityEditor.Events.UnityEventTools;
+using static UnityEngine.Object;
+using static UnityEngine.ScriptableObject;
 
 namespace Writing3D
 {
@@ -22,13 +25,14 @@ namespace Writing3D
             /********** Writing3D.Xml TO UNITY CONVERSIONS    ***********/
 
             // Converts "[int], [int], [int]" to a UnityEngine.Color object
-            private static UnityEngine.Color ConvertColor(string colorString)
+            private static UnityEngine.Color ConvertColor(string colorString, float alpha = 1)
             {
                 string[] strings = colorString.Trim(new[] { ' ', '(', ')' }).Split(",");
                 return new UnityEngine.Color(
                     float.Parse(strings[0]) / 255,
                     float.Parse(strings[1]) / 255,
-                    float.Parse(strings[2]) / 255
+                    float.Parse(strings[2]) / 255,
+                    alpha
                 );
             }
 

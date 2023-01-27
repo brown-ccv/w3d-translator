@@ -1,11 +1,11 @@
-using System;
 using System.Collections;
 
-using UnityEngine;
 using TMPro;
 
-using Ts = Writing3D.Transitions;
+using UnityEngine;
+
 using RTypes = Writing3D.Transitions.Move.RotationTypes;
+using Ts = Writing3D.Transitions;
 
 namespace Writing3D
 {
