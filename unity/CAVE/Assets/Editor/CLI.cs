@@ -71,9 +71,8 @@ namespace Writing3D
                     };
 
                     // Instantiate the device simulator if testing
-                    // TEMP - Not using simulator
-                    // Debug.Log("Instantiating Device Simulator");
-                    //if (!Application.isBatchMode) { InstantiateSimulator(); }
+                    Debug.Log("Instantiating Device Simulator");
+                    if (!Application.isBatchMode) { InstantiateSimulator(); }
 
                     Debug.Log("Applying global settings");
                     ApplyGlobalSettings();

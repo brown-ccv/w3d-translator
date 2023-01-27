@@ -20,6 +20,16 @@ Every W3D project builds off of the `CAVE.unity` scene in `Assets/Resources/`. T
 
 A prefab variant has been created for each, stored in `Assets/Resources/Prefabs/`. This is done so changes can be made without altering the original asset provided by the given package.
 
+### Root
+
+At the top of the hierarchy is an empty GameObject named `Root`. The entire Writing3D project lives inside this object - akin to `<Story>` in the original xml.
+
+`Root` is used to scale the original project's unity of measurement (feet) into Unity's (meters). The changed scale means the position & scale values of objects inside of `Root` are exactly as they appeared in the original project and, moreover, they are still correctly displayed in 3D space. _Note that `Root`'s scale value is `(0.3048, 0.3048, 0.3048)`_
+
+`Root` is positioned at `(0, 1.2192, 0)` to exactly fit the measurements of our physical CAVE. The center of the floor sits at Unity's origin. MiddleVR handles the conversion of that origin to what is seen in our Motive tracking software.
+
+<!-- TODO: Everything below needs to be updated -->
+
 ### Complete XR Origin Set Up
 
 The "Complete XR Origin Set Up" prefab is a sample asset provided by XR Interaction Toolkit. It forms the base player in XR for Head Mounted Displays. The following changes were made to the prefab variant for the purposes of Writing3D:
@@ -57,15 +67,9 @@ The "MVRManager" prefab is a sample asset provided by MiddleVR. It forms the bas
 
 The MVRManager component is located at `(0, 0, -1.2192)` to account for the difference in Origin in MiddleVR compared to XR.
 
-### Root
+### Directional Light
 
-At the top of the hierarchy is an empty GameObject named `Root`. The entire Writing3D project lives inside this object - akin to `<Story>` in the original xml.
-
-`Root` is used to scale the original project's unity of measurement (feet) into Unity's (meters). The changed scale means the position & scale values of objects inside of `Root` are exactly as they appeared in the original project and, moreover, they are still correctly displayed in 3D space. _Note that `Root`'s scale value is `(0.3048, 0.3048, 0.3048)`_
-
-`Root` is positioned at `(0, 1.2192, 0)` to exactly fit the measurements of our physical CAVE. The center of the floor sits at Unity's origin. MiddleVR handles the conversion of that origin to what is seen in our Motive tracking software.
-
-<!-- TODO: Everything below needs to be updated -->
+Base light for the entire scene. Note that we use the default lighting settings with the exception that we delete the main skybox asset.
 
 ## Globals
 
