@@ -45,7 +45,11 @@ The "Complete XR Origin Set Up" prefab is a sample asset provided by XR Interact
 - Teleportation is disabled
   - XR Origin -> Teleportation Provider
   - XR Origin/CameraOffset/LeftHand (Smooth locomotion)/Teleport Interactor
+    - Removed XR Origin/CameraOffset/LeftHand (Smooth locomotion) -> Action Based Controller Manager -> `Teleport Mode Activate`
+    - Removed XR Origin/CameraOffset/LeftHand (Smooth locomotion) -> Action Based Controller Manager -> `Teleport Mode Cancel`
   - XR Origin/CameraOffset/RightHand (Teleport locomotion)/Teleport Interactor
+    - Removed XR Origin/CameraOffset/RightHand (Teleport locomotion) -> Action Based Controller Manager -> `Teleport Mode Activate`
+    - Removed XR Origin/CameraOffset/RightHand (Teleport locomotion) -> Action Based Controller Manager -> `Teleport Mode Cancel`
 - Direct interaction is disabled
   - XR Origin/CameraOffset/LeftHand (Smooth locomotion)/Direct Interactor
   - XR Origin/CameraOffset/RightHand (Teleport locomotion)/Direct Interactor
