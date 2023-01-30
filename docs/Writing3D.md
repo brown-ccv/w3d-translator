@@ -41,15 +41,13 @@ graph TD;
     awake{SceneManager.Awake}-->androidPlayer[Android Player]
     unityEditor[Unity Editor]-->xr(Enable XR)
     androidPlayer[Android Player]-->xr(Enable XR)
-
-
-    <!-- unityEditor[Unity Editor]-->HMD;
+```
+    unityEditor[Unity Editor]-->HMD;
     standalonePlayer{Standalone Player}-->config(--config argument);
     config(`--config` argument)-->CAVE
     standalonePlayer{Standalone Player}-->noconfig(No command line argument);
     noconfig(No command line argument)--> HMD;
-    androidPlayer{Android Player}-->HMD; -->
-```
+    androidPlayer{Android Player}-->HMD;
 
 `SceneManager.Awake`
 
