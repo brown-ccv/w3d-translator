@@ -45,9 +45,9 @@ graph TD;
     standalonePlayer[Standalone Player]-->mvr(Enable MVR)
     mvr(Enable MVR)-->config(config argument)
     mvr(Enable MVR)-->noconfig(No config argument)
-    noconfig(No config argument)-->xr(Enable XR)
-    config(config argument)-->
-
+    noconfig(No config argument)-->nomvr(Disable MVR)
+    config(config argument)-->start{SceneManager.Start}
+    nomvr(Disable MVR)-->start{SceneManager.Start}
 ```
 
 `SceneManager.Awake`
