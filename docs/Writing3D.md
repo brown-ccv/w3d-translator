@@ -42,9 +42,9 @@ graph TD;
     unityEditor[Unity Editor]-->xr(Enable XR)
     androidPlayer[Android Player]-->xr(Enable XR)
 
-    standalonePlayer[Standalone Player]-->mvr(Enable MVR)
-    mvr(Enable MVR)-->config(config argument)
-    mvr(Enable MVR)-->noconfig(No config argument)
+    standalonePlayer[Standalone Player]-->mvr(*Enable MVR*)
+    mvr(*Enable MVR*)-->config(config argument)
+    mvr(*Enable MVR*)-->noconfig(No config argument)
     noconfig(No config argument)-->nomvr(Disable MVR)
     config(config argument)-->start1{SceneManager.Start}
     nomvr(Disable MVR)-->start2{SceneManager.Start}
