@@ -34,12 +34,12 @@ The `Root` GameObject contains a script, `SceneManager.cs`, which takes a refere
 
 ```mermaid
 graph TD;
-    Unity Editor --> HMD;
-    Standalone Player--> `--config` cla;
-    `--config` cla --> CAVE
-    Standalone Player--> No cla;
-    No cla --> HMD;
-    Android Player --> HMD;
+    Unity Editor-->HMD;
+    Standalone Player-->`--config` cla;
+    `--config` cla-->CAVE
+    Standalone Player-->No cla;
+    No cla--> HMD;
+    Android Player-->HMD;
 ```
 
 `SceneManager.Awake`
