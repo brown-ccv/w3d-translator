@@ -569,7 +569,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294934528
   m_fontColor: {r: 0, g: 0.5019608, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -832,6 +832,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da50490a73f2a5a4c84fa197f658b471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MVR: {fileID: 2066046290}
+  XR: {fileID: 1835660833}
 --- !u!1 &636492601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,7 +1388,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294934528
   m_fontColor: {r: 0, g: 0.5019608, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2038,7 +2040,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4288256409
   m_fontColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2793,7 +2795,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294934528
   m_fontColor: {r: 0, g: 0.5019608, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3111,6 +3113,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &1835660833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8422049579990225761, guid: 542a65968a2b3e54d981bf5280fd472f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1850804363}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1850804363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3183,6 +3191,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Complete XR Origin Set Up Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8422049579990225761, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -3487,7 +3500,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294934528
   m_fontColor: {r: 0, g: 0.5019608, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3677,6 +3690,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &2066046290 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6135451243996062287, guid: 683bb1f3c53577240a10a66a2cf5cd2b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2000769212719443590}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2000769212719443590
 PrefabInstance:
   m_ObjectHideFlags: 0
