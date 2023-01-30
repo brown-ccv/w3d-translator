@@ -34,7 +34,7 @@ The `Root` GameObject contains a script, `SceneManager.cs`, which takes a refere
 
 The conditional compilation (UNITY_EDITOR, UNITY_STANDALONE, or UNITY_ANDROID) is determined in `SceneManager.Awake`. XR is enabled if running in UNITY_EDITOR or UNITY_ANDROID. If running in UNITY_STANDALONE then MVR is enabled.
 
-MVR checks to see if a command line argument is passed (`--config [file path]`) and 
+MVR (`MVRManagerScript.Awake`) checks to see if a command line argument is passed (--config [file path]) and disables itself it is not given. Then, in `SceneManager.Start`, we activate XR as the opposite of MVR - if MVR disabled itself we re-enable XR.
 
 ```mermaid
 graph TD;
@@ -52,6 +52,7 @@ graph TD;
     start{SceneManager.Start}-->xr(Enable XR)
     config(config argument)-->start2{SceneManager.Start}
     start2{SceneManager.Start}-->cave{Run in CAVE}
+
     xr(Enable XR)-->hmd{Run in HMD}
 ```
 
