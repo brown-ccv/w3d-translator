@@ -32,7 +32,9 @@ At the top of the hierarchy is an empty GameObject named `Root`. The entire Writ
 
 The `Root` GameObject contains a script, `SceneManager.cs`, which takes a reference to the "Complete XR Origin Set Up" and "MVRManager" prefab variants. It is what handles the enabling/disabling of the two based on the deployment. "Complete XR Origin Set Up" is enabled when running in an HMD, "MVRManager" is enabled when running in the CAVE.
 
-The conditional compilation (UNITY_EDITOR, UNITY_STANDALONE, or UNITY_ANDROID) is determined in `SceneManager.Awake`.
+The conditional compilation (UNITY_EDITOR, UNITY_STANDALONE, or UNITY_ANDROID) is determined in `SceneManager.Awake`. XR is enabled if running in UNITY_EDITOR or UNITY_ANDROID. If running in UNITY_STANDALONE then MVR is enabled.
+
+MVR checks to see if a command line argument is passed (`--config [file path]`) and 
 
 ```mermaid
 graph TD;
@@ -42,13 +44,13 @@ graph TD;
     unityEditor[Unity Editor]-->xr(Enable XR)
     androidPlayer[Android Player]-->xr(Enable XR)
 
-    standalonePlayer[Standalone Player]-->mvr(*Enable MVR*)
-    mvr(*Enable MVR*)-->config(config argument)
-    mvr(*Enable MVR*)-->noconfig(No config argument)
+    standalonePlayer[Standalone Player]-->mvr(Enable MVR)
+    mvr(Enable MVR)-->config(config argument)
+    mvr(Enable MVR)-->noconfig(No config argument)
     noconfig(No config argument)-->nomvr(Disable MVR)
-    config(config argument)-->start1{SceneManager.Start}
+    config(config argument)-->start{SceneManager.Start}
     nomvr(Disable MVR)-->start2{SceneManager.Start}
-    start2{SceneManager.Start}-->xr(Enable XR)
+    start{SceneManager.Start}-->xr(Enable XR)
 ```
 
 `SceneManager.Awake`
