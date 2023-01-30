@@ -48,12 +48,12 @@ graph TD;
 
 ```
 
-unityEditor[Unity Editor]-->HMD;
+<!-- unityEditor[Unity Editor]-->HMD;
 standalonePlayer{Standalone Player}-->config(--config argument);
 config(`--config` argument)-->CAVE
 standalonePlayer{Standalone Player}-->noconfig(No command line argument);
 noconfig(No command line argument)--> HMD;
-androidPlayer{Android Player}-->HMD;
+androidPlayer{Android Player}-->HMD; -->
 
 `SceneManager.Awake`
 
