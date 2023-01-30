@@ -38,10 +38,10 @@ namespace Writing3D
             [MenuItem("Custom/CLI.Main %g")]
             public static void Main()
             {
-                // Leave CaveCamera clippingPane as default? (farClip: 1000)
-                // TODO: Apply Player Settings? 
-                // MiddleVR -> Editor -> MVRCustomEditor.cs (ApplyMVRSettings)
-                // What position is best for MVR to start at? How does it pick up tracking?
+                // TODO: Leave CaveCamera clippingPane as default? (farClip: 1000)
+                // TODO: Starting position for MVR before it receives data?
+                // TODO: Disable MVR on play mode (?)
+                // TODO: Disable XR Origin when MVR is running
                 Application.logMessageReceivedThreaded += HandleLog;
                 try
                 {
@@ -67,9 +67,8 @@ namespace Writing3D
                     };
 
                     // Instantiate the device simulator if testing
-                    // TEMP - Not using simulator
-                    // Debug.Log("Instantiating Device Simulator");
-                    //if (!Application.isBatchMode) { InstantiateSimulator(); }
+                    Debug.Log("Instantiating Device Simulator");
+                    if (!Application.isBatchMode) { InstantiateSimulator(); }
 
                     Debug.Log("Applying global settings");
                     ApplyGlobalSettings();
@@ -351,9 +350,8 @@ namespace Writing3D
 
             private static BuildReport BuildScene()
             {
-                // TODO: Add README file?
 
-                // TODO: Build path (Builds/{sceneName}) must be created first
+                // TODO: Build path (Builds/{sceneName}/) must be created first
                 // TODO: Include project name in exe (currently just {sceneName}.exe)
                 string sceneName = _InstantiatedScene.scene.name;
                 string scenePath = _InstantiatedScene.scene.path;

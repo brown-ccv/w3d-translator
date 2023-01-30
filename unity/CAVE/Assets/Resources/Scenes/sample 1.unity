@@ -3226,6 +3226,21 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1045701526815388306, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2319315163315944931, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457986172851582401, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_TeleportInteractor
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2954016184211290879, guid: 542a65968a2b3e54d981bf5280fd472f,
         type: 3}
       propertyPath: m_RootOrder
@@ -3280,6 +3295,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7820135907431029123, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7820135907431029132, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7820135907431029133, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7820135908044740089, guid: 542a65968a2b3e54d981bf5280fd472f,
         type: 3}
