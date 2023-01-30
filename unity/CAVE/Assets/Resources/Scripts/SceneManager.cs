@@ -10,48 +10,34 @@ namespace Writing3D
         // Called when GameObject is initialized
         protected void Awake()
         {
-            Debug.Log("SceneManager Awake " + MVR.activeSelf + XR.activeSelf);
             // TODO: Document that XR and MVR must be disabled in the editor
+#if UNITY_EDITOR
+            // In editor - activate XR
+            XR.SetActive(true);
+            MVR.SetActive(false);
+#endif
 
-            if (Application.isEditor)
-            {
-                // MVR should never be enabled when in the Unity Editor
-                MVR.SetActive(false);
-                XR.SetActive(true);
-            }
-            else
-            {
-                // TODO: Move to START()? See if MVR is enabled?
-                // Copied from MVRManagerScript.Awake() (MVRManager object)
-                string[] args = System.Environment.GetCommandLineArgs();
-                bool foundCfgParam = false;
+#if UNITY_STANDALONE
+            // In Windows executable - activate MVR
+            XR.SetActive(false);
+            MVR.SetActive(true);
+#endif
 
-                for (int i = 0; i < args.Length; i++)
-                {
-                    if (args[i] == "--config") { foundCfgParam = true; }
-                }
-
-                if (foundCfgParam)
-                {
-                    // Using MiddleVR, enable it and disable XR
-                    Debug.Log("[ ] Command line argument --config found. Enabling MiddleVR");
-                    MVR.SetActive(true);
-                    XR.SetActive(false);
-                }
-                else
-                {
-                    // Not using MiddleVR, disable it and enable XR
-                    Debug.Log("[ ] In Unity Player, command line argument --config not found. Disabling MiddleVR.");
-                    MVR.SetActive(false);
-                    XR.SetActive(true);
-                }
-            }
+#if UNITY_ANDROID
+            // In Android executable - activate XR
+            XR.SetActive(true);
+            MVR.SetActive(false);
+#endif
         }
 
         // Called on the frame a script it enabled (after Awake)
         protected void Start()
         {
-
+#if UNITY_STANDALONE
+            // If MVR is disabled we must activate XR
+            // MVR will disable itself if called without a config file (MVRManagerScript.Awake())
+            XR.SetActive(!MVR.activeInHierarchy);
+#endif
         }
 
         protected void Update()

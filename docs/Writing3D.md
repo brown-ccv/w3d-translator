@@ -28,7 +28,34 @@ At the top of the hierarchy is an empty GameObject named `Root`. The entire Writ
 
 `Root` is positioned at `(0, 1.2192, 0)` to exactly fit the measurements of our physical CAVE. The center of the floor sits at Unity's origin. MiddleVR handles the conversion of that origin to what is seen in our Motive tracking software.
 
-<!-- TODO: Everything below needs to be updated -->
+#### SceneManager.cs
+
+The `Root` GameObject contains a script, `SceneManager.cs`, which takes a reference to the "Complete XR Origin Set Up" and "MVRManager" prefab variants. It is what handles the enabling/disabling of the two based on the deployment.
+
+```flow
+st=>start: `SceneManager.Awake`
+```
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+`SceneManager.Awake`
+
+- If running the Unity Editor XR is enabled and MVR is disabled
+  - _Pressing Play in the editor_
+- If running the Standalone player XR is disabled and MVR is enabled
+  - _Running the executable on a PC_
+- If running the Android player XR is enabled and MVR is disabled
+  - _Running the executable on a HMD_
+
+`SceneManager.Start`
+
+The `MVRManagerScript.Awake()` function (on the "MVRManager" prefab variant) checks to see if the standalone player executable is run with a `--config` command line argument. If it isn't, the 
 
 ### Complete XR Origin Set Up
 
