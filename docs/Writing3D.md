@@ -36,6 +36,8 @@ The conditional compilation (UNITY_EDITOR, UNITY_STANDALONE, or UNITY_ANDROID) i
 
 MVR (`MVRManagerScript.Awake`) checks to see if a command line argument is passed (--config [file path]) and disables itself it is not given. Then, in `SceneManager.Start`, we activate XR as the opposite of MVR - if MVR disabled itself we re-enable XR.
 
+**When XR is enabled we're running in an HMD, when MVR is enabled we're running in the CAVE.** _Note that this means we must run a build to test the application in the CAVE_
+
 ```mermaid
 graph TD;
     awake{SceneManager.Awake}-->unityEditor[Unity Editor]
