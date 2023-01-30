@@ -48,9 +48,11 @@ graph TD;
     mvr(Enable MVR)-->config(config argument)
     mvr(Enable MVR)-->noconfig(No config argument)
     noconfig(No config argument)-->nomvr(Disable MVR)
-    config(config argument)-->start{SceneManager.Start}
-    nomvr(Disable MVR)-->start2{SceneManager.Start}
+    nomvr(Disable MVR)-->start{SceneManager.Start}
     start{SceneManager.Start}-->xr(Enable XR)
+    config(config argument)-->start2{SceneManager.Start}
+    start2{SceneManager.Start}-->cave{Run in CAVE}
+    xr(Enable XR)-->hmd{Run in HMD}
 ```
 
 `SceneManager.Awake`
