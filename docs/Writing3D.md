@@ -43,8 +43,8 @@ graph TD;
     androidPlayer[Android Player]-->xr(Enable XR)
 
     standalonePlayer[Standalone Player]-->mvr(Enable MVR)
-    mvr(Enable MVR)-->config(--config argument)
-    mvr(Enable MVR)-->noconfig(No command line argument)
+    mvr(Enable MVR)-->config(config argument)
+    mvr(Enable MVR)-->noconfig(No config argument)
 
 ```
 
