@@ -45,17 +45,10 @@ graph TD;
     standalonePlayer[Standalone Player]-->mvr(Enable MVR)
     mvr(Enable MVR)-->config(config argument)
     mvr(Enable MVR)-->noconfig(No config argument)
-    config(config argument)-->mvr2(Enable MVR)
+    config(config argument)-->
     noconfig(No config argument)-->xr(Enable XR)
 
 ```
-
-<!-- unityEditor[Unity Editor]-->HMD;
-standalonePlayer{Standalone Player}-->config(--config argument);
-config(`--config` argument)-->CAVE
-standalonePlayer{Standalone Player}-->noconfig(No command line argument);
-noconfig(No command line argument)--> HMD;
-androidPlayer{Android Player}-->HMD; -->
 
 `SceneManager.Awake`
 
