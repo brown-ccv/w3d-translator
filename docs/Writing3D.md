@@ -45,6 +45,8 @@ graph TD;
     standalonePlayer[Standalone Player]-->mvr(Enable MVR)
     mvr(Enable MVR)-->config(config argument)
     mvr(Enable MVR)-->noconfig(No config argument)
+    config(config argument)-->mvr2(Enable MVR)
+    noconfig(No config argument)-->xr(Enable XR)
 
 ```
 
