@@ -32,7 +32,7 @@ At the top of the hierarchy is an empty GameObject named `Root`. The entire Writ
 
 The `Root` GameObject contains a script, `SceneManager.cs`, which takes a reference to the "Complete XR Origin Set Up" and "MVRManager" prefab variants. It is what handles the enabling/disabling of the two based on the deployment. "Complete XR Origin Set Up" is enabled when running in an HMD, "MVRManager" is enabled when running in the CAVE.
 
-The conditional compilation (UNITY_EDITOR, UNITY_STANDALONE, or UNITY_ANDROID) is determined in `SceneManager.Awake`. 
+The conditional compilation (UNITY_EDITOR, UNITY_STANDALONE, or UNITY_ANDROID) is determined in `SceneManager.Awake`.
 
 ```mermaid
 graph TD;
@@ -47,12 +47,13 @@ graph TD;
     mvr(Enable MVR)-->noconfig(No command line argument)
 
 ```
-    unityEditor[Unity Editor]-->HMD;
-    standalonePlayer{Standalone Player}-->config(--config argument);
-    config(`--config` argument)-->CAVE
-    standalonePlayer{Standalone Player}-->noconfig(No command line argument);
-    noconfig(No command line argument)--> HMD;
-    androidPlayer{Android Player}-->HMD;
+
+unityEditor[Unity Editor]-->HMD;
+standalonePlayer{Standalone Player}-->config(--config argument);
+config(`--config` argument)-->CAVE
+standalonePlayer{Standalone Player}-->noconfig(No command line argument);
+noconfig(No command line argument)--> HMD;
+androidPlayer{Android Player}-->HMD;
 
 `SceneManager.Awake`
 
@@ -65,7 +66,7 @@ graph TD;
 
 `SceneManager.Start`
 
-The `MVRManagerScript.Awake()` function (on the "MVRManager" prefab variant) checks to see if the standalone player executable is run with a `--config` command line argument. If it isn't, the 
+The `MVRManagerScript.Awake()` function (on the "MVRManager" prefab variant) checks to see if the standalone player executable is run with a `--config` command line argument. If it isn't, the
 
 ### Complete XR Origin Set Up
 
