@@ -41,6 +41,11 @@ graph TD;
     awake{SceneManager.Awake}-->androidPlayer[Android Player]
     unityEditor[Unity Editor]-->xr(Enable XR)
     androidPlayer[Android Player]-->xr(Enable XR)
+
+    standalonePlayer[Standalone Player]-->mvr(Enable MVR)
+    mvr(Enable MVR)-->config(--config argument)
+    mvr(Enable MVR)-->noconfig(No command line argument)
+
 ```
     unityEditor[Unity Editor]-->HMD;
     standalonePlayer{Standalone Player}-->config(--config argument);
