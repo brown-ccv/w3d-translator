@@ -32,16 +32,14 @@ At the top of the hierarchy is an empty GameObject named `Root`. The entire Writ
 
 The `Root` GameObject contains a script, `SceneManager.cs`, which takes a reference to the "Complete XR Origin Set Up" and "MVRManager" prefab variants. It is what handles the enabling/disabling of the two based on the deployment.
 
-```flow
-st=>start: `SceneManager.Awake`
-```
-
 ```mermaid
 graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+    Unity Editor --> HMD;
+    Standalone Player--> `--config` cla;
+    `--config` cla --> CAVE
+    Standalone Player--> No cla;
+    No cla --> HMD;
+    Android Player --> HMD;
 ```
 
 `SceneManager.Awake`
