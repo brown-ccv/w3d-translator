@@ -170,6 +170,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da50490a73f2a5a4c84fa197f658b471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MVR: {fileID: 2000769212719443591}
+  XR: {fileID: 1850804364}
 --- !u!1 &1326487535
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,9 +414,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Complete XR Origin Set Up Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8422049579990225761, guid: 542a65968a2b3e54d981bf5280fd472f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 542a65968a2b3e54d981bf5280fd472f, type: 3}
+--- !u!1 &1850804364 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8422049579990225761, guid: 542a65968a2b3e54d981bf5280fd472f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1850804363}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2000769212719443590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -496,8 +509,14 @@ PrefabInstance:
     - target: {fileID: 6135451243996062287, guid: 683bb1f3c53577240a10a66a2cf5cd2b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 683bb1f3c53577240a10a66a2cf5cd2b, type: 3}
+--- !u!1 &2000769212719443591 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6135451243996062287, guid: 683bb1f3c53577240a10a66a2cf5cd2b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2000769212719443590}
+  m_PrefabAsset: {fileID: 0}
