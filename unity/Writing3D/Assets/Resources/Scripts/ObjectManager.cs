@@ -4,6 +4,7 @@ using TMPro;
 
 using UnityEngine;
 
+//TODO: Can't use Writing3D.Transitions in Android
 using RTypes = Writing3D.Transitions.Move.RotationTypes;
 using Ts = Writing3D.Transitions;
 

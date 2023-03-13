@@ -30,7 +30,6 @@ namespace Writing3D
             private static Xml.Root _XmlRoot;
             private static GameObject _Root;
             private static GameObject _XROrigin;
-            private static GameObject _MVRManager;
 
             private static Dictionary<string, Transform> _WallsDict;
             private static Dictionary<string, (GameObject, Xml.Object)> _ObjectDict;
@@ -59,7 +58,6 @@ namespace Writing3D
                     _XROrigin
                         = _InstantiatedScene.scene.GetRootGameObjects()[1]
                                                   .GetNamedChild("XR Origin");
-                    _MVRManager = _InstantiatedScene.scene.GetRootGameObjects()[2];
 
                     _ObjectDict = new Dictionary<string, (GameObject, Xml.Object)>();
                     _WallsDict = new Dictionary<string, Transform>() {
@@ -296,12 +294,6 @@ namespace Writing3D
                         lm.ActiveColor = ConvertColor(xmlLink.SelectedColorString);
                         if (xmlLink.Enabled) { lm.EnableLink(); }
                         else { lm.DisableLink(); }
-
-                        // Add MVRInteractable and initialize
-                        MVRInteractable mvi = go.AddComponent<MVRInteractable>();
-                        mvi.Grabable = false;
-                        mvi.AddCollider = false;
-                        AddPersistentListener(mvi.MVRWandButton, mvi.HandleMVRInteraction);
                     }
                     _ObjectDict.Add(go.name, (go, xmlObject));
                 }
@@ -348,17 +340,19 @@ namespace Writing3D
                 }
             }
 
+            // TODO: Build for Windows and Android
             private static BuildReport BuildScene()
             {
-
-                // TODO: Build path (Builds/{sceneName}/) must be created first
+                
+                // TODO: Build path (Builds/Windows/{sceneName}/) must be created first
+                // TODO: Build path (Builds/Android/{sceneName}/) must be created first
                 // TODO: Include project name in exe (currently just {sceneName}.exe)
                 string sceneName = _InstantiatedScene.scene.name;
                 string scenePath = _InstantiatedScene.scene.path;
                 return BuildPipeline.BuildPlayer(
                     new string[] { scenePath },             // Scenes to build
                     $"Builds/{sceneName}/{sceneName}.exe",  // Output path
-                    BuildTarget.StandaloneWindows64,
+                    BuildTarget.StandaloneWindows64, // TODO: Second build for Android
                     BuildOptions.Development
                     | BuildOptions.ConnectWithProfiler
                     | BuildOptions.AllowDebugging

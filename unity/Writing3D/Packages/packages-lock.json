@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.middlevr": {
-      "version": "file:C:/Program Files/MiddleVR2/unity_packages/com.middlevr.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
-    },
     "com.unity.collab-proxy": {
       "version": "1.17.7",
       "depth": 0,
@@ -214,7 +208,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.oculus": {
-      "version": "3.2.2",
+      "version": "3.2.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {
