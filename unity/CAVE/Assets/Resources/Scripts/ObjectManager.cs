@@ -111,6 +111,8 @@ namespace Writing3D
                                 transform.position -
                                     transform.root.TransformPoint(transition.LookRotation.Target),
                                  transition.LookRotation.Up
+
+
                             ),
                             t
                         );
