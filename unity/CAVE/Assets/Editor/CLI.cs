@@ -202,7 +202,7 @@ namespace Writing3D
                 RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
                 RenderSettings.ambientLight = ConvertColor(xmlGlobal.Background.ColorString);
 
-                // Update CaveCamera inside of root (TemplateCamera for MVR)
+                // Update CaveCamera inside of root
                 Xml.Camera xmlCaveCamera = xmlGlobal.CaveCamera;
                 Camera caveCamera = caveCameraT.GetComponent<Camera>();
                 caveCamera.farClipPlane = xmlCaveCamera.FarClip; // TODO: Remove?
